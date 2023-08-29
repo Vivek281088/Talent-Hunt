@@ -1,0 +1,31 @@
+<!-- <div style="background-color: antiquewhite;height: 50px;margin-top: 0;"> -->
+
+<body style="background-color:#003268 ;">
+    <h1 style="height: 80px; color: white;"> Talent Hunt</h1>
+    <!-- </div> -->
+
+    <div style="height:700px;width: 1350px; ">
+        <div class="flex">
+            <div class="flex flex-column w-3 mr-3">
+                <label class="pb-2" style="color: white; font-size: larger;">Manager</label>
+                <p-dropdown class="w-100" [options]="managerSet" [(ngModel)]="selectedManager"
+                    placeholder="Select Managername" defaultLabel="Select Manager" optionLabel="Managername"
+                    display="chip"></p-dropdown>
+            </div>
+
+            <div class="flex flex-column w-3 mr-3">
+                <label class="pb-2" style="color: white; font-size: larger;">Skill set</label>
+                <p-multiSelect class="w-100" [options]="skillSet" [(ngModel)]="selectedSkill"
+                    defaultLabel="Select skills" optionLabel="skill" display="chip"></p-multiSelect>
+            </div>
+            <div class="card flex flexalign-it;" style="margin-top: 25px;margin-left:10px; color: #9b1631; ">
+                <p-button label="Submit" (click)="submitForm()" class="w-100" styleClass="p-button-danger"></p-button>
+            </div>
+
+
+
+        </div>
+
+     
+    </div>
+</body>
