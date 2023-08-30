@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { ManagernameService } from 'src/app/services/managername.service';
-import {HttpClient} from '@angular/common/http'
-import { Skill} from './skills';
+// import {Question} from './question'
 
 @Component({
   selector: 'app-dash1',
@@ -19,13 +17,13 @@ export class Dash1Component implements OnInit {
 
   selectedManager: any;
 
+  TotalQuestions: any;
+
   managerSet: any[] = [];
 
   skillSet: any[] = [];
 
   selectedSkill: any[] = [];
-
-  TotalQuestions: any[] = [];
 
   
   ski: any [] = [];
@@ -77,17 +75,19 @@ export class Dash1Component implements OnInit {
     
     for (let g of this.selectedSkill) {
 
-    this.ski.push(g.skills)
+    this.ski.push(g.skill)
 
   }
+    
+    //Extract skills
+    //const selectedSkills = this.selectedSkill.map(skill => skill.skills);
 
   this.skillsdropdownservice.postskillsList(this.ski).subscribe(response =>{
 
-    console.log(response)
-
- 
-
-  });
+    console.log('response',response);
+    this.TotalQuestions = response;
+    //console.log('response2',this.TotalQuestions);
+   });
   }
 
   //new

@@ -24,7 +24,7 @@ getskillsList(): Observable<any>{
 
  
 
-  return this.http.post<any>(this.skillsUrl+'/selected',body,{headers})
+  return this.http.post<any>(this.skillsUrl+'/questionfind',body,{headers})
 
 }
 
