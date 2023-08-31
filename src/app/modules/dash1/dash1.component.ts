@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { ManagernameService } from 'src/app/services/managername.service';
-// import {Question} from './question'
+import { Checkbox } from 'primeng/checkbox';
+
 
 @Component({
   selector: 'app-dash1',
@@ -25,8 +26,11 @@ export class Dash1Component implements OnInit {
 
   selectedSkill: any[] = [];
 
+  selectedQuestions: any[] = [];
+
+  ski: any[] = [];
+
   
-  ski: any [] = [];
 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
@@ -50,9 +54,9 @@ export class Dash1Component implements OnInit {
     this.skillsdropdownservice.getskillsList().subscribe(data => {
       this.skillSet = data;
   
-      console.log(this.skillSet);
+      // console.log(this.skillSet);
 
-      console.log('Users:' + JSON.stringify(this.selectedSkill));
+      // console.log('Users:' + JSON.stringify(this.selectedSkill));
 
    
 
@@ -69,35 +73,47 @@ export class Dash1Component implements OnInit {
 
   }
   submitForm() {
+   
     console.log('Selected Manager:', this.selectedManager);
     console.log('Selected Skills:', this.selectedSkill); 
     
-    
+    this.ski = [];
     for (let g of this.selectedSkill) {
 
     this.ski.push(g.skill)
 
-  }
+    }
+    console.log(this.ski);
     
-    //Extract skills
-    //const selectedSkills = this.selectedSkill.map(skill => skill.skills);
-
   this.skillsdropdownservice.postskillsList(this.ski).subscribe(response =>{
 
     console.log('response',response);
     this.TotalQuestions = response;
-    //console.log('response2',this.TotalQuestions);
    });
   }
 
-  //new
-  // loadQuestionsForSkill() {
-  //   this.TotalQuestions = [
-  //     { question: "Explain about Java Programming", questionType: "Text", answer : " ", skill: "Java", sub_skill : "Java basics" },
-  //     { question : "Which of the following are the advantages of AWS?", questionType: "Checkbox", options: ["Amazon web-based service","Amazon web-store service","Amazon web service","Amazon web-data service"], skill : "Aws"}
-  //   ];
-  // }
+  checkboxChanged(item : any){
+  if (item.selected) {
+    this.selectedQuestions.push(item);
+    }
+  else {                                        //removing question after unselecting
+    const index = this.selectedQuestions.findIndex(selectedQuestion =>
+      selectedQuestion._id === item._id);
+    if (index !== -1) {
+      this.selectedQuestions.splice(index, 1);
+    }
+  }
+  
+  }
+  
+  saveSelected() {
+    console.log('Selected Items : ', this.selectedQuestions);
+  }
+
 }
+
+
+
 
 // submitSelectedQuestions() {
 

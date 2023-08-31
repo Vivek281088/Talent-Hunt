@@ -56,6 +56,8 @@
           <h3 class="mt-0">AWS</h3>
           <div class="flex mb-3" *ngFor="let aws of TotalQuestions.AWS">
             <p-checkbox
+              [(ngModel)]="aws.selected"
+              (onChange)="checkboxChanged(aws)"
               class="mr-2"
               [binary]="true"
               inputId="binary"
@@ -70,6 +72,8 @@
           <h3>JAVA</h3>
           <div class="flex mb-3" *ngFor="let java of TotalQuestions.JAVA">
             <p-checkbox
+              [(ngModel)]="java.selected"
+              (onChange)="checkboxChanged(java)"
               class="mr-2"
               [binary]="true"
               inputId="binary"
@@ -78,6 +82,12 @@
           </div>
         </div>
       </div>
+      <p-button
+        label="Submit"
+        (click)="saveSelected()"
+        class="w-100 pb-4 pt-5"
+        styleClass="p-button-danger"
+      ></p-button>
     </ng-container>
   </div>
 </div>
