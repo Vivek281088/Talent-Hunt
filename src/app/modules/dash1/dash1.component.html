@@ -1,27 +1,83 @@
 
-    <h1 style="height: 80px; color: white;"> Talent Hunt</h1>
+<div class="page_sec h-full p-3 pt-0">
+  <h1 class="m-0 heading pb-4 pt-4">Talent Hunt</h1>
+  <!-- </div> -->
 
-    <div style="height:700px;width: 1350px; ">
-        <div class="flex">
-            <div class="flex flex-column w-3 mr-3">
-                <label class="pb-2" style="color: white; font-size: larger;">Manager</label>
-                <p-dropdown class="w-100" [options]="managerSet" [(ngModel)]="selectedManager"
-                    placeholder="Select Managername" defaultLabel="Select Manager" optionLabel="Managername"
-                    display="chip"></p-dropdown>
-            </div>
+  <div>
+    <div class="flex">
+      <!-- <div class="flex flex-column w-3 mr-3">
+        <label class="pb-2" style="color: white; font-size: larger"
+          >Manager</label
+        >
+        <p-dropdown
+          class="w-100"
+          [options]="managerSet"
+          [(ngModel)]="selectedManager"
+          placeholder="Select Managername"
+          defaultLabel="Select Manager"
+          optionLabel="Managername"
+          display="chip"
+        ></p-dropdown>
+      </div> -->
 
-            <div class="flex flex-column w-3 mr-3">
-                <label class="pb-2" style="color: white; font-size: larger;">Skill set</label>
-                <p-multiSelect class="w-100" [options]="skillSet" [(ngModel)]="selectedSkill"
-                    defaultLabel="Select skills" optionLabel="skill" display="chip"></p-multiSelect>
-            </div>
-            <div class="card flex flexalign-it;" style="margin-top: 25px;margin-left:10px; color: #9b1631; ">
-                <p-button label="Submit" (click)="submitForm()" class="w-100" styleClass="p-button-danger"></p-button>
-            </div>
-
-
-
-        </div>
-
-     
+      <div class="flex flex-column w-3 mr-3">
+        <label class="pb-3 pt-3" style="color: white; font-size: larger"
+          >Skill set</label
+        >
+        <p-multiSelect
+          class="w-100"
+          [options]="skillSet"
+          [(ngModel)]="selectedSkill"
+          defaultLabel="Select skills"
+          optionLabel="skill"
+          display="chip"
+        ></p-multiSelect>
+      </div>
+      <div
+        class="card flex flexalign-it;"
+        style="margin-top: 25px; margin-left: 10px; color: #9b1631"
+      >
+        <p-button
+          label="Submit"
+          (click)="submitForm()"
+          class="w-100 pb-4 pt-5"
+          styleClass="p-button-danger"
+        ></p-button>
+      </div>
     </div>
+
+    <!-- <pre style="color: white">{{ TotalQuestions | json }}</pre> -->
+    <ng-container *ngIf="TotalQuestions">
+      <div class="flex mt-4">
+        <div
+          class="flex flex-column w-4 question_sec mr-4"
+          *ngIf="TotalQuestions.AWS"
+        >
+          <h3 class="mt-0">AWS</h3>
+          <div class="flex mb-3" *ngFor="let aws of TotalQuestions.AWS">
+            <p-checkbox
+              class="mr-2"
+              [binary]="true"
+              inputId="binary"
+            ></p-checkbox>
+            <p class="m-0">{{ aws.question }}</p>
+          </div>
+        </div>
+        <div
+          class="flex flex-column w-4 question_sec mr-4"
+          *ngIf="TotalQuestions.JAVA"
+        >
+          <h3>JAVA</h3>
+          <div class="flex mb-3" *ngFor="let java of TotalQuestions.JAVA">
+            <p-checkbox
+              class="mr-2"
+              [binary]="true"
+              inputId="binary"
+            ></p-checkbox>
+            <p class="m-0">{{ java.question }}</p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
