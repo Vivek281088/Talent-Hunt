@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { ManagernameService } from 'src/app/services/managername.service';
-import { Checkbox } from 'primeng/checkbox';
+
 
 
 @Component({
@@ -29,6 +29,9 @@ export class Dash1Component implements OnInit {
   selectedQuestions: any[] = [];
 
   ski: any[] = [];
+
+  FinalizedQuestions: any[] = [];
+
 
   
 
@@ -58,8 +61,7 @@ export class Dash1Component implements OnInit {
 
       // console.log('Users:' + JSON.stringify(this.selectedSkill));
 
-   
-
+  
     });
 
    
@@ -77,6 +79,7 @@ export class Dash1Component implements OnInit {
     console.log('Selected Manager:', this.selectedManager);
     console.log('Selected Skills:', this.selectedSkill); 
     
+    this.selectedQuestions = [];
     this.ski = [];
     for (let g of this.selectedSkill) {
 
@@ -106,22 +109,21 @@ export class Dash1Component implements OnInit {
   
   }
   
+  
   saveSelected() {
     console.log('Selected Items : ', this.selectedQuestions);
-  }
+    console.log('Selected Items Count : ', this.selectedQuestions.length);
+    this.FinalizedQuestions = this.selectedQuestions;
+    console.log('Finalized Items : ', this.FinalizedQuestions);
+
+
+    //set the Finalizedquestions in the service
+
+    this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
+
+        }
 
 }
 
 
-
-
-// submitSelectedQuestions() {
-
-//     const selectedQuestions = this.TotalQuestions.filter(question => question.selected);
-
-//     console.log('Selected Questions:', selectedQuestions);
-
-//     // Here you can implement logic to save the selected questions
-
-//   }
 

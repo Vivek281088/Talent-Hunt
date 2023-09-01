@@ -29,4 +29,3 @@ getskillsList(): Observable<any>{
 }
 
 }
-

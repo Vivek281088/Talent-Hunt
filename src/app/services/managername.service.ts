@@ -16,7 +16,9 @@ export class ManagernameService {
 
  
 
-private managerNameUrl = 'http://localhost:9000/skill'; // Update the URL to match your backend API URL
+  private managerNameUrl = 'http://localhost:9000/skill'; // Update the URL to match your backend API URL
+  
+  private finalizedQuestions: any[] = [];
 
  
 
@@ -32,4 +34,12 @@ private managerNameUrl = 'http://localhost:9000/skill'; // Update the URL to mat
 
   }
 
+  setFinalizedQuestions(questions: any[]): void {
+    this.finalizedQuestions = questions;
+  }
+
+  getFinalizedQuestions(): any[] {
+    return this.finalizedQuestions;
+  }
+  
 }

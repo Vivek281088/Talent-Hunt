@@ -2,6 +2,8 @@
     background-color: #003268;
     color: white;
     padding: auto;
+    width: 100%;
+    height: 100%;
 
 }
 
@@ -11,16 +13,7 @@
 
 .question_sec {
     color: white;
-    max-height: 350px;
+    max-height: 450px;
     overflow: hidden auto;
 
-}
-
-.page_submit_btn_sec {
-    background: white;
-    position: absolute;
-    left: 0;
-    width: 100%;
-    bottom: 0;
-    justify-content: end;
 }

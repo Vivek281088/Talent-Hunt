@@ -1,0 +1,47 @@
+<div class="page_sec">
+  <ng-container *ngIf="FinalizedQuestions.length > 0">
+    <h2 class="m-0 heading pb-4 pt-4">Assessment-I</h2>
+
+    <div *ngFor="let question of FinalizedQuestions" class="question_sec">
+      <h3>{{ question.question }}</h3>
+
+      <ng-container *ngIf="question.questionType === 'Checkbox'">
+        <div *ngFor="let option of question.options">
+          <p-checkbox
+            [(ngModel)]="option.selected"
+            class="mr-2"
+            [binary]="true"
+            inputId="binary"
+          ></p-checkbox>
+
+          {{ option }}
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="question.questionType === 'Radio'">
+        <div *ngFor="let option of question.options">
+          <p-radioButton
+            [(ngModel)]="question.selectedOption"
+            [value]="option"
+            class="mr-2"
+          ></p-radioButton>
+
+          {{ option }}
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="question.questionType === 'Text'">
+        <span class="p-float-label">
+          <textarea
+            id="float-input"
+            rows="3"
+            cols="50"
+            [(ngModel)]="question.answer"
+            pInputTextarea
+          ></textarea>
+          <label for="float-input">Type Here...</label>
+        </span>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

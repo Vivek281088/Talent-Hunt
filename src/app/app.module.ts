@@ -8,11 +8,13 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PrimeModule } from './prime.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule} from '@angular/common/http';
+import { QuestiondisplayComponent } from './modules/questiondisplay/questiondisplay.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    Dash1Component
+    Dash1Component,
+    QuestiondisplayComponent
         
   ],
   imports: [

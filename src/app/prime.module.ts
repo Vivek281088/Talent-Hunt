@@ -4,6 +4,9 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   imports: [
@@ -11,14 +14,22 @@ import { CheckboxModule } from 'primeng/checkbox';
         DropdownModule,
         ButtonModule,
         CardModule,
-        CheckboxModule
+        CheckboxModule,
+        InputNumberModule,
+        InputTextareaModule,
+        RadioButtonModule 
+
+        
     ],
     exports: [
         MultiSelectModule,
         DropdownModule,
         ButtonModule,
         CardModule,
-        CheckboxModule
+        CheckboxModule,
+        InputNumberModule,
+        InputTextareaModule,
+        RadioButtonModule 
 
     ]
 })
