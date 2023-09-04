@@ -119,12 +119,12 @@ export class Dash1Component implements OnInit {
   
   
   saveSelected() {
-    console.log('Selected Items : ', this.selectedQuestions);
-    console.log('Selected Items Count : ', this.selectedQuestions.length);
+    // console.log('Selected Items : ', this.selectedQuestions);
+    // console.log('Selected Items Count : ', this.selectedQuestions.length);
     this.FinalizedQuestions = this.selectedQuestions;
-    console.log('Finalized Items : ', this.FinalizedQuestions);
-    console.log('CuttOff : ', this.cuttoff);
-    console.log('Duration : ', this.duration);
+    // console.log('Finalized Items : ', this.FinalizedQuestions);
+    // console.log('CuttOff : ', this.cuttoff);
+    // console.log('Duration : ', this.duration);
 
 
     //set the Finalizedquestions,Duration,Cuttoff in the service
@@ -133,24 +133,34 @@ export class Dash1Component implements OnInit {
     this.managernameService.setDuration(this.duration);
     this.managernameService.setCuttoff(this.cuttoff);
     
+    const fileName = this.selectedSkill.map(skill => {
+      return skill.skill;
+    })
+
     //save the data 
     const dataToSave = {
     Questions:this.FinalizedQuestions ,
-      duration: this.duration ,
-      cuttoff: this.cuttoff,
+    duration: this.duration ,
+    cuttoff: this.cuttoff,
+    fileName: fileName.join("_")
        //skills:this.selectedSkill,
-  };
+    };
+    
+    console.log('response', dataToSave)
 
-    console.log('Data to Save:', dataToSave);
+
+    // console.log('Data to Save:', dataToSave);
+    
 
      this.skillsdropdownservice.postquestions(dataToSave).subscribe(response =>{
 
     //console.log('Final Output :',response);
        //this.FinalOutput = response;
-        console.log('Final Output :',response);
-   });
-  
+      //  console.log('Final Output :', response);
+      //  console.log('Selected Skills:', this.selectedSkill); 
 
+     });
+    
   }
   
   

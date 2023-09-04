@@ -8,7 +8,6 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
-import { PanelModule } from 'primeng/panel';
 
 @NgModule({
   imports: [
@@ -21,7 +20,6 @@ import { PanelModule } from 'primeng/panel';
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
-        PanelModule
 
         
     ],
@@ -35,7 +33,6 @@ import { PanelModule } from 'primeng/panel';
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
-        PanelModule
 
     ]
 })
