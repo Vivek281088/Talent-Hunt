@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -30,6 +30,13 @@ private managerNameUrl = 'http://localhost:9000/skill'; // Update the URL to mat
 
     return this.http.get<any>(endpoint);
 
+  }
+
+  postManagerList(name:String): Observable<any>{
+    const headers=new HttpHeaders({'content-Type':'application/json'});
+    const body={Managername:name}
+    return this.http.post<any>(this.managerNameUrl+'/select-manager',body,{headers})
+  
   }
 
 }

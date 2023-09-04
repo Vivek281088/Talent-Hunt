@@ -8,11 +8,22 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PrimeModule } from './prime.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule} from '@angular/common/http';
+import { TableModule } from 'primeng/table';
+import { SchedulepageComponent } from './modules/schedulepage/schedulepage.component';
+import { NavbarComponent } from './modules/navbar/navbar.component';
+import { FooterComponent } from './modules/footer/footer.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    Dash1Component
+    Dash1Component,
+    SchedulepageComponent,
+    NavbarComponent,
+    FooterComponent,
+   
+   
         
   ],
   imports: [
@@ -22,7 +33,8 @@ import { HttpClientModule} from '@angular/common/http';
     FormsModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    
 ],
 schemas: [NO_ERRORS_SCHEMA],
   providers: [],

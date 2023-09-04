@@ -4,6 +4,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
+import { TableModule } from 'primeng/table';
+
 
 @NgModule({
   imports: [
@@ -11,15 +13,16 @@ import { CheckboxModule } from 'primeng/checkbox';
         DropdownModule,
         ButtonModule,
         CardModule,
-        CheckboxModule
+        CheckboxModule,
+        TableModule
     ],
     exports: [
         MultiSelectModule,
         DropdownModule,
         ButtonModule,
         CardModule,
-        CheckboxModule
-
+        CheckboxModule,
+        TableModule
     ]
 })
 export class PrimeModule { }

@@ -1,0 +1,10 @@
+.app_wrapper {
+  .app_sidebar {
+    width: 60px;
+    background-color: #003268;
+  }
+  .app_content {
+    // margin-left: 60px;
+    width: calc(100% - 60px);
+  }
+}

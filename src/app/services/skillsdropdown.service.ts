@@ -12,6 +12,9 @@ export class SkillsdropdownService {
 
   constructor(private http: HttpClient) { }
 
+
+  
+
 getskillsList(): Observable<any>{
   return this.http.get<any>(this.skillsUrl + '/getskill')
 }
