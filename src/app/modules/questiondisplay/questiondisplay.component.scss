@@ -3,7 +3,7 @@
     color: white;
     padding: auto;
     width: 100%;
-    height: 100%;
+    height: fit-content;
 
 }
 
@@ -17,3 +17,14 @@
     overflow: hidden auto;
 
 }
+.choices {
+    margin-bottom: 5px;
+}
+
+ .page_submit_btn_sec {
+    // background-color: #003268;
+     // position: absolute;
+    // left: 0;
+    // bottom: 0;
+     justify-content: end;
+ }

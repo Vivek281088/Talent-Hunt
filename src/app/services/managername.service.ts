@@ -20,6 +20,10 @@ export class ManagernameService {
   
   private finalizedQuestions: any[] = [];
 
+  private duration: number = 0;
+
+  private cuttoff: number = 0;
+
  
 
   constructor(private http: HttpClient) { }
@@ -40,6 +44,22 @@ export class ManagernameService {
 
   getFinalizedQuestions(): any[] {
     return this.finalizedQuestions;
+  }
+
+  setDuration(duration: number) {
+    this.duration = duration;
+  }
+
+  getDuration() {
+    return this.duration;
+  }
+
+  setCuttoff(cuttoff: number) {
+    this.cuttoff = cuttoff;
+  }
+
+  getCuttoff() {
+    return this.cuttoff;
   }
   
 }

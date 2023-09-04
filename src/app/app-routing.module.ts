@@ -5,8 +5,7 @@ import { Dash1Component } from './modules/dash1/dash1.component';
 
 const routes: Routes = [
   { path: 'questiondisplay', component: QuestiondisplayComponent },
-  { path: 'dash1', component: Dash1Component }
-  
+  {path:'dash1',component:Dash1Component}
 ];
 
 @NgModule({

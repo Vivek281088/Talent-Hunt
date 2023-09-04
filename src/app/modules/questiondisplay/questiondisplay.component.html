@@ -1,9 +1,9 @@
 <div class="page_sec">
-  <ng-container *ngIf="FinalizedQuestions.length > 0">
+  <ng-container *ngIf="FinalizedQuestions.length > 0" >
     <h2 class="m-0 heading pb-4 pt-4">Assessment-I</h2>
 
-    <div *ngFor="let question of FinalizedQuestions" class="question_sec">
-      <h3>{{ question.question }}</h3>
+    <div *ngFor="let question of FinalizedQuestions; let i = index" class="question_sec">
+      <h3>{{ i + 1 }}. {{ question.question }}</h3>
 
       <ng-container *ngIf="question.questionType === 'Checkbox'">
         <div *ngFor="let option of question.options">
@@ -43,5 +43,16 @@
         </span>
       </ng-container>
     </div>
+    <div class="w-100  flex page_submit_btn_sec px-3 py-2">
+
+        <p-button
+          label="Back"
+          class="w-100"
+          styleClass="p-button-danger"
+        ></p-button>
+
+    </div>
+    
   </ng-container>
+   
 </div>

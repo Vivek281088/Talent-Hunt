@@ -32,6 +32,14 @@ export class Dash1Component implements OnInit {
 
   FinalizedQuestions: any[] = [];
 
+  duration: number = 0;
+
+  cuttoff: number = 0;
+
+  FinalOutput: any[] = [];
+
+  //dataToSave: any[] = [];
+
 
   
 
@@ -115,13 +123,47 @@ export class Dash1Component implements OnInit {
     console.log('Selected Items Count : ', this.selectedQuestions.length);
     this.FinalizedQuestions = this.selectedQuestions;
     console.log('Finalized Items : ', this.FinalizedQuestions);
+    console.log('CuttOff : ', this.cuttoff);
+    console.log('Duration : ', this.duration);
 
 
-    //set the Finalizedquestions in the service
+    //set the Finalizedquestions,Duration,Cuttoff in the service
 
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
+    this.managernameService.setDuration(this.duration);
+    this.managernameService.setCuttoff(this.cuttoff);
+    
+    //save the data 
+    const dataToSave = {
+    Questions:this.FinalizedQuestions ,
+      duration: this.duration ,
+      cuttoff: this.cuttoff,
+       //skills:this.selectedSkill,
+  };
 
-        }
+    console.log('Data to Save:', dataToSave);
+
+     this.skillsdropdownservice.postquestions(dataToSave).subscribe(response =>{
+
+    //console.log('Final Output :',response);
+       //this.FinalOutput = response;
+        console.log('Final Output :',response);
+   });
+  
+
+  }
+  
+  
+
+  getDifficultyStyle(difficulty: string): any {
+  if (difficulty === 'E') {
+    return { color: 'Lightgreen' };
+  } else if (difficulty === 'M') {
+    return { color: 'yellow' };
+  } else {
+    return { color: 'red' };
+  }
+}
 
 }
 

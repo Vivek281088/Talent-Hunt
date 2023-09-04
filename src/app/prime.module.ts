@@ -7,6 +7,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+import { PanelModule } from 'primeng/panel';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
         CheckboxModule,
         InputNumberModule,
         InputTextareaModule,
-        RadioButtonModule 
+        RadioButtonModule,
+        FormsModule,
+        PanelModule
 
         
     ],
@@ -29,7 +33,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
         CheckboxModule,
         InputNumberModule,
         InputTextareaModule,
-        RadioButtonModule 
+        RadioButtonModule,
+        FormsModule,
+        PanelModule
 
     ]
 })

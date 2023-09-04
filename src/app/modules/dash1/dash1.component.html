@@ -1,8 +1,5 @@
-<!-- <div style="background-color: antiquewhite;height: 50px;margin-top: 0;"> -->
-
 <div class="page_sec h-full px-3">
   <h1 class="m-0 heading py-2">Talent Hunt</h1>
-  <!-- </div> -->
 
   <div>
     <div class="flex">
@@ -59,13 +56,25 @@
               <label class="pb-3 pt-3" style="color: white; font-size: larger"
                 >CutOff Mark</label
               >
-              <p-inputNumber inputId="integeronly"> </p-inputNumber>
+              <p-inputNumber
+                inputId="integeronly"
+                [(ngModel)]="cuttoff"
+                name="cuttoff"
+                placeholder="Cuttoff"
+              >
+              </p-inputNumber>
             </div>
             <div class="flex flex-column">
               <label class="pb-3 pt-3" style="color: white; font-size: larger"
-                >Duration</label
+                >Duration in Minutes</label
               >
-              <p-inputNumber inputId="integeronly"> </p-inputNumber>
+              <p-inputNumber
+                inputId="integeronly"
+                [(ngModel)]="duration"
+                name="duration"
+                placeholder="(Minutes)"
+              >
+              </p-inputNumber>
             </div>
           </ng-container>
         </div>
@@ -81,23 +90,21 @@
         >
           <h3 class="mt-0">AWS</h3>
           <div class="flex mb-3" *ngFor="let aws of TotalQuestions.AWS">
-            <p-checkbox
-              [(ngModel)]="aws.selected"
-              (onChange)="checkboxChanged(aws)"
-              class="mr-2"
-              [binary]="true"
-              inputId="binary"
-            ></p-checkbox>
-            <div
-              [ngStyle]="
-                aws.Difficulty_Level == 'E'
-                  ? { color: 'green' }
-                  : { color: 'red' }
-              "
-            >
-              <p class="m-0">{{ aws.Difficulty_Level }}</p>
-            </div>
-            <p class="m-0 ml-4">{{ aws.question }}</p>
+            <label class="checkbox-label flex mb-3">
+              <p-checkbox
+                [(ngModel)]="aws.selected"
+                (onChange)="checkboxChanged(aws)"
+                class="mr-2"
+                [binary]="true"
+                inputId="aws-checkbox-{{ aws._id }}"
+              ></p-checkbox>
+              <div [ngStyle]="getDifficultyStyle(aws.Difficulty_Level)">
+                <p class="m-0">{{ aws.Difficulty_Level }}</p>
+              </div>
+              <div>
+                <p class="m-0 ml-4">{{ aws.question }}</p>
+              </div>
+            </label>
           </div>
         </div>
 
@@ -108,24 +115,20 @@
           <h3>JAVA</h3>
 
           <div class="flex mb-3" *ngFor="let java of TotalQuestions.JAVA">
-            <p-checkbox
-              [(ngModel)]="java.selected"
-              (onChange)="checkboxChanged(java)"
-              class="mr-2"
-              [binary]="true"
-              inputId="binary"
-            ></p-checkbox>
-            <div
-              [ngStyle]="
-                java.Difficulty_Level == 'E'
-                  ? { color: 'green' }
-                  : { color: 'red' }
-              "
-            >
-              <p class="m-0">{{ java.Difficulty_Level }}</p>
-            </div>
+            <label class="checkbox-label flex mb-3">
+              <p-checkbox
+                [(ngModel)]="java.selected"
+                (onChange)="checkboxChanged(java)"
+                class="mr-2"
+                [binary]="true"
+                inputId="java-checkbox-{{ java._id }}"
+              ></p-checkbox>
+              <div [ngStyle]="getDifficultyStyle(java.Difficulty_Level)">
+                <p class="m-0">{{ java.Difficulty_Level }}</p>
+              </div>
 
-            <p class="m-0 ml-4">{{ java.question }}</p>
+              <p class="m-0 ml-4">{{ java.question }}</p>
+            </label>
           </div>
         </div>
       </div>
