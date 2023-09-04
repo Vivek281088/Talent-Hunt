@@ -8,6 +8,9 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { PrimeModule } from './prime.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule} from '@angular/common/http';
+import { SchedulepageComponent } from './modules/schedulepage/schedulepage.component';
+import { NavbarComponent } from './modules/navbar/navbar.component';
+import { FooterComponent } from './modules/footer/footer.component';
 import { QuestiondisplayComponent } from './modules/questiondisplay/questiondisplay.component';
 
 
@@ -16,9 +19,10 @@ import { QuestiondisplayComponent } from './modules/questiondisplay/questiondisp
   declarations: [
     AppComponent,
     Dash1Component,
+    SchedulepageComponent,
+    NavbarComponent,
+    FooterComponent,
     QuestiondisplayComponent
-  
-        
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,8 @@ import { QuestiondisplayComponent } from './modules/questiondisplay/questiondisp
     FormsModule,
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    
 ],
 schemas: [NO_ERRORS_SCHEMA],
   providers: [],

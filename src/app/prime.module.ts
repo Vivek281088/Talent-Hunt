@@ -4,6 +4,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
+import { TableModule } from 'primeng/table';
+
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -16,6 +18,7 @@ import { FormsModule } from '@angular/forms';
         ButtonModule,
         CardModule,
         CheckboxModule,
+        TableModule,
         InputNumberModule,
         InputTextareaModule,
         RadioButtonModule,
@@ -29,11 +32,11 @@ import { FormsModule } from '@angular/forms';
         ButtonModule,
         CardModule,
         CheckboxModule,
+        TableModule,
         InputNumberModule,
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
-
     ]
 })
 export class PrimeModule { }
