@@ -1,7 +1,5 @@
-
-<div class="page_sec h-full p-3 pt-0">
-  <h1 class="m-0 heading pb-4 pt-4">Talent Hunt</h1>
-  <!-- </div> -->
+<div class="page_sec h-full px-3">
+  <h1 class="m-0 heading py-2">Talent Hunt</h1>
 
   <div>
     <div class="flex">
@@ -21,7 +19,7 @@
       </div> -->
 
       <div class="flex flex-column w-3 mr-3">
-        <label class="pb-3 pt-3" style="color: white; font-size: larger"
+        <label class="pb-3 pt-1" style="color: white; font-size: larger"
           >Skill set</label
         >
         <p-multiSelect
@@ -35,14 +33,51 @@
       </div>
       <div
         class="card flex flexalign-it;"
-        style="margin-top: 25px; margin-left: 10px; color: #9b1631"
+        style="margin-top: 45px; margin-left: 10px"
       >
         <p-button
           label="Submit"
           (click)="submitForm()"
-          class="w-100 pb-4 pt-5"
           styleClass="p-button-danger"
         ></p-button>
+
+        <div class="flex ml-5">
+          <ng-container *ngIf="selectedSkill.length > 0">
+            <div class="flex flex-column mr-3">
+              <label class="pb-3 pt-3" style="color: white; font-size: larger"
+                >Total Selected Questions
+              </label>
+              <h2 class="m-0 heading pl-7 pb-3">
+                <!-- *ngIf="selectedQuestions.length > 0" -->
+                {{ (selectedQuestions && selectedQuestions.length) || 0 }}
+              </h2>
+            </div>
+            <div class="flex flex-column mr-3">
+              <label class="pb-3 pt-3" style="color: white; font-size: larger"
+                >CutOff Mark</label
+              >
+              <p-inputNumber
+                inputId="integeronly"
+                [(ngModel)]="cuttoff"
+                name="cuttoff"
+                placeholder="Cuttoff"
+              >
+              </p-inputNumber>
+            </div>
+            <div class="flex flex-column">
+              <label class="pb-3 pt-3" style="color: white; font-size: larger"
+                >Duration in Minutes</label
+              >
+              <p-inputNumber
+                inputId="integeronly"
+                [(ngModel)]="duration"
+                name="duration"
+                placeholder="(Minutes)"
+              >
+              </p-inputNumber>
+            </div>
+          </ng-container>
+        </div>
       </div>
     </div>
 
@@ -55,39 +90,57 @@
         >
           <h3 class="mt-0">AWS</h3>
           <div class="flex mb-3" *ngFor="let aws of TotalQuestions.AWS">
-            <p-checkbox
-              [(ngModel)]="aws.selected"
-              (onChange)="checkboxChanged(aws)"
-              class="mr-2"
-              [binary]="true"
-              inputId="binary"
-            ></p-checkbox>
-            <p class="m-0">{{ aws.question }}</p>
+            <label class="checkbox-label flex mb-3">
+              <p-checkbox
+                [(ngModel)]="aws.selected"
+                (onChange)="checkboxChanged(aws)"
+                class="mr-2"
+                [binary]="true"
+                inputId="aws-checkbox-{{ aws._id }}"
+              ></p-checkbox>
+              <div [ngStyle]="getDifficultyStyle(aws.Difficulty_Level)">
+                <p class="m-0">{{ aws.Difficulty_Level }}</p>
+              </div>
+              <div>
+                <p class="m-0 ml-4">{{ aws.question }}</p>
+              </div>
+            </label>
           </div>
         </div>
+
         <div
           class="flex flex-column w-4 question_sec mr-4"
           *ngIf="TotalQuestions.JAVA"
         >
           <h3>JAVA</h3>
+
           <div class="flex mb-3" *ngFor="let java of TotalQuestions.JAVA">
-            <p-checkbox
-              [(ngModel)]="java.selected"
-              (onChange)="checkboxChanged(java)"
-              class="mr-2"
-              [binary]="true"
-              inputId="binary"
-            ></p-checkbox>
-            <p class="m-0">{{ java.question }}</p>
+            <label class="checkbox-label flex mb-3">
+              <p-checkbox
+                [(ngModel)]="java.selected"
+                (onChange)="checkboxChanged(java)"
+                class="mr-2"
+                [binary]="true"
+                inputId="java-checkbox-{{ java._id }}"
+              ></p-checkbox>
+              <div [ngStyle]="getDifficultyStyle(java.Difficulty_Level)">
+                <p class="m-0">{{ java.Difficulty_Level }}</p>
+              </div>
+
+              <p class="m-0 ml-4">{{ java.question }}</p>
+            </label>
           </div>
         </div>
       </div>
-      <p-button
-        label="Submit"
-        (click)="saveSelected()"
-        class="w-100 pb-4 pt-5"
-        styleClass="p-button-danger"
-      ></p-button>
+      <div class="w-100 page_submit_btn_sec flex justify_content-end px-3 py-2">
+        <p-button
+          label="Submit"
+          (click)="saveSelected()"
+          class="w-100"
+          styleClass="p-button-danger"
+          routerLink="/questiondisplay"
+        ></p-button>
+      </div>
     </ng-container>
   </div>
 </div>

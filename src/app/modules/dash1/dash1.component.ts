@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { ManagernameService } from 'src/app/services/managername.service';
-import { Checkbox } from 'primeng/checkbox';
+
 
 
 @Component({
@@ -29,6 +29,17 @@ export class Dash1Component implements OnInit {
   selectedQuestions: any[] = [];
 
   ski: any[] = [];
+
+  FinalizedQuestions: any[] = [];
+
+  duration: number = 0;
+
+  cuttoff: number = 0;
+
+  FinalOutput: any[] = [];
+
+  //dataToSave: any[] = [];
+
 
   
 
@@ -58,8 +69,7 @@ export class Dash1Component implements OnInit {
 
       // console.log('Users:' + JSON.stringify(this.selectedSkill));
 
-   
-
+  
     });
 
    
@@ -77,6 +87,7 @@ export class Dash1Component implements OnInit {
     console.log('Selected Manager:', this.selectedManager);
     console.log('Selected Skills:', this.selectedSkill); 
     
+    this.selectedQuestions = [];
     this.ski = [];
     for (let g of this.selectedSkill) {
 
@@ -106,22 +117,55 @@ export class Dash1Component implements OnInit {
   
   }
   
+  
   saveSelected() {
     console.log('Selected Items : ', this.selectedQuestions);
+    console.log('Selected Items Count : ', this.selectedQuestions.length);
+    this.FinalizedQuestions = this.selectedQuestions;
+    console.log('Finalized Items : ', this.FinalizedQuestions);
+    console.log('CuttOff : ', this.cuttoff);
+    console.log('Duration : ', this.duration);
+
+
+    //set the Finalizedquestions,Duration,Cuttoff in the service
+
+    this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
+    this.managernameService.setDuration(this.duration);
+    this.managernameService.setCuttoff(this.cuttoff);
+    
+    //save the data 
+    const dataToSave = {
+    Questions:this.FinalizedQuestions ,
+      duration: this.duration ,
+      cuttoff: this.cuttoff,
+       //skills:this.selectedSkill,
+  };
+
+    console.log('Data to Save:', dataToSave);
+
+     this.skillsdropdownservice.postquestions(dataToSave).subscribe(response =>{
+
+    //console.log('Final Output :',response);
+       //this.FinalOutput = response;
+        console.log('Final Output :',response);
+   });
+  
+
   }
+  
+  
+
+  getDifficultyStyle(difficulty: string): any {
+  if (difficulty === 'E') {
+    return { color: 'Lightgreen' };
+  } else if (difficulty === 'M') {
+    return { color: 'yellow' };
+  } else {
+    return { color: 'red' };
+  }
+}
 
 }
 
 
-
-
-// submitSelectedQuestions() {
-
-//     const selectedQuestions = this.TotalQuestions.filter(question => question.selected);
-
-//     console.log('Selected Questions:', selectedQuestions);
-
-//     // Here you can implement logic to save the selected questions
-
-//   }
 

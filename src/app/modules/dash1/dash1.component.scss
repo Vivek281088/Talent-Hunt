@@ -1,16 +1,26 @@
-
-.page_sec{
+.page_sec {
     background-color: #003268;
     color: white;
     padding: auto;
 
 }
-.heading{
+
+.heading {
     color: white;
 }
 
 .question_sec {
     color: white;
-    max-height: 450px;
+    max-height: 350px;
     overflow: hidden auto;
+
+}
+
+.page_submit_btn_sec {
+    background-color: #003268;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    justify-content: end;
 }

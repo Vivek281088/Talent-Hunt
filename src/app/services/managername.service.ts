@@ -16,7 +16,13 @@ export class ManagernameService {
 
  
 
-private managerNameUrl = 'http://localhost:9000/skill'; // Update the URL to match your backend API URL
+  private managerNameUrl = 'http://localhost:9000/skill'; // Update the URL to match your backend API URL
+  
+  private finalizedQuestions: any[] = [];
+
+  private duration: number = 0;
+
+  private cuttoff: number = 0;
 
  
 
@@ -39,4 +45,28 @@ private managerNameUrl = 'http://localhost:9000/skill'; // Update the URL to mat
   
   }
 
+  setFinalizedQuestions(questions: any[]): void {
+    this.finalizedQuestions = questions;
+  }
+
+  getFinalizedQuestions(): any[] {
+    return this.finalizedQuestions;
+  }
+
+  setDuration(duration: number) {
+    this.duration = duration;
+  }
+
+  getDuration() {
+    return this.duration;
+  }
+
+  setCuttoff(cuttoff: number) {
+    this.cuttoff = cuttoff;
+  }
+
+  getCuttoff() {
+    return this.cuttoff;
+  }
+  
 }

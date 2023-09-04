@@ -6,6 +6,11 @@ import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
 
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
+import { PanelModule } from 'primeng/panel';
 
 @NgModule({
   imports: [
@@ -14,7 +19,12 @@ import { TableModule } from 'primeng/table';
         ButtonModule,
         CardModule,
         CheckboxModule,
-        TableModule
+        TableModule,
+        InputNumberModule,
+        InputTextareaModule,
+        RadioButtonModule,
+        FormsModule,
+        PanelModule
     ],
     exports: [
         MultiSelectModule,
@@ -22,7 +32,12 @@ import { TableModule } from 'primeng/table';
         ButtonModule,
         CardModule,
         CheckboxModule,
-        TableModule
+        TableModule,
+        InputNumberModule,
+        InputTextareaModule,
+        RadioButtonModule,
+        FormsModule,
+        PanelModule
     ]
 })
 export class PrimeModule { }
