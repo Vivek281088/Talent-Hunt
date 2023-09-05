@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class SchedulepageComponent implements OnInit {
 
   constructor(
     private tableService: TableService,
-    private managernameService: ManagernameService
+    private managernameService: ManagernameService,
+    private router : Router
     ) {}
 
   ngOnInit() {
@@ -67,7 +69,7 @@ export class SchedulepageComponent implements OnInit {
 
 
   tableData = [
-    {manager: "", fileName: "alamelu_aws_java_1.json"},
+    {manager: "", fileName: ""},
     // {manager: "", fileName: "alamelu_aws_java_2.json"}
     // {manager: "", fileName: "alamelu_aws_java_3.json"}
   ];
@@ -77,17 +79,25 @@ export class SchedulepageComponent implements OnInit {
   dropRes !: any;
 dropFunction(){
   console.log("Drop down selected");
-  this.tableService.postManagerList("Alamelu").subscribe(data=>{
+  this.tableService.postManagerList(this.selectedManager).subscribe(data=>{
     console.log(data);
     this.isCreate = !data.create;
     this.isEdit = !data.edit;
     this.isMail = !data.mail;
+     
     console.log("create",this.isCreate);
     console.log("edit",this.isEdit);
-    console.log("mail",this.isMail)
-  })
-}
+    console.log("mail", this.isMail)
 
+     this.managernameService.setManagerName(this.selectedManager);
+    console.log("manager", this.selectedManager);
+   
+
+   
+  })
+  }
+  
+  
   
 addNewRow(){
   const newRow = {manager: '', fileName: ''};
