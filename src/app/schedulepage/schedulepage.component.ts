@@ -15,9 +15,12 @@ export class SchedulepageComponent implements OnInit {
 
   cols!: Column[];
 
-  selectedManager: any;
+  selectedManager: string='';
   
-  managerOption : any[] = []
+  managerOption : any[] = [];
+
+
+
   isCreate : boolean = true;
   isEdit : boolean = true;
   isMail : boolean = true;
@@ -36,6 +39,7 @@ export class SchedulepageComponent implements OnInit {
 
   ngOnInit() {
     this.loadManagerNames();
+    this.tableData1();
     this.cols = [
       { field: 'manager', header: 'Manager' },
       { field: 'file name', header: 'File name' },
@@ -43,12 +47,18 @@ export class SchedulepageComponent implements OnInit {
   ];
 
   }
+tableData1()
+{
+  this.tableService.getTableData().subscribe(data => {
+    this.tableData1 = data;
+    console.log("tdata:",this.tableData1)
+  });
 
+}
   loadManagerNames() {
     this.managernameService.getManagerNames().subscribe(data => {
       this.managerOption = data;
     });
-
   }
 //   managerOption1() {
 
@@ -77,10 +87,11 @@ export class SchedulepageComponent implements OnInit {
 
 
   dropRes !: any;
+
 dropFunction(){
   console.log("Drop down selected");
   this.tableService.postManagerList(this.selectedManager).subscribe(data=>{
-    console.log(data);
+    console.log("Hi", data);
     this.isCreate = !data.create;
     this.isEdit = !data.edit;
     this.isMail = !data.mail;
