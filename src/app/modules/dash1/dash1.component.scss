@@ -1,13 +1,12 @@
-.page_sec {
-}
-
-.heading {
-}
+@import "primeicons/primeicons.css";
 
 .question_sec {
-    max-height: 350px;
+    max-height: 370px;
     overflow: hidden auto;
 
+}
+.heading{
+    color: white;
 }
 
 .page_submit_btn_sec {
@@ -15,5 +14,101 @@
     left: 0;
     width: 100%;
     bottom: 0;
-    justify-content: end;
+    justify-content: right;
 }
+
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.leetcode-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leetcode-table th,
+.leetcode-table td {
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.leetcode-table th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.table-row:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.checkbox-column {
+    width: 10%;
+}
+
+.skill-column {
+    width: 30%;
+}
+
+
+
+.difficulty-column {
+    width: 20%;
+    /* Adjust the width as needed */
+}
+
+.difficulty-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+}
+
+.difficulty-badge.easy {
+    background-color: #5cb85c;
+    /* Green for Easy difficulty */
+    color: #fff;
+}
+
+.difficulty-badge.medium {
+    background-color: #f0ad4e;
+    /* Orange for Medium difficulty */
+    color: #fff;
+}
+
+.difficulty-badge.hard {
+    background-color: #d9534f;
+    /* Red for Hard difficulty */
+    color: #fff;
+}
+
+.question-column {
+    width: 40%;
+}
+
+.checkbox-column input[type="checkbox"] {
+    margin: 0;
+}
+
+.skill-column .tag {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 2px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.skill-column .tag:nth-child(odd) {
+    background-color: #28a745;
+    /* Green color for odd-numbered tags */
+}
+

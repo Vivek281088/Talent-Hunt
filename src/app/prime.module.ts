@@ -10,6 +10,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
+import { KeyFilterModule } from 'primeng/keyfilter';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
+        KeyFilterModule
 
         
     ],
@@ -37,6 +39,7 @@ import { FormsModule } from '@angular/forms';
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
+        KeyFilterModule
     ]
 })
 export class PrimeModule { }

@@ -187,7 +187,12 @@ export class Dash1Component implements OnInit {
 
   getDifficultyStyle(difficulty: string): any {
   if (difficulty === 'E') {
-    return { color: 'Lightgreen' };
+    return {
+      color: 'green', 
+      display: 'inline-block',
+      padding: '6px 12px',
+
+       };
   } else if (difficulty === 'M') {
     return { color: 'yellow' };
   } else {
