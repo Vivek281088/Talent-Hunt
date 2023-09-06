@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
-
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -24,7 +24,8 @@ import { PanelModule } from 'primeng/panel';
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
-        PanelModule
+        PanelModule,
+        OverlayPanelModule
     ],
     exports: [
         MultiSelectModule,
@@ -37,7 +38,8 @@ import { PanelModule } from 'primeng/panel';
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
-        PanelModule
+        PanelModule,
+        OverlayPanelModule
     ]
 })
 export class PrimeModule { }

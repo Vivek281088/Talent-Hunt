@@ -18,9 +18,13 @@
   }
 }
 
+.p-datatable .p-datatable-tbody > tr {
+  background: #DDE6ED;
+}
+
 .p-datatable .p-datatable-thead > tr > th {
   padding: 0.5rem 1rem;
-  background: #dfe3e7;
+  background: #9DB2BF;
   font-size: 14px;
   font-weight: 500;
 }
