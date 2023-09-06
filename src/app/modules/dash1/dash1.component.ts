@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { ManagernameService } from 'src/app/services/managername.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 
@@ -38,6 +39,8 @@ export class Dash1Component implements OnInit {
 
   FinalOutput: any[] = [];
 
+  emptySkill: boolean = true;
+
   //dataToSave: any[] = [];
 
 
@@ -45,8 +48,9 @@ export class Dash1Component implements OnInit {
 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
-    private managernameService: ManagernameService
-  
+    private managernameService: ManagernameService,
+    public router: Router,
+    private activatedRoute: ActivatedRoute
 
   ) {
 
@@ -55,6 +59,8 @@ export class Dash1Component implements OnInit {
   ngOnInit() {
     this.reloadData();
     this.loadManagerNames();
+    this. selectedManager = this.managernameService.getManagerName();
+  
 
   }
 
@@ -79,12 +85,14 @@ export class Dash1Component implements OnInit {
   loadManagerNames() {
     this.managernameService.getManagerNames().subscribe(data => {
       this.managerSet = data;
+      
+    console.log('Selected Manager:', this.selectedManager);
     });
 
   }
   submitForm() {
    
-    console.log('Selected Manager:', this.selectedManager);
+  
     console.log('Selected Skills:', this.selectedSkill); 
     
     this.selectedQuestions = [];
@@ -98,9 +106,15 @@ export class Dash1Component implements OnInit {
     
   this.skillsdropdownservice.postskillsList(this.ski).subscribe(response =>{
 
-    console.log('response',response);
+    console.log('response', response);
+    console.log('Manager',this.selectedManager);
     this.TotalQuestions = response;
-   });
+  });
+    
+      if (this.selectedSkill.length > 0) {
+      this.emptySkill = false;
+
+  }
   }
 
   checkboxChanged(item : any){
@@ -119,12 +133,12 @@ export class Dash1Component implements OnInit {
   
   
   saveSelected() {
-    console.log('Selected Items : ', this.selectedQuestions);
-    console.log('Selected Items Count : ', this.selectedQuestions.length);
+    // console.log('Selected Items : ', this.selectedQuestions);
+    // console.log('Selected Items Count : ', this.selectedQuestions.length);
     this.FinalizedQuestions = this.selectedQuestions;
-    console.log('Finalized Items : ', this.FinalizedQuestions);
-    console.log('CuttOff : ', this.cuttoff);
-    console.log('Duration : ', this.duration);
+    // console.log('Finalized Items : ', this.FinalizedQuestions);
+    // console.log('CuttOff : ', this.cuttoff);
+    // console.log('Duration : ', this.duration);
 
 
     //set the Finalizedquestions,Duration,Cuttoff in the service
@@ -133,24 +147,40 @@ export class Dash1Component implements OnInit {
     this.managernameService.setDuration(this.duration);
     this.managernameService.setCuttoff(this.cuttoff);
     
+    const fileName = this.selectedSkill.map(skill => {
+      return skill.skill;
+    })
+    
     //save the data 
     const dataToSave = {
     Questions:this.FinalizedQuestions ,
-      duration: this.duration ,
-      cuttoff: this.cuttoff,
+    duration: this.duration ,
+    cuttoff: this.cuttoff,
+      fileName: fileName.join("_"),
+      isCreate: false,
+      isEdit: true,
+      isMail: true,
+    Managername : (this.selectedManager).Managername,
        //skills:this.selectedSkill,
-  };
+    };
+    
+    console.log('response', dataToSave)
 
-    console.log('Data to Save:', dataToSave);
+
+    // console.log('Data to Save:', dataToSave);
+    
 
      this.skillsdropdownservice.postquestions(dataToSave).subscribe(response =>{
 
     //console.log('Final Output :',response);
        //this.FinalOutput = response;
-        console.log('Final Output :',response);
-   });
-  
+      //  console.log('Final Output :', response);
+      //  console.log('Selected Skills:', this.selectedSkill); 
 
+     });
+    
+    this.router.navigate(['dashboard']);
+    
   }
   
   
@@ -163,9 +193,11 @@ export class Dash1Component implements OnInit {
   } else {
     return { color: 'red' };
   }
-}
+  }
+  //@Input() parent:any;
 
 }
+
 
 
 

@@ -1,0 +1,72 @@
+
+<div class="page_sec h-full p-3 pt-0">
+    <h1 class="m-0 heading pb-4 pt-4">SCHEDULE PAGE</h1>
+    <div class="top-right-button">
+        <div class="card">
+        <p-button class="create_button" (click)="addNewRow()">Create Row</p-button>
+        </div>
+        </div>
+
+ 
+   <div class = "table-container">
+<p-table [columns]="cols" [value]="tableData">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData>
+        <tr style="height: 45px;">
+            <td>
+                <!-- <p-dropdown appendTo="body" placeholder="Select..." [options]="managerOption" optionLabel="label"></p-dropdown> -->
+
+                <p-dropdown
+
+                 appendTo="body"
+
+                class="w-100 table_dropdown"
+      
+                [options]="managerOption"
+      
+                [(ngModel)]="selectedManager"
+      
+                placeholder="Select Managername"
+      
+                optionLabel="Managername"
+
+                
+      
+                
+
+                (onChange)="dropFunction()"
+      
+              ></p-dropdown>
+
+            </td>
+            <td>{{rowData.fileName}}</td>
+            <td>
+                <div class="flex">
+                    <div class="mr-2">
+                       <a [routerLink]="isCreate ? null : ['/create']" [class.disabled]= "isCreate"  href="/create"> <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg></a>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div class="mr-2">
+                        <a [routerLink]="isEdit ? null : ['/create']" [class.disabled]= "isEdit " href="/create"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M 18 2 L 15.585938 4.4140625 L 19.585938 8.4140625 L 22 6 L 18 2 z M 14.076172 5.9238281 L 3 17 L 3 21 L 7 21 L 18.076172 9.9238281 L 14.076172 5.9238281 z"></path>
+                            </svg></a>
+                    </div>
+                    &nbsp;
+                    &nbsp;
+                    <div>
+                        <a [routerLink]="isMail ? null : ['/create']" [class.disabled]= "isMail" href="/create" ><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><style>svg{fill:#121212}</style><path d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"/></svg> </a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+</div>

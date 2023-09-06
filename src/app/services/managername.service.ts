@@ -24,6 +24,8 @@ export class ManagernameService {
 
   private cuttoff: number = 0;
 
+  private SelectedManager: any;
+
  
 
   constructor(private http: HttpClient) { }
@@ -69,4 +71,12 @@ export class ManagernameService {
     return this.cuttoff;
   }
   
+  setManagerName(name : any) {
+    this.SelectedManager = name;
+
+  }
+
+  getManagerName() : any {
+    return this.SelectedManager;
+  }
 }

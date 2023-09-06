@@ -19,7 +19,7 @@
       </div> -->
 
       <div class="flex flex-column w-3 mr-3">
-        <label class="pb-3 pt-1" style="font-size: larger"
+        <label class="pb-3 pt-1" style=" font-size: larger"
           >Skill set</label
         >
                 <p-multiSelect
@@ -44,7 +44,7 @@
         <div class="flex ml-5">
           <ng-container *ngIf="selectedSkill.length > 0">
             <div class="flex flex-column mr-3">
-              <label class="pb-3 pt-3" style="font-size: larger"
+              <label class="pb-3 pt-3" style=" font-size: larger"
                 >Total Selected Questions
               </label>
               <h2 class="m-0 heading pl-7 pb-3">
@@ -53,7 +53,7 @@
               </h2>
             </div>
             <div class="flex flex-column mr-3">
-              <label class="pb-3 pt-3" style="font-size: larger"
+              <label class="pb-3 pt-3" style=" font-size: larger"
                 >CutOff Mark</label
               >
               <p-inputNumber
@@ -65,7 +65,7 @@
               </p-inputNumber>
             </div>
             <div class="flex flex-column">
-              <label class="pb-3 pt-3" style="font-size: larger"
+              <label class="pb-3 pt-3" style=" font-size: larger"
                 >Duration in Minutes</label
               >
               <p-inputNumber
@@ -131,16 +131,23 @@
             </label>
           </div>
         </div>
-      </div>
-      <div class="w-100 page_submit_btn_sec flex justify_content-end px-3 py-2">
+
+
+        <div class="w-100 page_submit_btn_sec flex justify_content-end px-3 py-2" *ngIf="emptySkill === false" >
         <p-button
-          label="Submit"
+          label="Save"
           (click)="saveSelected()"
           class="w-100"
           styleClass="p-button-danger"
           routerLink="/questiondisplay"
         ></p-button>
       </div>
+
+
+
+
+      </div>
+      
     </ng-container>
   </div>
 </div>
