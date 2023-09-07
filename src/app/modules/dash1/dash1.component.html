@@ -1,153 +1,203 @@
-<div class="page_sec h-full px-3">
-  <h1 class="m-0 heading py-2">Talent Hunt</h1>
-
-  <div>
-    <div class="flex">
-      <!-- <div class="flex flex-column w-3 mr-3">
-        <label class="pb-2" style="color: white; font-size: larger"
-          >Manager</label
-        >
-        <p-dropdown
-          class="w-100"
-          [options]="managerSet"
-          [(ngModel)]="selectedManager"
-          placeholder="Select Managername"
-          defaultLabel="Select Manager"
-          optionLabel="Managername"
-          display="chip"
-        ></p-dropdown>
-      </div> -->
-
-      <div class="flex flex-column w-3 mr-3">
-        <label class="pb-3 pt-1" style=" font-size: larger"
-          >Skill set</label
-        >
-                <p-multiSelect
-          class="w-100"
+<div class="page_sec h-full">
+  <div class="flex p-3 page_top_sec justify-content-between align-items-center">
+    <div class="flex w-9">
+      <div class="flex flex-column w-4 mr-3">
+        <p-multiSelect
+          class="w-100 custom_select"
           [options]="skillSet"
           [(ngModel)]="selectedSkill"
-          defaultLabel="Select skills"
+          defaultLabel="Skills..."
           optionLabel="skill"
           display="chip"
+          (onPanelHide)="submitForm()"
         ></p-multiSelect>
       </div>
-      <div
-        class="card flex flexalign-it;"
-        style="margin-top: 45px; margin-left: 10px"
-      >
-        <p-button
-          label="Submit"
-          (click)="submitForm()"
-          styleClass="p-button-danger"
-        ></p-button>
+      <div class="card flex">
+        <!-- <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="40"
+            (click)="submitForm()"
+            style="cursor: pointer"
+            viewBox="0 0 512 512"
+          >
+            <path
+              d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256z"
+              fill="#98012e"
+            />
+            <path
+              d="M281 385c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l71-71L136 280c-13.3 0-24-10.7-24-24s10.7-24 24-24l182.1 0-71-71c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L393 239c9.4 9.4 9.4 24.6 0 33.9L281 385z"
+              fill="white"
+            />
+          </svg>
+        </div> -->
 
-        <div class="flex ml-5">
-          <ng-container *ngIf="selectedSkill.length > 0">
-            <div class="flex flex-column mr-3">
-              <label class="pb-3 pt-3" style=" font-size: larger"
-                >Total Selected Questions
-              </label>
-              <h2 class="m-0 heading pl-7 pb-3">
-                <!-- *ngIf="selectedQuestions.length > 0" -->
-                {{ (selectedQuestions && selectedQuestions.length) || 0 }}
-              </h2>
-            </div>
-            <div class="flex flex-column mr-3">
-              <label class="pb-3 pt-3" style=" font-size: larger"
-                >CutOff Mark</label
-              >
-              <p-inputNumber
-                inputId="integeronly"
-                [(ngModel)]="cuttoff"
-                name="cuttoff"
-                placeholder="Cuttoff"
-              >
-              </p-inputNumber>
-            </div>
-            <div class="flex flex-column">
-              <label class="pb-3 pt-3" style=" font-size: larger"
-                >Duration in Minutes</label
-              >
-              <p-inputNumber
-                inputId="integeronly"
-                [(ngModel)]="duration"
-                name="duration"
-                placeholder="(Minutes)"
-              >
-              </p-inputNumber>
-            </div>
-          </ng-container>
+        <div class="flex question_selection">
+          <div class="flex mr-3 align-items-center">
+            <label class="font-bold block heading mr-3"> Selected: </label>
+            <p class="w-full heading m-0">
+              {{ (selectedQuestions && selectedQuestions.length) || 0 }}
+            </p>
+          </div>
+          <div class="flex mr-3 align-items-center">
+            <label class="font-bold block heading mr-3"> Cutoff </label>
+            <input
+              [(ngModel)]="cuttoff"
+              name="cutoff"
+              placeholder="Cutoff"
+              class="w-3rem custom_inp p-inputtext w-full p-1"
+            />
+          </div>
+          <div class="flex mr-3 align-items-center">
+            <label class="font-bold block heading mr-3">
+              Duration (in hrs)</label
+            >
+            <input
+              class="w-3rem custom_inp p-inputtext w-full p-1"
+              [(ngModel)]="duration"
+              name="duration"
+              placeholder="(Minutes)"
+            />
+          </div>
         </div>
       </div>
     </div>
+    <div
+      class="save_sec flex cursor-pointer"
+      *ngIf="emptySkill === false"
+      pTooltip="Save"
+      (click)="saveSelected()"
+    >
+      <svg
+        id="Layer_1"
+        width="26"
+        viewBox="0 0 30 30"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        fill="white"
+      >
+        <path
+          d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
+        />
+        <rect height="5" width="2" x="16" y="4" />
+      </svg>
+    </div>
+  </div>
+  <ng-container *ngIf="TotalQuestions">
+    <div class="flex mt-4">
+      <div
+        class="flex flex-column w-5 mr-4"
+        *ngIf="TotalQuestions.AWS.length > 0"
+      >
+        <h3 class="m-0 p-2 asses_hdr">AWS</h3>
+        <div class="question_sec">
+          <table class="leetcode-table">
+            <thead>
+              <tr>
+                <th class="checkbox-column"></th>
+                <th class="question-column">Question</th>
+                <th class="difficulty-column">Difficulty</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let aws of TotalQuestions.AWS" class="table-row">
+                <td class="checkbox-column">
+                  <p-checkbox
+                    [(ngModel)]="aws.selected"
+                    (onChange)="checkboxChanged(aws)"
+                    [binary]="true"
+                    inputId="aws-checkbox-{{ aws._id }}"
+                  ></p-checkbox>
+                </td>
 
-    <!-- <pre style="color: white">{{ TotalQuestions | json }}</pre> -->
-    <ng-container *ngIf="TotalQuestions">
-      <div class="flex mt-4">
-        <div
-          class="flex flex-column w-4 question_sec mr-4"
-          *ngIf="TotalQuestions.AWS"
-        >
-          <h3 class="mt-0">AWS</h3>
-          <div class="flex mb-3" *ngFor="let aws of TotalQuestions.AWS">
-            <label class="checkbox-label flex mb-3">
-              <p-checkbox
-                [(ngModel)]="aws.selected"
-                (onChange)="checkboxChanged(aws)"
-                class="mr-2"
-                [binary]="true"
-                inputId="aws-checkbox-{{ aws._id }}"
-              ></p-checkbox>
-              <div [ngStyle]="getDifficultyStyle(aws.Difficulty_Level)">
-                <p class="m-0">{{ aws.Difficulty_Level }}</p>
-              </div>
-              <div>
-                <p class="m-0 ml-4">{{ aws.question }}</p>
-              </div>
-            </label>
-          </div>
+                <td class="question-column">{{ aws.question }}</td>
+
+                <td class="difficulty-column">
+                  <span
+                    *ngIf="aws.Difficulty_Level === 'E'"
+                    class="difficulty-badge easy"
+                    >easy</span
+                  >
+                  <span
+                    *ngIf="aws.Difficulty_Level === 'M'"
+                    class="difficulty-badge medium"
+                    >medium</span
+                  >
+                  <span
+                    *ngIf="aws.Difficulty_Level === 'H'"
+                    class="difficulty-badge hard"
+                    >hard</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        <div
-          class="flex flex-column w-4 question_sec mr-4"
-          *ngIf="TotalQuestions.JAVA"
-        >
-          <h3>JAVA</h3>
+      <div
+        class="flex flex-column w-5 mr-4 px-3"
+        *ngIf="TotalQuestions.JAVA.length > 0"
+      >
+        <h3 class="m-0 p-2 asses_hdr">JAVA</h3>
+        <div class="question_sec">
+          <table class="leetcode-table">
+            <thead>
+              <tr>
+                <th class="checkbox-column pr-0"></th>
+                <th class="question-column">Question</th>
+                <th class="difficulty-column"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let java of TotalQuestions.JAVA" class="table-row">
+                <td class="checkbox-column pr-0">
+                  <p-checkbox
+                    [(ngModel)]="java.selected"
+                    (onChange)="checkboxChanged(java)"
+                    [binary]="true"
+                    inputId="java-checkbox-{{ java._id }}"
+                  ></p-checkbox>
+                </td>
 
-          <div class="flex mb-3" *ngFor="let java of TotalQuestions.JAVA">
-            <label class="checkbox-label flex mb-3">
-              <p-checkbox
-                [(ngModel)]="java.selected"
-                (onChange)="checkboxChanged(java)"
-                class="mr-2"
-                [binary]="true"
-                inputId="java-checkbox-{{ java._id }}"
-              ></p-checkbox>
-              <div [ngStyle]="getDifficultyStyle(java.Difficulty_Level)">
-                <p class="m-0">{{ java.Difficulty_Level }}</p>
-              </div>
+                <td class="question-column">{{ java.question }}</td>
 
-              <p class="m-0 ml-4">{{ java.question }}</p>
-            </label>
-          </div>
+                <td class="difficulty-column">
+                  <span
+                    *ngIf="java.Difficulty_Level === 'E'"
+                    class="difficulty-badge easy"
+                    >easy</span
+                  >
+                  <span
+                    *ngIf="java.Difficulty_Level === 'M'"
+                    class="difficulty-badge medium"
+                    >medium</span
+                  >
+                  <span
+                    *ngIf="java.Difficulty_Level === 'H'"
+                    class="difficulty-badge hard"
+                    >hard</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
 
-
-        <div class="w-100 page_submit_btn_sec flex justify_content-end px-3 py-2" *ngIf="emptySkill === false" >
+      <!-- <div
+        class="w-100 page_submit_btn_sec flex justify_content-end px-3 py-2"
+        *ngIf="emptySkill === false"
+      >
         <p-button
           label="Save"
           (click)="saveSelected()"
           class="w-100"
-          styleClass="p-button-danger"
+          styleClass="color : #9db2bf"
           routerLink="/questiondisplay"
         ></p-button>
-      </div>
-
-
-
-
-      </div>
-      
-    </ng-container>
-  </div>
+      </div> -->
+    </div>
+  </ng-container>
 </div>
