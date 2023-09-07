@@ -23,7 +23,6 @@ import { FormsModule } from '@angular/forms';
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
-        PanelModule,
         OverlayPanelModule
     ],
     exports: [
@@ -37,7 +36,6 @@ import { FormsModule } from '@angular/forms';
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
-        PanelModule,
         OverlayPanelModule
     ]
 })

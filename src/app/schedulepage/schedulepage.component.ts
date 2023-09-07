@@ -19,6 +19,12 @@ export class SchedulepageComponent implements OnInit {
   
   managerOption : any[] = [];
 
+  managerName : string='';
+  skill: String[]= [];
+  filteredSkill  :String[]= [];
+  fskill:String[]= [];
+  exdata: any[] = [];
+
 
 
   isCreate : boolean = true;
@@ -39,7 +45,10 @@ export class SchedulepageComponent implements OnInit {
 
   ngOnInit() {
     this.loadManagerNames();
-    this.tableData1();
+    // this.tableData1();
+    this.searchFunction();
+    this.skillsFilter();
+    this.existingData();
     this.cols = [
       { field: 'manager', header: 'Manager' },
       { field: 'file name', header: 'File name' },
@@ -47,14 +56,47 @@ export class SchedulepageComponent implements OnInit {
   ];
 
   }
-tableData1()
-{
-  this.tableService.getTableData().subscribe(data => {
-    this.tableData1 = data;
-    console.log("tdata:",this.tableData1)
-  });
-
+  existingData() {
+    this.tableService.getExistingTableData().subscribe(data => {
+      this.exdata = data;
+      
+    console.log('Existing Data', this.exdata);
+  })
+  }
+  skillsFilter() {
+    this.tableService.getskillsTable().subscribe(data => {
+      this.filteredSkill = data;
+      
+    console.log('Selected Manager:', this.filteredSkill);
+  })
 }
+  searchFunction() {
+    console.log("Drop down selected");
+      this.tableService.postTableFilteredData(this.selectedManager, this.fskill).subscribe(data=>{
+        
+        // this.isCreate = !data.create;
+        // this.isEdit = !data.edit;
+        // this.isMail = !data.mail;
+         
+        // console.log("create",this.isCreate);
+        // console.log("edit",this.isEdit);
+        // console.log("mail", this.isMail)
+    
+        //  this.managernameService.setManagerName(this.selectedManager);
+        console.log("fsm", this.selectedManager);
+        console.log("fss", this.fskill);
+        
+      })
+    }
+      
+// tableData1()
+// {
+//   this.tableService.getTableData().subscribe(data => {
+//     this.tableData1 = data;
+//     console.log("tdata:",this.tableData1)
+//   });
+
+// }
   loadManagerNames() {
     this.managernameService.getManagerNames().subscribe(data => {
       this.managerOption = data;
@@ -120,3 +162,29 @@ interface Column {
   field: string;
   header: string;
 }
+
+
+// searchFuntion(){
+//   console.log("Drop down selected");
+//   this.tableService.postTableFilteredData(this.managerName, this.skills).subscribe(data=>{
+    
+//     this.isCreate = !data.create;
+//     this.isEdit = !data.edit;
+//     this.isMail = !data.mail;
+     
+//     console.log("create",this.isCreate);
+//     console.log("edit",this.isEdit);
+//     console.log("mail", this.isMail)
+
+//      this.managernameService.setManagerName(this.selectedManager);
+//     console.log("manager", this.selectedManager);
+   
+
+   
+//   })
+// }
+
+function searchFuntion() {
+  throw new Error('Function not implemented.');
+}
+

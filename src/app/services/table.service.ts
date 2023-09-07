@@ -19,7 +19,7 @@ export class TableService{
 
   constructor(private http: HttpClient) {}
 
-getManagerNames(): Observable<any>{
+getManagerNames(): Observable<any>{ 
   const endpoint = `${this.skillsUrl}/getmanagername`;
   return this.http.get<any>(endpoint);
 }
@@ -30,9 +30,25 @@ postManagerList(name:String): Observable<any>{
   return this.http.post<any>(this.skillsUrl+'/select-manager',body,{headers})
 }
 
-getTableData(): Observable<any>{
-  const endpoint = `${this.skillsUrl}/managerstable`;
-  return this.http.get<any[]>(endpoint);
+// getTableData(): Observable<any>{
+//   const endpoint = `${this.skillsUrl}/existinguser`;
+//   return this.http.get<any[]>(endpoint);
+// }
+
+postTableFilteredData(mname: String, skill: String[]) : Observable<any>{
+  const headers=new HttpHeaders({'content-Type':'application/json'});
+  const body={ManagerName:mname, skill: skill}
+  return this.http.post<any>(this.skillsUrl+'/search',body,{headers})
 }
+
+getskillsTable(): Observable<any>{
+  return this.http.get<any>(this.skillsUrl + '/getskill')
 }
+
+getExistingTableData(): Observable<any>{
+  return this.http.get<any>(this.skillsUrl + '/existinguser')
+}
+
+}
+
 

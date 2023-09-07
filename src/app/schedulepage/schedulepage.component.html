@@ -34,7 +34,7 @@
           <td style="width: 20rem">
             <p-dropdown appendTo="body" class="w-100 table_dropdown" [options]="managerOption"
               [(ngModel)]="selectedManager" placeholder="None" optionLabel="Managername"
-              (click)="dropFunction()"></p-dropdown>
+              (onChange)="dropFunction()"></p-dropdown>
 
           </td>
           <td style="width: 20rem">{{rowData.fileName}}</td>
@@ -106,14 +106,24 @@
       </div>
       <div class="mb-3 flex flex-column">
         <label for="manager">Skill</label>
-        <p-dropdown appendTo="body" class="w-100 table_dropdown" [options]="managerOption"
+        <!-- <p-dropdown appendTo="body" class="w-100 table_dropdown" [options]="managerOption"
               [(ngModel)]="selectedManager" placeholder="None" optionLabel="Managername"
               (click)="dropFunction()">
-        </p-dropdown>
+        </p-dropdown> -->
+        <p-multiSelect
+        appendTo="body"
+          class="w-100"
+          [options]="filteredSkill"
+          [(ngModel)]="fskill"
+          optionLabel="skill"
+          (click)="skillsFilter()"
+          
+        ></p-multiSelect>
       </div>
       <div class="flex justify-content-end">
-        <button class="btn btn_cancel mr-3">Cancel</button>
-        <button class="btn">Search</button>
+        <button class="btn cursor-pointer btn_cancel mr-3">Cancel</button>
+        <button class="btn cursor-pointer" (click)="existingData()">Search</button>
+        
       </div>
     </div>
   </p-overlayPanel>

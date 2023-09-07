@@ -160,7 +160,7 @@ export class Dash1Component implements OnInit {
       isCreate: false,
       isEdit: true,
       isMail: true,
-    Managername : (this.selectedManager).Managername,
+    Managername : (this.selectedManager).Managername
        //skills:this.selectedSkill,
     };
     
