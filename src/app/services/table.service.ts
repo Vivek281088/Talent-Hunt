@@ -31,7 +31,7 @@ postManagerList(name:String): Observable<any>{
 }
 
 getTableData(): Observable<any>{
-  const endpoint = `${this.skillsUrl}/managerstable`;
+  const endpoint = `${this.skillsUrl}/existinguser`;
   return this.http.get<any[]>(endpoint);
 }
 }

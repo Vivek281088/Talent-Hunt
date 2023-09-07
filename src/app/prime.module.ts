@@ -11,7 +11,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { KeyFilterModule } from 'primeng/keyfilter';
-
+import { TooltipModule } from 'primeng/tooltip';
 @NgModule({
   imports: [
         MultiSelectModule,
@@ -25,7 +25,8 @@ import { KeyFilterModule } from 'primeng/keyfilter';
         RadioButtonModule,
         FormsModule,
         KeyFilterModule,
-        OverlayPanelModule
+        OverlayPanelModule,
+        TooltipModule
     ],
     exports: [
         MultiSelectModule,
@@ -39,7 +40,8 @@ import { KeyFilterModule } from 'primeng/keyfilter';
         RadioButtonModule,
         FormsModule,
         KeyFilterModule,
-        OverlayPanelModule
+        OverlayPanelModule,
+        TooltipModule
     ]
 })
 export class PrimeModule { }

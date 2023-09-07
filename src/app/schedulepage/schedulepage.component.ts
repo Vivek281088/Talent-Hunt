@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
+import { SkillsdropdownService } from '../services/skillsdropdown.service';
 
 
 @Component({
@@ -17,7 +18,11 @@ export class SchedulepageComponent implements OnInit {
 
   selectedManager: string='';
   
-  managerOption : any[] = [];
+  managerOption: any[] = [];
+  
+  skillSet: any[] = [];
+
+  selectedSkill: any[] = [];
 
 
 
@@ -34,6 +39,7 @@ export class SchedulepageComponent implements OnInit {
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
+    private skillsdropdownservice : SkillsdropdownService,
     private router : Router
     ) {}
 
@@ -60,23 +66,18 @@ tableData1()
       this.managerOption = data;
     });
   }
-//   managerOption1() {
 
-//     this.managernameService.getManagerNames().subscribe(
-//       data => {
 
-//       this.managerOption = data;
+  getskillSet() {
 
-//     },
-//     (error) =>{
-//       console.error('Error: ', error);
-//     }
+   
 
- 
+    this.skillsdropdownservice.getskillsList().subscribe(data => {
 
-//     );
-// }
+      this.skillSet = data;
 
+    });
+  }
 
   tableData = [
     {manager: "", fileName: ""},

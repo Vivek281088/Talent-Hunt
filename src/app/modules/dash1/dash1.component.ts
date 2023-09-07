@@ -144,8 +144,8 @@ export class Dash1Component implements OnInit {
     //set the Finalizedquestions,Duration,Cuttoff in the service
 
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
-    this.managernameService.setDuration(this.duration);
-    this.managernameService.setCuttoff(this.cuttoff);
+    // this.managernameService.setDuration(this.duration);
+    // this.managernameService.setCuttoff(this.cuttoff);
     
     const fileName = this.selectedSkill.map(skill => {
       return skill.skill;
@@ -160,10 +160,10 @@ export class Dash1Component implements OnInit {
       isCreate: false,
       isEdit: true,
       isMail: true,
-    Managername : (this.selectedManager).Managername,
+    Managername : this.selectedManager.Managername,
        //skills:this.selectedSkill,
     };
-    
+    console.log('Manager', (this.selectedManager).Managername);
     console.log('response', dataToSave)
 
 
