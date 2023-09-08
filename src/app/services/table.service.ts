@@ -30,7 +30,7 @@ postManagerList(name:String): Observable<any>{
   return this.http.post<any>(this.skillsUrl+'/select-manager',body,{headers})
 }
 
-getTableData(): Observable<any>{
+getExistingData(): Observable<any>{
   const endpoint = `${this.skillsUrl}/existinguser`;
   return this.http.get<any[]>(endpoint);
 }

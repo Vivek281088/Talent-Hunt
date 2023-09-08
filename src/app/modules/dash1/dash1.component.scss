@@ -9,11 +9,11 @@
 
 .question_sec {
   max-height: 440px;
-  overflow: hidden;
+  overflow-y: scroll;
   // visibility: hidden;
   &:hover {
     visibility: visible;
-    overflow-y: scroll;
+    // overflow-y: scroll;
   }
 }
 .heading {
@@ -58,6 +58,9 @@
 
 .checkbox-column {
   width: 1%;
+}
+.question-text{
+  cursor: pointer;
 }
 
 .skill-column {

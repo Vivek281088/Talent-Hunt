@@ -48,6 +48,27 @@ getskillsList(): Observable<any>{
 
   return this.http.post<any>(this.skillsUrl+'/questions',{ques:dataToSave},{headers})
 
-}
+  }
+  
+
+  searchManager(filterManager: string, filterSkills: string[]): Observable<any> {
+    const headers=new HttpHeaders({'content-Type':'application/json'});
+    const body = { filterManager, filterSkills };
+    console.log('body' , filterManager);
+    return this.http.post<any>(this.skillsUrl +'/search', body, { headers });
+  }
+
+  // filterSkill(Skills:string[] , mname : string): Observable<any>{
+
+  // const headers=new HttpHeaders({'content-Type':'application/json'});
+
+  // const body={selectedSkill:Skills, selectedManager : mname}
+
+ 
+
+  // return this.http.post<any>(this.skillsUrl+'/search',body,{headers})
+
+  // }
+
 
 }

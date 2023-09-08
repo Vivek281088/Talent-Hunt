@@ -40,7 +40,7 @@
             </p>
           </div>
           <div class="flex mr-3 align-items-center">
-            <label class="font-bold block heading mr-3"> Cutoff </label>
+            <label class="font-bold block heading mr-3"> Cut-off :</label>
             <input
               [(ngModel)]="cuttoff"
               name="cutoff"
@@ -50,7 +50,7 @@
           </div>
           <div class="flex mr-3 align-items-center">
             <label class="font-bold block heading mr-3">
-              Duration (in hrs)</label
+              Duration (in hrs) :</label
             >
             <input
               class="w-3rem custom_inp p-inputtext w-full p-1"
@@ -87,8 +87,8 @@
   <ng-container *ngIf="TotalQuestions">
     <div class="flex mt-4">
       <div
-        class="flex flex-column w-5 mr-4"
-        *ngIf="TotalQuestions.AWS.length > 0"
+        class="flex flex-column w-5 mr-4 px-3"
+        *ngIf="TotalQuestions.AWS && TotalQuestions.AWS.length > 0"
       >
         <h3 class="m-0 p-2 asses_hdr">AWS</h3>
         <div class="question_sec">
@@ -97,7 +97,7 @@
               <tr>
                 <th class="checkbox-column"></th>
                 <th class="question-column">Question</th>
-                <th class="difficulty-column">Difficulty</th>
+                <th class="difficulty-column"></th>
               </tr>
             </thead>
             <tbody>
@@ -111,23 +111,83 @@
                   ></p-checkbox>
                 </td>
 
-                <td class="question-column">{{ aws.question }}</td>
+                <td class="question-column">
+                  <label for="aws-checkbox-{{ aws._id }}">
+                     <span class="question-text">{{ aws.question }}</span>
+                  </label>   
+                </td>
 
                 <td class="difficulty-column">
                   <span
                     *ngIf="aws.Difficulty_Level === 'E'"
                     class="difficulty-badge easy"
-                    >easy</span
+                    >E</span
                   >
                   <span
                     *ngIf="aws.Difficulty_Level === 'M'"
                     class="difficulty-badge medium"
-                    >medium</span
+                    >M</span
                   >
                   <span
                     *ngIf="aws.Difficulty_Level === 'H'"
                     class="difficulty-badge hard"
-                    >hard</span
+                    >H</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+       <!-- Empty Object -->
+      <div
+        class="flex flex-column w-5 mr-4 px-3"
+        *ngIf="TotalQuestions.Python && TotalQuestions.Python.length > 0"
+      >
+        <h3 class="m-0 p-2 asses_hdr">Python</h3>
+        <div class="question_sec">
+          <table class="leetcode-table">
+            <thead>
+              <tr>
+                <th class="checkbox-column"></th>
+                <th class="question-column">Question</th>
+                <th class="difficulty-column"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let python of TotalQuestions.Python" class="table-row">
+                <td class="checkbox-column">
+                  <p-checkbox
+                    [(ngModel)]="python.selected"
+                    (onChange)="checkboxChanged(python)"
+                    [binary]="true"
+                    inputId="python-checkbox-{{ python._id }}"
+                  ></p-checkbox>
+                </td>
+
+                <td class="question-column">
+                  <label for="python-checkbox-{{ python._id }}">
+                     <span class="question-text">{{ python.question }}</span>
+                  </label>   
+                </td>
+
+                <td class="difficulty-column">
+                  <span
+                    *ngIf="python.Difficulty_Level === 'E'"
+                    class="difficulty-badge easy"
+                    >E</span
+                  >
+                  <span
+                    *ngIf="python.Difficulty_Level === 'M'"
+                    class="difficulty-badge medium"
+                    >M</span
+                  >
+                  <span
+                    *ngIf="python.Difficulty_Level === 'H'"
+                    class="difficulty-badge hard"
+                    >H</span
                   >
                 </td>
               </tr>
@@ -138,7 +198,7 @@
 
       <div
         class="flex flex-column w-5 mr-4 px-3"
-        *ngIf="TotalQuestions.JAVA.length > 0"
+        *ngIf="TotalQuestions.JAVA && TotalQuestions.JAVA.length > 0"
       >
         <h3 class="m-0 p-2 asses_hdr">JAVA</h3>
         <div class="question_sec">
@@ -161,23 +221,28 @@
                   ></p-checkbox>
                 </td>
 
-                <td class="question-column">{{ java.question }}</td>
+                <td class="question-column">
+                  <label for="java-checkbox-{{ java._id }}">
+                    <span class="question-text">{{ java.question }}</span>
+                  </label>
+                  
+                </td>
 
                 <td class="difficulty-column">
                   <span
                     *ngIf="java.Difficulty_Level === 'E'"
                     class="difficulty-badge easy"
-                    >easy</span
+                    >E</span
                   >
                   <span
                     *ngIf="java.Difficulty_Level === 'M'"
                     class="difficulty-badge medium"
-                    >medium</span
+                    >M</span
                   >
                   <span
                     *ngIf="java.Difficulty_Level === 'H'"
                     class="difficulty-badge hard"
-                    >hard</span
+                    >H</span
                   >
                 </td>
               </tr>
@@ -185,19 +250,10 @@
           </table>
         </div>
       </div>
+       
+      
 
-      <!-- <div
-        class="w-100 page_submit_btn_sec flex justify_content-end px-3 py-2"
-        *ngIf="emptySkill === false"
-      >
-        <p-button
-          label="Save"
-          (click)="saveSelected()"
-          class="w-100"
-          styleClass="color : #9db2bf"
-          routerLink="/questiondisplay"
-        ></p-button>
-      </div> -->
+      
     </div>
   </ng-container>
 </div>

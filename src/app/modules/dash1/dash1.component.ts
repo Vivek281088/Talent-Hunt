@@ -117,6 +117,8 @@ export class Dash1Component implements OnInit {
   }
   }
 
+ 
+
   checkboxChanged(item : any){
   if (item.selected) {
     this.selectedQuestions.push(item);
@@ -150,6 +152,7 @@ export class Dash1Component implements OnInit {
     const fileName = this.selectedSkill.map(skill => {
       return skill.skill;
     })
+
     
     //save the data 
     const dataToSave = {
@@ -160,7 +163,8 @@ export class Dash1Component implements OnInit {
       isCreate: false,
       isEdit: true,
       isMail: true,
-    Managername : this.selectedManager.Managername,
+      Managername: this.selectedManager.Managername,
+      Skill : fileName
        //skills:this.selectedSkill,
     };
     console.log('Manager', (this.selectedManager).Managername);
