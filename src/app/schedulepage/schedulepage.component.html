@@ -1,4 +1,6 @@
 <div class="page_sec h-full p-3">
+  <!--Filter and Create button  -->
+
   <div class="flex justify-content-end mb-3">
     <button
       class="btn mr-3 flex align-items-center cursor-pointer"
@@ -16,8 +18,10 @@
           fill="#fff"
         />
       </svg>
+
       <span>Filter</span>
     </button>
+
     <button
       class="btn flex align-items-center cursor-pointer"
       (click)="addNewRow()"
@@ -34,60 +38,112 @@
           fill="#fff"
         />
       </svg>
+
       <span>Create</span>
     </button>
   </div>
 
+  <!-- Table -->
+
   <div class="table-container">
-    <div></div>
-    <p-table [columns]="cols" [value]="tableData">
+    <p-table
+      class="custom_table"
+      [columns]="cols"
+      [value]="Tdata"
+      [scrollable]="true"
+      scrollHeight="calc(81vh - 0px)"
+    >
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th style="width: 20rem">Manager</th>
+
           <th style="width: 20rem">File Name</th>
+
           <th style="width: 3rem">Actions</th>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="body" let-rowData>
         <tr class="table-row">
           <td style="width: 20rem">
-            <p-dropdown
-              appendTo="body"
-              class="w-100 table_dropdown"
-              [options]="managerOption"
-              [(ngModel)]="selectedManager"
-              placeholder="None"
-              optionLabel="Managername"
-              (onChange)="dropFunction()"
-            ></p-dropdown>
+            <ng-container *ngIf="rowData.Managername; else elseManagerTemplate">
+              {{ rowData.Managername }}
+            </ng-container>
+
+            <ng-template #elseManagerTemplate>
+              <p-dropdown
+                appendTo="body"
+                class="w-100 table_dropdown"
+                [options]="managerOption"
+                [(ngModel)]="selectedManager"
+                placeholder="None"
+                optionLabel="Managername"
+                (onChange)="dropFunction(rowData)"
+              >
+              </p-dropdown>
+            </ng-template>
           </td>
           <td style="width: 20rem">{{ rowData.fileName }}</td>
+
           <td style="width: 3rem">
-            <div class="flex">
+            <!-- Actions Button -->
+
+            <div class="flex ccc">
+              <!-- Create Icon -->
+
               <div class="mr-2">
                 <a
-                  [routerLink]="isCreate ? null : ['/create']"
-                  [class.disabled]="isCreate"
+                  [routerLink]="!rowData.isCreate ? null : ['/create']"
+                  [class.disabled]="!rowData.isCreate"
                   href="/create"
+                  title="Create"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
+                    fill="#526D82"
                     height="18"
                     viewBox="0 0 448 512"
                   >
                     <path
                       d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"
+                      fill="#526D82"
                     />
                   </svg>
                 </a>
               </div>
+
+              <!-- Edit Icon -->
+
+              <div class="mr-2">
+                <a
+                  [routerLink]="!rowData.isEdit ? null : ['/create']"
+                  [class.disabled]="!rowData.isEdit"
+                  href="/create"
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#526D82"
+                    x="0px"
+                    y="0px"
+                    width="24"
+                    height="18"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M 18 2 L 15.585938 4.4140625 L 19.585938 8.4140625 L 22 6 L 18 2 z M 14.076172 5.9238281 L 3 17 L 3 21 L 7 21 L 18.076172 9.9238281 L 14.076172 5.9238281 z"
+                      fill="#526D82"
+                    ></path></svg
+                ></a>
+              </div>
+              -->
 
               <div class="mr-2">
                 <a
                   [routerLink]="isEdit ? null : ['/create']"
                   [class.disabled]="isEdit"
                   href="/create"
-                  ><svg
+                  title="Edit"
+                >
+                  <svg
                     xmlns="http://www.w3.org/2000/svg"
                     x="0px"
                     y="0px"
@@ -97,46 +153,49 @@
                   >
                     <path
                       d="M 18 2 L 15.585938 4.4140625 L 19.585938 8.4140625 L 22 6 L 18 2 z M 14.076172 5.9238281 L 3 17 L 3 21 L 7 21 L 18.076172 9.9238281 L 14.076172 5.9238281 z"
-                    ></path></svg
+                      fill="#526D82"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+
+              <!-- View Icon -->
+
+              <div class="mr-2">
+                <a
+                  [routerLink]="!rowData.isMail ? null : ['/create']"
+                  [class.disabled]="!rowData.isMail"
+                  href="/create"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#526D82"
+                    height="18"
+                    viewBox="0 0 576 512"
+                  >
+                    <path
+                      d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
+                    /></svg
                 ></a>
               </div>
 
-              <div class="mr-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="18"
-                  viewBox="0 0 576 512"
-                >
-                  <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                  <style>
-                    svg {
-                      fill: #1a1919;
-                    }
-                  </style>
-                  <path
-                    d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
-                  />
-                </svg>
-              </div>
+              <!-- Mail Icon -->
 
               <div>
                 <a
-                  [routerLink]="isMail ? null : ['/create']"
-                  [class.disabled]="isMail"
+                  [routerLink]="!rowData.isMail ? null : ['/create']"
+                  [class.disabled]="!rowData.isMail"
                   href="/create"
-                  ><svg
+                >
+                  <svg
                     xmlns="http://www.w3.org/2000/svg"
+                    fill="#526D82"
                     height="18"
                     viewBox="0 0 512 512"
                   >
-                    <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-                    <style>
-                      svg {
-                        fill: #121212;
-                      }
-                    </style>
                     <path
                       d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 176V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V176L294.4 339.2c-22.8 17.1-54 17.1-76.8 0L0 176z"
+                      fill="#526D82"
                     />
                   </svg>
                 </a>
@@ -152,37 +211,37 @@
     <div class="">
       <div class="mb-3 flex flex-column">
         <label for="manager">Manager</label>
+
         <p-dropdown
           appendTo="body"
           class="w-100 table_dropdown"
           [options]="managerOption"
-          [(ngModel)]="selectedManager"
+          [(ngModel)]="filterManager"
           placeholder="None"
           optionLabel="Managername"
-          (click)="dropFunction()"
         >
         </p-dropdown>
       </div>
+
       <div class="mb-3 flex flex-column">
         <label for="manager">Skill</label>
-        <!-- <p-dropdown appendTo="body" class="w-100 table_dropdown" [options]="managerOption"
-              [(ngModel)]="selectedManager" placeholder="None" optionLabel="Managername"
-              (click)="dropFunction()">
-        </p-dropdown> -->
         <p-multiSelect
-        appendTo="body"
-          class="w-100"
-          [options]="filteredSkill"
-          [(ngModel)]="fskill"
+          appendTo="body"
+          class="w-100 table_dropdown"
+          [options]="skillSet"
+          [(ngModel)]="filterSkills"
+          placeholder="None"
           optionLabel="skill"
-          (click)="skillsFilter()"
-          
-        ></p-multiSelect>
+        >
+        </p-multiSelect>
       </div>
+
       <div class="flex justify-content-end">
-        <button class="btn cursor-pointer btn_cancel mr-3">Cancel</button>
-        <button class="btn cursor-pointer" (click)="existingData()">Search</button>
-        
+        <button class="btn btn_cancel cursor-pointer mr-3">Cancel</button>
+
+        <button class="btn cursor-pointer" (click)="onSearchClick()">
+          Search
+        </button>
       </div>
     </div>
   </p-overlayPanel>

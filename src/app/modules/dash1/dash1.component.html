@@ -32,34 +32,38 @@
           </svg>
         </div> -->
 
-        <div class="flex question_selection">
-          <div class="flex mr-3 align-items-center">
-            <label class="font-bold block heading mr-3"> Selected: </label>
-            <p class="w-full heading m-0">
-              {{ (selectedQuestions && selectedQuestions.length) || 0 }}
-            </p>
+        <form #myForm="ngForm" id="myFormId">
+          <div class="flex question_selection">
+            <div class="flex mr-3 align-items-center">
+              <label class="font-bold block heading mr-3"> Selected: </label>
+              <p class="w-full heading m-0">
+                {{ (selectedQuestions && selectedQuestions.length) || 0 }}
+              </p>
+            </div>
+            <div class="flex mr-3 align-items-center">
+              <label class="font-bold block heading mr-3"> Cut-off :</label>
+              <input
+                [(ngModel)]="cuttoff"
+                name="cutoff"
+                placeholder="Cutoff"
+                class="w-3rem custom_inp p-inputtext w-full p-1"
+                required
+              />
+            </div>
+            <div class="flex mr-3 align-items-center">
+              <label class="font-bold block heading mr-3">
+                Duration (in hrs) :</label
+              >
+              <input
+                class="w-3rem custom_inp p-inputtext w-full p-1"
+                [(ngModel)]="duration"
+                name="duration"
+                placeholder="(Minutes)"
+                required
+              />
+            </div>
           </div>
-          <div class="flex mr-3 align-items-center">
-            <label class="font-bold block heading mr-3"> Cutoff </label>
-            <input
-              [(ngModel)]="cuttoff"
-              name="cutoff"
-              placeholder="Cutoff"
-              class="w-3rem custom_inp p-inputtext w-full p-1"
-            />
-          </div>
-          <div class="flex mr-3 align-items-center">
-            <label class="font-bold block heading mr-3">
-              Duration (in hrs)</label
-            >
-            <input
-              class="w-3rem custom_inp p-inputtext w-full p-1"
-              [(ngModel)]="duration"
-              name="duration"
-              placeholder="(Minutes)"
-            />
-          </div>
-        </div>
+        </form>
       </div>
     </div>
     <div
@@ -67,6 +71,9 @@
       *ngIf="emptySkill === false"
       pTooltip="Save"
       (click)="saveSelected()"
+      id="myFormId"
+      form="myFormId"
+      [disabled]="!myForm.form.valid"
     >
       <svg
         id="Layer_1"
@@ -84,100 +91,56 @@
       </svg>
     </div>
   </div>
+
   <ng-container *ngIf="TotalQuestions">
     <div class="flex mt-4">
       <div
-        class="flex flex-column w-5 mr-4"
-        *ngIf="TotalQuestions.AWS.length > 0"
+        class="flex flex-column w-5 mr-4 px-3"
+        *ngFor="let skill of TotalQuestions | keyvalue"
       >
-        <h3 class="m-0 p-2 asses_hdr">AWS</h3>
+        <h3 class="m-0 p-2 asses_hdr">{{ skill.key }}</h3>
         <div class="question_sec">
-          <table class="leetcode-table">
+          <table class="design-table">
             <thead>
               <tr>
                 <th class="checkbox-column"></th>
-                <th class="question-column">Question</th>
-                <th class="difficulty-column">Difficulty</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let aws of TotalQuestions.AWS" class="table-row">
-                <td class="checkbox-column">
-                  <p-checkbox
-                    [(ngModel)]="aws.selected"
-                    (onChange)="checkboxChanged(aws)"
-                    [binary]="true"
-                    inputId="aws-checkbox-{{ aws._id }}"
-                  ></p-checkbox>
-                </td>
-
-                <td class="question-column">{{ aws.question }}</td>
-
-                <td class="difficulty-column">
-                  <span
-                    *ngIf="aws.Difficulty_Level === 'E'"
-                    class="difficulty-badge easy"
-                    >easy</span
-                  >
-                  <span
-                    *ngIf="aws.Difficulty_Level === 'M'"
-                    class="difficulty-badge medium"
-                    >medium</span
-                  >
-                  <span
-                    *ngIf="aws.Difficulty_Level === 'H'"
-                    class="difficulty-badge hard"
-                    >hard</span
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div
-        class="flex flex-column w-5 mr-4 px-3"
-        *ngIf="TotalQuestions.JAVA.length > 0"
-      >
-        <h3 class="m-0 p-2 asses_hdr">JAVA</h3>
-        <div class="question_sec">
-          <table class="leetcode-table">
-            <thead>
-              <tr>
-                <th class="checkbox-column pr-0"></th>
                 <th class="question-column">Question</th>
                 <th class="difficulty-column"></th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let java of TotalQuestions.JAVA" class="table-row">
-                <td class="checkbox-column pr-0">
+              <tr *ngFor="let question of skill.value" class="table-row">
+                <td class="checkbox-column">
                   <p-checkbox
-                    [(ngModel)]="java.selected"
-                    (onChange)="checkboxChanged(java)"
+                    [(ngModel)]="question.selected"
+                    (onChange)="checkboxChanged(question)"
                     [binary]="true"
-                    inputId="java-checkbox-{{ java._id }}"
+                    [inputId]="'checkbox-' + question._id"
                   ></p-checkbox>
                 </td>
-
-                <td class="question-column">{{ java.question }}</td>
-
+                <td class="question-column">
+                  <label
+                    [for]="'checkbox-' + question._id"
+                    style="cursor: pointer"
+                  >
+                    <span class="question-text">{{ question.question }}</span>
+                  </label>
+                </td>
                 <td class="difficulty-column">
                   <span
-                    *ngIf="java.Difficulty_Level === 'E'"
+                    *ngIf="question.Difficulty_Level === 'E'"
                     class="difficulty-badge easy"
-                    >easy</span
+                    >E</span
                   >
                   <span
-                    *ngIf="java.Difficulty_Level === 'M'"
+                    *ngIf="question.Difficulty_Level === 'M'"
                     class="difficulty-badge medium"
-                    >medium</span
+                    >M</span
                   >
                   <span
-                    *ngIf="java.Difficulty_Level === 'H'"
+                    *ngIf="question.Difficulty_Level === 'H'"
                     class="difficulty-badge hard"
-                    >hard</span
+                    >H</span
                   >
                 </td>
               </tr>
@@ -185,19 +148,6 @@
           </table>
         </div>
       </div>
-
-      <!-- <div
-        class="w-100 page_submit_btn_sec flex justify_content-end px-3 py-2"
-        *ngIf="emptySkill === false"
-      >
-        <p-button
-          label="Save"
-          (click)="saveSelected()"
-          class="w-100"
-          styleClass="color : #9db2bf"
-          routerLink="/questiondisplay"
-        ></p-button>
-      </div> -->
     </div>
   </ng-container>
 </div>
