@@ -24,13 +24,9 @@ import { TooltipModule } from 'primeng/tooltip';
         InputTextareaModule,
         RadioButtonModule,
         FormsModule,
-<<<<<<< HEAD
-        OverlayPanelModule
-=======
         KeyFilterModule,
         OverlayPanelModule,
         TooltipModule
->>>>>>> 8aa397e70db3df4ccfa1a6af92d6e7bd1b97527d
     ],
     exports: [
         MultiSelectModule,

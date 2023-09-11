@@ -70,19 +70,14 @@ export class SchedulepageComponent implements OnInit {
     private tableService: TableService,
 
     private managernameService: ManagernameService,
-
     private skillsdropdownservice: SkillsdropdownService,
-
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadManagerNames();
-
     this.getSkillSet();
-
     this.existingData();
-
     this.cols = [
       { field: 'manager', header: 'Manager' },
 

@@ -39,4 +39,5 @@ export class TableService {
   getskillsList(): Observable<any> {
     return this.http.get<any>(this.skillsUrl + '/getskill');
   }
+  
 }
