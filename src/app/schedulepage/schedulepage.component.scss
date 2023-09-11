@@ -1,41 +1,49 @@
 .top-right-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 10px;
+  position: absolute;
+
+  top: 0;
+
+  right: 0;
+
+  margin: 10px;
 }
 
 .table-container {
-    background-color: #ffff;
-    width: 100%;
+  background-color: #ffff;
+
+  width: 100%;
 }
 
-
-
 .p-dropdown-list {
-    max-height: 5px;
-    overflow: auto;
+  max-height: 5px;
+
+  overflow: auto;
 }
 
 .page_sec {
-    background-color: #27374D;
-    width: 100%;
+  background-color: #27374d;
+
+  width: 100%;
 }
 
 .create_button {
-    .p-button {
-        background: #526D82;
-    }
+  .p-button {
+    background: #526d82;
+  }
 }
 
 .btn {
+  font-size: 0.875rem;
 
-    font-size: .875rem;
-    background-color: #526D82;
-    border-color: #526D82;
-    border-radius: 4px;
-    color: #fff;
-    padding: 5px 10px;
-    border: none;
+  background-color: #526d82;
 
+  border-color: #526d82;
+
+  border-radius: 4px;
+
+  color: #fff;
+
+  padding: 5px 10px;
+
+  border: none;
 }

@@ -33,7 +33,7 @@
   overflow-x: auto;
 }
 
-.leetcode-table {
+.design-table {
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
@@ -41,13 +41,13 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.leetcode-table th,
-.leetcode-table td {
+.design-table th,
+.design-table td {
   padding: 8px;
   text-align: left;
 }
 
-.leetcode-table th {
+.design-table th {
   background-color: #f5f5f5;
   font-weight: bold;
 }
