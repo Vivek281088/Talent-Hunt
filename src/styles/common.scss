@@ -1,5 +1,12 @@
-.p-multiselect {
+.p-multiselect, .p-dropdown {
   width: 100%;
+  height: 35px;
+  // padding: 5px 10px;
+}
+
+.p-multiselect .p-multiselect-label {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
 }
 
 .p-checkbox-box {
@@ -15,9 +22,10 @@
 .table_dropdown {
   .p-dropdown {
     height: 35px;
-
+    
     .p-dropdown-label {
-      padding: 5px 10px;
+      padding: 8px 10px;
+      font-size: 0.75rem;
     }
   }
 }
@@ -40,6 +48,7 @@
   padding: 0.5rem 1rem;
 
   font-size: 14px;
+
   border-color: #f5f4f4;
 }
 
@@ -84,10 +93,29 @@
             svg {
               fill: #b1b1b1;
             }
-            }
           }
         }
       }
     }
+  }
 }
 
+.custom_overlay {
+  width: 20rem;
+  &::before, &::after {
+    margin-left: 20px !important;
+  }
+}
+
+.p-datatable .p-sortable-column.p-highlight,
+.p-datatable .p-sortable-column:not(.p-highlight):hover,
+.p-datatable .p-sortable-column.p-highlight:hover {
+  background: #9db2bf;
+  color: #343a40;
+  outline: none;
+  box-shadow: none;
+}
+
+.p-datatable .p-sortable-column.p-highlight:hover .p-sortable-column-icon {
+  color: #343a40;
+}
