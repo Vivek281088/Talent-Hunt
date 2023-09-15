@@ -16,7 +16,8 @@ export class TableService {
 
   getManagerNames(): Observable<any> {
     const endpoint = `${this.skillsUrl}/getmanagername`;
-    return this.http.get<any[]>(endpoint);
+
+    return this.http.get<any>(endpoint);
   }
 
   postManagerList(name: String): Observable<any> {
@@ -33,6 +34,7 @@ export class TableService {
 
   getExistingData(): Observable<any> {
     const endpoint = `${this.skillsUrl}/existinguser`;
+
     return this.http.get<any[]>(endpoint);
   }
 

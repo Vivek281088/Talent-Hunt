@@ -24,9 +24,21 @@ export class SchedulepageComponent implements OnInit {
 
   managerOption: any[] = [];
 
+  candidateList: any[] = [];
+
   skillSet: any[] = [];
 
   selectedSkill: any[] = [];
+
+  managerName: string = '';
+
+  skill: String[] = [];
+
+  filteredSkill: String[] = [];
+
+  fskill: String[] = [];
+
+  exdata: any[] = [];
 
   filterSkills: FilterSkill[] = [];
 
@@ -42,23 +54,12 @@ export class SchedulepageComponent implements OnInit {
 
   create: boolean = false;
 
-  // isCreateClicked:boolean=false;
-
   Tdata: any[] = [];
 
   isCreateClicked = false;
 
   dropdownOptions: any[] = [];
-
-  // managerOption = [
-
-  //   {name: "Alamelu", label: "Alamelu"},
-
-  //   {name: "Sengamalam", label: "Sengamalam"},
-
-  //   {name: "Suresh", label: "Suresh"}
-
-  // ];
+  
 
   constructor(
     private tableService: TableService,
@@ -68,7 +69,7 @@ export class SchedulepageComponent implements OnInit {
     private skillsdropdownservice: SkillsdropdownService,
 
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.loadManagerNames();
@@ -76,6 +77,8 @@ export class SchedulepageComponent implements OnInit {
     this.getSkillSet();
 
     this.existingData();
+
+    this.loadCandidate()
 
     this.cols = [
       { field: 'manager', header: 'Manager' },
@@ -92,17 +95,23 @@ export class SchedulepageComponent implements OnInit {
     });
   }
 
-  
-
   onSearchClick() {
-    const skillToFilter = this.filterSkills.length > 0 ? this.filterSkills[0].skill : undefined;
+    const skillToFilter =
+      this.filterSkills.length > 0 ? this.filterSkills[0].skill : undefined;
+
     this.skillsdropdownservice
+
       .filterManager(this.filterManager?.Managername, skillToFilter)
+
       .subscribe((data) => {
         console.log('Api response', data);
+
         this.filteredData = data;
+
         this.Tdata = this.filteredData;
+
         console.log('filtered data', this.filteredData);
+
         console.log('Filter Skills:', this.filterSkills);
       });
   }
@@ -110,38 +119,27 @@ export class SchedulepageComponent implements OnInit {
   existingData() {
     this.tableService.getExistingData().subscribe((data) => {
       this.Tdata = data;
-
-      //    console.log("tdata:", this.Tdata)
-
-      //    this.isCreate = !data.isCreate;
-
-      // this.isEdit = !data.isEdit;
-
-      // this.isMail = !data.isMail;
-
-      // console.log("create", this.isCreate);
-
-      // console.log("edit", this.isEdit);
-
-      // console.log("mail", this.isMail)
     });
   }
-// tableData1()
-// {
-//   this.tableService.getTableData().subscribe(data => {
-//     this.tableData1 = data;
-//     console.log("tdata:",this.tableData1)
-//   });
 
-// }
-  
- 
-  
   loadManagerNames() {
     this.managernameService.getManagerNames().subscribe((data) => {
       this.managerOption = data;
     });
   }
+
+  onTabChange(event: any)
+  {
+    if (event.index === 1) {
+      this.loadCandidate();
+    }
+  }
+  loadCandidate()
+  {
+    this.managernameService.getCandidateStatus().subscribe((data) => {
+      this.candidateList = data;
+  });
+}
 
   dropFunction(rowData: any) {
     rowData.isCreate = true;
@@ -149,79 +147,81 @@ export class SchedulepageComponent implements OnInit {
     console.log('Drop down selected', rowData);
 
     this.tableService
+
       .postManagerList(this.selectedManager)
+
       .subscribe((data) => {
-        //   console.log("Hi", data);
-
-        //   this.isCreate = !data.create;
-
-        //   this.isEdit = !data.edit;
-
-        //   this.isMail = !data.mail;
-
-        //   console.log("create", this.isCreate);
-
-        //   console.log("edit", this.isEdit);
-
-        //   console.log("mail", this.isMail)
-
         this.managernameService.setManagerName(this.selectedManager);
 
         console.log('manager', this.selectedManager);
-
-        //   this.skillsdropdownservice.getskillsList().subscribe(data => {
-
-        //     this.skillSet = data;
-
-        //   });
       });
   }
 
   addNewRow() {
     const newRow = {
       manager: '',
+
       fileName: '',
+
       isCreate: false,
+
       isEdit: false,
+
       isMail: false,
     };
+
     this.Tdata.unshift(newRow);
   }
 
-    // this.Tdata.push(newRow);
+  //Mail dialog
 
-    // Set isCreateClicked to true to display the dropdown
-
-    //this.create=true
-
-
+  //displayEmailDialog: boolean = false; 
+  displayEmailDialog = false;
   
 
-  // filterSearch() {
-  //    this.filterSkills = [];
-  //   for (let item of this.selectedSkill) {
-
-  //   this.filterSkills.push(item.skill)
-
-  //   }
-  //   console.log(this.filterSkills);
-    
-  //   this.skillsdropdownservice.filterSkill(this.filterSkills,this.filterManager).subscribe(response => {
-  //     console.log("Hello from FilterSearch", response);
-  //   this.Tdata1 = response;
-   
-  // });
-  // }
-
- 
-  
+  formData: any = {}; // Object to store form data
   
 
- 
-   
+
+
+  openEmailDialog() {
+
+    this.displayEmailDialog = true;
+    console.log('Openemail');
+
   }
 
-  //filter ts
+
+
+  cancelEmailPopup() {
+
+    this.displayEmailDialog = false;
+
+    // Reset the form data
+
+    this.formData = {};
+
+  }
+
+
+
+  sendEmail() {
+
+
+    this.displayEmailDialog = false;
+
+    // Reset the form data
+
+    this.formData = {};
+
+  }
+
+  
+
+  
+
+
+}
 
 
 interface Column {
@@ -229,22 +229,23 @@ interface Column {
 
   header: string;
 }
+
 interface ManagerFilter {
-  Managername: string,
-  Skill : string[]
-}
-interface SkillFilter{
-  Skill : string[]
+  Managername: string;
+
+  Skill: string[];
 }
 
-// interface ManagerFilter {
-//   Managername: string;
+interface SkillFilter {
+  Skill: string[];
+}
 
-//   Skill: string[];
-// }
 interface FilterSkill {
   _id: number;
+
   skill: string;
-  subskills: string[]; 
+
+  subskills: string[];
+
   __v: number;
 }

@@ -40,6 +40,11 @@ export class ManagernameService {
 
   }
 
+
+
+
+
+
   postManagerList(name:String): Observable<any>{
     const headers=new HttpHeaders({'content-Type':'application/json'});
     const body={Managername:name}
@@ -79,4 +84,14 @@ export class ManagernameService {
   getManagerName() : any {
     return this.SelectedManager;
   }
+
+//candidate list
+
+getCandidateStatus():Observable<any> {
+
+  const endpoint = `${this.managerNameUrl}/existingcandidate`;
+  return this.http.get<any>(endpoint);
+
+}
+
 }

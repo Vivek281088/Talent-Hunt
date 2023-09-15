@@ -7,42 +7,52 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { TableModule } from 'primeng/table';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'primeng/dialog';
+import { TabViewModule } from 'primeng/tabview';
+
+
 @NgModule({
   imports: [
-        MultiSelectModule,
-        DropdownModule,
-        ButtonModule,
-        CardModule,
-        CheckboxModule,
-        TableModule,
-        InputNumberModule,
-        InputTextareaModule,
-        RadioButtonModule,
-        FormsModule,
-        KeyFilterModule,
-        OverlayPanelModule,
-        TooltipModule
-    ],
-    exports: [
-        MultiSelectModule,
-        DropdownModule,
-        ButtonModule,
-        CardModule,
-        CheckboxModule,
-        TableModule,
-        InputNumberModule,
-        InputTextareaModule,
-        RadioButtonModule,
-        FormsModule,
-        KeyFilterModule,
-        OverlayPanelModule,
-        TooltipModule
-    ]
+    MultiSelectModule,
+    DropdownModule,
+    ButtonModule,
+    CardModule,
+    CheckboxModule,
+    TableModule,
+    InputNumberModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    FormsModule,
+    KeyFilterModule,
+    OverlayPanelModule,
+    TooltipModule,
+    DialogModule,
+    InputTextModule,
+    TabViewModule,
+  ],
+  exports: [
+    MultiSelectModule,
+    DropdownModule,
+    ButtonModule,
+    CardModule,
+    CheckboxModule,
+    TableModule,
+    InputNumberModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    FormsModule,
+    KeyFilterModule,
+    OverlayPanelModule,
+    TooltipModule,
+    DialogModule,
+    InputTextModule,
+    TabViewModule
+  ],
 })
-export class PrimeModule { }
-
+export class PrimeModule {}

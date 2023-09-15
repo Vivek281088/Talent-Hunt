@@ -10,11 +10,13 @@ import { lastValueFrom } from 'rxjs';
   styleUrls: ['./dash1.component.scss'],
 })
 export class Dash1Component implements OnInit {
+  // manager!: Manager[];
+
   Skills: any = [];
 
   selectedManager: any;
 
-  //TotalQuestions: any;
+  // TotalQuestions: any;
 
   TotalQuestions: { [key: string]: any[] } = {};
 
@@ -38,8 +40,6 @@ export class Dash1Component implements OnInit {
 
   emptySkill: boolean = true;
 
-  emptyQuestion: boolean = true;
-
   //dataToSave: any[] = [];
 
   constructor(
@@ -60,6 +60,10 @@ export class Dash1Component implements OnInit {
 
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skillSet = data;
+
+      // console.log(this.skillSet);
+
+      // console.log('Users:' + JSON.stringify(this.selectedSkill));
     });
   }
 
@@ -91,9 +95,6 @@ export class Dash1Component implements OnInit {
     if (this.selectedSkill.length > 0) {
       this.emptySkill = false;
     }
-
-  
-
   }
 
   checkboxChanged(item: any) {
@@ -110,18 +111,6 @@ export class Dash1Component implements OnInit {
     }
   }
 
- 
-
-
-  
-  
- 
-    // console.log('Selected Items : ', this.selectedQuestions);
-    // console.log('Selected Items Count : ', this.selectedQuestions.length);
-  // areQuestionsSelected(): boolean {
-  //   return this.selectedQuestions.length > 0;
-  // }
-
   async saveSelected() {
     this.FinalizedQuestions = this.selectedQuestions;
 
@@ -130,27 +119,6 @@ export class Dash1Component implements OnInit {
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
     // this.managernameService.setDuration(this.duration);
     // this.managernameService.setCuttoff(this.cuttoff);
-    
-    const fileName = this.selectedSkill.map(skill => {
-      return skill.skill;
-    })
-
-    
-    //save the data 
-    const dataToSave = {
-    Questions:this.FinalizedQuestions ,
-    duration: this.duration ,
-    cuttoff: this.cuttoff,
-      fileName: fileName.join("_"),
-      isCreate: false,
-      isEdit: true,
-      isMail: true,
-      Managername: this.selectedManager.Managername,
-      Skill : fileName
-       //skills:this.selectedSkill,
-    };
-    console.log('Manager', (this.selectedManager).Managername);
-    console.log('response', dataToSave)
 
     try {
       const selectedSkillName = this.selectedSkill
@@ -188,10 +156,8 @@ export class Dash1Component implements OnInit {
         .subscribe((response) => {
           //this.FinalOutput = response;
         });
-      
-      
 
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['qdashboard']);
     } catch (error) {
       console.error(error);
     }
@@ -210,4 +176,5 @@ export class Dash1Component implements OnInit {
       return { color: 'red' };
     }
   }
+  //@Input() parent:any;
 }

@@ -24,28 +24,19 @@ export class SkillsdropdownService {
     });
   }
 
-  filterManager(
-    filterManager: string,
-    filterSkills: string[]
-  ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+  filterManager(filterManager: string | undefined, filterSkills: string | string[] | undefined): Observable<any> {
+
+    const headers=new HttpHeaders({'content-Type':'application/json'});
 
     const body = { filterManager, filterSkills };
 
-    console.log('body', body);
+    console.log('body' , body);
 
-    return this.http.post<any>(this.skillsUrl + '/search', body, { headers });
-  }
+    return this.http.post<any>(this.skillsUrl +'/search', body, { headers });
 
-  // filterManager(
-  //   managerName: string | undefined,
-  //   skills: string[] | undefined
-  // ): Observable<any> {
-  //   const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-  //   const body = { managerName, skills };
-  //   console.log('body', body);
-  //   return this.http.post<any>(this.skillsUrl + '/search', body, { headers });
-  // }
+   }
+
+  
 
   //post questions,cuttoff,duration
   postquestions(dataToSave: any): Observable<any> {
@@ -58,38 +49,12 @@ export class SkillsdropdownService {
     //   }
     //console.log("body:",body);
 
-    // return this.http.post<any>(
-    //   this.skillsUrl + '/questions',
-    //   { ques: dataToSave },
-    //   { headers }
-    // );
-
     return this.http.post<any>(
       this.skillsUrl + '/questions',
       { ques: dataToSave },
       { headers }
     );
   }
-
-  searchManager(
-    filterManager: string,
-    filterSkills: string[]
-  ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-    const body = { filterManager, filterSkills };
-    console.log('body', filterManager);
-    return this.http.post<any>(this.skillsUrl + '/search', body, { headers });
-  }
-
-  // filterSkill(Skills:string[] , mname : string): Observable<any>{
-
-  // const headers=new HttpHeaders({'content-Type':'application/json'});
-
-  // const body={selectedSkill:Skills, selectedManager : mname}
-
-  // return this.http.post<any>(this.skillsUrl+'/search',body,{headers})
-
-  // }
 
   // Function to get the latest version
   getLatestVersion(Managername: string, Skill: string[]): Observable<number> {
