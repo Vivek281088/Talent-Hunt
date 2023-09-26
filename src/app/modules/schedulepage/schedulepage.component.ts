@@ -8,7 +8,7 @@ import { ManagernameService } from 'src/app/services/managername.service';
 
 import { Router } from '@angular/router';
 
-import { SkillsdropdownService } from '../../services/skillsdropdown.service';
+import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 
 @Component({
   selector: 'app-schedulepage',
@@ -244,6 +244,7 @@ export class SchedulepageComponent implements OnInit {
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);
             //this.candidateName(data);
+            this.candidateList.push(data);
           });
 
           
