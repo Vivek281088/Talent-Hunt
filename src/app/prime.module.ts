@@ -33,8 +33,8 @@ import { TabViewModule } from 'primeng/tabview';
     OverlayPanelModule,
     TooltipModule,
     DialogModule,
-    InputTextModule,
     TabViewModule,
+    InputTextModule,
   ],
   exports: [
     MultiSelectModule,
@@ -51,8 +51,8 @@ import { TabViewModule } from 'primeng/tabview';
     OverlayPanelModule,
     TooltipModule,
     DialogModule,
+    TabViewModule,
     InputTextModule,
-    TabViewModule
   ],
 })
 export class PrimeModule {}

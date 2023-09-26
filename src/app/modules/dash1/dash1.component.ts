@@ -32,9 +32,9 @@ export class Dash1Component implements OnInit {
 
   FinalizedQuestions: any[] = [];
 
-  duration: number = 0;
+  duration!: number;
 
-  cuttoff: number = 0;
+  cutoff!: number ;
 
   FinalOutput: any[] = [];
 
@@ -113,6 +113,8 @@ export class Dash1Component implements OnInit {
 
   async saveSelected() {
     this.FinalizedQuestions = this.selectedQuestions;
+    console.log('selected', this.selectedQuestions);
+    console.log('Final', this.FinalizedQuestions);
 
     //set the Finalizedquestions,Duration,Cuttoff in the service
 
@@ -141,7 +143,7 @@ export class Dash1Component implements OnInit {
       const dataToSave = {
         Questions: this.FinalizedQuestions,
         duration: this.duration,
-        cutoff: this.cuttoff,
+        cutoff: this.cutoff,
         fileName: fileNameWithVersion,
         isCreate: false,
         isEdit: true,

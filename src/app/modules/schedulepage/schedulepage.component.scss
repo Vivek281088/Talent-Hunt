@@ -1,0 +1,109 @@
+.top-right-button {
+  position: absolute;
+
+  top: 0;
+
+  right: 0;
+
+  margin: 10px;
+}
+
+.no-focus-outline {
+  outline: none; /* Remove the outline when the input is focused */
+  border: 1px solid #ccc; /* Add a border to maintain appearance */
+  /* Add any other styles you need for the input */
+}
+
+.table-container {
+  width: 100%;
+}
+
+.p-dropdown-list {
+  max-height: 5px;
+
+  overflow: auto;
+}
+
+.page_sec {
+  background-color: #27374d;
+
+  width: 100%;
+}
+
+.create_button {
+  .p-button {
+    background: #526d82;
+  }
+}
+
+.btn {
+  font-size: 0.875rem;
+
+  background-color: #526d82;
+
+  border-color: #526d82;
+
+  border-radius: 4px;
+
+  color: #fff;
+
+  padding: 5px 10px;
+
+  border: none;
+}
+
+.btn_cancel {
+  background: transparent;
+
+  color: #526d82;
+
+  font-weight: 600;
+}
+
+.ui-dialog-content {
+  padding: 1rem;
+  /* Add padding to the content inside the dialog */
+}
+
+.p-field {
+  margin-bottom: 1rem;
+  /* Add space between form fields */
+}
+
+.p-dialog-footer .btn-cancel {
+  background-color: #ccc;
+
+  color: #333;
+
+  border: none;
+}
+
+/* Style the Send button */
+
+.p-dialog-footer .btn-send {
+  background-color: #007bff;
+
+  color: #fff;
+
+  border: none;
+}
+
+:host ::ng-deep .ng-dirty.ng-invalid {
+  border: 1px solid #ced4da;
+}
+
+.cursor-pointer::before {
+  content: attr(pTooltip);
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  width: 0;
+  opacity: 0;
+  transition: width 1s ease, opacity 1s ease;
+}
+
+.cursor-pointer:hover::before {
+  width: auto;
+  opacity: 1;
+}
+

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+
+
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -41,4 +43,88 @@ export class TableService {
   getskillsList(): Observable<any> {
     return this.http.get<any>(this.skillsUrl + '/getskill');
   }
+
+  // Method to fetch data by fileName and Managername
+  getdataby_FileName(Managername: string, fileName: string): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = { Managername: Managername, fileName: fileName };
+    return this.http.post<any>(this.skillsUrl + '/viewdata', body, {
+      headers,
+    });
+  }
+
+  //sending view data to questiondisplay component
+  getFinalizedQuestions(): Observable<any> {
+    return this.http.get<any[]>(this.skillsUrl + '/view_fetchData');
+  }
+
+  getExistingCandidate(): Observable<any> {
+    return this.http.get<any>(this.skillsUrl + '/existingcandidate');
+  }
+  //New User
+  postCandidateDetails(
+    managerName: String,
+    name: String,
+    emailId: String,
+    phoneNumber: Number | null,
+    status: String,
+    fileName: String,
+    questions: any,
+    score : Number | null,
+    result : String
+  ): Observable<any> {
+    console.log('name', name);
+
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+
+    const body = {
+      email_Managername: managerName,
+      candidateName: name,
+      candidateEmail: emailId,
+
+      candidatePhone: phoneNumber,
+      email_Status: status,
+      email_Filename: fileName,
+      questions: questions,
+      score: score,
+      result: result
+    };
+
+    return this.http.post<any>(this.skillsUrl + '/add-candidate', body, {
+      headers,
+    });
+  }
+  //Post the data of Existing Candidates
+  postExistingCandidateDetails(
+    managerName: string,
+    candidateName: string,
+    candidateEmail: string,
+    candidatePhone: Number | null,
+    status: string,
+    fileName: string,
+    questions: any,
+    score : Number | null,
+    result : String
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+
+    const body = {
+      email_Managername: managerName,
+      candidateName: candidateName,
+      candidateEmail: candidateEmail,
+      candidatePhone: candidatePhone,
+      email_Status: status,
+      email_Filename: fileName,
+      questions: questions,
+      score: score,
+      result: result
+    };
+
+    return this.http.post<any>(this.skillsUrl + '/add-candidate', body, {
+      headers,
+    });
+  }
+
 }
+
+

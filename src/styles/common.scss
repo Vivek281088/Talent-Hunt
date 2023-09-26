@@ -129,3 +129,80 @@
 .p-datatable .p-sortable-column.p-highlight:hover .p-sortable-column-icon {
   color: #343a40;
 }
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+  background: transparent;
+  color: white;
+  border-color: white;
+}
+.p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+  box-shadow: none;
+}
+.p-tabview .p-tabview-nav {
+  background: transparent;
+  border: none;
+}
+
+.p-tabview .p-tabview-nav-content {
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+  background: transparent;
+  color: #9db2bf;
+  padding: 0.25rem 0rem;
+  margin-right: 1rem;
+  border-color: transparent;
+  font-weight: 400;
+}
+
+.p-tabview .p-tabview-panels {
+  padding: 0;
+  background: transparent;
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  background: transparent;
+  border-color: white;
+  color: white;
+  font-weight: 500;
+}
+
+.mail_dialog {
+  .p-dialog {
+    height: 275px;
+  }
+  .p-dialog .p-dialog-header {
+    padding: 0.25rem;
+  }
+
+  .p-dialog .p-dialog-content {
+    padding-bottom: 1rem;
+  }
+
+  .p-tabview .p-tabview-nav-content {
+    padding-left: 0;
+  }
+
+  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
+  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    color: #526d82;
+    border-color: #526d82;
+  }
+
+  .pi {
+    padding-right: 0.25rem;
+  }
+
+  .p-inputtext {
+    height: 36px;
+    font-size: 0.875rem;
+  }
+
+  .p-inputtext:enabled:focus {
+    box-shadow: none;
+  }
+
+}
+

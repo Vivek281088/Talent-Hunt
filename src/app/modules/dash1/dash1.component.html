@@ -13,24 +13,7 @@
         ></p-multiSelect>
       </div>
       <div class="card flex">
-        <!-- <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="40"
-            (click)="submitForm()"
-            style="cursor: pointer"
-            viewBox="0 0 512 512"
-          >
-            <path
-              d="M0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256z"
-              fill="#98012e"
-            />
-            <path
-              d="M281 385c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l71-71L136 280c-13.3 0-24-10.7-24-24s10.7-24 24-24l182.1 0-71-71c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L393 239c9.4 9.4 9.4 24.6 0 33.9L281 385z"
-              fill="white"
-            />
-          </svg>
-        </div> -->
+        
 
         <div class="flex question_selection">
           <div class="flex mr-3 align-items-center">
@@ -42,9 +25,8 @@
           <div class="flex mr-3 align-items-center">
             <label class="font-bold block heading mr-3"> Cutoff :</label>
             <input
-              [(ngModel)]="cuttoff"
+              [(ngModel)]="cutoff"
               name="cutoff"
-              placeholder="Cutoff"
               class="w-3rem custom_inp p-inputtext w-full p-1"
               required
             />
@@ -58,7 +40,6 @@
               class="w-3rem custom_inp p-inputtext w-full p-1"
               [(ngModel)]="duration"
               name="duration"
-              placeholder="(Minutes)"
               required
             />
           </div>
@@ -88,126 +69,7 @@
     </div>
   </div>
   
-   <!-- <ng-container *ngIf="TotalQuestions">
-    <div class="flex mt-4">
-      <div
-        class="flex flex-column w-5 mr-4 px-3"
-        *ngIf="TotalQuestions.AWS && TotalQuestions.AWS.length > 0"
-      >
-        <h3 class="m-0 p-2 asses_hdr">AWS</h3>
-        <div class="question_sec">
-          <table class="design-table">
-            <thead>
-              <tr>
-                <th class="checkbox-column"></th>
-                <th class="question-column">Question</th>
-                <th class="difficulty-column"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let aws of TotalQuestions.AWS" class="table-row">
-              
-                <td class="checkbox-column">
-                  <p-checkbox
-                    [(ngModel)]="aws.selected"
-                    (onChange)="checkboxChanged(aws)"
-                    [binary]="true"
-                    inputId="aws-checkbox-{{ aws._id }}"
-                  ></p-checkbox>
-                </td>
 
-                <td class="question-column">
-                  <label for="aws-checkbox-{{ aws._id }}"
-                  style="cursor: pointer;">
-
-                     <span class="question-text">{{ aws.question }}</span>
-
-                  </label>
-                </td>
-
-                <td class="difficulty-column">
-                  <span
-                    *ngIf="aws.Difficulty_Level === 'E'"
-                    class="difficulty-badge easy"
-                    >E</span
-                  >
-                  <span
-                    *ngIf="aws.Difficulty_Level === 'M'"
-                    class="difficulty-badge medium"
-                    >M</span
-                  >
-                  <span
-                    *ngIf="aws.Difficulty_Level === 'H'"
-                    class="difficulty-badge hard"
-                    >H</span
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div
-        class="flex flex-column w-5 mr-4 px-3"
-        *ngIf="TotalQuestions.JAVA && TotalQuestions.JAVA.length > 0"
-      >
-        <h3 class="m-0 p-2 asses_hdr">JAVA</h3>
-        <div class="question_sec">
-          <table class="design-table">
-            <thead>
-              <tr>
-                <th class="checkbox-column pr-0"></th>
-                <th class="question-column">Question</th>
-                <th class="difficulty-column"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let java of TotalQuestions.JAVA" class="table-row">
-                <td class="checkbox-column pr-0">
-                  <p-checkbox
-                    [(ngModel)]="java.selected"
-                    (onChange)="checkboxChanged(java)"
-                    [binary]="true"
-                    inputId="java-checkbox-{{ java._id }}"
-                  ></p-checkbox>
-                </td>
-
-                <td class="question-column">
-                  <label for="java-checkbox-{{ java._id }}" 
-                        style="cursor: pointer;">
-
-                    <span class="question-text">{{ java.question }}</span>
-
-                  </label>
-                </td>
-
-                <td class="difficulty-column">
-                  <span
-                    *ngIf="java.Difficulty_Level === 'E'"
-                    class="difficulty-badge easy"
-                    >E</span
-                  >
-                  <span
-                    *ngIf="java.Difficulty_Level === 'M'"
-                    class="difficulty-badge medium"
-                    >M</span
-                  >
-                  <span
-                    *ngIf="java.Difficulty_Level === 'H'"
-                    class="difficulty-badge hard"
-                    >H</span
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    
-    </div>
-  </ng-container>  -->
 
 
     <ng-container *ngIf="TotalQuestions">
