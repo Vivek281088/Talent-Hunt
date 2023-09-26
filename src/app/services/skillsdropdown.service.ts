@@ -33,10 +33,13 @@ export class SkillsdropdownService {
 
     const body = { filterManager, filterSkills };
 
-    console.log('body', body);
+    console.log('body' , body);
 
-    return this.http.post<any>(this.skillsUrl + '/search', body, { headers });
-  }
+    return this.http.post<any>(this.skillsUrl +'/search', body, { headers });
+
+   }
+
+  
 
   //post questions,cuttoff,duration
   postquestions(dataToSave: any): Observable<any> {
