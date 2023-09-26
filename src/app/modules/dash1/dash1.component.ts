@@ -1,102 +1,71 @@
 import { Component, OnInit } from '@angular/core';
-
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
-
 import { ManagernameService } from 'src/app/services/managername.service';
-
 import { Router, ActivatedRoute } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 
 @Component({
-
   selector: 'app-dash1',
-
   templateUrl: './dash1.component.html',
   styleUrls: ['./dash1.component.scss'],
 })
 export class Dash1Component implements OnInit {
-  Skills: any = [];
+  // manager!: Manager[];
 
- 
+  Skills: any = [];
 
   selectedManager: any;
 
- 
+  // TotalQuestions: any;
 
-  TotalQuestions: {[key : string]: any[]}={};
-
- 
+  TotalQuestions: { [key: string]: any[] } = {};
 
   managerSet: any[] = [];
 
- 
-
   skillSet: any[] = [];
-
- 
 
   selectedSkill: any[] = [];
 
- 
-
   selectedQuestions: any[] = [];
-
- 
 
   ski: any[] = [];
 
- 
-
   FinalizedQuestions: any[] = [];
 
- 
+  duration!: number;
 
-  duration: number = 0;
-
- 
-
-  cuttoff: number = 0;
-
- 
+  cutoff!: number ;
 
   FinalOutput: any[] = [];
 
- 
-
   emptySkill: boolean = true;
 
+  //dataToSave: any[] = [];
+
   constructor(
-
     private skillsdropdownservice: SkillsdropdownService,
-
     private managernameService: ManagernameService,
-
     public router: Router,
-
     private activatedRoute: ActivatedRoute
   ) {}
 
- 
-
   ngOnInit() {
-
     this.reloadData();
-
     this.loadManagerNames();
     this.selectedManager = this.managernameService.getManagerName();
   }
-
- 
 
   reloadData() {
     console.log('hi from Client');
 
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skillSet = data;
+
+      // console.log(this.skillSet);
+
+      // console.log('Users:' + JSON.stringify(this.selectedSkill));
     });
   }
-
- 
 
   loadManagerNames() {
     this.managernameService.getManagerNames().subscribe((data) => {
@@ -105,18 +74,14 @@ export class Dash1Component implements OnInit {
       console.log('Selected Manager:', this.selectedManager);
     });
   }
-
   submitForm() {
     console.log('Selected Skills:', this.selectedSkill);
 
     this.selectedQuestions = [];
-
     this.ski = [];
-
     for (let g of this.selectedSkill) {
       this.ski.push(g.skill);
     }
-
     console.log(this.ski);
 
     this.skillsdropdownservice
@@ -130,11 +95,6 @@ export class Dash1Component implements OnInit {
     if (this.selectedSkill.length > 0) {
       this.emptySkill = false;
     }
-
-  
-
- 
-
   }
 
   checkboxChanged(item: any) {
@@ -151,65 +111,16 @@ export class Dash1Component implements OnInit {
     }
   }
 
- 
-
-
-  
-  
- 
-    // console.log('Selected Items : ', this.selectedQuestions);
-
-    // console.log('Selected Items Count : ', this.selectedQuestions.length);
-  // areQuestionsSelected(): boolean {
-  //   return this.selectedQuestions.length > 0;
-  // }
-
   async saveSelected() {
     this.FinalizedQuestions = this.selectedQuestions;
+    console.log('selected', this.selectedQuestions);
+    console.log('Final', this.FinalizedQuestions);
 
     //set the Finalizedquestions,Duration,Cuttoff in the service
 
- 
-
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
-
     // this.managernameService.setDuration(this.duration);
-
     // this.managernameService.setCuttoff(this.cuttoff);
-
-   
-
-    const fileName = this.selectedSkill.map(skill => {
-
-      return skill.skill;
-
-    })
-
-    
-    //save the data 
-    const dataToSave = {
-
-    Questions:this.FinalizedQuestions ,
-
-    duration: this.duration ,
-
-    cuttoff: this.cuttoff,
-
-      fileName: fileName.join("_"),
-
-      isCreate: false,
-
-      isEdit: true,
-
-      isMail: true,
-      Managername: this.selectedManager.Managername,
-      Skill : fileName
-       //skills:this.selectedSkill,
-
-    };
-
-
-    console.log('response', dataToSave)
 
     try {
       const selectedSkillName = this.selectedSkill
@@ -228,12 +139,11 @@ export class Dash1Component implements OnInit {
         '_'
       )}_v${newVersion}`;
       console.log('lv:', latestVersion);
-      
       //save the data
       const dataToSave = {
         Questions: this.FinalizedQuestions,
         duration: this.duration,
-        cutoff: this.cuttoff,
+        cutoff: this.cutoff,
         fileName: fileNameWithVersion,
         isCreate: false,
         isEdit: true,
@@ -248,8 +158,6 @@ export class Dash1Component implements OnInit {
         .subscribe((response) => {
           //this.FinalOutput = response;
         });
-      
-      
 
       this.router.navigate(['dashboard']);
     } catch (error) {
@@ -270,4 +178,5 @@ export class Dash1Component implements OnInit {
       return { color: 'red' };
     }
   }
+  //@Input() parent:any;
 }

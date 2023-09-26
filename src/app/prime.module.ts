@@ -12,45 +12,46 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { TooltipModule } from 'primeng/tooltip';
-import { DialogModule} from 'primeng/dialog';
-import { TabViewModule} from 'primeng/tabview';
+import { DialogModule } from 'primeng/dialog';
+import { TabViewModule } from 'primeng/tabview';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   imports: [
-        MultiSelectModule,
-        DropdownModule,
-        ButtonModule,
-        CardModule,
-        CheckboxModule,
-        TableModule,
-        InputNumberModule,
-        InputTextareaModule,
-        RadioButtonModule,
-        FormsModule,
-        KeyFilterModule,
-        OverlayPanelModule,
-        TooltipModule,
-        DialogModule,
-        TabViewModule
-    ],
-    exports: [
-        MultiSelectModule,
-        DropdownModule,
-        ButtonModule,
-        CardModule,
-        CheckboxModule,
-        TableModule,
-        InputNumberModule,
-        InputTextareaModule,
-        RadioButtonModule,
-        FormsModule,
-        OverlayPanelModule,
-        KeyFilterModule,
-        OverlayPanelModule,
-        TooltipModule,
-        DialogModule,
-        TabViewModule
-    ]
+    MultiSelectModule,
+    DropdownModule,
+    ButtonModule,
+    CardModule,
+    CheckboxModule,
+    TableModule,
+    InputNumberModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    FormsModule,
+    KeyFilterModule,
+    OverlayPanelModule,
+    TooltipModule,
+    DialogModule,
+    TabViewModule,
+    InputTextModule,
+  ],
+  exports: [
+    MultiSelectModule,
+    DropdownModule,
+    ButtonModule,
+    CardModule,
+    CheckboxModule,
+    TableModule,
+    InputNumberModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    FormsModule,
+    KeyFilterModule,
+    OverlayPanelModule,
+    TooltipModule,
+    DialogModule,
+    TabViewModule,
+    InputTextModule,
+  ],
 })
-export class PrimeModule { }
-
+export class PrimeModule {}

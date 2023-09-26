@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+ 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -12,11 +14,13 @@ export class ManagernameService {
 
   private finalizedQuestions: any[] = [];
 
-  private duration: number = 0;
+  private duration!: number;
 
-  private cuttoff: number = 0;
+  private cutoff!: number;
 
   private SelectedManager: any;
+  
+  private fileName!: string;
 
   constructor(private http: HttpClient) {}
 
@@ -28,12 +32,42 @@ export class ManagernameService {
 
   postManagerList(name: String): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-
     const body = { Managername: name };
-
     return this.http.post<any>(this.managerNameUrl + '/select-manager', body, {
       headers,
     });
+  }
+
+  postexistingcandidates(
+    managername: string,
+    name: string[],
+    email: string,
+    phone: number,
+    status: string,
+    filename: string,
+    questions: any
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      email_Managername: managername,
+      candidateName: name,
+      candidateEmail: email,
+      candidatePhone: phone,
+
+      email_Status: status,
+      email_Filename: filename,
+      questions: questions,
+    };
+    return this.http.post<any>(this.managerNameUrl + '/add-candidate', body, {
+      headers,
+    });
+  }
+
+  //candidate list
+
+  getCandidateStatus(): Observable<any> {
+    const endpoint = `${this.managerNameUrl}/existingcandidate`;
+    return this.http.get<any>(endpoint);
   }
 
   setFinalizedQuestions(questions: any[]): void {
@@ -52,12 +86,12 @@ export class ManagernameService {
     return this.duration;
   }
 
-  setCuttoff(cuttoff: number) {
-    this.cuttoff = cuttoff;
+  setCutoff(cutoff: number) {
+    this.cutoff = cutoff;
   }
 
-  getCuttoff() {
-    return this.cuttoff;
+  getCutoff() {
+    return this.cutoff;
   }
 
   setManagerName(name: any) {
@@ -67,12 +101,11 @@ export class ManagernameService {
   getManagerName(): any {
     return this.SelectedManager;
   }
+  setFileName(fileName: string) {
+    this.fileName = fileName;
+  }
 
-  //candidate list
-
-  getCandidateStatus(): Observable<any> {
-    const endpoint = `${this.managerNameUrl}/existingcandidate`;
-
-    return this.http.get<any>(endpoint);
+  getFileName(): string {
+    return this.fileName;
   }
 }

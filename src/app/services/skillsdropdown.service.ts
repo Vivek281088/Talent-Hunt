@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class SkillsdropdownService {
   private skillsUrl = 'http://localhost:9000/skill';
+  private Skill: any[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -24,21 +25,18 @@ export class SkillsdropdownService {
     });
   }
 
-  filterManager(filterManager: string | undefined, filterSkills: string | string[] | undefined): Observable<any> {
-    const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body = { filterManager, filterSkills };
-    return this.http.post<any>(this.skillsUrl +'/search', body, { headers });
-   }
+  filterManager(
+    filterManager: string | undefined,
+    filterSkills: string | string[] | undefined
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
-  // filterManager(
-  //   managerName: string | undefined,
-  //   skills: string[] | undefined
-  // ): Observable<any> {
-  //   const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-  //   const body = { managerName, skills };
-  //   console.log('body', body);
-  //   return this.http.post<any>(this.skillsUrl + '/search', body, { headers });
-  // }
+    const body = { filterManager, filterSkills };
+
+    console.log('body', body);
+
+    return this.http.post<any>(this.skillsUrl + '/search', body, { headers });
+  }
 
   //post questions,cuttoff,duration
   postquestions(dataToSave: any): Observable<any> {
@@ -51,12 +49,6 @@ export class SkillsdropdownService {
     //   }
     //console.log("body:",body);
 
-    // return this.http.post<any>(
-    //   this.skillsUrl + '/questions',
-    //   { ques: dataToSave },
-    //   { headers }
-    // );
-
     return this.http.post<any>(
       this.skillsUrl + '/questions',
       { ques: dataToSave },
@@ -64,17 +56,53 @@ export class SkillsdropdownService {
     );
   }
 
- 
+  updatequestions(
+    Managername: string,
 
-  // filterSkill(Skills:string[] , mname : string): Observable<any>{
+    fileName: string,
 
-  // const headers=new HttpHeaders({'content-Type':'application/json'});
+    questions: any[], // Replace 'any[]' with the actual type of your questions
 
-  // const body={selectedSkill:Skills, selectedManager : mname}
+    duration: number,
 
-  // return this.http.post<any>(this.skillsUrl+'/search',body,{headers})
+    cutoff: number
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
-  // }
+    //  const body = {
+
+    //    Questions: ques.Questions,
+
+    //    cutoff:ques.cuttoff,
+
+    //    duration:ques.duration
+
+    //   }
+
+    //console.log("body:",body);
+
+    const data = {
+      Managername,
+
+      fileName,
+
+      questions,
+
+      cutoff,
+
+      duration
+    };
+
+    console.log('dt', data);
+
+    return this.http.post<any>(
+      this.skillsUrl + '/edit_questions',
+
+      data,
+
+      { headers }
+    );
+  }
 
   // Function to get the latest version
   getLatestVersion(Managername: string, Skill: string[]): Observable<number> {
@@ -84,5 +112,27 @@ export class SkillsdropdownService {
     return this.http.post<number>(this.skillsUrl + '/latest-version', body, {
       headers,
     });
+  }
+
+  //Editicon
+
+  getDash1Data(
+    selectedSkill: string[],
+    FinalizedQuestions: string[]
+  ): Observable<any> {
+    const queryParams = {
+      selectedSkill: JSON.stringify(selectedSkill),
+      selectedQuestions: JSON.stringify(FinalizedQuestions),
+    };
+
+    return this.http.get('/dash1', { params: queryParams });
+  }
+
+  setSkill(Skill: any[]): void {
+    this.Skill = Skill;
+  }
+
+  getSkill(): any[] {
+    return this.Skill;
   }
 }

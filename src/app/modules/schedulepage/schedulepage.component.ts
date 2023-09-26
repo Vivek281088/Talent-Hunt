@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { TableService } from 'src/app/services/table.service';
 
@@ -7,8 +9,6 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 
 import { SkillsdropdownService } from '../../services/skillsdropdown.service';
-
-import { response } from 'express';
 
 @Component({
   selector: 'app-schedulepage',
@@ -22,15 +22,9 @@ export class SchedulepageComponent implements OnInit {
 
   cols!: Column[];
 
-  candidateNames: any[] = [];
-
-  selectedCandidates: string = '';
-
   selectedManager: string = '';
 
   managerOption: any[] = [];
-
-  candidateList: any[] = [];
 
   skillSet: any[] = [];
 
@@ -66,36 +60,52 @@ export class SchedulepageComponent implements OnInit {
 
   dropdownOptions: any[] = [];
 
+  FinalizedQuestions: any[] = [];
+
+  Skill: any[] = []; //for edit
+
+  selectedQuestions: any[] = [];
+
+  cutoff!: number;
+
+  duration!: number;
+
   email_Managername!: string;
 
   email_Status!: string;
 
   email_Filename!: string;
 
-  questions : any;
+  candidateNames: any[] = [];
 
-  filterCandidateName: string[]=[];
-  filterStatus: string = '';
+  selectedCandidates: any[] = [];
 
+  candidateList: any[] = [];
 
+  questions: any;
+
+  filterPopupVisible: boolean = false;
+
+  candidateNameOptions: any[] = []; // Replace with actual data
+
+  statusOptions: any[] = [];
 
   names: string[] = [];
+
   status: string = '';
+
   CandidatefilteredData: any[] = [];
 
-  // Define options for dropdowns
-  candidateNameOptions: any[] = []; // Replace with actual data
-  statusOptions: any[] = []; // Replace with actual data
+  view_Managername!: string;
 
-// filter new
-// Populate with manager options
- // Populate with status options
-   // Selected manager for filtering
-   // Selected status for filtering (use an array for multiselect)
-   // Populate with candidate data
-  filterPopupVisible: boolean = false;
-  refreshSecondTab: boolean | undefined;
- 
+  view_Filename!: string;
+
+  editManagername!: string;
+
+  editFilename!: any;
+  
+  // candidateForm !: FormGroup;
+  
 
   constructor(
     private tableService: TableService,
@@ -106,9 +116,15 @@ export class SchedulepageComponent implements OnInit {
 
     private router: Router,
 
-    private cdr: ChangeDetectorRef
-    
-  ) {}
+    private formBuilder: FormBuilder
+  ) {
+
+    // this.candidateForm = this.formBuilder.group({
+    //   candidateName: ['', Validators.required],
+    //   candidateEmail: ['', Validators.required,Validators.email],
+    //   candidatePhone: [null]
+    // });
+  }
 
   ngOnInit() {
     this.loadManagerNames();
@@ -120,7 +136,6 @@ export class SchedulepageComponent implements OnInit {
     this.loadCandidate();
 
     this.getCandidatename();
-    this.submitFilter();
 
     this.cols = [
       { field: 'manager', header: 'Manager' },
@@ -129,6 +144,132 @@ export class SchedulepageComponent implements OnInit {
 
       { field: 'actions', header: 'Actions' },
     ];
+
+    
+  }
+
+  getCandidatename(): void {
+    this.tableService.getExistingCandidate().subscribe((data) => {
+      // Use a Set to store unique candidate email addresses
+      const uniqueEmails = new Set<string>();
+  
+      // Use an array to store unique candidate names
+      const uniqueCandidateNames: any[] = [];
+  
+      // Iterate through the data and filter duplicates based on email addresses
+      data.forEach((candidate: { candidateName: string, candidateEmail: string }) => {
+        if (!uniqueEmails.has(candidate.candidateEmail)) {
+          uniqueEmails.add(candidate.candidateEmail);
+          uniqueCandidateNames.push(candidate.candidateName);
+        }
+      });
+  
+      // Assign the unique candidate names to your variable
+      this.candidateNames = uniqueCandidateNames;
+      
+
+  
+      console.log('candidate', data);
+      console.log(this.candidateNames);
+    });
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // getCandidatename(): void {
+  //   this.tableService.getExistingCandidate().subscribe((data) => {
+  //     // Use the map operator to extract the "name" property from each object
+
+
+  //     const uniqueEmails = new Set<string>();
+
+  //     // Use an array to store unique candidate names
+  //     const uniqueCandidateNames = [];
+  
+
+
+  //     this.candidateNames = data.map(
+  //       (candidate: { candidateName: any }) => candidate.candidateName
+  //     );
+  //     console.log('candidate', data);
+  //     console.log(this.candidateNames);
+  //   });
+  // }
+
+  onTabChange(event: any) {
+    if (event.index === 1) {
+      this.loadCandidate();
+    }
+  }
+
+  loadCandidate() {
+    this.managernameService.getCandidateStatus().subscribe((data) => {
+      this.candidateList = data;
+      console.log('loadDAta', data);
+    });
+    console.log('load data 1', this.candidateList);
+    console.log('selected candidate', this.selectedCandidates);
+    // Loop through selectedCandidates and store data for each candidate
+    this.selectedCandidates.forEach((selectedCandidate) => {
+      // Find the existing candidate data based on the candidateName
+      const existingCandidate = this.candidateList.find(
+        (candidate) => candidate.candidateName === selectedCandidate
+      );
+      console.log('matched candidate', existingCandidate);
+      if (existingCandidate) {
+        this.tableService
+          .postExistingCandidateDetails(
+            this.email_Managername,
+            existingCandidate.candidateName,
+            existingCandidate.candidateEmail, // Get candidateEmail from existing data
+            existingCandidate.candidatePhone,
+            this.email_Status,
+            this.email_Filename,
+            this.questions,
+            this.score,
+            this.result
+            // Get candidatePhone from existing data
+          )
+          .subscribe((data) => {
+            console.log('Stored data for existing candidate:', data);
+            //this.candidateName(data);
+          });
+
+          
+      }
+    });
+
+    // console.log(this.selectedCandidates);
+    // console.log(this.email_Managername);
+    // console.log(this.candidateEmail);
+    // console.log(this.candidatePhone);
+    // console.log(this.email_Status);
+    // console.log(this.email_Filename);
+    // console.log(this.questions);
+    // this.managernameService
+    //   .postexistingcandidates(
+    //     this.email_Managername,
+    //     this.selectedCandidates,
+    //     this.candidateEmail,
+    //     this.candidatePhone,
+    //     this.email_Status,
+    //     this.email_Filename,
+    //     this.questions
+    //   )
+    //   .subscribe((data) => {
+    //     console.log('postdata', data);
+    //   });
   }
 
   getSkillSet() {
@@ -170,55 +311,6 @@ export class SchedulepageComponent implements OnInit {
     });
   }
 
-  onTabChange(event: any) {
-    if (event.index === 1) {
-      this.loadCandidate();
-    }
-  }
-
-  loadCandidate() {
-    this.managernameService.getCandidateStatus().subscribe((data) => {
-      this.candidateList = data;
-      this.refreshSecondTab = false;
-    });
-  }
-//filtering candidate list------------
-
-
-submitFilter() {
-  this.tableService.filterCandidate(this.names, this.status).subscribe(
-    (response: any) => {
-      this.filteredData = response;
-    },
-    (error) => {
-      console.error(error);
-    }
-  );
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   dropFunction(rowData: any) {
     rowData.isCreate = true;
 
@@ -251,35 +343,7 @@ submitFilter() {
     this.Tdata.unshift(newRow);
   }
 
-  // getCandidatename()
-
-  // {
-
-  //   this.tableService.getExistingCandidate().subscribe(names =>{
-
-  //     this.candidateNames=names;
-
-  //     console.log(this.candidateNames);
-
-  //   })
-
-  // }
-
-  getCandidatename(): void {
-    this.tableService.getExistingCandidate().subscribe((data) => {
-      // Use the map operator to extract the "name" property from each object
-
-      this.candidateNames = data.map(
-        (candidate: { name: any }) => candidate.name
-      );
-
-      console.log(this.candidateNames);
-    });
-  }
-
   //Mail dialog
-
-  //displayEmailDialog: boolean = false;
 
   displayEmailDialog = false;
 
@@ -287,117 +351,210 @@ submitFilter() {
 
   candidateEmail!: string;
 
-  candidatePhone!: number;
+  candidatePhone : number  | null = null;
 
-  // Object to store form data
+  // score: Number | null = null;
+
+  // result !: string;
+
+  result : string = "Selected";
+
+  score: Number | null = 75;
 
   openEmailDialog(Managername: string, fileName: string) {
     this.displayEmailDialog = true;
-
     console.log('Openemail');
-
     this.email_Managername = Managername;
-
     console.log('emanager', this.email_Managername);
-
     this.email_Filename = fileName;
-
     console.log('efile', this.email_Filename);
-
-    this.email_Status = 'Completed';
-
+    this.email_Status = 'Not Started';
     console.log('ests', this.email_Status);
-
     this.tableService
 
       .getdataby_FileName(Managername, fileName)
 
       .subscribe((data) => {
-
         console.log('View Data', data);
 
         this.questions = data[0].questions;
-  })
-}
+
+        console.log('Quest', this.questions);
+      });
+  }
 
   cancelEmailPopup() {
     this.displayEmailDialog = false;
-
-    // Reset the form data
-
-    this.selectedCandidates = '';
+    this.selectedCandidates=[];
+    this.resetForm();
   }
 
+  
   storeCandidate() {
+    console.log('score', this.score);
+    console.log('result', this.result);
     this.tableService
       .postCandidateDetails(
+        this.email_Managername,
+
         this.candidateName,
+        
 
         this.candidateEmail,
 
         this.candidatePhone,
 
-        this.email_Managername,
-
         this.email_Status,
 
         this.email_Filename,
 
-        this.questions
+        this.questions,
+
+        this.score,
+
+        this.result
       )
       .subscribe((response) => {
         console.log('stored', response);
+
+
+        this.candidateList.push(response);
+
+      
       });
+      this.getCandidatename();
+      
+ this.resetForm();
+  // Close the dialog
+  this.displayEmailDialog = false;
   }
+  resetForm() {
+   this.candidateName = '';
+     this.candidateEmail = '';
+     this.candidatePhone = null;
+     // You might want to set this to a default value
+  //    this.email_Status = '';
+  //    this.email_Filename = '';
+  //  this.questions = '';
+  
+  //   // Close the dialog
+  //   this.displayEmailDialog = false;
+   }
+
+
+
 
   sendEmail() {
     this.displayEmailDialog = false;
+    this.score=75;
+    this.result = "Selected";
 
     // Reset the form data
-
-    // this.formData = {};
   }
-//refreshingtab
 
-  refreshTab() {
-    // Set the flag to true to trigger a refresh of the second tab
-    this.refreshSecondTab = true;
-  
-    // Trigger change detection
-    this.cdr.detectChanges();
+  //view icon
+  onViewClick(ManagerName: string, fileName: string) {
+    this.tableService
+      .getdataby_FileName(ManagerName, fileName)
+      .subscribe((data) => {
+        console.log('View Data', data);
+        this.view_Managername = ManagerName;
+        this.view_Filename = fileName;
+
+        this.FinalizedQuestions = data[0].questions;
+
+        this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
+        this.managernameService.setManagerName(this.view_Managername);
+
+        this.managernameService.setFileName(this.view_Filename);
+
+        this.router.navigate(['questiondisplay']);
+
+        console.log('questions :', this.FinalizedQuestions);
+      });
   }
-  
+
+  handleEditIconClick(ManagerName: string, fileName: string) {
+    this.tableService
+
+      .getdataby_FileName(ManagerName, fileName)
+
+      .subscribe((data) => {
+        console.log('View Data', data);
+
+        this.Skill = data[0].Skill;
+
+        this.selectedQuestions = data[0].questions;
+
+        this.cutoff = data[0].cutoff;
+
+        this.duration = data[0].duration;
+
+        this.editManagername = ManagerName;
+
+        this.editFilename = fileName;
+
+        this.managernameService.setCutoff(this.cutoff);
+
+        console.log('edit cutoff', this.cutoff);
+
+        this.managernameService.setDuration(this.duration);
+
+        this.skillsdropdownservice.setSkill(this.Skill);
+
+        console.log('edit skill', this.Skill);
+
+        console.log('edit questions', this.selectedQuestions);
+
+        this.managernameService.setFinalizedQuestions(this.selectedQuestions);
+
+        this.managernameService.setManagerName(this.editManagername);
+
+        this.managernameService.setFileName(this.editFilename);
+
+        this.router.navigate(['edit']);
+      });
+  }
+
+  //edit icon
+  // handleEditIconClick(ManagerName: string, fileName: string) {
+  //   this.tableService
+  //     .getdataby_FileName(ManagerName, fileName)
+  //     .subscribe((data) => {
+  //       console.log('View Data', data);
+  //       this.Skill = data[0].Skill;
+  //       this.selectedQuestions = data[0].questions;
+  //       this.cutoff = data[0].cutoff;
+
+  //       this.duration = data[0].duration;
+
+  //       this.managernameService.setCutoff(this.cutoff);
+  //       console.log('edit cutoff', this.cutoff);
+  //       this.managernameService.setDuration(this.duration);
+
+  //       this.skillsdropdownservice.setSkill(this.Skill);
+  //       console.log('edit skill', this.Skill);
+  //       console.log('edit questions', this.selectedQuestions);
+
+  //       this.managernameService.setFinalizedQuestions(this.selectedQuestions);
+  //       this.router.navigate(['edit']);
+  //     });
+  // }
+}
 
 
 
-  //candidate filter
+//candidate filtering
+
 
  
+
+ 
+
   // Function to show the filter popup
-  showFilterPopup() {
-    this.filterPopupVisible = true;
-  }
 
-  // Function to hide the filter popup
-  hideFilterPopup() {
-    this.filterPopupVisible = false;
-  }
+ 
 
-  // Function to reset filters
-  resetFilters() {
-    this.filterManager = '';
-    //this.filterStatus = [];
-  }
-
-  // Function to apply filters
-  applyFilters() {
-    // Filter the candidateList based on filterManager and filterStatus
-    // Update the displayed data accordingly
-    // Then, hide the filter popup
-    this.filterPopupVisible = false;
-  }
-
-}
 
 
 interface Column {
@@ -406,19 +563,7 @@ interface Column {
   header: string;
 }
 
-// interface ManagerFilter {
 
-//   Managername: string;
-
-//   Skill: string[];
-
-// }
-
-// interface SkillFilter {
-
-//   Skill: string[];
-
-// }
 
 interface FilterSkill {
   _id: number;
@@ -429,3 +574,5 @@ interface FilterSkill {
 
   __v: number;
 }
+
+
