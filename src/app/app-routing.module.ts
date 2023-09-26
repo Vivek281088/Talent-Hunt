@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Dash1Component } from './modules/dash1/dash1.component';
-import { SchedulepageComponent } from './schedulepage/schedulepage.component';
+import { SchedulepageComponent } from './modules/schedulepage/schedulepage.component';
 import { QuestiondisplayComponent } from './modules/questiondisplay/questiondisplay.component';
 
 

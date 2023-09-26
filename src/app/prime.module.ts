@@ -12,6 +12,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { FormsModule } from '@angular/forms';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule} from 'primeng/dialog';
+import { TabViewModule} from 'primeng/tabview';
+
 @NgModule({
   imports: [
         MultiSelectModule,
@@ -26,7 +29,9 @@ import { TooltipModule } from 'primeng/tooltip';
         FormsModule,
         KeyFilterModule,
         OverlayPanelModule,
-        TooltipModule
+        TooltipModule,
+        DialogModule,
+        TabViewModule
     ],
     exports: [
         MultiSelectModule,
@@ -42,7 +47,9 @@ import { TooltipModule } from 'primeng/tooltip';
         OverlayPanelModule,
         KeyFilterModule,
         OverlayPanelModule,
-        TooltipModule
+        TooltipModule,
+        DialogModule,
+        TabViewModule
     ]
 })
 export class PrimeModule { }
