@@ -1,0 +1,129 @@
+<div class="signup-container">
+
+    <p-card>
+  
+      <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
+  
+   
+  
+      <div class="p-inputgroup">
+  
+        <span class="p-inputgroup-addon">
+  
+          <i class="pi pi-user"></i>
+  
+        </span>
+  
+   
+  
+        <input type="text" pInputText placeholder="Name" />
+  
+      </div>
+  
+   
+  
+      <div class="p-inputgroup">
+  
+        <span class="p-inputgroup-addon">
+  
+          <i class="pi pi-envelope"></i>
+  
+        </span>
+  
+   
+  
+        <input type="text" pInputText placeholder="Email" />
+  
+      </div>
+  
+   
+  
+      <div class="p-inputgroup">
+  
+        <span class="p-inputgroup-addon">
+  
+          <i class="pi pi-phone"></i>
+  
+        </span>
+  
+   
+  
+        <p-inputNumber
+  
+               
+  
+                mode="decimal"
+  
+                [ngModelOptions]="{ standalone: true }"
+  
+                placeholder="Phone"
+  
+                inputId="withoutgrouping"
+  
+                [useGrouping]="false"
+  
+              >
+  
+              </p-inputNumber>
+  
+        <!-- <input type="number" pInputText placeholder="Phone " /> -->
+  
+      </div>
+  
+   
+  
+      <div class="p-inputgroup">
+  
+        <span class="p-inputgroup-addon">
+  
+          <i class="pi pi-lock"></i>
+  
+        </span>
+  
+   
+  
+        <input type="password" pInputText placeholder="Password" />
+  
+      </div>
+  
+   
+  
+      <div class="p-inputgroup">
+  
+        <span class="p-inputgroup-addon">
+  
+          <i class="pi pi-lock"></i>
+  
+        </span>
+  
+   
+  
+        <input type="password" pInputText placeholder="Confirm Password" />
+  
+      </div>
+  
+   
+  
+      <button
+  
+        pButton
+  
+        type="button"
+  
+        label="Save"
+  
+        class="p-button-primary"
+  
+      ></button>
+  
+   
+  
+     
+  
+   
+  
+      <div class="signup">Already have an account? <a href="#">Sign In</a></div>
+  
+    </p-card>
+  
+  </div>

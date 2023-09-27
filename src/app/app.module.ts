@@ -13,6 +13,9 @@ import { NavbarComponent } from './modules/navbar/navbar.component';
 import { FooterComponent } from './modules/footer/footer.component';
 import { QuestiondisplayComponent } from './modules/questiondisplay/questiondisplay.component';
 import { EditComponent } from './modules/edit/edit.component';
+import { LoginComponent } from './modules/login/login.component';
+import { SignupComponent } from './modules/signup/signup.component';
+import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 
 
 @NgModule({
@@ -24,6 +27,9 @@ import { EditComponent } from './modules/edit/edit.component';
     FooterComponent,
     QuestiondisplayComponent,
     EditComponent,
+    LoginComponent,
+    SignupComponent,
+    CandidateAssessmentComponent,
   ],
   imports: [
     BrowserModule,

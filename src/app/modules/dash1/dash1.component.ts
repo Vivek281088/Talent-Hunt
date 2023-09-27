@@ -159,7 +159,7 @@ export class Dash1Component implements OnInit {
           //this.FinalOutput = response;
         });
 
-      this.router.navigate(['qdashboard']);
+      this.router.navigate(['dashboard']);
     } catch (error) {
       console.error(error);
     }

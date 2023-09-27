@@ -1,0 +1,101 @@
+.signup-container {
+
+    display: flex;
+  
+   
+  
+    justify-content: center;
+  
+   
+  
+    align-items: center;
+  
+   
+  
+    height: 100vh;
+  
+   
+  
+    background: linear-gradient(
+  
+      90deg,
+  
+      rgba(39, 55, 77, 1) 0%,
+  
+      rgba(82, 109, 130, 1) 50%,
+  
+      rgba(39, 55, 77, 1) 100%
+  
+    );
+  
+   
+  
+    p-card {
+  
+      width: 350px;
+  
+   
+  
+      text-align: center;
+  
+   
+  
+      h1 {
+  
+        margin: 0;
+  
+      }
+  
+   
+  
+      .p-inputgroup {
+  
+        margin: 10px 0;
+  
+   
+  
+        input {
+  
+          width: 100%;
+  
+        }
+  
+      }
+  
+   
+  
+      button {
+  
+        width: 100%;
+  
+   
+  
+        margin-top: 20px;
+  
+      }
+  
+   
+  
+     
+  
+    }
+  
+   
+  
+    .signup {
+  
+      margin-top: 20px;
+  
+   
+  
+      a {
+  
+        text-decoration: underline;
+  
+      }
+  
+    }
+  
+  }
+  
+   
