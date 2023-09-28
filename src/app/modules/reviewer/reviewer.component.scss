@@ -31,13 +31,13 @@ body {
 }
 
 .question_sec {
-  color: white;
+  color: black;
 
   max-height: 450px;
 
   overflow: hidden auto;
 
-  margin-left: 25%;
+  margin-left: 5%;
 }
 
 .choices {
@@ -155,7 +155,24 @@ body {
 
   border-radius: 20px;
 }
+.submitted-link {
+  text-decoration: underline; 
+  color: blue; 
+  cursor: pointer; 
+}
 
 .correct-option {
   background-color: blue;
+}
+.Score-Result{
+
+    color: black;
+
+    margin-left: 47%;
+
+    width: 500px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    
+    font-weight: bolder;
 }

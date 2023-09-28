@@ -16,6 +16,7 @@ import { EditComponent } from './modules/edit/edit.component';
 import { LoginComponent } from './modules/login/login.component';
 import { SignupComponent } from './modules/signup/signup.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
+import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { CandidateAssessmentComponent } from './modules/candidate-assessment/can
     LoginComponent,
     SignupComponent,
     CandidateAssessmentComponent,
+    ReviewerComponent,
   ],
   imports: [
     BrowserModule,

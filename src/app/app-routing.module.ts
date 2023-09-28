@@ -14,10 +14,11 @@ import { LoginComponent } from './modules/login/login.component';
 
 import { SignupComponent } from './modules/signup/signup.component';
 
+import { ReviewerComponent } from './modules/reviewer/reviewer.component';
+
  
 
 const routes: Routes = [
-
   { path: 'create', component: Dash1Component },
 
   { path: 'dashboard', component: SchedulepageComponent },
@@ -30,8 +31,9 @@ const routes: Routes = [
 
   { path: 'signup', component: SignupComponent },
 
-  { path: '**', component: LoginComponent },
+  { path: 'reviewer', component: ReviewerComponent },
 
+  { path: '**', component: LoginComponent },
 ];
 
  

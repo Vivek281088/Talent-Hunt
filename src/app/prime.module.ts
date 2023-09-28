@@ -34,7 +34,7 @@ import { TabViewModule } from 'primeng/tabview';
     TooltipModule,
     DialogModule,
     TabViewModule,
-    InputTextModule,
+    InputTextModule
   ],
   exports: [
     MultiSelectModule,
@@ -52,7 +52,7 @@ import { TabViewModule } from 'primeng/tabview';
     TooltipModule,
     DialogModule,
     TabViewModule,
-    InputTextModule,
+    InputTextModule
   ],
 })
 export class PrimeModule {}
