@@ -15,6 +15,7 @@ import { LoginComponent } from './modules/login/login.component';
 import { SignupComponent } from './modules/signup/signup.component';
 
 import { ReviewerComponent } from './modules/reviewer/reviewer.component';
+import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 
  
 
@@ -32,8 +33,11 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
 
   { path: 'reviewer', component: ReviewerComponent },
+  { path: 'candidateassessment', component:  CandidateAssessmentComponent },
 
   { path: '**', component: LoginComponent },
+
+
 ];
 
  
