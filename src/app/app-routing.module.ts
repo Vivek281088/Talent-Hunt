@@ -16,6 +16,7 @@ import { SignupComponent } from './modules/signup/signup.component';
 
 import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
+import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
 
  
 
@@ -34,6 +35,7 @@ const routes: Routes = [
 
   { path: 'reviewer', component: ReviewerComponent },
   { path: 'candidateassessment', component:  CandidateAssessmentComponent },
+  { path: 'assessment-display', component: AssessmentDisplayComponent }, 
 
   { path: '**', component: LoginComponent },
 
