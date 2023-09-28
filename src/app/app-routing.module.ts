@@ -14,6 +14,8 @@ import { LoginComponent } from './modules/login/login.component';
 
 import { SignupComponent } from './modules/signup/signup.component';
 
+import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
+
  
 
 const routes: Routes = [
@@ -29,6 +31,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
   { path: 'signup', component: SignupComponent },
+
+  { path: 'assessment-display', component: AssessmentDisplayComponent }, 
 
   { path: '**', component: LoginComponent },
 
