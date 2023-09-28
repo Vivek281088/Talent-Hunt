@@ -327,9 +327,9 @@ export class SchedulepageComponent implements OnInit {
 
   // result !: string;
 
-  result : string = "Selected";
+  result : string = "Submitted";
 
-  score: Number | null = 75;
+  score: Number | null = 95;
 
   openEmailDialog(Managername: string, fileName: string) {
     this.displayEmailDialog = true;
@@ -416,8 +416,7 @@ export class SchedulepageComponent implements OnInit {
 
   sendEmail() {
     this.displayEmailDialog = false;
-    this.score=75;
-    this.result = "Selected";
+    
 
     // Reset the form data
   }

@@ -220,7 +220,7 @@
           </div>
 
           <div class="mb-3 flex flex-column">
-            <label class="mb-1" for="manager">Skill</label>
+            <label class="mb-1" for="skill">Skill</label>
 
             <p-multiSelect
               appendTo="body"
@@ -252,7 +252,7 @@
     <!-- Mail Icon -->
   </p-tabPanel>
 
-  <!----------------------------------------Candidate Page---------------------------------------------------------->
+  <!----------------------------------------Assessment Page---------------------------------------------------------->
 
   <p-tabPanel>
     <ng-template pTemplate="header">
@@ -337,13 +337,7 @@
 </p-tabView>
 
 
-<ng-template #tooltipContent>
-  <div class="flex align-items-center">
-      <span>
-          <b>PrimeNG</b> rocks!
-      </span>
-  </div>
-</ng-template>
+
 
 <p-dialog
   [visible]="displayEmailDialog"
