@@ -176,6 +176,19 @@ export class SchedulepageComponent implements OnInit {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+  
+
   onTabChange(event: any) {
     if (event.index === 1) {
       this.loadCandidate();
@@ -216,6 +229,7 @@ export class SchedulepageComponent implements OnInit {
             this.candidateList.push(data);
           });
 
+          this.getCandidatename();
           
       }
     });
