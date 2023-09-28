@@ -187,25 +187,7 @@ export class SchedulepageComponent implements OnInit {
 
 
 
-  // getCandidatename(): void {
-  //   this.tableService.getExistingCandidate().subscribe((data) => {
-  //     // Use the map operator to extract the "name" property from each object
-
-
-  //     const uniqueEmails = new Set<string>();
-
-  //     // Use an array to store unique candidate names
-  //     const uniqueCandidateNames = [];
   
-
-
-  //     this.candidateNames = data.map(
-  //       (candidate: { candidateName: any }) => candidate.candidateName
-  //     );
-  //     console.log('candidate', data);
-  //     console.log(this.candidateNames);
-  //   });
-  // }
 
   onTabChange(event: any) {
     if (event.index === 1) {
@@ -244,8 +226,10 @@ export class SchedulepageComponent implements OnInit {
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);
             //this.candidateName(data);
+            this.candidateList.push(data);
           });
 
+          this.getCandidatename();
           
       }
     });
