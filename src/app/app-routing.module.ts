@@ -17,25 +17,28 @@ import { SignupComponent } from './modules/signup/signup.component';
 import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
+import {authGuard} from './Guard/auth.guard'
 
  
 
 const routes: Routes = [
-  { path: 'create', component: Dash1Component },
+  { path: 'create', component: Dash1Component, canActivate:[authGuard] },
 
-  { path: 'dashboard', component: SchedulepageComponent },
+  // { path: 'dashboard', component: SchedulepageComponent },
+  { path: 'dashboard', component: SchedulepageComponent, canActivate:[authGuard]},
 
-  { path: 'questiondisplay', component: QuestiondisplayComponent },
+  { path: 'questiondisplay', component: QuestiondisplayComponent , canActivate:[authGuard]},
 
-  { path: 'edit', component: EditComponent },
+  { path: 'edit', component: EditComponent , canActivate:[authGuard]},
 
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent},
 
-  { path: 'signup', component: SignupComponent },
+  { path: 'signup', component: SignupComponent, canActivate:[authGuard] },
 
-  { path: 'reviewer', component: ReviewerComponent },
-  { path: 'candidateassessment', component:  CandidateAssessmentComponent },
-  { path: 'assessment-display', component: AssessmentDisplayComponent }, 
+  { path: 'reviewer', component: ReviewerComponent, canActivate:[authGuard] },
+  { path: 'candidateassessment', component:  CandidateAssessmentComponent,canActivate:[authGuard] },
+  // { path: 'dashboard', component: SchedulepageComponent },
+  { path: 'assessment-display', component: AssessmentDisplayComponent, canActivate:[authGuard] }, 
 
   { path: '**', component: LoginComponent },
 
