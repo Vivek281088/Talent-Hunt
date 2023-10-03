@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 
+
 @Component({
   selector: 'app-candidate-assessment',
   templateUrl: './candidate-assessment.component.html',
@@ -18,15 +19,38 @@ import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 })
 export class CandidateAssessmentComponent   {
 
-  candidateName: string = 'John Doe'; // Replace with the candidate's actual name
+  candidateName: string = 'Aishwarya'; 
 
-  constructor(private router: Router) {}
+  cols!: Column[];
+
+  candidateList: any[] = [];
+
+
+  constructor(private router: Router) {
+
+
+
+  }
+
+  ngOnInit(): void {
+    this.cols = [
+      { field: 'manager', header: 'Manager' },
+
+      { field: 'file name', header: 'File name' },
+
+      { field: 'actions', header: 'Actions' },
+    ];
+    
+  }
 
   startAssessment() {
-    // Navigate to the assessment page when the "Continue" button is clicked
+    
     this.router.navigate(['/assessment']);
   }
 
+
+
+  
 }
 
 
@@ -34,4 +58,8 @@ export class CandidateAssessmentComponent   {
 
 
 
-  
+interface Column {
+  field: string;
+
+  header: string;
+}
