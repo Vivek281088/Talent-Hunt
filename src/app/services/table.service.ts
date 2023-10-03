@@ -66,11 +66,11 @@ export class TableService {
     managerName: String,
     name: String,
     emailId: String,
-    phoneNumber: Number | null,
+    phoneNumber: number | null,
     status: String,
     fileName: String,
     questions: any,
-    score : Number | null,
+    score : number | null,
     result : String
   ): Observable<any> {
     console.log('name', name);
@@ -99,11 +99,11 @@ export class TableService {
     managerName: string,
     candidateName: string,
     candidateEmail: string,
-    candidatePhone: Number | null,
+    candidatePhone: number | null,
     status: string,
     fileName: string,
     questions: any,
-    score : Number | null,
+    score : number | null,
     result : String
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });

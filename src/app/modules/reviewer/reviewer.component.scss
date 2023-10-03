@@ -31,7 +31,7 @@ body {
 }
 
 .question_sec {
-  color: black;
+  color: #fff;
 
   max-height: 450px;
 
@@ -45,8 +45,6 @@ body {
 }
 
 .page_submit_btn_sec {
-  
-
   justify-content: end;
 }
 
@@ -100,8 +98,6 @@ body {
   font-weight: bold;
 }
 
-
-
 .option1 {
   margin-bottom: 10px;
 
@@ -120,12 +116,24 @@ body {
   margin: 4px 0px 0px 0px;
 }
 
+:host ::ng-deep .p-datatable-wrapper{
+  margin-top: 80px;
+}
+
 :host ::ng-deep .p-radiobutton-box {
   height: 20px;
 
   width: 20px;
 
   border-radius: 100%;
+}
+
+:host ::ng-deep .p-dialog-content{
+    background-color: #27374d;
+}
+
+:host ::ng-deep .p-dialog-header{
+    background-color: #27374d;
 }
 
 :host ::ng-deep .p-inputtext {
@@ -156,23 +164,22 @@ body {
   border-radius: 20px;
 }
 .submitted-link {
-  text-decoration: underline; 
-  color: blue; 
-  cursor: pointer; 
+  text-decoration: underline;
+  color: blue;
+  cursor: pointer;
 }
 
 .correct-option {
   background-color: blue;
 }
-.Score-Result{
+.Score-Result {
+  color: #fff;
 
-    color: black;
+  margin-left: 75%;
 
-    margin-left: 47%;
+  width: 500px;
 
-    width: 500px;
+  font-family: Arial, Helvetica, sans-serif;
 
-    font-family: Arial, Helvetica, sans-serif;
-    
-    font-weight: bolder;
+  font-weight: bolder;
 }

@@ -8,31 +8,43 @@
   >
     <ng-template pTemplate="header" let-columns>
       <tr>
+        <th pSortableColumn="email_Managername" style="width: 20rem">
+              Manager <p-sortIcon field="email_Managername"></p-sortIcon>
+            </th>
+
         <th style="width: 20rem">Candidate Name</th>
 
-        <th pSortableColumn="Status" style="width: 20rem">
+        <th style="width: 20rem">File Name</th>
+
+        <th pSortableColumn="email_Status" style="width: 20rem">
           Status <p-sortIcon field="Status"></p-sortIcon>
         </th>
 
         <th style="width: 3rem">Score</th>
+
+        <th style="width: 20rem">S/R</th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-rowData>
       <tr class="table-row">
-        <td style="width: 20rem">{{ rowData.candidateName }}</td>
 
+        <td style="width: 20rem">{{ rowData.email_Managername }}</td>
+        <td style="width: 20rem">{{ rowData.candidateName }}</td>
         <td style="width: 20rem">
-            <ng-container *ngIf="rowData.result==='Submitted' else normalText">
-                <a class="submitted-link" (click)="showDialog()">{{ rowData.result }}</a>
+          <ng-container *ngIf="rowData.email_Status==='Submitted' else normalText">
+                <a class="submitted-link" (click)="showDialog(rowData.email_Managername,rowData.email_Filename)">{{ rowData.email_Filename }}</a>
             </ng-container>
             <ng-template #normalText>
-                {{ rowData.result }}
+                {{ rowData.email_Filename }}
             </ng-template>
-            
+    
         </td>
-
+        <td style="width: 20rem">{{ rowData.email_Status }}</td>
         <td style="width: 20rem">{{ rowData.score }}</td>
+        <td style="width: 20rem"> {{ rowData.result }}</td>
+
+        
       </tr>
     </ng-template>
   </p-table>
@@ -106,17 +118,17 @@
   </ng-container>
   <div class="submit-button-container">
     <div>
-
-        <button pButton type="button" label="Submit" class="p-button-primary" (click)="submitReview()" style="margin-left: 46%;"></button>
+        <p-toast></p-toast>
+        <button type="button"  pButton pRipple label="Submit" class="p-button-primary" (click)="submitReview(FinalizedQuestions)" style="margin-left: 75%;"></button>
   
     </div>
-  <div class="Score-Result">
+  <!-- <div class="Score-Result">
     Score: {{ score }}%
   </div>
 
   <div class="Score-Result">
     {{ result }}
-  </div>
+  </div> -->
 
 </div>
 

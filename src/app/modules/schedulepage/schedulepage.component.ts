@@ -103,9 +103,12 @@ export class SchedulepageComponent implements OnInit {
   editManagername!: string;
 
   editFilename!: any;
-  
+
+  result: string = '';
+
+  score: number | null = null;
+
   // candidateForm !: FormGroup;
-  
 
   constructor(
     private tableService: TableService,
@@ -114,17 +117,8 @@ export class SchedulepageComponent implements OnInit {
 
     private skillsdropdownservice: SkillsdropdownService,
 
-    private router: Router,
-
-    private formBuilder: FormBuilder
-  ) {
-
-    // this.candidateForm = this.formBuilder.group({
-    //   candidateName: ['', Validators.required],
-    //   candidateEmail: ['', Validators.required,Validators.email],
-    //   candidatePhone: [null]
-    // });
-  }
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.loadManagerNames();
@@ -144,50 +138,33 @@ export class SchedulepageComponent implements OnInit {
 
       { field: 'actions', header: 'Actions' },
     ];
-
-    
   }
 
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
       // Use a Set to store unique candidate email addresses
       const uniqueEmails = new Set<string>();
-  
+
       // Use an array to store unique candidate names
       const uniqueCandidateNames: any[] = [];
-  
+
       // Iterate through the data and filter duplicates based on email addresses
-      data.forEach((candidate: { candidateName: string, candidateEmail: string }) => {
-        if (!uniqueEmails.has(candidate.candidateEmail)) {
-          uniqueEmails.add(candidate.candidateEmail);
-          uniqueCandidateNames.push(candidate.candidateName);
+      data.forEach(
+        (candidate: { candidateName: string; candidateEmail: string }) => {
+          if (!uniqueEmails.has(candidate.candidateEmail)) {
+            uniqueEmails.add(candidate.candidateEmail);
+            uniqueCandidateNames.push(candidate.candidateName);
+          }
         }
-      });
-  
+      );
+
       // Assign the unique candidate names to your variable
       this.candidateNames = uniqueCandidateNames;
-      
 
-  
       console.log('candidate', data);
       console.log(this.candidateNames);
     });
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 
   onTabChange(event: any) {
     if (event.index === 1) {
@@ -229,8 +206,7 @@ export class SchedulepageComponent implements OnInit {
             this.candidateList.push(data);
           });
 
-          this.getCandidatename();
-          
+        this.getCandidatename();
       }
     });
 
@@ -335,15 +311,11 @@ export class SchedulepageComponent implements OnInit {
 
   candidateEmail!: string;
 
-  candidatePhone : number  | null = null;
+  candidatePhone: number | null = null;
 
   // score: Number | null = null;
 
   // result !: string;
-
-  result : string = "Submitted";
-
-  score: Number | null = 95;
 
   openEmailDialog(Managername: string, fileName: string) {
     this.displayEmailDialog = true;
@@ -352,7 +324,7 @@ export class SchedulepageComponent implements OnInit {
     console.log('emanager', this.email_Managername);
     this.email_Filename = fileName;
     console.log('efile', this.email_Filename);
-    this.email_Status = 'Not Started';
+    this.email_Status = 'Submitted';
     console.log('ests', this.email_Status);
     this.tableService
 
@@ -369,11 +341,10 @@ export class SchedulepageComponent implements OnInit {
 
   cancelEmailPopup() {
     this.displayEmailDialog = false;
-    this.selectedCandidates=[];
+    this.selectedCandidates = [];
     this.resetForm();
   }
 
-  
   storeCandidate() {
     console.log('score', this.score);
     console.log('result', this.result);
@@ -382,7 +353,6 @@ export class SchedulepageComponent implements OnInit {
         this.email_Managername,
 
         this.candidateName,
-        
 
         this.candidateEmail,
 
@@ -401,36 +371,29 @@ export class SchedulepageComponent implements OnInit {
       .subscribe((response) => {
         console.log('stored', response);
 
-
         this.candidateList.push(response);
-
-      
       });
-      this.getCandidatename();
-      
- this.resetForm();
-  // Close the dialog
-  this.displayEmailDialog = false;
+    this.getCandidatename();
+
+    this.resetForm();
+    // Close the dialog
+    this.displayEmailDialog = false;
   }
   resetForm() {
-   this.candidateName = '';
-     this.candidateEmail = '';
-     this.candidatePhone = null;
-     // You might want to set this to a default value
-  //    this.email_Status = '';
-  //    this.email_Filename = '';
-  //  this.questions = '';
-  
-  //   // Close the dialog
-  //   this.displayEmailDialog = false;
-   }
+    this.candidateName = '';
+    this.candidateEmail = '';
+    this.candidatePhone = null;
+    // You might want to set this to a default value
+    //    this.email_Status = '';
+    //    this.email_Filename = '';
+    //  this.questions = '';
 
-
-
+    //   // Close the dialog
+    //   this.displayEmailDialog = false;
+  }
 
   sendEmail() {
     this.displayEmailDialog = false;
-    
 
     // Reset the form data
   }
