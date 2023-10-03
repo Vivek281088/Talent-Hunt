@@ -45,12 +45,6 @@ export class SkillsdropdownService {
   postquestions(dataToSave: any): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
-    //  const body = {
-    //    Questions: ques.Questions,
-    //    cutoff:ques.cuttoff,
-    //    duration:ques.duration
-    //   }
-    //console.log("body:",body);
 
     return this.http.post<any>(
       this.skillsUrl + '/questions',

@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 
 import { ManagernameService } from 'src/app/services/managername.service';
 
 import { TableService } from 'src/app/services/table.service';
+import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 
 @Component({
   selector: 'app-assessment-display',
   templateUrl: './assessment-display.component.html',
   styleUrls: ['./assessment-display.component.scss'],
+  providers: [ConfirmationService, MessageService]
 })
 export class AssessmentDisplayComponent implements OnInit {
   // Initialize start and end times
-
+  position: string = 'center';
   FinalizedQuestions: any[] = [];
 
   duration: number = 20;
@@ -23,12 +26,18 @@ export class AssessmentDisplayComponent implements OnInit {
   candidateName: string = 'Sapna';
 
   startTime!: Date;
-endTime!: Date;
+
+  endTime!: Date;
+
+  postData !: any ;
   
   constructor(
     private managernameService: ManagernameService,
 
-    private tableservice: TableService
+    private tableservice: TableService,
+
+    private candidateAssessmentService : CandidateAssessmentService,
+    private confirmationService: ConfirmationService, private messageService: MessageService    
   ) {}
 
   ngOnInit() {
@@ -66,15 +75,16 @@ endTime!: Date;
 
         skills: 'Java-8',
 
-        selectedOption : []
+        selectedOption : [],
+
       },
     ];
 
     console.log('qd', this.FinalizedQuestions);
 
-    this.duration = this.managernameService.getDuration();
+    // this.duration = this.managernameService.getDuration();
 
-    this.cutoff = this.managernameService.getCutoff();
+    // this.cutoff = this.managernameService.getCutoff();
 
     // this.FinalizedQuestions.forEach((question) => {
 
@@ -97,21 +107,55 @@ endTime!: Date;
     // console.log();
   }
 
-  
+  confirmPosition(position: string) {
+    this.position = position;
 
-  submitAnswers() {
+    this.confirmationService.confirm({
+        message: 'Do you want to submit your answers?',
+        header: 'Submit Confirmation',
+        icon: 'pi pi-info-circle',
+        accept: () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+            //this.submitAnswers();
+            console.log("Submitted")
+        },
+        reject: (type: ConfirmEventType) => {
+            switch (type) {
+                case ConfirmEventType.REJECT:
+                    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+                    console.log("Rejected")
+                    break;
+                case ConfirmEventType.CANCEL:
+                  console.log("Canceled")
+                    this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+                    break;
+            }
+        },
+        key: 'positionDialog'
+    });
+}
 
-    this.endTime = new Date();
+
+
+//   submitAnswers() {
+
+//     this.endTime = new Date();
     
-    const postData = {
-      candidateName: this.candidateName,
-      questions: this.FinalizedQuestions,
-      selectedOption: this.FinalizedQuestions.map((question) => question.selectedOption),
-      startTime: this.startTime, // Store the start time
-    endTime: this.endTime,
+//      this.postData = {
+//       candidateName: this.candidateName,
+//       questions: this.FinalizedQuestions,
+//       selectedOption: this.FinalizedQuestions.map((question) => question.selectedOption),
+//       startTime: this.startTime, 
+//     endTime: this.endTime,
+//     cutoff:this.cutoff,
+//     duration:this.duration
       
-    };
-    console.log("Final Data",postData);
+//     }
+//     console.log("Final Data",this.postData);
+//     this.candidateAssessmentService
+//         .postCandiadte_assessment(this.postData).subscribe((response) => {
+          
+//         });
     
-  }
+//   }
 }

@@ -3,6 +3,10 @@
     <div class="flex w-9">
       <div class="flex flex-column w-4 mr-3">
         <div class="flex mr-3 align-items-center">
+          <label class="font-bold block heading mr-3 ml-2">
+            CandidateName: {{ candidateName }}</label
+          >
+
           <p class="w-full heading m-0"></p>
         </div>
       </div>
@@ -11,11 +15,8 @@
         <div class="flex question_selection">
           <div class="flex mr-3 align-items-center">
             <label class="font-bold block heading mr-3 ml-8">
-              candidateName: {{ candidateName }}</label
+              Duration: {{ duration }}</label
             >
-            
-           
-            
 
             <p class="w-full heading m-0"></p>
           </div>
@@ -39,6 +40,7 @@
       </svg>
     </div>
   </div>
+  
 
   <!-- <h2 class="mr-2 heading pb-4 pt-4 ">Assessment</h2> -->
 
@@ -81,7 +83,14 @@
         </div>
       </ng-container>
     </div>
-
-    <button (click)="submitAnswers()">Submit</button>
+    
+     
+    <!-- <button (click)="submitAnswers()">Submit</button> -->
+    <p-button (click)="confirmPosition('top')"  label="Submit" styleClass="p-button-primary"></p-button> 
   </ng-container>
+ <toast></toast>
+  <p-confirmDialog [style]="{ width: '50vw' }" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+  <div class="flex flex-wrap justify-content-center gap-2">
+    
+    
 </div>
