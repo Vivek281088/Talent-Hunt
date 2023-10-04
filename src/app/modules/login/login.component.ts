@@ -38,9 +38,14 @@ export class LoginComponent {
 ngOnInit(){
   history.pushState(null,'','') 
 }
-  sign() {
+forgotpassword(){
+  // this.router.navigate(['forgotpassword']);
+}
+  sign() 
+  {
    
     this.loginservice.postlogincredentials(this.name,this.password).subscribe((data)=>{
+
       console.log("authenticate",data);
      
       if(data.status==200){
@@ -84,7 +89,8 @@ ngOnInit(){
     
   }
 
-
+  // this.router.navigate(['signup']);
+ 
     
     
 

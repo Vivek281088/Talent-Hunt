@@ -15,7 +15,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
-
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -35,7 +35,8 @@ import { TabViewModule } from 'primeng/tabview';
     TooltipModule,
     DialogModule,
     TabViewModule,
-    InputTextModule
+    InputTextModule,
+    ToastModule
   ],
   exports: [
     MultiSelectModule,
@@ -53,7 +54,8 @@ import { TabViewModule } from 'primeng/tabview';
     TooltipModule,
     DialogModule,
     TabViewModule,
-    InputTextModule
+    InputTextModule,
+    ToastModule
   ],
 })
 export class PrimeModule {}
