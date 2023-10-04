@@ -20,6 +20,7 @@ import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 export class CandidateAssessmentComponent   {
 
   candidateName: string = 'Aishwarya'; 
+  assessmentFilename: string = 'JAVA_AWS_V1';
 
   cols!: Column[];
 
@@ -33,24 +34,21 @@ export class CandidateAssessmentComponent   {
   }
 
   ngOnInit(): void {
-    this.cols = [
-      { field: 'manager', header: 'Manager' },
+    // this.cols = [
+    //   { field: 'manager', header: 'Manager' },
 
-      { field: 'file name', header: 'File name' },
+    //   { field: 'file name', header: 'File name' },
 
-      { field: 'actions', header: 'Actions' },
-    ];
+    //   { field: 'actions', header: 'Actions' },
+    // ];
     
   }
 
   startAssessment() {
     
-    this.router.navigate(['/assessment']);
+    this.router.navigate(['/assessment-display']);
   }
 
-
-
-  
 }
 
 
