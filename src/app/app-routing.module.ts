@@ -18,6 +18,7 @@ import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
 import {authGuard} from './Guard/auth.guard'
+import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 
  
 
@@ -29,16 +30,17 @@ const routes: Routes = [
 
   { path: 'questiondisplay', component: QuestiondisplayComponent },
 
-  { path: 'edit', component: EditComponent , canActivate:[authGuard]},
+  { path: 'edit', component: EditComponent },
 
   { path: 'login', component: LoginComponent},
 
-  { path: 'signup', component: SignupComponent, canActivate:[authGuard] },
+  { path: 'signup', component: SignupComponent},
 
-  { path: 'reviewer', component: ReviewerComponent, canActivate:[authGuard] },
-  { path: 'candidateassessment', component:  CandidateAssessmentComponent },
+  { path: 'reviewer', component: ReviewerComponent},
+  { path: 'candidateassessment', component:  CandidateAssessmentComponent,canActivate:[authGuard] },
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'assessment-display', component: AssessmentDisplayComponent, canActivate:[authGuard] }, 
+  { path: 'assessment-display', component: AssessmentDisplayComponent}, 
+  {path:'forgotpassword',component:ForgotpasswordComponent},
 
   { path: '**', component: LoginComponent },
 

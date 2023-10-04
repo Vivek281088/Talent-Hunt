@@ -18,6 +18,8 @@ import { SignupComponent } from './modules/signup/signup.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
+import { ToastrModule } from 'ngx-toastr';
+import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 
 
 @NgModule({
@@ -34,6 +36,7 @@ import { AssessmentDisplayComponent } from './modules/assessment-display/assessm
     CandidateAssessmentComponent,
     ReviewerComponent,
     AssessmentDisplayComponent,
+    ForgotpasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { AssessmentDisplayComponent } from './modules/assessment-display/assessm
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [],
