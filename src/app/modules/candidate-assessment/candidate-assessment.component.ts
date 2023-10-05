@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 
 
+
 @Component({
   selector: 'app-candidate-assessment',
   templateUrl: './candidate-assessment.component.html',
@@ -33,6 +34,7 @@ export class CandidateAssessmentComponent   {
   }
 
   ngOnInit(): void {
+    
     this.cols = [
       { field: 'manager', header: 'Manager' },
 

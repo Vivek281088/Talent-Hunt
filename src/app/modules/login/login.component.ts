@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 import { AuthService } from 'src/app/Guard/auth.service';
+import { AuthClassGuard } from 'src/app/Guard/auth-class.guard';
 
+import * as CryptoJS from 'crypto-js';
  
 
 @Component({
@@ -29,29 +31,53 @@ export class LoginComponent {
   password!:string;
   nameinvalid!:string;
   passwordinvalid!:string;
+  encrypted_password!:string;
+
  
   constructor(private router: Router,
     private loginservice:LoginService,
-    private authService:AuthService) {}
+    private authService:AuthService,
+   ) {}
 
  
 ngOnInit(){
   history.pushState(null,'','') 
 }
 forgotpassword(){
-  // this.router.navigate(['forgotpassword']);
+  this.router.navigate(['forgotpassword']);
 }
+
   sign() 
   {
-   
-    this.loginservice.postlogincredentials(this.name,this.password).subscribe((data)=>{
+
+  //  this.encrypted_password=btoa(this.password);
+  //  console.log(this.encrypted_password);
+  const encryptionkey='123456qwertyuio';
+  const iv='  ';
+  const ciphertext=CryptoJS.AES.encrypt(this.password,encryptionkey,{
+    iv:CryptoJS.enc.Base64.parse(iv),
+    mode:CryptoJS.mode.CBC,
+    padding:CryptoJS.pad.Pkcs7
+  })
+   this.encrypted_password=ciphertext.toString();
+   console.log(this.encrypted_password);
+    this.loginservice.postlogincredentials(this.name,this.encrypted_password).subscribe((data)=>{
 
       console.log("authenticate",data);
      
       if(data.status==200){
-        localStorage.setItem("localuserdata",JSON.stringify(data))
+        // localStorage.setItem("token","true")
         if(data.role=="manager"){
-          this.authService.login().subscribe(() => {
+          // localStorage.setItem('token',this.password)
+          // this.authguard.canActivate().subscribe(()=>{
+          //   if(true){
+
+          //   }
+          //   else{
+
+          //   }
+          // })
+          this.authService.login1().subscribe(() => {
             if (this.authService.isLoggedIn) {
               const redirectUrl = this.authService.redirectUrl
                 ? this.authService.redirectUrl
@@ -63,7 +89,7 @@ forgotpassword(){
           // this.router.navigate(['dashboard'])
         }
         else if(data.role=="user"){
-          this.authService.login().subscribe(() => {
+          this.authService.login1().subscribe(() => {
             if (this.authService.isLoggedIn) {
               const redirectUrl = this.authService.redirectUrl
                 ? this.authService.redirectUrl

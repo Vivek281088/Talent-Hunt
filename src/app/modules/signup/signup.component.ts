@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 @Component({
@@ -19,7 +20,7 @@ export class SignupComponent {
 
 
 
-  constructor(private loginservice:LoginService,private toastr:ToastrService,private messageService: MessageService){
+  constructor(private loginservice:LoginService,private toastr:ToastrService,private messageService: MessageService,private router:Router){
 
   }
   resetform(){
@@ -45,6 +46,8 @@ export class SignupComponent {
       else{
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
          this.resetform();
+         this.router.navigate(['login'])
+         
       }
     })
   }

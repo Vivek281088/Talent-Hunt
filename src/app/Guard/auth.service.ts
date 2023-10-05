@@ -17,20 +17,28 @@ import { tap, delay } from 'rxjs/operators';
 })
 export class AuthService {
   isLoggedIn = false;
+   a:boolean=false;
 
-  // store the URL so we can redirect after logging in
+  // store the URL so we can redirect after logging i
   redirectUrl: string | null = null;
 
-  login(): Observable<boolean> {
+  login1(): Observable<boolean> {
+    localStorage.setItem("token","true");
+
+    console.log("Login Called")
     return of(true).pipe(
+
       delay(1000),
-      tap(() => (this.isLoggedIn = true))
+      tap(() => (this.isLoggedIn= true))
     );
   }
-// login(){
-//   this.isLoggedIn=true;
-// }
-  // logout(): void {
-  //   this.isLoggedIn = false;
+  // login2():Observable<boolean>{
+  //   this.a=true
+  //   return of(true)
+    
+  //  // return true;
   // }
+logout(){
+   return false;
+ }
 }

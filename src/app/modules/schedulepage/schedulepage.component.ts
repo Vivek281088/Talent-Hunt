@@ -9,6 +9,8 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
+import { AuthService } from 'src/app/Guard/auth.service';
+
 
 @Component({
   selector: 'app-schedulepage',
@@ -117,6 +119,9 @@ export class SchedulepageComponent implements OnInit {
     private router: Router,
 
     private formBuilder: FormBuilder
+    ,
+    private auth :AuthService
+
   ) {
 
     // this.candidateForm = this.formBuilder.group({
@@ -127,6 +132,8 @@ export class SchedulepageComponent implements OnInit {
   }
 
   ngOnInit() {
+    //this.auth.isLoggedIn=true;
+
     this.loadManagerNames();
 
     this.getSkillSet();

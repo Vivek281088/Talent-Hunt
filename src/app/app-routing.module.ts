@@ -18,28 +18,30 @@ import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
 import {authGuard} from './Guard/auth.guard'
+import { AuthClassGuard } from './Guard/auth-class.guard';
+
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 
  
 
 const routes: Routes = [
-  { path: 'create', component: Dash1Component },
+  { path: 'create', component: Dash1Component , canActivate:[authGuard]},
 
   // { path: 'dashboard', component: SchedulepageComponent },
   { path: 'dashboard', component: SchedulepageComponent, canActivate:[authGuard]},
 
-  { path: 'questiondisplay', component: QuestiondisplayComponent},
+  { path: 'questiondisplay', component: QuestiondisplayComponent, canActivate:[authGuard]},
 
-  { path: 'edit', component: EditComponent },
+  { path: 'edit', component: EditComponent, canActivate:[authGuard] },
 
   { path: 'login', component: LoginComponent},
 
   { path: 'signup', component: SignupComponent},
 
-  { path: 'reviewer', component: ReviewerComponent},
+  { path: 'reviewer', component: ReviewerComponent, canActivate:[authGuard]},
   { path: 'candidateassessment', component:  CandidateAssessmentComponent,canActivate:[authGuard] },
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'assessment-display', component: AssessmentDisplayComponent}, 
+  { path: 'assessment-display', component: AssessmentDisplayComponent, canActivate:[authGuard]}, 
   {path:'forgotpassword',component:ForgotpasswordComponent},
 
   { path: '**', component: LoginComponent },
