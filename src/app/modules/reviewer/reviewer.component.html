@@ -22,7 +22,7 @@
 
         <th style="width: 3rem">Score</th>
 
-        <th style="width: 20rem">S/R</th>
+        <th style="width: 20rem">Result</th>
       </tr>
     </ng-template>
 
@@ -33,7 +33,7 @@
         <td style="width: 20rem">{{ rowData.candidateName }}</td>
         <td style="width: 20rem">
           <ng-container *ngIf="rowData.email_Status==='Submitted' else normalText">
-                <a class="submitted-link" (click)="showDialog(rowData.email_Managername,rowData.email_Filename)">{{ rowData.email_Filename }}</a>
+                <a class="submitted-link" (click)="showDialog(rowData)">{{ rowData.email_Filename }}</a>
             </ng-container>
             <ng-template #normalText>
                 {{ rowData.email_Filename }}

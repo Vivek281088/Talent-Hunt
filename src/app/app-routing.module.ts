@@ -22,23 +22,23 @@ import {authGuard} from './Guard/auth.guard'
  
 
 const routes: Routes = [
-  { path: 'create', component: Dash1Component, canActivate:[authGuard] },
+  { path: 'create', component: Dash1Component },
 
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'dashboard', component: SchedulepageComponent, canActivate:[authGuard]},
+  { path: 'dashboard', component: SchedulepageComponent},
 
-  { path: 'questiondisplay', component: QuestiondisplayComponent , canActivate:[authGuard]},
+  { path: 'questiondisplay', component: QuestiondisplayComponent },
 
-  { path: 'edit', component: EditComponent , canActivate:[authGuard]},
+  { path: 'edit', component: EditComponent },
 
   { path: 'login', component: LoginComponent},
 
-  { path: 'signup', component: SignupComponent, canActivate:[authGuard] },
+  { path: 'signup', component: SignupComponent },
 
-  { path: 'reviewer', component: ReviewerComponent, canActivate:[authGuard] },
-  { path: 'candidateassessment', component:  CandidateAssessmentComponent,canActivate:[authGuard] },
+  { path: 'reviewer', component: ReviewerComponent },
+  { path: 'candidateassessment', component:  CandidateAssessmentComponent },
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'assessment-display', component: AssessmentDisplayComponent, canActivate:[authGuard] }, 
+  { path: 'assessment-display', component: AssessmentDisplayComponent}, 
 
   { path: '**', component: LoginComponent },
 
