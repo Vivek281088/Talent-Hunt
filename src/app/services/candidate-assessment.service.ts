@@ -12,17 +12,35 @@ export class CandidateAssessmentService {
 
   constructor(private http: HttpClient) { }
   
-  postCandiadte_assessment(data : any): Observable<any> {
+  postCandiadte_assessment(
+          candidateName : string,
+          FinalizedQuestions : any,
+          selectedOption : any,
+          startTime : Date,
+          endTime : Date,
+          cutoff : number,
+          duration : number
+  ): Observable<any> {
 
 
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
-    const body = { data };
+    const body = {  candidateName:candidateName,
+      questions:FinalizedQuestions ,
+      selectedOption:selectedOption ,
+      startTime: startTime ,
+      endTime:endTime,
+      cutoff:cutoff ,
+      duration:duration };
 
-    return this.http.post<any>(this.defaultUrl + '/postcandiadate_assessment', body, {
+    return this.http.post<any>(this.defaultUrl + '/postcandidate_assessment', body, {
       headers,
     });
   }
+
+ 
+
+
   
 }
 

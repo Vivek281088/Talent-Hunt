@@ -15,6 +15,7 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
+import { MessagesModule } from 'primeng/messages';
 
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -40,6 +41,7 @@ import { ConfirmationService } from 'primeng/api';
     TabViewModule,
     InputTextModule,
    ConfirmDialogModule,
+   MessagesModule
     
   ],
   exports: [
@@ -60,6 +62,7 @@ import { ConfirmationService } from 'primeng/api';
     TabViewModule,
     InputTextModule,
     ConfirmDialogModule,
+    MessagesModule
     
     
   ],
