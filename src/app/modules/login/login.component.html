@@ -7,7 +7,7 @@
         <i class="pi pi-user"></i>
       </span>
 
-      <input type="text" pInputText placeholder="Username" [(ngModel)]="name" id="name" />
+      <input type="text" pInputText placeholder="Email" [(ngModel)]="userEmail" id="name" />
     </div>
 
     <div class="p-inputgroup">
@@ -29,7 +29,7 @@
       type="button"
       label="Sign In"
       class="p-button-primary"
-      [disabled]="!name||!password"
+      [disabled]="!userEmail||!password"
       
       (click)="sign()"
 
@@ -39,6 +39,6 @@
       <a href="#">Forgot Password?</a>
     </div>
 
-    <div class="signup">Don't have an account? <a href="#">Sign Up</a></div>
+    <div class="signup">Don't have an account? <a href="/signup">Sign Up</a></div>
   </p-card>
 </div>

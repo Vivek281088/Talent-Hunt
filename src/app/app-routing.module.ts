@@ -33,7 +33,7 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent},
 
-  { path: 'signup', component: SignupComponent, canActivate:[authGuard] },
+  { path: 'signup', component: SignupComponent },
 
   { path: 'reviewer', component: ReviewerComponent, canActivate:[authGuard] },
   { path: 'candidateassessment', component:  CandidateAssessmentComponent },
