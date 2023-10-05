@@ -34,4 +34,9 @@ export class ReviewerService {
     return this.http.put<any>(
       this.defaultUrl + '/reviewer_updating_score_result',data );
   }
+
+  getCandidatetable(): Observable<any> {
+    const endpoint = `${this.defaultUrl}/candidate_submitted`;
+    return this.http.get<any>(endpoint);
+  }
 }
