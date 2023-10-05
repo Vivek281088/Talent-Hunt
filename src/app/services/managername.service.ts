@@ -22,6 +22,12 @@ export class ManagernameService {
   
   private fileName!: string;
 
+  private finalizedName !: string;
+
+  finalizedEmail !: string;
+
+  userEmail !: string;
+
   constructor(private http: HttpClient) {}
 
   getManagerNames(): Observable<any> {
@@ -45,6 +51,7 @@ export class ManagernameService {
     phone: number,
     status: string,
     filename: string,
+
     questions: any
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
@@ -108,4 +115,16 @@ export class ManagernameService {
   getFileName(): string {
     return this.fileName;
   }
+
+
+
+setCandidateAssessment_Email(userEmail: string): void {
+  this.finalizedEmail = userEmail;
+}
+
+getCandidateAssessment_Email(): string {
+  return this.finalizedEmail;
+}
+
+
 }

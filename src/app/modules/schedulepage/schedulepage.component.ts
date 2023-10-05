@@ -210,26 +210,7 @@ export class SchedulepageComponent implements OnInit {
       }
     });
 
-    // console.log(this.selectedCandidates);
-    // console.log(this.email_Managername);
-    // console.log(this.candidateEmail);
-    // console.log(this.candidatePhone);
-    // console.log(this.email_Status);
-    // console.log(this.email_Filename);
-    // console.log(this.questions);
-    // this.managernameService
-    //   .postexistingcandidates(
-    //     this.email_Managername,
-    //     this.selectedCandidates,
-    //     this.candidateEmail,
-    //     this.candidatePhone,
-    //     this.email_Status,
-    //     this.email_Filename,
-    //     this.questions
-    //   )
-    //   .subscribe((data) => {
-    //     console.log('postdata', data);
-    //   });
+    
   }
 
   getSkillSet() {

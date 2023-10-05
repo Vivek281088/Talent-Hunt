@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { ManagernameService } from 'src/app/services/managername.service';
 
 import { Router } from '@angular/router';
 
@@ -29,14 +30,24 @@ export class LoginComponent {
   password!:string;
   nameinvalid!:string;
   passwordinvalid!:string;
+  finalizedName !: string;
+  userEmail !: string;
+  
+
  
   constructor(private router: Router,
     private loginservice:LoginService,
-    private authService:AuthService) {}
+    private authService:AuthService,
+    private managernameService: ManagernameService
+    
+    ) {}
 
  
 ngOnInit(){
   history.pushState(null,'','') 
+  // this.showCandidateName = this.managernameService.getManagerName();
+ 
+
 }
 forgotpassword(){
   // this.router.navigate(['forgotpassword']);
@@ -44,10 +55,10 @@ forgotpassword(){
   sign() 
   {
    
-    this.loginservice.postlogincredentials(this.name,this.password).subscribe((data)=>{
-
+    this.loginservice.postlogincredentials(this.userEmail,this.password).subscribe((data)=>{
       console.log("authenticate",data);
-     
+     this.managernameService.setCandidateAssessment_Email(this.userEmail);
+    //  console.log("a",a)
       if(data.status==200){
         localStorage.setItem("localuserdata",JSON.stringify(data))
         if(data.role=="manager"){
@@ -71,8 +82,7 @@ forgotpassword(){
               this.router.navigate(['candidateassessment']);
             }
           });
-           
-          // this.router.navigate(['candidateassessment'])
+       
         }
       }
       else{

@@ -26,34 +26,28 @@ export class CandidateAssessmentComponent   {
 
   candidateList: any[] = [];
 
+   showCandidateEmail !: string;
+  
+  finalizedEmail !:string;
 
-  constructor(private router: Router) {
+
+  constructor(private router: Router,
+    private managernameService: ManagernameService ) {
 
 
 
   }
 
   ngOnInit(): void {
-    // this.cols = [
-    //   { field: 'manager', header: 'Manager' },
-
-    //   { field: 'file name', header: 'File name' },
-
-    //   { field: 'actions', header: 'Actions' },
-    // ];
-    
+   this.finalizedEmail= this.managernameService.getCandidateAssessment_Email();
+   console.log ( "hi",this.finalizedEmail);
   }
 
   startAssessment() {
-    
     this.router.navigate(['/assessment-display']);
   }
 
 }
-
-
-
-
 
 
 interface Column {
