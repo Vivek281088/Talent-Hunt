@@ -16,6 +16,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
 
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -42,6 +43,7 @@ import { ConfirmationService } from 'primeng/api';
     InputTextModule,
     ToastModule,
    ConfirmDialogModule,
+   MessagesModule
     
   ],
   exports: [
@@ -63,6 +65,7 @@ import { ConfirmationService } from 'primeng/api';
     InputTextModule,
     ToastModule,
     ConfirmDialogModule,
+    MessagesModule
     
     
   ],

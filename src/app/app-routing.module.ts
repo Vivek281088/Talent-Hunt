@@ -26,9 +26,9 @@ const routes: Routes = [
   { path: 'create', component: Dash1Component},
 
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'dashboard', component: SchedulepageComponent, canActivate:[authGuard]},
+  { path: 'dashboard', component: SchedulepageComponent},
 
-  { path: 'questiondisplay', component: QuestiondisplayComponent },
+  { path: 'questiondisplay', component: QuestiondisplayComponent},
 
   { path: 'edit', component: EditComponent },
 

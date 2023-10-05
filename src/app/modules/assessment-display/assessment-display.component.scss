@@ -106,6 +106,9 @@ body {
   font-weight: bold;
 }
 
+.time{
+  width: 200px;
+}
 //   .vertical-options-checkbox{
 
 //     display: flex;
@@ -218,4 +221,10 @@ button {
 }
 :host ::ng-deep .p-button {
   margin-left: 1050px;
+}
+
+.navbartop{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }

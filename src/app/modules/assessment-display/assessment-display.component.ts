@@ -5,6 +5,8 @@ import { ManagernameService } from 'src/app/services/managername.service';
 
 import { TableService } from 'src/app/services/table.service';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { ChangeDetectorRef } from '@angular/core';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-assessment-display',
@@ -14,10 +16,15 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
 })
 export class AssessmentDisplayComponent implements OnInit {
   // Initialize start and end times
+
+  
+
+  messages2: Message[] =[];
+
   position: string = 'center';
   FinalizedQuestions: any[] = [];
 
-  duration: number = 20;
+  duration: number = 120;
 
   cutoff: number = 60;
 
@@ -30,6 +37,11 @@ export class AssessmentDisplayComponent implements OnInit {
   endTime!: Date;
 
   postData !: any ;
+
+  selectedOption : any[]= [];
+  remainingTime: number=0;
+  remainingTimeString: string = '';
+
   
   constructor(
     private managernameService: ManagernameService,
@@ -37,12 +49,25 @@ export class AssessmentDisplayComponent implements OnInit {
     private tableservice: TableService,
 
     private candidateAssessmentService : CandidateAssessmentService,
-    private confirmationService: ConfirmationService, private messageService: MessageService    
+    private confirmationService: ConfirmationService, private messageService: MessageService   ,
+    private cdr: ChangeDetectorRef 
   ) {}
 
   ngOnInit() {
 
+
+   
+
+  this.messages2 = [
+      { severity: 'warn', summary: 'Warning', detail: '5 mins more' },
+      
+  ];
+
+
     this.startTime = new Date();
+    this.remainingTime = this.duration * 60; // Initialize remaining time
+
+    this.updateTimer(); 
     
     this.FinalizedQuestions = [
       {
@@ -106,6 +131,39 @@ export class AssessmentDisplayComponent implements OnInit {
     // });
     // console.log();
   }
+    updateTimer() {
+      const timerInterval = setInterval(() => {
+        if (this.remainingTime > 0) {
+          this.remainingTime--;
+  
+          if (this.remainingTime >= 60) {
+            const hours = Math.floor(this.remainingTime / 3600);
+            const minutes = Math.floor((this.remainingTime % 3600) / 60);
+            this.remainingTimeString = `${hours}h ${minutes}m`;
+          } else {
+            this.remainingTimeString = `${Math.floor(this.remainingTime / 60)}m ${this.remainingTime % 60}s`;
+          }
+          this.cdr.detectChanges();
+        } else {
+          clearInterval(timerInterval); // Stop the timer
+          this.submitAnswers(); // Automatically submit the answers
+        }
+      }, 1000); // 1000 milliseconds = 1 second
+    }
+  
+    formatTime(seconds: number): string {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+  
+      const hoursDisplay = hours > 0 ? hours + 'h ' : '';
+      const minutesDisplay = minutes > 0 ? minutes + 'm ' : '';
+      const secondsDisplay = remainingSeconds + 's';
+  
+      return hoursDisplay + minutesDisplay + secondsDisplay;
+    }
+  
+  
 
   confirmPosition(position: string) {
     this.position = position;
@@ -116,7 +174,7 @@ export class AssessmentDisplayComponent implements OnInit {
         icon: 'pi pi-info-circle',
         accept: () => {
             this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
-            //this.submitAnswers();
+            this.submitAnswers();
             console.log("Submitted")
         },
         reject: (type: ConfirmEventType) => {
@@ -137,25 +195,34 @@ export class AssessmentDisplayComponent implements OnInit {
 
 
 
-//   submitAnswers() {
+  submitAnswers() {
 
-//     this.endTime = new Date();
-    
-//      this.postData = {
-//       candidateName: this.candidateName,
-//       questions: this.FinalizedQuestions,
-//       selectedOption: this.FinalizedQuestions.map((question) => question.selectedOption),
-//       startTime: this.startTime, 
-//     endTime: this.endTime,
-//     cutoff:this.cutoff,
-//     duration:this.duration
+    this.endTime = new Date();
+    this.selectedOption = this.FinalizedQuestions.map((question) => question.selectedOption)
+     this.postData = {
+      candidateName: this.candidateName,
+      questions: this.FinalizedQuestions,
+      selectedOption: this.FinalizedQuestions.map((question) => question.selectedOption),
+      startTime: this.startTime, 
+    endTime: this.endTime,
+    cutoff:this.cutoff,
+    duration:this.duration
       
-//     }
-//     console.log("Final Data",this.postData);
-//     this.candidateAssessmentService
-//         .postCandiadte_assessment(this.postData).subscribe((response) => {
-          
-//         });
+    }
+    console.log("Final Data",this.postData);
+    this.candidateAssessmentService
+        .postCandiadte_assessment(
+          this.candidateName, 
+          this.FinalizedQuestions,
+          this.selectedOption,
+          this.startTime, 
+          this.endTime,
+          this.cutoff,
+          this.duration
+            ).subscribe((response) => {
+          console.log("Final ",this.postData);
+          console.log("Data",response);
+        });
     
-//   }
+  }
 }
