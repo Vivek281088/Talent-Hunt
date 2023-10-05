@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 
 
+
 @Component({
   selector: 'app-candidate-assessment',
   templateUrl: './candidate-assessment.component.html',
