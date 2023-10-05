@@ -213,7 +213,9 @@ export class SchedulepageComponent implements OnInit {
             this.email_Filename,
             this.questions,
             this.score,
-            this.result
+            this.result,
+            this.cutoff,
+            this.duration
             // Get candidatePhone from existing data
           )
           .subscribe((data) => {
@@ -330,6 +332,10 @@ export class SchedulepageComponent implements OnInit {
       .subscribe((data) => {
         console.log('View Data', data);
 
+        this.cutoff = data[0].cutoff;
+
+        this.duration = data[0].duration;
+
         this.questions = data[0].questions;
 
         console.log('Quest', this.questions);
@@ -363,7 +369,11 @@ export class SchedulepageComponent implements OnInit {
 
         this.score,
 
-        this.result
+        this.result,
+
+        this.cutoff,
+
+        this.duration
       )
       .subscribe((response) => {
         console.log('stored', response);
