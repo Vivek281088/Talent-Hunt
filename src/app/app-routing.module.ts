@@ -21,6 +21,7 @@ import {authGuard} from './Guard/auth.guard'
 import { AuthClassGuard } from './Guard/auth-class.guard';
 
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
+import { loginGuard } from './Guard/login.guard';
 
  
 
@@ -28,7 +29,7 @@ const routes: Routes = [
   { path: 'create', component: Dash1Component , canActivate:[authGuard]},
 
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'dashboard', component: SchedulepageComponent},
+  { path: 'dashboard', component: SchedulepageComponent , canActivate:[authGuard]},
 
   { path: 'questiondisplay', component: QuestiondisplayComponent, canActivate:[authGuard]},
 
@@ -43,8 +44,11 @@ const routes: Routes = [
   // { path: 'dashboard', component: SchedulepageComponent },
   { path: 'assessment-display', component: AssessmentDisplayComponent, canActivate:[authGuard]}, 
   {path:'forgotpassword',component:ForgotpasswordComponent},
-
-  { path: '**', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  // { path: '**', component: LoginComponent }
+  { path: '**', redirectTo: '/login' },
+  // { path: '**', redirectTo:'login' }
 
 
 ];

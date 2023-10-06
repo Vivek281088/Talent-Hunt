@@ -14,9 +14,9 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  postlogincredentials(name:string,encrypted_password:string):Observable<any>{
+  postlogincredentials(userEmail:string,encrypted_password:string):Observable<any>{
     const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={name:name,password:encrypted_password};
+    const body={candidateEmail:userEmail,password:encrypted_password};
 
     return this.http.post<any>(this.skillsUrl+'/authenticate',body,{headers})
     

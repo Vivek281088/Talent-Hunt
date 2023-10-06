@@ -8,6 +8,8 @@ import { LoginService } from 'src/app/services/login.service';
 
 import { AuthService } from 'src/app/Guard/auth.service';
 import { AuthClassGuard } from 'src/app/Guard/auth-class.guard';
+import { MessageService } from 'primeng/api';
+
 
 import * as CryptoJS from 'crypto-js';
  
@@ -27,7 +29,7 @@ import * as CryptoJS from 'crypto-js';
 })
 
 export class LoginComponent {
-
+  showNavbar: boolean = false;
   name!:string;
   password!:string;
   nameinvalid!:string;
@@ -41,8 +43,9 @@ export class LoginComponent {
   constructor(private router: Router,
     private loginservice:LoginService,
     private authService:AuthService,
-    private managernameService: ManagernameService
-    
+    private managernameService: ManagernameService,
+    private messageservice:MessageService
+  
     ) {}
   //  ) {}
 
@@ -60,9 +63,9 @@ forgotpassword(){
   sign() 
   {
    
-    this.loginservice.postlogincredentials(this.userEmail,this.password).subscribe
-    ((data)=>
-    {
+    // this.loginservice.postlogincredentials(this.userEmail,this.password).subscribe
+    // ((data)=>
+    // {
 
   //  this.encrypted_password=btoa(this.password);
   //  console.log(this.encrypted_password);
@@ -75,12 +78,15 @@ forgotpassword(){
   })
    this.encrypted_password=ciphertext.toString();
    console.log(this.encrypted_password);
-    this.loginservice.postlogincredentials(this.name,this.encrypted_password).subscribe((data)=>{
+   console.log(this.userEmail)
+
+    this.loginservice.postlogincredentials(this.userEmail,this.encrypted_password).subscribe((data)=>{
 
       console.log("authenticate",data);
      this.managernameService.setCandidateAssessment_Email(this.userEmail);
     //  console.log("a",a)
-      if(data.status==200){
+      if(data.status==200)
+      {
         // localStorage.setItem("token","true")
         if(data.role=="manager"){
           // localStorage.setItem('token',this.password)
@@ -115,6 +121,11 @@ forgotpassword(){
        
         }
       }
+      else if(data.status==400){
+        this.messageservice.add({ severity: 'error', summary: 'User not Exist', detail: '' });
+         
+      }
+      
       else{
         alert(data.message);
       }
@@ -127,11 +138,11 @@ forgotpassword(){
     
     
     
-  }
+  
 
  
     
     
-    )
+    
   }
-
+};
