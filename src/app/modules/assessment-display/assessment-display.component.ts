@@ -7,6 +7,7 @@ import { TableService } from 'src/app/services/table.service';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import { ChangeDetectorRef } from '@angular/core';
 import { Message } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assessment-display',
@@ -41,6 +42,10 @@ export class AssessmentDisplayComponent implements OnInit {
   selectedOption : any[]= [];
   remainingTime: number=0;
   remainingTimeString: string = '';
+  route: any;
+  assessmentData!: any;
+  id! : any;
+  updateStatus : string = "Submitted";
 
   
   constructor(
@@ -50,14 +55,28 @@ export class AssessmentDisplayComponent implements OnInit {
 
     private candidateAssessmentService : CandidateAssessmentService,
     private confirmationService: ConfirmationService, private messageService: MessageService   ,
-    private cdr: ChangeDetectorRef 
-  ) {}
+    private cdr: ChangeDetectorRef ,
+    private router: Router,
+  ) {
+  }
 
   ngOnInit() {
 
-
+     
+    //  this.route.queryParams.subscribe((params: { state: { rowData: any; }; }) => {
+    //   if (params && params.state && params.state.rowData) {
+    //     this.assessmentData = params.state.rowData;
+    //     console.log("Data",this.assessmentData)
+    //     // Use rowData as needed in this component
+    //   }
+    // });
+  
    
 
+    this.assessmentData=this.candidateAssessmentService.getAssessmentData();
+    console.log("get Data",this.assessmentData)
+    this.id= this.assessmentData._id;
+    console.log("Id",this.id)
   this.messages2 = [
       { severity: 'warn', summary: 'Warning', detail: '5 mins more' },
       
@@ -69,42 +88,7 @@ export class AssessmentDisplayComponent implements OnInit {
 
     this.updateTimer(); 
     
-    this.FinalizedQuestions = [
-      {
-        Difficulty_Level: 'E',
-
-        answer: ['Comparator'],
-
-        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-
-        question:
-          'Which of the following is not a functional interface in Java 8?',
-
-        questionType: 'Radio',
-
-        skills: 'Java-8',
-
-        selectedOption : []
-      },
-
-      {
-        Difficulty_Level: 'M',
-
-        answer: ['Consumer'],
-
-        options: ['Consumer', 'Charger', 'Adapter', 'Comparator'],
-
-        question: 'Which of the following is a functional interface in Java 8?',
-
-        questionType: 'Radio',
-
-        skills: 'Java-8',
-
-        selectedOption : [],
-
-      },
-    ];
-
+    this.FinalizedQuestions = this.assessmentData.questions
     console.log('qd', this.FinalizedQuestions);
 
     // this.duration = this.managernameService.getDuration();
@@ -223,6 +207,14 @@ export class AssessmentDisplayComponent implements OnInit {
           console.log("Final ",this.postData);
           console.log("Data",response);
         });
-    
+        const UpdateData ={
+          _id: this.id,
+          email_Status : this.updateStatus,
+        }
+        console.log("update",UpdateData)
+        this.candidateAssessmentService.updateStatus(UpdateData).subscribe((response) => {
+          console.log('Status updated successfully', response);
+        });
+    this.router.navigate(['/candidateassessment'])
   }
 }

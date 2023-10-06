@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ManagernameService } from 'src/app/services/managername.service';
 import { MessageService } from 'primeng/api';
 import { TableService } from 'src/app/services/table.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
+import { ManagernameService } from 'src/app/services/managername.service';
 @Component({
   selector: 'app-reviewer',
   templateUrl: './reviewer.component.html',
@@ -34,10 +34,10 @@ export class ReviewerComponent {
 
   
   constructor(
-    private managernameService: ManagernameService,
     private messageService: MessageService,
-    private tableService: TableService,
-    private reviewerService: ReviewerService
+    private reviewerService: ReviewerService,
+    private managernameService : ManagernameService
+
   ) {}
 
   ngOnInit() {
@@ -54,6 +54,13 @@ export class ReviewerComponent {
   }
 
   getExistingTableData() {
+
+    // this.reviewerService.getCandidatetable().subscribe((data) => {
+
+    //   this.candidateList = data;
+    //   console.log('tableData', this.candidateList);
+
+    // });
     this.managernameService.getCandidateStatus().subscribe((data) => {
       this.candidateList = data;
       console.log('tableData', this.candidateList);
@@ -149,7 +156,17 @@ export class ReviewerComponent {
 
   showDialog(data: any) {
     console.log('name', data);
-    this.FinalizedQuestions = data.questions;
+
+    //get the question from another collection
+    this.reviewerService.getCandidatetable().subscribe((response) => {
+
+      this.candidateList = response;
+      console.log('___________', response);
+     
+      this.FinalizedQuestions = response[0].questions;
+
+    });
+    // this.FinalizedQuestions = data.questions;
     this.id = data._id;
     console.log('Id', data._id);
     console.log('qd', this.FinalizedQuestions);
