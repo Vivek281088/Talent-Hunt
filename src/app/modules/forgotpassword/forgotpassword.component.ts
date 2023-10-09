@@ -32,7 +32,7 @@ constructor(private loginservice:LoginService,private messageservice:MessageServ
          this.messageservice.add({ severity: 'error', summary: 'check password and confirm-password', detail: '' });
        }
        else if(data.status==200){
-         this.messageservice.add({ severity: 'error', summary: 'User not Exist', detail: '' });
+         this.messageservice.add({ life: 500000,severity: 'error', summary: 'User not Exist', detail: '' });
           
        }
        else{

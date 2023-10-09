@@ -25,13 +25,13 @@ export class AssessmentDisplayComponent implements OnInit {
   position: string = 'center';
   FinalizedQuestions: any[] = [];
 
-  duration: number = 120;
+  duration!: number;
 
-  cutoff: number = 60;
+  cutoff!: number;
 
   checked: boolean = false;
 
-  candidateName: string = 'Sapna';
+  candidateName!: string ;
 
   startTime!: Date;
 
@@ -77,6 +77,12 @@ export class AssessmentDisplayComponent implements OnInit {
     console.log("get Data",this.assessmentData)
     this.id= this.assessmentData._id;
     console.log("Id",this.id)
+    this.duration=this.assessmentData.duration;
+    console.log("dur--------------",this.duration)
+    this.cutoff=this.assessmentData.cutoff;
+    console.log("cut-------------",this.cutoff)
+    this.candidateName=this.assessmentData.candidateName;
+    console.log("can----------",this.candidateName)
   this.messages2 = [
       { severity: 'warn', summary: 'Warning', detail: '5 mins more' },
       
@@ -130,7 +136,7 @@ export class AssessmentDisplayComponent implements OnInit {
           this.cdr.detectChanges();
         } else {
           clearInterval(timerInterval); // Stop the timer
-          this.submitAnswers(); // Automatically submit the answers
+           this.submitAnswers(); // Automatically submit the answers
         }
       }, 1000); // 1000 milliseconds = 1 second
     }

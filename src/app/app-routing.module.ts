@@ -29,11 +29,11 @@ const routes: Routes = [
   { path: 'create', component: Dash1Component , canActivate:[authGuard]},
 
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'dashboard', component: SchedulepageComponent , canActivate:[authGuard]},
+  { path: 'dashboard', component: SchedulepageComponent},
 
-  { path: 'questiondisplay', component: QuestiondisplayComponent, canActivate:[authGuard]},
+  { path: 'questiondisplay', component: QuestiondisplayComponent},
 
-  { path: 'edit', component: EditComponent, canActivate:[authGuard] },
+  { path: 'edit', component: EditComponent },
 
   { path: 'login', component: LoginComponent},
 
@@ -42,7 +42,7 @@ const routes: Routes = [
   { path: 'reviewer', component: ReviewerComponent},
   { path: 'candidateassessment', component:  CandidateAssessmentComponent},
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'assessment-display', component: AssessmentDisplayComponent, canActivate:[authGuard]}, 
+  { path: 'assessment-display', component: AssessmentDisplayComponent}, 
   {path:'forgotpassword',component:ForgotpasswordComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },

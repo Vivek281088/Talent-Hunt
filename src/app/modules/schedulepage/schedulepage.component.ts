@@ -323,7 +323,7 @@ export class SchedulepageComponent implements OnInit {
     console.log('emanager', this.email_Managername);
     this.email_Filename = fileName;
     console.log('efile', this.email_Filename);
-    this.email_Status = 'Submitted';
+    this.email_Status = 'Not Started ';
     console.log('ests', this.email_Status);
     this.tableService
 
