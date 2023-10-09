@@ -18,12 +18,15 @@ import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
 import {authGuard} from './Guard/auth.guard'
+import { AuthClassGuard } from './Guard/auth-class.guard';
+
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
+import { loginGuard } from './Guard/login.guard';
 
  
 
 const routes: Routes = [
-  { path: 'create', component: Dash1Component},
+  { path: 'create', component: Dash1Component , canActivate:[authGuard]},
 
   // { path: 'dashboard', component: SchedulepageComponent },
   { path: 'dashboard', component: SchedulepageComponent},
@@ -41,8 +44,11 @@ const routes: Routes = [
   // { path: 'dashboard', component: SchedulepageComponent },
   { path: 'assessment-display', component: AssessmentDisplayComponent}, 
   {path:'forgotpassword',component:ForgotpasswordComponent},
-
-  { path: '**', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  // { path: '**', component: LoginComponent }
+  { path: '**', redirectTo: '/login' },
+  // { path: '**', redirectTo:'login' }
 
 
 ];

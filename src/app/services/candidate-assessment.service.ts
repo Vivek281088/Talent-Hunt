@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class CandidateAssessmentService {
   private defaultUrl = 'http://localhost:9000/skill';
+  private assessmentData : any;
 
-  private assessmentData: any;
 
   constructor(private http: HttpClient) {}
 

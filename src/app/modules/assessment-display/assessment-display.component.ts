@@ -16,6 +16,7 @@ import { ChangeDetectorRef } from '@angular/core';
 
 import { Message } from 'primeng/api';
 
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -55,14 +56,12 @@ export class AssessmentDisplayComponent implements OnInit {
   remainingTime: number = 0;
 
   remainingTimeString: string = '';
-
   route: any;
-
   assessmentData!: any;
+  id! : any;
+  updateStatus : string = "Submitted";
 
-  id!: any;
 
-  updateStatus: string = 'Submitted';
 
   constructor(
     private managernameService: ManagernameService,

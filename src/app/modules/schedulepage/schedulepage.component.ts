@@ -9,6 +9,8 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
+import { AuthService } from 'src/app/Guard/auth.service';
+
 
 @Component({
   selector: 'app-schedulepage',
@@ -117,10 +119,24 @@ export class SchedulepageComponent implements OnInit {
 
     private skillsdropdownservice: SkillsdropdownService,
 
-    private router: Router
-  ) {}
+    private router: Router,
+
+    private formBuilder: FormBuilder
+    ,
+    private auth :AuthService
+
+  ) {
+
+    // this.candidateForm = this.formBuilder.group({
+    //   candidateName: ['', Validators.required],
+    //   candidateEmail: ['', Validators.required,Validators.email],
+    //   candidatePhone: [null]
+    // });
+  }
 
   ngOnInit() {
+    //this.auth.isLoggedIn=true;
+
     this.loadManagerNames();
 
     this.getSkillSet();
@@ -197,7 +213,9 @@ export class SchedulepageComponent implements OnInit {
             this.email_Filename,
             this.questions,
             this.score,
-            this.result
+            this.result,
+            this.cutoff,
+            this.duration
             // Get candidatePhone from existing data
           )
           .subscribe((data) => {
@@ -210,26 +228,7 @@ export class SchedulepageComponent implements OnInit {
       }
     });
 
-    // console.log(this.selectedCandidates);
-    // console.log(this.email_Managername);
-    // console.log(this.candidateEmail);
-    // console.log(this.candidatePhone);
-    // console.log(this.email_Status);
-    // console.log(this.email_Filename);
-    // console.log(this.questions);
-    // this.managernameService
-    //   .postexistingcandidates(
-    //     this.email_Managername,
-    //     this.selectedCandidates,
-    //     this.candidateEmail,
-    //     this.candidatePhone,
-    //     this.email_Status,
-    //     this.email_Filename,
-    //     this.questions
-    //   )
-    //   .subscribe((data) => {
-    //     console.log('postdata', data);
-    //   });
+    
   }
 
   getSkillSet() {
@@ -324,7 +323,7 @@ export class SchedulepageComponent implements OnInit {
     console.log('emanager', this.email_Managername);
     this.email_Filename = fileName;
     console.log('efile', this.email_Filename);
-    this.email_Status = 'Submitted';
+    this.email_Status = 'Not Started ';
     console.log('ests', this.email_Status);
     this.tableService
 
@@ -332,6 +331,10 @@ export class SchedulepageComponent implements OnInit {
 
       .subscribe((data) => {
         console.log('View Data', data);
+
+        this.cutoff = data[0].cutoff;
+
+        this.duration = data[0].duration;
 
         this.questions = data[0].questions;
 
@@ -367,7 +370,11 @@ export class SchedulepageComponent implements OnInit {
 
         this.score,
 
-        this.result
+        this.result,
+
+        this.cutoff,
+
+        this.duration
       )
       .subscribe((response) => {
         console.log('stored', response);

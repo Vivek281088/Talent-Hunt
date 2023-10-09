@@ -46,7 +46,7 @@ export class Dash1Component implements OnInit {
     private skillsdropdownservice: SkillsdropdownService,
     private managernameService: ManagernameService,
     public router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {

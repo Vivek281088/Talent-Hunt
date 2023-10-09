@@ -206,3 +206,33 @@
 
 }
 
+.p-toast .p-toast-message {
+  background: white !important;
+}
+
+.p-toast .p-toast-message .p-toast-message-content {
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-icon {
+  display: none;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-message-text {
+  text-align: left;
+  margin: 0;
+}
+
+.p-toast .p-toast-message .p-toast-icon-close {
+  border: 1px solid;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+  margin: 0;
+}
+
+.p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+  font-weight: 600;
+  padding-bottom: 0.25rem;
+}
