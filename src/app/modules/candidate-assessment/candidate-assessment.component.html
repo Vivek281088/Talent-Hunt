@@ -1,26 +1,68 @@
-
-
-<div class="custom-card">
-    <div class="card-content">
-        <div> <span class="card-title">Hi {{ candidateName }}!</span>  </div>
-        <div class="card-content">
-          <p class="textdata">Please click "Start" to attempt the test. Good luck!</p>
-       
-        </div>
-    </div>   
+<div class="h-full pt-5 px-3">
+  <div class="custom-card">
+    <!-- Back Button -->
+    <div class="back-button cursor-pointer" title="Back">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="18"
+        class="icon"
+        fill="#fff"
+        href="/login"
+        [routerLink]="['/login']"
+        viewBox="0 0 448 512"
+      >
+        <path
+          d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+        />
+      </svg>
     </div>
-
-   
   
-         
-        
-
-        
-       
+    <div class="card-content">
+      <div>
+        <span class="card-title">Hi {{ candidateName }}!</span>
+      </div>
+      <div class="card-content">
+        <p class="textdata">
+          Please click on the filename to attempt the test. Good luck!
+        </p>
+      </div>
+    </div>
+  </div>
   
- 
-    
-    
+  <!-- Table content -->
+  <div class="table-container tab">
+    <p-table
+      class="custom_table"
+      [columns]="cols"
+      [value]="candidateList"
+      [scrollable]="true"
+      scrollHeight="calc(79vh - 10px)"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>File Name</th>
+  
+          <th>Status</th>
+        </tr>
+      </ng-template>
+  
+      <ng-template pTemplate="body" let-rowData>
+        <tr class="table-row">
+          <td style="width: 20rem">
+            <a class="filename-link" (click)="sendQuestions(rowData)">{{rowData.email_Filename}}</a> 
+            <!-- <ng-container *ngIf="rowData.email_Status==='Not Started' else default">
+              <a class="filename-link" (click)="sendQuestions(rowData)">{{rowData.email_Filename}}</a> 
+            </ng-container>
+            <ng-template #default>
+              {{rowData.email_Filename}}
+            </ng-template> -->
+            
+          </td>
+  
+          <td style="width: 20rem">{{ rowData.email_Status }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 
-     
-    
+</div>

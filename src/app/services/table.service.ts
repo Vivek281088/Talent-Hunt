@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
-
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -53,6 +51,23 @@ export class TableService {
     });
   }
 
+  // Method to fetch data by fileName and Managername
+  getCandidatelist_reviewer(
+    candidateName: string,
+    email_FileName: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateName: candidateName,
+      email_FileName: email_FileName,
+    };
+    return this.http.post<any>(
+      this.skillsUrl + '/candidatelist_for_reviewer',
+      body,
+      { headers }
+    );
+  }
+
   //sending view data to questiondisplay component
   getFinalizedQuestions(): Observable<any> {
     return this.http.get<any[]>(this.skillsUrl + '/view_fetchData');
@@ -66,12 +81,14 @@ export class TableService {
     managerName: String,
     name: String,
     emailId: String,
-    phoneNumber: Number | null,
+    phoneNumber: number | null,
     status: String,
     fileName: String,
     questions: any,
-    score : Number | null,
-    result : String
+    score: number | null,
+    result: String,
+    cutoff: number,
+    duration: number
   ): Observable<any> {
     console.log('name', name);
 
@@ -87,7 +104,9 @@ export class TableService {
       email_Filename: fileName,
       questions: questions,
       score: score,
-      result: result
+      result: result,
+      cutoff:cutoff,
+      duration:duration
     };
 
     return this.http.post<any>(this.skillsUrl + '/add-candidate', body, {
@@ -99,12 +118,14 @@ export class TableService {
     managerName: string,
     candidateName: string,
     candidateEmail: string,
-    candidatePhone: Number | null,
+    candidatePhone: number | null,
     status: string,
     fileName: string,
     questions: any,
-    score : Number | null,
-    result : String
+    score: number | null,
+    result: string,
+    cutoff: number,
+    duration: number
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
@@ -117,14 +138,16 @@ export class TableService {
       email_Filename: fileName,
       questions: questions,
       score: score,
-      result: result
+      result: result,
+      cutoff:cutoff,
+      duration:duration
+
     };
 
     return this.http.post<any>(this.skillsUrl + '/add-candidate', body, {
       headers,
     });
   }
-
 }
 
 

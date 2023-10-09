@@ -14,26 +14,26 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  postlogincredentials(name:string,encrypted_password:string):Observable<any>{
+  postlogincredentials(userEmail:string,encrypted_password:string):Observable<any>{
     const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={name:name,password:encrypted_password};
-
+    const body={candidateEmail:userEmail,password:encrypted_password};
+console.log("bodey",body)
     return this.http.post<any>(this.skillsUrl+'/authenticate',body,{headers})
     
 
   }
 
-  postsignup(name:String,emailId:string,phoneNumer:number  | null ,password:string,confirmpassword:string):Observable<any>{
+  postsignup(Managername:String,emailId:string,phoneNumer:number  | null ,password:string,confirmpassword:string):Observable<any>{
     const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={name:name,emailId:emailId,phoneNumber:phoneNumer,password:password,confirmPassword:confirmpassword};
-
+    const body={Managername:Managername,candidateEmail:emailId,phoneNumber:phoneNumer,password:password,confirmPassword:confirmpassword};
+    console.log("signup",body)
     return this.http.post<any>(this.skillsUrl+'/postsignup',body,{headers})
   }
 
   postforgotpassword(name:string,emailId:string,password:string,confirmPassword:string):Observable<any>{
     const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={name:name,emailId:emailId,password:password,confirmPassword:confirmPassword};
-    console.log("fp",body)
+    const body={Managername:name,candidateEmail:emailId,password:password,confirmPassword:confirmPassword};
+   
     return this.http.post<any>(this.skillsUrl+'/forgotpassword',body,{headers})
   }
   islogin(){

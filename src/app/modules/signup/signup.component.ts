@@ -11,7 +11,7 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]
 })
 export class SignupComponent {
-  name!:string;
+  Managername!:string;
   emailId!:string;
   phoneNumber:number | null = null;
   password!:string;
@@ -24,7 +24,7 @@ export class SignupComponent {
 
   }
   resetform(){
-    this.name='';
+    this.Managername='';
     this.emailId='';
     this.phoneNumber=null;
     this.password='';
@@ -32,7 +32,7 @@ export class SignupComponent {
 
   }
   signup(){
-    this.loginservice.postsignup(this.name,this.emailId,this.phoneNumber,this.password,this.confirmPassword).subscribe((data)=>{
+    this.loginservice.postsignup(this.Managername,this.emailId,this.phoneNumber,this.password,this.confirmPassword).subscribe((data)=>{
 
       // console.log("ds",data)  
       // console.log("ps",this.password)

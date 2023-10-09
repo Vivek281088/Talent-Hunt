@@ -20,6 +20,8 @@ import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
+import { MessageService } from 'primeng/api';
+
 
 
 @NgModule({
@@ -50,7 +52,7 @@ import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword
     ToastrModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

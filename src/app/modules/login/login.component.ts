@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 
+import { ManagernameService } from 'src/app/services/managername.service';
 
 import { Router } from '@angular/router';
 
@@ -7,6 +8,8 @@ import { LoginService } from 'src/app/services/login.service';
 
 import { AuthService } from 'src/app/Guard/auth.service';
 import { AuthClassGuard } from 'src/app/Guard/auth-class.guard';
+import { MessageService } from 'primeng/api';
+
 
 import * as CryptoJS from 'crypto-js';
  
@@ -26,22 +29,32 @@ import * as CryptoJS from 'crypto-js';
 })
 
 export class LoginComponent {
-
+  showNavbar: boolean = false;
   name!:string;
   password!:string;
   nameinvalid!:string;
   passwordinvalid!:string;
+  finalizedName !: string;
+  userEmail !: string;
+  
   encrypted_password!:string;
 
  
   constructor(private router: Router,
     private loginservice:LoginService,
     private authService:AuthService,
-   ) {}
+    private managernameService: ManagernameService,
+    private messageservice:MessageService
+  
+    ) {}
+  //  ) {}
 
  
 ngOnInit(){
   history.pushState(null,'','') 
+  // this.showCandidateName = this.managernameService.getManagerName();
+ 
+
 }
 forgotpassword(){
   this.router.navigate(['forgotpassword']);
@@ -49,6 +62,10 @@ forgotpassword(){
 
   sign() 
   {
+   
+    // this.loginservice.postlogincredentials(this.userEmail,this.password).subscribe
+    // ((data)=>
+    // {
 
   //  this.encrypted_password=btoa(this.password);
   //  console.log(this.encrypted_password);
@@ -61,11 +78,15 @@ forgotpassword(){
   })
    this.encrypted_password=ciphertext.toString();
    console.log(this.encrypted_password);
-    this.loginservice.postlogincredentials(this.name,this.encrypted_password).subscribe((data)=>{
+   console.log(this.userEmail)
+
+    this.loginservice.postlogincredentials(this.userEmail,this.encrypted_password).subscribe((data)=>{
 
       console.log("authenticate",data);
-     
-      if(data.status==200){
+     this.managernameService.setCandidateAssessment_Email(this.userEmail);
+    //  console.log("a",a)
+      if(data.status==200)
+      {
         // localStorage.setItem("token","true")
         if(data.role=="manager"){
           // localStorage.setItem('token',this.password)
@@ -97,10 +118,14 @@ forgotpassword(){
               this.router.navigate(['candidateassessment']);
             }
           });
-           
-          // this.router.navigate(['candidateassessment'])
+       
         }
       }
+      else if(data.status==400){
+        this.messageservice.add({ severity: 'error', summary: 'User not Exist', detail: '' });
+         
+      }
+      
       else{
         alert(data.message);
       }
@@ -113,12 +138,11 @@ forgotpassword(){
     
     
     
-  }
+  
 
-  // this.router.navigate(['signup']);
  
     
     
-
+    
   }
-
+};
