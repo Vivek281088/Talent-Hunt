@@ -1,14 +1,52 @@
 <div class="page_sec h-full">
 
-  <div class="flex p-3 page_top_sec justify-content-between align-items-center ">
+  <div class="p-3 page_top_sec">
 
-    <div class="flex w-9">
+      <!-- Div 1 Back -->
 
-      <div class="flex flex-column w-4 mr-3">
+      <div class="commondiv">
 
-        <div class="flex mr-3 align-items-center">
+      <!-- <div class="backbuttondiv" title="Back">
 
-          <label class="font-bold block heading  ml-7">
+        <svg
+
+          xmlns="http://www.w3.org/2000/svg"
+
+          height="18"
+
+          class="icon"
+
+          fill="#fff"
+
+          href="/dashboard"
+
+          [routerLink]="['/dashboard']"
+
+          viewBox="0 0 448 512"
+
+        >
+
+          <path
+
+            d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+
+          />
+
+        </svg>
+
+      </div> -->
+
+ 
+
+      <!-- Div 2 Candidate name -->
+
+      <div class="candname">
+
+       
+
+ 
+
+          <label class="font-bold block heading  ml-0">
 
             CandidateName: {{ candidateName }}</label
 
@@ -20,97 +58,99 @@
 
         </div>
 
-      </div>
-
  
 
-      <!-- <div class="card flex">
+      <!-- Div 3 cutoff -->
 
-        <div class="flex question_selection"> -->
+          <div class="cutoff">
 
-          <div class="flex mr-3 align-items-center">
-
-            <label class="font-bold block heading ml-10">
+            <label class="font-bold block heading ml-1">
 
               Cutoff: {{ cutoff }}</label
 
             >
 
-           
-
-           
-
-           
-
-   
+     
 
       </div>
 
-      <div class="flex mr-3 align-items-center">
+ 
 
-        <label class=" time font-bold block heading  mr-3 ml-5">
+      <!-- Div 4 Timer -->
+
+      <div class="timer">
+
+        <label class=" time font-bold block heading ml-1">
 
           Time remaining: {{ formatTime(remainingTime) }}</label>
 
-     
-
-       
-
- 
-
-  </div>
-
-      <div class="card flex">
-
-        <div class="flex mr-3 align-items-center">
-
-          <!-- Your existing code here -->
-
-        </div>
-
       </div>
 
-    </div>
+      <div
 
- 
+      class="save_sec flex cursor-pointer"
 
        
 
- 
+       (click)="confirmPosition('top')"
 
-    <div class="save_sec flex cursor-pointer" title="Back">
+     
+
+      pTooltip="Save"
+
+     
+
+    >
 
       <svg
 
+        id="Layer_1"
+
+        width="26"
+
+        viewBox="0 0 30 30"
+
+        xml:space="preserve"
+
         xmlns="http://www.w3.org/2000/svg"
 
-        height="18"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
 
-        class="icon"
-
-        fill="#fff"
-
-        href="/dashboard"
-
-        [routerLink]="['/dashboard']"
-
-        viewBox="0 0 448 512"
+        fill="white"
 
       >
 
         <path
 
-          d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+          d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
 
         />
+
+        <rect height="5" width="2" x="16" y="4" />
 
       </svg>
 
     </div>
 
-  </div>
+ 
 
  
+
+      <!-- <div class="card flex">
+
+        <div class="flex mr-3 align-items-center">
+
+         
+
+        </div>
+
+      </div> -->
+
+     
+
+</div>
+
+  </div>
 
  
 
@@ -211,8 +251,6 @@
   <p-confirmDialog [style]="{ width: '50vw' }" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
 
   <div class="flex flex-wrap justify-content-center gap-2">
-
-   
 
  
 

@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent},
 
   { path: 'reviewer', component: ReviewerComponent},
-  { path: 'candidateassessment', component:  CandidateAssessmentComponent,canActivate:[authGuard] },
+  { path: 'candidateassessment', component:  CandidateAssessmentComponent },
   // { path: 'dashboard', component: SchedulepageComponent },
   { path: 'assessment-display', component: AssessmentDisplayComponent}, 
   {path:'forgotpassword',component:ForgotpasswordComponent},

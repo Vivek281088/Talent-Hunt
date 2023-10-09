@@ -116,7 +116,7 @@ body {
   margin: 4px 0px 0px 0px;
 }
 
-:host ::ng-deep .p-datatable-wrapper{
+:host ::ng-deep .p-datatable-wrapper {
   margin-top: 80px;
 }
 
@@ -128,12 +128,12 @@ body {
   border-radius: 100%;
 }
 
-:host ::ng-deep .p-dialog-content{
-    background-color: #27374d;
+:host ::ng-deep .p-dialog-content {
+  background-color: #27374d;
 }
 
-:host ::ng-deep .p-dialog-header{
-    background-color: #27374d;
+:host ::ng-deep .p-dialog-header {
+  background-color: #27374d;
 }
 
 :host ::ng-deep .p-inputtext {
@@ -142,11 +142,19 @@ body {
   width: 560px;
 }
 
+:host ::ng-deep .p-dialog-header .p-dialog-header-close{
+    position: absolute;
+    top: 20px;
+    left: 15px;
+}
+
 :host ::ng-deep .question-column {
   padding: 8px;
 
   text-align: center;
 }
+
+
 
 .save_sec {
   width: 40px;
@@ -162,6 +170,15 @@ body {
   border: 1px solid #fff;
 
   border-radius: 20px;
+}
+.save_button {
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  margin-left: 90%
 }
 .submitted-link {
   text-decoration: underline;
@@ -183,3 +200,26 @@ body {
 
   font-weight: bolder;
 }
+
+:host ::ng-deep .p-button {
+  background: #dde6ed;
+  border: 1px solid #dde6ed;
+  &:hover{
+    background-color: lightblue;
+  }
+}
+:host ::ng-deep .p-button:enabled:active{
+  background-color: lightblue;
+}
+
+.leftbutton {
+  margin-right: 10px;
+  margin-left: 5px;
+  
+}
+
+
+
+// :host ::ng-deep .p-button-danger {
+
+// }

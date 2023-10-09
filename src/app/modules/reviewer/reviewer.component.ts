@@ -3,6 +3,7 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { MessageService } from 'primeng/api';
 import { TableService } from 'src/app/services/table.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-reviewer',
   templateUrl: './reviewer.component.html',
@@ -32,12 +33,14 @@ export class ReviewerComponent {
 
   visible: boolean = false;
 
-  
+  buttonColors: boolean[] = [];
+
   constructor(
     private managernameService: ManagernameService,
     private messageService: MessageService,
     private tableService: TableService,
-    private reviewerService: ReviewerService
+    private reviewerService: ReviewerService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -62,21 +65,25 @@ export class ReviewerComponent {
 
   markAsCorrect(index: number) {
     this.FinalizedQuestions[index].isCorrect = true;
-   this.markInteracted(index);
+    this.markInteracted(index);
+    this.buttonColors[index] = true;
+    
   }
 
   markAsIncorrect(index: number) {
     this.FinalizedQuestions[index].isCorrect = false;
     this.markInteracted(index);
+    this.buttonColors[index] = false;
+    
   }
 
   interaction = Array(this.FinalizedQuestions.length).fill(false);
-  
-  markInteracted(index : number) {
+
+  markInteracted(index: number) {
     this.interaction[index] = true;
   }
-  checkInteraction() : boolean {
-    return this.interaction.every(inter => inter);
+  checkInteraction(): boolean {
+    return this.interaction.every((inter) => inter);
   }
   submitReview(candidate: any) {
     this.totalQuestions = this.FinalizedQuestions.length;
@@ -105,8 +112,8 @@ export class ReviewerComponent {
     }
 
     if (!this.checkInteraction()) {
-      console.log("Inside Check Interaction", this.interaction)
-      
+      console.log('Inside Check Interaction', this.interaction);
+
       this.showError();
     } else {
       const updateData = {
@@ -121,8 +128,9 @@ export class ReviewerComponent {
           console.log('Score and result updated successfully', response);
         });
       console.log('Inside Check Interaction', this.interaction);
-      this.showSubmitted();
       this.getExistingTableData();
+      this.showSubmitted();
+
       setTimeout(() => {
         this.visible = false;
       }, 2000);
@@ -153,9 +161,9 @@ export class ReviewerComponent {
     this.id = data._id;
     console.log('Id', data._id);
     console.log('qd', this.FinalizedQuestions);
-    console.log("length", this.FinalizedQuestions.length)
+    console.log('length', this.FinalizedQuestions.length);
     this.interaction = Array(this.FinalizedQuestions.length).fill(false);
-    console.log("Interaction" , this.interaction)
+    console.log('Interaction', this.interaction);
     this.visible = true;
   }
 }

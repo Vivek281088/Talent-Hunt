@@ -348,6 +348,7 @@ export class SchedulepageComponent implements OnInit {
   storeCandidate() {
     console.log('score', this.score);
     console.log('result', this.result);
+    console.log("file",this.email_Filename)
     this.tableService
       .postCandidateDetails(
         this.email_Managername,
