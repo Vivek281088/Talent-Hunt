@@ -19,9 +19,17 @@ export class ForgotpasswordComponent {
   // phoneNumber:number | null = null;
   password!:string;
   confirmPassword!:string;
+
+
 constructor(private loginservice:LoginService,private messageservice:MessageService,private router:Router){
 
 }
+//  messageElement:any=document.querySelector('.p-message.custom-error-message');
+// if(messageElement:any){
+// messageElement.classList.add('custom-message');
+// }
+
+
   forgotpassword(){
     this.loginservice.postforgotpassword(this.name,this.emailId,this.password,this.confirmPassword).subscribe((data)=>{
 
@@ -32,7 +40,7 @@ constructor(private loginservice:LoginService,private messageservice:MessageServ
          this.messageservice.add({ severity: 'error', summary: 'check password and confirm-password', detail: '' });
        }
        else if(data.status==200){
-         this.messageservice.add({ severity: 'error', summary: 'User not Exist', detail: '' });
+         this.messageservice.add({ severity: 'error', summary: 'User not Exist', detail: ''});
           
        }
        else{
@@ -42,4 +50,5 @@ constructor(private loginservice:LoginService,private messageservice:MessageServ
     })
     
   }
+ 
 }
