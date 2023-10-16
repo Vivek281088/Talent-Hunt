@@ -1,185 +1,479 @@
 body {
+
   font-family: Arial, Helvetica, sans-serif;
+
 }
 
+ 
+
 .page_sec {
+
   background-color: #27374d;
 
+ 
+
   color: white;
+
+ 
 
   padding: auto;
 
+ 
+
   // width: 100%;
+
+ 
 
   height: fit-content;
 
+ 
+
   //margin-left: 20px;
+
+ 
 
   max-width: 100%;
 
+ 
+
   //font-family:Helvetica;
+
 }
 
+ 
+
 .heading {
+
   color: white;
+
+ 
 
   //text-align: center;
 
+ 
+
   margin-left: 47%;
 
+ 
+
   width: 500px;
+
 }
 
+ 
+
 .question_sec {
+
   color: #fff;
+
+ 
 
   max-height: 450px;
 
+ 
+
   overflow: hidden auto;
 
+ 
+
   margin-left: 5%;
+
 }
+
+ 
 
 .choices {
+
   margin-bottom: 5px;
+
 }
 
+ 
+
 .page_submit_btn_sec {
+
   justify-content: end;
+
 }
+
+ 
 
 ////
 
+ 
+
 ///
 
+ 
+
 .page_sec {
+
   height: 100%;
+
+ 
 
   width: 100%;
 
+ 
+
   background-color: #27374d;
 
+ 
+
   .page_top_sec {
+
     background: #526d82;
+
+ 
 
     //margin-right: 60px;
 
+ 
+
     // margin-left: 70px;
+
+ 
 
     // margin-bottom: 40px;
 
+ 
+
     height: 70px;
+
+ 
 
     padding-left: 0px;
 
+ 
+
     margin-left: 0px;
+
   }
+
 }
 
+ 
+
 .vertical-options {
+
   display: flex;
+
+ 
 
   flex-direction: column;
 
+ 
+
   /* Display options vertically */
 
+ 
+
   // margin: 20px;
+
 }
 
+ 
+
 .option {
+
   margin-bottom: 10px;
+
+ 
 
   /* Add space between options */
 
+ 
+
   margin-right: 20px;
+
+ 
 
   margin-left: 3px;
 
+ 
+
   font-weight: bold;
+
 }
 
+ 
+
 .option1 {
+
   margin-bottom: 10px;
+
+ 
 
   margin-right: 20px;
 
+ 
+
   margin-left: 3px;
 
+ 
+
   font-weight: bold;
+
+ 
 
   background: #526d82;
 
+ 
+
   color: white;
+
 }
+
+ 
 
 :host ::ng-deep .p-checkbox-box {
+
   margin: 4px 0px 0px 0px;
+
 }
 
-:host ::ng-deep .p-datatable-wrapper{
+ 
+
+:host ::ng-deep .p-datatable-wrapper {
+
   margin-top: 80px;
+
 }
+
+ 
 
 :host ::ng-deep .p-radiobutton-box {
+
   height: 20px;
+
+ 
 
   width: 20px;
 
+ 
+
   border-radius: 100%;
+
 }
 
-:host ::ng-deep .p-dialog-content{
-    background-color: #27374d;
+ 
+
+:host ::ng-deep .p-dialog-content {
+
+  background-color: #27374d;
+
 }
 
-:host ::ng-deep .p-dialog-header{
-    background-color: #27374d;
+ 
+
+:host ::ng-deep .p-dialog-header {
+
+  background-color: #27374d;
+
 }
+
+ 
 
 :host ::ng-deep .p-inputtext {
+
   height: 60px;
 
+ 
+
   width: 560px;
+
 }
+
+ 
+
+:host ::ng-deep .p-dialog-header .p-dialog-header-close{
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 15px;
+
+}
+
+ 
 
 :host ::ng-deep .question-column {
+
   padding: 8px;
 
+ 
+
   text-align: center;
+
 }
 
+ 
+
+ 
+
+ 
+
 .save_sec {
+
   width: 40px;
+
+ 
 
   height: 40px;
 
+ 
+
   display: flex;
+
+ 
+
+  align-items: center;
+
+ 
+
+  justify-content: center;
+
+ 
+
+  border: 1px solid #fff;
+
+ 
+
+  border-radius: 20px;
+
+}
+
+.save_button {
+
+  width: 40px;
+
+  height: 40px;
 
   align-items: center;
 
   justify-content: center;
 
-  border: 1px solid #fff;
+  border-radius: 50%;
 
-  border-radius: 20px;
+  border: 2px solid #fff;
+
+  margin-left: 90%
+
 }
+
 .submitted-link {
+
   text-decoration: underline;
+
   color: blue;
+
   cursor: pointer;
+
 }
+
+ 
 
 .correct-option {
+
   background-color: blue;
+
 }
+
 .Score-Result {
+
   color: #fff;
+
+ 
 
   margin-left: 75%;
 
+ 
+
   width: 500px;
+
+ 
 
   font-family: Arial, Helvetica, sans-serif;
 
+ 
+
   font-weight: bolder;
+
+}
+
+ 
+
+:host ::ng-deep .p-button {
+
+  background: #dde6ed;
+
+  border: 1px solid #dde6ed;
+
+  &:hover{
+
+    background-color: lightblue;
+
+  }
+
+}
+
+:host ::ng-deep .p-button:enabled:active{
+
+  background-color: lightblue;
+
+ 
+
+}
+
+.p-button.p-button-danger:enabled:hover {
+
+    background: lightblue;
+
+    color: #ffffff;
+
+    border-color: #DC2626;
+
+}
+
+.p-button:enabled:hover {
+
+    background: lightblue;
+
+    color: #ffffff;
+
+    border-color: lightgreen;
+
+}
+
+.leftbutton {
+
+  margin-right: 10px;
+
+  margin-left: 5px;
+
+ 
+
+}
+
+.light-green {
+
+  background-color: lightgreen; // Highlight color for the "Correct" button
+
+  border: 1px solid green;     // Border style for the "Correct" button
+
+  color: black;                // Text color for the "Correct" button
+
+}
+
+ 
+
+.light-red {
+
+  background-color: lightcoral; // Highlight color for the "Wrong" button
+
+  border: 1px solid red;       // Border style for the "Wrong" button
+
+  color: black;                // Text color for the "Wrong" button
+
 }

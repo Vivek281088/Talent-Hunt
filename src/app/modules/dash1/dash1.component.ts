@@ -3,7 +3,7 @@ import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
-
+ 
 @Component({
   selector: 'app-dash1',
   templateUrl: './dash1.component.html',
@@ -11,79 +11,81 @@ import { lastValueFrom } from 'rxjs';
 })
 export class Dash1Component implements OnInit {
   // manager!: Manager[];
-
+ 
   Skills: any = [];
-
+ 
   selectedManager: any;
-
+ 
   // TotalQuestions: any;
-
+ 
   TotalQuestions: { [key: string]: any[] } = {};
-
+ 
   managerSet: any[] = [];
-
+  count!:number;
+ 
   skillSet: any[] = [];
-
+ 
   selectedSkill: any[] = [];
-
+ 
   selectedQuestions: any[] = [];
-
+ 
   ski: any[] = [];
-
+ 
   FinalizedQuestions: any[] = [];
-
+ 
   duration!: number;
-
+ 
   cutoff!: number ;
-
+ 
   FinalOutput: any[] = [];
-
+ 
   emptySkill: boolean = true;
-
+ 
   //dataToSave: any[] = [];
-
+ 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
     private managernameService: ManagernameService,
     public router: Router,
     private activatedRoute: ActivatedRoute,
   ) {}
-
+ 
   ngOnInit() {
     this.reloadData();
     this.loadManagerNames();
     this.selectedManager = this.managernameService.getManagerName();
+   
   }
-
+ 
   reloadData() {
     console.log('hi from Client');
-
+ 
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skillSet = data;
-
+ 
       // console.log(this.skillSet);
-
+ 
       // console.log('Users:' + JSON.stringify(this.selectedSkill));
     });
   }
-
+ 
   loadManagerNames() {
     this.managernameService.getManagerNames().subscribe((data) => {
       this.managerSet = data;
-
+ 
       console.log('Selected Manager:', this.selectedManager);
     });
   }
   submitForm() {
     console.log('Selected Skills:', this.selectedSkill);
-
+ 
     this.selectedQuestions = [];
     this.ski = [];
     for (let g of this.selectedSkill) {
       this.ski.push(g.skill);
     }
     console.log(this.ski);
-
+ 
     this.skillsdropdownservice
       .postskillsList(this.ski)
       .subscribe((response) => {
@@ -91,12 +93,12 @@ export class Dash1Component implements OnInit {
         console.log('Manager', this.selectedManager);
         this.TotalQuestions = response;
       });
-
+ 
     if (this.selectedSkill.length > 0) {
       this.emptySkill = false;
     }
   }
-
+ 
   checkboxChanged(item: any) {
     if (item.selected) {
       this.selectedQuestions.push(item);
@@ -110,30 +112,36 @@ export class Dash1Component implements OnInit {
       }
     }
   }
-
+ 
   async saveSelected() {
     this.FinalizedQuestions = this.selectedQuestions;
     console.log('selected', this.selectedQuestions);
     console.log('Final', this.FinalizedQuestions);
-
+    this.count = this.FinalizedQuestions.filter(
+ 
+      (question) => question.selected
+ 
+    ).length;
+    console.log("count",this.count);
+ 
     //set the Finalizedquestions,Duration,Cuttoff in the service
-
+ 
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
     // this.managernameService.setDuration(this.duration);
     // this.managernameService.setCuttoff(this.cuttoff);
-
+ 
     try {
       const selectedSkillName = this.selectedSkill
         .map((skill) => skill.skill)
         .sort();
-
+ 
       const latestVersion = await lastValueFrom(
         this.skillsdropdownservice.getLatestVersion(
           this.selectedManager.Managername,
           selectedSkillName
         )
       );
-
+ 
       const newVersion = latestVersion ? latestVersion + 1 : 1;
       const fileNameWithVersion = `${selectedSkillName.join(
         '_'
@@ -152,19 +160,19 @@ export class Dash1Component implements OnInit {
         Skill: selectedSkillName,
       };
       console.log('response', dataToSave);
-
+ 
       this.skillsdropdownservice
         .postquestions(dataToSave)
         .subscribe((response) => {
           //this.FinalOutput = response;
         });
-
+ 
       this.router.navigate(['dashboard']);
     } catch (error) {
       console.error(error);
     }
   }
-
+ 
   getDifficultyStyle(difficulty: string): any {
     if (difficulty === 'E') {
       return {
@@ -179,4 +187,81 @@ export class Dash1Component implements OnInit {
     }
   }
   //@Input() parent:any;
+ 
+ 
+  selectAllChanged(skillKey: string) {
+ 
+    const skillQuestions = this.TotalQuestions[skillKey];
+ 
+    const areAllSelected = this.areAllQuestionsSelected(skillKey);
+ 
+    let increment = 0;
+ 
+ 
+ 
+    for (let question of skillQuestions) {
+ 
+      if (!areAllSelected) {
+ 
+        if (!question.selected) {
+ 
+          question.selected = true;
+ 
+          increment++;
+ 
+          this.selectedQuestions.push(question); // Add the question to the selectedQuestions array
+ 
+        }
+ 
+      } else {
+ 
+        if (question.selected) {
+ 
+          question.selected = false;
+ 
+          increment--;
+ 
+          const index = this.selectedQuestions.findIndex(
+ 
+            (selectedQuestion) => selectedQuestion._id === question._id
+ 
+          );
+ 
+          if (index !== -1) {
+ 
+            this.selectedQuestions.splice(index, 1); // Remove the question from the selectedQuestions array
+ 
+          }
+ 
+        }
+ 
+      }
+ 
+    }
+ 
+ 
+ 
+    this.count += increment;
+ 
+ 
+ 
+    // Ensure count is not negative
+ 
+    if (this.count < 0) {
+ 
+      this.count = 0;
+ 
+    }
+ 
+  }
+ 
+ 
+  areAllQuestionsSelected(skillKey: string): boolean {
+ 
+    const skillQuestions = this.TotalQuestions[skillKey];
+ 
+      return skillQuestions.every((question) => question.selected);
+ 
+     }
 }
+ 
