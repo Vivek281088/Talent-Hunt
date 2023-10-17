@@ -88,7 +88,10 @@ export class TableService {
     score: number | null,
     result: String,
     cutoff: number,
-    duration: number
+    duration: number,
+    candidatePassword: any,
+    candidateConfirmPassword: any
+    
   ): Observable<any> {
     console.log('name', name);
 
@@ -106,7 +109,10 @@ export class TableService {
       score: score,
       result: result,
       cutoff:cutoff,
-      duration:duration
+      duration:duration,
+      password: candidatePassword,
+      confirmPassword:candidateConfirmPassword
+
     };
 
     return this.http.post<any>(this.skillsUrl + '/add-candidate', body, {
@@ -125,7 +131,10 @@ export class TableService {
     score: number | null,
     result: string,
     cutoff: number,
-    duration: number
+    duration: number,
+    candidatePassword : any,
+    candidateConfirmPassword: any
+
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
@@ -140,7 +149,9 @@ export class TableService {
       score: score,
       result: result,
       cutoff:cutoff,
-      duration:duration
+      duration:duration,
+      password:candidatePassword,
+      confirmPassword:candidateConfirmPassword
 
     };
 

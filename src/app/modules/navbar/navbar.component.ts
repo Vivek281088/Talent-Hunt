@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/Guard/auth.service';
 })
 export class NavbarComponent {
  
-constructor(private router:Router,private authservice:AuthService){
+constructor(private authservice:AuthService){
 
 }
   refreshPage() {
@@ -17,8 +17,6 @@ constructor(private router:Router,private authservice:AuthService){
     window.location.reload();
   }
   logout(){
-    // this.router.navigate(['login']);
-    this.authservice.logout();
-
+  this.authservice.logout();
   }
 }

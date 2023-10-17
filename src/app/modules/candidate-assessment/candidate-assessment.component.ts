@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {  Router } from '@angular/router';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
+import { ManagernameService } from 'src/app/services/managername.service';
 
 
 @Component({
@@ -22,14 +23,16 @@ export class CandidateAssessmentComponent {
   finalizedEmail!: string;
 
   assessmentData!: any;
+ 
 
   constructor(
     private router: Router,
-    private candidateService: CandidateAssessmentService
+    private candidateService: CandidateAssessmentService,
+    private managernameService :ManagernameService,
   ) {}
 
   ngOnInit(): void {
-    this.finalizedEmail = 'barnibarnibarni@gmail.com';
+    this.finalizedEmail = this.managernameService.getCandidateAssessment_Email()
 
     //  this.finalizedEmail= this.managernameService.getCandidateAssessment_Email();
     this.cols = [

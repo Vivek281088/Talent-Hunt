@@ -37,8 +37,6 @@ body {
 }
 
 .page_submit_btn_sec {
-  
-
   justify-content: end;
 }
 
@@ -91,8 +89,6 @@ body {
 
   font-weight: bold;
 }
-
-
 
 .option1 {
   margin-bottom: 10px;
@@ -150,4 +146,28 @@ body {
 
 .correct-option {
   background-color: blue;
+}
+
+:host ::ng-deep .p-button {
+  color: #ffffff;
+
+  background: #526d82;
+
+  border: 1px solid #526d82;
+
+  &:hover {
+    background-color: #27375d; /* Darker background color on hover */
+
+    // border: none;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+:host ::ng-deep .p-button:enabled:hover {
+  background-color: none;
+
+  border: none;
 }

@@ -101,6 +101,22 @@ export class SkillsdropdownService {
     );
   }
 
+  // Filter candidate name
+ 
+  filterCandidate(
+     candidateName: string | undefined,
+     result: any
+   ): Observable<any> {
+     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+  
+     const body = { candidateName, result };
+  
+     return this.http.post<any>(this.skillsUrl + '/filtercandidate', body, {
+       headers,
+     });
+   }
+
+
   // Function to get the latest version
   getLatestVersion(Managername: string, Skill: string[]): Observable<number> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });

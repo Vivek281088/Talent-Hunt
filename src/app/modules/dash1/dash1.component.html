@@ -13,8 +13,8 @@
         ></p-multiSelect>
       </div>
       <div class="card flex">
-        
-
+       
+ 
         <div class="flex question_selection">
           <div class="flex mr-3 align-items-center">
             <label class="font-bold block heading mr-3"> Selected: </label>
@@ -23,14 +23,14 @@
             </p>
           </div>
           <div class="flex mr-3 align-items-center">
-            <label class="font-bold block heading mr-3"> Cutoff :</label>
+            <label class="font-bold block heading mr-3">  Cutoff(in %) :</label>
             <input
               [(ngModel)]="cutoff"
               name="cutoff"
               class="w-3rem custom_inp p-inputtext w-full p-1"
               required
             />
-            
+           
           </div>
           <div class="flex mr-3 align-items-center">
             <label class="font-bold block heading mr-3">
@@ -68,10 +68,10 @@
       </svg>
     </div>
   </div>
-  
-
-
-
+ 
+ 
+ 
+ 
     <ng-container *ngIf="TotalQuestions">
   <div class="flex mt-4">
     <div class="flex flex-column w-5 mr-4 px-3" *ngFor="let skill of TotalQuestions | keyvalue">
@@ -86,6 +86,16 @@
             </tr>
           </thead>
           <tbody>
+ 
+            <p-checkbox
+            name="selectAll"
+            [binary]="true"
+            (onChange)="selectAllChanged(skill.key)"
+            [ngModel]="areAllQuestionsSelected(skill.key)"
+            class="ml-2"
+        ></p-checkbox>
+ 
+ 
             <tr *ngFor="let question of skill.value" class="table-row">
               <td class="checkbox-column">
                 <p-checkbox
@@ -112,6 +122,6 @@
     </div>
   </div>
 </ng-container>  
-
-
+ 
+ 
 </div>
