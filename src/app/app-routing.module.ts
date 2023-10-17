@@ -17,32 +17,44 @@ import { SignupComponent } from './modules/signup/signup.component';
 import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
-import {authGuard} from './Guard/auth.guard'
-import { AuthClassGuard } from './Guard/auth-class.guard';
+// import {authGuard} from './Guard/auth.guard'
+// import { AuthClassGuard } from './Guard/auth-class.guard';
 
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
-import { loginGuard } from './Guard/login.guard';
+// import { loginGuard } from './Guard/login.guard';
+
+import { isadminguard } from './Guard/auth-class.guard';
+import { isuserguard } from './Guard/user-class.guard';
 
  
 
 const routes: Routes = [
-  { path: 'create', component: Dash1Component , canActivate:[authGuard]},
+  { path: 'create', component: Dash1Component },
 
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'dashboard', component: SchedulepageComponent},
-
-  { path: 'questiondisplay', component: QuestiondisplayComponent},
-
+  { path: 'dashboard', component: SchedulepageComponent, canActivate:[isadminguard],
+  children:[
+    { path: 'questiondisplay', component: QuestiondisplayComponent},
   { path: 'edit', component: EditComponent },
+  { path: 'reviewer', component: ReviewerComponent},
+  { path: 'assessment-display', component: AssessmentDisplayComponent}, 
 
-  { path: 'login', component: LoginComponent},
+
+
+
+  ]
+
+
+},
+
+
+
+  // { path: 'login', component: LoginComponent},
 
   { path: 'signup', component: SignupComponent},
 
-  { path: 'reviewer', component: ReviewerComponent},
-  { path: 'candidateassessment', component:  CandidateAssessmentComponent},
+  { path: 'candidateassessment', component:  CandidateAssessmentComponent, canActivate:[isuserguard   ]},
   // { path: 'dashboard', component: SchedulepageComponent },
-  { path: 'assessment-display', component: AssessmentDisplayComponent}, 
   {path:'forgotpassword',component:ForgotpasswordComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },

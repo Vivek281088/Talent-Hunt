@@ -1,41 +1,37 @@
 <div class="login-container">
   <p-card>
-    <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
+    <form (ngSubmit)="sign()">
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-user"></i>
+        </span>
+        <input type="text" pInputText placeholder="Email" [(ngModel)]="userEmail" id="userEmail" name="userEmail" />
+      </div>
 
-    <div class="p-inputgroup">
-      <span class="p-inputgroup-addon">
-        <i class="pi pi-user"></i>
-      </span>
-
-      <input type="text" pInputText placeholder="Email" [(ngModel)]="userEmail" id="userEmail" />
-    </div>
-
-    <div class="p-inputgroup">
-      <span class="p-inputgroup-addon">
-        <i class="pi pi-lock"></i>
-      </span>
-
-      <input
-        type="password"
-        pInputText
-        placeholder="Password"
-        [(ngModel)]="password"
-        id="password"
-      />
-    </div>
-    
-    <p-toast></p-toast>
-
-    <button
-      pButton
-      type="button"
-      label="Sign In"
-      class="p-button-primary"
-      [disabled]="!userEmail||!password"
+      <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+          <i class="pi pi-lock"></i>
+        </span>
+        <input
+          type="password"
+          pInputText
+          placeholder="Password"
+          [(ngModel)]="password"
+          id="password"
+          name="password"
+        />
+      </div>
       
-      (click)="sign()"
+      <p-toast></p-toast>
 
-    ></button>
+      <button
+        pButton
+        type="submit"
+        label="Sign In"
+        class="p-button-primary"
+        [disabled]="!userEmail || !password"
+      ></button>
+    </form>
 
     <div class="forgot-password">
       <a href="forgotpassword" (click)="forgotpassword()">Forgot Password?</a>

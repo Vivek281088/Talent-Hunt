@@ -34,8 +34,7 @@ export class SignupComponent {
   signup(){
     this.loginservice.postsignup(this.Managername,this.emailId,this.phoneNumber,this.password,this.confirmPassword).subscribe((data)=>{
 
-      // console.log("ds",data)  
-      // console.log("ps",this.password)
+   
        console.log("cp",data.status)    
       if(data.status==404){
        // alert("error")
@@ -43,11 +42,15 @@ export class SignupComponent {
         this.messageService.add({ severity: 'error', summary: 'check password and confirm-password', detail: '' });
       }
     
+      else if(data.status==401){
+        this.messageService.add({ severity: 'error', summary: 'please enter all the field', detail: '' });
+       
+         
+      }
       else{
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
-         this.resetform();
-         this.router.navigate(['login'])
-         
+        this.resetform();
+        this.router.navigate(['login'])
       }
     })
   }

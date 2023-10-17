@@ -7,8 +7,9 @@ import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 import { AuthService } from 'src/app/Guard/auth.service';
-import { AuthClassGuard } from 'src/app/Guard/auth-class.guard';
+// import { AuthClassGuard } from 'src/app/Guard/auth-class.guard';
 import { MessageService } from 'primeng/api';
+
 
 
 import * as CryptoJS from 'crypto-js';
@@ -63,12 +64,7 @@ forgotpassword(){
   sign() 
   {
    
-    // this.loginservice.postlogincredentials(this.userEmail,this.password).subscribe
-    // ((data)=>
-    // {
-
-  //  this.encrypted_password=btoa(this.password);
-  //  console.log(this.encrypted_password);
+  
   const encryptionkey='123456qwertyuio';
   const iv='  ';
   const ciphertext=CryptoJS.AES.encrypt(this.password,encryptionkey,{
@@ -82,42 +78,37 @@ forgotpassword(){
 
     this.loginservice.postlogincredentials(this.userEmail,this.encrypted_password).subscribe((data)=>{
 
-      console.log("authenticate",data);
+      console.log("authenticatetoke",data.token);
+      console.log("role",data.role)
      this.managernameService.setCandidateAssessment_Email(this.userEmail);
-    //  console.log("a",a)
+    
       if(data.status==200)
       {
-        // localStorage.setItem("token","true")
+        localStorage.setItem('token', data.token);
+       
+       
+        
         if(data.role=="manager"){
-          // localStorage.setItem('token',this.password)
-          // this.authguard.canActivate().subscribe(()=>{
-          //   if(true){
-
-          //   }
-          //   else{
-
-          //   }
-          // })
-          this.authService.login1().subscribe(() => {
-            if (this.authService.isLoggedIn) {
-              const redirectUrl = this.authService.redirectUrl
+          localStorage.setItem('role',data.role);
+       
+          if(this.authService.isAuthenticated()){
+            const redirectUrl = this.authService.redirectUrl
                 ? this.authService.redirectUrl
                 : '/dashboard';
               this.router.navigate(['dashboard']);
-            }
-          });
+          }
+          
            
-          // this.router.navigate(['dashboard'])
+          
         }
         else if(data.role=="user"){
-          this.authService.login1().subscribe(() => {
-            if (this.authService.isLoggedIn) {
-              const redirectUrl = this.authService.redirectUrl
+          localStorage.setItem("role1",data.role);
+          if(this.authService.isAuthenticated1()){
+            const redirectUrl = this.authService.redirectUrl
                 ? this.authService.redirectUrl
                 : '/candidateassessment';
               this.router.navigate(['candidateassessment']);
-            }
-          });
+          }
        
         }
       }

@@ -1,13 +1,6 @@
-// import { Injectable } from '@angular/core';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthService {
-
-//   constructor() { }
-// }
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
@@ -17,28 +10,73 @@ import { tap, delay } from 'rxjs/operators';
 })
 export class AuthService {
   isLoggedIn = false;
-   a:boolean=false;
+  ismanager=false;
+  isuser=false;
+  constructor(private router:Router){
 
-  // store the URL so we can redirect after logging i
-  redirectUrl: string | null = null;
-
-  login1(): Observable<boolean> {
-    localStorage.setItem("token","true");
-
-    console.log("Login Called")
-    return of(true).pipe(
-
-      delay(1000),
-      tap(() => (this.isLoggedIn= true))
-    );
   }
-  // login2():Observable<boolean>{
-  //   this.a=true
-  //   return of(true)
+  
+
+  // Add a property to store the user's role
+  userRole: string = '';
+
+  // Add a property to store the JWT token
+  authToken: string | null = localStorage.getItem('authToken');
+  
+
+ 
+  redirectUrl: string | null = null;
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  getrole(): string | null {
+    return localStorage.getItem('role');
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
+  isAuthenticated(): boolean {
+
     
-  //  // return true;
-  // }
-logout(){
-   return false;
- }
+    const token = this.getToken();
+    // return !!token;
+    this.ismanager=true;
+    if(token && this.ismanager){
+      return true;
+
+    }
+    else{
+      // localStorage.removeItem('token');
+      alert("access denied");
+      this.router.navigate(['/login']);
+      return false;
+
+
+    }
+  }
+
+  isAuthenticated1(): boolean {
+
+    
+    const token = this.getToken();
+    this.isuser=true;
+    if(token && this.isuser){
+      return true;
+
+    }
+    else{
+      // localStorage.removeItem('token');
+      alert("access denied");
+
+       this.router.navigate(['/login']);
+      return false;
+
+    }
+  }
+ 
+
 }

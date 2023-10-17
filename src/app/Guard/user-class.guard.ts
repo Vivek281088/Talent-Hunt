@@ -1,3 +1,6 @@
+// 
+
+
 import { Injectable,inject } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -13,7 +16,7 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root',
 })
-class AuthClassGuard
+class userClassGuard
 {
   
   constructor(private router:Router,private authservice:AuthService){
@@ -31,31 +34,31 @@ class AuthClassGuard
       console.log("managerau",user)
 
       
-      if(this.authservice.isAuthenticated() && manager!=null){
-        localStorage.removeItem('role1');
+      if(this.authservice.isAuthenticated1()  && user!=null){
+        localStorage.removeItem('role');
+
         return true;
       }
        else{
         alert("access denied");
-        localStorage.removeItem('role');
+        localStorage.removeItem('role1');
 
         localStorage.removeItem('token');
         this.router.navigate(['/login']);
-        // this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-
         return false;
        }
       
     }
   }
-    export const isadminguard:CanActivateFn=( route: ActivatedRouteSnapshot,
+    export const isuserguard:CanActivateFn=( route: ActivatedRouteSnapshot,
       state: RouterStateSnapshot):boolean=>
       {
 
-        return inject(AuthClassGuard).canActivate(route,state);
+        return inject(userClassGuard).canActivate(route,state);
 
       }
   
 
 
  
+

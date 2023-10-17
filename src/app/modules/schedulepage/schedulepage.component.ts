@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 
-
 @Component({
   selector: 'app-schedulepage',
 
@@ -121,12 +120,9 @@ export class SchedulepageComponent implements OnInit {
 
     private router: Router,
 
-    private formBuilder: FormBuilder
-    ,
-    private auth :AuthService
-
+    private formBuilder: FormBuilder,
+    private auth: AuthService
   ) {
-
     // this.candidateForm = this.formBuilder.group({
     //   candidateName: ['', Validators.required],
     //   candidateEmail: ['', Validators.required,Validators.email],
@@ -227,8 +223,6 @@ export class SchedulepageComponent implements OnInit {
         this.getCandidatename();
       }
     });
-
-    
   }
 
   getSkillSet() {
@@ -495,28 +489,15 @@ export class SchedulepageComponent implements OnInit {
   // }
 }
 
-
-
 //candidate filtering
 
-
- 
-
- 
-
-  // Function to show the filter popup
-
- 
-
-
+// Function to show the filter popup
 
 interface Column {
   field: string;
 
   header: string;
 }
-
-
 
 interface FilterSkill {
   _id: number;
@@ -527,5 +508,3 @@ interface FilterSkill {
 
   __v: number;
 }
-
-
