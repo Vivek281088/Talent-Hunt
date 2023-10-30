@@ -17,7 +17,9 @@ import { SignupComponent } from './modules/signup/signup.component';
 import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
+import { QuestiondbComponent } from './questiondb/questiondb.component';
 import { authGuard } from './Guard/auth.guard'
+import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 // import { AuthClassGuard } from './Guard/auth-class.guard';
 
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
@@ -72,6 +74,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
+
+  { path: 'questiondb', component: QuestiondbComponent },
+
+  { path: 'profile', component: ProfileDialogComponent } ,
 
   // { path: '**', component: LoginComponent }
 

@@ -16,7 +16,6 @@ export class CandidateAssessmentService {
   postCandiadte_assessment(
           candidateName : string,
           FinalizedQuestions : any,
-          selectedOption : any,
           startTime : Date,
           endTime : Date,
           cutoff : number,
@@ -28,7 +27,6 @@ export class CandidateAssessmentService {
 
     const body = {  candidateName:candidateName,
       questions:FinalizedQuestions ,
-      selectedOption:selectedOption ,
       startTime: startTime ,
       endTime:endTime,
       cutoff:cutoff ,

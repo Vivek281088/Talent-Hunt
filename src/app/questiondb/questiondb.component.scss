@@ -1,0 +1,100 @@
+.page_sec {
+  background-color: #27374d;
+  color: white;
+  padding: auto;
+ height: fit-content;
+ max-width: 100%;
+ position: relative;
+}
+
+.heading {
+  color: white;
+ margin-left: 47%;
+ width: 500px;
+}
+
+.page_top_sec {
+  background: #526d82;
+
+  height: 70px;
+
+  padding-left: 0px;
+
+  margin-left: 0px;
+
+  margin-bottom: 20px;
+
+  position: relative;
+}
+
+.save_sec {
+  width: 40px;
+
+  height: 40px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  border: 1px solid #fff;
+
+  border-radius: 20px;
+}
+
+/* Style for the file upload container */
+.file-upload-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: #526d82; 
+  position: relative;
+}
+ 
+/* Style for the button/icon to show the file upload component */
+.file-upload-container button {
+  background-color: #526d82;
+  border-color: #526d82;
+  border-radius: 4px;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+ 
+/* Style for the file upload component (initially hidden) */
+.file-upload-container p-fileUpload {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);  /* Positioning 'p-fileUpload' below the button */
+  right: 0;
+}
+ 
+/* Style for the file upload component when displayed */
+.show p-fileUpload {
+  display: block;
+}
+
+.skilldd{
+  color: #fff;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.fileupload{
+  display: flex;
+  justify-content:end;
+  position: absolute; 
+  top: 100%; 
+  left: 0;
+}
+
+.file-upload-wrapper {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 200px; /* Adjust the 'right' value to move it slightly left */
+  display: none;
+  z-index: 1; /* Ensure it's above other content */
+}
+

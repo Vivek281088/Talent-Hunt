@@ -7,6 +7,287 @@
     <div class="page_sec h-full p-3" *ngIf="name" else errorname>
       <!--Filter and Create button  -->
       <div class="flex justify-content-end mb-3">
+        <!-- Add Questions Button -->
+        <button
+          class="btn flex align-items-center cursor-pointer"
+          (click)="onAddQuestionClick()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="#fff"
+            viewBox="0 0 576 512"
+          >
+            <path
+              d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384v38.6C310.1 219.5 256 287.4 256 368c0 59.1 29.1 111.3 73.7 143.3c-3.2 .5-6.4 .7-9.7 .7H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zm48 96a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm16 80c0-8.8-7.2-16-16-16s-16 7.2-16 16v48H368c-8.8 0-16 7.2-16 16s7.2 16 16 16h48v48c0 8.8 7.2 16 16 16s16-7.2 16-16V384h48c8.8 0 16-7.2 16-16s-7.2-16-16-16H448V304z"
+            />
+          </svg>
+          &nbsp;
+          <span>Add Questions</span>
+        </button>
+        &nbsp; &nbsp;
+
+        <!-- Add Question dialog -->
+
+        <p-dialog  header="Add Questions"
+        [(visible)]="visible"
+         [modal]="true"
+          [style]="{ width: '90vw', height: '300px' }" 
+          [draggable]="false"
+           [resizable]="false"
+           [maximizable]="true"
+           >
+        <div class="addques">
+          <div class="skillfield">
+            <label class="mb-1" for="skill">Skill</label>
+            <p-dropdown
+          appendTo="body"
+          class="w-full table_dropdown"
+          placeholder="--Select--"
+          [options]="skillSet"
+          [(ngModel)]="chosenSkill"
+          
+        >
+            </p-dropdown>
+        </div>
+
+        &nbsp;
+        &nbsp;
+        <div class="questionfield">
+          <label class="mb-1" for="question">Question</label>
+          <div class="questionname">
+           <input
+         type="text"
+         pInputText
+         class="wide-input"
+         placeholder="Enter Question"
+         [ngModelOptions]="{ standalone: true }"
+         [(ngModel)]="question"
+         required
+        />
+        </div>
+      </div>
+        &nbsp;
+        &nbsp;
+
+        <div class="difficultyfield">
+          <label class="mb-1" for="questiontype">Difficulty Level</label>
+          <p-dropdown
+          appendTo="body"
+          class="w-full table_dropdown"
+          placeholder="--Select--"
+          [options]="difficultyLevel"
+          [(ngModel)]="selecteddifficultyType"
+        
+        >
+            </p-dropdown>
+        </div>
+
+        &nbsp;
+        &nbsp;
+        <div class="typefield">
+          <label class="mb-1" for="questiontype">Question Type</label>
+          <p-dropdown
+          appendTo="body"
+          class="w-full table_dropdown"
+          placeholder="--Select--"
+          [options]="questionType"
+          [(ngModel)]="selectedquestionType"
+        
+        >
+            </p-dropdown>
+        </div>
+
+        &nbsp;
+        &nbsp;
+
+       
+
+        <div class="optionsfield" *ngIf="selectedquestionType === 'Radio' || selectedquestionType === 'Multiple Choice'">
+          <label class="mb-1" for="options">Options</label>
+        
+          <!-- Option 1 -->
+          <div class="option-input">
+            <label for="a" class="option-label">A</label>
+            <input
+              type="text"
+              id="a"
+              pInputText
+              class="option-box"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="option1"
+              required
+            />
+          </div>
+        
+          <!-- Option 2 -->
+          <div class="option-input">
+            <label for="b" class="option-label">B</label>
+            <input
+              type="text"
+              id="b"
+              pInputText
+              class="option-box"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="option2"
+              required
+            />
+          </div>
+        
+          <!-- Option 3 -->
+          <div class="option-input">
+            <label for="c" class="option-label">C</label>
+            <input
+              type="text"
+              id="c"
+              pInputText
+              class="option-box"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="option3"
+              required
+            />
+          </div>
+        
+          <!-- Option 4 -->
+          <div class="option-input">
+            <label for="d" class="option-label">D</label>
+            <input
+              type="text"
+              id="d"
+              pInputText
+              class="option-box"
+              [ngModelOptions]="{ standalone: true }"
+              [(ngModel)]="option4"
+              required
+            />
+          </div>
+        </div>
+        &nbsp;
+        &nbsp;
+        <div class="radioanswerfield" *ngIf="selectedquestionType === 'Radio'">
+          <label class="mb-1" for="answer">Answer</label>
+        
+          <div class="radio-options">
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="optionA"
+                name="answerOption"
+                value="A"
+                [(ngModel)]="selectedAnswer"
+                required
+              />
+              <label for="optionA">A</label>
+            </div>
+        
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="optionB"
+                name="answerOption"
+                value="B"
+                [(ngModel)]="selectedAnswer"
+                required
+              />
+              <label for="optionB">B</label>
+            </div>
+        
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="optionC"
+                name="answerOption"
+                value="C"
+                [(ngModel)]="selectedAnswer"
+                required
+              />
+              <label for="optionC">C</label>
+            </div>
+        
+            <div class="radio-option">
+              <input
+                type="radio"
+                id="optionD"
+                name="answerOption"
+                value="D"
+                [(ngModel)]="selectedAnswer"
+                required
+              />
+              <label for="optionD">D</label>
+            </div>
+          </div>
+        </div>
+        <div class="mcqanswerfield" *ngIf="selectedquestionType === 'Multiple Choice'">
+          <label class="mb-1" for="answer">Answers</label>
+        
+          <div class="checkbox-options">
+            <div class="checkbox-option">
+              <input
+                type="checkbox"
+               
+                value="A"
+                [(ngModel)]="selectedAnswers.a"
+              />
+              <label for="optionA">A</label>
+            </div>
+        
+            <div class="checkbox-option">
+              <input
+                type="checkbox"
+               
+                value="B"
+                [(ngModel)]="selectedAnswers.b"
+              />
+              <label for="optionB">B</label>
+            </div>
+        
+            <div class="checkbox-option">
+              <input
+                type="checkbox"
+               
+                value="C"
+                [(ngModel)]="selectedAnswers.c"
+              />
+              <label for="optionC">C</label>
+            </div>
+        
+            <div class="checkbox-option">
+              <input
+                type="checkbox"
+               
+                value="D"
+                [(ngModel)]="selectedAnswers.d"
+              />
+              <label for="optionD">D</label>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        &nbsp;
+        &nbsp;
+        </div>
+        <!-- Cancel Save button -->
+        <div class="actionbuttons">
+          <!-- Cancel Button -->
+          <button
+            class="btn btn_cancel cursor-pointer mr-3"
+            (click)="closequestiondialog()"
+          >
+            Cancel
+          </button>
+
+          <!-- Add question button -->
+          <p-toast></p-toast>
+          <button class="btn cursor-pointer" (click)="addquestion()">
+            Add Question
+          </button>
+        </div>
+        </p-dialog>
+        
+        <!-- Filter Button -->
         <button
           class="btn mr-3 flex align-items-center cursor-pointer"
           (click)="op.toggle($event)"
@@ -24,6 +305,7 @@
           </svg>
           <span>Filter</span>
         </button>
+        <!-- Create New Row -->
         <button
           class="btn flex align-items-center cursor-pointer"
           (click)="addNewRow()"
@@ -176,6 +458,28 @@
                       </svg>
                     </a>
                   </div>
+                  &nbsp;
+                  <!-- Clone Icon -->
+                  <div class="mr-2 cursor-pointer" *ngIf="name">
+                    <a
+                      [class.disabled]="!rowData.isMail"
+                      title="Clone"
+                      (click)="
+                        onCloneClick(rowData)
+                      "
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="#526D82"
+                        height="18"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          d="M288 448H64V224h64V160H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64zm-64-96H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64z"
+                        />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -230,8 +534,7 @@
     <ng-template pTemplate="header">
       <span>Assessment</span>
     </ng-template>
-   
- 
+
     <!-- filter -->
     <div class="flex justify-content-end mb-3 pt-3">
       <button
@@ -252,9 +555,9 @@
         <span>Filter</span>
       </button>
     </div>
- 
+
     <!-- Panel overlay design -->
- 
+
     <p-overlayPanel #paneloverlay styleClass="custom_overlay">
       <div>
         <div class="mb-3 flex flex-column">
@@ -265,20 +568,19 @@
             [options]="candidateNames"
             [(ngModel)]="candidateNames1"
             placeholder="--Select--"
-            [optionLabel] = "candidateName"
+            [optionLabel]="candidateName"
           >
           </p-dropdown>
         </div>
         <div class="mb-3 flex flex-column">
           <label class="mb-1" for="skill">Result</label>
- 
+
           <p-dropdown
             appendTo="body"
             class="w-full table_dropdown"
             [options]="candidateListData"
             [(ngModel)]="candidateresult"
             placeholder="--Select--"
-           
           >
           </p-dropdown>
         </div>
@@ -289,14 +591,16 @@
           >
             Cancel
           </button>
-          <button class="btn cursor-pointer" (click)="filterCandidateAssessment()">
+          <button
+            class="btn cursor-pointer"
+            (click)="filterCandidateAssessment()"
+          >
             Search
           </button>
         </div>
       </div>
     </p-overlayPanel>
- 
- 
+
     <div class="table-container px-3">
       <p-table
         class="custom_table"
@@ -314,25 +618,30 @@
             >
               Manager <p-sortIcon field="email_Managername"></p-sortIcon>
             </th>
-            <th pSortableColumn="candidateName" style="width: 20rem" *ngIf="name">Candidate Name
-            <p-sortIcon field="candidateName"></p-sortIcon>
+            <th
+              pSortableColumn="candidateName"
+              style="width: 20rem"
+              *ngIf="name"
+            >
+              Candidate Name
+              <p-sortIcon field="candidateName"></p-sortIcon>
             </th>
             <th style="width: 20rem">File Name</th>
-             <th pSortableColumn="email_Status" style="width: 20rem">
-          Status <p-sortIcon field="Status"></p-sortIcon>
-        </th>
- 
-        <th pSortableColumn="score" style="width: 3rem">
-          Score
- 
-          <p-sortIcon field="score"></p-sortIcon>
-        </th>
- 
-        <th pSortableColumn="result" style="width: 20rem">
-          Result
- 
-          <p-sortIcon field="result"></p-sortIcon>
-        </th>
+            <th pSortableColumn="email_Status" style="width: 20rem">
+              Status <p-sortIcon field="Status"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="score" style="width: 3rem">
+              Score
+
+              <p-sortIcon field="score"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="result" style="width: 20rem">
+              Result
+
+              <p-sortIcon field="result"></p-sortIcon>
+            </th>
             <!-- <th></th> -->
           </tr>
         </ng-template>
@@ -356,40 +665,19 @@
                   rowData.email_Filename
                 }}</a>
               </ng-container>
- 
+
               <ng-template #normalText>
                 {{ rowData.email_Filename }}
               </ng-template>
             </td>
-           
+
             <td style="width: 20rem">{{ rowData.email_Status }}</td>
             <td style="width: 20rem">{{ rowData.score }}</td>
             <td style="width: 20rem">{{ rowData.result }}</td>
-            <!-- <td>
-              <div pTooltip=" StartDate: 12/12/2022 &nbsp; EndDate: 13/12/2022">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-info-circle"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                  />
-                  <path
-                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
-                  />
-                </svg>
-              </div>
-            </td> -->
           </tr>
         </ng-template>
       </p-table>
- 
- 
- 
+
       <p-dialog
         [(visible)]="visible"
         [modal]="true"
@@ -399,96 +687,90 @@
         class="reviewer_dialog"
         [closable]="false"
       >
-      <p-header>
- 
-        <div class="top-right-button">
- 
-          <ng-container
-          *ngIf="dialogEmailStatus === 'Completed'; else submitButton"
-        >
-          <div
-            class="save_button_disabled flex cursor-pointer"
-            [disabled]="true"
-          >
-            <svg
-              id="Layer_3"
-              width="26"
-              viewBox="0 0 30 30"
-              xml:space="preserve"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              fill="grey"
+        <p-header>
+          <div class="top-right-button">
+            <ng-container
+              *ngIf="dialogEmailStatus === 'Completed'; else submitButton"
             >
-              <style>
-                #Layer_3 {
-                  fill: grey;
-                }
-              </style>
- 
-              <path
-                d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
-              />
- 
-              <rect height="5" width="2" x="16" y="4" />
-            </svg>
+              <div
+                class="save_button_disabled flex cursor-pointer"
+                [disabled]="true"
+              >
+                <svg
+                  id="Layer_3"
+                  width="26"
+                  viewBox="0 0 30 30"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  fill="grey"
+                >
+                  <style>
+                    #Layer_3 {
+                      fill: grey;
+                    }
+                  </style>
+
+                  <path
+                    d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
+                  />
+
+                  <rect height="5" width="2" x="16" y="4" />
+                </svg>
+              </div>
+            </ng-container>
+
+            <ng-template #submitButton>
+              <p-toast></p-toast>
+
+              <div
+                pTooltip="Submit"
+                class="save_button flex cursor-pointer"
+                (click)="submitReview(FinalizedQuestions)"
+              >
+                <svg
+                  id="Layer_1"
+                  width="26"
+                  viewBox="0 0 30 30"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  fill="white"
+                >
+                  <path
+                    d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
+                  />
+                  <rect height="5" width="2" x="16" y="4" />
+                </svg>
+              </div>
+            </ng-template>
           </div>
-        </ng-container>
- 
-        <ng-template #submitButton>
-          <p-toast></p-toast>
-         
-          <div
-            pTooltip="Submit"
-            class="save_button flex cursor-pointer"
-            (click)="submitReview(FinalizedQuestions)"
-          >
-            <svg
-          id="Layer_1"
-          width="26"
-          viewBox="0 0 30 30"
-          xml:space="preserve"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          fill="white"
-        >
-          <path
-            d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
-          />
-          <rect height="5" width="2" x="16" y="4" />
-        </svg>
+
+          <div class="top-left-button">
+            <div class="save_sec flex cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="18"
+                class="icon"
+                fill="#fff"
+                (click)="reviewerBack()"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+                />
+              </svg>
+            </div>
           </div>
-        </ng-template>
- 
-        </div>
-       
-    <div class="top-left-button">
- 
-      <div class="save_sec flex cursor-pointer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="18"
-            class="icon"
-            fill="#fff"
-            (click)="reviewerBack()"
-            viewBox="0 0 448 512"
-          >
-            <path
-              d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-            />
-          </svg>
-        </div>
- 
-    </div>
- 
-      </p-header>
- 
+        </p-header>
+
         <ng-container *ngIf="FinalizedQuestions.length > 0">
           <div
             *ngFor="let question of FinalizedQuestions; let i = index"
             class="question_sec"
           >
             <h3>{{ i + 1 }}. {{ question.question }}</h3>
- 
+
             <ng-container *ngIf="question.questionType === 'Checkbox'">
               <div class="vertical-options-checkbox display-row">
                 <div *ngFor="let option of question.options" class="option">
@@ -506,14 +788,14 @@
                       dialogEmailStatus === 'Completed'
                     "
                   ></p-checkbox>
- 
+
                   <span class="correct-option">
                     {{ option }}
                   </span>
                 </div>
               </div>
             </ng-container>
- 
+
             <ng-container *ngIf="question.questionType === 'Radio'">
               <div class="vertical-options">
                 <div *ngFor="let option of question.options" class="option">
@@ -527,8 +809,161 @@
                       dialogEmailStatus === 'Completed'
                     "
                   ></p-radioButton>
- 
+
                   {{ option }}
+                </div>
+
+                <ng-container
+                  *ngIf="
+                    dialogEmailStatus === 'Completed';
+                    else reviewDiaButton
+                  "
+                >
+                  <div class="review-buttons">
+                    <button
+                      pButton
+                      type="button"
+                      class="p-button leftbutton"
+                      style="padding: auto"
+                      [disabled]="true"
+                      [class.light-green]="
+                        question.reviewerResponse === 'Correct'
+                      "
+                    >
+                      <svg
+                        id="crt"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 448 512"
+                      >
+                        <style>
+                          #crt {
+                            fill: green;
+                          }
+                        </style>
+
+                        <path
+                          d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                        />
+                      </svg>
+                    </button>
+
+                    <button
+                      pButton
+                      type="button"
+                      class="p-button-danger"
+
+                      style="padding: auto"
+                      [disabled]="true"
+                      [class.light-red]="
+                        question.reviewerResponse === 'Incorrect'
+                      "
+                    >
+                      <svg
+                        id="wrong"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 384 512"
+                      >
+                        <style>
+                          #wrong {
+                            fill: red;
+                          }
+                        </style>
+
+                        <path
+                          d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </ng-container>
+
+                <ng-template #reviewDiaButton>
+                  <div class="review-buttons">
+                    <button
+                      pButton
+                      type="button"
+                      class="p-button leftbutton"
+                      style="padding: auto"
+                      [class.light-green]="
+                        buttonColors[i] && question.isCorrect || question.reviewerResponse === 'Correct'
+                      "
+                      [class.light-red]="
+                        buttonColorsWrong[i] && question.isCorrect
+                      "
+                    >
+                      <svg
+                        id="crt"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 448 512"
+                      >
+                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+
+                        <style>
+                          #crt {
+                            fill: green;
+                          }
+                        </style>
+
+                        <path
+                          d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                        />
+                      </svg>
+                    </button>
+
+                    <button
+                      pButton
+                      type="button"
+                      class="p-button-danger"
+                      style="padding: auto"
+                      [class.light-green]="
+                        buttonColors[i] && !question.isCorrect
+                      "
+                      [class.light-red]="
+                        buttonColorsWrong[i] && !question.isCorrect || question.reviewerResponse === 'Incorrect'
+                      "
+                    >
+                      <svg
+                        id="wrong"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 384 512"
+                      >
+                        <style>
+                          #wrong {
+                            fill: red;
+                          }
+                        </style>
+
+                        <path
+                          d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </ng-template>
+              </div>
+            </ng-container>
+
+            <!-- Auto correct code -->
+            <ng-container *ngIf="question.questionType === 'Text'">
+              <div>
+                <div class="text_area_ans">
+                  <textarea
+                    rows="3"
+                    cols="75"
+                    pInputTextarea
+                    [autoResize]="true"
+                    [(ngModel)]="question.selectedOption"
+                    [disabled]="
+                      dialogEmailStatus === 'Submitted' ||
+                      dialogEmailStatus === 'Completed'
+                    "
+                    [value]="question.selectedOption"
+                  >
+                  </textarea>
                 </div>
  
                 <ng-container
@@ -673,20 +1108,24 @@
                 </ng-template>
               </div>
             </ng-container>
+
+
+
           </div>
         </ng-container>
- 
-       
-       
       </p-dialog>
     </div>
   </p-tabPanel>
 </p-tabView>
- 
+
 <ng-template #wrongname>
   <div class="flex justify-content-end mb-3 pt-3">
-    <button class="btn mr-3 flex align-items-center cursor-pointer">
+    <button
+      class="btn mr-3 flex align-items-center cursor-pointer"
+      *ngIf="name"
+    >
       <svg
+        *ngIf="name"
         xmlns="http://www.w3.org/2000/svg"
         width="20"
         height="20"
@@ -694,10 +1133,11 @@
         viewBox="0 0 16 16"
       >
         <path
+          *ngIf="name"
           d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
         />
       </svg>
-      <span>Filter</span>
+      <span *ngIf="name">Filter</span>
     </button>
   </div>
   <div class="table-container px-3">
@@ -740,40 +1180,21 @@
                 rowData.email_Filename
               }}</a>
             </ng-container>
- 
+
             <ng-template #normalText>
               {{ rowData.email_Filename }}
             </ng-template>
           </td>
- 
+
           <td style="width: 20rem">{{ rowData.email_Status }}</td>
           <td style="width: 20rem">{{ rowData.score }}</td>
           <td style="width: 20rem">{{ rowData.result }}</td>
-          <!-- <td>
-            <div pTooltip=" StartDate: 12/12/2022 &nbsp; EndDate: 13/12/2022">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-info-circle"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                />
-                <path
-                  d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
-                />
-              </svg>
-            </div>
-          </td> -->
         </tr>
       </ng-template>
     </p-table>
   </div>
 </ng-template>
- 
+
 <p-dialog
   [visible]="displayEmailDialog"
   [modal]="true"
@@ -824,31 +1245,8 @@
             >
             </p-inputNumber>
           </div>
-          <!-- Password field -->
- 
-          <!-- <div class="p-field">
-            <input
-              type="text"
-              pInputText
-              [ngModelOptions]="{ standalone: true }"
-              placeholder="Password"
-              [(ngModel)]="candidatePassword"
-              required
-            />
-          </div> -->
-          <!-- Confirm password field -->
-          <!-- <div class="p-field">
-            <input
-              type="text"
-              pInputText
-              [ngModelOptions]="{ standalone: true }"
-              placeholder="ConfirmPassword"
-              [(ngModel)]="candidateConfirmPassword"
-              required
-            />
-          </div> -->
         </div>
- 
+
         <div class="flex justify-content-end">
           <button
             class="btn btn_cancel cursor-pointer mr-3"

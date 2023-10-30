@@ -49,6 +49,8 @@
             <div *ngFor="let option of question.options" class="option">
               <p-checkbox
                 [(ngModel)]="question.selectedOption"
+                (ngModelChange)="onCheckboxChange(question, option, $event)"
+                [binary]="true"
                 class="mr-2"
                 [value]="option"
                 inputId="checkbox-{{ i }}-{{ option }}"
@@ -66,6 +68,8 @@
             <div *ngFor="let option of question.options" class="option">
               <p-radioButton
                 [(ngModel)]="question.selectedOption"
+                (ngModelChange)="onRadioButtonChange(question, option)"
+                [binary]="true"
                 [value]="option"
                 class="mr-1"
                 inputId="checkbox-{{ i }}-{{ option }}"
@@ -75,10 +79,24 @@
             </div>
           </div>
         </ng-container>
+
+        <ng-container *ngIf="question.questionType === 'Text'">
+          <div class="text_area_ans">
+            <textarea
+              rows="3"
+              cols="75"
+              pInputTextarea
+              [autoResize]="true"
+              [(ngModel)]="question.selectedOption"
+            >
+            </textarea>
+          </div>
+        </ng-container>
       </div>
     </ng-container>
   </div>
 </div>
+
 <p-confirmDialog
   [style]="{ width: '50vw' }"
   key="positionDialog"

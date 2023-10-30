@@ -53,6 +53,17 @@ export class SkillsdropdownService {
     );
   }
 
+  //post questions by manager
+  postquestions_by_Manager(dataToSave: any): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+ 
+    return this.http.post<any>(
+      this.skillsUrl + '/questions_upload_manager',
+      { ques: dataToSave },
+      { headers }
+    );
+  }
+
   updatequestions(
     Managername: string,
 

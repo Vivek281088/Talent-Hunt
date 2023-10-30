@@ -85,6 +85,22 @@
           </div>
         </div>
       </ng-container>
+
+      <ng-container *ngIf="question.questionType === 'Text'">
+       
+       
+        <div class="text_area_ans">
+
+                <textarea
+               rows="3"
+               cols="75"
+               pInputTextarea
+               [autoResize]="true"
+               >
+              </textarea>
+              </div>
+    </ng-container>
+
     </div>
   </ng-container>
 </div>

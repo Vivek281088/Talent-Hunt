@@ -191,7 +191,6 @@ export class LoginComponent implements OnDestroy {
 
       console.log("role", data.role)
 
-      this.managernameService.setCandidateAssessment_Email(this.userEmail);
 
 
 
@@ -206,6 +205,8 @@ export class LoginComponent implements OnDestroy {
 
 
         if (data.role == "manager") {
+      this.managernameService.setManagerName(this.userEmail);
+
 
           localStorage.setItem('role', data.role);
 
@@ -233,6 +234,8 @@ export class LoginComponent implements OnDestroy {
         }
 
         else if (data.role == "user") {
+      this.managernameService.setCandidateAssessment_Email(this.userEmail);
+
 
           localStorage.setItem("role1", data.role);
           localStorage.setItem("userrole", "user");

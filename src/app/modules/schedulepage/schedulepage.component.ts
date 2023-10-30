@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
 import { MessageService } from 'primeng/api';
+import { lastValueFrom } from 'rxjs';
 // import { ManagernameService } from 'src/app/services/managername.service';
 
 @Component({
@@ -16,6 +17,10 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./schedulepage.component.scss'],
 })
 export class SchedulepageComponent implements OnInit {
+
+  questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
+
+  difficultyLevel : string[] = ['Easy', 'Medium', 'Hard'];
   tables: any[] | undefined;
   cols!: Column[];
   selectedManager: string = '';
@@ -65,12 +70,55 @@ export class SchedulepageComponent implements OnInit {
   candidateConfirmPassword: any="abc123";
   name: boolean = true;
   finalizedEmail!: string;
+  finalizedManagerEmail !:string;
+  managerEmail !: string;
   column!: Column[];
+  question !: string;
+  selectedAnswer!: string;
+  chosenSkill !: String;
+  option1 !:string;
+  option2 !:string;
+  option3 !:string;
+  option4 !:string;
+  selectedType: boolean = false;
+  selectedquestionType !: string;
+  selecteddifficultyType !: string;
+  selectedAnswers: {
+    a: boolean;
+    b: boolean;
+    c: boolean;
+    d: boolean;
+  } = {
+    a: false,
+    b: false,
+    c: false,
+    d: false,
+  };
+
+  //visible: boolean = false;
+
+
+
+
+
+
+
+
+  // Optionally, you can send the data to a service or perform any other actions here
+
+  // Close the dialog
+
+
+  //dialog box
+ 
+  
 
   // reviewer
   totalQuestions!: number;
 
   correctQuestions!: number;
+
+  textQuestions: any[] = [];
 
   id: string = '';
 
@@ -99,18 +147,17 @@ export class SchedulepageComponent implements OnInit {
     private messageService: MessageService,
 
     private reviewerService: ReviewerService
-  ) {
-    // this.candidateForm = this.formBuilder.group({
-    //   candidateName: ['', Validators.required],
-    //   candidateEmail: ['', Validators.required,Validators.email],
-    //   candidatePhone: [null]
-    // });
-  }
+  ) {}
+  
   ngOnInit() {
     //this.auth.isLoggedIn=true;
+    this.loadSkills();
     this.finalizedEmail =
       this.managernameService.getCandidateAssessment_Email();
     console.log('a', this.finalizedEmail);
+
+    this.finalizedManagerEmail = this.managernameService.getManagerName();
+    
 
     this.loadManagerNames();
     this.getSkillSet();
@@ -164,29 +211,7 @@ export class SchedulepageComponent implements OnInit {
       this.loadCandidate();
     }
   }
-  // loadCandidate() {
-  //   const role = localStorage.getItem('role');
-  //   if (role == 'user') {
-  //     this.name = false;
-
-  //     this.candidateService
-  //       .getCandidatedata_by_Email(this.finalizedEmail)
-  //       .subscribe((response) => {
-  //         console.log('res', response);
-  //         this.candidateList = response;
-
-  //         console.log('candidateList', this.candidateList);
-  //         this.candidateName = response[0].candidateName;
-  //         console.log('candidateName', this.candidateName);
-  //       });
-  //   } else {
-  //     this.managernameService.getCandidateStatus().subscribe((data) => {
-  //       // console.log("arole",a)
-  //       this.candidateList = data;
-  //       console.log('loadDAta', data);
-  //     });
-  //   }
-  // }
+ 
   loadCandidate() {
     const role = localStorage.getItem('userrole');
     console.log("role",role);
@@ -201,9 +226,22 @@ export class SchedulepageComponent implements OnInit {
           this.candidateName = response[0].candidateName;
           console.log('candidateName', this.candidateName);
         });
+
+      
         // localStorage.removeItem('userrole');
     } else if(role=="manager"){
       // localStorage.removeItem('userrole');
+      this.managernameService
+      .getManagerdata_by_Email(this.finalizedManagerEmail)
+      .subscribe((response) => {
+        console.log('res', response);
+        this.managerEmail = response[0].Managername;
+        this.managernameService.setManagerName_Email(this.managerEmail);
+        
+        console.log('candidateList1gr4rg', this.managerEmail);
+        // this.candidateName = response[0].candidateName;
+        
+      });
       this.managernameService.getCandidateStatus().subscribe((data) => {
         // console.log("arole",a)
         this.candidateList = data;
@@ -211,6 +249,7 @@ export class SchedulepageComponent implements OnInit {
       });
       // localStorage.removeItem('userrole');
     }
+  
     console.log('load data 1', this.candidateList);
     console.log('selected candidate', this.selectedCandidates);
     // Loop through selectedCandidates and store data for each candidate
@@ -220,6 +259,10 @@ export class SchedulepageComponent implements OnInit {
         (candidate) => candidate.candidateName === selectedCandidate
       );
       console.log('matched candidate', existingCandidate);
+
+      //reset 
+      this.score = null;
+      this.result = '';
       if (existingCandidate) {
         this.tableService
           .postExistingCandidateDetails(
@@ -335,6 +378,10 @@ export class SchedulepageComponent implements OnInit {
   }
 
   storeCandidate() {
+
+    //reset data
+    this.score = null;
+    this.result = '';
     console.log('score', this.score);
     console.log('result', this.result);
     this.tableService
@@ -357,6 +404,7 @@ export class SchedulepageComponent implements OnInit {
         console.log('stored', response);
         this.candidateList.push(response);
       });
+    this.getExistingTableData
     this.getCandidatename();
     this.resetForm();
     // Close the dialog
@@ -396,6 +444,54 @@ export class SchedulepageComponent implements OnInit {
         console.log('questions :', this.FinalizedQuestions);
       });
   }
+
+  //clone icon
+  cloneData: any = {};
+ 
+  async onCloneClick(data: any) {
+ 
+ 
+    this.managernameService
+      .getManagerdata_by_Email(this.finalizedManagerEmail)
+      .subscribe((response) => {
+        console.log('res', response);
+        this.managerEmail = response[0].Managername;
+      });
+    console.log("Clone Data", data);
+    this.cloneData = { ...data };
+    this.cloneData.Managername = this.managerEmail;
+    console.log('Clone manager', this.managerEmail);
+ 
+    //Changing filename with version
+    const skillName = this.cloneData.Skill.sort()
+    console.log('Skill name', skillName);
+ 
+    const latestVersion = await lastValueFrom(
+      this.skillsdropdownservice.getLatestVersion(
+        this.managerEmail,
+        skillName
+      )
+    );
+ 
+    const newVersion = latestVersion ? latestVersion + 1 : 1;
+    const fileNameWithVersion = `${skillName.join('_')}_v${newVersion}`;
+    console.log('lv:', latestVersion);
+    console.log('Filename ---lv:', fileNameWithVersion);
+    this.cloneData.fileName = fileNameWithVersion;
+ 
+    this.Tdata.push(this.cloneData);
+    console.log('Updated Clone Data', this.cloneData);
+ 
+    
+    this.skillsdropdownservice
+          .postquestions_by_Manager(this.cloneData)
+          .subscribe((response) => {
+            console.log('output----->', response)
+          });
+ 
+  }
+
+
   handleEditIconClick(ManagerName: string, fileName: string) {
     this.tableService
       .getdataby_FileName(ManagerName, fileName)
@@ -465,7 +561,14 @@ export class SchedulepageComponent implements OnInit {
     this.buttonColorsWrong[index] = true;
   }
 
-  interaction = Array(this.FinalizedQuestions.length).fill(false);
+
+textQuestion = Array(
+    this.FinalizedQuestions.filter(
+      (question) => question.questionType === 'Text'
+    )
+  );
+ 
+  interaction = Array(this.textQuestion.length).fill(false);
 
   markInteracted(index: number) {
     this.interaction[index] = true;
@@ -477,71 +580,71 @@ export class SchedulepageComponent implements OnInit {
 
   submitReview(candidate: any) {
     this.totalQuestions = this.FinalizedQuestions.length;
-
+ 
     this.correctQuestions = this.FinalizedQuestions.filter(
-      (question) => question.isCorrect
+      (question) => question.reviewerResponse === 'Correct'
     ).length;
-
+ 
     this.score = (this.correctQuestions / this.totalQuestions) * 100;
-
+ 
     if (this.score > this.cutoff) {
       this.result = 'Selected';
     } else this.result = 'Not Selected';
-
+ 
     this.score.toFixed(2);
-
+ 
     console.log('Score :', this.score);
-
+ 
     console.log('Result :', this.result);
-
+ 
     console.log('Correct :', this.correctQuestions);
-
+ 
     // Check if any questions have been marked as correct or incorrect
-
+ 
     let questionsMarked = false;
-
+ 
     for (const question of this.FinalizedQuestions) {
       if (question.isCorrect !== undefined) {
         questionsMarked = true;
-
+ 
         break; // Exit the loop once a marked question is found
       }
     }
-
+ 
     if (!this.checkInteraction()) {
       console.log('Inside Check Interaction', this.interaction);
-
+ 
       this.showError();
     } else {
       const updateData = {
         _id: this.id,
-
+ 
         score: this.score.toFixed(2),
-
+ 
         result: this.result,
-
+ 
         questions: this.FinalizedQuestions,
-
+ 
         email_Status: this.reviewerStatus,
       };
-
+ 
       this.reviewerService
-
+ 
         .updateScoreAndResult(updateData)
-
+ 
         .subscribe((response) => {
           console.log('Score and result updated successfully', response);
         });
-
+ 
       console.log('Inside Check Interaction', this.interaction);
-
+ 
       this.showSubmitted();
-
+ 
       this.getExistingTableData();
       setTimeout(() => {
         this.visible = false;
       }, 2000);
-
+ 
       this.getExistingTableData();
     }
   }
@@ -605,7 +708,11 @@ export class SchedulepageComponent implements OnInit {
 
     console.log('length', this.FinalizedQuestions.length);
 
-    this.interaction = Array(this.FinalizedQuestions.length).fill(false);
+    this.textQuestions = this.FinalizedQuestions.filter(
+      (question) => question.questionType === 'Text'
+    );
+ 
+    this.interaction = Array(this.textQuestions.length).fill(false);
 
     console.log('Interaction', this.interaction);
 
@@ -613,7 +720,81 @@ export class SchedulepageComponent implements OnInit {
 
     this.visible = true;
   }
+
+openquestiondialog(){
+  this.visible = true;
 }
+
+
+// Loading skills for dropdown in add question
+loadSkills() {
+  console.log('hi from Client');
+
+  this.skillsdropdownservice.getskillsList().subscribe((data) => {
+    this.skillSet = data.skill;
+
+    // console.log(this.skillSet);
+
+    // console.log('Users:' + JSON.stringify(this.selectedSkill));
+  });
+}
+  closequestiondialog(){
+    this.resetdialog();
+  }
+
+addquestion(){
+  // console.log(this.question, this.selectedquestionType, this.option1, this.option2, this.option3, this.option4, this.chosenSkill, this.selecteddifficultyType,this.selectedAnswer)
+  console.log("Selected", this.selectedAnswers)
+  console.log("Hi", this.selectedAnswer)
+  console.log("Hi", this.option1, this.option2, this.option3, this.option4,)
+  console.log("Hi", this.selectedquestionType, this.chosenSkill)
+
+  this.managernameService.postquestionstodb(
+    this.question, 
+    this.selectedquestionType, 
+    this.option1, 
+    this.option2, 
+    this.option3, 
+    this.option4, 
+    this.chosenSkill, 
+    this.selecteddifficultyType,
+    this.selectedAnswer,
+    this.selectedAnswers
+    ).subscribe((data) => {
+   console.log("hi", data)
+  });
+this.showSuccess();
+}
+showSuccess() {
+  this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Question Added Successfully' });
+}
+
+resetdialog() {
+   this.question= ''; 
+    this.selectedquestionType= ''; 
+    this.option1= '';
+    this.option2= '';
+    this.option3= '';
+    this.option4= '';
+    this.chosenSkill= ''; 
+    this.selecteddifficultyType= '';
+    this.selectedAnswer= '';
+    // this.selectedAnswers= '';
+
+}
+typeSelected(){
+  
+}
+
+onAddQuestionClick(){
+  this.router.navigate(['questiondb']);
+}
+
+}
+
+
+
+
 
 interface Column {
   field: string;
