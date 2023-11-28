@@ -21,6 +21,8 @@ import { AssessmentDisplayComponent } from './modules/assessment-display/assessm
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 import { MessageService } from 'primeng/api';
+import { QuestiondbComponent } from './questiondb/questiondb.component';
+import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 
 
 
@@ -39,6 +41,8 @@ import { MessageService } from 'primeng/api';
     ReviewerComponent,
     AssessmentDisplayComponent,
     ForgotpasswordComponent,
+    QuestiondbComponent,
+    ProfileDialogComponent,
   ],
   imports: [
     BrowserModule,

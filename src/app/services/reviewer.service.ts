@@ -46,20 +46,15 @@ export class ReviewerService {
     // Send a PUT request to the API endpoint to update score and result
 
     return this.http.put<any>(
-      this.defaultUrl + '/updating_questions_for_reviewer',
+      `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/autoreview`,
 
       data
     );
   }
 
   updateScoreAndResult(data: any): Observable<any> {
-    // Send a PUT request to the API endpoint to update score and result
-
-    return this.http.put<any>(
-      this.defaultUrl + '/reviewer_updating_score_result',
-
-      data
-    );
+console.log("data from service",data)
+    return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/reviewerupdate',data);
   }
 
   getCandidatetable(): Observable<any> {

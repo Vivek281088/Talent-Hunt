@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
 import { MessageService } from 'primeng/api';
+import { lastValueFrom } from 'rxjs';
 // import { ManagernameService } from 'src/app/services/managername.service';
 
 @Component({
@@ -16,6 +17,9 @@ import { MessageService } from 'primeng/api';
   styleUrls: ['./schedulepage.component.scss'],
 })
 export class SchedulepageComponent implements OnInit {
+  questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
+
+  difficultyLevel: string[] = ['Easy', 'Medium', 'Hard'];
   tables: any[] | undefined;
   cols!: Column[];
   selectedManager: string = '';
@@ -27,7 +31,7 @@ export class SchedulepageComponent implements OnInit {
   filteredSkill: String[] = [];
   fskill: String[] = [];
   exdata: any[] = [];
-  filterSkills: FilterSkill[] = [];
+  filterSkills: any[] = [];
   filterManager: any;
   filteredData: any[] = [];
   isCreate: boolean = false;
@@ -41,7 +45,7 @@ export class SchedulepageComponent implements OnInit {
   Skill: any[] = []; //for edit
   selectedQuestions: any[] = [];
   cutoff!: number;
-  duration!: number;
+  durations!: number;
   email_Managername!: string;
   email_Status!: string;
   email_Filename!: string;
@@ -61,16 +65,37 @@ export class SchedulepageComponent implements OnInit {
   editFilename!: any;
   result: string = '';
   score: number | null = null;
-  candidatePassword: any="abc123";
-  candidateConfirmPassword: any="abc123";
+  candidatePassword: string = 'abc123';
+  candidateConfirmPassword: string = 'abc123';
   name: boolean = true;
   finalizedEmail!: string;
+  finalizedManagerEmail!: string;
+  managerEmail!: string;
   column!: Column[];
+  question!: string;
+  selectedAnswer!: string;
+  chosenSkill!: String;
+  option1!: string;
+  option2!: string;
+  option3!: string;
+  option4!: string;
+  selectedType: boolean = false;
+  selectedquestionType!: string;
+  selecteddifficultyType!: string;
+  selectedAnswers!: {
+    a: string;
+    b: string;
+    c: string;
+    d: string;
+  };
+  candidateId!: Date | null;
 
   // reviewer
   totalQuestions!: number;
 
   correctQuestions!: number;
+
+  textQuestions: any[] = [];
 
   id: string = '';
 
@@ -85,6 +110,8 @@ export class SchedulepageComponent implements OnInit {
   reviewerStatus: string = 'Completed';
 
   dialogEmailStatus: string | null = null;
+
+  roles: string = "user";
 
   // candidateForm !: FormGroup;
   constructor(
@@ -108,9 +135,18 @@ export class SchedulepageComponent implements OnInit {
   }
   ngOnInit() {
     //this.auth.isLoggedIn=true;
-    this.finalizedEmail =
-      this.managernameService.getCandidateAssessment_Email();
-    console.log('a', this.finalizedEmail);
+    this.loadSkills();
+    //for candidate
+    // this.finalizedEmail =
+    //   this.managernameService.getCandidateAssessment_Email();
+    // console.log('a', this.finalizedEmail);
+
+    //for manager
+    // this.finalizedManagerEmail = this.managernameService.getManagerName_Email();
+    // console.log('manager-email--', this.finalizedManagerEmail);
+
+    this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
+    this.finalizedEmail = localStorage.getItem('Candidateemail')!;
 
     this.loadManagerNames();
     this.getSkillSet();
@@ -164,32 +200,10 @@ export class SchedulepageComponent implements OnInit {
       this.loadCandidate();
     }
   }
-  // loadCandidate() {
-  //   const role = localStorage.getItem('role');
-  //   if (role == 'user') {
-  //     this.name = false;
 
-  //     this.candidateService
-  //       .getCandidatedata_by_Email(this.finalizedEmail)
-  //       .subscribe((response) => {
-  //         console.log('res', response);
-  //         this.candidateList = response;
-
-  //         console.log('candidateList', this.candidateList);
-  //         this.candidateName = response[0].candidateName;
-  //         console.log('candidateName', this.candidateName);
-  //       });
-  //   } else {
-  //     this.managernameService.getCandidateStatus().subscribe((data) => {
-  //       // console.log("arole",a)
-  //       this.candidateList = data;
-  //       console.log('loadDAta', data);
-  //     });
-  //   }
-  // }
   loadCandidate() {
     const role = localStorage.getItem('userrole');
-    console.log("role",role);
+    console.log('role', role);
     if (role == 'user') {
       this.name = false;
       this.candidateService
@@ -197,13 +211,29 @@ export class SchedulepageComponent implements OnInit {
         .subscribe((response) => {
           console.log('res', response);
           this.candidateList = response;
-          console.log('candidateList', this.candidateList);
+          console.log(
+            'candidateListdata',
+            this.candidateList
+          );
           this.candidateName = response[0].candidateName;
           console.log('candidateName', this.candidateName);
         });
-        // localStorage.removeItem('userrole');
-    } else if(role=="manager"){
+
       // localStorage.removeItem('userrole');
+    } else if (role == 'manager') {
+      // localStorage.removeItem('userrole');
+      console.log('manager email--', this.finalizedManagerEmail);
+      this.managernameService
+        .getManagerdata_by_Email(this.finalizedManagerEmail)
+        .subscribe((response) => {
+          console.log('res', response);
+          this.managerEmail = response[0].Managername;
+
+          // this.managernameService.setManagerName_Email(this.managerEmail);
+
+          console.log('candidateList1gr4rg', this.managerEmail);
+          // this.candidateName = response[0].candidateName;
+        });
       this.managernameService.getCandidateStatus().subscribe((data) => {
         // console.log("arole",a)
         this.candidateList = data;
@@ -211,6 +241,7 @@ export class SchedulepageComponent implements OnInit {
       });
       // localStorage.removeItem('userrole');
     }
+
     console.log('load data 1', this.candidateList);
     console.log('selected candidate', this.selectedCandidates);
     // Loop through selectedCandidates and store data for each candidate
@@ -220,12 +251,23 @@ export class SchedulepageComponent implements OnInit {
         (candidate) => candidate.candidateName === selectedCandidate
       );
       console.log('matched candidate', existingCandidate);
+
+      //rest data
+      this.score = null;
+      this.result = '';
+      const date = Date.now();
+      this.candidateId = new Date(date);
+
+      //show success message
+      // this.showEmailSubmitted();
+      
       if (existingCandidate) {
         this.tableService
           .postExistingCandidateDetails(
+            this.candidateId,
             this.email_Managername,
             existingCandidate.candidateName,
-            existingCandidate.candidateEmail, // Get candidateEmail from existing data
+            existingCandidate.candidateEmail,
             existingCandidate.candidatePhone,
             this.email_Status,
             this.email_Filename,
@@ -233,18 +275,32 @@ export class SchedulepageComponent implements OnInit {
             this.score,
             this.result,
             this.cutoff,
-            this.duration,
-            this.candidatePassword,
-            this.candidateConfirmPassword
-            // Get candidatePhone from existing data
+            this.durations,
+            existingCandidate.password,
+            existingCandidate.confirmPassword,
+            this.roles
           )
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);
             //this.candidateName(data);
             this.candidateList.push(data);
+            
           });
-        this.getCandidatename();
+
+        setTimeout(() => {
+          this.getCandidatename();
+          this.cancelEmailPopup();
+        }, 2000);
       }
+    });
+    this.showEmailSubmitted();
+  }
+
+  loadAssessmentData() {
+    this.managernameService.getCandidateStatus().subscribe((data) => {
+      // console.log("arole",a)
+      this.candidateList = data;
+      console.log('loadDAta', data);
     });
   }
   getSkillSet() {
@@ -253,10 +309,10 @@ export class SchedulepageComponent implements OnInit {
     });
   }
   onSearchClick() {
-    const skillToFilter =
-      this.filterSkills.length > 0 ? this.filterSkills[0].skill : undefined;
+    console.log('skill', this.filterSkills);
+
     this.skillsdropdownservice
-      .filterManager(this.filterManager?.Managername, skillToFilter)
+      .filterManager(this.filterManager, this.filterSkills)
       .subscribe((data) => {
         console.log('Api response', data);
         this.filteredData = data;
@@ -267,9 +323,11 @@ export class SchedulepageComponent implements OnInit {
   }
   existingData() {
     this.tableService.getExistingData().subscribe((data) => {
+      console.log("table",data)
       this.Tdata = data;
     });
   }
+
   loadManagerNames() {
     this.managernameService.getManagerNames().subscribe((data) => {
       this.managerOption = data;
@@ -285,22 +343,24 @@ export class SchedulepageComponent implements OnInit {
   dropFunction(rowData: any) {
     rowData.isCreate = true;
     console.log('Drop down selected', rowData);
-    this.tableService
-      .postManagerList(this.selectedManager)
-      .subscribe((data) => {
-        this.managernameService.setManagerName(this.selectedManager);
-        console.log('manager', this.selectedManager);
-      });
+    this.managernameService.setManagerName(this.selectedManager);
+    console.log('manager', this.selectedManager);
+    // this.tableService
+    //   .postManagerList(this.selectedManager)
+    //   .subscribe((data) => {
+
+    //   });
   }
   addNewRow() {
-    const newRow = {
-      manager: '',
-      fileName: '',
-      isCreate: false,
-      isEdit: false,
-      isMail: false,
-    };
-    this.Tdata.unshift(newRow);
+    this.router.navigate(['/create'])
+    // const newRow = {
+    //   manager: '',
+    //   fileName: '',
+    //   isCreate: false,
+    //   isEdit: false,
+    //   isMail: false,
+    // };
+    // this.Tdata.unshift(newRow);
   }
   //Mail dialog
   displayEmailDialog = false;
@@ -323,7 +383,7 @@ export class SchedulepageComponent implements OnInit {
       .subscribe((data) => {
         console.log('View Data', data);
         this.cutoff = data[0].cutoff;
-        this.duration = data[0].duration;
+        this.durations = data[0].durations;
         this.questions = data[0].questions;
         console.log('Quest', this.questions);
       });
@@ -332,13 +392,28 @@ export class SchedulepageComponent implements OnInit {
     this.displayEmailDialog = false;
     this.selectedCandidates = [];
     this.resetForm();
+    this.loadAssessmentData();
+    this.getCandidatename();
   }
 
   storeCandidate() {
+    //rest data
+    this.score = null;
+    this.result = '';
     console.log('score', this.score);
     console.log('result', this.result);
+
+    //to load the candidate name
+    
+    const date = Date.now();
+    this.candidateId = new Date(date);
+
+    //show success message
+   
+    this.showEmailSubmitted();
     this.tableService
       .postCandidateDetails(
+        this.candidateId,
         this.email_Managername,
         this.candidateName,
         this.candidateEmail,
@@ -349,18 +424,24 @@ export class SchedulepageComponent implements OnInit {
         this.score,
         this.result,
         this.cutoff,
-        this.duration,
+        this.durations,
         this.candidatePassword,
-        this.candidateConfirmPassword
+        this.candidateConfirmPassword,
+        this.roles
       )
       .subscribe((response) => {
         console.log('stored', response);
         this.candidateList.push(response);
+        //  
       });
-    this.getCandidatename();
-    this.resetForm();
+
+    
+    
+
     // Close the dialog
-    this.displayEmailDialog = false;
+    setTimeout(() => {
+      this.cancelEmailPopup();
+    }, 2000);
   }
   resetForm() {
     this.candidateName = '';
@@ -368,13 +449,6 @@ export class SchedulepageComponent implements OnInit {
     this.candidatePhone = null;
     this.candidatePassword = '';
     this.candidateConfirmPassword = '';
-
-    // You might want to set this to a default value
-    //    this.email_Status = '';
-    //    this.email_Filename = '';
-    //  this.questions = '';
-    //   // Close the dialog
-    //   this.displayEmailDialog = false;
   }
   sendEmail() {
     this.displayEmailDialog = false;
@@ -396,6 +470,143 @@ export class SchedulepageComponent implements OnInit {
         console.log('questions :', this.FinalizedQuestions);
       });
   }
+
+  //clone icon
+  cloneData: any = {};
+  onCloneClick(data: any) {
+    this.managernameService
+      .getManagerdata_by_Email(this.finalizedManagerEmail)
+      .subscribe((response) => {
+        // if (response.length > 0) {
+        //   const managerName = response[0].Managername;
+        //   console.log('Manager Name:', managerName);
+        //   console.log('Clone Data', data);
+        //   this.cloneData = { ...data };
+        //   this.cloneData.Managername = managerName;
+        //   console.log('Clone manager', this.managerEmail);
+
+        //   // Changing filename with version
+        //   const skillName = data.Skill.sort();
+        //   console.log('Skill name', skillName);
+
+        //   this.skillsdropdownservice
+        //     .getLatestVersion(this.managerEmail, skillName)
+        //     .subscribe((latestVersion) => {
+        //       console.log('lv:', latestVersion);
+
+        //       const newVersion = latestVersion ? latestVersion + 1 : 1;
+        //       const fileNameWithVersion = `${data.Skill.join(
+        //         '_'
+        //       )}_v${newVersion}`;
+        //       console.log('Filename ---lv:', fileNameWithVersion);
+        //       this.cloneData.fileName = fileNameWithVersion;
+
+        //       this.Tdata.push(this.cloneData);
+        //       console.log('Updated Clone Data', this.cloneData);
+
+        //       this.skillsdropdownservice
+        //         .postquestions_by_Manager(this.cloneData)
+        //         .subscribe((response) => {
+        //           console.log('output----->', response);
+        //         });
+        //     });
+        // }
+
+        const managerName = response[0].Managername;
+        console.log('Manager Name:', managerName);
+        console.log('Clone Data', data);
+        this.cloneData = { ...data };
+        this.cloneData.Managername = managerName;
+
+        // Changing filename with version
+        const skillName = data.Skill.sort();
+        console.log('Skill name', skillName);
+
+        this.skillsdropdownservice
+          .getLatestVersion(managerName, skillName)
+          .subscribe((latestVersion) => {
+            console.log('lv:', latestVersion);
+
+            const newVersion = latestVersion ? latestVersion + 1 : 1;
+            const fileNameWithVersion = `${data.Skill.join(
+              '_'
+            )}_v${newVersion}`;
+            console.log('Filename ---lv:', fileNameWithVersion);
+            this.cloneData.fileName = fileNameWithVersion;
+
+            const dataToSave = {
+              Questions: data.questions,
+              durations: data.durations,
+              cutoff: data.cutoff,
+              fileName: fileNameWithVersion,
+              isCreate: false,
+              isEdit: true,
+              isMail: true,
+              Managername: managerName,
+              Skill: skillName,
+            };
+
+            this.Tdata.push(dataToSave);
+            console.log('Updated Clone Data', dataToSave);
+            this.skillsdropdownservice
+              .postquestions(dataToSave)
+              .subscribe((response) => {
+                console.log('output----->', response);
+              });
+          });
+      });
+  }
+
+  // async onCloneClick(data: any) {
+  //   this.managernameService
+  //     .getManagerdata_by_Email(this.finalizedManagerEmail)
+  //     .subscribe((response) => {
+  //       console.log('res', response);
+  //       this.managerEmail = response[0].Managername;
+  //     });
+  //   console.log('Clone Data', data);
+  //   this.cloneData = { ...data };
+  //   this.cloneData.Managername = this.managerEmail;
+  //   console.log('Clone manager', this.managerEmail);
+
+  //   //Changing filename with version
+  //   const skillName = this.cloneData.Skill.sort();
+  //   console.log('Skill name', skillName);
+
+  //   const latestVersion = await lastValueFrom(
+  //     this.skillsdropdownservice.getLatestVersion(this.managerEmail, skillName)
+  //   );
+
+  //   const newVersion = latestVersion ? latestVersion + 1 : 1;
+  //   const fileNameWithVersion = `${skillName.join('_')}_v${newVersion}`;
+  //   console.log('lv:', latestVersion);
+  //   console.log('Filename ---lv:', fileNameWithVersion);
+  //   this.cloneData.fileName = fileNameWithVersion;
+
+  //   this.Tdata.push(this.cloneData);
+  //   console.log('Updated Clone Data', this.cloneData);
+
+  //   this.skillsdropdownservice
+  //     .postquestions_by_Manager(this.cloneData)
+  //     .subscribe((response) => {
+  //       console.log('output----->', response);
+  //     });
+  // }
+  fileName!:string
+  Managername!:string
+  deleteQuestion(Managername: String,fileName:String){
+    console.log("delete data",Managername,fileName)
+    // this.Managername = Managername;
+    // this.fileName=data.fileName
+    // this.deleteSkill = data.skills;
+    this.skillsdropdownservice
+      .deletetabledata(Managername,fileName)
+      .subscribe((response) => {
+        console.log("respose from delete data from table",response)
+        this.existingData();
+      });
+
+  }
   handleEditIconClick(ManagerName: string, fileName: string) {
     this.tableService
       .getdataby_FileName(ManagerName, fileName)
@@ -404,12 +615,12 @@ export class SchedulepageComponent implements OnInit {
         this.Skill = data[0].Skill;
         this.selectedQuestions = data[0].questions;
         this.cutoff = data[0].cutoff;
-        this.duration = data[0].duration;
+        this.durations = data[0].durations;
         this.editManagername = ManagerName;
         this.editFilename = fileName;
         this.managernameService.setCutoff(this.cutoff);
         console.log('edit cutoff', this.cutoff);
-        this.managernameService.setDuration(this.duration);
+        this.managernameService.setDuration(this.durations);
         this.skillsdropdownservice.setSkill(this.Skill);
         console.log('edit skill', this.Skill);
         console.log('edit questions', this.selectedQuestions);
@@ -465,13 +676,21 @@ export class SchedulepageComponent implements OnInit {
     this.buttonColorsWrong[index] = true;
   }
 
+  textQuestion = Array(
+    this.FinalizedQuestions.filter(
+      (question) => question.questionType === 'Text'
+    )
+  );
+
   interaction = Array(this.FinalizedQuestions.length).fill(false);
 
   markInteracted(index: number) {
+    console.log('index', index);
     this.interaction[index] = true;
   }
 
   checkInteraction(): boolean {
+    console.log('interaction', this.interaction);
     return this.interaction.every((inter) => inter);
   }
 
@@ -479,7 +698,7 @@ export class SchedulepageComponent implements OnInit {
     this.totalQuestions = this.FinalizedQuestions.length;
 
     this.correctQuestions = this.FinalizedQuestions.filter(
-      (question) => question.isCorrect
+      (question) => question.reviewerResponse === 'Correct'
     ).length;
 
     this.score = (this.correctQuestions / this.totalQuestions) * 100;
@@ -514,7 +733,7 @@ export class SchedulepageComponent implements OnInit {
       this.showError();
     } else {
       const updateData = {
-        _id: this.id,
+        id: this.id,
 
         score: this.score.toFixed(2),
 
@@ -551,6 +770,17 @@ export class SchedulepageComponent implements OnInit {
       this.candidateList = data;
 
       console.log('tableData', this.candidateList);
+    });
+  }
+  showEmailSubmitted() {
+    this.messageService.add({
+       key: 'tr',
+
+      severity: 'success',
+
+      summary: 'Success',
+
+      detail: 'Question Sent Successfully',
     });
   }
 
@@ -593,7 +823,7 @@ export class SchedulepageComponent implements OnInit {
 
     this.dialogEmailStatus = data.email_Status;
 
-    this.id = data._id;
+    this.id = data.id;
 
     this.FinalizedQuestions = data.questions;
 
@@ -605,13 +835,54 @@ export class SchedulepageComponent implements OnInit {
 
     console.log('length', this.FinalizedQuestions.length);
 
+    this.textQuestions = this.FinalizedQuestions.filter(
+      (question) => question.questionType === 'Text'
+    );
+    console.log('text-length', this.textQuestion.length);
+
     this.interaction = Array(this.FinalizedQuestions.length).fill(false);
+    for (let i = 0; i < this.FinalizedQuestions.length; i++) {
+      if (
+        this.FinalizedQuestions[i].reviewerResponse === 'Correct' ||
+        this.FinalizedQuestions[i].reviewerResponse === 'Incorrect'
+      ) {
+        this.interaction[i] = true;
+      }
+    }
 
     console.log('Interaction', this.interaction);
 
     console.log('Id', this.id);
 
     this.visible = true;
+  }
+
+  openquestiondialog() {
+    this.visible = true;
+  }
+
+  // Loading skills for dropdown in add question
+  loadSkills() {
+    console.log('hi from Client');
+
+    this.skillsdropdownservice.getskillsList().subscribe((data) => {
+      this.skillSet = data.skill;
+
+      // console.log(this.skillSet);
+
+      // console.log('Users:' + JSON.stringify(this.selectedSkill));
+    });
+  }
+  closequestiondialog() {}
+
+  addquestion() {
+    this.router.navigate(['questiondb']);
+  }
+
+  typeSelected() {}
+
+  onAddQuestionClick() {
+    this.router.navigate(['questiondb']);
   }
 }
 
@@ -621,7 +892,7 @@ interface Column {
 }
 
 interface FilterSkill {
-  _id: number;
+  id: number;
   skill: string;
   subskills: string[];
   __v: number;

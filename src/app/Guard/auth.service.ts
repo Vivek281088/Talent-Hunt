@@ -3,7 +3,6 @@
 
 
 import { Injectable } from '@angular/core';
-// import { Router } from '@angular/router';
 
 import { Router } from '@angular/router';
 
@@ -107,7 +106,7 @@ export class AuthService {
 
       // localStorage.removeItem('token');
 
-      alert("access denied");
+      // alert("access denied");
 
       this.router.navigate(['/login']);
 
@@ -145,7 +144,7 @@ export class AuthService {
 
       // localStorage.removeItem('token');
 
-      alert("access denied");
+      // alert("access denied");
 
 
 

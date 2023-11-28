@@ -17,10 +17,10 @@ import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
+import { FileUploadModule } from 'primeng/fileupload';
 
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
 
 
 @NgModule({
@@ -42,9 +42,9 @@ import { ConfirmationService } from 'primeng/api';
     TabViewModule,
     InputTextModule,
     ToastModule,
-   ConfirmDialogModule,
-   MessagesModule
-    
+    ConfirmDialogModule,
+    MessagesModule,
+    FileUploadModule,
   ],
   exports: [
     MultiSelectModule,
@@ -65,9 +65,8 @@ import { ConfirmationService } from 'primeng/api';
     InputTextModule,
     ToastModule,
     ConfirmDialogModule,
-    MessagesModule
-    
-    
+    MessagesModule,
+    FileUploadModule,
   ],
 })
 export class PrimeModule {}

@@ -33,7 +33,7 @@ export class TableService {
   }
 
   getExistingData(): Observable<any> {
-    const endpoint = `${this.skillsUrl}/existinguser`;
+    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/question`;
 
     return this.http.get<any[]>(endpoint);
   }
@@ -46,9 +46,13 @@ export class TableService {
   getdataby_FileName(Managername: string, fileName: string): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { Managername: Managername, fileName: fileName };
-    return this.http.post<any>(this.skillsUrl + '/viewdata', body, {
-      headers,
-    });
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/viewquestion',
+      body,
+      {
+        headers,
+      }
+    );
   }
 
   // Method to fetch data by fileName and Managername
@@ -74,10 +78,13 @@ export class TableService {
   }
 
   getExistingCandidate(): Observable<any> {
-    return this.http.get<any>(this.skillsUrl + '/existingcandidate');
+    return this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidate'
+    );
   }
   //New User
   postCandidateDetails(
+    candidateId: Date,
     managerName: String,
     name: String,
     emailId: String,
@@ -86,18 +93,19 @@ export class TableService {
     fileName: String,
     questions: any,
     score: number | null,
-    result: String,
+    results: String,
     cutoff: number,
-    duration: number,
-    candidatePassword: any,
-    candidateConfirmPassword: any
-    
+    durations: number,
+    candidatePassword: string,
+    candidateConfirmPassword: string,
+    roles: String
   ): Observable<any> {
     console.log('name', name);
 
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
+      id: candidateId,
       email_Managername: managerName,
       candidateName: name,
       candidateEmail: emailId,
@@ -107,20 +115,26 @@ export class TableService {
       email_Filename: fileName,
       questions: questions,
       score: score,
-      result: result,
-      cutoff:cutoff,
-      duration:duration,
-      password: candidatePassword,
-      confirmPassword:candidateConfirmPassword
-
+      results: results,
+      cutoff: cutoff,
+      durations: durations,
+      password: "abc123",
+      confirmPassword: "abc123",
+      roles: roles,
     };
+    console.log('Send email Data', body);
 
-    return this.http.post<any>(this.skillsUrl + '/add-candidate', body, {
-      headers,
-    });
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidatemail',
+      body,
+      {
+        headers,
+      }
+    );
   }
   //Post the data of Existing Candidates
   postExistingCandidateDetails(
+    candidateId: Date,
     managerName: string,
     candidateName: string,
     candidateEmail: string,
@@ -129,16 +143,17 @@ export class TableService {
     fileName: string,
     questions: any,
     score: number | null,
-    result: string,
+    results: string,
     cutoff: number,
-    duration: number,
-    candidatePassword : any,
-    candidateConfirmPassword: any
-
+    durations: number,
+    candidatePassword: any,
+    candidateConfirmPassword: any,
+    roles: string
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
+      id: candidateId,
       email_Managername: managerName,
       candidateName: candidateName,
       candidateEmail: candidateEmail,
@@ -147,18 +162,21 @@ export class TableService {
       email_Filename: fileName,
       questions: questions,
       score: score,
-      result: result,
-      cutoff:cutoff,
-      duration:duration,
-      password:candidatePassword,
-      confirmPassword:candidateConfirmPassword
-
+      results: results,
+      cutoff: cutoff,
+      durations: durations,
+      password: candidatePassword,
+      confirmPassword: candidateConfirmPassword,
+      roles: roles,
     };
 
-    return this.http.post<any>(this.skillsUrl + '/add-candidate', body, {
-      headers,
-    });
+    console.log('Send Existing email Data', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidatemail',
+      body,
+      {
+        headers,
+      }
+    );
   }
 }
-
-

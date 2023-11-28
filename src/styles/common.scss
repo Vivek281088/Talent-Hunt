@@ -26,6 +26,7 @@
 .table_dropdown {
   .p-dropdown {
     height: 35px;
+    width: 250px;
 
     .p-dropdown-label {
       padding: 8px 10px;
@@ -62,6 +63,12 @@
     .p-multiselect-label {
       padding: 0.5rem 0.75rem;
     }
+  }
+}
+.custom_select_dropdown {
+  .p-dropdown .p-dropdown-label {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -245,6 +252,26 @@
 .reviewer_dialog {
   .p-dialog-content {
     background-color: #27374d;
+  }
+
+  .p-dialog-header {
+    background-color: #27374d;
+  }
+
+  .p-dialog-header .p-dialog-header-close {
+    position: absolute;
+
+    top: 20px;
+
+    left: 15px;
+  }
+}
+
+.addQuestion_dialog {
+  .p-dialog-content {
+    background-color: #27374d;
+    height: 340px;
+    overflow-y: auto;
   }
 
   .p-dialog-header {

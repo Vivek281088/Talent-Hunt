@@ -1,33 +1,115 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    color: #fff;
-    padding: 5px 10px;
-    top: 0%;
-    box-shadow: 0px 0px 20px -10px rgba(0,0,0,0.75);
-    height: 55px;
-    }
-    
-   
-    .logo img {
-    width: 125px; 
-    }
-    
-   
-    .navbar-title {
-    font-size: 1.25rem !important;
-    margin: 0;
-    color: black;
-    font-size: 1rem;
-    line-height: 1.5;
-    }
-    
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // background-color: #fff;
+  background-color: #dde6ed;
+  color: #000; /* Change the text color to black */
+  padding: 5px 10px;
+  top: 0%;
+  box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.75);
+  height: 55px;
+}
 
-    .profile-icon img {
-    width: 200px; 
-    height: 50px;
-    }
+.logo img {
+  width: 125px;
+}
 
+.navbar-title {
+  font-size: 1.25rem !important;
+  margin: 0;
+  color: black;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-right: 300px;
+  margin-left: 400px;
+}
 
+.profile-icon img {
+  width: 200px;
+  height: 50px;
+}
+
+.profile-icon .dropdown-menu {
+  display: block;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  padding: 10px;
+  cursor: pointer;
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+/* Add the following styles to your SCSS */
+.profile-icon {
+  position: relative;
+  display: block; /* Make sure the profile icon container is positioned relatively */
+}
+
+/* Adjust the position of the dropdown and its visibility */
+/* Dropdown Menu Styles */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  min-width: 100px; /* Set a minimum width to make it visible */
+  transform: translateX(-75px); /* Adjust the horizontal position */
+}
+
+.welcome-name {
+  margin-left: 300px;
+  font-family: "Open Sans", sans-serif;
+}
+.edit-profile{
+  display: flex;
+}
+
+.welcome {
+  font-size: 1rem !important;
+  margin: 0px;
+}
+
+.candidate-name {
+  font-size: 1.2rem;
+  margin: 0px;
+  color: #27374d;
+  font-weight: bolder;
+}
+
+// My profile
+
+.myprofile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  height: 200px;
+}
+
+.btn {
+  font-size: 0.875rem;
+  background-color: #526d82;
+  border-color: #526d82;
+  border-radius: 4px;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+}
+.btn_cancel {
+  background: transparent;
+  color: #526d82;
+  font-weight: 600;
+}

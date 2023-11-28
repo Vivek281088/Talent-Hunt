@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
   static islogin() {
@@ -14,29 +13,82 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  postlogincredentials(userEmail:string,encrypted_password:string):Observable<any>{
-    const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={candidateEmail:userEmail,password:encrypted_password};
-console.log("bodey",body)
-    return this.http.post<any>(this.skillsUrl+'/authenticate',body,{headers})
-    
-
+  postlogincredentials(
+    userEmail: string,
+    encrypted_password: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = { candidateEmail: userEmail, password: encrypted_password };
+    console.log('bodey', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/loginresource',
+      body,
+      {
+        headers,
+      }
+    );
+    // return this.http.post<any>(this.skillsUrl + '/authenticate', body, {
+    //   headers,
+    // });
   }
 
-  postsignup(Managername:String,emailId:string,phoneNumer:number  | null ,password:string,confirmpassword:string):Observable<any>{
-    const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={Managername:Managername,candidateEmail:emailId,phoneNumber:phoneNumer,password:password,confirmPassword:confirmpassword};
-    console.log("signup",body)
-    return this.http.post<any>(this.skillsUrl+'/postsignup',body,{headers})
+  postsignup(
+    id:Date,
+    Managername: String,
+    emailId: string,
+    phoneNumer: number | null,
+    password: string,
+    confirmpassword: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      id:id,
+      Managername: Managername,
+      candidateEmail: emailId,
+      phoneNumber: phoneNumer,
+      password: password,
+      confirmPassword: confirmpassword,
+      roles: "manager"
+    };
+    console.log('signup', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/signup',
+      body,
+      {
+        headers,
+      }
+    );
+    // return this.http.post<any>(this.skillsUrl + '/postsignup', body, {
+    //   headers,
+    // });
   }
 
-  postforgotpassword(name:string,emailId:string,password:string,confirmPassword:string):Observable<any>{
-    const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={Managername:name,candidateEmail:emailId,password:password,confirmPassword:confirmPassword};
-   
-    return this.http.post<any>(this.skillsUrl+'/forgotpassword',body,{headers})
+  postforgotpassword(
+    name: string,
+    emailId: string,
+    password: string,
+    confirmPassword: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      Managername: name,
+      candidateEmail: emailId,
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/forgotpassword',
+      body,
+      {
+        headers,
+      }
+    );
+    // return this.http.post<any>(this.skillsUrl + '/forgotpassword', body, {
+    //   headers,
+    // });
   }
-  islogin(){
+  islogin() {
     return localStorage.getItem('token');
   }
 }

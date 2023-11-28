@@ -38,47 +38,69 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="question_sec">
     <ng-container *ngIf="FinalizedQuestions.length > 0">
       <div *ngFor="let question of FinalizedQuestions; let i = index">
         <h3>{{ i + 1 }}. {{ question.question }}</h3>
-
+ 
         <ng-container *ngIf="question.questionType === 'Checkbox'">
           <div class="vertical-options-checkbox display-row">
             <div *ngFor="let option of question.options" class="option">
               <p-checkbox
                 [(ngModel)]="question.selectedOption"
+                (ngModelChange)="onCheckboxChange(question, option, $event)"
+                [binary]="true"
                 class="mr-2"
                 [value]="option"
                 inputId="checkbox-{{ i }}-{{ option }}"
               ></p-checkbox>
-
+ 
               <span class="correct-option">
                 {{ option }}
               </span>
             </div>
           </div>
         </ng-container>
-
+ 
         <ng-container *ngIf="question.questionType === 'Radio'">
           <div class="vertical-options">
             <div *ngFor="let option of question.options" class="option">
               <p-radioButton
                 [(ngModel)]="question.selectedOption"
+                (ngModelChange)="onRadioButtonChange(question, option)"
+                [binary]="true"
                 [value]="option"
                 class="mr-1"
                 inputId="checkbox-{{ i }}-{{ option }}"
               ></p-radioButton>
-
+ 
               {{ option }}
             </div>
           </div>
         </ng-container>
+ 
+ 
+        <ng-container *ngIf="question.questionType === 'Text'">
+ 
+          <div class="text_area_ans">
+ 
+                  <textarea
+                 rows="3"
+                 cols="75"
+                 pInputTextarea
+                 [autoResize]="true"
+                 [(ngModel)]="question.selectedOption"
+                 >
+                </textarea>
+                </div>
+        </ng-container>
+       
       </div>
     </ng-container>
   </div>
 </div>
+ 
 <p-confirmDialog
   [style]="{ width: '50vw' }"
   key="positionDialog"

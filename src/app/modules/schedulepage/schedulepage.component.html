@@ -7,6 +7,29 @@
     <div class="page_sec h-full p-3" *ngIf="name" else errorname>
       <!--Filter and Create button  -->
       <div class="flex justify-content-end mb-3">
+        <!-- Add Questions Button -->
+        <button
+          class="btn mr-3 flex align-items-center cursor-pointer"
+          (click)="onAddQuestionClick()"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="#fff"
+            viewBox="0 0 576 512"
+          >
+            <path
+              d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384v38.6C310.1 219.5 256 287.4 256 368c0 59.1 29.1 111.3 73.7 143.3c-3.2 .5-6.4 .7-9.7 .7H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zm48 96a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm16 80c0-8.8-7.2-16-16-16s-16 7.2-16 16v48H368c-8.8 0-16 7.2-16 16s7.2 16 16 16h48v48c0 8.8 7.2 16 16 16s16-7.2 16-16V384h48c8.8 0 16-7.2 16-16s-7.2-16-16-16H448V304z"
+            />
+          </svg>
+
+          <span>Add Questions</span>
+        </button>
+
+        <!-- Add Question dialog -->
+
+        <!-- Filter Button -->
         <button
           class="btn mr-3 flex align-items-center cursor-pointer"
           (click)="op.toggle($event)"
@@ -24,6 +47,7 @@
           </svg>
           <span>Filter</span>
         </button>
+        <!-- Create New Row -->
         <button
           class="btn flex align-items-center cursor-pointer"
           (click)="addNewRow()"
@@ -50,26 +74,27 @@
           [columns]="cols"
           [value]="Tdata"
           [scrollable]="true"
-          scrollHeight="calc(79vh - 10px)"
+          scrollHeight="calc(47vh - 10px)"
         >
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th pSortableColumn="Managername" style="width: 20rem">
-                Manager <p-sortIcon field="Managername"></p-sortIcon>
+                Client Manager <p-sortIcon field="Managername"></p-sortIcon>
               </th>
-              <th style="width: 20rem">File Name</th>
-              <th style="width: 3rem">Actions</th>
+              <th style="width: 20rem">Job Description</th>
+              <!-- <th style="width: 20rem">File Name</th> -->
+              <th style="width: 3rem" >Actions</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-rowData>
             <tr class="table-row">
               <td style="width: 20rem">
                 <ng-container
-                  *ngIf="rowData.Managername; else elseManagerTemplate"
+                  *ngIf="rowData.Managername;"
                 >
                   {{ rowData.Managername }}
                 </ng-container>
-                <ng-template #elseManagerTemplate>
+                <!-- <ng-template #elseManagerTemplate>
                   <div class="w-5">
                     <p-dropdown
                       appendTo="body"
@@ -77,18 +102,19 @@
                       [options]="managerOption"
                       [(ngModel)]="selectedManager"
                       placeholder="--Select--"
-                      optionLabel="Managername"
+                      optionLabel=""
                       (onChange)="dropFunction(rowData)"
                     >
                     </p-dropdown>
                   </div>
-                </ng-template>
+                </ng-template> -->
               </td>
-              <td style="width: 20rem">{{ rowData.fileName }}</td>
+              <td style="width: 20rem">{{ rowData.JobDescription }}</td>
+              <!-- <td style="width: 20rem">{{ rowData.fileName }}</td> -->
               <td style="width: 3rem">
                 <!-- Actions Button -->
                 <div class="flex ccc">
-                  <!-- Create Icon -->
+                  <!-- Create Icon
                   <div class="mr-2 cursor-pointer">
                     <a
                       [routerLink]="!rowData.isCreate ? null : ['/create']"
@@ -107,9 +133,9 @@
                         />
                       </svg>
                     </a>
-                  </div>
+                  </div> -->
                   <!-- Edit Icon -->
-                  <div class="mr-2 cursor-pointer" *ngIf="name">
+                  <div class="mr-3 cursor-pointer" *ngIf="name">
                     <a
                       (click)="
                         handleEditIconClick(
@@ -135,7 +161,7 @@
                     </a>
                   </div>
                   <!-- View Icon -->
-                  <div class="mr-2 cursor-pointer" *ngIf="name">
+                  <div class="mr-3 cursor-pointer" *ngIf="name">
                     <a
                       [class.disabled]="!rowData.isMail"
                       title="View"
@@ -156,7 +182,7 @@
                     </a>
                   </div>
                   <!-- Mail Icon -->
-                  <div class="mr-2 cursor-pointer" *ngIf="name">
+                  <div class="mr-3 cursor-pointer" *ngIf="name">
                     <a
                       [class.disabled]="!rowData.isMail"
                       (click)="
@@ -176,6 +202,49 @@
                       </svg>
                     </a>
                   </div>
+                  &nbsp;
+                  <!-- Clone Icon -->
+                  <div class="mr-3 cursor-pointer" *ngIf="name">
+                    <a
+                      [class.disabled]="!rowData.isMail"
+                      title="Clone"
+                      (click)="onCloneClick(rowData)"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="#526D82"
+                        height="18"
+                        viewBox="0 0 512 512"
+                      >
+                        <path
+                          d="M288 448H64V224h64V160H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H288c35.3 0 64-28.7 64-64V384H288v64zm-64-96H448c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H224c-35.3 0-64 28.7-64 64V288c0 35.3 28.7 64 64 64z"
+                        />
+                      </svg>
+
+                    </a>
+                  </div>
+                  <!--Delete Icon-->
+                  
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#526D82"
+                      width="24"
+                      height="18"
+                      class="bi bi-trash"
+                      viewBox="0 0 16 16"
+                      style="cursor: pointer"
+                      (click)="deleteQuestion(rowData.Managername,rowData.fileName)"
+                      >
+                      <path
+                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"
+                      />
+  
+                      <path
+                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"
+                      />
+                    </svg>
+                  
+                  <!---->
                 </div>
               </td>
             </tr>
@@ -185,14 +254,14 @@
       <p-overlayPanel #op styleClass="custom_overlay">
         <div>
           <div class="mb-3 flex flex-column">
-            <label class="mb-1" for="manager">Manager</label>
+            <label class="mb-1" for="manager">Client Manager</label>
             <p-dropdown
               appendTo="body"
               class="w-full table_dropdown"
               [options]="managerOption"
               [(ngModel)]="filterManager"
               placeholder="--Select--"
-              optionLabel="Managername"
+              optionLabel=""
             >
             </p-dropdown>
           </div>
@@ -204,14 +273,13 @@
               [options]="skillSet"
               [(ngModel)]="filterSkills"
               placeholder="--Select--"
-              optionLabel="skill"
             >
             </p-multiSelect>
           </div>
           <div class="flex justify-content-end">
             <button
               class="btn btn_cancel cursor-pointer mr-3"
-              (click)="op.hide()"
+              (click)="op.hide(); existingData()"
             >
               Cancel
             </button>
@@ -230,8 +298,7 @@
     <ng-template pTemplate="header">
       <span>Assessment</span>
     </ng-template>
-   
- 
+
     <!-- filter -->
     <div class="flex justify-content-end mb-3 pt-3">
       <button
@@ -252,9 +319,9 @@
         <span>Filter</span>
       </button>
     </div>
- 
+
     <!-- Panel overlay design -->
- 
+
     <p-overlayPanel #paneloverlay styleClass="custom_overlay">
       <div>
         <div class="mb-3 flex flex-column">
@@ -265,45 +332,46 @@
             [options]="candidateNames"
             [(ngModel)]="candidateNames1"
             placeholder="--Select--"
-            [optionLabel] = "candidateName"
+            [optionLabel]="candidateName"
           >
           </p-dropdown>
         </div>
         <div class="mb-3 flex flex-column">
           <label class="mb-1" for="skill">Result</label>
- 
+
           <p-dropdown
             appendTo="body"
             class="w-full table_dropdown"
             [options]="candidateListData"
             [(ngModel)]="candidateresult"
             placeholder="--Select--"
-           
           >
           </p-dropdown>
         </div>
         <div class="flex justify-content-end">
           <button
             class="btn btn_cancel cursor-pointer mr-3"
-            (click)="paneloverlay.hide()"
+            (click)="paneloverlay.hide(); loadAssessmentData()"
           >
             Cancel
           </button>
-          <button class="btn cursor-pointer" (click)="filterCandidateAssessment()">
+          <button
+            class="btn cursor-pointer"
+            (click)="filterCandidateAssessment()"
+          >
             Search
           </button>
         </div>
       </div>
     </p-overlayPanel>
- 
- 
+
     <div class="table-container px-3">
       <p-table
         class="custom_table"
         [columns]="cols"
         [value]="candidateList"
         [scrollable]="true"
-        scrollHeight="calc(79vh - 10px)"
+        scrollHeight="calc(47vh - 10px)"
       >
         <ng-template pTemplate="header" let-columns>
           <tr>
@@ -312,27 +380,32 @@
               style="width: 20rem"
               *ngIf="name"
             >
-              Manager <p-sortIcon field="email_Managername"></p-sortIcon>
+             Client Manager <p-sortIcon field="email_Managername"></p-sortIcon>
             </th>
-            <th pSortableColumn="candidateName" style="width: 20rem" *ngIf="name">Candidate Name
-            <p-sortIcon field="candidateName"></p-sortIcon>
+            <th
+              pSortableColumn="candidateName"
+              style="width: 20rem"
+              *ngIf="name"
+            >
+              Candidate Name
+              <p-sortIcon field="candidateName"></p-sortIcon>
             </th>
             <th style="width: 20rem">File Name</th>
-             <th pSortableColumn="email_Status" style="width: 20rem">
-          Status <p-sortIcon field="Status"></p-sortIcon>
-        </th>
- 
-        <th pSortableColumn="score" style="width: 3rem">
-          Score
- 
-          <p-sortIcon field="score"></p-sortIcon>
-        </th>
- 
-        <th pSortableColumn="result" style="width: 20rem">
-          Result
- 
-          <p-sortIcon field="result"></p-sortIcon>
-        </th>
+            <th pSortableColumn="email_Status" style="width: 20rem">
+              Status <p-sortIcon field="Status"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="score" style="width: 3rem">
+              Score
+
+              <p-sortIcon field="score"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="result" style="width: 20rem">
+              Result
+
+              <p-sortIcon field="result"></p-sortIcon>
+            </th>
             <!-- <th></th> -->
           </tr>
         </ng-template>
@@ -356,40 +429,19 @@
                   rowData.email_Filename
                 }}</a>
               </ng-container>
- 
+
               <ng-template #normalText>
                 {{ rowData.email_Filename }}
               </ng-template>
             </td>
-           
+
             <td style="width: 20rem">{{ rowData.email_Status }}</td>
             <td style="width: 20rem">{{ rowData.score }}</td>
-            <td style="width: 20rem">{{ rowData.result }}</td>
-            <!-- <td>
-              <div pTooltip=" StartDate: 12/12/2022 &nbsp; EndDate: 13/12/2022">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-info-circle"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                  />
-                  <path
-                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
-                  />
-                </svg>
-              </div>
-            </td> -->
+            <td style="width: 20rem">{{ rowData.results }}</td>
           </tr>
         </ng-template>
       </p-table>
- 
- 
- 
+
       <p-dialog
         [(visible)]="visible"
         [modal]="true"
@@ -399,96 +451,90 @@
         class="reviewer_dialog"
         [closable]="false"
       >
-      <p-header>
- 
-        <div class="top-right-button">
- 
-          <ng-container
-          *ngIf="dialogEmailStatus === 'Completed'; else submitButton"
-        >
-          <div
-            class="save_button_disabled flex cursor-pointer"
-            [disabled]="true"
-          >
-            <svg
-              id="Layer_3"
-              width="26"
-              viewBox="0 0 30 30"
-              xml:space="preserve"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              fill="grey"
+        <p-header>
+          <div class="top-right-button">
+            <ng-container
+              *ngIf="dialogEmailStatus === 'Completed'; else submitButton"
             >
-              <style>
-                #Layer_3 {
-                  fill: grey;
-                }
-              </style>
- 
-              <path
-                d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
-              />
- 
-              <rect height="5" width="2" x="16" y="4" />
-            </svg>
+              <div
+                class="save_button_disabled flex cursor-pointer"
+                [disabled]="true"
+              >
+                <svg
+                  id="Layer_3"
+                  width="26"
+                  viewBox="0 0 30 30"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  fill="grey"
+                >
+                  <style>
+                    #Layer_3 {
+                      fill: grey;
+                    }
+                  </style>
+
+                  <path
+                    d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
+                  />
+
+                  <rect height="5" width="2" x="16" y="4" />
+                </svg>
+              </div>
+            </ng-container>
+
+            <ng-template #submitButton>
+              <p-toast></p-toast>
+
+              <div
+                pTooltip="Submit"
+                class="save_button flex cursor-pointer"
+                (click)="submitReview(FinalizedQuestions)"
+              >
+                <svg
+                  id="Layer_1"
+                  width="26"
+                  viewBox="0 0 30 30"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
+                  fill="white"
+                >
+                  <path
+                    d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
+                  />
+                  <rect height="5" width="2" x="16" y="4" />
+                </svg>
+              </div>
+            </ng-template>
           </div>
-        </ng-container>
- 
-        <ng-template #submitButton>
-          <p-toast></p-toast>
-         
-          <div
-            pTooltip="Submit"
-            class="save_button flex cursor-pointer"
-            (click)="submitReview(FinalizedQuestions)"
-          >
-            <svg
-          id="Layer_1"
-          width="26"
-          viewBox="0 0 30 30"
-          xml:space="preserve"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          fill="white"
-        >
-          <path
-            d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
-          />
-          <rect height="5" width="2" x="16" y="4" />
-        </svg>
+
+          <div class="top-left-button">
+            <div class="save_sec flex cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="18"
+                class="icon"
+                fill="#fff"
+                (click)="reviewerBack()"
+                viewBox="0 0 448 512"
+              >
+                <path
+                  d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+                />
+              </svg>
+            </div>
           </div>
-        </ng-template>
- 
-        </div>
-       
-    <div class="top-left-button">
- 
-      <div class="save_sec flex cursor-pointer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="18"
-            class="icon"
-            fill="#fff"
-            (click)="reviewerBack()"
-            viewBox="0 0 448 512"
-          >
-            <path
-              d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-            />
-          </svg>
-        </div>
- 
-    </div>
- 
-      </p-header>
- 
+        </p-header>
+
         <ng-container *ngIf="FinalizedQuestions.length > 0">
           <div
             *ngFor="let question of FinalizedQuestions; let i = index"
             class="question_sec"
           >
             <h3>{{ i + 1 }}. {{ question.question }}</h3>
- 
+
             <ng-container *ngIf="question.questionType === 'Checkbox'">
               <div class="vertical-options-checkbox display-row">
                 <div *ngFor="let option of question.options" class="option">
@@ -506,14 +552,14 @@
                       dialogEmailStatus === 'Completed'
                     "
                   ></p-checkbox>
- 
+
                   <span class="correct-option">
                     {{ option }}
                   </span>
                 </div>
               </div>
             </ng-container>
- 
+
             <ng-container *ngIf="question.questionType === 'Radio'">
               <div class="vertical-options">
                 <div *ngFor="let option of question.options" class="option">
@@ -527,10 +573,164 @@
                       dialogEmailStatus === 'Completed'
                     "
                   ></p-radioButton>
- 
+
                   {{ option }}
                 </div>
- 
+
+                <ng-container
+                  *ngIf="
+                    dialogEmailStatus === 'Completed';
+                    else reviewDiaButton
+                  "
+                >
+                  <div class="review-buttons">
+                    <button
+                      pButton
+                      type="button"
+                      class="p-button leftbutton"
+                      style="padding: auto"
+                      [disabled]="true"
+                      [class.light-green]="
+                        question.reviewerResponse === 'Correct'
+                      "
+                    >
+                      <svg
+                        id="crt"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 448 512"
+                      >
+                        <style>
+                          #crt {
+                            fill: green;
+                          }
+                        </style>
+
+                        <path
+                          d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                        />
+                      </svg>
+                    </button>
+
+                    <button
+                      pButton
+                      type="button"
+                      class="p-button-danger"
+                      style="padding: auto"
+                      [disabled]="true"
+                      [class.light-red]="
+                        question.reviewerResponse === 'Incorrect'
+                      "
+                    >
+                      <svg
+                        id="wrong"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 384 512"
+                      >
+                        <style>
+                          #wrong {
+                            fill: red;
+                          }
+                        </style>
+
+                        <path
+                          d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </ng-container>
+
+                <ng-template #reviewDiaButton>
+                  <div class="review-buttons">
+                    <button
+                      pButton
+                      type="button"
+                      class="p-button leftbutton"
+                      style="padding: auto"
+                      [class.light-green]="
+                        (buttonColors[i] && question.isCorrect) ||
+                        question.reviewerResponse === 'Correct'
+                      "
+                      [class.light-red]="
+                        buttonColorsWrong[i] && question.isCorrect
+                      "
+                    >
+                      <svg
+                        id="crt"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 448 512"
+                      >
+                        <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+
+                        <style>
+                          #crt {
+                            fill: green;
+                          }
+                        </style>
+
+                        <path
+                          d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                        />
+                      </svg>
+                    </button>
+
+                    <button
+                      pButton
+                      type="button"
+                      class="p-button-danger"
+                      style="padding: auto"
+                      [class.light-green]="
+                        buttonColors[i] && !question.isCorrect
+                      "
+                      [class.light-red]="
+                        (buttonColorsWrong[i] && !question.isCorrect) ||
+                        question.reviewerResponse === 'Incorrect'
+                      "
+                    >
+                      <svg
+                        id="wrong"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 384 512"
+                      >
+                        <style>
+                          #wrong {
+                            fill: red;
+                          }
+                        </style>
+
+                        <path
+                          d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </ng-template>
+              </div>
+            </ng-container>
+
+            <!-- Auto correct code -->
+            <ng-container *ngIf="question.questionType === 'Text'">
+              <div>
+                <div class="text_area_ans">
+                  <textarea
+                    rows="3"
+                    cols="75"
+                    pInputTextarea
+                    [autoResize]="true"
+                    [(ngModel)]="question.selectedOption"
+                    [disabled]="
+                      dialogEmailStatus === 'Submitted' ||
+                      dialogEmailStatus === 'Completed'
+                    "
+                    [value]="question.selectedOption"
+                  >
+                  </textarea>
+                </div>
+
                 <ng-container
                   *ngIf="
                     dialogEmailStatus === 'Completed';
@@ -556,19 +756,19 @@
                         viewBox="0 0 448 512"
                       >
                         <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
- 
+
                         <style>
                           #crt {
                             fill: green;
                           }
                         </style>
- 
+
                         <path
                           d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
                         />
                       </svg>
                     </button>
- 
+
                     <button
                       pButton
                       type="button"
@@ -587,13 +787,13 @@
                         viewBox="0 0 384 512"
                       >
                         <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
- 
+
                         <style>
                           #wrong {
                             fill: red;
                           }
                         </style>
- 
+
                         <path
                           d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
                         />
@@ -601,7 +801,7 @@
                     </button>
                   </div>
                 </ng-container>
- 
+
                 <ng-template #reviewDiaButton>
                   <div class="review-buttons">
                     <button
@@ -624,19 +824,19 @@
                         viewBox="0 0 448 512"
                       >
                         <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
- 
+
                         <style>
                           #crt {
                             fill: green;
                           }
                         </style>
- 
+
                         <path
                           d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
                         />
                       </svg>
                     </button>
- 
+
                     <button
                       pButton
                       type="button"
@@ -657,13 +857,13 @@
                         viewBox="0 0 384 512"
                       >
                         <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
- 
+
                         <style>
                           #wrong {
                             fill: red;
                           }
                         </style>
- 
+
                         <path
                           d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
                         />
@@ -675,18 +875,19 @@
             </ng-container>
           </div>
         </ng-container>
- 
-       
-       
       </p-dialog>
     </div>
   </p-tabPanel>
 </p-tabView>
- 
+
 <ng-template #wrongname>
   <div class="flex justify-content-end mb-3 pt-3">
-    <button class="btn mr-3 flex align-items-center cursor-pointer">
+    <button
+      class="btn mr-3 flex align-items-center cursor-pointer"
+      *ngIf="name"
+    >
       <svg
+        *ngIf="name"
         xmlns="http://www.w3.org/2000/svg"
         width="20"
         height="20"
@@ -694,10 +895,11 @@
         viewBox="0 0 16 16"
       >
         <path
+          *ngIf="name"
           d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"
         />
       </svg>
-      <span>Filter</span>
+      <span *ngIf="name">Filter</span>
     </button>
   </div>
   <div class="table-container px-3">
@@ -706,7 +908,7 @@
       [columns]="cols"
       [value]="candidateList"
       [scrollable]="true"
-      scrollHeight="calc(79vh - 10px)"
+      scrollHeight="calc(47vh - 10px)"
     >
       <ng-template pTemplate="header" let-columns>
         <tr>
@@ -715,7 +917,7 @@
             style="width: 20rem"
             *ngIf="name"
           >
-            Manager <p-sortIcon field="email_Managername"></p-sortIcon>
+            Client Manager <p-sortIcon field="email_Managername"></p-sortIcon>
           </th>
           <th style="width: 20rem" *ngIf="name">Candidate Name</th>
           <th style="width: 20rem">File Name</th>
@@ -740,40 +942,21 @@
                 rowData.email_Filename
               }}</a>
             </ng-container>
- 
+
             <ng-template #normalText>
               {{ rowData.email_Filename }}
             </ng-template>
           </td>
- 
+
           <td style="width: 20rem">{{ rowData.email_Status }}</td>
           <td style="width: 20rem">{{ rowData.score }}</td>
-          <td style="width: 20rem">{{ rowData.result }}</td>
-          <!-- <td>
-            <div pTooltip=" StartDate: 12/12/2022 &nbsp; EndDate: 13/12/2022">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-info-circle"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
-                />
-                <path
-                  d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"
-                />
-              </svg>
-            </div>
-          </td> -->
+          <td style="width: 20rem">{{ rowData.results }}</td>
         </tr>
       </ng-template>
     </p-table>
   </div>
 </ng-template>
- 
+<p-toast position="top-right" key="tr"></p-toast>
 <p-dialog
   [visible]="displayEmailDialog"
   [modal]="true"
@@ -790,7 +973,7 @@
         <i class="pi pi-user"></i>
         <span>New User</span>
       </ng-template>
-      <form class="mt-3" (ngSubmit)="sendEmail()">
+      <form class="mt-3">
         <div class="p-fluid">
           <div class="p-field">
             <input
@@ -824,31 +1007,8 @@
             >
             </p-inputNumber>
           </div>
-          <!-- Password field -->
- 
-          <!-- <div class="p-field">
-            <input
-              type="text"
-              pInputText
-              [ngModelOptions]="{ standalone: true }"
-              placeholder="Password"
-              [(ngModel)]="candidatePassword"
-              required
-            />
-          </div> -->
-          <!-- Confirm password field -->
-          <!-- <div class="p-field">
-            <input
-              type="text"
-              pInputText
-              [ngModelOptions]="{ standalone: true }"
-              placeholder="ConfirmPassword"
-              [(ngModel)]="candidateConfirmPassword"
-              required
-            />
-          </div> -->
         </div>
- 
+
         <div class="flex justify-content-end">
           <button
             class="btn btn_cancel cursor-pointer mr-3"
@@ -856,6 +1016,7 @@
           >
             Cancel
           </button>
+
           <button class="btn cursor-pointer" (click)="storeCandidate()">
             Send
           </button>
@@ -885,10 +1046,7 @@
         >
           Cancel
         </button>
-        <button
-          class="btn cursor-pointer"
-          (click)="loadCandidate(); cancelEmailPopup()"
-        >
+        <button class="btn cursor-pointer" (click)="loadCandidate()">
           Send
         </button>
       </div>

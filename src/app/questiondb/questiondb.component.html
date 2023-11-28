@@ -1,0 +1,507 @@
+<div class="page_sec h-full">
+  <div class="flex p-3 page_top_sec justify-content-between align-items-center">
+    <div class="flex w-9">
+      <div class="save_sec flex cursor-pointer mr-4" title="Back">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="18"
+          class="icon"
+          fill="#fff"
+          href="/dashboard"
+          [routerLink]="['/dashboard']"
+          viewBox="0 0 448 512"
+        >
+          <path
+            d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <!-- <div class="file-upload-container">
+      <button
+        class="btn mr-3 flex align-items-center cursor-pointer"
+        (click)="openSkillDialog()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="#fff"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+            fill="#fff"
+          />
+        </svg>
+
+        <span>Add Skill</span>
+      </button>
+    </div> -->
+
+    <!-- <div class="file-upload-container">
+      <button
+        class="btn mr-3 flex align-items-center cursor-pointer"
+        (click)="openDialog()"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="#fff"
+          viewBox="0 0 576 512"
+        >
+          <path
+            d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384v38.6C310.1 219.5 256 287.4 256 368c0 59.1 29.1 111.3 73.7 143.3c-3.2 .5-6.4 .7-9.7 .7H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zm48 96a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm16 80c0-8.8-7.2-16-16-16s-16 7.2-16 16v48H368c-8.8 0-16 7.2-16 16s7.2 16 16 16h48v48c0 8.8 7.2 16 16 16s16-7.2 16-16V384h48c8.8 0 16-7.2 16-16s-7.2-16-16-16H448V304z"
+          />
+        </svg>
+
+        <span>Add Questions</span>
+      </button>
+    </div> -->
+
+    <div class="file-upload-container">
+      <button (click)="showFileUpload()" class="btn">
+        <i class="pi pi-upload"></i> Upload File
+      </button>
+    </div>
+  </div>
+  <div class="flex flex-column ml-3 w-4 mr-3">
+    <!-- Skill Dropdown -->
+    <label class="labelClass mb-1" for="skill">Select the skill </label>
+    <p-multiSelect
+      class="w-100 skill_dropdown"
+      [options]="skillSet"
+      [(ngModel)]="selectedSkill"
+      defaultLabel="--Select--"
+      display="chip"
+      (onPanelHide)="submitForm()"
+    ></p-multiSelect>
+  </div>
+  <p-fileUpload
+    class="fileupload"
+    *ngIf="showUpload"
+    name="file"
+    url="/your/upload/url"
+    (onUpload)="onFileUpload()"
+    (onRemove)="onFileRemove()"
+    chooseLabel="Upload File"
+    cancelLabel="Cancel"
+    dragDropZone="file-upload-container"
+  ></p-fileUpload>
+
+  <ng-container *ngIf="totalQuestions">
+    <div class="flex mt-4">
+      <div
+        class="flex flex-column w-5 mr-4 px-3"
+        *ngFor="let skill of totalQuestions | keyvalue"
+      >
+        <h3 class="m-0 p-2 asses_hdr">
+          {{ skill.key }}
+        </h3>
+        <div class="question_sec">
+          <table class="design-table">
+            <thead>
+              <tr>
+                <th class="checkbox-column"></th>
+                <th>Questions</th>
+                <th class="difficulty-column"></th>
+                <th class="edit-icon"></th>
+                <th class="view-icon"></th>
+                <th class="delete-icon">
+                  <div>
+                    <!-- <svg
+                        class="add_icon"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="black"
+                        width="24"
+                        height="18"
+                        viewBox="0 0 14 14"
+                        style="cursor: pointer"
+                        (click)="onAddQuestionClick(skill.key)"
+                      >
+                        <path
+                          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                        />
+                      </svg>  -->
+
+                    <svg
+                      viewBox="0 0 28 28"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      style="cursor: pointer"
+                      (click)="onAddQuestionClick(skill.key)"
+                    >
+                      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM12.75 9C12.75 8.58579 12.4142 8.25 12 8.25C11.5858 8.25 11.25 8.58579 11.25 9L11.25 11.25H9C8.58579 11.25 8.25 11.5858 8.25 12C8.25 12.4142 8.58579 12.75 9 12.75H11.25V15C11.25 15.4142 11.5858 15.75 12 15.75C12.4142 15.75 12.75 15.4142 12.75 15L12.75 12.75H15C15.4142 12.75 15.75 12.4142 15.75 12C15.75 11.5858 15.4142 11.25 15 11.25H12.75V9Z"
+                          fill="#526D82"
+                        ></path>
+                      </g>
+                    </svg>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let question of skill.value; let i = index"
+                class="table-row"
+              >
+                <td class="question-text">{{ i + 1 }}.</td>
+
+                <td class="question-column">
+                  <label
+                    [for]="'checkbox-' + question.id"
+                    style="cursor: pointer"
+                  >
+                    <span class="question-text">{{ question.question }}</span>
+                  </label>
+                </td>
+                <td class="difficulty-column">
+                  <span
+                    *ngIf="question.Difficulty_Level === 'E'"
+                    class="difficulty-badge easy"
+                    >E</span
+                  >
+                  <span
+                    *ngIf="question.Difficulty_Level === 'M'"
+                    class="difficulty-badge medium"
+                    >M</span
+                  >
+                  <span
+                    *ngIf="question.Difficulty_Level === 'H'"
+                    class="difficulty-badge hard"
+                    >H</span
+                  >
+                </td>
+                <!-- edit icon -->
+                <td class="edit-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#526D82"
+                    x="0px"
+                    y="0px"
+                    width="24"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    style="cursor: pointer"
+                    (click)="onEditClick(question)"
+                  >
+                    <path
+                      d="M 18 2 L 15.585938 4.4140625 L 19.585938 8.4140625 L 22 6 L 18 2 z M 14.076172 5.9238281 L 3 17 L 3 21 L 7 21 L 18.076172 9.9238281 L 14.076172 5.9238281 z"
+                    ></path>
+                  </svg>
+                </td>
+
+                <!-- View icon -->
+                <td class="view-icon">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#526D82"
+                    x="0px"
+                    y="0px"
+                    width="24"
+                    height="18"
+                    viewBox="0 0 576 512"
+                    style="cursor: pointer"
+                    (click)="onViewClick(question)"
+                  >
+                    <path
+                      d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
+                    />
+                  </svg>
+                </td>
+                <td class="delete-icon">
+                  <p-toast></p-toast>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="#526D82"
+                    width="24"
+                    height="18"
+                    class="bi bi-trash"
+                    viewBox="0 0 16 16"
+                    style="cursor: pointer"
+                    (click)="deleteQuestion(question)"
+                  >
+                    <path
+                      d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"
+                    />
+
+                    <path
+                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"
+                    />
+                  </svg>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- Add Question dialog -->
+
+  <p-dialog
+    [(visible)]="addQuestionVisible"
+    [modal]="true"
+    [style]="{ width: '40vw' }"
+    [draggable]="false"
+    [resizable]="true"
+    class="addQuestion_dialog"
+    [closable]="false"
+    
+  >
+    <p-header>
+      <div class="top-right-button" *ngIf="!isViewingQuestion">
+        <div
+          pTooltip="Save"
+          class="save_button flex cursor-pointer"
+          (click)="addQuestion()"
+        >
+          <svg
+            id="Layer_1"
+            width="26"
+            viewBox="0 0 30 30"
+            xml:space="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            fill="white"
+          >
+            <path
+              d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
+            />
+            <rect height="5" width="2" x="16" y="4" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="top-left-button">
+        <div class="save_sec flex cursor-pointer">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="18"
+            class="icon"
+            fill="#fff"
+            (click)="closeDialog()"
+            viewBox="0 0 448 512"
+          >
+            <path
+              d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+            />
+          </svg>
+        </div>
+      </div>
+    </p-header>
+
+    <div class="addques">
+      <div class="dialoginput">
+        <label class="mb-1 title" for="skill">Skill</label>
+        <p-dropdown
+          appendTo="body"
+          class="w-full table_dropdown"
+          placeholder="--Select--"
+          [options]="skillSet"
+          [(ngModel)]="chosenSkill"
+          name="chosenSkill"
+          [disabled]="isViewingQuestion"
+        >
+        </p-dropdown>
+      </div>
+
+      <div class="dialoginput">
+        <label class="mb-1 title d-hide" for="question">Question</label>
+        <div class="questionname">
+          <input
+            type="text"
+            pInputText
+            class="wide-input"
+            placeholder="Enter Question"
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="question"
+            required
+            [disabled]="isViewingQuestion"
+          />
+        </div>
+      </div>
+
+      <div class="dialoginput">
+        <label class="mb-1 title" for="questiontype">Difficulty Level</label>
+        <p-dropdown
+          appendTo="body"
+          class="w-full table_dropdown"
+          placeholder="--Select--"
+          [options]="difficultyLevel"
+          [(ngModel)]="selectedDifficultyType"
+          [disabled]="isViewingQuestion"
+        >
+        </p-dropdown>
+      </div>
+
+      <div class="dialoginput">
+        <label class="mb-1 title" for="questiontype">Question Type</label>
+        <p-dropdown
+          appendTo="body"
+          class="w-full table_dropdown"
+          placeholder="--Select--"
+          [options]="questionType"
+          [(ngModel)]="selectedQuestionType"
+          [disabled]="isViewingQuestion"
+        >
+        </p-dropdown>
+      </div>
+
+      <div
+        class="optionsfield"
+        *ngIf="
+          selectedQuestionType === 'Radio' ||
+          selectedQuestionType === 'Checkbox'
+        "
+      >
+        <label class="mb-1 title" for="options">Options</label>
+
+        <div
+          class="option-input title"
+          *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index"
+        >
+          <label for="option{{ i }}" class="option-label">{{ letter }}.</label>
+
+          <input
+            type="text"
+            [id]="'option' + i"
+            pInputText
+            class="option-box"
+            [(ngModel)]="options[i]"
+            [disabled]="isViewingQuestion"
+            required
+          />
+        </div>
+      </div>
+
+      <div
+        class="dialoginput"
+        *ngIf="
+          selectedQuestionType === 'Radio' ||
+          selectedQuestionType === 'Checkbox'
+        "
+      >
+        <label class="mb-1 title" for="answer">Answer</label>
+
+        <div *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
+          <ng-container
+            *ngIf="selectedQuestionType === 'Radio'; else checkboxBlock"
+          >
+            <p-radioButton
+              [id]="'answer' + i"
+              class="mr-1 optionR"
+              [(ngModel)]="selectedAnswer"
+              [value]="options[i]"
+              [disabled]="isViewingQuestion"
+              required
+            ></p-radioButton>
+          </ng-container>
+          <ng-template #checkboxBlock>
+            <p-checkbox
+              [id]="'answer' + i"
+              [(ngModel)]="selectedAnswer"
+              [value]="options[i]"
+              class="mr-1 optionR"
+              [disabled]="isViewingQuestion"
+            ></p-checkbox>
+          </ng-template>
+
+          <label for="answer{{ i }}" class="title">{{ letter }}</label>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>
+
+<p-confirmDialog
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+  [style]="{ width: '50vw' }"
+  position="top"
+>
+</p-confirmDialog>
+
+<!-- Add Skill-->
+<p-dialog
+  [(visible)]="addSkillVisible"
+  [modal]="true"
+  [style]="{ width: '40vw', height: '240px' }"
+  [draggable]="false"
+  [resizable]="true"
+  class="addQuestion_dialog"
+  [closable]="false"
+>
+  <p-header>
+    <div class="top-right-button">
+      <p-toast></p-toast>
+      <div
+        pTooltip="Save"
+        class="save_button flex cursor-pointer"
+        (click)="addSkill()"
+      >
+        <svg
+          id="Layer_1"
+          width="26"
+          viewBox="0 0 30 30"
+          xml:space="preserve"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          fill="white"
+        >
+          <path
+            d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
+          />
+          <rect height="5" width="2" x="16" y="4" />
+        </svg>
+      </div>
+    </div>
+
+    <div class="top-left-button">
+      <div class="save_sec flex cursor-pointer">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="18"
+          class="icon"
+          fill="#fff"
+          (click)="closeDialog()"
+          viewBox="0 0 448 512"
+        >
+          <path
+            d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+          />
+        </svg>
+      </div>
+    </div>
+  </p-header>
+
+  <div class="addques">
+    <div class="dialoginput">
+      <label class="mb-1 title d-hide" for="Skill">Skill</label>
+      <div class="skillname">
+        <input
+          type="text"
+          pInputText
+          class="wide-input"
+          placeholder="Enter Skill Name"
+          [ngModelOptions]="{ standalone: true }"
+          [(ngModel)]="newSkill"
+          required
+        />
+      </div>
+    </div>
+  </div>
+</p-dialog>

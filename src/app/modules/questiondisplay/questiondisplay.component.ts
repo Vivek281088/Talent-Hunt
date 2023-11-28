@@ -47,7 +47,7 @@ export class QuestiondisplayComponent implements OnInit {
 
     this.FinalizedQuestions.forEach((question) => {
       if (question.questionType === 'Checkbox') {
-        question.selectedOption = question.answer.split(',');
+        question.selectedOption = question.answer;
       } else if (question.questionType === 'Radio') {
         question.selectedOption = question.answer;
 

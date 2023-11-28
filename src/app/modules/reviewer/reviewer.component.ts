@@ -162,7 +162,7 @@ export class ReviewerComponent {
       this.showError();
     } else {
       const updateData = {
-        _id: this.id,
+        id: this.id,
 
         score: this.score.toFixed(2),
 
@@ -216,19 +216,9 @@ export class ReviewerComponent {
   showDialog(data: any) {
     console.log('name', data);
 
-    //get the question from another collection
 
-    // this.reviewerService.getCandidatetable().subscribe((response) => {
 
-    //   console.log('___________', response);
-
-    //   this.FinalizedQuestions = response[0].questions;
-
-    // });
-
-    // this.FinalizedQuestions = data.questions;
-
-    this.id = data._id;
+    this.id = data.id;
 
     this.reviewerService
 

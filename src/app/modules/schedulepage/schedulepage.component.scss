@@ -236,6 +236,11 @@ body {
   border-radius: 100%;
 }
 
+.text_area_ans{
+  padding-bottom: 20px;
+}
+
+
 // :host ::ng-deep .p-dialog-content {
 
 //   background-color: #27374d;
@@ -399,4 +404,27 @@ body {
   border: 1px solid red;
 
   color: black;
+}
+
+// Option styles
+.option-input {
+  margin-bottom: 10px; /* Add spacing between each option */
+}
+
+.option-label {
+  margin-right: 10px; /* Add spacing between the label and input box */
+}
+
+.option-box {
+  display: inline;
+}
+
+.radio-option {
+  display: inline;
+  margin-right: 10px; 
+}
+
+
+.wide-input {
+  width: 100%;
 }

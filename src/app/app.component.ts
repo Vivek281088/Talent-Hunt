@@ -14,8 +14,6 @@ export class AppComponent implements OnInit {
   showNavbar: boolean = true; // Initialize to true by default
   showNavbar1: boolean = true; 
   showNavbar2: boolean = true; 
-  showNavbar3: boolean = true; 
-
 
   constructor(private service: AppServiceService, private router: Router) {
     // Subscribe to the route changes
@@ -25,8 +23,6 @@ export class AppComponent implements OnInit {
         const urlSegments = this.router.url.split('/');
 
         // Check if the last segment is 'login' to hide the navbar
-        // this.showNavbar3 = urlSegments[urlSegments.length - 1] !== '4200';
-       
         this.showNavbar = urlSegments[urlSegments.length - 1] !== 'login';
         this.showNavbar1 = urlSegments[urlSegments.length - 1] !== 'signup';
         this.showNavbar2 = urlSegments[urlSegments.length - 1] !== 'forgotpassword';
