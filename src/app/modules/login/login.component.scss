@@ -1,4 +1,54 @@
+.login-box{
+  display: flex;
+  flex-direction: row;
+}
+.login-slogan{
+  display: flex;
+  flex-direction: column;
+  width: 652px;
+  gap: 8px;
+  height: 208px;
+  margin-top: 100px;
+
+
+}
+.login-slogan {
+  h3{
+ font-family:'Poppins';
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 36px;
+  }
+}
+.login-slogan {
+  h1{
+
+  
+  font-family:'Poppins';
+  font-weight: 400;
+  font-size: 48px;
+  color: #652D90;
+  align-items: center;
+  }
+  // line-height: 72px;
+}
+.login-slogan img{
+  width: 142.22px;
+  height: 48px;
+}
+.login-card{
+  width: 400px;
+  height: 489px;
+  gap: 24px;
+  // width: 352px;
+  // height: 24px;
+  // margin-bottom: 10px;
+  // margin-right: 100px;
+}
 .login-container {
+
+  background-image: url(../../../assets/Background.png);
+ 
   display: flex;
 
   justify-content: center;
@@ -11,15 +61,17 @@
 
   
 
-  background: linear-gradient(
-    90deg,
-    rgba(39, 55, 77, 1) 0%,
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(39, 55, 77, 1) 0%,
 
-    rgba(82, 109, 130, 1) 50%,
+  //   rgba(82, 109, 130, 1) 50%,
 
-    rgba(39, 55, 77, 1) 100%
-  );
-
+  //   rgba(39, 55, 77, 1) 100%
+  // );
+.login-wording{
+  margin-bottom: 10px;
+}
   p-card {
     width: 300px;
 
