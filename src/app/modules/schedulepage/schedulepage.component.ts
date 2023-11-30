@@ -17,6 +17,7 @@ import { lastValueFrom } from 'rxjs';
   styleUrls: ['./schedulepage.component.scss'],
 })
 export class SchedulepageComponent implements OnInit {
+[x: string]: any;
   questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
 
   difficultyLevel: string[] = ['Easy', 'Medium', 'Hard'];

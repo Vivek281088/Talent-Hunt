@@ -1,64 +1,116 @@
-.login-container {
+.login-box{
   display: flex;
-
-  justify-content: center;
-
+  flex-direction: row;
+}
+.login-slogan{
+  display: flex;
+  flex-direction: column;
+  width: 652px;
+  gap: 8px;
+  height: 208px;
+  margin-top: 100px;
+ 
+ 
+}
+.login-slogan h3{
+  font-family:'Poppins';
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 36px;
+ 
+}
+.login-slogan h1{
+  font-family:'Poppins';
+  font-weight: 400;
+  font-size: 48px;
+  color: #652D90;
   align-items: center;
-
-  height: 100vh;
-
-
-
+ 
+  // line-height: 72px;
+}
+.login-slogan img{
+  width: 142.22px;
+  height: 48px;
+}
+.login-card{
+  width: 400px;
+  height: 489px;
+  gap: 24px;
+  // width: 352px;
+  // height: 24px;
+  // margin-bottom: 10px;
+  // margin-right: 100px;
   
-
-  background: linear-gradient(
-    90deg,
-    rgba(39, 55, 77, 1) 0%,
-
-    rgba(82, 109, 130, 1) 50%,
-
-    rgba(39, 55, 77, 1) 100%
-  );
-
+}
+::ng-deep .p-card .p-card-content{
+  box-shadow: rgba(179, 171, 186, 0.2)
+}
+.login-container {
+ 
+  background-image: url(../../../assets/Background.png);
+ 
+  display: flex;
+ 
+  justify-content: center;
+ 
+  align-items: center;
+ 
+  height: 100vh;
+ 
+ 
+ 
+ 
+ 
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(39, 55, 77, 1) 0%,
+ 
+  //   rgba(82, 109, 130, 1) 50%,
+ 
+  //   rgba(39, 55, 77, 1) 100%
+  // );
+.login-wording{
+  margin-bottom: 10px;
+}
   p-card {
     width: 300px;
-
+ 
     text-align: center;
-
+ 
     h1 {
       margin: 0;
     }
-
+ 
     .p-inputgroup {
       margin: 10px 0;
-
+ 
       input {
         width: 100%;
       }
     }
-
+ 
     button {
       width: 100%;
-
+ 
       margin-top: 20px;
     }
-
+ 
     .forgot-password {
       margin-top: 10px;
-
+ 
       a {
         text-decoration: none;
       }
     }
   }
-
+ 
   .signup {
     margin-top: 20px;
-
+ 
     a {
       text-decoration: underline;
     }
   }
-
-  
+ 
+ 
 }

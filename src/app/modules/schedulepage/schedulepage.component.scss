@@ -1,3 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+
+
+.schedule-tab{
+  display: flex;
+  flex-direction:vertical ;
+  margin-right: 10px;
+}
+
+
+::ng-deep .p-tabview .p-tabview-nav{
+  
+  background: #ffffff;
+  
+  border: none;
+}
+.table-icons{
+  display: flex;
+  flex-direction: vertical;
+}
+
+.schedule-home{
+  font-family: 'Manrope';
+font-size: 13px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0.25px;
+text-align: left;
+width: 39px;
+height: 19px;
+color: #000000;
+}
+
+.schedule-word{
+  color: #1E22AA;
+  font-family: 'Manrope';
+font-size: 13px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0.25px;
+text-align: left;
+width: 66px;
+height: 19px;
+}
+
+.new-schedule{
+  font-family: 'Manrope';
+font-size: 14px;
+font-weight: 500;
+line-height: 16px;
+letter-spacing: 1.25px;
+text-align: center;
+
+width: 131px;
+height: 36px;
+padding: 6px, 6px, 6px, 8px;
+
+border-radius: 4px;
+
+background-color: #652D90;
+color: white;
+}
+
 .top-right-button {
   position: absolute;
   top: 0;
@@ -17,7 +80,7 @@
   overflow: auto;
 }
 .page_sec {
-  background-color: #27374d;
+  background-color:whitesmoke;
   width: 100%;
 }
 .create_button {
@@ -26,13 +89,23 @@
   }
 }
 .btn {
-  font-size: 0.875rem;
-  background-color: #526d82;
-  border-color: #526d82;
-  border-radius: 4px;
-  color: #fff;
-  padding: 5px 10px;
-  border: none;
+  // font-size: 0.875rem;
+  // background-color: #526d82;
+  // border-color: #526d82;
+  // border-radius: 4px;
+  // color: #fff;
+  // padding: 5px 10px;
+  // border: none;
+  width: 116px;
+height: 36px;
+//padding: 6px, 6px, 6px, 8px;
+padding-top: 6px;
+padding-right: 4px;
+padding-bottom: 6px;
+padding-left: 8px;
+border-radius: 4px;
+background-color: #652d90;
+color: white;
 }
 .btn_cancel {
   background: transparent;
