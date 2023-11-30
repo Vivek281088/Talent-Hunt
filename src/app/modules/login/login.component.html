@@ -2,92 +2,99 @@
   <div class="login-box">
     <div class="login-slogan">
       <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
-      <h1>MTalent</h1>
-      <h3>Streamline your Hiring process <br>Effortlessly schedule and Assess with MTalent</h3>
+      <p class="heading">MTalent</p>
+      <p class="discription">
+        Streamline your Hiring process <br />Effortlessly schedule and Assess
+        with MTalent
+      </p>
     </div>
-   
-    <p-card class="login-card">
-      <!-- <img src="../assets\mphasis-logo.png" alt="Logo" width="100" /> -->
-      <h4 class="login-wording">Please sign in to Continue</h4>
-      <form (ngSubmit)="sign()">
-   
-        <div class="p-inputgroup">
-   
-          <span class="p-inputgroup-addon">
-   
+
+    <div class="login-card">
+      <p-card>
+        <!-- <img src="../assets\mphasis-logo.png" alt="Logo" width="100" /> -->
+        <h4 class="login-wording">Please sign in to Continue</h4>
+        <form  class="inputForm">
+          <!-- <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-user"></i>
+            </span>
+
+            <input
+              type="text"
+              pInputText
+              placeholder="Email"
+              [(ngModel)]="userEmail"
+              id="userEmail"
+              name="userEmail"
+            />
+          </div> -->
+
+          <div class="input-with-icon">
             <i class="pi pi-user"></i>
-   
-          </span>
-   
-          <input type="text" pInputText placeholder="Email" [(ngModel)]="userEmail" id="userEmail" name="userEmail" />
-   
-        </div>
-   
-   
-   
-        <div class="p-inputgroup">
-   
-          <span class="p-inputgroup-addon">
-   
+            <input
+              type="email"
+              pInputText
+              placeholder="Email"
+              [(ngModel)]="userEmail"
+              id="userEmail"
+              name="userEmail"
+            />
+          </div>
+
+          <!-- <div class="p-inputgroup">
+            <span class="p-inputgroup-addon">
+              <i class="pi pi-lock"></i>
+            </span>
+
+            <input
+              type="password"
+              pInputText
+              placeholder="Password"
+              [(ngModel)]="password"
+              id="password"
+              name="password"
+            />
+          </div> -->
+
+          <div class="input-with-icon">
             <i class="pi pi-lock"></i>
-   
-          </span>
-   
-          <input
-   
-            type="password"
-   
-            pInputText
-   
-            placeholder="Password"
-   
-            [(ngModel)]="password"
-   
-            id="password"
-   
-            name="password"
-   
-          />
-   
+            <input
+              type="password"
+              pInputText
+              placeholder="Password"
+              [(ngModel)]="password"
+              id="password"
+              name="password"
+            />
+          </div>
+
+          <p-toast></p-toast>
+
+          <button
+            type="button"
+            class="loginButton"
+            (click)="sign()"
+            [disabled]="!userEmail || !password"
+          >
+            Log in
+          </button>
+        </form>
+
+        <a
+          href="forgotpassword()"
+          (click)="forgotpassword()"
+          class="forgot-password"
+          >Forgotten Password ?</a
+        >
+        <div class="hrLine"></div>
+
+        <div class="signup">
+          <button 
+          type="button" 
+          (click)="createNewAcc()"
+          class="createButton">Create new account</button>
         </div>
-   
-       
-   
-        <p-toast></p-toast>
-   
-   
-   
-        <button
-   
-          pButton
-   
-          type="submit"
-   
-          label="Sign In"
-   
-          class="p-button-primary"
-   
-          [disabled]="!userEmail || !password"
-   
-        ></button>
-   
-      </form>
-   
-   
-   
-      <div class="forgot-password">
-   
-        <a href="forgotpassword" (click)="forgotpassword()">Forgot Password?</a>
-   
-      </div>
-   
-   
-   
-      <div class="signup">Don't have an account? <a href="/signup">Sign Up</a></div>
-   
-    </p-card>
+      </p-card>
+    </div>
   </div>
-   
-   
-  </div>
-  
+</div>

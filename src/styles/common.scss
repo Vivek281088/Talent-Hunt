@@ -1,3 +1,26 @@
+
+
+.login-card {
+    .p-card .p-card-body {
+      width: 400px;
+      height: 449px;
+      gap: 24px;
+      padding: 0px;
+    }
+    .p-inputtext{
+      color: #aaa;
+    }
+    .p-card .p-card-content{
+      box-shadow: 0px 0px 30px rgba(179, 171, 186, 0.2)!important;
+    }
+  }
+  .loginButton {
+    .p-button.p-button:enabled:hover {
+      background: #652d90;
+      color: #ffffff;
+      border-color: #652d90;
+    }
+  }
 // .p-multiselect,
 // .p-dropdown {
 //   width: 100%;
