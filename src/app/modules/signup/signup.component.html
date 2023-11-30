@@ -1,89 +1,99 @@
-<div class="signup-container box">
-  <form (ngSubmit)="signup()">
-    <p-card>
+<div class="signup-container">
+  <div class="signup-box">
+    <div class="signup-slogan">
       <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
-
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-user"></i>
-        </span>
-
-        <input
+      <h1>MTalent</h1>
+      <h3>Streamline your Hiring process <br>Effortlessly schedule and Assess with MTalent</h3>
+    </div>
+    <p-card class="signup-card">
+      <h4 class="signup-wording">Register with your personal information</h4>
+      <form (ngSubmit)="signup()">
+        <div class="p-inputgroup name">
+         
+ 
+          <input class="first-name"
+            type="text"
+            pInputText
+            placeholder="First Name"
+            [(ngModel)]="Managername"
+            name="Managername"
+          />
+          <input class="last-name"
           type="text"
           pInputText
-          placeholder="Name"
+          placeholder="Last Name"
           [(ngModel)]="Managername"
           name="Managername"
         />
+        </div>
+        <div class="p-inputgroup ">
+          <!-- <span class="p-inputgroup-addon">
+            <i class="pi pi-phone"></i>
+          </span> -->
+ 
+          <p-inputNumber class="phone-signup"
+            mode="decimal"
+            [ngModelOptions]="{ standalone: true }"
+            placeholder="Phone number"
+            inputId="withoutgrouping"
+            [useGrouping]="false"
+            [(ngModel)]="phoneNumber"
+           
+          >
+          </p-inputNumber>
+ 
+          <!-- <input type="number" pInputText placeholder="Phone " /> -->
+        </div>
+        <div class="email-group">
+ 
+       
+        <div class="p-inputgroup ">
+         
+ 
+          <input class="email-signup "
+            type="text"
+            pInputText
+            placeholder="Email"
+            [(ngModel)]="emailId"
+            name="emailId"
+          />
+        </div>
+        <div >
+          <span class="email-caption">Please provide the email from your Resume</span>
+        </div>
       </div>
-
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-envelope"></i>
-        </span>
-
-        <input
-          type="text"
-          pInputText
-          placeholder="Email"
-          [(ngModel)]="emailId"
-          name="emailId"
-        />
-      </div>
-
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-phone"></i>
-        </span>
-
-        <p-inputNumber
-          mode="decimal"
-          [ngModelOptions]="{ standalone: true }"
-          placeholder="Phone"
-          inputId="withoutgrouping"
-          [useGrouping]="false"
-          [(ngModel)]="phoneNumber"
-        >
-        </p-inputNumber>
-
-        <!-- <input type="number" pInputText placeholder="Phone " /> -->
-      </div>
-
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-lock"></i>
-        </span>
-
-        <input
-          type="password"
-          pInputText
-          placeholder="Password"
-          [(ngModel)]="password"
-          name="password"
-        />
-      </div>
-
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-lock"></i>
-        </span>
-
-        <input
-          type="password"
-          pInputText
-          placeholder="Confirm Password"
-          [(ngModel)]="confirmPassword"
-          name="confirmPassword"
-        />
-      </div>
-
-      <p-toast></p-toast>
-
-      <button
+        <div class="p-inputgroup">
+       
+          <input class="newpassword-signup"
+            type="password"
+            pInputText
+            placeholder="New Password"
+            [(ngModel)]="password"
+            name="password"
+          />
+        </div>
+ 
+        <div class="p-inputgroup">
+ 
+ 
+          <input class="confirmpassword-signup"
+            type="password"
+            pInputText
+            placeholder="Confirm Password"
+            [(ngModel)]="confirmPassword"
+            name="confirmPassword"
+          />
+        </div>
+ 
+<span class="agree-signup">By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy.</span>
+ 
+        <p-toast></p-toast>
+<div class="button-signup">
+        <button
         pButton
         type="submit"
-        label="Save"
-        class="p-button-primary"
+        label="Sign Up"
+        class="p-button-success"
         [disabled]="
           !emailId ||
           !Managername ||
@@ -92,8 +102,25 @@
           !confirmPassword
         "
       ></button>
-
-      <div class="signup">Already have an account? <a href="#">Sign In</a></div>
+    </div>
+ 
+ 
+<div class="login-signup">Already have an account? <a href="#">Log In</a></div>
+</form>
     </p-card>
-  </form>
 </div>
+</div>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
