@@ -23,6 +23,7 @@ import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword
 import { MessageService } from 'primeng/api';
 import { QuestiondbComponent } from './questiondb/questiondb.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 
 
 
@@ -43,6 +44,7 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
     ForgotpasswordComponent,
     QuestiondbComponent,
     ProfileDialogComponent,
+    SidenavbarComponent,
   ],
   imports: [
     BrowserModule,

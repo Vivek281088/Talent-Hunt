@@ -18,6 +18,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { FileUploadModule } from 'primeng/fileupload';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -45,6 +46,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ConfirmDialogModule,
     MessagesModule,
     FileUploadModule,
+    PanelMenuModule,
   ],
   exports: [
     MultiSelectModule,
@@ -67,6 +69,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ConfirmDialogModule,
     MessagesModule,
     FileUploadModule,
+    PanelMenuModule,
   ],
 })
 export class PrimeModule {}
