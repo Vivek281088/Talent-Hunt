@@ -127,13 +127,8 @@ export class SchedulepageComponent implements OnInit {
     private messageService: MessageService,
 
     private reviewerService: ReviewerService
-  ) {
-    // this.candidateForm = this.formBuilder.group({
-    //   candidateName: ['', Validators.required],
-    //   candidateEmail: ['', Validators.required,Validators.email],
-    //   candidatePhone: [null]
-    // });
-  }
+  ) {}
+  
   ngOnInit() {
     //this.auth.isLoggedIn=true;
     this.loadSkills();
@@ -148,6 +143,9 @@ export class SchedulepageComponent implements OnInit {
 
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
+
+    this.finalizedManagerEmail = this.managernameService.getManagerName();
+    
 
     this.loadManagerNames();
     this.getSkillSet();
@@ -201,7 +199,6 @@ export class SchedulepageComponent implements OnInit {
       this.loadCandidate();
     }
   }
-
   loadCandidate() {
     const role = localStorage.getItem('userrole');
     console.log('role', role);
@@ -242,7 +239,6 @@ export class SchedulepageComponent implements OnInit {
       });
       // localStorage.removeItem('userrole');
     }
-
     console.log('load data 1', this.candidateList);
     console.log('selected candidate', this.selectedCandidates);
     // Loop through selectedCandidates and store data for each candidate
@@ -697,71 +693,71 @@ export class SchedulepageComponent implements OnInit {
 
   submitReview(candidate: any) {
     this.totalQuestions = this.FinalizedQuestions.length;
-
+ 
     this.correctQuestions = this.FinalizedQuestions.filter(
       (question) => question.reviewerResponse === 'Correct'
     ).length;
-
+ 
     this.score = (this.correctQuestions / this.totalQuestions) * 100;
-
+ 
     if (this.score > this.cutoff) {
       this.result = 'Selected';
     } else this.result = 'Not Selected';
-
+ 
     this.score.toFixed(2);
-
+ 
     console.log('Score :', this.score);
-
+ 
     console.log('Result :', this.result);
-
+ 
     console.log('Correct :', this.correctQuestions);
-
+ 
     // Check if any questions have been marked as correct or incorrect
-
+ 
     let questionsMarked = false;
-
+ 
     for (const question of this.FinalizedQuestions) {
       if (question.isCorrect !== undefined) {
         questionsMarked = true;
-
+ 
         break; // Exit the loop once a marked question is found
       }
     }
-
+ 
     if (!this.checkInteraction()) {
       console.log('Inside Check Interaction', this.interaction);
-
+ 
       this.showError();
     } else {
       const updateData = {
         id: this.id,
 
         score: this.score.toFixed(2),
-
+ 
         result: this.result,
-
+ 
         questions: this.FinalizedQuestions,
-
+ 
         email_Status: this.reviewerStatus,
       };
-
+ 
       this.reviewerService
-
+ 
         .updateScoreAndResult(updateData)
-
+ 
         .subscribe((response) => {
           console.log('Score and result updated successfully', response);
         });
-
+ 
       console.log('Inside Check Interaction', this.interaction);
-
+ 
       this.showSubmitted();
-
+ 
       this.getExistingTableData();
       setTimeout(() => {
         this.visible = false;
       }, 2000);
-
+ 
       this.getExistingTableData();
     }
   }
@@ -886,6 +882,77 @@ export class SchedulepageComponent implements OnInit {
     this.router.navigate(['questiondb']);
   }
 }
+
+
+// Loading skills for dropdown in add question
+// loadSkills() {
+//   console.log('hi from Client');
+
+//   this.skillsdropdownservice.getskillsList().subscribe((data) => {
+//     this.skillSet = data.skill;
+
+//     // console.log(this.skillSet);
+
+//     // console.log('Users:' + JSON.stringify(this.selectedSkill));
+//   });
+// }
+//   closequestiondialog(){
+//     this.resetdialog();
+//   }
+
+// addquestion(){
+//   // console.log(this.question, this.selectedquestionType, this.option1, this.option2, this.option3, this.option4, this.chosenSkill, this.selecteddifficultyType,this.selectedAnswer)
+//   console.log("Selected", this.selectedAnswers)
+//   console.log("Hi", this.selectedAnswer)
+//   console.log("Hi", this.option1, this.option2, this.option3, this.option4,)
+//   console.log("Hi", this.selectedquestionType, this.chosenSkill)
+
+//   this.managernameService.postquestionstodb(
+//     this.question, 
+//     this.selectedquestionType, 
+//     this.option1, 
+//     this.option2, 
+//     this.option3, 
+//     this.option4, 
+//     this.chosenSkill, 
+//     this.selecteddifficultyType,
+//     this.selectedAnswer,
+//     this.selectedAnswers
+//     ).subscribe((data) => {
+//    console.log("hi", data)
+//   });
+// this.showSuccess();
+// }
+// showSuccess() {
+//   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Question Added Successfully' });
+// }
+
+// resetdialog() {
+//    this.question= ''; 
+//     this.selectedquestionType= ''; 
+//     this.option1= '';
+//     this.option2= '';
+//     this.option3= '';
+//     this.option4= '';
+//     this.chosenSkill= ''; 
+//     this.selecteddifficultyType= '';
+//     this.selectedAnswer= '';
+//     // this.selectedAnswers= '';
+
+// }
+// typeSelected(){
+  
+// }
+
+// onAddQuestionClick(){
+//   this.router.navigate(['questiondb']);
+// }
+
+// }
+
+
+
+
 
 interface Column {
   field: string;

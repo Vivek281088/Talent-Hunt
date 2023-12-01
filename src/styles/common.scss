@@ -309,3 +309,39 @@
 //     left: 15px;
 //   }
 // }
+//     left: 15px;
+//   }
+// }
+.login-card {
+  .p-card .p-card-body {
+    width: 400px;
+    height: 449px;
+    gap: 24px;
+    padding: 0px;
+  }
+  .p-inputtext{
+    color: #aaa;
+  }
+}
+.loginButton {
+  .p-button.p-button:enabled:hover {
+    background: #652d90;
+    color: #ffffff;
+    border-color: #652d90;
+  }
+}
+
+// .signup-phone{
+//   p-inputNumber{
+//     background: linear-gradient(0deg, #FAFAFA, #FAFAFA),
+//     linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+   
+//   }
+
+  
+//   }
+
+
+
+
+

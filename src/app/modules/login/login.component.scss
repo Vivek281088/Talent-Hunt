@@ -79,16 +79,64 @@
   background-image: url(../../../assets/Background.png);
 
   display: flex;
-
-  justify-content: center;
-
+  flex-direction: row;
+  width: 1084px;
+  height: 489px;
+  top: 270px;
+  left: 178px;
+  gap: 32px;
+ 
+  // flex-direction: row;
+}
+.login-wording {
+  //styleName: Sub Heading 1;
+  font-family: "Poppins", sans-serif;
+  color: #000000;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.15000000596046448px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  width: 352px;
+  height: 24px;
+  gap: 8px;
+}
+.inputForm {
+  width: 352px;
+  height: 206px;
+  gap: 4px;
+}
+.login-slogan {
+  // display: flex;
+  // flex-direction: column;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 652px;
+  gap: 8px;
+  height: 208px;
+  // margin-top: 100px;
+}
+.login-slogan .discription {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0px;
+  // line-height: 36px;
+}
+.login-slogan .heading {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 48px;
+  color: #652d90;
   align-items: center;
 
   height: 100vh;
 
   .signup {
     margin-top: 20px;
-
+ 
     a {
       text-decoration: underline;
     }
@@ -193,3 +241,106 @@
   font-family: "Roboto", sans-serif;
   font-weight: 400;
 }
+.p-inputgroup {
+  display: flex;
+  align-items: center;
+  width: 352px;
+  height: 56px;
+  border-radius: 8px;
+  padding: 0 16px;
+  margin-left: 24px;
+  border: 1px;
+  gap: 12px;
+}
+.p-inputgroup-addon {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+}
+ 
+.inputPass {
+  display: flex;
+  flex-direction: row;
+  width: 352px;
+  height: 75px;
+}
+.loginButton {
+  width: 352px;
+  height: 48px;
+  padding: 6px, 6px, 6px, 8px;
+  border-radius: 4px;
+  background: #652d90;
+  border-color: #652d90;
+  margin-left: 24px;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+}
+.forgot-password {
+  display: flex;
+  justify-content: center;
+  color: #1666dc;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+  margin-top: 10px;
+ 
+}
+.hrLine {
+  width: 352px;
+  border: 1px;
+  height: 1px;
+  margin-left: 24px;
+  margin-top: 30px;
+  background: #dddddd;
+}
+.createButton {
+  margin-left: 100px;
+  margin-top: 10px;
+  width: 194px;
+  height: 48px;
+  padding: 6px, 6px, 6px, 8px;
+  border-radius: 4px;
+  background: #1cb046;
+  border-color: #1cb046;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  cursor: pointer;
+}
+//----------------->
+.input-with-icon {
+  position: relative;
+ 
+  border-radius: 8px;
+  padding-bottom: 16px;
+  margin-left: 24px;
+  border: 1px;
+  gap: 12px;
+}
+ 
+.input-with-icon i {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  left: 10px;
+  color: #00000099;
+  margin-left: 6px;
+  margin-bottom: 20px;
+}
+ 
+.input-with-icon input {
+  padding-left: 45px;
+  width: 352px;
+  height: 56px;
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+ 
+ 
+}
+ 
