@@ -1,26 +1,25 @@
-
-
 <div class="signup-container">
   <div class="signup-box">
     <div class="signup-slogan">
       <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
-      <h1>MTalent</h1>
-      <h3>Streamline your Hiring process <br>Effortlessly schedule and Assess with MTalent</h3>
+      <p class="heading">MTalent</p>
+      <p class="description">
+        Streamline your Hiring process <br />Effortlessly schedule and Assess
+        with MTalent
+      </p>
     </div>
     <p-card class="signup-card">
       <h4 class="signup-wording">Register with your personal information</h4>
       <form (ngSubmit)="signup()">
         <div class="p-inputgroup name">
-         
-  
-          <input class="first-name"
+          <input class="signup-firstname"
             type="text"
             pInputText
             placeholder="First Name"
             [(ngModel)]="Managername"
             name="Managername"
           />
-          <input class="last-name"
+          <input class="signup-lastname"
           type="text"
           pInputText
           placeholder="Last Name"
@@ -28,57 +27,101 @@
           name="Managername"
         />
         </div>
-        <div class="p-inputgroup ">
-          <!-- <span class="p-inputgroup-addon">
-            <i class="pi pi-phone"></i>
-          </span> -->
-  
-          <p-inputNumber class="phone-signup"
+        <!-- <div class="p-inputgroup signup-phone "> 
+          <p-inputNumber
             mode="decimal"
             [ngModelOptions]="{ standalone: true }"
             placeholder="Phone number"
             inputId="withoutgrouping"
             [useGrouping]="false"
             [(ngModel)]="phoneNumber"
-           
-          >
+                     >
           </p-inputNumber>
-  
-          <!-- <input type="number" pInputText placeholder="Phone " /> -->
-        </div>
-        <div class="email-group">
+        </div> -->
 
-       
-        <div class="p-inputgroup ">
-         
-  
-          <input class="email-signup "
+<div class="p-inputgroup signup-phone">
+
+  <input class="signup-firstname"
+  type="number"
+  pInputText
+  placeholder="Phone number"
+  [useGrouping]="false"
+            [(ngModel)]="phoneNumber"
+  name="emailId"
+/>
+</div>
+
+        <div class="email-group">
+               <div class="input-with-icon">
+                <i class="pi pi-user"></i>
+          <input class="email-signup"
             type="text"
             pInputText
             placeholder="Email"
             [(ngModel)]="emailId"
             name="emailId"
+            
           />
         </div>
-        <div >
-          <span class="email-caption">Please provide the email from your Resume</span>
+        <div class="email-caption" >
+          <span >Please provide the email from your Resume</span>
         </div>
       </div>
-        <div class="p-inputgroup">
-        
-          <input class="newpassword-signup"
-            type="password"
-            pInputText
-            placeholder="New Password"
-            [(ngModel)]="password"
-            name="password"
-          />
-        </div>
+      <div class="p-inputgroup input-with-icon">
+        <i class="pi pi-lock"></i>
+        <input class="signup-newpassword"
+          type="password"
+          pInputText
+          placeholder="New Password"
+          [(ngModel)]="password"
+          name="password"
+        />
+        <div class="info-circle" >  
 
-        <div class="p-inputgroup">
-  
-  
-          <input class="confirmpassword-signup"
+          <div class="card flex justify-content-center">
+            <p-overlayPanel #op [style]="{'width': '350px'}"  >
+                <p class="password-title"> Password Requirements</p>
+                <p class="password-content1">To ensure the security of your account, please make sure your password meets the following criteria:</p>
+                <ul class="password-content2">
+                  <li>
+                    <b>Length:</b> At least 8 characters.
+                  </li>
+                  <li>
+                    <b>Character Variety:</b>
+                  <ul>
+                    <li>
+                      At least one uppercase letter (A-Z)
+                    </li>
+                    <li>
+                      At least one lowercase letter (a-z)
+                    </li>
+                    <li>
+                      At least one number (0-9)
+                    </li>
+                    <li>
+                      At least one special character (e.g., !, @, #, $, %)
+                    </li>
+                  </ul>
+                  <li>
+                    <b>Unique Information:</b> Avoid using your name, birthdate, or common words.
+                  </li>
+                
+                  <li>
+                    <b>Password Strength:</b>  Aim for a password rated as 'Strong' on our strength meter.
+                  </li>
+                </ul>
+
+                
+            </p-overlayPanel>
+            <i (mouseover)="op.toggle($event)" (mouseleave)="op.toggle($event)"  class="pi pi-info-circle" style="color: green"></i>
+        </div>
+        </div>
+      </div>
+     
+
+        <div class="p-inputgroup input-with-icon">
+          <i class="pi pi-lock"></i>
+                  <input class="confirmpassword-signup"
             type="password"
             pInputText
             placeholder="Confirm Password"
@@ -86,9 +129,7 @@
             name="confirmPassword"
           />
         </div>
-
-<span class="agree-signup">By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy.</span>
-
+<span class="agree-signup">By clicking Sign Up, you agree to our <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a href="#">Cookies Policy</a>.</span>
         <p-toast></p-toast>
 <div class="button-signup">
         <button
@@ -106,22 +147,10 @@
       ></button>
     </div>
 
-
-<div class="login-signup">Already have an account? <a href="#">Log In</a></div>
+<div class="login-signup">Already have an account? <a href="#">Log In</a>
+</div>
 </form>
     </p-card>
 </div>
 </div>
  
-
-
-
-
-  
-
-
-
-
-
-
-
