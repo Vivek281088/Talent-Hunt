@@ -19,6 +19,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { FileUploadModule } from 'primeng/fileupload';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { SidebarModule } from 'primeng/sidebar';
 
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -47,6 +48,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     FileUploadModule,
     PanelMenuModule,
+    SidebarModule,
   ],
   exports: [
     MultiSelectModule,
@@ -70,6 +72,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     FileUploadModule,
     PanelMenuModule,
+    SidebarModule,
   ],
 })
 export class PrimeModule {}
