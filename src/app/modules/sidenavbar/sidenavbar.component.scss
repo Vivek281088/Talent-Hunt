@@ -215,9 +215,9 @@
   height: 968px;
   gap: 10px;
   color: #00000099;
+  transition: width 0.3s ease;
 }
-.top-sec {
-}
+
 .ul1,
 .ul2 {
   padding: 0;
@@ -302,18 +302,65 @@ ul li a {
 .sub-list {
   padding: 0;
   background-color: white;
-  // display: none;
+
   li {
-    
     background: white;
-    &:hover svg{
+    &:hover svg {
       fill: white;
     }
-  } 
+  }
 }
-ul li:hover span{
+ul li:hover span {
   transform: translateX(-38%) rotate(-180deg);
 }
-.ul1 ul .ass-show.show{
-display: block;
+.ul1 ul .ass-show.show {
+  display: block;
+}
+
+.side-nav.collapsed {
+  width: 72px;
+  height: 968px;
+  top: 16px;
+  left: 282px;
+  gap: 10px;
+
+  .ul1 {
+    width: 40px;
+    height: 220px;
+    top: 16px;
+    left: 16px;
+    gap: 10px;
+  }
+  .ul2 {
+    width: 40px;
+    height: 78px;
+    margin-top: 650px;
+    left: 16px;
+    gap: 10px;
+  }
+  .ul1 li,
+  .ul2 li {
+    width: 40px;
+    height: 34px;
+    padding: 5px, 8px, 5px, 8px;
+    border-radius: 4px;
+    gap: 8px;
+    background: white;
+
+    &:hover {
+      background: #c81a78;
+      color: #f2f2f2;
+    }
+  }
+  
+}
+
+.side-nav.collapsed {
+  .ul1 a,
+  .ul1 p,
+  .ul2 a,
+  .ul2 p,
+  span {
+    display: none;
+  }
 }
