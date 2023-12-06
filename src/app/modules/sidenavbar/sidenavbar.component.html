@@ -1,5 +1,5 @@
-<div class="sidebar-menu">
-  <div>
+<!-- <div class="sidebar-menu">
+   <div>
     <div class="side1">
       <ul class="navList">
         <li class="li-name">
@@ -9,16 +9,17 @@
           </a>
         </li>
         <li class="li-name">
-          <a href="#" class="navNames">
-            <i class="pi pi-map sideIcon"></i>Assessment
-          </a>
-          <i
-            class="pi pi-angle-down sideIcon"
-            (onclick)="changeStyle()"
-            [ngClass]="{ 'sub-menu': submenuAssessment }"
+          <a href="#" class="navNames" id="ass-btn" (onclick)="changeStyle()">
+            <i class="pi pi-map sideIcon"></i>
+            Assessment
+            <i
+            class="pi pi-angle-down sideIcon"[ngClass]="{ 'sub-menu': submenuAssessment }"
           ></i>
+          </a> 
+          
+          
         </li>
-        <ul class="sub-menu1">
+        <ul class="sub-menu1" id="ass-show">
           <li class="sub-menu-li">
             <a href="#" class="sub-menu-a"> Manage Schedule</a>
           </li>
@@ -107,4 +108,238 @@
   <div class="toggle-btn">
     <i class="pi pi-chevron-circle-right toggle-btn"></i>
   </div>
+</div> -->
+
+<div class="side-nav">
+  <div class="top-sec">
+    <ul class="ul1">
+      <li>
+        <i class="pi pi-th-large"></i>
+        <p>Home</p>
+      </li>
+      <li class="ass-btn">
+        <i class="pi pi-map"></i>
+        <a href="#">Assessment</a>
+        <span>
+          <i class="pi pi-angle-down"></i>
+        </span>
+      </li>
+      <ul class="sub-list ass-show">
+        <li>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="17.5"
+              y="9.5"
+              width="5"
+              height="5"
+              rx="2.5"
+              stroke="black"
+              stroke-opacity="0.6"
+            />
+          </svg>
+
+          <a href="#">Manage Schedule</a>
+        </li>
+
+        <li>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="17.5"
+              y="9.5"
+              width="5"
+              height="5"
+              rx="2.5"
+              stroke="black"
+              stroke-opacity="0.6"
+            />
+          </svg>
+          <a href="#">Manage Assessment</a>
+        </li>
+      </ul>
+      <li>
+        <i class="pi pi-user"></i>
+        <a href="#">User</a>
+        <span>
+          <i class="pi pi-angle-down"></i>
+        </span>
+      </li>
+      <ul class="sub-list">
+        <li>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="17.5"
+              y="9.5"
+              width="5"
+              height="5"
+              rx="2.5"
+              stroke="black"
+              stroke-opacity="0.6"
+            />
+          </svg>
+
+          <a href="#">Manage Managers</a>
+        </li>
+
+        <li>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="17.5"
+              y="9.5"
+              width="5"
+              height="5"
+              rx="2.5"
+              stroke="black"
+              stroke-opacity="0.6"
+            />
+          </svg>
+          <a href="#">Manage Candidates</a>
+        </li>
+      </ul>
+      <li>
+        <i class="pi pi-book"></i>
+        <a href="#">Question Bank </a>
+        <span><i class="pi pi-angle-down"></i></span>
+      </li>
+      <ul class="sub-list">
+        <li>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="17.5"
+              y="9.5"
+              width="5"
+              height="5"
+              rx="2.5"
+              stroke="black"
+              stroke-opacity="0.6"
+            />
+          </svg>
+
+          <a href="#">Manage Skills</a>
+        </li>
+
+        <li>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="17.5"
+              y="9.5"
+              width="5"
+              height="5"
+              rx="2.5"
+              stroke="black"
+              stroke-opacity="0.6"
+            />
+          </svg>
+          <a href="#">Manage Questions</a>
+        </li>
+      </ul>
+      <li>
+        <i class="pi pi-cog"></i>
+        <a href="#">System</a>
+        <span><i class="pi pi-angle-down"></i></span>
+      </li>
+      <ul class="sub-list">
+        <li>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="17.5"
+              y="9.5"
+              width="5"
+              height="5"
+              rx="2.5"
+              stroke="black"
+              stroke-opacity="0.6"
+            />
+          </svg>
+
+          <a href="#">Manage Profile</a>
+        </li>
+
+        <li>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="17.5"
+              y="9.5"
+              width="5"
+              height="5"
+              rx="2.5"
+              stroke="black"
+              stroke-opacity="0.6"
+            />
+          </svg>
+          <a href="#">Configuration</a>
+        </li>
+      </ul>
+    </ul>
+
+    <ul class="ul2">
+      <li>
+        <i class="pi pi-question-circle"></i>
+        <a href="#">Help</a>
+      </li>
+      <li>
+        <i class="pi pi-power-off"></i>
+        <a href="#">Sign Out</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="toggle-btn">
+    <i class="pi pi-chevron-circle-right toggle-btn"></i>
+  </div>
 </div>
+
+<script>
+  $('.ass-btn').click(function() {
+    $('ul1 ul .ass-show').toggleClass("show"); 
+    
+  });
+
+</script>

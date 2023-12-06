@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-sidenavbar',
@@ -6,9 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidenavbar.component.scss'],
 })
 export class SidenavbarComponent {
-  submenuAssessment: boolean = false;
+  
 
-  changeStyle() {
-    
-  }
+
+  
 }
