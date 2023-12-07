@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+
+
+
+
+
+::ng-deep .candidateTable{
+  .p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    /* padding: 1rem 1rem; */
+    padding: 8px 16px 8px 16px;
+  }
+}
+
+
+// .assessment-header{
+//     width: 135px;
+// height: 30px
+
+// }
+// .assessment-text{
+//     //styleName: Title;
+// font-family: 'Poppins';
+// font-size: 20px;
+// font-weight: 500;
+// line-height: 30px;
+// letter-spacing: 0.15000000596046448px;
+// text-align: left;
+// color: #000000;
+
+// }
+// .mg-class{
+//   width: Hug (70px);
+// height: Hug (18px);
+// padding: 2px, 4px, 2px, 4px;
+// border-radius: 4px;
+// gap: 8px;
+// background: #1CB046;
+
+
+// }
+
+.Shortlisted {
+  color: white;
+  background-color:green;
+  
+text-align: center;
+}
+
+.Rejected {
+
+  background-color: red;
+  color: white;
+  
+ text-align: center;
+}
+
+.Awaiting{
+color:white;
+background-color: blue;
+text-align: center;
+}
+
+.Cancelled{
+  color:white;
+  background-color:pink;
+
+text-align: center;
+}
+
+.Scheduled{
+  color:white;
+  background-color:grey;
+  text-align: center;
+}
+
+  ::ng-deep .p-breadcrumb{
+    border:none;
+  }
+
+
+::ng-deep .p-paginator{
+  display:flex;
+  justify-content: flex-end;
+}
+.whole-design{  
+  width:  (1,190px);
+height: Hug (541px);
+padding: 16px;
+gap: 16px
+}
+// .filter-components{
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: flex-end;
+// }
+.filter-components{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  gap: 40px;
+}
+
+
+
+
+// ::ng-deep .p-tabview .p-tabview-nav{
+  
+//   background: #ffffff;
+  
+//   border: none;
+// }
+// .table-icons{
+//   display: flex;
+//   flex-direction: vertical;
+// }
+
+// .schedule-home{
+//   font-family: 'Manrope';
+// font-size: 13px;
+// font-weight: 400;
+// line-height: 19px;
+// letter-spacing: 0.25px;
+// text-align: left;
+// width: 39px;
+// height: 19px;
+// color: #000000;
+// }
+
+// .schedule-word{
+//   color: #1E22AA;
+//   font-family: 'Manrope';
+// font-size: 13px;
+// font-weight: 400;
+// line-height: 19px;
+// letter-spacing: 0.25px;
+// text-align: left;
+// width: 66px;
+// height: 19px;
+// }
+

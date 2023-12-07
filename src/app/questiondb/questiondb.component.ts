@@ -190,7 +190,6 @@ export class QuestiondbComponent {
     this.showUpload = !this.showUpload;
     console.log('hi', this.showUpload);
   }
-
   onFileUpload() {
     this.messageService.add({
       severity: 'info',
@@ -199,7 +198,6 @@ export class QuestiondbComponent {
     });
     // Handle the uploaded file here if needed
   }
-
   onFileRemove() {
     this.messageService.add({
       severity: 'warn',
@@ -208,7 +206,6 @@ export class QuestiondbComponent {
     });
     // Handle the removed file here if needed
   }
-
   loadSkillsforDropDown() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skillSet = data;
