@@ -18,7 +18,7 @@ import { Table } from 'primeng/table';
 export class AssessmentTableComponent {
   [x: string]: any;
   questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
-  tempSkills:string[]=['Nodejs','Java','AWS','python'];
+
   status : string[] = ["Shortlisted", "Rejected" , "Awaiting" , "Cancelled" , "Scheduled"];
 
   items: MenuItem[] | undefined;
@@ -104,7 +104,7 @@ export class AssessmentTableComponent {
 
   }
 
-  getFormattedSkills(skills: string[]): { skills: string[], remainingCount: number } {
+  getFormattedSkills(skills: any): { skills: string[], remainingCount: number } {
     const maxLength = 8;
 
     let result: string[] = [];
@@ -126,8 +126,8 @@ export class AssessmentTableComponent {
 
     return { skills: result, remainingCount: remainingCount };
   }
-  remainaingSkills(count:number):string[]{
-return this.tempSkills.slice(-count);
+  remainaingSkills(skills:any ,count:number):string[]{
+return skills.slice(-count);
   }
   clear(table: Table) {
     table.clear();

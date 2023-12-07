@@ -30,6 +30,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { CandidateTableComponent } from './candidate-table/candidate-table.component';
 
 
 
@@ -53,6 +54,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ProfileDialogComponent,
     SidenavbarComponent,
     AssessmentTableComponent,
+    CandidateTableComponent,
 
   ],
   imports: [

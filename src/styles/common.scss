@@ -21,6 +21,14 @@
       border-color: #652d90;
     }
   }
+  .candidateTable{
+    .p-datatable .p-datatable-tbody .tr .td {
+      text-align: left;
+      border: 1px solid #dee2e6;
+      border-width: 0 0 1px 0;
+      padding: 8px 16px 8px 16px;
+  }
+  }
 // .p-multiselect,
 // .p-dropdown {
 //   width: 100%;

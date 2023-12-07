@@ -34,6 +34,7 @@ import { isuserguard } from './Guard/user-class.guard';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { ManagernameService } from './services/managername.service';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
+import { CandidateTableComponent } from './candidate-table/candidate-table.component';
 
 
 const routes: Routes = [
@@ -75,6 +76,7 @@ const routes: Routes = [
   { path: 'questiondb', component: QuestiondbComponent },
 
   { path: 'profile', component: ProfileDialogComponent },
+  {path:'candidatetable',component:CandidateTableComponent},
 
   // { path: '**', component: LoginComponent }
 
