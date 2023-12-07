@@ -24,6 +24,13 @@ import { MessageService } from 'primeng/api';
 import { QuestiondbComponent } from './questiondb/questiondb.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
+import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
+import { ChipModule } from 'primeng/chip';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { TagModule } from 'primeng/tag';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 
 
 
@@ -45,16 +52,23 @@ import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
     QuestiondbComponent,
     ProfileDialogComponent,
     SidenavbarComponent,
+    AssessmentTableComponent,
+
   ],
   imports: [
     BrowserModule,
+    BreadcrumbModule,
+    TagModule,
+    BadgeModule,
     AppRoutingModule,
     PrimeModule,
+    ChipModule,
     FormsModule,
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
+    OverlayPanelModule,
     ToastrModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],

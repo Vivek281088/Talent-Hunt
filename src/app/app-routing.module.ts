@@ -32,6 +32,9 @@ import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { isadminguard } from './Guard/auth-class.guard';
 import { isuserguard } from './Guard/user-class.guard';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
+import { ManagernameService } from './services/managername.service';
+import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
+
 
 const routes: Routes = [
   { path: 'create', component: Dash1Component },
@@ -66,6 +69,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
+  
+  { path: 'AssessmentDisplay', component: AssessmentTableComponent },
 
   { path: 'questiondb', component: QuestiondbComponent },
 
