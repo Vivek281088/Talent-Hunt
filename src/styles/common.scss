@@ -1,5 +1,71 @@
+:root{
+    --violet:#652D90;
+    --white:#FFFFFF;
+}
+// .dropdown-manager {
+//   .p-dropdown{
+//     background:red;
+//   }
+// }
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  
+  // border-color: #3B82F6;
+  
+
+  color: #000000;
+  //styleName: Title;
+font-family: 'Poppins';
+font-size: 20px;
+font-weight: 500;
+line-height: 30px;
+letter-spacing: 0.15000000596046448px;
+text-align: left;
 
 
+}
+.p-breadcrumb {
+  width: 155.5px;
+height: 19px;
+gap: 5px;
+
+}
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
+  color: #00000061;
+  width: 39px;
+  //styleName: Body 2;
+font-family: 'Avenir';
+font-size: 14px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0.25px;
+text-align: left;
+
+height: 19px;
+
+}
+.pi-home:before {
+  content: "\e925";
+  color: #00000061;
+  width: 16px;
+height: 16px;
+padding: 2.6px, 3px, 2.33px, 3px;
+margin-right: 7px;
+
+}
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+  color: #1E22AA;
+//styleName: Body 2;
+font-family: 'Avenir';
+font-size: 14px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0.25px;
+text-align: left;
+width: 66px;
+height: 19px;
+
+
+}
 .login-card {
     .p-card .p-card-body {
       width: 400px;

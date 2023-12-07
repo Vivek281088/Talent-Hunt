@@ -19,9 +19,12 @@ import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { FileUploadModule } from 'primeng/fileupload';
 
-
+import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ChipModule } from 'primeng/chip';
+import { TagModule } from 'primeng/tag';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
   imports: [
@@ -45,6 +48,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ConfirmDialogModule,
     MessagesModule,
     FileUploadModule,
+    CalendarModule,
+    BreadcrumbModule,
+    ChipModule,
+    TagModule,
+    BadgeModule
   ],
   exports: [
     MultiSelectModule,
@@ -67,6 +75,11 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ConfirmDialogModule,
     MessagesModule,
     FileUploadModule,
+    CalendarModule,
+    BreadcrumbModule,
+    ChipModule,
+    TagModule,
+    BadgeModule
   ],
 })
 export class PrimeModule {}

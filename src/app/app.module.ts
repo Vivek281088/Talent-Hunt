@@ -23,7 +23,13 @@ import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword
 import { MessageService } from 'primeng/api';
 import { QuestiondbComponent } from './questiondb/questiondb.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import { DatePipe } from '@angular/common';
 
+import { ChipModule } from 'primeng/chip';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { TagModule } from 'primeng/tag';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 @NgModule({
@@ -42,7 +48,7 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
     AssessmentDisplayComponent,
     ForgotpasswordComponent,
     QuestiondbComponent,
-    ProfileDialogComponent,
+    ProfileDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -53,10 +59,11 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
+  
     ToastrModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [MessageService],
+  providers: [MessageService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

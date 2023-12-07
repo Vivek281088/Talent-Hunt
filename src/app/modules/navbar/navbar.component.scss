@@ -1,24 +1,63 @@
+.icons{
+display: flex;
+flex-direction: row;
+margin-left: 0px;
+
+ 
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   // background-color: #fff;
-  background-color: #dde6ed;
+  background-color:var(--violet);
   color: #000; /* Change the text color to black */
   padding: 5px 10px;
   top: 0%;
   box-shadow: 0px 0px 20px -10px rgba(0, 0, 0, 0.75);
   height: 55px;
 }
+.vrLine {
+  border-left: 1px solid #FFFFFF61;
+  height: 30px;
+  width: 34px;
 
+  margin:0 10px;
+  rotate: -90;
+  color: #FFFFFF;
+  margin-left:0px ;
+  
+  
+
+}
+.navbar-word{
+  color: var(--white);
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 36px;
+  align-items: center;
+  font-family: 'Poppins';
+  width: 97px;
+height: 36px;
+
+margin-left:0px;
+margin-right: 911px;
+
+
+
+}
 .logo img {
   width: 125px;
+  display: block;
+  margin: 0 auto;
+  margin-left: 0px
 }
 
 .navbar-title {
   font-size: 1.25rem !important;
   margin: 0;
-  color: black;
+  color: var(--white);
   font-size: 1rem;
   line-height: 1.5;
   margin-right: 300px;
