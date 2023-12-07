@@ -1,132 +1,153 @@
 // @import url('https://fonts.googleapis.com/css2?family=Poppins');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto:wght@100;300&display=swap');
- 
- 
- 
+
+
+
 .signup-container {
   display: flex;
- 
+
   justify-content: center;
- 
+
   align-items: center;
- 
+
   height: 100vh;
- 
+
   background-image: url(../../../assets/Background.png);
- 
+
   // background: linear-gradient(
   //   90deg,
   //   rgba(39, 55, 77, 1) 0%,
- 
+
   //   rgba(82, 109, 130, 1) 50%,
- 
+
   //   rgba(39, 55, 77, 1) 100%
   // );
- 
+
   p-card {
     width: 400px;
   height:599px;
   padding: 28px, 24px, 28px, 24px;
   border-radius: 8px;
   gap: 24px;
- 
+
     h1 {
       margin: 0;
     }
- 
+
     .p-inputgroup {
       margin: 15px 0;
-      background: linear-gradient(0deg, #FAFAFA, #FAFAFA),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
- 
- 
+     
+
+
       input {
         width: 100%;
       }
     }
- 
+
     button {
       width: 100%;
- 
+
       margin-top: 20px;
     }
   }
- 
- 
- 
+
+  
+
 .signup-box{
-  display: flex;
-  flex-direction: row;
+  // display: flex;
+  // flex-direction: row;
+  width:1,084px;
+height: 639px;
+top: 192px;
+left: 178px;
+gap: 32px;
+
 }
- 
- 
-.signup-slogan{
-  display: flex;
-  flex-direction: column;
-  width: 652px;
-  gap: 8px;
-  height: 208px;
-  margin-top: 100px;
- 
- 
-}
-.signup-slogan {
-  h3{
- font-family:'Poppins';
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 36px;
-  }
-}
-.signup-slogan {
-  h1{
- 
- 
-  font-family:'Poppins';
-  font-weight: 400;
-  font-size: 48px;
-  color: #652D90;
-  align-items: center;
-  }
-  // line-height: 72px;
-}
-.signup-slogan img{
-  width: 142.22px;
-  height: 48px;
-}
- 
- 
+
+
 .signup-wording{
-  margin-bottom: 10px;
-  font-family: 'Poppins', 'sans-serif';
+width: 352px;
+height: 24px;
+font-family: 'Poppins', 'sans-serif';
 font-size: 16px;
 font-weight: 400;
 line-height: 24px;
 letter-spacing: 0.15000000596046448px;
 text-align: center;
-width: 352px;
-height: 24px;
-color: #000;
- 
- 
- 
+color: rgba(0, 0, 0, 1);
 }
+
+.signup-form{
+  width: (352px);
+height:(399px);
+gap: 16px;
+margin: 15px 0;
+background: linear-gradient(0deg, #FAFAFA, #FAFAFA),
+linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+
+}
+
+.signup-name{
+  width: 352px;
+  height: 40px;
+  gap: 16px;
+animation-duration: 5ms; 
+}
+
+.signup-firstname{
  
+  width:(168px);
+  height: (40px);
+  padding: 0px, 8px, 0px, 8px;
+  border-radius: 8px;
+  border: 1px;
+  gap: 10px;
+  border: 1px solid gainsboro;
+  background: linear-gradient(0deg, #FAFAFA, #FAFAFA),
+linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+}
+
+.signup-lastname{
+ 
+  width:(168px);
+  height: (40px);
+  padding: 0px, 8px, 0px, 8px;
+  border-radius: 8px;
+  border: 1px;
+  gap: 10px;
+  border: 1px solid gainsboro;
+  background: linear-gradient(0deg, #FAFAFA, #FAFAFA),
+linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+}
+
+
+
 .signup-box{
   display: flex;
   flex-direction: row;
 }
- 
+
  .signup-card{
-  width: Fixed (400px);
-  height:Hug(599px);
+  width: 400px;
+  height: 599px;
   padding: 28px, 24px, 28px, 24px;
   border-radius: 8px;
   gap: 24px;
+  background: #FFFFFF;
+  box-shadow: 0px 8px 10px 0px #B3ABBA33;
+
+  box-shadow: 0px 6px 30px 0px #B3ABBA1F;
+  
+  box-shadow: 0px 16px 24px 0px #B3ABBA24;
+  
+
+
+
+ 
 }
- 
- 
+
+
 .first-name{
   width: Fill (168px);
   height: Fixed (40px);
@@ -137,9 +158,9 @@ color: #000;
   border: 1px solid gainsboro;
   background: linear-gradient(0deg, #FAFAFA, #FAFAFA),
 linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
- 
+
 }
- 
+
 .last-name{
   width: 168px;
 height: 40px;
@@ -155,22 +176,22 @@ linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
   width: 352px;
 height: 40px;
 gap: 16px;
- 
 }
- 
-.phone-signup{
+
+.signup-phone{
   width: 352px;
- 
-  height: 40px;
+  height:40px;
   padding: 0px, 8px, 0px, 8px;
   border-radius: 8px;
   border: 1px;
   gap: 10px;
-  // border: 1px solid gainsboro;
   background: linear-gradient(0deg, #FAFAFA, #FAFAFA),
   linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
-  }
- 
+  
+// border: 1px solid rgba(0, 0, 0, 0.12);
+  
+}
+
 .email-signup{
   width: 352px;
   height: 40px;
@@ -182,7 +203,6 @@ gap: 16px;
 linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
 border: 1px solid #0000001F;
 }
- 
 .email-caption{
 width: 300px;
 height: 16px;
@@ -193,14 +213,18 @@ font-weight: 400;
 line-height: 0px;
 letter-spacing: 0.4000000059604645px;
 text-align: left;
- 
+
 }
- 
-// .email-group{
-// width:352px;
-// }
- 
-.newpassword-signup{
+
+.email-group{
+  width: 352px;
+  height: 63px;
+  gap: 7px;
+animation-duration: 0ms;
+
+}
+
+.signup-newpassword{
   width:352px;
 height: 40px;
 padding: 0px, 8px, 0px, 8px;
@@ -210,8 +234,10 @@ gap: 10px;
 background: linear-gradient(0deg, #FAFAFA, #FAFAFA),
 linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
 border: 1px solid #0000001F;
+
+
 }
- 
+
 .confirmpassword-signup{
   width:352px;
   height: 40px;
@@ -229,14 +255,22 @@ border: 1px solid #0000001F;
   font-family: 'Roboto', sans-serif;
 font-size: 14px;
 font-weight: 400;
-line-height: 16px;
+line-height: 16.41px;
 letter-spacing: 0.25px;
 text-align: left;
-// background: linear-gradient(0deg, #1666DC, #1666DC),
-// linear-gradient(0deg, rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87));
 width: 352px;
 height: 32px;
+color: black;
+
+a{
+
+  color:  #1666DC;
+  text-decoration: none;
 }
+
+}
+
+
 .button-signup{
   width: 352px;
 height: 48px;
@@ -251,16 +285,166 @@ background: #DDDDDD;
 border: 1px solid #DDDDDD;
 }
 .loginbutton-signup{
- 
+  
 }
- 
+
 .login-signup{
- 
-    margin-top: 20px;
- 
+  
+    margin-top: 30px;
+    font-family: 'Merriweather', serif;
+font-family: 'Roboto', sans-serif;
+font-size: 14px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.25px;
+text-align: left;
+width: 245px;
+height: 24px;
+
+color: black;
+
     a {
       text-decoration: underline;
+      color: #652d90;
     }
   }
+
+}
+
+.signup-slogan {
+  // display: flex;
+  // flex-direction: column;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 652px;
+  gap: 8px;
+  height: 208px;
+  // margin-top: 100px;
+}
+.signup-slogan .description {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  margin: 0px;
+  // line-height: 36px;
+}
+.signup-slogan .heading {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 48px;
+  color: #652d90;
+  align-items: center;
+  margin: 0px;
+ 
+  // line-height: 72px;
+}
+.signup-slogan img {
+  width: 142.22px;
+  height: 48px;
+}
+
+::ng-deep p-inputnumber{
+  
+//   background: linear-gradient(0deg, #1666DC, #1666DC),
+//  linear-gradient(0deg, rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.87));
+background: black;
+}
+
+.input-with-icon {
+  display: flex;
+  position: relative;
+ 
+  border-radius: 8px;
+  padding-bottom: 16px;
+  // margin-left: 24px;
+  border: 1px;
+  gap: 12px;
+}
+
+.input-with-icon  i{
+  position: absolute;
+  top: 38%;
+  transform: translateY(-55%);
+  left: 10px;
+  color: #00000099;
+  margin-left: 6px;
+  // margin-bottom: 20px;
+
+}
+
+.input-with-icon input {
+  padding-left: 45px;
+  width: 352px;
+  height: 56px;
+  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+
+}
+
+
+
+
+.info-circle {
+
+
+  position: absolute;
+  top: 38%;
+  transform: translateY(-55%);
+  right: 10px;
+  margin-right: 35px;
+  i{
+    color: #1cb046;
+  }
+ 
+ 
+}
+
+.password-title{
+  width: 222px;
+height: 23px;
+font-size: 20px;
+font-weight: 500;
+line-height: 23px;
+letter-spacing: 0.15000000596046448px;
+text-align: left;
+font-family: 'Merriweather', serif;
+font-family: 'Roboto', sans-serif;
+// background: #000000DE;
+color: black;
+}
+.password-content2{
+  font-family: 'Merriweather', serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+  
+  font-family: 'Merriweather', serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  
+  font-family: 'Merriweather', serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  
+  font-family: 'Merriweather', serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  
  
 }

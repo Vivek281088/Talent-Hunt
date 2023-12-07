@@ -18,6 +18,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { FileUploadModule } from 'primeng/fileupload';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -52,7 +53,8 @@ import { BadgeModule } from 'primeng/badge';
     BreadcrumbModule,
     ChipModule,
     TagModule,
-    BadgeModule
+    BadgeModule,
+    PanelMenuModule,
   ],
   exports: [
     MultiSelectModule,
@@ -79,7 +81,8 @@ import { BadgeModule } from 'primeng/badge';
     BreadcrumbModule,
     ChipModule,
     TagModule,
-    BadgeModule
+    BadgeModule,
+    PanelMenuModule,
   ],
 })
 export class PrimeModule {}

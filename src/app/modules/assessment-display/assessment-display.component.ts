@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
-
+ 
 import { ManagernameService } from 'src/app/services/managername.service';
-
+ 
 import { TableService } from 'src/app/services/table.service';
 import {
   ConfirmationService,
@@ -13,7 +13,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ReviewerService } from 'src/app/services/reviewer.service';
-
+ 
 @Component({
   selector: 'app-assessment-display',
   templateUrl: './assessment-display.component.html',
@@ -22,26 +22,26 @@ import { ReviewerService } from 'src/app/services/reviewer.service';
 })
 export class AssessmentDisplayComponent implements OnInit {
   // Initialize start and end times
-
+ 
   messages2: Message[] = [];
-
+ 
   position: string = 'center';
   FinalizedQuestions: any[] = [];
-
+ 
   duration!: number;
-
+ 
   cutoff!: number;
-
+ 
   checked: boolean = false;
-
+ 
   candidateName!: string;
 
   candidateEmail !: string;
 
   startTime!: Date;
-
+ 
   endTime!: Date;
-
+ 
   postData!: any;
 
   countCorrectQues!: number;
@@ -59,12 +59,12 @@ export class AssessmentDisplayComponent implements OnInit {
   assessmentData!: any;
   id!: any;
   updateStatus: string = 'Submitted';
-
+ 
   constructor(
     private managernameService: ManagernameService,
-
+ 
     private tableservice: TableService,
-
+ 
     private candidateAssessmentService: CandidateAssessmentService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
@@ -72,7 +72,7 @@ export class AssessmentDisplayComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private router: Router
   ) {}
-
+ 
   ngOnInit() {
     this.assessmentData = this.candidateAssessmentService.getAssessmentData();
     console.log('get Data', this.assessmentData);
@@ -89,15 +89,14 @@ export class AssessmentDisplayComponent implements OnInit {
     this.messages2 = [
       { severity: 'warn', summary: 'Warning', detail: '5 mins more' },
     ];
-
+ 
     this.startTime = new Date();
     this.remainingTime = this.duration * 60; // Initialize remaining time
-
+ 
     this.updateTimer();
-
+ 
     this.FinalizedQuestions = this.assessmentData.questions;
     console.log('qd', this.FinalizedQuestions);
-
     for (let question of this.FinalizedQuestions) {
       question.selectedOption = [];
     }
@@ -108,7 +107,7 @@ export class AssessmentDisplayComponent implements OnInit {
     const timerInterval = setInterval(() => {
       if (this.remainingTime > 0) {
         this.remainingTime--;
-
+ 
         if (this.remainingTime >= 60) {
           const hours = Math.floor(this.remainingTime / 3600);
           const minutes = Math.floor((this.remainingTime % 3600) / 60);
@@ -125,22 +124,22 @@ export class AssessmentDisplayComponent implements OnInit {
       }
     }, 1000); // 1000 milliseconds = 1 second
   }
-
+ 
   formatTime(seconds: number): string {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
-
+ 
     const hoursDisplay = hours > 0 ? hours + 'h ' : '';
     const minutesDisplay = minutes > 0 ? minutes + 'm ' : '';
     const secondsDisplay = remainingSeconds + 's';
-
+ 
     return hoursDisplay + minutesDisplay + secondsDisplay;
   }
-
+ 
   confirmPosition(position: string) {
     this.position = position;
-
+ 
     this.confirmationService.confirm({
       message: 'Do you want to submit your answers?',
       header: 'Submit Confirmation',
@@ -177,7 +176,6 @@ export class AssessmentDisplayComponent implements OnInit {
       key: 'positionDialog',
     });
   }
-
   onCheckboxChange(question: any, option: any, event: any) {
     if (event) {
       // Add the selected option to the array
@@ -190,7 +188,6 @@ export class AssessmentDisplayComponent implements OnInit {
       }
     }
   }
-
   onRadioButtonChange(question: any, selectedOption: any) {
     // Set the selected option as an array with a single element
     question.selectedOption = [selectedOption];
@@ -215,7 +212,6 @@ export class AssessmentDisplayComponent implements OnInit {
         question.reviewerResponse = 'Incorrect'; // Number of options selected is different
       }
     }
-
     this.CountTotalQuestions = this.FinalizedQuestions.length;
     console.log('count total ques', this.CountTotalQuestions);
     console.log('Correct ques', this.countCorrectQues);
@@ -314,7 +310,6 @@ export class AssessmentDisplayComponent implements OnInit {
     const hasTextQuestions = this.FinalizedQuestions.some(
       (question) => question.questionType === 'Text'
     );
-
     if (hasTextQuestions) {
       this.updateEmailStatus('Submitted');
     } else {
@@ -348,3 +343,4 @@ export class AssessmentDisplayComponent implements OnInit {
     this.router.navigate(['/dashboard']);
   }
 }
+ 

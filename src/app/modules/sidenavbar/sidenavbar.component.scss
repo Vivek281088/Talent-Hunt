@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  font-weight: normal; 
+  font-family: "Poppins", sans-serif;
+  width: 250px;
+  height: 100%;
+  gap: 10px;
+}
+.navList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 218px;
+  height: 412px;
+  top: 16px;
+  left: 16px;
+  gap: 10px;
+}
+.sideIcon{
+    position: relative;
+    margin-right: 10px;
+}
+.sideIcon1{
+    
+    margin-right: 3px;
+    transform: translateY(-23%);
+    transform: translateX(-15%); 
+}
+.sideIcon2{
+  margin-left: 10px;  
+  margin-right: 3px;
+  transform: translateX(-15%); 
+}
+.side1{
+    height: 450px;
+}
+.navList2 {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 218px;
+  height: 34px;
+  padding: 5px, 8px, 5px, 8px;
+  border-radius: 4px;
+  gap: 8px;
+}
+.navNames {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: #00000099;
+
+  padding: 5px 8px;
+  transition: background-color 0.3s;
+}
+.li-name {
+  width: 218px;
+  height: 34px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 4px;
+  gap: 8px;
+  background-color: #f2f2f2;
+
+  &:hover {
+    background: #C81A78;
+    color: #f2f2f2;
+
+  }
+  &.active {
+    background-color: #652d90;
+    color: #f2f2f2;
+  }
+  &.active .navNames {
+    color: #f2f2f2;
+  }
+}
+.sideDown {
+  width: 218px;
+  height: 78px;
+  top: 874px;
+  left: 16px;
+  gap: 10px;
+
+   
+}

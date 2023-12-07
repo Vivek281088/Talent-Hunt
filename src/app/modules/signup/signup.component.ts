@@ -17,9 +17,7 @@ export class SignupComponent {
   password!:string;
   confirmPassword!:string;
 
-
-
-
+  visible: boolean = false;
   constructor(private loginservice:LoginService,private toastr:ToastrService,private messageService: MessageService,private router:Router){
 
   }
@@ -53,6 +51,10 @@ export class SignupComponent {
          
       }
     })
+  }
+
+  showDialog(){
+    this.visible = true;
   }
 
 }
