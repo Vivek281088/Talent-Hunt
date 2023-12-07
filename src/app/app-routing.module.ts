@@ -25,7 +25,7 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
 // import { AuthClassGuard } from './Guard/auth-class.guard';
 
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
-import { loginGuard } from './Guard/login.guard';
+// import { loginGuard } from './Guard/login.guard';
 
 // import { NgModule } from '@angular/core';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
