@@ -110,22 +110,25 @@
   </div>
 </div> -->
 
-<div class="side-nav"  [class.collapsed]="isSideNavCollapsed">
+<div class="side-nav" [class.collapsed]="isSideNavCollapsed">
   <div class="top-sec">
     <ul class="ul1">
       <li>
         <i class="pi pi-th-large"></i>
         <p>Home</p>
+        <span class="disabled">
+          <i class="pi pi-angle-down"></i>
+        </span>
       </li>
-      <li class="ass-btn">
+      <li (click)="changeStyle1()">
         <i class="pi pi-map"></i>
-        <a href="#">Assessment</a>
+        <p>Assessment</p>
         <span>
-          <i class="pi pi-angle-down" (click)="changeStyle1()"></i>
+          <i class="pi pi-angle-down"></i>
         </span>
       </li>
       <span *ngIf="assessmentShow">
-        <ul class="sub-list ass-show">
+        <ul class="sub-list">
           <li>
             <svg
               width="24"
@@ -144,10 +147,10 @@
                 stroke-opacity="0.6"
               />
             </svg>
-  
+
             <a href="#">Manage Schedule</a>
           </li>
-  
+
           <li>
             <svg
               width="24"
@@ -170,15 +173,15 @@
           </li>
         </ul>
       </span>
-      <li>
+      <li (click)="changeStyle2()">
         <i class="pi pi-user"></i>
-        <a href="#">User</a>
+        <p>User</p>
         <span>
-          <i class="pi pi-angle-down" (click)="changeStyle2()"></i>
+          <i class="pi pi-angle-down"></i>
         </span>
       </li>
       <span *ngIf="userShow">
-        <ul class="sub-list" >
+        <ul class="sub-list">
           <li>
             <svg
               width="24"
@@ -197,10 +200,10 @@
                 stroke-opacity="0.6"
               />
             </svg>
-  
+
             <a href="#">Manage Managers</a>
           </li>
-  
+
           <li>
             <svg
               width="24"
@@ -222,13 +225,12 @@
             <a href="#">Manage Candidates</a>
           </li>
         </ul>
-
       </span>
-      
-      <li>
+
+      <li (click)="changeStyle3()">
         <i class="pi pi-book"></i>
-        <a href="#">Question Bank </a>
-        <span><i class="pi pi-angle-down" (click)="changeStyle3()"></i></span>
+        <p>Question Bank</p>
+        <span><i class="pi pi-angle-down"></i></span>
       </li>
       <span *ngIf="questionBankShow">
         <ul class="sub-list">
@@ -250,10 +252,10 @@
                 stroke-opacity="0.6"
               />
             </svg>
-  
+
             <a href="#">Manage Skills</a>
           </li>
-  
+
           <li>
             <svg
               width="24"
@@ -276,11 +278,11 @@
           </li>
         </ul>
       </span>
-      
-      <li>
+
+      <li (click)="changeStyle4()">
         <i class="pi pi-cog"></i>
-        <a href="#">System</a>
-        <span><i class="pi pi-angle-down" (click)="changeStyle4()"></i></span>
+        <p>System</p>
+        <span><i class="pi pi-angle-down"></i></span>
       </li>
       <span *ngIf="systemShow">
         <ul class="sub-list">
@@ -302,10 +304,10 @@
                 stroke-opacity="0.6"
               />
             </svg>
-  
+
             <a href="#">Manage Profile</a>
           </li>
-  
+
           <li>
             <svg
               width="24"
@@ -328,13 +330,12 @@
           </li>
         </ul>
       </span>
-      
     </ul>
 
     <ul class="ul2">
       <li>
         <i class="pi pi-question-circle"></i>
-        <a href="#">Help</a>
+        <p>Help</p>
       </li>
       <li>
         <i class="pi pi-power-off"></i>
@@ -343,8 +344,104 @@
     </ul>
   </div>
 
-  <div class="toggle-btn">
-    <i class="pi pi-chevron-circle-right toggle-btn" (click)="toggleSideNav()"></i>
+  <div>
+    <!-- <i
+      class="pi pi-chevron-circle-right toggle-btn"
+      (click)="toggleSideNav()"
+    ></i> -->
+    <svg
+      width="44"
+      height="44"
+      viewBox="0 0 44 44"
+      class="toggle-btn"
+      (click)="toggleSideNav()"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_ddd_126_3853)">
+        <rect
+          width="24"
+          height="24"
+          rx="12"
+          transform="matrix(-1 0 0 1 34 9)"
+          fill="white"
+        />
+        <path
+          d="M25 21.0029C25 21.1468 24.9428 21.2907 24.834 21.3886L20.2935 25.8445C20.1961 25.9424 20.0702 26 19.927 26C19.6293 26 19.4003 25.7755 19.4003 25.4761C19.4003 25.3322 19.4575 25.1998 19.5491 25.1019L24.0324 20.692L24.0324 21.308L19.5491 16.8981C19.4575 16.806 19.4003 16.6736 19.4003 16.5239C19.4003 16.2245 19.6293 16 19.927 16C20.0702 16 20.1961 16.0576 20.2992 16.1554L24.834 20.6114C24.9428 20.7208 25 20.8532 25 21.0029Z"
+          fill="black"
+          fill-opacity="0.6"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_ddd_126_3853"
+          x="0"
+          y="0"
+          width="44"
+          height="44"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="2" />
+          <feGaussianBlur stdDeviation="2" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.701961 0 0 0 0 0.670588 0 0 0 0 0.729412 0 0 0 0.2 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_126_3853"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="1" />
+          <feGaussianBlur stdDeviation="5" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.701961 0 0 0 0 0.670588 0 0 0 0 0.729412 0 0 0 0.12 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="effect1_dropShadow_126_3853"
+            result="effect2_dropShadow_126_3853"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="2.5" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.701961 0 0 0 0 0.670588 0 0 0 0 0.729412 0 0 0 0.14 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="effect2_dropShadow_126_3853"
+            result="effect3_dropShadow_126_3853"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect3_dropShadow_126_3853"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
   </div>
 </div>
-

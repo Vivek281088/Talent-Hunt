@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
-import { ManagernameService } from '../services/managername.service';
+import { ManagernameService } from '../../services/managername.service';
 import { response } from 'express';
 
 @Component({
@@ -295,7 +295,6 @@ export class QuestiondbComponent {
         this.resetData();
         this.submitForm();
       }, 1000);
-      
     }
   }
 
@@ -381,5 +380,3 @@ export class QuestiondbComponent {
     });
   }
 }
-
-
