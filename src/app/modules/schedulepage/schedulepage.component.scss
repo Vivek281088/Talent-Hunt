@@ -1,65 +1,287 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 
 
-.schedule-tab{
+// ::ng-deep .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
+//   color: #00000061;
+// }
+
+.table-content{
+  box-shadow: 0 4px 8px #0000001a;
+  border: 1px solid rgb(122, 120, 120);
+  margin-top: 50px;
+  // border-radius: 0px;
+  width: 1450px;
+  // background-color: red;
+}
+::ng-deep .p-column-filter-row {
   display: flex;
-  flex-direction:vertical ;
-  margin-right: 10px;
+  /* align-items: center; */
+  width: 100%;
+  margin-left: 17px;
+}
+::ng-deep .p-fluid .p-multiselect {
+  display: flex;
+  background: #EFEFEF;
 }
 
+.filter-components{
+  display: flex;
+  //flex-direction: row;
+ justify-content: space-between;
+}
+.first-four{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 
-::ng-deep .p-tabview .p-tabview-nav{
+.card{
+  // width: 1,158px;
+  // height: 436px;
+  border-radius: 8px;
+  border: 1px;
+ 
+  background: linear-gradient(0deg, #FFFFFF, #FFFFFF),
+linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+border: 1px solid #0000001F;
+}
+::ng-deep .manager {
+
+  display: flex;
+  align-items: center;
+  // width: 70%;
+  // width: 125px;
+height: 36px;
+padding: 12px, 8px, 12px, 8px;
+border-radius: 4px;
+gap: 8px;
+
+// background: #EFEFEF;
+color: #EFEFEF;
+
+}
+::ng-deep .p-calendar .p-inputtext {
+  flex: 1 1 auto;
+  width: -34%;
+  // background: #EFEFEF;
+}
+.p-input-icon-right > .p-inputtext {
+  padding-right: 2.5rem;
+  width: 138px;
+  height: 45px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px;
+  margin-right: 7px;
+  gap: 8px;
+ 
+border: 1px solid #00000061;
   
+}
+
+::ng-deep .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-icon {
+  color: #6c757d;
+  margin-right: 0px;
+  margin-left: -14px;
+  // background: beige;
+}
+
+::ng-deep .p-datatable .p-datatable-thead tr th{
+  background: white;
+}
+
+// .card {
+//   display: flex;
+//   flex-direction: column;
+//   border-radius: .5rem;
+//   background-color: #fff;
+//   // margin: 1.25rem 0 1.25rem 0;
+//   box-shadow: 0 .25rem .5rem #e6edef;
+
+//   .card-head {
+//       padding: 1rem 1.5rem;
+//       border-bottom: 1px solid #edf1f7;
+//       font-size: 1rem;
+//       font-weight: 600;
+//   }
+
+//   .card-body {
+//       padding: 1rem 1.5rem;
+//   }
+// }
+  // ::ng-deep .p-card {
+  //   width: 1158px;
+  //   background: #ffffff;
+  //   color: #495057;
+  //   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  //   border-radius: 6px;
+  //   height: 368px;
+  // }
+::ng-deep .p-datatable .p-datatable-thead > tr > th{
+  text-align: left;
+  padding: 1rem 1rem;
+  border: 1px solid #dee2e6;
+  border-width: 0 0 1px 0;
+  font-weight: 700;
+  color: #343a40;
+  /* background: #f8f9fa; */
+  transition: box-shadow 0.2s;
+}
+
+.schedules{
+
+
+
+
+  
+  margin-top: 4px;
+  margin-left: 30px;
+}
+.words-in-vertical{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .icon-with-text{
+    margin-top: 8px;
+  }
+  
+}
+.words-in-secondrow{
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+}
+// .icon-with-text
+// {
+//   display: flex;
+//   align-items: center;
+ 
+// }
+::ng-deep .p-calendar .p-inputtext{
+  // flex: 1 1 auto;
+  width: 10px;
+
+}
+.clear-button{
+  width: 110px;
+height: 43px;
+padding: 6px, 6px, 6px, 8px;
+border-radius: 4px;
+border: 1px;
+color: #C81A78;
+border: 1px solid #C81A78;
+background: white;
+margin-top: 4px;
+
+
+}
+::ng-deep .dropdown-manager .p-dropdown{
+  
+  width: auto;
+  height: 36px;
+  // padding-top: 12px;
+  // padding-right: 8px;
+  // padding-bottom: 12px;
+  // padding-left: 8px;
+  // border-radius: 4px;
+  gap: 8px;
+  background: #EFEFEF;
+
+.p-placeholder{
+//   width: 93px;
+// height: 16px;
+//styleName: Body 2;
+font-family: 'Roboto';
+font-size: 14px;
+font-weight: 400;
+// line-height: 16px;
+// letter-spacing: 0.25px;
+// text-align: left;
+color: #00000099;
+
+
+}
+}
+
+.search-filter {
+  width: 138px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px;
+  gap: 8px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.38)),
+  linear-gradient(0deg, #FFFFFF, #FFFFFF);
+  border: 1px solid #00000061;
+}
+.schedule-tab {
+  // display: flex;
+  // flex-direction: vertical;
+  // // margin-right: 100px;
+}
+
+::ng-deep .p-tabview .p-tabview-nav {
   background: #ffffff;
-  
+
   border: none;
 }
-.table-icons{
+.table-icons {
   display: flex;
-  flex-direction: vertical;
+  flex-direction: row;
+  height: 100px;
+  align-content: center;
+  text-align: center;
+  
+}
+.icons-td{
+  display: flex;
+  // flex-direction: row;
+  justify-content: space-between;
+  // margin-right: 50px;
 }
 
-.schedule-home{
-  font-family: 'Manrope';
-font-size: 13px;
-font-weight: 400;
-line-height: 19px;
-letter-spacing: 0.25px;
-text-align: left;
-width: 39px;
-height: 19px;
-color: #000000;
+.schedule-home {
+  font-family: "Manrope";
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  width: 39px;
+  height: 19px;
+  color: #000000;
 }
 
-.schedule-word{
-  color: #1E22AA;
-  font-family: 'Manrope';
-font-size: 13px;
-font-weight: 400;
-line-height: 19px;
-letter-spacing: 0.25px;
-text-align: left;
-width: 66px;
-height: 19px;
+.schedule-word {
+  color: #1e22aa;
+  font-family: "Manrope";
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 19px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  width: 66px;
+  height: 19px;
 }
 
-.new-schedule{
-  font-family: 'Manrope';
-font-size: 14px;
-font-weight: 500;
-line-height: 16px;
-letter-spacing: 1.25px;
-text-align: center;
+// .new-schedule {
+//   font-family: "Manrope";
+//   font-size: 14px;
+//   font-weight: 500;
+//   line-height: 16px;
+//   letter-spacing: 1.25px;
+//   text-align: center;
 
-width: 131px;
-height: 36px;
-padding: 6px, 6px, 6px, 8px;
+//   width: 131px;
+//   height: 36px;
+//   padding: 6px, 6px, 6px, 8px;
 
-border-radius: 4px;
+//   border-radius: 4px;
 
-background-color: #652D90;
-color: white;
-}
+//   // background-color: #652d90;
+//   // color: white;
+// }
 
 .top-right-button {
   position: absolute;
@@ -72,6 +294,7 @@ color: white;
   border: 1px solid #ccc; /* Add a border to maintain appearance */
   /* Add any other styles you need for the input */
 }
+
 .table-container {
   width: 100%;
 }
@@ -80,7 +303,7 @@ color: white;
   overflow: auto;
 }
 .page_sec {
-  background-color:whitesmoke;
+  background-color: whitesmoke;
   width: 100%;
 }
 .create_button {
@@ -97,15 +320,15 @@ color: white;
   // padding: 5px 10px;
   // border: none;
   width: 116px;
-height: 36px;
-//padding: 6px, 6px, 6px, 8px;
-padding-top: 6px;
-padding-right: 4px;
-padding-bottom: 6px;
-padding-left: 8px;
-border-radius: 4px;
-background-color: #652d90;
-color: white;
+  height: 41px;
+  //padding: 6px, 6px, 6px, 8px;
+  padding-top: 6px;
+  padding-right: 4px;
+  padding-bottom: 6px;
+  padding-left: 8px;
+  border-radius: 4px;
+  background-color: #652d90;
+  color: white;
 }
 .btn_cancel {
   background: transparent;
@@ -134,19 +357,19 @@ color: white;
 :host ::ng-deep .ng-dirty.ng-invalid {
   border: 1px solid #ced4da;
 }
-.cursor-pointer::before {
-  content: attr(pTooltip);
-  white-space: nowrap;
-  overflow: hidden;
-  position: absolute;
-  width: 0;
-  opacity: 0;
-  transition: width 1s ease, opacity 1s ease;
-}
-.cursor-pointer:hover::before {
-  width: auto;
-  opacity: 1;
-}
+// .cursor-pointer::before {
+//   content: attr(pTooltip);
+//   white-space: nowrap;
+//   // overflow: hidden;
+//   // position: absolute;
+//   width: 0;
+//   opacity: 0;
+//   transition: width 1s ease, opacity 1s ease;
+// }
+// .cursor-pointer:hover::before {
+//   width: auto;
+//   opacity: 1;
+// }
 
 // Reviewer
 
@@ -185,19 +408,16 @@ body {
 // Added before meet
 
 .top-left-button {
- 
   align-self: flex-start;
   margin: 10px;
   cursor: pointer;
 }
- 
+
 .top-right-button {
- 
   align-self: flex-end;
- 
+
   cursor: pointer;
 }
- 
 
 .question_sec {
   color: #fff;
@@ -297,9 +517,9 @@ body {
   margin: 4px 0px 0px 0px;
 }
 
-:host ::ng-deep .p-datatable-wrapper {
-  margin-top: 80px;
-}
+// :host ::ng-deep .p-datatable-wrapper {
+//   margin-top: 80px;
+// }
 
 :host ::ng-deep .p-radiobutton-box {
   height: 20px;
@@ -309,10 +529,9 @@ body {
   border-radius: 100%;
 }
 
-.text_area_ans{
+.text_area_ans {
   padding-bottom: 20px;
 }
-
 
 // :host ::ng-deep .p-dialog-content {
 
@@ -380,7 +599,7 @@ body {
   // margin-left: 90%;
 
   margin-top: 19px;
- 
+
   margin-right: 19px;
 }
 
@@ -400,7 +619,7 @@ body {
   // margin-left: 90%;
 
   margin-top: 19px;
- 
+
   margin-right: 19px;
 }
 
@@ -494,9 +713,8 @@ body {
 
 .radio-option {
   display: inline;
-  margin-right: 10px; 
+  margin-right: 10px;
 }
-
 
 .wide-input {
   width: 100%;

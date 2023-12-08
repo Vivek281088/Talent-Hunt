@@ -1,34 +1,105 @@
+:root{
+  --violet:#652D90;
+  --white:#FFFFFF;
+}
+// .dropdown-manager {
+//   .p-dropdown{
+//     background:red;
+//   }
+// }
+.p-fluid .p-multiselect {
+  display: flex;
+  margin-right: 52px;
+}
+.p-input-icon-left, .p-input-icon-right {
+  position: relative;
+  display: inline-block;
+  margin-right: 10px;
+}
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+
+// border-color: #3B82F6;
 
 
+color: #000000;
+//styleName: Title;
+font-family: 'Poppins';
+font-size: 20px;
+font-weight: 500;
+line-height: 30px;
+letter-spacing: 0.15000000596046448px;
+text-align: left;
+
+
+}
+.p-breadcrumb {
+width: 155.5px;
+height: 19px;
+gap: 5px;
+
+}
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
+color: #00000061;
+width: 39px;
+//styleName: Body 2;
+font-family: 'Avenir';
+font-size: 14px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0.25px;
+text-align: left;
+
+height: 19px;
+
+}
+.pi-home:before {
+content: "\e925";
+color: #00000061;
+width: 16px;
+height: 16px;
+padding: 2.6px, 3px, 2.33px, 3px;
+margin-right: 7px;
+
+}
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+color: #1E22AA;
+//styleName: Body 2;
+font-family: 'Avenir';
+font-size: 14px;
+font-weight: 400;
+line-height: 19px;
+letter-spacing: 0.25px;
+text-align: left;
+width: 66px;
+height: 19px;
+
+
+}
+.p-breadcrumb {
+  overflow-x: auto;
+  // background: beige;
+}
 .login-card {
-    .p-card .p-card-body {
-      width: 400px;
-      height: 449px;
-      gap: 24px;
-      padding: 0px;
-    }
-    .p-inputtext{
-      color: #aaa;
-    }
-    .p-card .p-card-content{
-      box-shadow: 0px 0px 30px rgba(179, 171, 186, 0.2)!important;
-    }
+  .p-card .p-card-body {
+    width: 400px;
+    height: 449px;
+    gap: 24px;
+    padding: 0px;
   }
-  .loginButton {
-    .p-button.p-button:enabled:hover {
-      background: #652d90;
-      color: #ffffff;
-      border-color: #652d90;
-    }
+  .p-inputtext{
+    color: #aaa;
   }
-  .candidateTable{
-    .p-datatable .p-datatable-tbody .tr .td {
-      text-align: left;
-      border: 1px solid #dee2e6;
-      border-width: 0 0 1px 0;
-      padding: 8px 16px 8px 16px;
+  .p-card .p-card-content{
+    box-shadow: 0px 0px 30px rgba(179, 171, 186, 0.2)!important;
   }
+}
+.loginButton {
+  .p-button.p-button:enabled:hover {
+    background: #652d90;
+    color: #ffffff;
+    border-color: #652d90;
   }
+}
 // .p-multiselect,
 // .p-dropdown {
 //   width: 100%;
@@ -317,39 +388,3 @@
 //     left: 15px;
 //   }
 // }
-//     left: 15px;
-//   }
-// }
-.login-card {
-  .p-card .p-card-body {
-    width: 400px;
-    height: 449px;
-    gap: 24px;
-    padding: 0px;
-  }
-  .p-inputtext{
-    color: #aaa;
-  }
-}
-.loginButton {
-  .p-button.p-button:enabled:hover {
-    background: #652d90;
-    color: #ffffff;
-    border-color: #652d90;
-  }
-}
-
-// .signup-phone{
-//   p-inputNumber{
-//     background: linear-gradient(0deg, #FAFAFA, #FAFAFA),
-//     linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
-   
-//   }
-
-  
-//   }
-
-
-
-
-
