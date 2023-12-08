@@ -109,18 +109,26 @@
     <i class="pi pi-chevron-circle-right toggle-btn"></i>
   </div>
 </div> -->
-
 <div class="side-nav" [class.collapsed]="isSideNavCollapsed">
   <div class="top-sec">
     <ul class="ul1">
-      <li>
+      <li
+        id="home"
+        [class.active]="activeSection === 'home'"
+        (click)="changeStyle('home')"
+      >
         <i class="pi pi-th-large"></i>
         <p>Home</p>
         <span class="disabled">
           <i class="pi pi-angle-down"></i>
         </span>
       </li>
-      <li (click)="changeStyle1()">
+      <li
+        id="assessment"
+        [class.active]="activeSection === 'assessment'"
+        (click)="changeStyle('assessment')"
+        (click)="changeStyle1()"
+      >
         <i class="pi pi-map"></i>
         <p>Assessment</p>
         <span>
@@ -129,7 +137,11 @@
       </li>
       <span *ngIf="assessmentShow">
         <ul class="sub-list">
-          <li>
+          <li
+            id="manageSchedule"
+            [class.active]="activeSublist === 'manageSchedule'"
+            (click)="changeSublist('manageSchedule')"
+          >
             <svg
               width="24"
               height="24"
@@ -151,7 +163,11 @@
             <a href="#">Manage Schedule</a>
           </li>
 
-          <li>
+          <li
+            id="manageAssessment"
+            [class.active]="activeSublist === 'manageAssessment'"
+            (click)="changeSublist('manageAssessment')"
+          >
             <svg
               width="24"
               height="24"
@@ -173,7 +189,12 @@
           </li>
         </ul>
       </span>
-      <li (click)="changeStyle2()">
+      <li
+        id="user"
+        [class.active]="activeSection === 'user'"
+        (click)="changeStyle('user')"
+        (click)="changeStyle2()"
+      >
         <i class="pi pi-user"></i>
         <p>User</p>
         <span>
@@ -182,7 +203,11 @@
       </li>
       <span *ngIf="userShow">
         <ul class="sub-list">
-          <li>
+          <li
+            id="manageManagers"
+            [class.active]="activeSublist === 'manageManagers'"
+            (click)="changeSublist('manageManagers')"
+          >
             <svg
               width="24"
               height="24"
@@ -204,7 +229,11 @@
             <a href="#">Manage Managers</a>
           </li>
 
-          <li>
+          <li
+            id="manageCandidates"
+            [class.active]="activeSublist === 'manageCandidates'"
+            (click)="changeSublist('manageCandidates')"
+          >
             <svg
               width="24"
               height="24"
@@ -227,14 +256,23 @@
         </ul>
       </span>
 
-      <li (click)="changeStyle3()">
+      <li
+        id="question_bank"
+        [class.active]="activeSection === 'question_bank'"
+        (click)="changeStyle('question_bank')"
+        (click)="changeStyle3()"
+      >
         <i class="pi pi-book"></i>
         <p>Question Bank</p>
         <span><i class="pi pi-angle-down"></i></span>
       </li>
       <span *ngIf="questionBankShow">
         <ul class="sub-list">
-          <li>
+          <li
+            id="manageSkills"
+            [class.active]="activeSublist === 'manageSkills'"
+            (click)="changeSublist('manageSkills')"
+          >
             <svg
               width="24"
               height="24"
@@ -256,7 +294,11 @@
             <a href="#">Manage Skills</a>
           </li>
 
-          <li>
+          <li
+            id="manageQuestions"
+            [class.active]="activeSublist === 'manageQuestions'"
+            (click)="changeSublist('manageQuestions')"
+          >
             <svg
               width="24"
               height="24"
@@ -279,14 +321,23 @@
         </ul>
       </span>
 
-      <li (click)="changeStyle4()">
+      <li
+        id="system"
+        [class.active]="activeSection === 'system'"
+        (click)="changeStyle('system')"
+        (click)="changeStyle4()"
+      >
         <i class="pi pi-cog"></i>
         <p>System</p>
         <span><i class="pi pi-angle-down"></i></span>
       </li>
       <span *ngIf="systemShow">
         <ul class="sub-list">
-          <li>
+          <li
+            id="manageProfile"
+            [class.active]="activeSublist === 'manageProfile'"
+            (click)="changeSublist('manageProfile')"
+          >
             <svg
               width="24"
               height="24"
@@ -308,7 +359,11 @@
             <a href="#">Manage Profile</a>
           </li>
 
-          <li>
+          <li
+            id="configuration"
+            [class.active]="activeSublist === 'configuration'"
+            (click)="changeSublist('configuration')"
+          >
             <svg
               width="24"
               height="24"
