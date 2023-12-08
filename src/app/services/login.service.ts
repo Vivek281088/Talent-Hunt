@@ -34,7 +34,9 @@ export class LoginService {
 
   postsignup(
     id:Date,
-    Managername: String,
+  
+    Firstname: String,
+    Lastname: String,
     emailId: string,
     phoneNumer: number | null,
     password: string,
@@ -43,14 +45,15 @@ export class LoginService {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       id:id,
-      Managername: Managername,
+      Firstname: Firstname,
+      Lastname: Lastname,
       candidateEmail: emailId,
       phoneNumber: phoneNumer,
       password: password,
       confirmPassword: confirmpassword,
       roles: "manager"
     };
-    console.log('signup', body);
+    console.log('FirstandLastname', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/signup',
       body,

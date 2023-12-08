@@ -11,18 +11,18 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]
 })
 export class SignupComponent {
-  Managername!:string;
+  Firstname!:string;
+  Lastname!:string;
   emailId!:string;
   phoneNumber:number | null = null;
   password!:string;
   confirmPassword!:string;
-
   visible: boolean = false;
   constructor(private loginservice:LoginService,private toastr:ToastrService,private messageService: MessageService,private router:Router){
-
   }
   resetform(){
-    this.Managername='';
+    this.Firstname='';
+    this.Lastname='';
     this.emailId='';
     this.phoneNumber=null;
     this.password='';
@@ -33,7 +33,7 @@ export class SignupComponent {
   signup() {
      const date = Date.now();
      this.id = new Date(date);
-    this.loginservice.postsignup(this.id,this.Managername,this.emailId,this.phoneNumber,this.password,this.confirmPassword).subscribe((data)=>{
+    this.loginservice.postsignup(this.id,this.Firstname,this.Lastname,this.emailId,this.phoneNumber,this.password,this.confirmPassword).subscribe((data)=>{
 
       // console.log("ds",data)  
       // console.log("ps",this.password)
@@ -56,5 +56,10 @@ export class SignupComponent {
   showDialog(){
     this.visible = true;
   }
+
+  alreadyhasaccount() {
+    this.router.navigate(['login']);
+  }
+
 
 }

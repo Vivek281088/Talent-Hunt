@@ -19,7 +19,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { FileUploadModule } from 'primeng/fileupload';
 import { PanelMenuModule } from 'primeng/panelmenu';
-
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
@@ -47,6 +48,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     FileUploadModule,
     PanelMenuModule,
+    AvatarModule ,
+    AvatarGroupModule
   ],
   exports: [
     MultiSelectModule,
@@ -70,6 +73,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     FileUploadModule,
     PanelMenuModule,
+    AvatarModule ,
+    AvatarGroupModule
   ],
 })
 export class PrimeModule {}

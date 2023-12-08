@@ -1,5 +1,5 @@
 <div class="signup-container">
-  <div class="signup-box">
+  <!-- <div class="signup-box"> -->
     <div class="signup-slogan">
       <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
       <p class="heading">MTalent</p>
@@ -10,21 +10,21 @@
     </div>
     <p-card class="signup-card">
       <h4 class="signup-wording">Register with your personal information</h4>
-      <form (ngSubmit)="signup()">
+      <form (ngSubmit)="signup()" class="signup-form">
         <div class="p-inputgroup name">
           <input class="signup-firstname"
             type="text"
             pInputText
             placeholder="First Name"
-            [(ngModel)]="Managername"
-            name="Managername"
+            [(ngModel)]="Firstname"
+            name="FirstName"
           />
           <input class="signup-lastname"
           type="text"
           pInputText
           placeholder="Last Name"
-          [(ngModel)]="Managername"
-          name="Managername"
+          [(ngModel)]="Lastname"
+          name="Lastname"
         />
         </div>
         <!-- <div class="p-inputgroup signup-phone "> 
@@ -67,7 +67,7 @@
           <span >Please provide the email from your Resume</span>
         </div>
       </div>
-      <div class="p-inputgroup input-with-icon">
+      <div class="p-inputgroup input-with-icon1">
         <i class="pi pi-lock"></i>
         <input class="signup-newpassword"
           type="password"
@@ -78,8 +78,8 @@
         />
         <div class="info-circle" >  
 
-          <div class="card flex justify-content-center">
-            <p-overlayPanel #op [style]="{'width': '350px'}"  >
+         
+            <p-overlayPanel #op class="password-requirements" [style]="{'width': '350px'}"  >
                 <p class="password-title"> Password Requirements</p>
                 <p class="password-content1">To ensure the security of your account, please make sure your password meets the following criteria:</p>
                 <ul class="password-content2">
@@ -116,10 +116,10 @@
             <i (mouseover)="op.toggle($event)" (mouseleave)="op.toggle($event)"  class="pi pi-info-circle" style="color: green"></i>
         </div>
         </div>
-      </div>
+   
      
 
-        <div class="p-inputgroup input-with-icon">
+        <div class="p-inputgroup input-with-icon1">
           <i class="pi pi-lock"></i>
                   <input class="confirmpassword-signup"
             type="password"
@@ -139,18 +139,42 @@
         class="p-button-success"
         [disabled]="
           !emailId ||
-          !Managername ||
+          !Firstname ||
+          !Lastname ||
           !phoneNumber ||
           !password ||
           !confirmPassword
         "
       ></button>
     </div>
-
-<div class="login-signup">Already have an account? <a href="#">Log In</a>
-</div>
+   
 </form>
+
+
+<div class="hrLine"></div>
+ <div class="login-signup">
+    <button 
+   
+    (click)="alreadyhasaccount()"
+    class="signup-button"
+    style=" border: #652D90;"
+    
+    >
+    <span class="login-label" > Already has a account ? Login</span>
+  </button>
+  </div>
+
+   <!-- <div class="login-signup">
+    <p-button 
+    
+    severity="help"
+    (click)="alreadyhasaccount()"
+    >
+    Already has a account ? Login
+  </p-button>
+  </div>  -->
+
     </p-card>
-</div>
+<!-- </div> -->
 </div>
  
