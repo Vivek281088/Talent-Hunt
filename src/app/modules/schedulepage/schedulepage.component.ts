@@ -297,7 +297,7 @@ export class SchedulepageComponent implements OnInit {
     this.managernameService.getCandidateStatus().subscribe((data) => {
       // console.log("arole",a)
       this.candidateList = data;
-      console.log('loadDAta', data);
+      console.log('sapna', data);
     });
   }
   getSkillSet() {

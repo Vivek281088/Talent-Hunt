@@ -99,6 +99,8 @@ export class TableService {
     candidatePassword: string,
     candidateConfirmPassword: string,
     roles: String
+    
+
   ): Observable<any> {
     console.log('name', name);
 
@@ -120,7 +122,7 @@ export class TableService {
       durations: durations,
       password: "abc123",
       confirmPassword: "abc123",
-      roles: roles,
+      roles: roles
     };
     console.log('Send email Data', body);
 
@@ -167,7 +169,7 @@ export class TableService {
       durations: durations,
       password: candidatePassword,
       confirmPassword: candidateConfirmPassword,
-      roles: roles,
+      roles: roles
     };
 
     console.log('Send Existing email Data', body);
