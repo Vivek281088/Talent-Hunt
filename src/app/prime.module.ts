@@ -19,6 +19,9 @@ import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { FileUploadModule } from 'primeng/fileupload';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { SidebarModule } from 'primeng/sidebar';
 
 import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -55,6 +58,9 @@ import { BadgeModule } from 'primeng/badge';
     TagModule,
     BadgeModule,
     PanelMenuModule,
+    AvatarModule,
+    AvatarGroupModule,
+    SidebarModule,
   ],
   exports: [
     MultiSelectModule,
@@ -83,6 +89,9 @@ import { BadgeModule } from 'primeng/badge';
     TagModule,
     BadgeModule,
     PanelMenuModule,
+    AvatarModule,
+    AvatarGroupModule,
+    SidebarModule,
   ],
 })
 export class PrimeModule {}

@@ -66,13 +66,12 @@
 }
 .login-card {
   .p-card .p-card-body {
-    
     width: 400px;
     height: 489px;
     gap: 24px;
   }
- .p-card .p-card-content{
-    box-shadow: 0px 0px 30px rgba(179, 171, 186, 0.2)!important;
+  .p-card .p-card-content {
+    box-shadow: 0px 0px 20px rgba(179, 171, 186, 0.2) !important;
   }
 }
 .login-container {
@@ -173,6 +172,7 @@
   border-radius: 4px;
   background: #652d90;
   border: none;
+  margin-top: 5px;
   margin-left: 24px;
   color: white;
   font-family: "Poppins", sans-serif;
@@ -199,7 +199,7 @@
 }
 .createButton {
   margin-left: 100px;
-  margin-top: 10px;
+  margin-top: 4px;
   width: 194px;
   height: 48px;
   padding: 6px, 6px, 6px, 8px;
@@ -221,6 +221,16 @@
   margin-left: 24px;
   border: 1px;
   gap: 12px;
+
+  ::ng-deep {
+    .p-inputtext:enabled:hover {
+      border-color: #0000001f;
+    }
+    .p-inputtext:enabled:focus {
+      box-shadow: none;
+      border-color: #0000001f;
+    }
+  }
 }
 
 .input-with-icon i {
@@ -344,3 +354,43 @@
  
 }
  
+
+.cardfooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  text-align: center;
+  width: 263px;
+  height: 16px;
+  gap: 8px;
+  margin-left: 60px;
+  a {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.25px;
+    text-align: center;
+    color: #1666dc;
+    cursor: pointer;
+  }
+  .a1 {
+    height: 16px;
+    width: 90px;
+  }
+  .a2 {
+    height: 16px;
+    width: 60px;
+  }
+  .a3 {
+    height: 16px;
+    width: 72px;
+  }
+  ::ng-deep {
+    .pi {
+      font-size: 0.3rem;
+      color: #00000099;
+    }
+  }
+}

@@ -16,6 +16,9 @@ import { FormControl} from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MenuItem } from 'primeng/api';
 import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
+// import { DatePipe } from '@angular/common';
+import { Table } from 'primeng/table';
+// import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -128,6 +131,7 @@ selecteddates!:Date
   dialogEmailStatus: string | null = null;
 
   roles: string = "user";
+  showcardFlag:boolean=false
 
   // candidateForm !: FormGroup;
   constructor(
@@ -161,9 +165,6 @@ selecteddates!:Date
 
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
-
-    this.finalizedManagerEmail = this.managernameService.getManagerName();
-    
 
     this.loadManagerNames();
     this.getSkillSet();
@@ -249,6 +250,7 @@ getsvgIcon():string{
       this.loadCandidate();
     }
   }
+
   loadCandidate() {
     const role = localStorage.getItem('userrole');
     console.log('role', role);
@@ -289,6 +291,7 @@ getsvgIcon():string{
       });
       // localStorage.removeItem('userrole');
     }
+
     console.log('load data 1', this.candidateList);
     console.log('selected candidate', this.selectedCandidates);
     // Loop through selectedCandidates and store data for each candidate
@@ -348,7 +351,7 @@ getsvgIcon():string{
     this.managernameService.getCandidateStatus().subscribe((data) => {
       // console.log("arole",a)
       this.candidateList = data;
-      console.log('sapna', data);
+      console.log('loadDAta', data);
     });
   }
   getSkillSet() {
@@ -356,11 +359,22 @@ getsvgIcon():string{
       this.skillSet = data;
     });
   }
-  onSearchClick() {
+  // onSearchClick() {
+  //   // date1!:Date;
+  //   // date1!:Date;
+  //   this.fromDate=this.datepipe.transform(this.selectedDate[0],'dd-MMM-yy');
+  //   this.toDate=this.datepipe.transform(this.selectedDate[1],'dd-MMM-yy');
+    
+  
+  showcard(){
+this.showcardFlag=true;
+  }
+  onSearchClick(dt2 :Table) {
+    dt2.clear();
     // date1!:Date;
-    // date1!:Date;
-    this.fromDate=this.datepipe.transform(this.selectedDate[0],'dd-MMM-yy');
-    this.toDate=this.datepipe.transform(this.selectedDate[1],'dd-MMM-yy');
+    // // date1!:Date;
+    // this.fromDate=this.datepipe.transform(this.selectedDate[0],'dd-MMM-yy');
+    // this.toDate=this.datepipe.transform(this.selectedDate[1],'dd-MMM-yy');
     // console.log('date----------------->', this.selecteddates);
     // this.Skills.push(this.filterSkills)
     // this.fromDate=this.selectedDate[0];
@@ -757,71 +771,71 @@ getsvgIcon():string{
 
   submitReview(candidate: any) {
     this.totalQuestions = this.FinalizedQuestions.length;
- 
+
     this.correctQuestions = this.FinalizedQuestions.filter(
       (question) => question.reviewerResponse === 'Correct'
     ).length;
- 
+
     this.score = (this.correctQuestions / this.totalQuestions) * 100;
- 
+
     if (this.score > this.cutoff) {
       this.result = 'Selected';
     } else this.result = 'Not Selected';
- 
+
     this.score.toFixed(2);
- 
+
     console.log('Score :', this.score);
- 
+
     console.log('Result :', this.result);
- 
+
     console.log('Correct :', this.correctQuestions);
- 
+
     // Check if any questions have been marked as correct or incorrect
- 
+
     let questionsMarked = false;
- 
+
     for (const question of this.FinalizedQuestions) {
       if (question.isCorrect !== undefined) {
         questionsMarked = true;
- 
+
         break; // Exit the loop once a marked question is found
       }
     }
- 
+
     if (!this.checkInteraction()) {
       console.log('Inside Check Interaction', this.interaction);
- 
+
       this.showError();
     } else {
       const updateData = {
         id: this.id,
 
         score: this.score.toFixed(2),
- 
+
         result: this.result,
- 
+
         questions: this.FinalizedQuestions,
- 
+
         email_Status: this.reviewerStatus,
       };
- 
+
       this.reviewerService
- 
+
         .updateScoreAndResult(updateData)
- 
+
         .subscribe((response) => {
           console.log('Score and result updated successfully', response);
         });
- 
+
       console.log('Inside Check Interaction', this.interaction);
- 
+
       this.showSubmitted();
- 
+
       this.getExistingTableData();
       setTimeout(() => {
         this.visible = false;
       }, 2000);
- 
+
       this.getExistingTableData();
     }
   }
@@ -946,77 +960,6 @@ getsvgIcon():string{
     this.router.navigate(['questiondb']);
   }
 }
-
-
-// Loading skills for dropdown in add question
-// loadSkills() {
-//   console.log('hi from Client');
-
-//   this.skillsdropdownservice.getskillsList().subscribe((data) => {
-//     this.skillSet = data.skill;
-
-//     // console.log(this.skillSet);
-
-//     // console.log('Users:' + JSON.stringify(this.selectedSkill));
-//   });
-// }
-//   closequestiondialog(){
-//     this.resetdialog();
-//   }
-
-// addquestion(){
-//   // console.log(this.question, this.selectedquestionType, this.option1, this.option2, this.option3, this.option4, this.chosenSkill, this.selecteddifficultyType,this.selectedAnswer)
-//   console.log("Selected", this.selectedAnswers)
-//   console.log("Hi", this.selectedAnswer)
-//   console.log("Hi", this.option1, this.option2, this.option3, this.option4,)
-//   console.log("Hi", this.selectedquestionType, this.chosenSkill)
-
-//   this.managernameService.postquestionstodb(
-//     this.question, 
-//     this.selectedquestionType, 
-//     this.option1, 
-//     this.option2, 
-//     this.option3, 
-//     this.option4, 
-//     this.chosenSkill, 
-//     this.selecteddifficultyType,
-//     this.selectedAnswer,
-//     this.selectedAnswers
-//     ).subscribe((data) => {
-//    console.log("hi", data)
-//   });
-// this.showSuccess();
-// }
-// showSuccess() {
-//   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Question Added Successfully' });
-// }
-
-// resetdialog() {
-//    this.question= ''; 
-//     this.selectedquestionType= ''; 
-//     this.option1= '';
-//     this.option2= '';
-//     this.option3= '';
-//     this.option4= '';
-//     this.chosenSkill= ''; 
-//     this.selecteddifficultyType= '';
-//     this.selectedAnswer= '';
-//     // this.selectedAnswers= '';
-
-// }
-// typeSelected(){
-  
-// }
-
-// onAddQuestionClick(){
-//   this.router.navigate(['questiondb']);
-// }
-
-// }
-
-
-
-
 
 interface Column {
   field: string;

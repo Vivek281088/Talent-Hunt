@@ -4,6 +4,20 @@
 // ::ng-deep .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
 //   color: #00000061;
 // }
+
+.table-content{
+  box-shadow: 0 4px 8px #0000001a;
+  border: 1px solid rgb(122, 120, 120);
+  margin-top: 50px;
+  // border-radius: 0px;
+  width: 1450px;
+  border-radius: 17px;
+    border-top-left-radius: 17px;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    border-bottom-left-radius: 17px;
+  // background-color: red;
+}
 ::ng-deep .p-column-filter-row {
   display: flex;
   /* align-items: center; */
@@ -29,6 +43,8 @@
 .card{
   width: 1,158px;
   height: 436px;
+  // width: 1,158px;
+  // height: 436px;
   border-radius: 8px;
   border: 1px;
  
@@ -284,6 +300,7 @@ color: #00000099;
   border: 1px solid #ccc; /* Add a border to maintain appearance */
   /* Add any other styles you need for the input */
 }
+
 .table-container {
   width: 100%;
 }
@@ -506,9 +523,9 @@ body {
   margin: 4px 0px 0px 0px;
 }
 
-:host ::ng-deep .p-datatable-wrapper {
-  margin-top: 80px;
-}
+// :host ::ng-deep .p-datatable-wrapper {
+//   margin-top: 80px;
+// }
 
 :host ::ng-deep .p-radiobutton-box {
   height: 20px;
