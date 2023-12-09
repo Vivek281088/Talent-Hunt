@@ -14,12 +14,10 @@ import { LoginComponent } from './modules/login/login.component';
 
 import { SignupComponent } from './modules/signup/signup.component';
 
-
-
 import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
-import { QuestiondbComponent } from './questiondb/questiondb.component';
+import { QuestiondbComponent } from './modules/questiondb/questiondb.component';
 import { authGuard } from './Guard/auth.guard';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 // import { AuthClassGuard } from './Guard/auth-class.guard';
