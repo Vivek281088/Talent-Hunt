@@ -21,7 +21,7 @@ import { AssessmentDisplayComponent } from './modules/assessment-display/assessm
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 import { MessageService } from 'primeng/api';
-import { QuestiondbComponent } from './questiondb/questiondb.component';
+import { QuestiondbComponent } from './modules/questiondb/questiondb.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
@@ -34,6 +34,7 @@ import { CandidateTableComponent } from './candidate-table/candidate-table.compo
 
 
 
+import { BodyComponent } from './modules/body/body.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { CandidateTableComponent } from './candidate-table/candidate-table.compo
     AssessmentTableComponent,
     CandidateTableComponent,
 
+    BodyComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,7 @@ import { CandidateTableComponent } from './candidate-table/candidate-table.compo
     HttpClientModule,
     ReactiveFormsModule,
     OverlayPanelModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [MessageService],

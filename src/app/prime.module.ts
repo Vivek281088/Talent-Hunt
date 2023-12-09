@@ -21,6 +21,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { SidebarModule } from 'primeng/sidebar';
 
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -50,7 +51,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     FileUploadModule,
     PanelMenuModule,
     AvatarModule,
-    AvatarGroupModule
+    AvatarGroupModule,
+    SidebarModule,
   ],
   exports: [
     MultiSelectModule,
@@ -75,7 +77,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     FileUploadModule,
     PanelMenuModule,
     AvatarModule,
-    AvatarGroupModule
+    AvatarGroupModule,
+    SidebarModule,
   ],
 })
 export class PrimeModule {}

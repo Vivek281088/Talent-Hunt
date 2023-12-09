@@ -85,6 +85,13 @@ height: 19px;
     height: 449px;
     gap: 24px;
     padding: 0px;
+    
+    .p-inputtext{
+      color: #00000099;
+    }
+    .p-card .p-card-content{
+      box-shadow: 0px 0px 30px rgba(179, 171, 186, 0.2)!important;
+    }
   }
   .p-inputtext{
     color: #aaa;
