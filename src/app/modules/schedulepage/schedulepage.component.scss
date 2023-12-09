@@ -41,8 +41,6 @@
 }
 
 .card{
-  width: 1,158px;
-  height: 436px;
   // width: 1,158px;
   // height: 436px;
   border-radius: 8px;
@@ -90,31 +88,32 @@ border: 1px solid #00000061;
   color: #6c757d;
   margin-right: 0px;
   margin-left: -14px;
+  // background: beige;
 }
 
 ::ng-deep .p-datatable .p-datatable-thead tr th{
-  background: transparent;
+  background: white;
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  border-radius: .5rem;
-  background-color: #fff;
-  margin: 1.25rem 0 1.25rem 0;
-  box-shadow: 0 .25rem .5rem #e6edef;
+// .card {
+//   display: flex;
+//   flex-direction: column;
+//   border-radius: .5rem;
+//   background-color: #fff;
+//   // margin: 1.25rem 0 1.25rem 0;
+//   box-shadow: 0 .25rem .5rem #e6edef;
 
-  .card-head {
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid #edf1f7;
-      font-size: 1rem;
-      font-weight: 600;
-  }
+//   .card-head {
+//       padding: 1rem 1.5rem;
+//       border-bottom: 1px solid #edf1f7;
+//       font-size: 1rem;
+//       font-weight: 600;
+//   }
 
-  .card-body {
-      padding: 1rem 1.5rem;
-  }
-}
+//   .card-body {
+//       padding: 1rem 1.5rem;
+//   }
+// }
   // ::ng-deep .p-card {
   //   width: 1158px;
   //   background: #ffffff;

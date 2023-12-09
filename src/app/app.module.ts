@@ -33,7 +33,7 @@ import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
 
-
+// import { TabView } from 'primeng/tabview';
 
 import { BodyComponent } from './modules/body/body.component';
 
@@ -75,6 +75,7 @@ import { BodyComponent } from './modules/body/body.component';
     HttpClientModule,
     ReactiveFormsModule,
     OverlayPanelModule,
+    
     ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],

@@ -13,10 +13,8 @@ import { lastValueFrom } from 'rxjs';
 import { CalendarModule } from 'primeng/calendar';
 // import { ManagernameService } from 'src/app/services/managername.service';
 import { FormControl} from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { MenuItem } from 'primeng/api';
-import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
 // import { DatePipe } from '@angular/common';
+import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 // import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
 @Component({
@@ -145,9 +143,7 @@ selecteddates!:Date
     // reviewer
     private messageService: MessageService,
 
-    private reviewerService: ReviewerService,
-    private datepipe:DatePipe,
-    private sanitizer:DomSanitizer
+    private reviewerService: ReviewerService
   ) {
     
   }
@@ -359,12 +355,6 @@ getsvgIcon():string{
       this.skillSet = data;
     });
   }
-  // onSearchClick() {
-  //   // date1!:Date;
-  //   // date1!:Date;
-  //   this.fromDate=this.datepipe.transform(this.selectedDate[0],'dd-MMM-yy');
-  //   this.toDate=this.datepipe.transform(this.selectedDate[1],'dd-MMM-yy');
-    
   
   showcard(){
 this.showcardFlag=true;

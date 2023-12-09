@@ -1,5 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+ 
+.wholebar{
+  display: flex;
+ 
+}
 .side-nav {
   display: flex;
   flex-direction: row;
@@ -9,11 +14,15 @@
   gap: 10px;
   color: #00000099;
   transition: width 0.6s ease;
+  .top-sec {
+    margin-top: 7px;
+    margin-left: 5px;
+  }
 }
 .disabled {
   color: #f2f2f2;
 }
-
+ 
 .ul1,
 .ul2 {
   padding: 0;
@@ -38,7 +47,7 @@
     }
   }
 }
-
+ 
 .ul1 span {
   transition: width 0.6s ease;
   .sub-list li.active {
@@ -74,7 +83,7 @@ ul li a {
   display: flex;
   align-items: center;
   justify-content: center;
-
+ 
   cursor: pointer;
   width: 218px;
   height: 34px;
@@ -88,11 +97,11 @@ ul li a {
   padding-top: 5px;
   padding-left: 8px;
   padding-right: 8px;
-
+ 
   &:hover {
     background: #c81a78;
     color: #f2f2f2;
-
+ 
     .disabled {
       color: #c81a78;
     }
@@ -101,7 +110,7 @@ ul li a {
     background: #c81a78;
     color: #f2f2f2;
   }
-
+ 
   i {
     width: 24px;
     height: 24px;
@@ -123,9 +132,9 @@ ul li a {
 }
 .toggle-btn {
   cursor: pointer;
-
+ 
   margin-top: 12px;
-  margin-left: -4px;
+  margin-left: -21px;
   padding: 7px, 0px, 7px, 0px;
   border-radius: 12px;
   gap: 8px;
@@ -135,7 +144,7 @@ ul li a {
   background-color: white;
   margin-left: 0px;
   transition: width 0.6s ease;
-
+ 
   li {
     background: white;
     &:hover svg rect {
@@ -150,11 +159,11 @@ ul li a {
     }
   }
 }
-
+ 
 .ul1 ul .ass-show.show {
   display: block;
 }
-
+ 
 .side-nav.collapsed {
   width: 72px;
   height: 968px;
@@ -162,10 +171,11 @@ ul li a {
   left: 282px;
   gap: 10px;
   transition: width 0.6s ease;
-
+ 
   .toggle-btn {
     transform: rotate(-180deg);
   }
+ 
   .ul1 {
     width: 40px;
     height: 220px;
@@ -191,14 +201,17 @@ ul li a {
     border-radius: 4px;
     gap: 8px;
     background: white;
-
+ 
     &:hover {
       background: #c81a78;
       color: #f2f2f2;
     }
   }
 }
-
+.side-nav.collapsed .ul1 li.active{  
+    color: #00000099;
+ 
+}
 .side-nav.collapsed {
   .ul1 a,
   .ul1 p,
@@ -209,3 +222,4 @@ ul li a {
     transition: width 0.6s ease;
   }
 }
+ 

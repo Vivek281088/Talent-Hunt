@@ -1,409 +1,298 @@
-<!-- <div class="sidebar-menu">
-   <div>
-    <div class="side1">
-      <ul class="navList">
-        <li class="li-name">
-          <a href="#" class="navNames">
-            <i class="pi pi-th-large sideIcon"></i>
-            Home
-          </a>
+<div class="wholebar">
+  <div class="side-nav" [class.collapsed]="isSideNavCollapsed">
+    <div class="top-sec">
+      <ul class="ul1">
+        <li
+          id="home"
+          [class.active]="activeSection === 'home'"
+          (click)="changeStyle('home')"
+        >
+          <i class="pi pi-th-large"></i>
+          <p>Home</p>
+          <span class="disabled">
+            <i class="pi pi-angle-down"></i>
+          </span>
         </li>
-        <li class="li-name">
-          <a href="#" class="navNames" id="ass-btn" (onclick)="changeStyle()">
-            <i class="pi pi-map sideIcon"></i>
-            Assessment
-            <i
-            class="pi pi-angle-down sideIcon"[ngClass]="{ 'sub-menu': submenuAssessment }"
-          ></i>
-          </a> 
-          
-          
+        <li
+          id="assessment"
+          [class.active]="activeSection === 'assessment'"
+          (click)="changeStyle('assessment')"
+          (click)="changeStyle1()"
+        >
+          <i class="pi pi-map"></i>
+          <p>Assessment</p>
+          <span>
+            <i class="pi pi-angle-down"></i>
+          </span>
         </li>
-        <ul class="sub-menu1" id="ass-show">
-          <li class="sub-menu-li">
-            <a href="#" class="sub-menu-a"> Manage Schedule</a>
-          </li>
-          <li class="sub-menu-li">
-            <a href="#" class="sub-menu-a">Manage Assessment</a>
-          </li>
-        </ul>
-        <li class="li-name">
-          <a href="#" class="navNames">
-            <i class="pi pi-user sideIcon"></i>User
-          </a>
-          <i
-            class="pi pi-angle-down sideIcon"
-            (onclick)="changeStyle()"
-            [ngClass]="{ 'sub-menu': submenuAssessment }"
-          ></i>
+        <span *ngIf="assessmentShow">
+          <ul class="sub-list">
+            <li
+              id="manageSchedule"
+              [class.active]="activeSublist === 'manageSchedule'"
+              (click)="changeSublist('manageSchedule')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+ 
+              <a [routerLink]="['/sidenav']">Manage Schedule</a>
+            </li>
+ 
+            <li
+              id="manageAssessment"
+              [class.active]="activeSublist === 'manageAssessment'"
+              (click)="changeSublist('manageAssessment')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+              <a href="#">Manage Assessment</a>
+            </li>
+          </ul>
+        </span>
+        <li
+          id="user"
+          [class.active]="activeSection === 'user'"
+          (click)="changeStyle('user')"
+          (click)="changeStyle2()"
+        >
+          <i class="pi pi-user"></i>
+          <p>User</p>
+          <span>
+            <i class="pi pi-angle-down"></i>
+          </span>
         </li>
-        <ul class="sub-menu1">
-          <li class="sub-menu-li">
-            <a href="#" class="sub-menu-a"> Manage Managers </a>
-          </li>
-          <li class="sub-menu-li">
-            <a href="#" class="sub-menu-a">Manage Candidates </a>
-          </li>
-        </ul>
-        <li class="li-name">
-          <a href="#" class="navNames">
-            <i class="pi pi-book sideIcon"></i>Question Bank
-          </a>
-          <i
-            class="pi pi-angle-down sideIcon"
-            (onclick)="changeStyle()"
-            [ngClass]="{ 'sub-menu': submenuAssessment }"
-          ></i>
+        <span *ngIf="userShow">
+          <ul class="sub-list">
+            <li
+              id="manageManagers"
+              [class.active]="activeSublist === 'manageManagers'"
+              (click)="changeSublist('manageManagers')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+ 
+              <a href="#">Manage Managers</a>
+            </li>
+ 
+            <li
+              id="manageCandidates"
+              [class.active]="activeSublist === 'manageCandidates'"
+              (click)="changeSublist('manageCandidates')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+              <a href="#">Manage Candidates</a>
+            </li>
+          </ul>
+        </span>
+ 
+        <li
+          id="question_bank"
+          [class.active]="activeSection === 'question_bank'"
+          (click)="changeStyle('question_bank')"
+          (click)="changeStyle3()"
+        >
+          <i class="pi pi-book"></i>
+          <p>Question Bank</p>
+          <span><i class="pi pi-angle-down"></i></span>
         </li>
-        <ul class="sub-menu1">
-          <li class="sub-menu-li">
-            <a href="#" class="sub-menu-a"> Manage Skills</a>
-          </li>
-          <li class="sub-menu-li">
-            <a href="#" class="sub-menu-a">Manage Questions</a>
-          </li>
-        </ul>
-        <li class="li-name">
-          <a href="#" class="navNames">
-            <i class="pi pi-cog sideIcon"></i>
-
-            System
-          </a>
-          <i
-            class="pi pi-angle-down sideIcon"
-            (onclick)="changeStyle()"
-            [ngClass]="{ 'sub-menu': submenuAssessment }"
-          ></i>
+        <span *ngIf="questionBankShow">
+          <ul class="sub-list">
+            <li
+              id="manageSkills"
+              [class.active]="activeSublist === 'manageSkills'"
+              (click)="changeSublist('manageSkills')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+ 
+              <a href="#">Manage Skills</a>
+            </li>
+ 
+            <li
+              id="manageQuestions"
+              [class.active]="activeSublist === 'manageQuestions'"
+              (click)="changeSublist('manageQuestions')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+              <a href="#">Manage Questions</a>
+            </li>
+          </ul>
+        </span>
+ 
+        <li
+          id="system"
+          [class.active]="activeSection === 'system'"
+          (click)="changeStyle('system')"
+          (click)="changeStyle4()"
+        >
+          <i class="pi pi-cog"></i>
+          <p>System</p>
+          <span><i class="pi pi-angle-down"></i></span>
         </li>
-        <ul class="sub-menu1">
-          <li class="sub-menu-li">
-            <a href="#" class="sub-menu-a"> Manage Profile</a>
-          </li>
-          <li class="sub-menu-li">
-            <a href="#" class="sub-menu-a">Manage Configuration</a>
-          </li>
-        </ul>
+        <span *ngIf="systemShow">
+          <ul class="sub-list">
+            <li
+              id="manageProfile"
+              [class.active]="activeSublist === 'manageProfile'"
+              (click)="changeSublist('manageProfile')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+ 
+              <a href="#">Manage Profile</a>
+            </li>
+ 
+            <li
+              id="configuration"
+              [class.active]="activeSublist === 'configuration'"
+              (click)="changeSublist('configuration')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+              <a href="#">Configuration</a>
+            </li>
+          </ul>
+        </span>
+      </ul>
+ 
+      <ul class="ul2">
+        <li>
+          <i class="pi pi-question-circle"></i>
+          <p>Help</p>
+        </li>
+        <li>
+          <i class="pi pi-power-off"></i>
+          <a href="#">Sign Out</a>
+        </li>
       </ul>
     </div>
-
-    <div class="sideDown">
-      <ul class="navList2">
-        <li class="li-name-down">
-          <a href="#" class="navNames">
-            <i class="pi pi-question-circle sideIcon"></i>
-            Help
-          </a>
-        </li>
-        <li class="li-name-down">
-          <a href="#" class="navNames">
-            <i class="pi pi-power-off sideIcon"></i>
-
-            Sign Out
-          </a>
-        </li>
-      </ul>
-    </div>
+ 
+   
   </div>
-
-  <div class="toggle-btn">
-    <i class="pi pi-chevron-circle-right toggle-btn"></i>
-  </div>
-</div> -->
-<div class="side-nav" [class.collapsed]="isSideNavCollapsed">
-  <div class="top-sec">
-    <ul class="ul1">
-      <li
-        id="home"
-        [class.active]="activeSection === 'home'"
-        (click)="changeStyle('home')"
-      >
-        <i class="pi pi-th-large"></i>
-        <p>Home</p>
-        <span class="disabled">
-          <i class="pi pi-angle-down"></i>
-        </span>
-      </li>
-      <li
-        id="assessment"
-        [class.active]="activeSection === 'assessment'"
-        (click)="changeStyle('assessment')"
-        (click)="changeStyle1()"
-      >
-        <i class="pi pi-map"></i>
-        <p>Assessment</p>
-        <span>
-          <i class="pi pi-angle-down"></i>
-        </span>
-      </li>
-      <span *ngIf="assessmentShow">
-        <ul class="sub-list">
-          <li
-            id="manageSchedule"
-            [class.active]="activeSublist === 'manageSchedule'"
-            (click)="changeSublist('manageSchedule')"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="17.5"
-                y="9.5"
-                width="5"
-                height="5"
-                rx="2.5"
-                stroke="black"
-                stroke-opacity="0.6"
-              />
-            </svg>
-
-            <a [routerLink]="['/sidenav']">Manage Schedule</a>
-          </li>
-
-          <li
-            id="manageAssessment"
-            [class.active]="activeSublist === 'manageAssessment'"
-            (click)="changeSublist('manageAssessment')"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="17.5"
-                y="9.5"
-                width="5"
-                height="5"
-                rx="2.5"
-                stroke="black"
-                stroke-opacity="0.6"
-              />
-            </svg>
-            <a href="#">Manage Assessment</a>
-          </li>
-        </ul>
-      </span>
-      <li
-        id="user"
-        [class.active]="activeSection === 'user'"
-        (click)="changeStyle('user')"
-        (click)="changeStyle2()"
-      >
-        <i class="pi pi-user"></i>
-        <p>User</p>
-        <span>
-          <i class="pi pi-angle-down"></i>
-        </span>
-      </li>
-      <span *ngIf="userShow">
-        <ul class="sub-list">
-          <li
-            id="manageManagers"
-            [class.active]="activeSublist === 'manageManagers'"
-            (click)="changeSublist('manageManagers')"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="17.5"
-                y="9.5"
-                width="5"
-                height="5"
-                rx="2.5"
-                stroke="black"
-                stroke-opacity="0.6"
-              />
-            </svg>
-
-            <a href="#">Manage Managers</a>
-          </li>
-
-          <li
-            id="manageCandidates"
-            [class.active]="activeSublist === 'manageCandidates'"
-            (click)="changeSublist('manageCandidates')"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="17.5"
-                y="9.5"
-                width="5"
-                height="5"
-                rx="2.5"
-                stroke="black"
-                stroke-opacity="0.6"
-              />
-            </svg>
-            <a href="#">Manage Candidates</a>
-          </li>
-        </ul>
-      </span>
-
-      <li
-        id="question_bank"
-        [class.active]="activeSection === 'question_bank'"
-        (click)="changeStyle('question_bank')"
-        (click)="changeStyle3()"
-      >
-        <i class="pi pi-book"></i>
-        <p>Question Bank</p>
-        <span><i class="pi pi-angle-down"></i></span>
-      </li>
-      <span *ngIf="questionBankShow">
-        <ul class="sub-list">
-          <li
-            id="manageSkills"
-            [class.active]="activeSublist === 'manageSkills'"
-            (click)="changeSublist('manageSkills')"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="17.5"
-                y="9.5"
-                width="5"
-                height="5"
-                rx="2.5"
-                stroke="black"
-                stroke-opacity="0.6"
-              />
-            </svg>
-
-            <a href="#">Manage Skills</a>
-          </li>
-
-          <li
-            id="manageQuestions"
-            [class.active]="activeSublist === 'manageQuestions'"
-            (click)="changeSublist('manageQuestions')"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="17.5"
-                y="9.5"
-                width="5"
-                height="5"
-                rx="2.5"
-                stroke="black"
-                stroke-opacity="0.6"
-              />
-            </svg>
-            <a href="#">Manage Questions</a>
-          </li>
-        </ul>
-      </span>
-
-      <li
-        id="system"
-        [class.active]="activeSection === 'system'"
-        (click)="changeStyle('system')"
-        (click)="changeStyle4()"
-      >
-        <i class="pi pi-cog"></i>
-        <p>System</p>
-        <span><i class="pi pi-angle-down"></i></span>
-      </li>
-      <span *ngIf="systemShow">
-        <ul class="sub-list">
-          <li
-            id="manageProfile"
-            [class.active]="activeSublist === 'manageProfile'"
-            (click)="changeSublist('manageProfile')"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="17.5"
-                y="9.5"
-                width="5"
-                height="5"
-                rx="2.5"
-                stroke="black"
-                stroke-opacity="0.6"
-              />
-            </svg>
-
-            <a href="#">Manage Profile</a>
-          </li>
-
-          <li
-            id="configuration"
-            [class.active]="activeSublist === 'configuration'"
-            (click)="changeSublist('configuration')"
-          >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect
-                x="17.5"
-                y="9.5"
-                width="5"
-                height="5"
-                rx="2.5"
-                stroke="black"
-                stroke-opacity="0.6"
-              />
-            </svg>
-            <a href="#">Configuration</a>
-          </li>
-        </ul>
-      </span>
-    </ul>
-
-    <ul class="ul2">
-      <li>
-        <i class="pi pi-question-circle"></i>
-        <p>Help</p>
-      </li>
-      <li>
-        <i class="pi pi-power-off"></i>
-        <a href="#">Sign Out</a>
-      </li>
-    </ul>
-  </div>
-
   <div>
-    <!-- <i
-      class="pi pi-chevron-circle-right toggle-btn"
-      (click)="toggleSideNav()"
-    ></i> -->
+     
     <svg
       width="44"
       height="44"
@@ -499,4 +388,6 @@
       </defs>
     </svg>
   </div>
+ 
 </div>
+ 
