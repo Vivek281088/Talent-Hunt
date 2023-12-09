@@ -11,6 +11,11 @@
   margin-top: 50px;
   // border-radius: 0px;
   width: 1450px;
+  border-radius: 17px;
+    border-top-left-radius: 17px;
+    border-top-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+    border-bottom-left-radius: 17px;
   // background-color: red;
 }
 ::ng-deep .p-column-filter-row {
