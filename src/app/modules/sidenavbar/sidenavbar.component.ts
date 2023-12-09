@@ -24,21 +24,15 @@ export class SidenavbarComponent {
 
   changeStyle(section: string) {
     const sections = ['home', 'assessment', 'user', 'question_bank', 'system'];
-
-    //remove active class for all
     sections.forEach((sec) => {
       const element = document.getElementById(sec);
       if (element) {
         element.classList.remove('active');
       }
-
-      //add active
       const activeElement = document.getElementById(section);
       if (activeElement) {
         activeElement.classList.add('active');
       }
-
-      //updating active section
       this.activeSection = section;
     });
   }
