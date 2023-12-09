@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 
+.wholebar{
+  display: flex;
+
+}
 .side-nav {
   display: flex;
   flex-direction: row;
@@ -9,6 +13,10 @@
   gap: 10px;
   color: #00000099;
   transition: width 0.6s ease;
+  .top-sec {
+    margin-top: 7px;
+    margin-left: 5px;
+  }
 }
 .disabled {
   color: #f2f2f2;
@@ -125,7 +133,7 @@ ul li a {
   cursor: pointer;
 
   margin-top: 12px;
-  margin-left: -4px;
+  margin-left: -21px;
   padding: 7px, 0px, 7px, 0px;
   border-radius: 12px;
   gap: 8px;
@@ -166,6 +174,7 @@ ul li a {
   .toggle-btn {
     transform: rotate(-180deg);
   }
+  
   .ul1 {
     width: 40px;
     height: 220px;
@@ -198,7 +207,10 @@ ul li a {
     }
   }
 }
-
+.side-nav.collapsed .ul1 li.active{  
+    color: #00000099;
+  
+}
 .side-nav.collapsed {
   .ul1 a,
   .ul1 p,

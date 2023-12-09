@@ -20,6 +20,7 @@ export class SidenavbarComponent {
 
   toggleSideNav() {
     this.isSideNavCollapsed = !this.isSideNavCollapsed;
+    
   }
 
   changeStyle(section: string) {
