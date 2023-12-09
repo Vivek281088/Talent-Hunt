@@ -4,6 +4,7 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-dash1',
@@ -12,7 +13,10 @@ import { MessageService } from 'primeng/api';
 })
 export class Dash1Component implements OnInit {
   // manager!: Manager[];
-
+  rangeDates!: Date[] ;
+  FromDate!:any;
+  // toDate : Date = new Date()
+  ToDate!:any;
   Skills: any = [];
 
   selectedManager: any;
@@ -52,7 +56,8 @@ export class Dash1Component implements OnInit {
     private managernameService: ManagernameService,
     public router: Router,
     private messageService : MessageService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private datepipe:DatePipe
   ) {}
 
   ngOnInit() {
@@ -98,6 +103,14 @@ export class Dash1Component implements OnInit {
     //   .subscribe((data) => {
 
     //   });
+  }
+  onDateSelect(event:any){
+    if(event.originalEvent && event.originalEvent.type==='date'){
+      this.FromDate=event.value[0];
+      this.ToDate=event.value[1];
+    }
+    console.log("date is=------------------",this.FromDate,this.ToDate)
+
   }
 
   submitForm() {
@@ -170,9 +183,16 @@ export class Dash1Component implements OnInit {
       )}_v${newVersion}`;
       console.log('lv:', latestVersion);
       //save the data
+      
+      this.FromDate= this.datepipe.transform(this.rangeDates[0],'dd-MMM-yy');
+      this.ToDate= this.datepipe.transform(this.rangeDates[1],'dd-MMM-yy');
+      console.log("date to save------------------>",this.FromDate)
+      
       const dataToSave = {
         Questions: this.FinalizedQuestions,
         durations: this.duration,
+        FromDate:this.FromDate,
+        ToDate:this.ToDate,
         JobDescription:this.JobDescription,
         No_Of_Candidate_Selected:0,
         No_Of_Candidate_NotSelected:0,

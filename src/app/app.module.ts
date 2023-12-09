@@ -23,6 +23,7 @@ import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword
 import { MessageService } from 'primeng/api';
 import { QuestiondbComponent } from './modules/questiondb/questiondb.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import { DatePipe } from '@angular/common';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
 import { ChipModule } from 'primeng/chip';
@@ -35,6 +36,7 @@ import { CandidateTableComponent } from './candidate-table/candidate-table.compo
 
 
 import { BodyComponent } from './modules/body/body.component';
+
 
 @NgModule({
   declarations: [
@@ -76,7 +78,7 @@ import { BodyComponent } from './modules/body/body.component';
     ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [MessageService],
+  providers: [MessageService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

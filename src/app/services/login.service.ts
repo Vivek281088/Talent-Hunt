@@ -34,7 +34,8 @@ export class LoginService {
 
   postsignup(
     id:Date,
-    Managername: String,
+    Firstname: String,
+    Lastname: String,
     emailId: string,
     phoneNumer: number | null,
     password: string,
@@ -43,7 +44,8 @@ export class LoginService {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       id:id,
-      Managername: Managername,
+      Firstname: String,
+      Lastname: String,
       candidateEmail: emailId,
       phoneNumber: phoneNumer,
       password: password,
