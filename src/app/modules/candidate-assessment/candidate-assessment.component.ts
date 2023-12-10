@@ -369,7 +369,7 @@ export class CandidateAssessmentComponent implements OnInit{
         // this.toDate=this.selectedDate[1];
     
         this.skillsdropdownservice
-          .filterManager(this.filterManager, this.filterSkills)
+          .filterManager(this.filterManager, this.filterSkills,this.fromDate,this.toDate)
           .subscribe((data) => {
             console.log('Api response', data);
             this.filteredData = data;
@@ -488,7 +488,8 @@ export class CandidateAssessmentComponent implements OnInit{
             this.durations,
             this.candidatePassword,
             this.candidateConfirmPassword,
-            this.roles
+            this.roles,
+            this.candidateSkill
           )
           .subscribe((response) => {
             console.log('stored', response);

@@ -1,22 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
-
-
+ 
+ 
 // ::ng-deep .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
 //   color: #00000061;
 // }
-
-.table-content{
-  box-shadow: 0 4px 8px #0000001a;
-  border: 1px solid rgb(122, 120, 120);
-  margin-top: 50px;
-  // border-radius: 0px;
-  width: 1450px;
-  border-radius: 17px;
-    border-top-left-radius: 17px;
-    border-top-right-radius: 17px;
-    border-bottom-right-radius: 17px;
-    border-bottom-left-radius: 17px;
-  // background-color: red;
+.full-content{
+  width: (1,190px);
+height: (541px);
+padding: 16px;
+gap: 16px
+}
+::ng-deep .table-content{
+  .p-datatable-thead{
+    border : 20px solid red
+  }
+  .p-datatable{
+   
+    padding-top: 40px;
+    //border-radius: 10%;
+  }
+ 
+ // border-radius: 200px;
+  .p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    /* padding: 1rem 1rem; */
+    padding: 8px 16px 8px 16px;
+    //background-color: red;
+  }
+ 
+//   box-shadow: 0 4px 8px #0000001a;
+//  // border: 1px solid rgb(122, 120, 120);
+//  // margin-top: 50px;
+//   // border-radius: 0px;
+//   width: 1450px;
+//   border-radius: 17px;
+//     // border-top-left-radius: 17px;
+//     // border-top-right-radius: 17px;
+//     // border-bottom-right-radius: 17px;
+//     // border-bottom-left-radius: 17px;
+//   // background-color: red;
 }
 ::ng-deep .p-column-filter-row {
   display: flex;
@@ -28,7 +52,7 @@
   display: flex;
   background: #EFEFEF;
 }
-
+ 
 .filter-components{
   display: flex;
   //flex-direction: row;
@@ -39,10 +63,8 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
-
+ 
 .card{
-  width: 1,158px;
-  height: 436px;
   // width: 1,158px;
   // height: 436px;
   border-radius: 8px;
@@ -53,7 +75,7 @@ linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
 border: 1px solid #0000001F;
 }
 ::ng-deep .manager {
-
+ 
   display: flex;
   align-items: center;
   // width: 70%;
@@ -62,10 +84,10 @@ height: 36px;
 padding: 12px, 8px, 12px, 8px;
 border-radius: 4px;
 gap: 8px;
-
+ 
 // background: #EFEFEF;
 color: #EFEFEF;
-
+ 
 }
 ::ng-deep .p-calendar .p-inputtext {
   flex: 1 1 auto;
@@ -83,38 +105,44 @@ color: #EFEFEF;
   gap: 8px;
  
 border: 1px solid #00000061;
-  
+ 
 }
-
+ .BreadCrumb{
+  ::ng-deep .p-breadcrumb {
+    overflow-x: auto;
+    background: #FFFFFF;
+}
+ }
 ::ng-deep .p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-icon {
   color: #6c757d;
   margin-right: 0px;
   margin-left: -14px;
+  // background: beige;
 }
-
+ 
 ::ng-deep .p-datatable .p-datatable-thead tr th{
-  background: transparent;
+  background: white;
 }
-
-.card {
-  display: flex;
-  flex-direction: column;
-  border-radius: .5rem;
-  background-color: #fff;
-  margin: 1.25rem 0 1.25rem 0;
-  box-shadow: 0 .25rem .5rem #e6edef;
-
-  .card-head {
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid #edf1f7;
-      font-size: 1rem;
-      font-weight: 600;
-  }
-
-  .card-body {
-      padding: 1rem 1.5rem;
-  }
-}
+ 
+// .card {
+//   display: flex;
+//   flex-direction: column;
+//   border-radius: .5rem;
+//   background-color: #fff;
+//   // margin: 1.25rem 0 1.25rem 0;
+//   box-shadow: 0 .25rem .5rem #e6edef;
+ 
+//   .card-head {
+//       padding: 1rem 1.5rem;
+//       border-bottom: 1px solid #edf1f7;
+//       font-size: 1rem;
+//       font-weight: 600;
+//   }
+ 
+//   .card-body {
+//       padding: 1rem 1.5rem;
+//   }
+// }
   // ::ng-deep .p-card {
   //   width: 1158px;
   //   background: #ffffff;
@@ -133,13 +161,13 @@ border: 1px solid #00000061;
   /* background: #f8f9fa; */
   transition: box-shadow 0.2s;
 }
-
+ 
 .schedules{
-
-
-
-
-  
+ 
+ 
+ 
+ 
+ 
   margin-top: 4px;
   margin-left: 30px;
 }
@@ -150,12 +178,12 @@ border: 1px solid #00000061;
   .icon-with-text{
     margin-top: 8px;
   }
-  
+ 
 }
 .words-in-secondrow{
   display: flex;
   flex-direction: row;
-
+ 
   align-items: center;
 }
 // .icon-with-text
@@ -167,7 +195,7 @@ border: 1px solid #00000061;
 ::ng-deep .p-calendar .p-inputtext{
   // flex: 1 1 auto;
   width: 10px;
-
+ 
 }
 .clear-button{
   width: 110px;
@@ -179,11 +207,11 @@ color: #C81A78;
 border: 1px solid #C81A78;
 background: white;
 margin-top: 4px;
-
-
+ 
+ 
 }
 ::ng-deep .dropdown-manager .p-dropdown{
-  
+ 
   width: auto;
   height: 36px;
   // padding-top: 12px;
@@ -193,7 +221,7 @@ margin-top: 4px;
   // border-radius: 4px;
   gap: 8px;
   background: #EFEFEF;
-
+ 
 .p-placeholder{
 //   width: 93px;
 // height: 16px;
@@ -205,11 +233,11 @@ font-weight: 400;
 // letter-spacing: 0.25px;
 // text-align: left;
 color: #00000099;
-
-
+ 
+ 
 }
 }
-
+ 
 .search-filter {
   width: 138px;
   height: 36px;
@@ -226,10 +254,10 @@ color: #00000099;
   // flex-direction: vertical;
   // // margin-right: 100px;
 }
-
+ 
 ::ng-deep .p-tabview .p-tabview-nav {
   background: #ffffff;
-
+ 
   border: none;
 }
 .table-icons {
@@ -238,7 +266,7 @@ color: #00000099;
   height: 100px;
   align-content: center;
   text-align: center;
-  
+ 
 }
 .icons-td{
   display: flex;
@@ -246,7 +274,7 @@ color: #00000099;
   justify-content: space-between;
   // margin-right: 50px;
 }
-
+ 
 .schedule-home {
   font-family: "Manrope";
   font-size: 13px;
@@ -258,7 +286,7 @@ color: #00000099;
   height: 19px;
   color: #000000;
 }
-
+ 
 .schedule-word {
   color: #1e22aa;
   font-family: "Manrope";
@@ -270,7 +298,7 @@ color: #00000099;
   width: 66px;
   height: 19px;
 }
-
+ 
 // .new-schedule {
 //   font-family: "Manrope";
 //   font-size: 14px;
@@ -278,17 +306,17 @@ color: #00000099;
 //   line-height: 16px;
 //   letter-spacing: 1.25px;
 //   text-align: center;
-
+ 
 //   width: 131px;
 //   height: 36px;
 //   padding: 6px, 6px, 6px, 8px;
-
+ 
 //   border-radius: 4px;
-
+ 
 //   // background-color: #652d90;
 //   // color: white;
 // }
-
+ 
 .top-right-button {
   position: absolute;
   top: 0;
@@ -300,7 +328,7 @@ color: #00000099;
   border: 1px solid #ccc; /* Add a border to maintain appearance */
   /* Add any other styles you need for the input */
 }
-
+ 
 .table-container {
   width: 100%;
 }
@@ -376,352 +404,368 @@ color: #00000099;
 //   width: auto;
 //   opacity: 1;
 // }
-
+ 
 // Reviewer
-
+ 
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
+ 
 // .page_sec {
 //   background-color: #27374d;
-
+ 
 //   color: white;
-
+ 
 //   padding: auto;
-
+ 
 //   // width: 100%;
-
+ 
 //   height: fit-content;
-
+ 
 //   //margin-left: 20px;
-
+ 
 //   max-width: 100%;
-
+ 
 //   //font-family:Helvetica;
 // }
-
+ 
 .heading {
   color: white;
-
+ 
   //text-align: center;
-
+ 
   margin-left: 47%;
-
+ 
   width: 500px;
 }
-
+ 
 // Added before meet
-
+ 
 .top-left-button {
   align-self: flex-start;
   margin: 10px;
   cursor: pointer;
 }
-
+ 
 .top-right-button {
   align-self: flex-end;
-
+ 
   cursor: pointer;
 }
-
+ 
 .question_sec {
   color: #fff;
-
+ 
   max-height: 450px;
-
+ 
   overflow: hidden auto;
-
+ 
   margin-left: 5%;
-
+ 
   //  &.correct-question {
-
+ 
   //    // Highlight color for correct questions
-
+ 
   //   border: 2px solid green;
-
+ 
   // }
-
+ 
   // &.incorrect-question {
-
+ 
   //   border: 2px solid red;  // Highlight color for incorrect questions
-
+ 
   // }
 }
-
+ 
 .choices {
   margin-bottom: 5px;
 }
-
+ 
 .page_submit_btn_sec {
   justify-content: end;
 }
-
+ 
 // .page_sec {
 //   height: 100%;
-
+ 
 //   width: 100%;
-
+ 
 //   color: white;
-
+ 
 //   background-color: #27374d;
-
+ 
 //   .page_top_sec {
 //     background: #526d82;
-
+ 
 //     //margin-right: 60px;
-
+ 
 //     // margin-left: 70px;
-
+ 
 //     // margin-bottom: 40px;
-
+ 
 //     height: 70px;
-
+ 
 //     padding-left: 0px;
-
+ 
 //     margin-left: 0px;
 //   }
 // }
-
+ 
 .vertical-options {
   display: flex;
-
+ 
   flex-direction: column;
-
+ 
   /* Display options vertically */
-
+ 
   // margin: 20px;
 }
-
+ 
 .option {
   margin-bottom: 10px;
-
+ 
   /* Add space between options */
-
+ 
   margin-right: 20px;
-
+ 
   margin-left: 3px;
-
+ 
   font-weight: bold;
 }
-
+ 
 .option1 {
   margin-bottom: 10px;
-
+ 
   margin-right: 20px;
-
+ 
   margin-left: 3px;
-
+ 
   font-weight: bold;
-
+ 
   background: #526d82;
-
+ 
   color: white;
 }
-
+ 
 :host ::ng-deep .p-checkbox-box {
   margin: 4px 0px 0px 0px;
 }
-
+ 
 // :host ::ng-deep .p-datatable-wrapper {
 //   margin-top: 80px;
 // }
-
+ 
 :host ::ng-deep .p-radiobutton-box {
   height: 20px;
-
+ 
   width: 20px;
-
+ 
   border-radius: 100%;
 }
-
+ 
 .text_area_ans {
   padding-bottom: 20px;
 }
-
+ 
 // :host ::ng-deep .p-dialog-content {
-
+ 
 //   background-color: #27374d;
-
+ 
 // }
-
+ 
 // :host ::ng-deep .p-dialog-header {
-
+ 
 //   background-color: #27374d;
-
+ 
 // }
-
+ 
 // :host ::ng-deep .p-inputtext {
 //   height: 60px;
-
+ 
 //   width: 560px;
 // }
-
+ 
 // :host ::ng-deep .p-dialog-header .p-dialog-header-close{
-
+ 
 //     position: absolute;
-
+ 
 //     top: 20px;
-
+ 
 //     left: 15px;
-
+ 
 // }
-
+ 
 :host ::ng-deep .question-column {
   padding: 8px;
-
+ 
   text-align: center;
 }
-
+ 
 .save_sec {
   width: 40px;
-
+ 
   height: 40px;
-
+ 
   display: flex;
-
+ 
   align-items: center;
-
+ 
   justify-content: center;
-
+ 
   border: 1px solid #fff;
-
+ 
   border-radius: 20px;
 }
-
+ 
 .save_button {
   width: 40px;
-
+ 
   height: 40px;
-
+ 
   align-items: center;
-
+ 
   justify-content: center;
-
+ 
   border-radius: 50%;
-
+ 
   border: 2px solid #fff;
-
+ 
   // margin-left: 90%;
-
+ 
   margin-top: 19px;
-
+ 
   margin-right: 19px;
 }
+.scheduleTable{
+  ::ng-deep {
+    .p-datatable {
+      position: relative;
+      border: 1px solid #0000001F;
+      border-radius: 8px;
+  }
+  .p-datatable>.p-datatable-wrapper {
+    border-radius: 1rem;
+    overflow: auto;
+    margin-top: 30px;
+}
+  }
+  
 
+}
+ 
 .save_button_disabled {
   width: 40px;
-
+ 
   height: 40px;
-
+ 
   align-items: center;
-
+ 
   justify-content: center;
-
+ 
   border-radius: 50%;
-
+ 
   border: 2px solid grey;
-
+ 
   // margin-left: 90%;
-
+ 
   margin-top: 19px;
-
+ 
   margin-right: 19px;
 }
-
+ 
 .File-link {
   text-decoration: underline;
-
+ 
   color: blue;
   cursor: pointer;
 }
-
+ 
 .correct-option {
   background-color: blue;
 }
-
+ 
 .Score-Result {
   color: #fff;
-
+ 
   margin-left: 75%;
-
+ 
   width: 500px;
-
+ 
   font-family: Arial, Helvetica, sans-serif;
-
+ 
   font-weight: bolder;
 }
-
+ 
 :host ::ng-deep .p-button {
   background: #dde6ed;
-
+ 
   border: 1px solid #dde6ed;
-
+ 
   &:hover {
     background-color: lightblue;
   }
 }
-
+ 
 :host ::ng-deep .p-button:enabled:active {
   background-color: lightblue;
 }
-
+ 
 .p-button.p-button-danger:enabled:hover {
   background: lightblue;
-
+ 
   color: #ffffff;
-
+ 
   border-color: #dc2626;
 }
-
+ 
 .p-button:enabled:hover {
   background: lightblue;
-
+ 
   color: #ffffff;
-
+ 
   border-color: lightgreen;
 }
-
+ 
 .leftbutton {
   margin-right: 10px;
-
+ 
   margin-left: 5px;
 }
-
+ 
 .light-green {
   background-color: lightgreen;
-
+ 
   border: 1px solid green;
-
+ 
   color: black;
 }
-
+ 
 .light-red {
   background-color: lightcoral;
-
+ 
   border: 1px solid red;
-
+ 
   color: black;
 }
-
+ 
 // Option styles
 .option-input {
   margin-bottom: 10px; /* Add spacing between each option */
 }
-
+ 
 .option-label {
   margin-right: 10px; /* Add spacing between the label and input box */
 }
-
+ 
 .option-box {
   display: inline;
 }
-
+ 
 .radio-option {
   display: inline;
   margin-right: 10px;
 }
-
+ 
 .wide-input {
   width: 100%;
 }
