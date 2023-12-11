@@ -65,7 +65,7 @@
               <th colspan="7">
                 <div class="filter-components">
                   <div class="first-four">
-                    <span class="p-input-icon-right">
+                    <span class="p-input-icon-right searchIcon">
                       <input
                         pInputText
                         type="text"
@@ -79,7 +79,7 @@
                       />
                       <i class="pi pi-search"></i>
                     </span>
-                    <div>
+                    <div class="managerMultiselect">
                       <p-columnFilter
                         field="Managername"
                         matchMode="in"
@@ -93,6 +93,7 @@
                           let-filter="filterCallback"
                         >
                           <p-multiSelect
+                            
                             [ngModel]="value"
                             [options]="managerOption"
                             placeholder="Manager"
@@ -109,7 +110,7 @@
                       </p-columnFilter>
                     </div>
                    
-                    <div>
+                    <div class="skillMultiselect">
                       <p-columnFilter
                         field="Skill"
                         matchMode="contains"
@@ -175,7 +176,7 @@
               <td>
                 {{ i + 1 }}
               </td>
-              <td>
+              <td class="jobDescription">
                 <!-- <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" /> -->
                 <span class="ml-1 vertical-align-middle">{{
                   rowData.JobDescription
