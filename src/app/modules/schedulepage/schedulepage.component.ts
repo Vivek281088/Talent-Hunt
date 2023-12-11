@@ -106,6 +106,8 @@ selecteddates!:Date
     d: string;
   };
   candidateId!: Date | null;
+
+  todayDate !: string;
  
   // reviewer
   totalQuestions!: number;
@@ -149,6 +151,9 @@ selecteddates!:Date
   }
   ngOnInit() {
     this.items = [{ label: 'Schedules' }];
+    
+    this.todayDate=this.formattedDate(new Date());
+    console.log("Date--------",this.todayDate)
  
     this.home = { icon:'pi pi-home' , routerLink: '/' , label:'Home'};
     this.formGroup = new FormGroup({
@@ -948,6 +953,20 @@ this.showcardFlag=true;
  
   onAddQuestionClick() {
     this.router.navigate(['questiondb']);
+  }
+
+  formattedDate(date: Date){
+    const months: string[] = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+
+    const month : string =months[date.getMonth()];
+    const day : number = date.getDate();
+    const year : number =date.getFullYear();
+    const formatDate :string=`${month} ${day}, ${year}`
+
+    return formatDate;
   }
 }
  

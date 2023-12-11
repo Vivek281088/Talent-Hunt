@@ -25,9 +25,15 @@
     <p class="assessment-text">Schedules</p>
 </div>
  
-  <div class=" flex justify-content-start bread">
+  <div class=" flex  breadDate">
+    <div>
       <p-breadcrumb class="max-w-full BreadCrumb" [model]="items"  [home]="home"
       [style]="{ border: 'none' }"></p-breadcrumb>
+    </div>
+    <div class="date">
+      {{todayDate}}
+    </div>
+      
   </div>
 </div>
  
