@@ -31,7 +31,7 @@ import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
-
+import { SidebarModule } from 'primeng/sidebar';
 
 
 
@@ -71,6 +71,7 @@ import { CandidateTableComponent } from './candidate-table/candidate-table.compo
     HttpClientModule,
     ReactiveFormsModule,
     OverlayPanelModule,
+    SidebarModule,
     ToastrModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],

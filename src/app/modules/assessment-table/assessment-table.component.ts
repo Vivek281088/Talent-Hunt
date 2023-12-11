@@ -16,6 +16,15 @@ import { Table } from 'primeng/table';
   styleUrls: ['./assessment-table.component.scss']
 })
 export class AssessmentTableComponent {
+
+    
+  sidebarVisible2: boolean = false;
+  
+  
+
+
+
+
   [x: string]: any;
   questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
 
@@ -36,6 +45,7 @@ export class AssessmentTableComponent {
   candidateNameOptions: any[] = [];
   candidateName: any[] = [];
   email_Managername!: string;
+  view_Managername!: string;
   email_Status!: string;
   email_Filename!: string;
   questions: any;
@@ -275,5 +285,6 @@ return skills.slice(-count);
       console.log('sapna',data);
     });
   }
-  
+  ////////////////////////view icon//////////////
+
 }

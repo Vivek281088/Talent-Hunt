@@ -1,11 +1,11 @@
 <div class="whole-design">
-  
-    <div class="assesment-header">
-        <p class="assessment-text">Assessment</p>
+      <div class="assesment-header">
+
+        <p class="assessment-text">Assessments</p>
     </div>
   
       <div class=" flex justify-content-start bread">
-          <p-breadcrumb class="max-w-full" [model]="items" ></p-breadcrumb>
+          <p-breadcrumb class="max-w-full breadclass"  [model]="items" ></p-breadcrumb>
       </div>
       
       <div class="candidate-table">
@@ -20,7 +20,7 @@
          
           [globalFilterFields]="['candidateName', 'email_Managername', 'email_Filename', 'skills','results','score']"
           
-          >
+          >    
                <ng-template pTemplate="header">
                 <tr>
                   <th colspan="10">
@@ -88,7 +88,8 @@
                       </div>
                   </th>
               </tr>
-                  <tr>
+              
+                  <tr >
                     <th >Seq.No</th>
                     <th >candidateName</th>
                     <th >Manager</th>
@@ -102,7 +103,8 @@
                     <th></th>
                     
                   </tr>
-              </ng-template> 
+                  </ng-template>
+              
               <ng-template  pTemplate="body" let-rowData let-i="rowIndex">
                 <tr>
                   <td >{{ i + 1 }}</td>
@@ -114,8 +116,8 @@
                   
                   <td class="skills">
                     <span  *ngFor="let item of getFormattedSkills(rowData.Skill).skills">
-                        <p-chip [style]="{'font-size':'12px'}"  label={{item}} ></p-chip>
-                    </span> <span *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0">+
+                        <p-chip class="chipdesign" label={{item}} ></p-chip>
+                    </span> <span *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0">&nbsp;&nbsp;+
                       <p-overlayPanel #op>
                        <ul *ngFor="let skill of remainaingSkills(rowData.Skill,getFormattedSkills(rowData.Skill).remainingCount) ">
                         <li>
@@ -123,7 +125,7 @@
                         </li>
                        </ul>
                     </p-overlayPanel>
-                            <p-badge  (click)="op.toggle($event)" [value]="getFormattedSkills(rowData.Skill).remainingCount.toString()"></p-badge>
+                            <p-badge class="cursor-design" (click)="op.toggle($event)" [value]="getFormattedSkills(rowData.Skill).remainingCount.toString()"></p-badge>
                         </span>
                 </td>
                
@@ -137,6 +139,64 @@
               </ng-template>
               
           </p-table>
+
       </div>
   
     </div>
+
+
+
+
+   
+  <!-- <div class="sidebar">
+  <div class="card flex justify-content-center">
+    <p-sidebar [(visible)]="sidebarVisible2" position="right" [style]="{width:'46em'}">
+        <ng-template class="header_design" pTemplate="header">Quiz Preview</ng-template>
+        <ng-template pTemplate="content">
+          
+         <div class="question-design"> 1. Which of the following keywords is used to define a variable in Javascript ?</div>
+          &nbsp;
+          <div class="wrapper"> 
+          <input type="checkbox" id="check">
+        <label for="check">A var</label>
+        
+        </div> -->
+          <!-- <div> B let</div>
+         <div> C const</div>
+         <div> D None of the above</div> -->
+         <!-- <div class="select-size">
+          <div class="option">
+            <input type="radio" name="first" id="small" /> 
+            <label for="small">A</label>
+            <span class="option-content">let</span>
+          </div>
+          &nbsp;
+         <div class="option">
+          <input type="radio" name="second" id="small" />
+          <label for="small">B</label>
+          <span class="option-content">var</span>
+         </div>
+         &nbsp;
+         <div class="option">
+          <input type="radio" name="third" id="small" />
+          <label for="small">C</label>
+          <span class="option-content">const</span>
+         </div>
+         &nbsp;
+         <div class="option">
+          <input type="radio" name="fourth" id="small" />
+          <label for="small">D</label>
+          <span class="option-content">None of the above</span>
+         </div>
+         
+         </div>
+         &nbsp;
+         <hr>
+       
+        </ng-template>
+        <ng-template pTemplate="footer">Footer Content</ng-template>
+    </p-sidebar>
+    <p-button (click)="sidebarVisible2= true" icon="pi pi-arrow-left"></p-button>
+</div>
+</div> --> 
+

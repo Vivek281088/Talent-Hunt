@@ -1,19 +1,97 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 
 
 
 
+.candidate-table{
+   border: 1px solid #0000001F;
+  border-radius: 2px;
+  background-color: white;
+  
+
+}
 ::ng-deep .candidateTable{
+  
   .p-datatable .p-datatable-tbody > tr > td {
     text-align: left;
     border: 1px solid #dee2e6;
     border-width: 0 0 1px 0;
     /* padding: 1rem 1rem; */
     padding: 8px 16px 8px 16px;
+    //styleName: Body 2;
+font-family: 'Roboto', sans-serif;
+font-size: 14px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.25px;
+text-align: left;
+color: #000000DE;
+
+
   }
+  .p-datatable .p-datatable-thead > tr > th {
+    //styleName: Body 2;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: #00000061;
+    
+    
+    }
+
 }
+
+::ng-deep .p-chip  {
+
+  
+  
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    
+}
+
+::ng-deep .p-badge-no-gutter {
+  color: #00000099;
+
+}
+
+::ng-deep .p-badge
+{
+  //styleName: Body 2;
+font-family: 'Roboto', sans-serif;
+font-size: 12px;
+font-size: 14px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.25px;
+text-align: left;
+color: #00000099;
+background: transparent;
+
+
+}
+
+.chipdesign{
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  
+
+}
+  
 
 
 // .assessment-header{
@@ -80,10 +158,8 @@ text-align: center;
   ::ng-deep .p-breadcrumb{
     border:none;
   }
-
-
-::ng-deep .p-paginator{
-  display:flex;
+::ng-deep .p-paginator-bottom.p-paginator.p-component.ng-star-inserted {
+  display: flex;
   justify-content: flex-end;
 }
 .whole-design{  
@@ -91,6 +167,10 @@ text-align: center;
 height: Hug (541px);
 padding: 16px;
 gap: 16px
+}
+
+.cursor-design{
+  cursor: pointer;
 }
 // .filter-components{
 //   display: flex;
@@ -103,42 +183,113 @@ gap: 16px
   justify-content: start;
   gap: 40px;
 }
+.assesment-header{
+  //styleName: Title;
+font-family: Poppins;
+font-size: 20px;
+font-weight: 500;
+line-height: 30px;
+letter-spacing: 0.15000000596046448px;
+text-align: left;
+
+color: #000;
+}
+
+::ng-deep .breadclass{
+  .p-breadcrumb {
+    padding-left:0 ;
+}
+}
+
+
+//////////////////////////sidebar design started//////////////
+// ::ng-deep .header_design{
+//   .p-sidebar{
+//   color:violet;
+// }
+// }
 
 
 
+  .design{
+    width: Fill (705px);
+height: Hug (215px);
+gap: 16px
 
-// ::ng-deep .p-tabview .p-tabview-nav{
+  }
+
+ .wrapper{
+ width:705px;
+ }
+
+ .select-size  input{
+   display: none;
+ }
+ .option {
+  display: flex;
+  align-items: center;
+  color:#00000061;
+
+}
+.option-content {
+  margin-left: 10px; /* Adjust the margin as needed */
+  font-family: 'Roboto';
+  font-size: 16px; /* Adjust the font size as needed */
+  /* Add other styles as needed */
+}
   
-//   background: #ffffff;
+ label {
+   display: inline-block;
+   width: 32px;
+   height: 32px;
+   text-align: center;
+   border: 1px solid #ddd;
+   line-height: 32px;
+   cursor: pointer;
+   border-radius: 8px;
+   color: #00000061;
+
+ }
   
-//   border: none;
-// }
-// .table-icons{
-//   display: flex;
-//   flex-direction: vertical;
-// }
+ #small:checked ~ label[for="small"]
+ {
+   background: #999;
+   color: #ffffff;
+ }
+ .designs{
+  display: flex;
+  flex-direction: column;
+ }
+ .question-design{
+ // width: 675px;
+height: 23px;
+font-family: 'Roboto';
+font-size: 20px;
+font-weight: 400;
+line-height: 23px;
+letter-spacing: 0.15000000596046448px;
+text-align: left;
+color: #652D90;
 
-// .schedule-home{
-//   font-family: 'Manrope';
-// font-size: 13px;
-// font-weight: 400;
-// line-height: 19px;
-// letter-spacing: 0.25px;
-// text-align: left;
-// width: 39px;
-// height: 19px;
-// color: #000000;
-// }
 
-// .schedule-word{
-//   color: #1E22AA;
-//   font-family: 'Manrope';
-// font-size: 13px;
-// font-weight: 400;
-// line-height: 19px;
-// letter-spacing: 0.25px;
-// text-align: left;
-// width: 66px;
-// height: 19px;
-// }
 
+ }
+
+ .header_design{
+  width: 200px;
+height: 30px
+
+ }
+
+ ::ng-deep .p-sidebar-header{
+  color: #1E22AA;
+  //styleName: Title;
+font-family: 'Poppins';
+font-size: 20px;
+font-weight: 500;
+line-height: 30px;
+letter-spacing: 0.15000000596046448px;
+text-align: left;
+
+
+ }
