@@ -1,4 +1,4 @@
-<div class="wholebar">
+<div class="wholebar relative">
   <div class="side-nav" [class.collapsed]="isSideNavCollapsed">
     <div class="top-sec">
       <ul class="ul1">
@@ -31,6 +31,7 @@
               id="manageSchedule"
               [class.active]="activeSublist === 'manageSchedule'"
               (click)="changeSublist('manageSchedule')"
+              [routerLink]="['/dashboard']"
             >
               <svg
                 width="24"
@@ -49,14 +50,15 @@
                   stroke-opacity="0.6"
                 />
               </svg>
- 
-              <a [routerLink]="['/sidenav']">Manage Schedule</a>
+  
+              <a >Manage Schedule</a>
             </li>
- 
+  
             <li
               id="manageAssessment"
               [class.active]="activeSublist === 'manageAssessment'"
               (click)="changeSublist('manageAssessment')"
+              [routerLink]="['/AssessmentDisplay']"
             >
               <svg
                 width="24"
@@ -75,7 +77,7 @@
                   stroke-opacity="0.6"
                 />
               </svg>
-              <a href="#">Manage Assessment</a>
+              <a >Manage Assessment</a>
             </li>
           </ul>
         </span>
@@ -115,10 +117,10 @@
                   stroke-opacity="0.6"
                 />
               </svg>
- 
+  
               <a href="#">Manage Managers</a>
             </li>
- 
+  
             <li
               id="manageCandidates"
               [class.active]="activeSublist === 'manageCandidates'"
@@ -145,7 +147,7 @@
             </li>
           </ul>
         </span>
- 
+  
         <li
           id="question_bank"
           [class.active]="activeSection === 'question_bank'"
@@ -180,10 +182,10 @@
                   stroke-opacity="0.6"
                 />
               </svg>
- 
+  
               <a href="#">Manage Skills</a>
             </li>
- 
+  
             <li
               id="manageQuestions"
               [class.active]="activeSublist === 'manageQuestions'"
@@ -210,7 +212,7 @@
             </li>
           </ul>
         </span>
- 
+  
         <li
           id="system"
           [class.active]="activeSection === 'system'"
@@ -245,10 +247,10 @@
                   stroke-opacity="0.6"
                 />
               </svg>
- 
+  
               <a href="#">Manage Profile</a>
             </li>
- 
+  
             <li
               id="configuration"
               [class.active]="activeSublist === 'configuration'"
@@ -276,7 +278,7 @@
           </ul>
         </span>
       </ul>
- 
+  
       <ul class="ul2">
         <li>
           <i class="pi pi-question-circle"></i>
@@ -288,10 +290,10 @@
         </li>
       </ul>
     </div>
- 
-   
+  
+    
   </div>
-  <div>
+  <div class="toggleBtn">
      
     <svg
       width="44"
@@ -388,6 +390,5 @@
       </defs>
     </svg>
   </div>
- 
+
 </div>
- 

@@ -29,6 +29,7 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ChipModule } from 'primeng/chip';
 import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
+// import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   imports: [

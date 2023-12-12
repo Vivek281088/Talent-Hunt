@@ -9,39 +9,10 @@ import { CandidateAssessmentService } from 'src/app/services/candidate-assessmen
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-// if (a == 'manager') {
-//   this.managernameService
-//     .getManagerdata_by_Email(this.finalizedManagerEmail)
-//     .subscribe((response) => {
-//       console.log('Navbar-res', response);
-//       this.tempUserName = response[0].Managername;
-//       this.userName = response[0].Managername;
-//       this.id = response[0].id;
-//       this.userEmail = response[0].candidateEmail;
-//       this.userPhone = response[0].phoneNumber;
-//       this.managernameService.setManagerName_Email(this.userEmail);
-//       this.name = true;
-//       // this.candidateName = response[0].candidateName;
-//     });
-// } else {
-//   this.candidateService
-//     .getCandidatedata_by_Email(this.finalizedEmail)
-//     .subscribe((response) => {
-//       this.name = false;
-//       this.candidateList = response;
-//       this.tempUserName = response[0].candidateName;
-//       this.userName = response[0].candidateName;
-//       this.id = response[0].id;
-//       this.userEmail = response[0].candidateEmail;
-//       this.userPhone = response[0].candidatePhone;
-//       console.log('candidateName', this.candidateName);
-//     });
-// }
-
   isDropdownOpen: boolean = false;
   candidateName: string = '';
   candidateList: any[] = [];
- 
+ AR : string = "AR"
   showCandidateEmail!: string;
  
   finalizedEmail!: string;
@@ -118,8 +89,9 @@ export class NavbarComponent {
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('Navbar-res', response);
-          this.tempUserName = response[0].Firstname + ' '+ response[0].Lastname;
-          this.userName = response[0].Firstname + ' '+ response[0].Lastname;
+          this.tempUserName = response[0].Firstname;
+          this.tempUserName = response[0].Lastname;
+          this.userName = response[0].Managername;
           this.id = response[0].id;
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].phoneNumber;
@@ -157,8 +129,8 @@ export class NavbarComponent {
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('Navbar-res', response);
-          this.tempUserName = response[0].Firstname + ' '+ response[0].Lastname;
-          this.userName = response[0].Firstname + ' '+ response[0].Lastname;
+          this.tempUserName = response[0].Firstname;
+          this.tempUserName = response[0].Lastname;
           this.id = response[0].id;
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].phoneNumber;
@@ -252,17 +224,14 @@ export class NavbarComponent {
     this.tempUserName = this.userName;
     this.isEditProfile = !this.isEditProfile;
   }
-
+ 
   getInitials(name: string | null): string {
     if (!name) {
       return '';
     }
- 
     const names = name.split(' ');
     const initials = names.map((n) => n.charAt(0)).join('');
     return initials.toUpperCase();
   }
-
-
-}
+ }
  

@@ -1,25 +1,99 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
-
-
-
-
-
-::ng-deep .candidateTable{
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+ 
+.candidate-table {
+  border: 1px solid #0000001f;
+  border-radius: 2px;
+  background-color: white;
+}
+::ng-deep .candidateTable {
   .p-datatable .p-datatable-tbody > tr > td {
     text-align: left;
     border: 1px solid #dee2e6;
     border-width: 0 0 1px 0;
     /* padding: 1rem 1rem; */
     padding: 8px 16px 8px 16px;
+    //styleName: Body 2;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: #000000de;
+  }
+  .p-datatable .p-datatable-thead > tr > th {
+    //styleName: Body 2;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: #00000061;
+    background: white;
   }
 }
-
-
+.customMultiselect {
+  ::ng-deep {
+    .p-fluid .p-multiselect {
+      background: #efefef;
+    }
+    .p-fluid .p-dropdown {
+      background: #efefef;
+    }
+  }
+}
+ 
+::ng-deep .p-chip {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  background-color: #00000061;
+  color: white;
+  margin-right: 2px;
+}
+.plusIcon {
+  color: #00000099;
+  ::ng-deep .p-badge-no-gutter {
+    margin-left: -9px;
+  }
+}
+ 
+::ng-deep .p-badge-no-gutter {
+  color: #00000099;
+}
+ 
+::ng-deep .p-badge {
+  //styleName: Body 2;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  color: #00000099;
+  background: transparent;
+}
+ 
+.chipdesign {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+  letter-spacing: 0.25px;
+  text-align: left;
+}
+ 
 // .assessment-header{
 //     width: 135px;
 // height: 30px
-
+ 
 // }
 // .assessment-text{
 //     //styleName: Title;
@@ -30,7 +104,7 @@
 // letter-spacing: 0.15000000596046448px;
 // text-align: left;
 // color: #000000;
-
+ 
 // }
 // .mg-class{
 //   width: Hug (70px);
@@ -39,106 +113,220 @@
 // border-radius: 4px;
 // gap: 8px;
 // background: #1CB046;
-
-
+ 
 // }
-
+ 
 .Shortlisted {
+  width: 70px;
   color: white;
-  background-color:green;
-  
-text-align: center;
+  background-color: green;
+  text-align: center;
+  height: 18px;
+  border-radius: 4px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
-
+ 
 .Rejected {
-
   background-color: red;
   color: white;
-  
- text-align: center;
-}
-
-.Awaiting{
-color:white;
-background-color: blue;
-text-align: center;
-}
-
-.Cancelled{
-  color:white;
-  background-color:pink;
-
-text-align: center;
-}
-
-.Scheduled{
-  color:white;
-  background-color:grey;
   text-align: center;
+  width: 58px;
+  height: 18px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
 }
-
-  ::ng-deep .p-breadcrumb{
-    border:none;
+ 
+.Awaiting {
+  color: white;
+  background-color: blue;
+  text-align: center;
+  border-radius: 8px;
+  width: 84px;
+  height: 18px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
+}
+ 
+.Cancelled {
+  color: white;
+  background-color: pink;
+  height: 18px;
+  border-radius: 8px;
+  text-align: center;
+  width: 64px;
+  height: 18px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
+}
+ 
+.Scheduled {
+  color: white;
+  background-color: grey;
+  text-align: center;
+ 
+  border-radius: 8px;
+  width: 68px;
+  height: 18px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
+}
+ 
+.resultDesign {
+  width: 84px;
+  height: 18px;
+  font-size: 12px;
+ 
+  span {
+    font-size: 12px;
+    margin-top: 2px;
   }
-
-
-::ng-deep .p-paginator{
-  display:flex;
-  justify-content: flex-end;
 }
-.whole-design{  
-  width:  (1,190px);
-height: Hug (541px);
-padding: 16px;
-gap: 16px
+ 
+.assessmentName {
+  color: #1e22aa !important;
+}
+ 
+::ng-deep .p-breadcrumb {
+  border: none;
+}
+::ng-deep .p-paginator-bottom.p-paginator.p-component.ng-star-inserted {
+  display: flex;
+  justify-content: flex-end;
+  // height: 52px;
+  // width: 1158px;
+  // align-items: center;
+}
+.whole-design {
+  width: (1, 190px);
+  height: Hug (541px);
+  padding: 16px;
+  gap: 16px;
+}
+ 
+.cursor-design {
+  cursor: pointer;
 }
 // .filter-components{
 //   display: flex;
 //   flex-direction: row;
 //   justify-content: flex-end;
 // }
-.filter-components{
+.filter-components {
   display: flex;
   flex-direction: row;
   justify-content: start;
   gap: 40px;
 }
-
-
-
-
-// ::ng-deep .p-tabview .p-tabview-nav{
-  
-//   background: #ffffff;
-  
-//   border: none;
+.assesment-header {
+  //styleName: Title;
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+ 
+  color: #000;
+}
+ 
+::ng-deep .breadclass {
+  .p-breadcrumb {
+    padding-left: 0;
+  }
+}
+ 
+//////////////////////////sidebar design started//////////////
+// ::ng-deep .header_design{
+//   .p-sidebar{
+//   color:violet;
 // }
-// .table-icons{
-//   display: flex;
-//   flex-direction: vertical;
 // }
-
-// .schedule-home{
-//   font-family: 'Manrope';
-// font-size: 13px;
-// font-weight: 400;
-// line-height: 19px;
-// letter-spacing: 0.25px;
-// text-align: left;
-// width: 39px;
-// height: 19px;
-// color: #000000;
-// }
-
-// .schedule-word{
-//   color: #1E22AA;
-//   font-family: 'Manrope';
-// font-size: 13px;
-// font-weight: 400;
-// line-height: 19px;
-// letter-spacing: 0.25px;
-// text-align: left;
-// width: 66px;
-// height: 19px;
-// }
-
+ 
+.design {
+  width: Fill (705px);
+  height: Hug (215px);
+  gap: 16px;
+}
+ 
+.wrapper {
+  width: 705px;
+}
+ 
+.select-size input {
+  display: none;
+}
+.option {
+  display: flex;
+  align-items: center;
+  color: #00000061;
+}
+.option-content {
+  margin-left: 10px; /* Adjust the margin as needed */
+  font-family: "Roboto";
+  font-size: 16px; /* Adjust the font size as needed */
+  /* Add other styles as needed */
+}
+ 
+label {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #ddd;
+  line-height: 32px;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #00000061;
+}
+ 
+#small:checked ~ label[for="small"] {
+  background: #999;
+  color: #ffffff;
+}
+.designs {
+  display: flex;
+  flex-direction: column;
+}
+.question-design {
+  // width: 675px;
+  height: 23px;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+  color: #652d90;
+}
+ 
+.header_design {
+  width: 200px;
+  height: 30px;
+}
+ 
+::ng-deep .p-sidebar-header {
+  color: #1e22aa;
+  //styleName: Title;
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+}
+ 
