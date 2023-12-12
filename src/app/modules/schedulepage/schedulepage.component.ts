@@ -125,6 +125,7 @@ selecteddates!:Date
   buttonColorsWrong: boolean[] = [];
  
   response: boolean = false;
+  newScheduleVisible:boolean=false;
  
   reviewerStatus: string = 'Completed';
  
@@ -954,7 +955,9 @@ this.showcardFlag=true;
   onAddQuestionClick() {
     this.router.navigate(['questiondb']);
   }
-
+  newSchedule(){
+    this.visible=true;
+  }
   formattedDate(date: Date){
     const months: string[] = [
       'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',

@@ -1,5 +1,4 @@
-
-import { Component, OnInit } from '@angular/core';
+ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
@@ -16,13 +15,22 @@ import { Table } from 'primeng/table';
   styleUrls: ['./assessment-table.component.scss']
 })
 export class AssessmentTableComponent {
+ 
+   
+  sidebarVisible2: boolean = false;
+ 
+ 
+ 
+ 
+ 
+ 
   [x: string]: any;
   questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
-
+ 
   status : string[] = ["Shortlisted", "Rejected" , "Awaiting" , "Cancelled" , "Scheduled"];
-
+ 
   items: MenuItem[] | undefined;
-  
+ 
   candidateNames: any[] = [];
   name: boolean = true;
   finalizedEmail!: string;
@@ -36,6 +44,7 @@ export class AssessmentTableComponent {
   candidateNameOptions: any[] = [];
   candidateName: any[] = [];
   email_Managername!: string;
+  view_Managername!: string;
   email_Status!: string;
   email_Filename!: string;
   questions: any;
@@ -44,7 +53,8 @@ export class AssessmentTableComponent {
   roles: string = "user";
   skillSet: any[] = [];
   managerOption: any[] = [];
-
+  openEllipsisDialogBox : boolean =false;
+ 
   // candidateForm !: FormGroup;
   constructor(
     private tableService: TableService,
@@ -70,30 +80,34 @@ export class AssessmentTableComponent {
     // this.finalizedEmail =
     //   this.managernameService.getCandidateAssessment_Email();
     // console.log('a', this.finalizedEmail);
-
+ 
     //for manager
     // this.finalizedManagerEmail = this.managernameService.getManagerName_Email();
     // console.log('manager-email--', this.finalizedManagerEmail);
-
-    
-
+ 
+   
+ 
     this.loadManagerNames();
     this.getSkillSet();
-    
+   
     this.loadCandidate();
     this.getCandidatename();
  
-
+ 
     this.items = [{ label: 'Home',routerLink:'/login',icon: 'pi pi-home' }, { label: 'Assessment' , routerLink: "dashboard"}];
   }
+ 
+  handleEllipsisDialog(){
+    this.openEllipsisDialogBox= true;
+      }
   getResultClass(result : string): string {
     if(result == "Shortlisted"){
       return "Shortlisted"
     }
     else if(result == "Rejected"){
       return "Rejected"
-    }else if(result=="Awaiting") {
-      return "Awaiting"
+    }else if(result=="Awaiting Eval") {
+      return "Awaiting "
     }
     else if(result=="Cancelled") {
       return "Cancelled"
@@ -101,15 +115,15 @@ export class AssessmentTableComponent {
     else  {
       return "Scheduled"
     }
-
+ 
   }
-
+ 
   getFormattedSkills(skills: any): { skills: string[], remainingCount: number } {
     const maxLength = 8;
-
+ 
     let result: string[] = [];
     let totalLength = 0;
-
+ 
     for (const skill of skills) {
       if (totalLength + skill.length <= maxLength) {
         // Include the skill in the result
@@ -120,10 +134,10 @@ export class AssessmentTableComponent {
         break;
       }
     }
-
+ 
     // Calculate the count of remaining skills
     const remainingCount = skills.length - result.length;
-
+ 
     return { skills: result, remainingCount: remainingCount };
   }
   remainaingSkills(skills:any ,count:number):string[]{
@@ -132,8 +146,8 @@ return skills.slice(-count);
   clear(table: Table) {
     table.clear();
 }
-
-
+ 
+ 
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
       // Use a Set to store unique candidate email addresses
@@ -155,9 +169,9 @@ return skills.slice(-count);
       console.log(this.candidateNames);
     });
   }
-
  
-
+ 
+ 
   loadCandidate() {
     const role = localStorage.getItem('userrole');
     console.log('role', role);
@@ -175,7 +189,7 @@ return skills.slice(-count);
           this.candidateName = response[0].candidateName;
           console.log('candidateName', this.candidateName);
         });
-
+ 
       // localStorage.removeItem('userrole');
     } else if (role == 'manager') {
       // localStorage.removeItem('userrole');
@@ -185,9 +199,9 @@ return skills.slice(-count);
         .subscribe((response) => {
           console.log('res', response);
           this.managerEmail = response[0].Managername;
-
+ 
           // this.managernameService.setManagerName_Email(this.managerEmail);
-
+ 
           console.log('candidateList1gr4rg', this.managerEmail);
           // this.candidateName = response[0].candidateName;
         });
@@ -198,7 +212,7 @@ return skills.slice(-count);
       });
       // localStorage.removeItem('userrole');
     }
-
+ 
     console.log('load data 1', this.candidateList);
     console.log('selected candidate', this.selectedCandidates);
     // Loop through selectedCandidates and store data for each candidate
@@ -208,16 +222,16 @@ return skills.slice(-count);
         (candidate) => candidate.candidateName === selectedCandidate
       );
       console.log('matched candidate', existingCandidate);
-
+ 
       //rest data
       this.score = null;
       this.result = '';
       const date = Date.now();
       this.candidateId = new Date(date);
-
+ 
       //show success message
       // this.showEmailSubmitted();
-      
+     
       if (existingCandidate) {
         this.tableService
           .postExistingCandidateDetails(
@@ -241,18 +255,18 @@ return skills.slice(-count);
             console.log('Stored data for existing candidate:', data);
             //this.candidateName(data);
             this.candidateList.push(data);
-            
+           
           });
-
+ 
         setTimeout(() => {
           this.getCandidatename();
-          
+         
         }, 2000);
       }
     });
-    
+   
   }
-
+ 
   loadAssessmentData() {
     this.managernameService.getCandidateStatus().subscribe((data) => {
       // console.log("arole",a)
@@ -268,12 +282,16 @@ return skills.slice(-count);
   }
  
  
-
+ 
   loadManagerNames() {
-    this.managernameService.getManagerNames().subscribe((data) => {
+    this.managernameService.getclientManagerNames().subscribe((data) => {
       this.managerOption = data;
       console.log('sapna',data);
     });
   }
-  
+ 
+ 
+ 
+  ////////////////////////view icon//////////////
+ 
 }

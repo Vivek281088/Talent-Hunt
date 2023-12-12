@@ -1,4 +1,4 @@
-<div class="wholebar">
+<div class="wholebar relative">
   <div class="side-nav" [class.collapsed]="isSideNavCollapsed">
     <div class="top-sec">
       <ul class="ul1">
@@ -31,6 +31,7 @@
               id="manageSchedule"
               [class.active]="activeSublist === 'manageSchedule'"
               (click)="changeSublist('manageSchedule')"
+              [routerLink]="['/dashboard']"
             >
               <svg
                 width="24"
@@ -50,13 +51,14 @@
                 />
               </svg>
   
-              <a [routerLink]="['/sidenav']">Manage Schedule</a>
+              <a >Manage Schedule</a>
             </li>
   
             <li
               id="manageAssessment"
               [class.active]="activeSublist === 'manageAssessment'"
               (click)="changeSublist('manageAssessment')"
+              [routerLink]="['/AssessmentDisplay']"
             >
               <svg
                 width="24"
@@ -75,7 +77,7 @@
                   stroke-opacity="0.6"
                 />
               </svg>
-              <a [routerLink]="['/AssessmentDisplay']">Manage Assessment</a>
+              <a >Manage Assessment</a>
             </li>
           </ul>
         </span>
@@ -291,7 +293,7 @@
   
     
   </div>
-  <div>
+  <div class="toggleBtn">
      
     <svg
       width="44"

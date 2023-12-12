@@ -45,7 +45,7 @@ export class SkillsdropdownService {
 
     const body = { Managername: filterManager, Skill: filterSkills,FromDate:fromDate,ToDate:toDate };
 
-
+    
     console.log('body', body);
 
     return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/question', body, { headers });

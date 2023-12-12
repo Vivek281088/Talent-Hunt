@@ -24,6 +24,7 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
 
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 import { loginGuard } from './Guard/login.guard';
+import { TabView } from 'primeng/tabview';
 
 // import { NgModule } from '@angular/core';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';

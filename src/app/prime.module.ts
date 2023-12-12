@@ -22,13 +22,14 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { SidebarModule } from 'primeng/sidebar';
-
+import { TabView } from 'primeng/tabview';
 import { CalendarModule } from 'primeng/calendar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ChipModule } from 'primeng/chip';
 import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
+// import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   imports: [
@@ -61,6 +62,7 @@ import { BadgeModule } from 'primeng/badge';
     AvatarModule,
     AvatarGroupModule,
     SidebarModule,
+  
   ],
   exports: [
     MultiSelectModule,
@@ -92,6 +94,7 @@ import { BadgeModule } from 'primeng/badge';
     AvatarModule,
     AvatarGroupModule,
     SidebarModule,
+    
   ],
 })
 export class PrimeModule {}
