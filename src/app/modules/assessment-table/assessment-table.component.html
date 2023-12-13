@@ -2,11 +2,21 @@
   <div class="assesment-header">
     <p class="assessment-text">Assessments</p>
   </div>
- 
-  <div class="flex justify-content-start bread">
+
+  <!-- <div class="flex justify-content-start bread">
     <p-breadcrumb class="max-w-full breadclass" [model]="items"></p-breadcrumb>
+  </div> -->
+  <div class=" flex  breadDate">
+    <div>
+      <p-breadcrumb class=" BreadCrumb" [model]="items"
+      [style]="{ border: 'none' }"></p-breadcrumb>
+    </div>
+    <div class="date">
+      {{todayDate}}
+    </div>
+      
   </div>
- 
+
   <div class="candidate-table">
     <p-table
       class="candidateTable"
@@ -31,12 +41,13 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th colspan="10">
+          <th colspan="9">
             <div class="filter-components">
               <div>
                 <span class="p-input-icon-right ml-auto">
                   <i class="pi pi-search"></i>
                   <input
+                    class="searchIcon"
                     pInputText
                     type="text"
                     (input)="
@@ -46,7 +57,7 @@
                   />
                 </span>
               </div>
-              <div class="customMultiselect">
+              <div class="managerMultiselect">
                 <p-columnFilter
                   field="email_Managername"
                   matchMode="in"
@@ -59,7 +70,6 @@
                     let-filter="filterCallback"
                   >
                     <p-multiSelect
-                   
                       [ngModel]="value"
                       appendTo="body"
                       [options]="managerOption"
@@ -77,7 +87,7 @@
                   </ng-template>
                 </p-columnFilter>
               </div>
-              <div class="customMultiselect">
+              <div class="managerMultiselect">
                 <p-columnFilter
                   field="candidateName"
                   matchMode="in"
@@ -107,7 +117,7 @@
                   </ng-template>
                 </p-columnFilter>
               </div>
-              <div class="customMultiselect">
+              <div class="managerMultiselect">
                 <p-columnFilter
                   field="results"
                   matchMode="equals"
@@ -135,7 +145,7 @@
                   </ng-template>
                 </p-columnFilter>
               </div>
-              <div class="customMultiselect">
+              <div class="managerMultiselect">
                 <p-columnFilter
                   field="Skill"
                   matchMode="contains"
@@ -165,11 +175,11 @@
                   </ng-template>
                 </p-columnFilter>
               </div>
-              <div>
+              <div class="clearButton">
                 <button
                   pButton
                   label="Clear filter"
-                  class="p-button-outlined p-button-danger"
+                  class="clear-button cursor-pointer"
                   [style]="{ width: '130px' }"
                   (click)="clear(dt1)"
                 ></button>
@@ -177,22 +187,21 @@
             </div>
           </th>
         </tr>
- 
+
         <tr>
           <th>Seq.No</th>
           <th>Candidate Name</th>
           <th>Manager</th>
- 
+
           <th>Assessment</th>
           <th>Date</th>
           <th>Skills</th>
           <th>Result</th>
           <th>Score(%)</th>
           <th></th>
-          <th></th>
         </tr>
       </ng-template>
- 
+
       <ng-template pTemplate="body" let-rowData let-i="rowIndex">
         <tr>
           <td>{{ i + 1 }}</td>
@@ -200,13 +209,15 @@
           <td>{{ rowData.email_Managername }}</td>
           <td class="assessmentName">{{ rowData.email_Filename }}</td>
           <td>{{ rowData.Managername }}</td>
- 
+
           <td class="skills">
             <span *ngFor="let item of getFormattedSkills(rowData.Skill).skills">
-              <p-chip class="chipdesign" label="{{ item }}"></p-chip>
+              <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
             </span>
-            <span *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0" class="plusIcon"
-              >
+            <span
+              *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0"
+              class="plusIcon"
+            >
               +
               <p-overlayPanel #op>
                 <ul
@@ -231,19 +242,17 @@
               ></p-badge>
             </span>
           </td>
- 
+
           <td>
             <div class="resultDesign">
               <p [ngClass]="getResultClass(rowData.results)">
                 <span>{{ rowData.results }}</span>
               </p>
- 
             </div>
-           
           </td>
           <td>{{ rowData.score }}</td>
- 
-          <td><i class="pi pi-check" style="color: #c1abd3"></i></td>
+
+          
           <td>
             <i class="pi pi-ellipsis-h" (click)="handleEllipsisDialog()"></i>
           </td>
@@ -252,7 +261,7 @@
     </p-table>
   </div>
 </div>
- 
+
 <p-dialog [(visible)]="openEllipsisDialogBox" [style]="{ width: '20vw' }">
   <ul>
     <li>
@@ -263,4 +272,3 @@
     </li>
   </ul>
 </p-dialog>
- 
