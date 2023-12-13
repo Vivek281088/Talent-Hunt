@@ -1,45 +1,17 @@
-<div class="h-full pt-5 px-3">
-  <div class="custom-card">
-    <div class="card-content">
-      <div>
-        <span class="card-title">Hi {{ candidateName }}!</span>
-      </div>
-      <div class="card-content">
-        <p class="textdata">
-          Please click on the filename to attempt the test. Good luck!
-        </p>
-      </div>
-    </div>
-  </div>
+<div class="top-part">
+  <img class="mtalent-icon" src="../assets\Mtalent-Icon.png" alt="Mtalent-Icon"  />
+<div class="mtalent-heading">
+<p>MTalent</p>
+</div>
+<div class="mtalent-slogan">
+<p> Streamline the Hiring Process</p> 
+  <p>Effortlessly Schedule and Assess with MTalent</p>
+</div>
+</div>
 
-  <!-- Table content -->
-  <div class="table-container tab">
-    <p-table
-      class="custom_table"
-      [columns]="cols"
-      [value]="candidateList"
-      [scrollable]="true"
-      scrollHeight="calc(79vh - 10px)"
-    >
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th>File Name</th>
-
-          <th>Status</th>
-        </tr>
-      </ng-template>
-
-      <ng-template pTemplate="body" let-rowData>
-        <tr class="table-row">
-          <td style="width: 20rem">
-            <a class="filename-link" (click)="sendQuestions(rowData)">{{
-              rowData.email_Filename
-            }}</a>
-          </td>
-
-          <td style="width: 20rem">{{ rowData.email_Status }}</td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
+<div class="bottom-part">
+  <div class="toast">
+    <i class="pi pi-info-circle" style="color:rgba(22, 102, 220, 1);" ></i>
+<p class="text">You have been assigned a new assessment on 23-Dec-2023</p>
+<i class="pi pi-times" style="color:rgba(22, 102, 220, 1);"></i>
 </div>

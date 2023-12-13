@@ -35,6 +35,8 @@ import { CandidateTableComponent } from './candidate-table/candidate-table.compo
 
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +57,9 @@ import { CandidateTableComponent } from './candidate-table/candidate-table.compo
     SidenavbarComponent,
     AssessmentTableComponent,
     CandidateTableComponent,
+    
+  
+   
 
   ],
   imports: [

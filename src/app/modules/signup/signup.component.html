@@ -1,5 +1,5 @@
 <div class="signup-container">
-  <!-- <div class="signup-box"> -->
+  <div class="signup-box">
     <div class="signup-slogan">
       <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
       <p class="heading">MTalent</p>
@@ -8,26 +8,29 @@
         with MTalent
       </p>
     </div>
-    <p-card class="signup-card">
-      <h4 class="signup-wording">Register with your personal information</h4>
-      <form (ngSubmit)="signup()" class="signup-form">
-        <div class="p-inputgroup name">
-          <input class="signup-firstname"
-            type="text"
-            pInputText
-            placeholder="First Name"
-            [(ngModel)]="Firstname"
-            name="FirstName"
-          />
-          <input class="signup-lastname"
-          type="text"
-          pInputText
-          placeholder="Last Name"
-          [(ngModel)]="Lastname"
-          name="Lastname"
-        />
-        </div>
-        <!-- <div class="p-inputgroup signup-phone "> 
+    <div class="signup-card">
+      <p-card>
+        <h4 class="signup-wording">Register with your personal information</h4>
+        <form  class="signup-form">
+          <div class="p-inputgroup name">
+            <input
+              class="signup-firstname"
+              type="text"
+              pInputText
+              placeholder="First Name"
+              [(ngModel)]="Firstname"
+              name="FirstName"
+            />
+            <input
+              class="signup-lastname"
+              type="text"
+              pInputText
+              placeholder="Last Name"
+              [(ngModel)]="Lastname"
+              name="Lastname"
+            />
+          </div>
+          <!-- <div class="p-inputgroup signup-phone ">
           <p-inputNumber
             mode="decimal"
             [ngModelOptions]="{ standalone: true }"
@@ -38,143 +41,138 @@
                      >
           </p-inputNumber>
         </div> -->
-
-<div class="p-inputgroup signup-phone">
-
-  <input class="signup-firstname"
-  type="number"
-  pInputText
-  placeholder="Phone number"
-  [useGrouping]="false"
-            [(ngModel)]="phoneNumber"
-  name="emailId"
-/>
-</div>
-
-        <div class="email-group">
-               <div class="input-with-icon">
-                <i class="pi pi-user"></i>
-          <input class="email-signup"
-            type="text"
-            pInputText
-            placeholder="Email"
-            [(ngModel)]="emailId"
-            name="emailId"
-            
-          />
-        </div>
-        <div class="email-caption" >
-          <span >Please provide the email from your Resume</span>
-        </div>
-      </div>
-      <div class="p-inputgroup input-with-icon1">
-        <i class="pi pi-lock"></i>
-        <input class="signup-newpassword"
-          type="password"
-          pInputText
-          placeholder="New Password"
-          [(ngModel)]="password"
-          name="password"
-        />
-        <div class="info-circle" >  
-
-         
-            <p-overlayPanel #op class="password-requirements" [style]="{'width': '350px'}"  >
-                <p class="password-title"> Password Requirements</p>
-                <p class="password-content1">To ensure the security of your account, please make sure your password meets the following criteria:</p>
+ 
+          <div class="p-inputgroup signup-phone">
+            <input
+              class="signup-firstname"
+              type="number"
+              pInputText
+              placeholder="Phone number"
+              [useGrouping]="false"
+              [(ngModel)]="phoneNumber"
+              name="emailId"
+            />
+          </div>
+ 
+          <div class="email-group">
+            <div class="input-with-icon">
+              <i class="pi pi-user"></i>
+              <input
+                class="email-signup"
+                type="text"
+                pInputText
+                placeholder="Email"
+                [(ngModel)]="emailId"
+                name="emailId"
+              />
+            </div>
+            <div class="email-caption">
+              <span>Please provide the email from your Resume</span>
+            </div>
+          </div>
+          <div class="p-inputgroup input-with-icon1">
+            <i class="pi pi-lock"></i>
+            <input
+              class="signup-newpassword"
+              type="password"
+              pInputText
+              placeholder="New Password"
+              [(ngModel)]="password"
+              name="password"
+            />
+            <div class="info-circle">
+              <p-overlayPanel
+                #op
+                class="password-requirements"
+                [style]="{ width: '350px' }"
+              >
+                <p class="password-title">Password Requirements</p>
+                <p class="password-content1">
+                  To ensure the security of your account, please make sure your
+                  password meets the following criteria:
+                </p>
                 <ul class="password-content2">
-                  <li>
-                    <b>Length:</b> At least 8 characters.
-                  </li>
+                  <li><b>Length:</b> At least 8 characters.</li>
                   <li>
                     <b>Character Variety:</b>
-                  <ul>
-                    <li>
-                      At least one uppercase letter (A-Z)
-                    </li>
-                    <li>
-                      At least one lowercase letter (a-z)
-                    </li>
-                    <li>
-                      At least one number (0-9)
-                    </li>
-                    <li>
-                      At least one special character (e.g., !, @, #, $, %)
-                    </li>
-                  </ul>
-                  <li>
-                    <b>Unique Information:</b> Avoid using your name, birthdate, or common words.
+                    <ul>
+                      <li>At least one uppercase letter (A-Z)</li>
+                      <li>At least one lowercase letter (a-z)</li>
+                      <li>At least one number (0-9)</li>
+                      <li>
+                        At least one special character (e.g., !, @, #, $, %)
+                      </li>
+                    </ul>
                   </li>
-                
+ 
                   <li>
-                    <b>Password Strength:</b>  Aim for a password rated as 'Strong' on our strength meter.
+                    <b>Unique Information:</b> Avoid using your name, birthdate,
+                    or common words.
                   </li>
                 </ul>
-
-                
-            </p-overlayPanel>
-            <i (mouseover)="op.toggle($event)" (mouseleave)="op.toggle($event)"  class="pi pi-info-circle" style="color: green"></i>
-        </div>
-        </div>
-   
-     
-
-        <div class="p-inputgroup input-with-icon1">
-          <i class="pi pi-lock"></i>
-                  <input class="confirmpassword-signup"
-            type="password"
-            pInputText
-            placeholder="Confirm Password"
-            [(ngModel)]="confirmPassword"
-            name="confirmPassword"
-          />
-        </div>
-<span class="agree-signup">By clicking Sign Up, you agree to our <a href="#">Terms</a>, <a href="#">Privacy Policy</a> and <a href="#">Cookies Policy</a>.</span>
-        <p-toast></p-toast>
-<div class="button-signup">
-        <button
-        pButton
-        type="submit"
-        label="Sign Up"
-        class="p-button-success"
-        [disabled]="
-          !emailId ||
-          !Firstname ||
-          !Lastname ||
-          !phoneNumber ||
-          !password ||
-          !confirmPassword
-        "
-      ></button>
-    </div>
-   
-</form>
-
-
-<div class="hrLine"></div>
- <div class="login-signup">
-    <button 
-   
-    (click)="alreadyhasaccount()"
-    class="signup-button"
-    style=" border: #652D90;"
-    
-    >
-    <span class="login-label" > Already has a account ? Login</span>
-  </button>
-  </div>
-
-   <!-- <div class="login-signup">
-    <p-button 
-    
-    severity="help"
-    (click)="alreadyhasaccount()"
-    >
-    Already has a account ? Login
-  </p-button>
-  </div>  -->
-
-    </p-card>
-<!-- </div> -->
-</div>
+              </p-overlayPanel>
+              <i
+                (mouseover)="op.toggle($event)"
+                (mouseleave)="op.toggle($event)"
+                class="pi pi-info-circle"
+                style="color: green"
+              ></i>
+            </div>
+          </div>
  
+          <div class="p-inputgroup input-with-icon1">
+            <i class="pi pi-lock"></i>
+            <input
+              class="confirmpassword-signup"
+              type="password"
+              pInputText
+              placeholder="Confirm Password"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+            />
+          </div>
+          <span class="agree-signup"
+            >By clicking Sign Up, you agree to our <a href="#">Terms</a>,
+            <a href="#">Privacy Policy</a> and
+            <a href="#">Cookies Policy</a>.</span
+          >
+          <p-toast></p-toast>
+          <div class="button-signup">
+            <button
+              pButton
+              type="submit"
+              (click)="signup()"
+              label="Sign Up"
+              class="p-button-success"
+              [disabled]="
+                !emailId ||
+                !Firstname ||
+                !Lastname ||
+                !phoneNumber ||
+                !password ||
+                !confirmPassword
+              "
+            ></button>
+          </div>
+        </form>
+         <div class="hrLine"></div>
+        <div class="login-signup">
+          <button
+            (click)="alreadyhasaccount()"
+            class="signup-button"
+            style="border: #652d90"
+          >
+            <span class="login-label"> Already has a account ? Login</span>
+          </button>
+        </div>
+      </p-card>
+      <div class="cardfooter">
+        <a class="a1">Privacy Policy</a>
+        <i class="pi pi-circle-on"></i>
+        <a class="a2">About Us</a>
+        <i class="pi pi-circle-on"></i>
+        <a class="a3">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -15,8 +15,8 @@ export class NavbarComponent {
  
   showCandidateEmail!: string;
  
-
-
+ 
+ 
   finalizedEmail!: string;
   userName!: string | null;
   userEmail!: string;
@@ -229,14 +229,13 @@ export class NavbarComponent {
     if (!name) {
       return '';
     }
-
+ 
     const names = name.split(' ');
     const initials = names.map((n) => n.charAt(0)).join('');
     return initials.toUpperCase();
   }
-
-
-
+ 
+ 
+ 
 }
  
-
