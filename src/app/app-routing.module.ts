@@ -34,7 +34,7 @@ import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { ManagernameService } from './services/managername.service';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
-
+import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 
 const routes: Routes = [
   { path: 'create', component: Dash1Component },
@@ -45,6 +45,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: SchedulepageComponent,
   },
+  { path: 'new-schedule', component: NewScheduleComponent },
 
   { path: 'questiondisplay', component: QuestiondisplayComponent },
 
@@ -56,7 +57,7 @@ const routes: Routes = [
 
   { path: 'reviewer', component: ReviewerComponent },
 
-  { path: 'candidateassessment', component: CandidateAssessmentComponent },
+  { path: 'candidatehome', component: CandidateAssessmentComponent },
 
   { path: 'sidebar', component: SidenavbarComponent },
 
@@ -69,13 +70,13 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
-  
+
   { path: 'AssessmentDisplay', component: AssessmentTableComponent },
 
   { path: 'questiondb', component: QuestiondbComponent },
 
   { path: 'profile', component: ProfileDialogComponent },
-  {path:'candidatetable',component:CandidateTableComponent},
+  { path: 'candidatetable', component: CandidateTableComponent },
 
   // { path: '**', component: LoginComponent }
 

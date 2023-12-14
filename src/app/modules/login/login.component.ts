@@ -122,9 +122,9 @@ export class LoginComponent implements OnDestroy {
               console.log("entered")
               const redirectUrl = this.authService.redirectUrl
                 ? this.authService.redirectUrl
-                : '/dashboard';
+                : '/candidatehome';
  
-              this.router.navigate(['dashboard']);
+              this.router.navigate(['candidatehome']);
             }
           }
         } else if (data.status == 400) {

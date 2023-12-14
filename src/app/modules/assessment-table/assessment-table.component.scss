@@ -13,7 +13,7 @@
     border: 1px solid #dee2e6;
     border-width: 0 0 1px 0;
     /* padding: 1rem 1rem; */
-    padding: 8px 16px 8px 5px;
+    padding: 13.6px 16px 13.6px 5px;
     //styleName: Body 2;
     font-family: "Roboto", sans-serif;
     font-size: 14px;
@@ -436,3 +436,50 @@ label {
   letter-spacing: 0.15000000596046448px;
   text-align: left;
 }
+.design_panel{
+  margin-bottom: 15px;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  color: #00000061;
+ 
+}
+ 
+ .line_design{
+  margin-bottom: 5px;
+  //styleName: Body 2;
+ 
+ 
+ 
+ 
+ }
+ 
+ .design_panel_last{
+  font-family: 'Roboto';
+font-size: 14px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.25px;
+text-align: left;
+color: #00000061;
+cursor:pointer;
+ 
+ }
+ 
+ :host ::ng-deep .p-button {
+  color: #ffffff;
+  background: #652D90;
+  border: 1px solid #652D90;
+  &:hover {
+    color: #652D90;
+    ; /* Darker background color on hover */
+    // border: none;
+  }
+  &:focus {
+    box-shadow: none;
+  }
+}
+ 

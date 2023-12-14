@@ -400,6 +400,10 @@ background: black;
   // margin-left: 24px;
   border: 1px;
   gap: 12px;
+  
+}
+ ::ng-deep .p-inputgroup > .p-component:focus {
+     z-index: auto;
 }
  
 .input-with-icon1  i{
@@ -578,10 +582,12 @@ padding: 6px, 6px, 6px, 8px;
     height: 16px;
     width: 72px;
   }
+
   ::ng-deep {
     .pi {
       font-size: 0.3rem;
       color: #00000099;
     }
+    
   }
 }

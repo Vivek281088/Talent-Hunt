@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/Guard/auth.service';
 
 @Component({
   selector: 'app-sidenavbar',
@@ -13,14 +14,17 @@ export class SidenavbarComponent {
   isSideNavCollapsed: boolean = false;
   activeSection: string = 'home';
   activeSublist: string = '';
+  role: string | null = '';
+  showSidebar!: boolean;
 
+  constructor(private authService: AuthService) {}
   ngOnInit(): void {
     this.changeStyle('home');
+    this.shouldDisplaySidebar();
   }
 
   toggleSideNav() {
     this.isSideNavCollapsed = !this.isSideNavCollapsed;
-    
   }
 
   changeStyle(section: string) {
@@ -75,5 +79,12 @@ export class SidenavbarComponent {
   }
   changeStyle4() {
     this.systemShow = !this.systemShow;
+  }
+  shouldDisplaySidebar() {
+    this.role = localStorage.getItem('userrole');
+    console.log('Role : ', this.role);
+    if (this.role === 'manager') {
+      this.showSidebar = true;
+    }
   }
 }

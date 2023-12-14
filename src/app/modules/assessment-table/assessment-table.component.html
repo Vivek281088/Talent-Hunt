@@ -262,6 +262,33 @@
   </div>
 </div>
 
+<div class="card flex justify-content-center">
+  <p-overlayPanel #op>
+      <ng-template pTemplate="content">
+          <p class="design_panel">Resend Invite</p>
+          <p class="design_panel">Evaluate</p>
+          <p class="design_panel">preview</p>
+          <hr class="line_design">
+ 
+          <p class="design_panel_last" (click)="confirmPosition('top')">Cancel Invite</p>
+         
+      </ng-template>
+  </p-overlayPanel>
+  <!-- <p-button  icon="pi pi-image" label="Show"></p-button> -->
+</div>
+
+<div class="card flex flex-wrap flex-column align-items-center gap-2">
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{ width: '45vw' }" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+ 
+  <div class="flex flex-wrap justify-content-center gap-2">
+     
+      <!-- <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button> -->
+     
+  </div>
+ 
+</div>
+
 <p-dialog [(visible)]="openEllipsisDialogBox" [style]="{ width: '20vw' }">
   <ul>
     <li>

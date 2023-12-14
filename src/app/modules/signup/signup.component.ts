@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/Guard/auth.service';
 
 import { MessageService } from 'primeng/api';
 @Component({
@@ -19,12 +20,18 @@ export class SignupComponent {
   password!: string;
   confirmPassword!: string;
   visible: boolean = false;
+  
   constructor(
     private loginservice: LoginService,
     private toastr: ToastrService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
+  ngOnInit() {
+    
+  }
+ 
   resetform() {
     this.Firstname = '';
     this.Lastname = '';

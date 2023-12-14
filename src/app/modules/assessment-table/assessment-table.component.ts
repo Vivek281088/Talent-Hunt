@@ -7,12 +7,18 @@ import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
-import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+  MenuItem,
+} from 'primeng/api';
 @Component({
   selector: 'app-assessment-table',
   templateUrl: './assessment-table.component.html',
   styleUrls: ['./assessment-table.component.scss'],
+  providers: [ConfirmationService, MessageService],
 })
 export class AssessmentTableComponent {
   sidebarVisible2: boolean = false;
@@ -29,6 +35,7 @@ export class AssessmentTableComponent {
   ];
 
   items: MenuItem[] | undefined;
+  position: string = 'center';
 
   candidateNames: any[] = [];
   name: boolean = true;
@@ -63,7 +70,9 @@ export class AssessmentTableComponent {
     private router: Router,
     private formBuilder: FormBuilder,
     private auth: AuthService,
-    private candidateService: CandidateAssessmentService // reviewer
+    private candidateService: CandidateAssessmentService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) {
     // this.candidateForm = this.formBuilder.group({
     //   candidateName: ['', Validators.required],
@@ -299,6 +308,41 @@ export class AssessmentTableComponent {
     const formatDate: string = `${month} ${day}, ${year}`;
 
     return formatDate;
+  }
+  confirmPosition(position: string) {
+    this.position = position;
+
+    this.confirmationService.confirm({
+      message: 'Do you want to cancel this invite?',
+      header: 'Cancel Invite',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'You have cancelled the invite successfully',
+        });
+      },
+      reject: (type: ConfirmEventType) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+      key: 'positionDialog',
+    });
   }
 
   ////////////////////////view icon//////////////
