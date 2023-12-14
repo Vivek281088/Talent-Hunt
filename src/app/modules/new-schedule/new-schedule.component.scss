@@ -1,12 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto&display=swap");
 
 .new-schedule-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .new-schedule-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding-bottom: 16px;
 }
 .new-schedule-header-1 {
   display: flex;
@@ -51,32 +57,151 @@
   justify-content: space-between;
   padding: 16px 16px 5px 16px;
 
+  ::ng-deep .p-button .p-button-label {
+    transition-duration: 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
   .cancelBtn {
     padding-right: 2rem;
     ::ng-deep {
-        .p-button {
-      color: #652d90;
-      background: #fafafa;
-      border: 1px solid #652d90;
-    }
-     .p-button:focus {
-    box-shadow: none;
-}
-
+      .p-button {
+        color: #652d90;
+        background: #fafafa;
+        border: 1px solid #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
     }
   }
-  .saveBtn{
+  .saveBtn {
     ::ng-deep {
-        .p-button {
-      color: #fafafa;
-      background: #652d90;
-      border: none;
-    }
+      .p-button {
+        color: #fafafa;
+        background: #652d90;
+        border: none;
+        height: 45.6px;
+      }
 
-    .p-button:focus {
-    box-shadow: none;
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-button .p-button-label {
+        padding-left: 8px;
+      }
+    }
+  }
 }
+
+.edit-schedule {
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+  border: 1px solid #0000001f;
+  border-radius: 8px;
+  margin: 0px 16px 16px 16px;
+  justify-content: space-between;
+
+  .edit-start {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    label {
+      font-size: 12px;
+      font-family: "Roboto", sans-serif;
+      color: #00000061;
+      font-weight: 400;
+      padding-bottom: 1rem;
     }
 
+    p {
+      font-family: "Roboto", sans-serif;
+      font-weight: 430;
+      color: #000000de;
+      font-size: 16px;
+    }
+
+    .edit-name {
+      padding-right: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .edit-manager {
+      padding-right: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .edit-cutoff {
+      padding-right: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+    .edit-duration {
+      padding-right: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .edit-end {
+    align-items: end;
+  }
+}
+
+.questionSelect {
+  display: flex;
+  padding: 16px;
+  border: 1px solid #0000001f;
+  border-radius: 8px;
+  margin: 0px 16px 16px 16px;
+
+  .tabview-count {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+
+    .tabview {
+      width: 70%;
+      ::ng-deep {
+        .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+          border-color: #652d90;
+          color: #652d90;
+        }
+        .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+          font-family: "Roboto", sans-serif;
+          font-size: 14px;
+        }
+        .p-tabview
+          .p-tabview-nav
+          li
+          .p-tabview-nav-link:not(.p-disabled):focus {
+          box-shadow: none;
+        }
+      }
+    }
+
+    .questioncount {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+
+      label {
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+        font-weight: 450;
+        color: #00000061;
+      }
+      p {
+        font-family: "Poppins", sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        color: #652d90;
+      }
+    }
   }
 }
