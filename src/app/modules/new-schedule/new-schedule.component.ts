@@ -11,7 +11,7 @@ export class NewScheduleComponent {
   tabs: { title: string, content: string }[] = [];
   Tdata !: any;
 
-  constructor() {}
+  constructor() { }
   ngOnInit() {
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
@@ -24,24 +24,28 @@ export class NewScheduleComponent {
       { title: 'NodeJS', content: this.Tdata },
       { title: 'React', content: this.Tdata },
       { title: 'MongoDB', content: this.Tdata }
-  ];
+    ];
 
-  this.Tdata={
+    this.Tdata = [
+      "wbjbxw","w hwxh"
+      //     {
     
-    "question": "Which of the following is not a functional interface in Java 8?",
-    "questionType": "Radio",
-    "options": [
-      "Consumer",
-      "Supplier",
-      "Runnable",
-      "Comparator"
-    ],
-    "skills": "Java-8",
-    "Difficulty_Level": "E",
-    "answer": [
-      "Comparator"
-    ]
-  }
+      //   "question": "Which of the following is not a functional interface in Java 8?",
+      //   "questionType": "Radio",
+      //   "options": [
+      //     "Consumer",
+      //     "Supplier",
+      //     "Runnable",
+      //     "Comparator"
+      //   ],
+      //   "skills": "Java-8",
+      //   "Difficulty_Level": "E",
+      //   "answer": [
+      //     "Comparator"
+      //   ]
+      // }
 
+      // }
+    ]
   }
 }

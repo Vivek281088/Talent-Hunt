@@ -77,36 +77,22 @@
         <p-tabView>
           <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
             <ng-template pTemplate="content">
-              <p-table
-                #dt2
-                [value]:any[]="tab.content"
-                [rows]="3"
-              >
-                <div class="tableheader">
-                  <div class="tableheader-1">
-                    <div class="searchicon">
-                      
-                        <input
-                          pInputText
-                          type="text"
-                          (input)="
-                            dt2.filterGlobal(
-                              $any($event.target).value,
-                              'contains'
-                            )
-                          "
-                          placeholder="Search"
-                        />
-                        <i class="pi pi-search"></i>
-                      
-                    </div>
+              <p-table #dt2 [value]: any[]="tab.content" [rows]="3">
+                <ng-template pTemplate="caption">
+                  <div class="flex">
+                    <span class="p-input-icon-left ml-auto">
+                      <i class="pi pi-search"></i>
+                      <input
+                        pInputText
+                        type="text"
+                        (input)="
+                          dt2.filterGlobal($any($event.target).value, 'contains')
+                        "
+                        placeholder="Search keyword"
+                      />
+                    </span>
                   </div>
-                  <div class="tableheader-2">
-                    <div class="selectall"></div>
-                    <div class="unselectall"></div>
-                    <div class="preview"></div>
-                  </div>
-                </div>
+                </ng-template>
               </p-table>
             </ng-template>
           </p-tabPanel>
