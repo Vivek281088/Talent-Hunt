@@ -8,10 +8,10 @@ import { MenuItem } from 'primeng/api';
 })
 export class NewScheduleComponent {
   items: MenuItem[] | undefined;
-  tabs: { title: string, content: string }[] = [];
-  Tdata !: any;
+  tabs: { title: string; content: any }[] = [];
+  Tdata!: any;
 
-  constructor() { }
+  constructor() {}
   ngOnInit() {
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
@@ -23,29 +23,36 @@ export class NewScheduleComponent {
       { title: 'JavaScript', content: this.Tdata },
       { title: 'NodeJS', content: this.Tdata },
       { title: 'React', content: this.Tdata },
-      { title: 'MongoDB', content: this.Tdata }
+      { title: 'MongoDB', content: this.Tdata },
     ];
 
-    this.Tdata = [
-      "wbjbxw","w hwxh"
-      //     {
-    
-      //   "question": "Which of the following is not a functional interface in Java 8?",
-      //   "questionType": "Radio",
-      //   "options": [
-      //     "Consumer",
-      //     "Supplier",
-      //     "Runnable",
-      //     "Comparator"
-      //   ],
-      //   "skills": "Java-8",
-      //   "Difficulty_Level": "E",
-      //   "answer": [
-      //     "Comparator"
-      //   ]
-      // }
+    this.Tdata = [{
 
-      // }
-    ]
+      question: "Which of the following is not a functional interface in Java 8?",
+      questionType: "Radio",
+      options: [
+        "Consumer",
+        "Supplier",
+        "Runnable",
+        "Comparator"
+      ],
+      skills: "Java-8",
+      Difficulty_Level: "E",
+      answer: [
+        "Comparator"
+      ]
+    }]
   }
+
+  // createTdataInstance() {
+  //   return {
+  //     question:
+  //       'Which of the following is not a functional interface in Java 8?',
+  //     questionType: 'Radio',
+  //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+  //     skills: 'Java-8',
+  //     Difficulty_Level: 'E',
+  //     answer: ['Comparator'],
+  //   };
+  // }
 }
