@@ -134,6 +134,18 @@ gap: 10px;
 
 
 
+  .Createbutton {
+    ::ng-deep {
+      .p-ripple {
+        // padding: 6px, 6px, 6px, 8px;
+        // border-radius: 4px;
+        // width: 76px;
+        // height: 36px;
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+      }
+    }
   }
 }
 ::ng-deep .newschedule-card {
@@ -435,6 +447,11 @@ gap: 10px;
   color: #c81a78;
   border: 1px solid #c81a78;
   background: white;
+}
+::ng-deep .p-button .p-button-label {
+    transition-duration: 0.2s;
+    font-size: 14px;
+    font-weight: 500;
 }
 ::ng-deep .dropdown-manager .p-dropdown {
   width: auto;
@@ -966,4 +983,4 @@ body {
 
 .wide-input {
   width: 100%;
-}
+}}

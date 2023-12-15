@@ -29,6 +29,10 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ChipModule } from 'primeng/chip';
 import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
+import { OverlayModule } from 'primeng/overlay';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { MenuModule } from 'primeng/menu';
+
 // import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
@@ -62,7 +66,9 @@ import { BadgeModule } from 'primeng/badge';
     AvatarModule,
     AvatarGroupModule,
     SidebarModule,
-  
+    OverlayModule,
+    ConfirmPopupModule,
+    MenuModule,
   ],
   exports: [
     MultiSelectModule,
@@ -94,7 +100,9 @@ import { BadgeModule } from 'primeng/badge';
     AvatarModule,
     AvatarGroupModule,
     SidebarModule,
-    
+    OverlayModule,
+    ConfirmPopupModule,
+    MenuModule,
   ],
 })
 export class PrimeModule {}

@@ -400,6 +400,10 @@ background: black;
   // margin-left: 24px;
   border: 1px;
   gap: 12px;
+  
+}
+ ::ng-deep .p-inputgroup > .p-component:focus {
+     z-index: auto;
 }
  
 .input-with-icon1  i{
@@ -544,12 +548,46 @@ box-shadow: none;
 width: 273px;
 height: 48px;
 padding: 6px, 6px, 6px, 8px;
-// border-radius: 4px;
+}
  
-// margin-top: 10px;
-// margin-bottom: 25px;
- 
- 
- 
+.cardfooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  text-align: center;
+  width: 263px;
+  height: 16px;
+  gap: 8px;
+  margin-left: 60px;
+  a {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.25px;
+    text-align: center;
+    color: #1666dc;
+    cursor: pointer;
   }
- 
+  .a1 {
+    height: 16px;
+    width: 90px;
+  }
+  .a2 {
+    height: 16px;
+    width: 60px;
+  }
+  .a3 {
+    height: 16px;
+    width: 72px;
+  }
+
+  ::ng-deep {
+    .pi {
+      font-size: 0.3rem;
+      color: #00000099;
+    }
+    
+  }
+}

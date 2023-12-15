@@ -220,6 +220,10 @@ ul li a {
 }
 .side-nav.collapsed .ul1 li.active{  
     color: #00000099;
+    &:hover {
+      background: #c81a78;
+      color: #f2f2f2;
+    }
   
 }
 .side-nav.collapsed {

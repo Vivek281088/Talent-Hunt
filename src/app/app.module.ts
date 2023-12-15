@@ -26,16 +26,13 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
 import { DatePipe } from '@angular/common';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
-import { ChipModule } from 'primeng/chip';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { TagModule } from 'primeng/tag';
-import { BadgeModule } from 'primeng/badge';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
 
 // import { TabView } from 'primeng/tabview';
 
 import { BodyComponent } from './modules/body/body.component';
+import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 
 
 @NgModule({
@@ -60,21 +57,17 @@ import { BodyComponent } from './modules/body/body.component';
     CandidateTableComponent,
 
     BodyComponent,
+      NewScheduleComponent,
   ],
   imports: [
     BrowserModule,
-    BreadcrumbModule,
-    TagModule,
-    BadgeModule,
     AppRoutingModule,
     PrimeModule,
-    ChipModule,
     FormsModule,
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
-    OverlayPanelModule,
     
     ToastrModule.forRoot(),
   ],

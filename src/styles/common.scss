@@ -165,6 +165,7 @@ span.p-badge.p-component.p-badge-no-gutter.ng-star-inserted {
     height: 1.5rem;
     line-height: 1.5rem;
     background: transparent;
+    margin-left: 1px;
     
 
 }
@@ -233,6 +234,25 @@ span.p-badge.p-component.p-badge-no-gutter.ng-star-inserted {
     padding: 8px 16px 8px 16px;
 }
 }
+//Assessment Table
+
+.searchIcon {
+  ::ng-deep {
+    .p-input-icon-right > .p-inputtext {
+      padding-right: 2.5rem;
+      width: 138px;
+      height: 36px;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px;
+      margin-right: 7px;
+      gap: 8px;
+
+      border: 1px solid #00000061;
+    }
+  }
+}
+
 
 
 
