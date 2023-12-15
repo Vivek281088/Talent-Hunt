@@ -20,10 +20,10 @@ export class NewScheduleComponent {
     ];
 
     this.tabs = [
-      { title: 'JavaScript', content: 'Tab 1 Content' },
-      { title: 'NodeJS', content: 'Tab 2 Content' },
-      { title: 'React', content: 'Tab 3 Content' },
-      { title: 'MongoDB', content: 'Tab 3 Content' }
+      { title: 'JavaScript', content: this.Tdata },
+      { title: 'NodeJS', content: this.Tdata },
+      { title: 'React', content: this.Tdata },
+      { title: 'MongoDB', content: this.Tdata }
   ];
 
   this.Tdata={

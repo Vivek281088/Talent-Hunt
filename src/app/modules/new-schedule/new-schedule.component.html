@@ -79,11 +79,8 @@
             <ng-template pTemplate="content">
               <p-table
                 #dt2
-                [value]="Tdata"
+                [value]:any[]="tab.content"
                 [rows]="3"
-                [rowsPerPageOptions]="[3, 5, 10, 25, 50]"
-                [loading]=""
-                [paginator]="true"
               >
                 <div class="tableheader">
                   <div class="tableheader-1">
