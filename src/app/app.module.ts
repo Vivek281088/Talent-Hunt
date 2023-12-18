@@ -33,6 +33,7 @@ import { CandidateTableComponent } from './candidate-table/candidate-table.compo
 
 import { BodyComponent } from './modules/body/body.component';
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
+import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { NewScheduleComponent } from './modules/new-schedule/new-schedule.compon
 
     BodyComponent,
       NewScheduleComponent,
+      ManageManagersComponent,
   ],
   imports: [
     BrowserModule,
