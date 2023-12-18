@@ -196,7 +196,7 @@
                           </svg>
        
                           <div class="newSchedule-card flex justify-content-left schedule-Input">
-                            <input type="text" pInputText />
+                            <input type="text" pInputText  [ngModel]="scheduleName"/>
                           </div>
                         </div>
                         <div class=" Manager">
@@ -224,6 +224,7 @@
                               placeholder=""
                               [editable]="true"
                               optionLabel=""
+                              [ngModel]="manager"
                             ></p-dropdown>
                           </div>
                         </div>
@@ -251,6 +252,7 @@
                               optionLabel=""
                               display="chip"
                               [showClear]="true"
+                              [ngModel]="selectedSkills"
                               appendTo="body"
                             ></p-multiSelect>
                           </div>
@@ -274,7 +276,7 @@
                               />
                             </svg>
                             <div class="card flex justify-content-bottom">
-                              <input type="text" pInputText />
+                              <input type="text" pInputText [ngModel]="cutOff" />
                             </div>
                           </div>
                         <div class="duartion">
@@ -293,7 +295,7 @@
                             />
                           </svg>
                            <div class="card flex justify-content-left">
-                            <input type="text" pInputText />
+                            <input type="text" pInputText [ngModel]="duration" />
                           </div>
        
                         </div>
@@ -307,7 +309,7 @@
                       <ng-template pTemplate="footer">
                         <div class="Newschedule-button">
                           <div class="Cancelbutton">
-                            <p-button  [outlined]="true" >
+                            <p-button  [outlined]="true" (onClick)="cancelButton()" >
                               <label class="cancel-word">
                                 Cancel
      
@@ -316,7 +318,7 @@
      
                           </div>
                          <div class="Createbutton">
-                          <p-button>
+                          <p-button onclick="createButton(this.scheduleName,this.manager,this.selectedSkills,thi.cutOff,this.duration)"> 
                             <label class="Create-word">
                               Create
                             </label>
