@@ -16,6 +16,7 @@ import { FormControl} from '@angular/forms';
 // import { DatePipe } from '@angular/common';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
+import { DataService } from 'src/app/services/data.service';
 // import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-schedulepage',
@@ -110,7 +111,7 @@ selecteddates!:Date
   todayDate !: string;
   scheduleName!:string; 
   manager!:string;
-  selectedSkills!:string;
+  selectedSkills!:string[];
   cutOff!:number;
   duration!:number;
 
@@ -152,7 +153,8 @@ selecteddates!:Date
     // reviewer
     private messageService: MessageService,
  
-    private reviewerService: ReviewerService
+    private reviewerService: ReviewerService,
+    private dataService:DataService
   ) {
    
   }
@@ -426,12 +428,43 @@ this.showcardFlag=true;
   cancelButton(){
     this.visible=false;
   }
-  createButton(scheduleName:string,manager:string,selectedSkill:string,cutOff:number,duration:number){
-    this.router.navigate(['new-schedule',scheduleName,manager,selectedSkill,cutOff,duration])
+  // createButton(scheduleName:string,manager:string,selectedSkill:string,cutOff:number,duration:number){
+    // this.router.navigate(['new-schedule'],this.scheduleName,this.manager,this.selectedSkill,this.cutOff,this.duration)
     // console.log("recieved",scheduleName,manager,selectedSkill,cutOff,duration)
+    createButton(){
+      this.sendData();
 
+    }
+    // items: MenuItem[] | undefined;
+    tabs: { title: string; content: any }[] = [];
+     sendData(){
+      const dataToSend={
+        scheduleName:this.scheduleName,manager:this.manager,selectedSkills:this.selectedSkills,cutOff:this.cutOff,duration:this.duration
+      }
+      this.skillsdropdownservice.postskillsList(dataToSend.selectedSkills).subscribe(response =>{
+        const output=response;
+        console.log("respose based on skill",output)
+        // this.createquestion(output)
+        //this.Tdata=output[0].data;
+        // console.log("reached tdata",this.Tdata)
+          
+    
+        for(let i=0;i<output.length;i++){
+           this.tabs.push(
+          { title: output[i].skills, content: output[i].data },
+           );
+    
+        }
+        console.log("tabs",this.tabs)
+      this.dataService.sendData(this.tabs)
+      this.router.navigate(['/new-schedule']);
+      // navigateWithState() {
+        // this.router.navigateByUrl('/new-schedule', { state: { tabs:this.tabs} });
+      // }
 
-  }
+     })
+    }
+  // }
   addNewRow() {
     this.router.navigate(['/create'])
     // const newRow = {
