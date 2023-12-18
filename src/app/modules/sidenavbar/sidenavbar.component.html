@@ -99,6 +99,7 @@
               id="manageManagers"
               [class.active]="activeSublist === 'manageManagers'"
               (click)="changeSublist('manageManagers')"
+              [routerLink]="['/manage-managers']"
             >
               <svg
                 width="24"
@@ -118,7 +119,7 @@
                 />
               </svg>
   
-              <a href="#">Manage Managers</a>
+              <a >Manage Managers</a>
             </li>
   
             <li

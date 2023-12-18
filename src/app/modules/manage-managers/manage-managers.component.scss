@@ -17,6 +17,7 @@
 .manageManagers-header-1 {
   display: flex;
   flex-direction: column;
+  padding-left: 16px;
 
   .title {
     p {
@@ -26,7 +27,7 @@
       line-height: 30px;
       letter-spacing: 0.15000000596046448px;
       text-align: left;
-      padding: 16px 0px 5px 16px;
+      padding: 16px 0px 5px 0px;
     }
   }
 }
@@ -35,7 +36,7 @@
     .p-breadcrumb {
       overflow-x: auto;
       background: transparent;
-      padding: 5px 0px 5px 16px;
+      padding: 5px 0px 5px 0px;
       font-family: "Poppins", sans-serif;
       font-weight: 400;
       font-size: 14px;
@@ -64,15 +65,16 @@
     font-family: "Avenir", sans-serif;
   }
 }
-.scheduleTable {
-    ::ng-deep {
-      .p-datatable {
-        position: relative;
-        border: 1px solid #0000001f;
-        border-radius: 8px;
-      }
+.managerTable {
+  padding-left: 16px;
+  ::ng-deep {
+    .p-datatable {
+      position: relative;
+      border: 1px solid #0000001f;
+      border-radius: 8px;
     }
   }
+}
 //   ::ng-deep .scheduleTable {
 //     .p-datatable .p-datatable-tbody > tr > td {
 //       text-align: left;
@@ -102,72 +104,88 @@
 //       transition: box-shadow 0.2s;
 //     }
 //   }
-  .filter-components {
-    display: flex;
-    justify-content: space-between;
+.manager-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.manager-header1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60%;
+}
+.searchIcon {
+  width: 174px;
+  height: 44px;
+  border-radius: 4px;
+  //searchIcon
+
+  ::ng-deep i {
+    margin-top: -7px !important;
   }
-  .first-four {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+}
+::ng-deep {
+  .p-inputtext:enabled:hover {
+    border: 1px solid #00000061;
   }
-  .searchIcon {
-    width: 138px;
-    height: 36px;
-    border-radius: 4px;
-    border: 1px;
-    ::ng-deep i {
-      margin-top: -7px !important;
-    }
+  .p-inputtext:enabled:focus {
+    box-shadow: none;
+    border: 1px solid #00000061;
   }
+}
+.deptMultiselect {
   ::ng-deep {
-    .p-inputtext:enabled:hover {
-      border-color: #00000061;
+    .p-multiselect .p-multiselect-trigger {
+      width: 1rem;
     }
-    .p-inputtext:enabled:focus {
-      box-shadow: none;
-      border-color: #00000061;
+    .p-fluid .p-multiselect {
+      width: 174px;
+      height: 44px;
+      border-radius: 4px;
+      gap: 8px;
+      background: #EFEFEF;
+      border: none;
     }
-  }
-  .managerMultiselect {
-    ::ng-deep {
-      .p-multiselect .p-multiselect-trigger {
-        width: 1rem;
-      }
-      .p-fluid .p-multiselect {
-        width: 125px;
-        height: 36px;
-        border-radius: 4px;
-        gap: 8px;
-      }
-      .p-icon {
-        width: 14px;
-        height: 8px;
-      }
-      .p-multiselect .p-multiselect-label.p-placeholder {
-        margin-top: -6px;
-      }
+    .p-icon {
+      width: 14px;
+      height: 8px;
     }
   }
-  .clear-button {
-    padding: 6px, 6px, 6px, 8px;
-    border-radius: 4px;
-    border: 1px;
+}
+
+.clear-button {
+  height: 44px;
+  padding: 6px, 6px, 6px, 8px;
+  border-radius: 4px;
+  border: 1px;
+  color: #c81a78;
+  border: 1px solid #c81a78;
+  background: white;
+  &:hover {
     color: #c81a78;
     border: 1px solid #c81a78;
     background: white;
   }
-  .addmanager{
-    ::ng-deep .p-button {
-        color: #ffffff;
-        background: #652D90;
-        border: 1px solid #652D90;
-        &:hover {
-          color: #652D90;
-        
-        }
-        &:focus {
-          box-shadow: none;
-        }
-      }
+  &:focus {
+    box-shadow: none;
   }
+}
+
+.addmanager {
+  ::ng-deep .p-button {
+    color: #ffffff;
+    background: #652d90;
+    border: 1px solid #652d90;
+    &:hover {
+      color: #ffffff;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.EmployeeId{
+  color: #1e22aa!important;
+}
