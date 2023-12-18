@@ -427,7 +427,8 @@ this.showcardFlag=true;
     this.visible=false;
   }
   createButton(scheduleName:string,manager:string,selectedSkill:string,cutOff:number,duration:number){
-    this.router.navigate(['assessment'])
+    this.router.navigate(['new-schedule',scheduleName,manager,selectedSkill,cutOff,duration])
+    // console.log("recieved",scheduleName,manager,selectedSkill,cutOff,duration)
 
 
   }
