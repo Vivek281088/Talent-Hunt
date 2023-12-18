@@ -9,11 +9,11 @@
 
   ::ng-deep {
     .p-tabview .p-tabview-panels {
-      background: #fafafa;
-      padding: 0rem 1rem 0rem 1.25rem;
+      background: #ffffff;
+      padding: 0rem 0rem 0rem 1.25rem;
   }
   .p-datatable .p-datatable-thead > tr > th {
-    background: #fafafa;
+    background: #ffffff;
     padding: 1rem 0rem;
   }
   .p-datatable .p-datatable-tbody > tr > td {
@@ -76,6 +76,9 @@
       color: #00000061;
     }
   }
+}
+.headerSearch{
+  width: 60%;
 }
 .new-schedule-header-2 {
   display: flex;
@@ -208,7 +211,7 @@
       flex-direction: row;
       align-items: baseline;
       position: absolute;
-      transform: translateX(614%);
+      transform: translateX(670%);
 
       label {
         font-family: "Roboto", sans-serif;
