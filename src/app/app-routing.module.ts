@@ -35,9 +35,12 @@ import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { ManagernameService } from './services/managername.service';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
+import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 
 
 const routes: Routes = [
+
+  {path:'candidatequestion',component:CandidatequestionComponent},
   { path: 'create', component: Dash1Component },
 
   // { path: 'dashboard', component: SchedulepageComponent },

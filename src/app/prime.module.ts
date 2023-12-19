@@ -22,7 +22,8 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
+import { PaginatorModule } from 'primeng/paginator';
+import { SplitterModule } from 'primeng/splitter';
 
 @NgModule({
   imports: [
@@ -47,6 +48,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     FileUploadModule,
     PanelMenuModule,
+    PaginatorModule,
+    SplitterModule
   ],
   exports: [
     MultiSelectModule,
@@ -70,6 +73,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     MessagesModule,
     FileUploadModule,
     PanelMenuModule,
+    PaginatorModule,
+    SplitterModule
   ],
 })
 export class PrimeModule {}

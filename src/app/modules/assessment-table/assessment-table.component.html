@@ -1,202 +1,348 @@
 <div class="whole-design">
-      <div class="assesment-header">
+  <div class="assesment-header">
+    <p class="assessment-text">Assessments</p>
+  </div>
 
-        <p class="assessment-text">Assessments</p>
-    </div>
-  
-      <div class=" flex justify-content-start bread">
-          <p-breadcrumb class="max-w-full breadclass"  [model]="items" ></p-breadcrumb>
-      </div>
-      
-      <div class="candidate-table">
-          <p-table class="candidateTable" [resizableColumns]="true" [autoLayout]="true" [value]="candidateList"
-          #dt1
-           [paginator]="true"
-           [tableStyle]="{ height:'max-content'}"
-            [rows]="5"
-            [showCurrentPageReport]="true"
-           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-          [rowsPerPageOptions]="[4, 8, 12]"
-         
-          [globalFilterFields]="['candidateName', 'email_Managername', 'email_Filename', 'skills','results','score']"
-          
-          >    
-               <ng-template pTemplate="header">
-                <tr>
-                  <th colspan="10">
-                      <div class="filter-components">
-                      <div>
-                          <span class="p-input-icon-right ml-auto">
-                              <i class="pi pi-search"></i>
-                              <input pInputText type="text" (input)="dt1.filterGlobal($any($event.target).value, 'contains')" placeholder="Search keyword" />
-                          </span>
-                      </div>
-                      <div>
-                          <p-columnFilter field="email_Managername" matchMode="in" [showMenu]="false" [showClearButton]="false">
-                              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-multiSelect [ngModel]="value" appendTo="body" [options]="managerOption" placeholder="Manager" (onChange)="filter($event.value)"  [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
-                                  <ng-template let-option pTemplate="item">
-                                    <div class="inline-block vertical-align-middle">
-                                      <span class="ml-1 mt-1">{{ option}}</span>
-                                    </div>
-                                  </ng-template>
-                                </p-multiSelect>
-                              </ng-template>
-                            </p-columnFilter>
-                      </div>
-                      <div>
-                          <p-columnFilter field="candidateName" matchMode="in" [showMenu]="false" [showClearButton]="false">
-                              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-multiSelect [ngModel]="value" appendTo="body" [options]="candidateNames" placeholder="Candidate(s)" (onChange)="filter($event.value)"  [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
-                                  <ng-template let-option pTemplate="item">
-                                    <div class="inline-block vertical-align-middle">
-                                      <span class="ml-1 mt-1">{{ option}}</span>
-                                    </div>
-                                  </ng-template>
-                                </p-multiSelect>
-                              </ng-template>
-                            </p-columnFilter>
-                      </div>
-                      <div>
-                          <p-columnFilter field="results" matchMode="equals" [showMenu]="false" [showClearButton]="false">
-                              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                  <p-dropdown [ngModel]="value" [options]="status" (onChange)="filter($event.value)" placeholder="Status" [showClear]="true">
-                                      <ng-template let-option pTemplate="item">
-                                           <!-- <p-tag [value]="option" [ngClass]="getResultClass(option)"></p-tag>  -->
-                                           <span class="ml-1 mt-1">{{ option}}</span> 
-                                      </ng-template>
-                                  </p-dropdown>
-                              </ng-template>
-                          </p-columnFilter>
-                      </div>
-                      <div>
-                          <p-columnFilter field="Skill" matchMode="contains"[showMenu]="false" [showClearButton]="true">
-                              <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-multiSelect [ngModel]="value" appendTo="body" [options]="skillSet" placeholder="Skills" (onChange)="filter($event.value)"  [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
-                                  <ng-template let-option pTemplate="item">
-                                    <div class="inline-block vertical-align-middle">
-                                      <span class="ml-1 mt-1">{{option}}</span>
-                                    </div>
-                                  </ng-template>
-                                </p-multiSelect>
-                              </ng-template>
-                            </p-columnFilter>
-                      </div>
-                      <div>
-                          <button pButton label="Clear filter" class="p-button-outlined p-button-danger" [style]="{width:'130px'}" (click)="clear(dt1)"></button>
-                      </div>
-                      </div>
-                  </th>
-              </tr>
-              
-                  <tr >
-                    <th >Seq.No</th>
-                    <th >candidateName</th>
-                    <th >Manager</th>
-                   
-                    <th >Assessment</th>
-                    <th >Date</th>
-                    <th >Skills</th>
-                    <th >Result</th>
-                    <th>Score(%)</th>
-                    <th></th>
-                    <th></th>
+  <div class="flex justify-content-start bread">
+    <p-breadcrumb class="max-w-full breadclass" [model]="items"></p-breadcrumb>
+  </div>
+
+  <div class="candidate-table">
+    <p-table
+      class="candidateTable"
+      [resizableColumns]="true"
+      [autoLayout]="true"
+      [value]="candidateList"
+      #dt1
+      [paginator]="true"
+      [tableStyle]="{ height: 'max-content' }"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[4, 8, 12]"
+      [globalFilterFields]="[
+        'candidateName',
+        'email_Managername',
+        'email_Filename',
+        'skills',
+        'results',
+        'score'
+      ]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th colspan="10">
+            <div class="filter-components">
+              <div>
+                <span class="p-input-icon-right ml-auto">
+                  <i class="pi pi-search"></i>
+                  <input
+                    pInputText
+                    type="text"
+                    (input)="
+                      dt1.filterGlobal($any($event.target).value, 'contains')
+                    "
+                    placeholder="Search"
+                  />
+                </span>
+              </div>
+              <div class="customMultiselect">
+                <p-columnFilter
+                  field="email_Managername"
+                  matchMode="in"
+                  [showMenu]="false"
+                  [showClearButton]="false"
+                >
+                  <ng-template
+                    pTemplate="filter"
+                    let-value
+                    let-filter="filterCallback"
+                  >
+                    <p-multiSelect
                     
-                  </tr>
+                      [ngModel]="value"
+                      appendTo="body"
+                      [options]="managerOption"
+                      [filter]="true"
+                      placeholder="Manager"
+                      (onChange)="filter($event.value)"
+                      [maxSelectedLabels]="1"
+                      [selectedItemsLabel]="'{0} items'"
+                      optionLabel=""
+                    >
+                      <ng-template let-option pTemplate="item">
+                        <div class="inline-block vertical-align-middle">
+                          <span class="ml-1 mt-1">{{ option }}</span>
+                        </div>
+                      </ng-template>
+                    </p-multiSelect>
                   </ng-template>
-              
-              <ng-template  pTemplate="body" let-rowData let-i="rowIndex">
-                <tr>
-                  <td >{{ i + 1 }}</td>
-                  <td>{{ rowData.candidateName }}</td>
-                  <td>{{ rowData.email_Managername }}</td>
-                  <td>{{ rowData.email_Filename
-                  }}</td>
-                  <td>{{ rowData.Managername }}</td>
-                  
-                  <td class="skills">
-                    <span  *ngFor="let item of getFormattedSkills(rowData.Skill).skills">
-                        <p-chip class="chipdesign" label={{item}} ></p-chip>
-                    </span> <span *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0">&nbsp;&nbsp;+
-                      <p-overlayPanel #op>
-                       <ul *ngFor="let skill of remainaingSkills(rowData.Skill,getFormattedSkills(rowData.Skill).remainingCount) ">
-                        <li>
-                          {{skill}}
-                        </li>
-                       </ul>
-                    </p-overlayPanel>
-                            <p-badge class="cursor-design" (click)="op.toggle($event)" [value]="getFormattedSkills(rowData.Skill).remainingCount.toString()"></p-badge>
-                        </span>
-                </td>
-               
-                <td><p [ngClass]="getResultClass(rowData.results)">{{ rowData.results }}</p> </td>
-                <td>{{ rowData.score }}</td>
+                </p-columnFilter>
+              </div>
+              <div class="customMultiselect">
+                <p-columnFilter
+                  field="candidateName"
+                  matchMode="in"
+                  [showMenu]="false"
+                  [showClearButton]="false"
+                >
+                  <ng-template
+                    pTemplate="filter"
+                    let-value
+                    let-filter="filterCallback"
+                  >
+                    <p-multiSelect
+                      [ngModel]="value"
+                      appendTo="body"
+                      [options]="candidateNames"
+                      placeholder="Candidate(s)"
+                      (onChange)="filter($event.value)"
+                      [maxSelectedLabels]="1"
+                      [selectedItemsLabel]="'{0} items'"
+                    >
+                      <ng-template let-option pTemplate="item">
+                        <div class="inline-block vertical-align-middle">
+                          <span class="ml-1 mt-1">{{ option }}</span>
+                        </div>
+                      </ng-template>
+                    </p-multiSelect>
+                  </ng-template>
+                </p-columnFilter>
+              </div>
+              <div class="customMultiselect">
+                <p-columnFilter
+                  field="results"
+                  matchMode="equals"
+                  [showMenu]="false"
+                  [showClearButton]="false"
+                >
+                  <ng-template
+                    pTemplate="filter"
+                    let-value
+                    let-filter="filterCallback"
+                  >
+                    <p-dropdown
+                      [ngModel]="value"
+                      [options]="status"
+                      (onChange)="filter($event.value)"
+                      placeholder="Status"
+                      [showClear]="true"
+                    >
+                      <ng-template let-option pTemplate="item">
+                        <!-- <p-tag [value]="option" [ngClass]="getResultClass(option)"></p-tag>  -->
+                        <span class="ml-1 mt-1">{{ option }}</span>
+                      </ng-template>
+                    </p-dropdown>
+                  </ng-template>
+                </p-columnFilter>
+              </div>
+              <div class="customMultiselect">
+                <p-columnFilter
+                  field="Skill"
+                  matchMode="contains"
+                  [showMenu]="false"
+                  [showClearButton]="true"
+                >
+                  <ng-template
+                    pTemplate="filter"
+                    let-value
+                    let-filter="filterCallback"
+                  >
+                    <p-multiSelect
+                      [ngModel]="value"
+                      appendTo="body"
+                      [options]="skillSet"
+                      placeholder="Skills"
+                      (onChange)="filter($event.value)"
+                      [maxSelectedLabels]="1"
+                      [selectedItemsLabel]="'{0} items'"
+                    >
+                      <ng-template let-option pTemplate="item">
+                        <div class="inline-block vertical-align-middle">
+                          <span class="ml-1 mt-1">{{ option }}</span>
+                        </div>
+                      </ng-template>
+                    </p-multiSelect>
+                  </ng-template>
+                </p-columnFilter>
+              </div>
+              <div>
+                <button
+                  pButton
+                  label="Clear filter"
+                  class="p-button-outlined p-button-danger"
+                  [style]="{ width: '130px' }"
+                  (click)="clear(dt1)"
+                ></button>
+              </div>
+            </div>
+          </th>
+        </tr>
 
-                <td> <i class="pi pi-check" style="color: #C1ABD3
-                  "></i></td>
-                <td><i class="pi pi-ellipsis-h"></i></td>
-                </tr>
-              </ng-template>
-              
-          </p-table>
+        <tr>
+          <th>Seq.No</th>
+          <th>Candidate Name</th>
+          <th>Manager</th>
 
-      </div>
-  
-    </div>
+          <th>Assessment</th>
+          <th>Date</th>
+          <th>Skills</th>
+          <th>Result</th>
+          <th>Score(%)</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+        <tr>
+          <td>{{ i + 1 }}</td>
+          <td>{{ rowData.candidateName }}</td>
+          <td>{{ rowData.email_Managername }}</td>
+          <td class="assessmentName">{{ rowData.email_Filename }}</td>
+          <td>{{ rowData.Managername }}</td>
+
+          <td class="skills">
+            <span *ngFor="let item of getFormattedSkills(rowData.Skill).skills">
+              <p-chip class="chipdesign" label="{{ item }}"></p-chip>
+            </span>
+            <span *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0" class="plusIcon"
+              >
+              +
+              <p-overlayPanel #op>
+                <ul
+                  *ngFor="
+                    let skill of remainaingSkills(
+                      rowData.Skill,
+                      getFormattedSkills(rowData.Skill).remainingCount
+                    )
+                  "
+                >
+                  <li>
+                    {{ skill }}
+                  </li>
+                </ul>
+              </p-overlayPanel>
+              <p-badge
+                class="cursor-design"
+                (click)="op.toggle($event)"
+                [value]="
+                  getFormattedSkills(rowData.Skill).remainingCount.toString()
+                "
+              ></p-badge>
+            </span>
+          </td>
+
+          <td>
+            <div class="resultDesign">
+              <p [ngClass]="getResultClass(rowData.results)">
+                <span>{{ rowData.results }}</span>
+              </p>
+
+            </div>
+           
+          </td>
+          <td>{{ rowData.score }}</td>
+
+          <td><i class="pi pi-check" style="color: #c1abd3"></i></td>
+          <td>
+            <i class="pi pi-ellipsis-h" (click)="op.toggle($event)"></i>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
 
 
+<div class="card flex justify-content-center">
+  <p-overlayPanel #op>
+      <ng-template pTemplate="content">
+          <p class="design_panel">Resend Invite</p>
+          <p class="design_panel">Evaluate</p>
+          <p class="design_panel">preview</p>
+          <hr class="line_design">
 
+          <p class="design_panel_last" (click)="confirmPosition('top')">Cancel Invite</p>
+          
+      </ng-template>
+  </p-overlayPanel>
+  <!-- <p-button  icon="pi pi-image" label="Show"></p-button> -->
+</div>
 
-   
-  <!-- <div class="sidebar">
+ <div class="sidebar">
   <div class="card flex justify-content-center">
     <p-sidebar [(visible)]="sidebarVisible2" position="right" [style]="{width:'46em'}">
         <ng-template class="header_design" pTemplate="header">Quiz Preview</ng-template>
-        <ng-template pTemplate="content">
+        <ng-template  pTemplate="content">
+          <span *ngFor="let preview of previewOptions">
+         <div class="question-design"> {{preview.question}}</div>
           
-         <div class="question-design"> 1. Which of the following keywords is used to define a variable in Javascript ?</div>
-          &nbsp;
-          <div class="wrapper"> 
-          <input type="checkbox" id="check">
-        <label for="check">A var</label>
-        
-        </div> -->
-          <!-- <div> B let</div>
-         <div> C const</div>
-         <div> D None of the above</div> -->
-         <!-- <div class="select-size">
-          <div class="option">
+         
+
+ <div class="select-size" >
+          <div class="option" [ngClass]="getSelectedOptions(preview.selectedAnswer,preview.options[0])">
             <input type="radio" name="first" id="small" /> 
-            <label for="small">A</label>
-            <span class="option-content">let</span>
+            <label class="box-design" for="small">A</label>
+            <span  class="option-content">{{preview.options[0]}}</span>
           </div>
-          &nbsp;
-         <div class="option">
+          
+         <div class="option" [ngClass]="getSelectedOptions(preview.selectedAnswer,preview.options[1])">
           <input type="radio" name="second" id="small" />
-          <label for="small">B</label>
-          <span class="option-content">var</span>
+          <label class="box-design" for="small">B</label>
+          <span class="option-content">{{preview.options[1]}}</span>
          </div>
-         &nbsp;
-         <div class="option">
+         
+         <div class="option" [ngClass]="getSelectedOptions(preview.selectedAnswer,preview.options[2])">
           <input type="radio" name="third" id="small" />
-          <label for="small">C</label>
-          <span class="option-content">const</span>
+          <label class="box-design" for="small">C</label>
+          <span  class="option-content">{{preview.options[2]}}</span>
          </div>
-         &nbsp;
-         <div class="option">
+         
+         <div class="option" [ngClass]="getSelectedOptions(preview.selectedAnswer,preview.options[3])">
           <input type="radio" name="fourth" id="small" />
-          <label for="small">D</label>
-          <span class="option-content">None of the above</span>
+          <label class="box-design" for="small" >D</label>
+          <span  class="option-content">{{preview.options[3]}}</span>
          </div>
          
          </div>
-         &nbsp;
+         
+         <div class="design_for_line">
          <hr>
-       
+        </div>
+
+        </span>
         </ng-template>
-        <ng-template pTemplate="footer">Footer Content</ng-template>
+        <ng-template class="footer_design" pTemplate="footer"> 
+          <div class="btnfooter">
+            <div class="custom_button">
+              <p-button  label="cancel"></p-button>
+
+            </div>
+            <div class="custom_button_close">
+              <p-button label="close"></p-button>
+
+            </div>
+            
+          
+
+          </div>
+          
+        </ng-template>
     </p-sidebar>
     <p-button (click)="sidebarVisible2= true" icon="pi pi-arrow-left"></p-button>
 </div>
-</div> --> 
+</div> 
 
+
+<div class="card flex flex-wrap flex-column align-items-center gap-2">
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{ width: '45vw' }" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+  
+  <div class="flex flex-wrap justify-content-center gap-2">
+     
+      <!-- <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button> -->
+      
+  </div>
+  
+</div>

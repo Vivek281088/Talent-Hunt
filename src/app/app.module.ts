@@ -32,6 +32,10 @@ import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
 import { SidebarModule } from 'primeng/sidebar';
+import { OverlayModule } from 'primeng/overlay';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 
 
 
@@ -55,6 +59,7 @@ import { SidebarModule } from 'primeng/sidebar';
     SidenavbarComponent,
     AssessmentTableComponent,
     CandidateTableComponent,
+    CandidatequestionComponent,
 
   ],
   imports: [
@@ -72,6 +77,9 @@ import { SidebarModule } from 'primeng/sidebar';
     ReactiveFormsModule,
     OverlayPanelModule,
     SidebarModule,
+    OverlayModule,
+    ConfirmPopupModule,
+    ConfirmDialogModule,
     ToastrModule.forRoot()
   ],
   schemas: [NO_ERRORS_SCHEMA],
