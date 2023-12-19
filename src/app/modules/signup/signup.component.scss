@@ -585,3 +585,7 @@ padding: 6px, 6px, 6px, 8px;
     }
   }
 }
+
+::ng-deep .p-inputgroup > .p-component:focus {
+  z-index: auto;
+}

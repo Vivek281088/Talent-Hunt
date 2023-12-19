@@ -21,8 +21,9 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MenubarModule } from 'primeng/menubar';
+import { DividerModule } from 'primeng/divider';
 
 
 @NgModule({
@@ -49,7 +50,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     FileUploadModule,
     PanelMenuModule,
     AvatarModule ,
-    AvatarGroupModule
+    AvatarGroupModule,
+    MenubarModule,
+    DividerModule
   ],
   exports: [
     MultiSelectModule,
@@ -74,7 +77,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     FileUploadModule,
     PanelMenuModule,
     AvatarModule ,
-    AvatarGroupModule
+    AvatarGroupModule,
+    MenubarModule,
+    DividerModule
   ],
 })
 export class PrimeModule {}

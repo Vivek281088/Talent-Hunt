@@ -1,9 +1,6 @@
 import { AfterViewInit, Component, OnInit, } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
-
-
-
 @Component({
   selector: 'app-candidate-assessment',
   templateUrl: './candidate-assessment.component.html',

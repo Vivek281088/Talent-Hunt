@@ -203,7 +203,7 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="icon-container">
     <!-- notification icon -->
     <div class="ic notification">
@@ -251,19 +251,60 @@
       </svg>
     </div>
     <div class="vrline1"></div>
-    <div class="avatar-name" (click)="toggleDropdown()">
-      <div class="avatar-image">
+    <div class="avatar-name cursor-pointer" (click)="toggle()">
+      <div class="avatar-image" >
         <p-avatar
           [label]="getInitials(userName)"
           size="normal"
           [style]="{ background: '#C81A78', color: '#ffffff' }"
           shape="circle"
-        ></p-avatar>
+        >
+        </p-avatar>
+     
       </div>
       <div class="user-info">
         <p class="user-name">{{ userName }}</p>
         <p class="user-role">Admin</p>
+       
       </div>
+
+       
+    
+      <p-overlay
+      [(visible)]="overlayVisible" [modal]="true"
+      >
+      <div class="overlay-whole ">
+        <div class="overlay-content1">
+          <p-avatar
+          class="overlay-avatar"
+            [label]="getInitials(userName)"
+            size="normal"
+            [style]="{ background: '#C81A78', color: '#ffffff' }"
+            shape="circle"
+           >
+          </p-avatar>
+          <div class="overlay-user-info">
+            <p class="overlay-user-name">{{ userName }}</p>
+            <p class="overlay-user-role">Admin</p>
+          </div>
+              </div>
+            
+        <div class="overlay-content2 cursor-pointer" (click)="refreshPage()">
+          <span class="text2">Profile</span>
+        </div>
+        <div class="overlay-content3 cursor-pointer" (click)="refreshPage()">
+          <span class="text3">Theme</span>
+        </div>
+        <div class="overlay-content4 cursor-pointer" (click)="refreshPage()">
+          <span class="text4">Change Password</span>
+        </div>
+        <div class="overlay-content5 cursor-pointer" (click)="logout()">
+          <span class="text5">
+            Logout
+          </span>
+        </div>
+      </div>
+    </p-overlay>
     </div>
   </div>
 </div>

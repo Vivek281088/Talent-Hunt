@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto:wght@100;300&display=swap');
-
-
+// @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto:wght@100;300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto+Condensed:wght@300&family=Roboto:wght@100;300&display=swap');
 
 .top-part{
-width: 1440px;
-height: 316px;
+width: 100%;
+height: 250px;
 top: 56px;
 padding: 54px, 0px, 54px, 0px;
 gap: 8px;
@@ -27,7 +26,7 @@ gap: 8px;
 }
 
 .mtalent-heading{
-//   width: 1024px;
+  // width: 100%;
 // height: 72px;
 font-family: "Poppins", sans-serif;
 font-size: 48px;
@@ -36,12 +35,13 @@ line-height: 72px;
 letter-spacing: 0px;
 text-align: center;
 color: #fff;
-width: 1440px;
-height: 72px;
+// width: 1440px;
+// height: 72px;
 top: 56px;
 padding: 54px, 0px, 54px, 0px;
 gap: 8px;
 }
+
 .mtalent-slogan{
 font-family: "Poppins", sans-serif;
 font-size: 24px;
@@ -52,17 +52,17 @@ text-align: center;
 color: #FFFFFFBD;
 }
 
-
 .bottom-part{
-width: 1440px;
+width: 100%;
 height: 605px;
 top: 372px;
 padding: 32px, 0px, 32px, 0px;
 gap: 16px;
 margin-right: 0px;
-
 }
+
 .toast{
+  // width: 100%;
   width: 1024px;
   height: 56px;
   padding: 14px;
@@ -98,16 +98,71 @@ font-weight: 400;
 line-height: 17px;
 letter-spacing: 0px;
 text-align: left;
-// font-family: 'Merriweather', serif;
-// font-family: 'Roboto', sans-serif;
 font-family: "Poppins", sans-serif;
 color:  #1666DC; 
 }
 
 .pi-times{
-  width: 9.79px;
+width: 9.79px;
 height: 9.79px;
 top: 4.11px;
 left: 4.11px;
 border: 28px;
 }
+
+.instruction{
+display: flex;
+width: 100%;
+flex-direction: column;
+align-items: left;
+gap: 8px;
+height: 89px;
+// margin-left: auto;
+// margin-right: auto;
+}
+
+.assessment-heading{
+  font-family: 'Merriweather', serif;
+  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: var(--On-Surface-High-Emphasis, rgba(0, 0, 0, 0.87));
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 3px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 28px;
+  padding: 14px;
+}
+
+.assessment-content{
+width: 100%;
+height: 28px;
+font-family: 'Merriweather', serif;
+font-family: 'Roboto', sans-serif;
+font-size: 24px;
+font-weight: 400;
+line-height: 28px;
+letter-spacing: 0px;
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+// padding: 14px;
+}
+
+.entire-card{
+display: flex;
+width: 1024px;
+align-items: flex-start;
+gap: 16px;
+height: 320px;
+gap: 16px;
+}
+
+.card1{
+  
+}
+
+
