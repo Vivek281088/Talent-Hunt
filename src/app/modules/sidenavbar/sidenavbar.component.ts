@@ -39,6 +39,8 @@ export class SidenavbarComponent {
         activeElement.classList.add('active');
       }
       this.activeSection = section;
+      localStorage.setItem(this.activeSection, section);
+      console.log("Active component", this.activeSection);
     });
   }
 

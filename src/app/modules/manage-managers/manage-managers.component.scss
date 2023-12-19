@@ -14,6 +14,12 @@
     .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
       color: #1e22aa;
   }
+  .p-datatable .p-datatable-tbody > tr > td {
+    font-family: 'Roboto';
+    color: #000000DE;
+    font-size: 14px;
+    font-weight: 500;
+}
 
   }
 }
@@ -198,6 +204,11 @@
 
 .EmployeeId{
   color: #1e22aa!important;
- 
- 
+}
+.managernamedesign{
+  color: #1666DC!important;
+}
+.tableBody{
+  
+
 }

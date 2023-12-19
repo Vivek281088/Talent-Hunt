@@ -281,7 +281,7 @@ export class AssessmentTableComponent {
   }
 
   loadManagerNames() {
-    this.managernameService.getclientManagerNames().subscribe((data) => {
+    this.managernameService.getclientManagerName().subscribe((data) => {
       this.managerOption = data;
       console.log('sapna', data);
     });

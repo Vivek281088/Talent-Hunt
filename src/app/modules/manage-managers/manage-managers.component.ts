@@ -1,18 +1,30 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { ManagernameService } from 'src/app/services/managername.service';
 
 @Component({
   selector: 'app-manage-managers',
   templateUrl: './manage-managers.component.html',
-  styleUrls: ['./manage-managers.component.scss']
+  styleUrls: ['./manage-managers.component.scss'],
 })
 export class ManageManagersComponent {
   items: MenuItem[] | undefined;
   todayDate!: string;
+  managerData: any;
+  managerNames!: string;
+  elipsisOverlayVisible: boolean = false;
 
-
-  constructor() {}
+  constructor(private managerService: ManagernameService) {}
   ngOnInit() {
+    this.managerService.getclientManagerData().subscribe((response) => {
+      console.log('Client Manager Details', response);
+      this.managerData = response;
+    });
+    this.managerService.getclientManagerName().subscribe((response) => {
+      console.log('Client Manager Names-->', response);
+      this.managerNames = response;
+    });
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
 
@@ -44,5 +56,10 @@ export class ManageManagersComponent {
 
     return formatDate;
   }
-
+  clear(table: Table) {
+    table.clear();
+  }
+  handleElipsis() {
+    this.elipsisOverlayVisible = !this.elipsisOverlayVisible;
+  }
 }
