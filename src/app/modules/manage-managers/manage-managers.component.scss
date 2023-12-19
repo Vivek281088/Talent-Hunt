@@ -6,6 +6,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  ::ng-deep {
+    .p-datatable .p-sortable-column .p-sortable-column-icon {
+      color: #1e22aa;
+  }
+    .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+      color: #1e22aa;
+  }
+
+  }
 }
 
 .manageManagers-header {
@@ -188,4 +198,6 @@
 
 .EmployeeId{
   color: #1e22aa!important;
+ 
+ 
 }
