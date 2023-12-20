@@ -63,17 +63,18 @@
                     >
                       <p-multiSelect
                         [ngModel]="value"
-                        [options]="managerData"
-                        optionLabel="department"
+                        [options]="uniqueDepartment"
                         placeholder="Department"
                         (onChange)="filter($event.value)"
                         appendTo="body"
+                        [maxSelectedLabels]="1"
+                        [selectedItemsLabel]="'{0} items'"
                       >
-                        <ng-template let-option pTemplate="item">
-                          <div class="inline-block vertical-align-middle">
-                            <span class="ml-1 mt-1">{{ option }}</span>
-                          </div>
-                        </ng-template>
+                      <ng-template let-option pTemplate="item">
+                        <div class="inline-block vertical-align-middle">
+                          <span class="ml-1 mt-1">{{ option.department }}</span>
+                        </div>
+                      </ng-template>
                       </p-multiSelect>
                     </ng-template>
                   </p-columnFilter>
@@ -106,11 +107,16 @@
           <th></th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-rowData let-i="rowIndex" class="tableBody">
+      <ng-template
+        pTemplate="body"
+        let-rowData
+        let-i="rowIndex"
+        class="tableBody"
+      >
         <tr>
           <td>{{ rowData.empid }}</td>
           <td class="managernamedesign">{{ rowData.managerName }}</td>
-          <td >{{ rowData.email }}</td>
+          <td>{{ rowData.email }}</td>
           <td>{{ rowData.department }}</td>
           <td>{{ rowData.location }}</td>
           <td>
@@ -127,8 +133,4 @@
   </div>
 </div>
 
-<p-overlay
-[visible]="elipsisOverlayVisible"
-[modal]="true"
->
-  </p-overlay>
+<p-overlay [visible]="elipsisOverlayVisible" [modal]="true"> </p-overlay>

@@ -30,7 +30,7 @@
             <li
               id="manageSchedule"
               [class.active]="activeSublist === 'manageSchedule'"
-              (click)="changeSublist('manageSchedule')"
+              (click)="changeSublist('manageSchedule','assessment')"
               [routerLink]="['/dashboard']"
             >
               <svg
@@ -57,7 +57,7 @@
             <li
               id="manageAssessment"
               [class.active]="activeSublist === 'manageAssessment'"
-              (click)="changeSublist('manageAssessment')"
+              (click)="changeSublist('manageAssessment','assessment')"
               [routerLink]="['/AssessmentDisplay']"
             >
               <svg
@@ -98,7 +98,7 @@
             <li
               id="manageManagers"
               [class.active]="activeSublist === 'manageManagers'"
-              (click)="changeSublist('manageManagers')"
+              (click)="changeSublist('manageManagers','user')"
               [routerLink]="['/manage-managers']"
             >
               <svg
@@ -125,7 +125,7 @@
             <li
               id="manageCandidates"
               [class.active]="activeSublist === 'manageCandidates'"
-              (click)="changeSublist('manageCandidates')"
+              (click)="changeSublist('manageCandidates','user')"
             >
               <svg
                 width="24"
@@ -164,7 +164,7 @@
             <li
               id="manageSkills"
               [class.active]="activeSublist === 'manageSkills'"
-              (click)="changeSublist('manageSkills')"
+              (click)="changeSublist('manageSkills','question_bank')"
             >
               <svg
                 width="24"
@@ -190,7 +190,7 @@
             <li
               id="manageQuestions"
               [class.active]="activeSublist === 'manageQuestions'"
-              (click)="changeSublist('manageQuestions')"
+              (click)="changeSublist('manageQuestions','question_bank')"
             >
               <svg
                 width="24"
@@ -229,7 +229,7 @@
             <li
               id="manageProfile"
               [class.active]="activeSublist === 'manageProfile'"
-              (click)="changeSublist('manageProfile')"
+              (click)="changeSublist('manageProfile','system')"
             >
               <svg
                 width="24"
@@ -255,7 +255,7 @@
             <li
               id="configuration"
               [class.active]="activeSublist === 'configuration'"
-              (click)="changeSublist('configuration')"
+              (click)="changeSublist('configuration','system')"
             >
               <svg
                 width="24"

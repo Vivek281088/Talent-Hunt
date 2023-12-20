@@ -44,7 +44,7 @@ export class SidenavbarComponent {
     });
   }
 
-  changeSublist(sublist: string) {
+  changeSublist(sublist: string,section: string) {
     const sublists = [
       'manageSchedule',
       'manageAssessment',
@@ -68,6 +68,8 @@ export class SidenavbarComponent {
     }
 
     this.activeSublist = sublist;
+
+    this.changeStyle(section);
   }
 
   changeStyle1() {

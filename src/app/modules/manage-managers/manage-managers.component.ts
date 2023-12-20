@@ -14,13 +14,20 @@ export class ManageManagersComponent {
   managerData: any;
   managerNames!: string;
   elipsisOverlayVisible: boolean = false;
+  uniqueDepartment:any;
 
   constructor(private managerService: ManagernameService) {}
   ngOnInit() {
     this.managerService.getclientManagerData().subscribe((response) => {
       console.log('Client Manager Details', response);
       this.managerData = response;
+
+      this.uniqueDepartment =this.getUniqueDepartments(this.managerData);
+      console.log('Unique Department', this.uniqueDepartment);
+
+      
     });
+
     this.managerService.getclientManagerName().subscribe((response) => {
       console.log('Client Manager Names-->', response);
       this.managerNames = response;
@@ -61,5 +68,12 @@ export class ManageManagersComponent {
   }
   handleElipsis() {
     this.elipsisOverlayVisible = !this.elipsisOverlayVisible;
+  }
+  getUniqueDepartments(data: any[]): any[] {
+    const uniqueDepartments = Array.from(new Set(data.map(item => item.department)));
+    return uniqueDepartments.map(department => {
+      const matchingObject = data.find(item => item.department === department);
+      return matchingObject;
+    });
   }
 }
