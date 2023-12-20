@@ -64,17 +64,13 @@
                       <p-multiSelect
                         [ngModel]="value"
                         [options]="uniqueDepartment"
+                        optionLabel="department"
                         placeholder="Department"
                         (onChange)="filter($event.value)"
                         appendTo="body"
                         [maxSelectedLabels]="1"
                         [selectedItemsLabel]="'{0} items'"
                       >
-                      <ng-template let-option pTemplate="item">
-                        <div class="inline-block vertical-align-middle">
-                          <span class="ml-1 mt-1">{{ option.department }}</span>
-                        </div>
-                      </ng-template>
                       </p-multiSelect>
                     </ng-template>
                   </p-columnFilter>
