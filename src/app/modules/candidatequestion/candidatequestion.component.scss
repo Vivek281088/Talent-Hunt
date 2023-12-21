@@ -147,6 +147,7 @@ text-align: left;
     color: #00000061;
     margin-bottom: 10px;
     margin-top: 50px;
+    padding-left: 20px;
   }
   label {
     display: inline-block;
@@ -158,12 +159,13 @@ text-align: left;
     cursor: pointer;
     border-radius: 8px;
     color: #00000061;
+    //margin-left: 20px;
   }
   
-  #small:checked ~ label[for="small"] {
-    background: #999;
-    color: #ffffff;
-  }
+  // #small:checked ~ label[for="small"] {
+  //   background: #999;
+  //   color: #ffffff;
+  // }
 
   .whole-option{
     width: 647px;
@@ -176,4 +178,16 @@ gap: 8px;
     max-height: fit-content;
     overflow: auto;
     
+  }
+
+  .highlight{
+    background-color: #652D90;
+  }
+
+  .option-background{
+    background: #F9F5D1;
+    .box-design{
+      background:#652D90 ;
+      color:white ;
+    }
   }

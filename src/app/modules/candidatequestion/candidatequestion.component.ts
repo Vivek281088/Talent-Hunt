@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
 
 
 
@@ -7,7 +8,9 @@ import { Component } from '@angular/core';
   templateUrl: './candidatequestion.component.html',
   styleUrls: ['./candidatequestion.component.scss']
 })
-export class CandidatequestionComponent {
+export class CandidatequestionComponent implements OnInit {
+ 
+  selectedOptions1 : string[][] = [];
   first: number = 0;
 
   rows: number = 1;
@@ -16,13 +19,40 @@ export class CandidatequestionComponent {
   pageCount: number=0;
   candidateName!: string;
   code!:string;
+  selectedBox: number[]  = [];
+  //selectedBox: number |null=null;
+
+  selectedOptions: boolean[] = [];
+  isCheckbox: boolean = false;
+
+  // In your component class
+questionSelectedOptions: { [questionId: number]: number | null } = {};
+
+
+  // In your component class
+  ngOnInit(): void {
+   this.selectedOptions1 = this.previewOptions.map(() => []);
+  }
+selectOption(option : string , pageIndex :number , optionIndex : number){
+  console.log("option " , option)
+  this.selectedOptions1[pageIndex][optionIndex] = option;
+}
+toggleColor(boxNumber: number ,page : number) {
+  if (this.selectedBox[page] !== null && this.selectedBox[page] === boxNumber) {
+    this.selectedBox[page] = -1;
+  } else {
+    this.selectedBox[page] = boxNumber;
+  }
+}
+
+
 
   onPageChange(event: any) {
       this.first = event.first;
       this.rows = event.rows;
       this.page=event.page;
       this.pageCount=event.pageCount
-
+      console.log("varun ?????" , this.selectedOptions1)
   }
 
   previewOptions:any=[
@@ -44,6 +74,18 @@ export class CandidatequestionComponent {
     }
   ];
 
+  showQuestion(questionId: number) {
+    if (!this.questionSelectedOptions[questionId]) {
+      this.questionSelectedOptions[questionId] = null;
+    }
+  }
+  
+
+
+  getLabel(index: number): string {
+    return String.fromCharCode(65 + index);
+  }
+
 
 getCodeLines(code: string): string[] {
   return code.split('\n');
@@ -61,4 +103,6 @@ getSelectedOptions(selected_Option: any,option: any){
     return "wrongAnswer";
   }
   }
+
+
 }

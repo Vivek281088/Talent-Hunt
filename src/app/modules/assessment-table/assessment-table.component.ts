@@ -58,6 +58,7 @@ export class AssessmentTableComponent {
   managerOption: any[] = [];
   position: string = 'center';
   sidebarVisible2=false;
+  overlayVisible=false
   previewOptions:any=[
     {
       question:"Which of the following keywords is used to define a variable in Javascript ?",
@@ -77,7 +78,9 @@ export class AssessmentTableComponent {
     }
   ];
 
-
+  toggle(){
+    this.overlayVisible=!this.overlayVisible;
+  }
  
 
   // candidateForm !: FormGroup;

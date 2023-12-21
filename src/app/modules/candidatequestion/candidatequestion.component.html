@@ -4,6 +4,7 @@
      
       <div class="header-design" >
           <p>Angular Developer Driver For Delta</p>
+          
           <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" ></p-paginator>
           <div class="fourth-design">
             <div class="duration">
@@ -45,40 +46,59 @@
 
       <ng-template pTemplate >
         
-        <div class="select-size">
+        <!-- <div class="select-size">
           
           <div class="option" >
             <input type="radio" name="first" id="small" /> 
-            <div class="whole-option">
+            <div class="whole-option"  [ngClass]="{'option-background':selectedBox===1}" (click)="toggleColor(1)">
             <label class="box-design" for="small">A</label>
             <span  class="option-content">{{previewOptions[page]?.options[0]}} </span>
           </div>
           </div>
           
          <div class="option" >
-          <input type="radio" name="second" id="small" />
-          <div class="whole-option">
+          <input type="radio" name="second" id="second" />
+          <div class="whole-option"  [ngClass]="{'option-background':selectedBox===2}" (click)="toggleColor(2)" >
           <label class="box-design" for="small">B</label>
           <span class="option-content">{{previewOptions[page]?.options[1]}}</span>
           </div>
          </div>
          
          <div class="option">
-          <input type="radio" name="third" id="small" />
-          <div class="whole-option">
+          <input type="radio" name="third" id="third" />
+          <div class="whole-option"   [ngClass]="{'option-background':selectedBox===3}" (click)="toggleColor(3)">
           <label class="box-design" for="small">C</label>
           <span  class="option-content">{{previewOptions[page]?.options[2]}}</span>
          </div>
         </div>
          
          <div class="option">
-          <input type="radio" name="fourth" id="small" />
-          <div class="whole-option">
+          <input type="radio" name="fourth" id="fourth" />
+          <div class="whole-option"  [ngClass]="{'option-background':selectedBox===4}" (click)="toggleColor(4)">
           <label class="box-design" for="small" >D</label>
           <span  class="option-content">{{previewOptions[page]?.options[3]}}</span>
          </div>
          </div>
-         </div>
+         </div> -->
+
+         <div class="select-size">
+          <div *ngFor="let option of previewOptions[page]?.options; let i = index" class="option">
+
+            <input 
+              [type]="isCheckbox ? 'checkbox' : 'radio'" 
+              [name]="isCheckbox ? 'checkboxGroup + page + i' : 'radioGroup'" 
+              [id]="'option'+ page + '-' + i"
+              [(ngModel)]="selectedOptions1[page][i]" 
+              (click)="selectOption($any($event.target).value, page , i)"
+            />
+            <div class="whole-option" [ngClass]="{'option-background': selectedBox[page] === i + 1}" (click)="toggleColor(i + 1, page)">
+              <label class="box-design" [for]="'option'+ page + '-' + i">{{ getLabel(i) }}</label>
+
+              <span class="option-content">{{ option }}</span>
+            </div>
+          </div>
+        </div>
+        
       </ng-template>
     </p-splitter>
   </div>
