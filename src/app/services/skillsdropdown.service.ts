@@ -37,13 +37,15 @@ export class SkillsdropdownService {
 
   filterManager(
     filterManager: string | undefined,
-    filterSkills:  string[] | undefined
+    filterSkills:  string[] | undefined,
+    fromDate:any,
+    toDate:any
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
-    const body = { Managername: filterManager, Skill: filterSkills };
+    const body = { Managername: filterManager, Skill: filterSkills,FromDate:fromDate,ToDate:toDate };
 
-
+    
     console.log('body', body);
 
     return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/question', body, { headers });

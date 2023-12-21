@@ -24,7 +24,20 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MenubarModule } from 'primeng/menubar';
 import { DividerModule } from 'primeng/divider';
+import { SidebarModule } from 'primeng/sidebar';
+import { TabView } from 'primeng/tabview';
+import { CalendarModule } from 'primeng/calendar';
+import { PaginatorModule } from 'primeng/paginator';
+import { SplitterModule } from 'primeng/splitter';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ChipModule } from 'primeng/chip';
+import { TagModule } from 'primeng/tag';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayModule } from 'primeng/overlay';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { MenuModule } from 'primeng/menu';
 
+// import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   imports: [
@@ -48,11 +61,25 @@ import { DividerModule } from 'primeng/divider';
     ConfirmDialogModule,
     MessagesModule,
     FileUploadModule,
+    CalendarModule,
+    BreadcrumbModule,
+    ChipModule,
+    TagModule,
+    BadgeModule,
     PanelMenuModule,
     AvatarModule ,
     AvatarGroupModule,
     MenubarModule,
-    DividerModule
+    DividerModule,
+    PaginatorModule,
+    SplitterModule,
+    FormsModule,
+    AvatarModule,
+    AvatarGroupModule,
+    SidebarModule,
+    OverlayModule,
+    ConfirmPopupModule,
+    MenuModule,
   ],
   exports: [
     MultiSelectModule,
@@ -75,11 +102,25 @@ import { DividerModule } from 'primeng/divider';
     ConfirmDialogModule,
     MessagesModule,
     FileUploadModule,
+    CalendarModule,
+    BreadcrumbModule,
+    ChipModule,
+    TagModule,
+    BadgeModule,
     PanelMenuModule,
     AvatarModule ,
     AvatarGroupModule,
     MenubarModule,
-    DividerModule
+    DividerModule,
+    PaginatorModule,
+    SplitterModule,
+    FormsModule,
+    AvatarModule,
+    AvatarGroupModule,
+    SidebarModule,
+    OverlayModule,
+    ConfirmPopupModule,
+    MenuModule,
   ],
 })
 export class PrimeModule {}

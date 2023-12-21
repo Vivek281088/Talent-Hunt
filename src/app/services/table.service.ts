@@ -98,9 +98,8 @@ export class TableService {
     durations: number,
     candidatePassword: string,
     candidateConfirmPassword: string,
-    roles: String
-    
-
+    roles: String,
+    candidateSkill:any
   ): Observable<any> {
     console.log('name', name);
 

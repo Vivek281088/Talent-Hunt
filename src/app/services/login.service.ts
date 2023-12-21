@@ -33,7 +33,7 @@ export class LoginService {
   }
  
   postsignup(
-    id:Date,
+    id: Date,
     Firstname: String,
     Lastname: String,
     emailId: string,
@@ -43,14 +43,14 @@ export class LoginService {
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
-      id:id,
+      id: id,
       Firstname: Firstname,
       Lastname: Lastname,
       candidateEmail: emailId,
       phoneNumber: phoneNumer,
       password: password,
       confirmPassword: confirmpassword,
-      roles: "manager"
+      roles: 'manager',
     };
     console.log('signup', body);
     return this.http.post<any>(
