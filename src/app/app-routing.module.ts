@@ -34,10 +34,14 @@ import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { ManagernameService } from './services/managername.service';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
+import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
+
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 
 const routes: Routes = [
+
+  {path:'candidatequestion',component:CandidatequestionComponent},
   { path: 'create', component: Dash1Component },
 
   // { path: 'dashboard', component: SchedulepageComponent },
@@ -46,7 +50,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: SchedulepageComponent,
   },
-  { path: 'new-schedule', component: NewScheduleComponent },
+  { path: 'new-schedule/:param1/:param2/:param3/:param4/:param5', component: NewScheduleComponent },
 
   { path: 'questiondisplay', component: QuestiondisplayComponent },
 

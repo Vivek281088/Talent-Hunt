@@ -29,7 +29,7 @@ import { AssessmentTableComponent } from './modules/assessment-table/assessment-
 
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
 
-// import { TabView } from 'primeng/tabview';
+import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 
 import { BodyComponent } from './modules/body/body.component';
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
@@ -56,6 +56,7 @@ import { ManageManagersComponent } from './modules/manage-managers/manage-manage
     SidenavbarComponent,
     AssessmentTableComponent,
     CandidateTableComponent,
+    CandidatequestionComponent,
 
     BodyComponent,
       NewScheduleComponent,

@@ -7,13 +7,9 @@ import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
+//import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
-import {
-  ConfirmationService,
-  MessageService,
-  ConfirmEventType,
-  MenuItem,
-} from 'primeng/api';
+import { ConfirmationService, MessageService, ConfirmEventType, MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-assessment-table',
   templateUrl: './assessment-table.component.html',
@@ -59,6 +55,30 @@ export class AssessmentTableComponent {
   roles: string = 'user';
   skillSet: any[] = [];
   managerOption: any[] = [];
+  overlayVisible=false
+  previewOptions:any=[
+    {
+      question:"Which of the following keywords is used to define a variable in Javascript ?",
+      options:["var","let","const","None of the above"],
+      selectedAnswer:["var","let"]
+    },
+    {
+      question:"Which of the following methods is used to access HTML elements using Javascript?",
+      options:["getElementbyId()","getElementsByClassName()","Both A and B","None of the above"],
+      selectedAnswer:["Both A and B"]
+    },
+
+    {
+      question:"When the switch statement matches the expression with the given labels, how is the comparison done?",
+      options:["Both the datatype and the result of the expression are compared.","Only the datatype of the expression is compared.","Only the value of the expression is compared.","None of the Above"],
+      selectedAnswer:["Both the datatype and the result of the expression are compared.","Only the value of the expression is compared."]
+    }
+  ];
+
+  toggle(){
+    this.overlayVisible=!this.overlayVisible;
+  }
+ 
   openEllipsisDialogBox: boolean = false;
   todayDate!: string;
 
@@ -80,6 +100,9 @@ export class AssessmentTableComponent {
     //   candidatePhone: [null]
     // });
   }
+
+
+ 
   ngOnInit() {
     //this.auth.isLoggedIn=true;
 
@@ -99,6 +122,67 @@ export class AssessmentTableComponent {
 
     this.loadCandidate();
     this.getCandidatename();
+ 
+
+    this.items = [{ label: 'Home',routerLink:'/login',icon: 'pi pi-home' }, { label: 'Assessment' , routerLink: "dashboard"}];
+  }
+
+  // confirmPosition(position: string) {
+  //   this.position = position;
+
+  //   this.confirmationService.confirm({
+  //       message: 'Do you want to cancel this invite?',
+  //       header: 'Cancel Invite',
+  //       icon: 'pi pi-info-circle',
+  //       accept: () => {
+  //           this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have cancelled the invite successfully' });
+  //       },
+  //       reject: (type: ConfirmEventType) => {
+  //           switch (type) {
+  //               case ConfirmEventType.REJECT:
+  //                   this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+  //                   break;
+  //               case ConfirmEventType.CANCEL:
+  //                   this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+  //                   break;
+  //           }
+  //       },
+  //       key: 'positionDialog'
+  //   });
+  // }
+
+getSelectedOptions(selected_Option: any,option: any){
+if(selected_Option.includes(option))
+{
+  console.log("correct answer")
+return "correctAnswer";
+}
+else{
+  return "wrongAnswer";
+}
+}
+
+
+
+
+  // handleEllipsisDialog(){
+  //   this['openEllipsisDialogBox']= true;
+  //     }
+  getResultClass(result : string): string {
+    if(result == "Shortlisted"){
+      return "Shortlisted"
+    }
+    else if(result == "Rejected"){
+      return "Rejected"
+    }else if(result=="Awaiting Eval") {
+      return "Awaiting "
+    }
+    else if(result=="Cancelled") {
+      return "Cancelled"
+    }
+    else  {
+      return "Scheduled"
+    }
 
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
@@ -109,19 +193,7 @@ export class AssessmentTableComponent {
   handleEllipsisDialog() {
     this.openEllipsisDialogBox = true;
   }
-  getResultClass(result: string): string {
-    if (result == 'Shortlisted') {
-      return 'Shortlisted';
-    } else if (result == 'Rejected') {
-      return 'Rejected';
-    } else if (result == 'Awaiting Eval') {
-      return 'Awaiting ';
-    } else if (result == 'Cancelled') {
-      return 'Cancelled';
-    } else {
-      return 'Scheduled';
-    }
-  }
+  
 
   getFormattedSkills(skills: any): {
     skills: string[];

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-schedule',
@@ -12,8 +13,18 @@ export class NewScheduleComponent {
   Tdata!: any;
   selectedQuestion!: any;
 
-  constructor() {}
+  constructor(private route:ActivatedRoute) { }
   ngOnInit() {
+    this.route.params.subscribe(params=>{
+      const scheduleName=params['param1']
+      const manager=params['param2']
+      const selectedSkill=params['param3']
+      const cutOff=params['param4']
+      const duration=params['param5']
+
+      console.log("data recieved from schedule page ",scheduleName,manager,selectedSkill,cutOff,duration)
+
+    })
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Assessment', routerLink: 'dashboard' },

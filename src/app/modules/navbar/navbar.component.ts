@@ -1,3 +1,5 @@
+
+ 
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { ManagernameService } from 'src/app/services/managername.service';
@@ -133,7 +135,19 @@ export class NavbarComponent {
     this.overlayVisible = !this.overlayVisible;
 }
  
+<<<<<<< HEAD
 logout(){
   this.authservice.logout();
 }
  }
+=======
+ 
+logout(){
+  this.authservice.logout();
+}
+ 
+ 
+ 
+ 
+}
+>>>>>>> 8e4b92d6a723561cc02886051e596fa4589c58fc

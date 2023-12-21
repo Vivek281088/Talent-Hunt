@@ -108,6 +108,12 @@ selecteddates!:Date
   candidateId!: Date | null;
 
   todayDate !: string;
+  scheduleName!:string; 
+  manager!:string;
+  selectedSkills!:string;
+  cutOff!:number;
+  duration!:number;
+
  
   // reviewer
   totalQuestions!: number;
@@ -416,6 +422,15 @@ this.showcardFlag=true;
     //   .subscribe((data) => {
  
     //   });
+  }
+  cancelButton(){
+    this.visible=false;
+  }
+  createButton(scheduleName:string,manager:string,selectedSkill:string,cutOff:number,duration:number){
+    this.router.navigate(['new-schedule',scheduleName,manager,selectedSkill,cutOff,duration])
+    // console.log("recieved",scheduleName,manager,selectedSkill,cutOff,duration)
+
+
   }
   addNewRow() {
     this.router.navigate(['/create'])
