@@ -11,20 +11,19 @@
   ::ng-deep {
     .p-datatable .p-sortable-column .p-sortable-column-icon {
       color: #1e22aa;
-  }
+    }
     .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
       color: #1e22aa;
-  }
-  .p-datatable .p-datatable-tbody > tr > td {
-    font-family: 'Roboto';
-    color: #000000DE;
-    font-size: 14px;
-    font-weight: 500;
-}
-.p-datatable .p-datatable-thead > tr > th {
-  background: white;
-}
-
+    }
+    .p-datatable .p-datatable-tbody > tr > td {
+      font-family: "Roboto";
+      color: #000000de;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .p-datatable .p-datatable-thead > tr > th {
+      background: white;
+    }
   }
 }
 
@@ -54,7 +53,7 @@
     .p-breadcrumb {
       overflow-x: auto;
       background: transparent;
-      font-family: 'Roboto';
+      font-family: "Roboto";
       font-weight: 400;
       font-size: 16px;
     }
@@ -160,7 +159,7 @@
       height: 44px;
       border-radius: 4px;
       gap: 8px;
-      background: #EFEFEF;
+      background: #efefef;
       border: none;
     }
     .p-icon {
@@ -202,13 +201,21 @@
   }
 }
 
-.EmployeeId{
-  color: #1e22aa!important;
+.EmployeeId {
+  color: #1e22aa !important;
 }
-.managernamedesign{
-  color: #1666DC!important;
+.managernamedesign {
+  color: #1666dc !important;
 }
-.tableBody{
-  
-
+.customoverlay {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  align-items: baseline;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0px 11px 15px 0px rgba(179, 171, 186, 0.2),
+    0px 9px 46px 0px rgba(179, 171, 186, 0.12),
+    0px 24px 38px 0px rgba(179, 171, 186, 0.14);
+  padding: 16px;
 }
