@@ -442,7 +442,7 @@ this.showcardFlag=true;
             scheduleName:this.scheduleName,manager:this.manager,selectedSkills:this.selectedSkills,cutOff:this.cutOff,duration:this.duration
           }
       this.newScheduleService.setNewScheduleData(dataToSend);
-      // localStorage.setItem("scheduleName",this.scheduleName)
+      localStorage.setItem("scheduleName",this.scheduleName)
       // localStorage.setItem("manager",this.manager)
       // localStorage.setItem("selectedSkills",JSON.stringify(this.selectedSkills))
       // localStorage.setItem("cutoff",JSON.stringify(this.cutOff))

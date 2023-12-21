@@ -30,6 +30,7 @@ export class NewScheduleComponent {
   // showCheckbox:boolean=false
   selected:boolean=false
   data:any
+  scheduleName!:string|null
   // scheduleName!:string
   // manager!:String
   // selectedSkills!:any
@@ -66,8 +67,9 @@ export class NewScheduleComponent {
 // console.log("data received",this.data)
     const newScheduleData=this.newScheduleService.getNewScheduleData();
 
-    const scheduleName=localStorage.getItem("scheduleName")
-    this.retrieved_schedulename=newScheduleData.scheduleName
+    this.scheduleName=localStorage.getItem("scheduleName")
+    
+    // thisretrieved_schedulename=scheduleName
 
     // const manager=localStorage.getItem("manager")
     this.retrieved_managername=newScheduleData.manager
