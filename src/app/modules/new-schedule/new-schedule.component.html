@@ -39,19 +39,19 @@
     <div class="edit-start">
       <div class="edit-name">
         <label>Schedule Name</label>
-        <p>Full Stack Developer Eval</p>
+        <p>{{retrieved_schedulename}}</p>
       </div>
       <div class="edit-manager">
         <label>Manager</label>
-        <p>Madhanraj Prabhu</p>
+        <p>{{retrieved_managername}}</p>
       </div>
       <div class="edit-cutoff">
         <label>Cutoff</label>
-        <p>65 %</p>
+        <p>{{retrieved_cutoff}}</p>
       </div>
       <div class="edit-duration">
         <label>Duration</label>
-        <p>20 mins</p>
+        <p>{{retrieved_duration}}</p>
       </div>
     </div>
     <div class="edit-end">
@@ -76,7 +76,7 @@
       <!-- {{tabs | json}} -->
       <div class="tabview">
         <p-tabView >
-          <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
+          <p-tabPanel *ngFor="let tab of tabs"  [header]="tab.title" >
             <ng-template pTemplate="content">
               <p-table
                 #dt2
@@ -91,6 +91,7 @@
                   'questionType',
                   'Difficulty_Level'
                 ]"
+                
               >
                 <ng-template pTemplate="header">
                   <tr>
@@ -115,10 +116,11 @@
                     <th colspan="4">
                       <div class="schedulebuttons">
                         <div class="selectallBtn">
-                          <p-button label="Select All"> </p-button>
+                          <p-button label="Select All" > </p-button>
+                          
                         </div>
                         <div class="unselectallBtn">
-                          <p-button label="Unselect All"> </p-button>
+                          <p-button label="Unselect All" > </p-button>
                         </div>
                         <div class="PreviewBtn">
                           <p-button
@@ -147,10 +149,10 @@
                   </tr>
                 </ng-template>
 
-                <ng-template pTemplate="body" let-rowData>
+                <ng-template pTemplate="body" let-rowData >
                   <tr>
-                    <td>
-                      <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    <td >
+                      <p-tableCheckbox [value]="rowData"  [(ngModel)]="rowData.Selected"> </p-tableCheckbox>
                     </td>
                     <td class="questiontext">{{ rowData.question }}</td>
                     <td class="optiontext">{{ rowData.questionType }}</td>

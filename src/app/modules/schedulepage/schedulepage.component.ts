@@ -17,6 +17,8 @@ import { FormControl} from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DataService } from 'src/app/services/data.service';
+import { NewScheduleService } from 'src/app/services/new-schedule.service';
+
 // import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-schedulepage',
@@ -154,8 +156,10 @@ selecteddates!:Date
     private messageService: MessageService,
  
     private reviewerService: ReviewerService,
-    private dataService:DataService
+    private dataService:DataService,
+    private newScheduleService:NewScheduleService,
   ) {
+   
    
   }
   ngOnInit() {
@@ -432,38 +436,62 @@ this.showcardFlag=true;
     // this.router.navigate(['new-schedule'],this.scheduleName,this.manager,this.selectedSkill,this.cutOff,this.duration)
     // console.log("recieved",scheduleName,manager,selectedSkill,cutOff,duration)
     createButton(){
-      this.sendData();
+      // this.sendData();
+      console.log("sended")
+      const dataToSend={
+            scheduleName:this.scheduleName,manager:this.manager,selectedSkills:this.selectedSkills,cutOff:this.cutOff,duration:this.duration
+          }
+      this.newScheduleService.setNewScheduleData(dataToSend);
+      // localStorage.setItem("scheduleName",this.scheduleName)
+      // localStorage.setItem("manager",this.manager)
+      // localStorage.setItem("selectedSkills",JSON.stringify(this.selectedSkills))
+      // localStorage.setItem("cutoff",JSON.stringify(this.cutOff))
+      // localStorage.setItem("duration",JSON.stringify(this.duration))
+      // const dataToSend={
+      // }
+      // const a=this.dataService.sharedData={scheduleName:this.scheduleName,manager:this.manager,selectedSkills:this.selectedSkills,cutOff:this.cutOff,duration:this.duration
+      // };
+      // console.log("data sended",a)
+
+      this.router.navigate(['/new-schedule'])
+      
 
     }
+    // selectall(rowIndex:any){
+    //   console.log("rowindex is",rowIndex);
+
+    // }
     // items: MenuItem[] | undefined;
-    tabs: { title: string; content: any }[] = [];
-     sendData(){
-      const dataToSend={
-        scheduleName:this.scheduleName,manager:this.manager,selectedSkills:this.selectedSkills,cutOff:this.cutOff,duration:this.duration
-      }
-      this.skillsdropdownservice.postskillsList(dataToSend.selectedSkills).subscribe(response =>{
-        const output=response;
-        console.log("respose based on skill",output)
-        // this.createquestion(output)
-        //this.Tdata=output[0].data;
-        // console.log("reached tdata",this.Tdata)
+    // // tabs: { title: string; content: any }[] = [];
+    //  sendData(){
+    //   const dataToSend={
+    //     scheduleName:this.scheduleName,manager:this.manager,selectedSkills:this.selectedSkills,cutOff:this.cutOff,duration:this.duration
+    //   }
+
+    // //   this.skillsdropdownservice.postskillsList(dataToSend.selectedSkills).subscribe(response =>{
+    // //     const output=response;
+    // //     console.log("respose based on skill",output)
+    // //     // this.createquestion(output)
+    // //     //this.Tdata=output[0].data;
+    // //     // console.log("reached tdata",this.Tdata)
           
     
-        for(let i=0;i<output.length;i++){
-           this.tabs.push(
-          { title: output[i].skills, content: output[i].data },
-           );
+    // //     for(let i=0;i<output.length;i++){
+    // //        this.tabs.push(
+    // //       { title: output[i].skills, content: output[i].data },
+    // //        );
     
-        }
-        console.log("tabs",this.tabs)
-      this.dataService.sendData(this.tabs)
-      this.router.navigate(['/new-schedule']);
-      // navigateWithState() {
-        // this.router.navigateByUrl('/new-schedule', { state: { tabs:this.tabs} });
-      // }
+    // //     }
+    // //     console.log("tabs",this.tabs)
+    // //   // this.dataService.sendData(this.tabs)
 
-     })
-    }
+    // //   this.router.navigate(['/new-schedule']);
+    // //   // navigateWithState() {
+    // //     // this.router.navigateByUrl('/new-schedule', { state: { tabs:this.tabs} });
+    // //   // }
+
+    // //  })
+    // }
   // }
   addNewRow() {
     this.router.navigate(['/create'])

@@ -6,12 +6,14 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
+  sharedData:any;
 
   constructor() { }
-  private dataSubject=new Subject<any>();
-  data$=this.dataSubject.asObservable();
-  sendData(data:any){
-    this.dataSubject.next(data);
+  // private dataSubject=new Subject<any>();
+  // data$=this.dataSubject.asObservable();
+  // sendData(data:any){
+  //   this.dataSubject.next(data);
 
-  }
+  // }
+  
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,ViewChild, ViewChildren,QueryList} from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
@@ -6,6 +6,9 @@ import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { response } from 'express';
 import { NgZone } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { NewScheduleService } from 'src/app/services/new-schedule.service';
+import { Table } from 'primeng/table';
+import { Checkbox } from 'primeng/checkbox';
 
 @Component({
   selector: 'app-new-schedule',
@@ -13,48 +16,83 @@ import { Observable, map } from 'rxjs';
   styleUrls: ['./new-schedule.component.scss'],
 })
 export class NewScheduleComponent {
+  [x: string]: any;
   items: MenuItem[] | undefined;
   tabs: { title: string; content: any }[] = [];
   Tdata!: any;
   selectedQuestion!: any;
   state$: Observable<object> | undefined;
+  retrieved_schedulename!:string
+  retrieved_managername!:string
+  retrieved_selectedSkills!:any
+  retrieved_cutoff!:number
+  retrieved_duration!:number
+  // showCheckbox:boolean=false
+  selected:boolean=false
+  data:any
+  // scheduleName!:string
+  // manager!:String
+  // selectedSkills!:any
+  // cutOff!:number
+  // duration!:number
+
+// @ViewChild('yourTable')yourTable:Table | undefined;
+
+  @ViewChildren('tableCheckbox')
+  tableCheckboxes!: QueryList<any>;
+
+  // selectallItems(){
+    
+  //   this.tabs.forEach(item=>{
+  //     // item.content.showCheckbox=true;
+  //     item.content.selected=true;
+  //   })
+  // }
 
   constructor(private route:ActivatedRoute,private dataservice:DataService,private skillsdropdownservice:SkillsdropdownService,
-    private ngzone:NgZone) { }
+    private newScheduleService:NewScheduleService,) {
+      // this.data=this.dataservice.sharedData;
+     }
   ngOnInit() {
-//     this.state$ = this.route.paramMap
-//     .pipe(map(() => window.history.state))
 
-//  console.log("received",this.state$);
-    this.dataservice.data$.subscribe(data =>{
-      console.log("data received ",data)
-      this.tabs = data
-      console.log("tabs data",this.tabs)
-      // this.title=data.title
-    //   this.skillsdropdownservice.postskillsList(data.selectedSkills).subscribe(response =>{
-    //     const output=response;
-    //     console.log("respose based on skill",output)
-    //     // this.createquestion(output)
-    //     //this.Tdata=output[0].data;
-    //     // console.log("reached tdata",this.Tdata)
-
-    
-    //     for(let i=0;i<output.length;i++){
-    //        this.tabs.push(
-    //       { title: output[i].skills, content: output[i].data },
-    //        );
-    
-    //     }
-    //     console.log("tabs",this.tabs)
-
-    //   });
-    })
+  
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Assessment', routerLink: 'dashboard' },
       { label: 'New Schedule', routerLink: 'new-schedule' },
     ];
-    // this.Tdata = [{
+
+  
+// console.log("data received",this.data)
+    const newScheduleData=this.newScheduleService.getNewScheduleData();
+
+    const scheduleName=localStorage.getItem("scheduleName")
+    this.retrieved_schedulename=newScheduleData.scheduleName
+
+    // const manager=localStorage.getItem("manager")
+    this.retrieved_managername=newScheduleData.manager
+    // const selectedSkills=localStorage.getItem("selectedSkills")
+     this.retrieved_selectedSkills=newScheduleData.selectedSkills
+
+    // const cutOff=localStorage.getItem("cutoff")
+    this.retrieved_cutoff=newScheduleData.cutOff
+    // const duration=localStorage.getItem("duration")
+    this.retrieved_duration=newScheduleData.duration
+
+    console.log("received data",newScheduleData);
+    this.skillsdropdownservice.postskillsList(newScheduleData.selectedSkills).subscribe(response =>{
+      console.log("recieved response",response);
+      for(let i=0;i<response.length;i++){
+        this.tabs .push(
+          { title: response[i].skills, content: response[i].data }
+        )         
+        
+
+      }
+      console.log("recieved response1",this.tabs);
+     
+    })
+ 
     //   id : 1,
     //   question: "Which of the following is not a functional interface in Java 8?",
     //   questionType: "Single Answer",
@@ -153,14 +191,12 @@ export class NewScheduleComponent {
     //   { title: 'MongoDB', content: this.Tdata },
     // ];
   }
+  
+  
+  
    
   }
 
 
-  // createquestion(output:any){
-  //   console.log("reached",output)
-   
-   
-
-  // }
+ 
 

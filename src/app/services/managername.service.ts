@@ -121,6 +121,7 @@ export class ManagernameService {
     return this.finalizedQuestions;
   }
 
+
   setDuration(duration: number) {
     this.duration = duration;
   }
@@ -185,5 +186,6 @@ getManagerdata_by_Email(
     { headers }
   );
 }
+
 
 }
