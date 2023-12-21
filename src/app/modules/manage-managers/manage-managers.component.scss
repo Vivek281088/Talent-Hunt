@@ -10,16 +10,16 @@
 
   ::ng-deep {
     .p-datatable .p-sortable-column .p-sortable-column-icon {
-      color: #1e22aa;
+      color: #1666DC;
     }
     .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
-      color: #1e22aa;
+      color: #1666DC;
     }
     .p-datatable .p-datatable-tbody > tr > td {
       font-family: "Roboto";
       color: #000000de;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .p-datatable .p-datatable-thead > tr > th {
       background: white;
@@ -202,7 +202,7 @@
 }
 
 .EmployeeId {
-  color: #1e22aa !important;
+  color: #1666DC !important;
 }
 .managernamedesign {
   color: #1666dc !important;

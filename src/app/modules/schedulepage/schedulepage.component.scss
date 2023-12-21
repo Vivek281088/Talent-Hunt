@@ -2,11 +2,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto&display=swap");
 
-.Skills .options{
+.Skills .options {
   ::ng-deep .p-multiselect.p-multiselect-chip .p-multiselect-token {
     padding: 0.375rem 0.75rem;
     background: none;
-    color: #1D4ED8;
+    color: #1d4ed8;
     border-radius: 16px;
     width: auto;
     height: 25px;
@@ -17,11 +17,11 @@
     margin-right: 8px;
     justify-content: center;
     align-items: center;
-}
+  }
 }
 
-.cutoff-duration{
-  .p-inputtext{
+.cutoff-duration {
+  .p-inputtext {
     width: 290px;
     height: 40px;
     padding: 0px 8px 0px 8px;
@@ -31,41 +31,31 @@
   flex-direction: row;
   width: 588px;
   gap: 10px;
-  .cutoff{
+  .cutoff {
     flex-direction: column;
-    .p-input{
+    .p-input {
       // width: 50%;
       width: 290px;
-height: 40px;
-padding: 0px, 8px, 0px, 8px;
-border-radius: 4px;
-border: 1px;
-gap: 10px;
-
+      height: 40px;
+      padding: 0px, 8px, 0px, 8px;
+      border-radius: 4px;
+      border: 1px;
+      gap: 10px;
     }
-    
   }
-  .duration{
+  .duration {
     flex-direction: column;
-    .p-input{
+    .p-input {
       width: 50%;
     }
-   
   }
 }
 .Newschedule-button {
   margin-top: 10px;
   display: inline-flex;
-  /* flex-direction: row; */
-  /* width: 78px; */
-  /* height: 36px; */
-  /* padding-top: 18px; */
-  /* padding-right: 6px; */
-  /* padding-bottom: 6px; */
-  /* padding-left: 8px; */
+
   border-radius: 4px;
   border: 1px;
-  /* margin-left: 383px; */
   justify-content: flex-end;
   // justify-content: flex-end;
   .Cancelbutton {
@@ -101,36 +91,29 @@ gap: 10px;
     }
   }
 
-  .Createbutton{
-  
-
-::ng-deep{
-  .Create-word{
-    cursor: pointer;
-  }
-  .p-button {
-    background: transparent;
-    border: 1px solid #652d90;
-    outline: none;
-    margin-right: 14px;
-    // height: 40px;
-  }
-  .p-button:focus {
-    box-shadow: none;
-  }
-  .p-ripple {
-  
-    overflow: hidden;
-    position: relative;
-    background:#652d90;
-    height: 40px;
-    text-align: center;
-  }
-
-}
-
-
-
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        margin-right: 14px;
+        // height: 40px;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        height: 40px;
+        text-align: center;
+      }
+    }
   }
 }
 ::ng-deep .newschedule-card {
@@ -145,9 +128,20 @@ gap: 10px;
   height: (541px);
   padding: 16px;
   gap: 16px;
+  .serialno {
+    width: 6%;
+  }
+  .schedulenameHeading {
+    width: 30%;
+  }
+  .managernameHeading {
+    width: 20%;
+  }
+  .skillsHeading {
+    width: 30%;
+  }
 
   ::ng-deep {
-
     ::ng-deep .p-datatable .p-datatable-thead > tr > th {
       text-align: left;
       padding: 1rem 1rem;
@@ -157,10 +151,8 @@ gap: 10px;
       font-size: 14px;
       font-weight: 400;
       color: #00000061;
-      /* background: #f8f9fa; */
       transition: box-shadow 0.2s;
     }
-    
   }
 }
 ::ng-deep .table-content {
@@ -177,9 +169,7 @@ gap: 10px;
     text-align: left;
     border: 1px solid #dee2e6;
     border-width: 0 0 1px 0;
-    /* padding: 1rem 1rem; */
     padding: 8px 16px 8px 16px;
-    //background-color: red;
   }
 
   //   box-shadow: 0 4px 8px #0000001a;
@@ -214,6 +204,7 @@ gap: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .newSchedule-card {
@@ -332,7 +323,6 @@ gap: 10px;
 //   border-radius: 6px;
 //   height: 368px;
 // }
-
 
 .schedules {
   margin-top: 4px;
@@ -495,12 +485,6 @@ gap: 10px;
   align-content: center;
   text-align: center;
 }
-.icons-td {
-  // display: flex;
-  // flex-direction: row;
-  // justify-content: space-between;
-  // margin-right: 50px;
-}
 
 .schedule-home {
   font-size: 13px;
@@ -525,24 +509,6 @@ gap: 10px;
   height: 19px;
 }
 
-// .new-schedule {
-//   font-family: "Manrope";
-//   font-size: 14px;
-//   font-weight: 500;
-//   line-height: 16px;
-//   letter-spacing: 1.25px;
-//   text-align: center;
-
-//   width: 131px;
-//   height: 36px;
-//   padding: 6px, 6px, 6px, 8px;
-
-//   border-radius: 4px;
-
-//   // background-color: #652d90;
-//   // color: white;
-// }
-
 .top-right-button {
   position: absolute;
   top: 0;
@@ -550,9 +516,8 @@ gap: 10px;
   margin: 10px;
 }
 .no-focus-outline {
-  outline: none; /* Remove the outline when the input is focused */
-  border: 1px solid #ccc; /* Add a border to maintain appearance */
-  /* Add any other styles you need for the input */
+  outline: none;
+  border: 1px solid #ccc;
 }
 
 .table-container {
@@ -572,13 +537,6 @@ gap: 10px;
   }
 }
 .btn {
-  // font-size: 0.875rem;
-  // background-color: #526d82;
-  // border-color: #526d82;
-  // border-radius: 4px;
-  // color: #fff;
-  // padding: 5px 10px;
-  // border: none;
   width: 116px;
   height: 36px;
   //padding: 6px, 6px, 6px, 8px;
@@ -619,43 +577,10 @@ gap: 10px;
 :host ::ng-deep .ng-dirty.ng-invalid {
   border: 1px solid #ced4da;
 }
-// .cursor-pointer::before {
-//   content: attr(pTooltip);
-//   white-space: nowrap;
-//   // overflow: hidden;
-//   // position: absolute;
-//   width: 0;
-//   opacity: 0;
-//   transition: width 1s ease, opacity 1s ease;
-// }
-// .cursor-pointer:hover::before {
-//   width: auto;
-//   opacity: 1;
-// }
-
-// Reviewer
 
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
-// .page_sec {
-//   background-color: #27374d;
-
-//   color: white;
-
-//   padding: auto;
-
-//   // width: 100%;
-
-//   height: fit-content;
-
-//   //margin-left: 20px;
-
-//   max-width: 100%;
-
-//   //font-family:Helvetica;
-// }
 
 .heading {
   color: white;
@@ -689,20 +614,6 @@ body {
   overflow: hidden auto;
 
   margin-left: 5%;
-
-  //  &.correct-question {
-
-  //    // Highlight color for correct questions
-
-  //   border: 2px solid green;
-
-  // }
-
-  // &.incorrect-question {
-
-  //   border: 2px solid red;  // Highlight color for incorrect questions
-
-  // }
 }
 
 .choices {
@@ -713,46 +624,14 @@ body {
   justify-content: end;
 }
 
-// .page_sec {
-//   height: 100%;
-
-//   width: 100%;
-
-//   color: white;
-
-//   background-color: #27374d;
-
-//   .page_top_sec {
-//     background: #526d82;
-
-//     //margin-right: 60px;
-
-//     // margin-left: 70px;
-
-//     // margin-bottom: 40px;
-
-//     height: 70px;
-
-//     padding-left: 0px;
-
-//     margin-left: 0px;
-//   }
-// }
-
 .vertical-options {
   display: flex;
 
   flex-direction: column;
-
-  /* Display options vertically */
-
-  // margin: 20px;
 }
 
 .option {
   margin-bottom: 10px;
-
-  /* Add space between options */
 
   margin-right: 20px;
 
@@ -790,34 +669,6 @@ body {
 .text_area_ans {
   padding-bottom: 20px;
 }
-
-// :host ::ng-deep .p-dialog-content {
-
-//   background-color: #27374d;
-
-// }
-
-// :host ::ng-deep .p-dialog-header {
-
-//   background-color: #27374d;
-
-// }
-
-// :host ::ng-deep .p-inputtext {
-//   height: 60px;
-
-//   width: 560px;
-// }
-
-// :host ::ng-deep .p-dialog-header .p-dialog-header-close{
-
-//     position: absolute;
-
-//     top: 20px;
-
-//     left: 15px;
-
-// }
 
 :host ::ng-deep .question-column {
   padding: 8px;
@@ -953,11 +804,11 @@ body {
 
 // Option styles
 .option-input {
-  margin-bottom: 10px; /* Add spacing between each option */
+  margin-bottom: 10px;
 }
 
 .option-label {
-  margin-right: 10px; /* Add spacing between the label and input box */
+  margin-right: 10px;
 }
 
 .option-box {
@@ -971,4 +822,63 @@ body {
 
 .wide-input {
   width: 100%;
+}
+.newSchedule-Dialog {
+  ::ng-deep {
+
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-family: 'Poppins';
+      font-weight: 500;
+      color: #1E22AA;
+  }
+    .p-dialog .p-dialog-header {
+      padding: 1rem;
+      border-bottom: 1px solid #0000001f;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 2rem 1rem;
+  }
+    .p-inputtext {
+      width: 100%;
+    }
+    .p-dropdown {
+      width: 100%;
+    }
+    .p-multiselect {
+      width: 100%;
+    }
+  }
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto';
+    font-weight: 400;
+    color: #00000099;
+
+    .label {
+      padding: 2% 0 2% 0;
+
+      span{
+        color: #EE4555;
+      }
+    }
+  }
+  .cuttoffDuration {
+    display: flex;
+    flex-direction: row;
+
+    ::ng-deep .p-inputtext {
+      width: 150%;
+    }
+
+    .labelvalue {
+      display: flex;
+      flex-direction: column;
+      padding-right:17.3%;
+
+      .label {
+        padding: 6% 0 6% 0;
+      }
+    }
+  }
 }

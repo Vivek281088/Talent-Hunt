@@ -233,11 +233,8 @@ getsvgIcon():string{
 }
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
-      // Use a Set to store unique candidate email addresses
       const uniqueEmails = new Set<string>();
-      // Use an array to store unique candidate names
       const uniqueCandidateNames: any[] = [];
-      // Iterate through the data and filter duplicates based on email addresses
       data.forEach(
         (candidate: { candidateName: string; candidateEmail: string }) => {
           if (!uniqueEmails.has(candidate.candidateEmail)) {
