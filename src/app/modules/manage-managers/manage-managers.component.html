@@ -116,7 +116,7 @@
           <td>{{ rowData.department }}</td>
           <td>{{ rowData.location }}</td>
           <td>
-            <i class="pi pi-ellipsis-h" (click)="handleElipsis()"></i>
+            <i class="pi pi-ellipsis-h cursor-pointer" (click)="handleElipsis()"></i>
           </td>
         </tr>
       </ng-template>
@@ -129,4 +129,14 @@
   </div>
 </div>
 
-<p-overlay [visible]="elipsisOverlayVisible" [modal]="true"> </p-overlay>
+<p-overlay [visible]="elipsisOverlayVisible" [modal]="true"> 
+  <div class="customoverlay">
+    <div class="viewManager">
+      <p>View Details</p>
+
+    </div>
+    <div class="deleteManager">
+      <p>Delete Manager</p>
+    </div>
+  </div>
+</p-overlay>
