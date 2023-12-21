@@ -16,11 +16,11 @@
           />
         </svg>
       </div>
-     <!-- <div> -->
+      <!-- <div> -->
       <!-- <ng-template pTemplate="body" >
         <tr class="table-row">
           <td style="width: 20rem">-->
-      <div class="w-6"> 
+      <div class="w-6">
         <p-dropdown
           appendTo="body"
           class="table_dropdown"
@@ -29,14 +29,14 @@
           placeholder="--Select--"
           (onChange)="dropFunction(selectedManagername)"
           optionLabel=""
-          >
+        >
         </p-dropdown>
       </div>
-      
+
       <!-- </td>
       </tr>
       </ng-template> -->
-     <!-- </div> -->
+      <!-- </div> -->
       <div class="flex flex-column w-8 mr-2">
         <p-multiSelect
           class="w-10 custom_select"
@@ -90,7 +90,7 @@
         </div>
       </div> -->
     </div>
-    
+
     <p-toast></p-toast>
     <div
       class="save_sec flex cursor-pointer"
@@ -114,7 +114,7 @@
       </svg>
     </div>
   </div>
- 
+
   <div class="flex p-3 page_top_sec justify-content-between align-items-center">
     <div class="flex w-10">
       <!-- <div class="save_sec flex cursor-pointer mr-6" title="Back">
@@ -132,7 +132,7 @@
           />
         </svg>
       </div> -->
-     <!-- <div> -->
+      <!-- <div> -->
       <!-- <ng-template pTemplate="body" >
         <tr class="table-row">
           <td style="width: 20rem">-->
@@ -148,11 +148,11 @@
           >
         </p-dropdown>
       </div> -->
-      
+
       <!-- </td>
       </tr>
       </ng-template> -->
-     <!-- </div> -->
+      <!-- </div> -->
       <!-- <div class="flex flex-column w-8 mr-2">
         <p-multiSelect
           class="w-10 custom_select"
@@ -172,9 +172,21 @@
             class="w-3rem custom_inp p-inputtext w-full p-1"
             required
           />
-         
         </div>
- 
+        <div>
+          <div class="card flex justify-content-center">
+            <p-calendar
+              
+            selectionMode="range"
+          [(ngModel)]="rangeDates"
+            rangeSeparator="to"
+            dateFormat="dd-M-y"
+            onselect="onDateSelect($event)"
+          
+          ></p-calendar>
+          </div>
+        </div>
+
         <div class="flex question_selection">
           <div class="flex mr-3 align-items-center">
             <label class="font-bold block heading mr-3"> Selected: </label>
@@ -183,14 +195,13 @@
             </p>
           </div>
           <div class="flex mr-3 align-items-center">
-            <label class="font-bold block heading mr-3">  Cutoff(in %) :</label>
+            <label class="font-bold block heading mr-3"> Cutoff(in %) :</label>
             <input
               [(ngModel)]="cutoff"
               name="cutoff"
               class="w-3rem custom_inp p-inputtext w-full p-1"
               required
             />
-           
           </div>
           <div class="flex mr-3 align-items-center">
             <label class="font-bold block heading mr-3">
@@ -206,7 +217,7 @@
         </div>
       </div>
     </div>
-    
+
     <p-toast></p-toast>
     <div
       class="save_sec flex cursor-pointer"
@@ -230,58 +241,73 @@
       </svg>
     </div>
   </div>
- 
- 
-    <ng-container *ngIf="TotalQuestions">
-  <div class="flex mt-4">
-    <div class="flex flex-column w-5 mr-4 px-3" *ngFor="let skill of TotalQuestions | keyvalue">
-      <h3 class="m-0 p-2 asses_hdr">{{ skill.key }}</h3>
-      <div class="question_sec">
-        <table class="design-table">
-          <thead>
-            <tr>
-              <th class="checkbox-column"></th>
-              <th class="question-column">Question</th>
-              <th class="difficulty-column"></th>
-            </tr>
-          </thead>
-          <tbody>
- 
-            <p-checkbox
-            name="selectAll"
-            [binary]="true"
-            (onChange)="selectAllChanged(skill.key)"
-            [ngModel]="areAllQuestionsSelected(skill.key)"
-            class="ml-2"
-        ></p-checkbox>
- 
- 
-            <tr *ngFor="let question of skill.value" class="table-row">
-              <td class="checkbox-column">
-                <p-checkbox
-                  [(ngModel)]="question.selected"
-                  (onChange)="checkboxChanged(question)"
-                  [binary]="true"
-                  [inputId]="'checkbox-' + question.id"
-                ></p-checkbox>
-              </td>
-              <td class="question-column">
-                <label [for]="'checkbox-' + question.id" style="cursor: pointer;">
-                  <span class="question-text">{{ question.question }}</span>
-                </label>
-              </td>
-              <td class="difficulty-column">
-                <span *ngIf="question.Difficulty_Level === 'E'" class="difficulty-badge easy">E</span>
-                <span *ngIf="question.Difficulty_Level === 'M'" class="difficulty-badge medium">M</span>
-                <span *ngIf="question.Difficulty_Level === 'H'" class="difficulty-badge hard">H</span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+
+  <ng-container *ngIf="TotalQuestions">
+    <div class="flex mt-4">
+      <div
+        class="flex flex-column w-5 mr-4 px-3"
+        *ngFor="let skill of TotalQuestions | keyvalue"
+      >
+        <h3 class="m-0 p-2 asses_hdr">{{ skill.key }}</h3>
+        <div class="question_sec">
+          <table class="design-table">
+            <thead>
+              <tr>
+                <th class="checkbox-column"></th>
+                <th class="question-column">Question</th>
+                <th class="difficulty-column"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <p-checkbox
+                name="selectAll"
+                [binary]="true"
+                (onChange)="selectAllChanged(skill.key)"
+                [ngModel]="areAllQuestionsSelected(skill.key)"
+                class="ml-2"
+              ></p-checkbox>
+
+              <tr *ngFor="let question of skill.value" class="table-row">
+                <td class="checkbox-column">
+                  <p-checkbox
+                    [(ngModel)]="question.selected"
+                    (onChange)="checkboxChanged(question)"
+                    [binary]="true"
+                    [inputId]="'checkbox-' + question.id"
+                  ></p-checkbox>
+                </td>
+                <td class="question-column">
+                  <label
+                    [for]="'checkbox-' + question.id"
+                    style="cursor: pointer"
+                  >
+                    <span class="question-text">{{ question.question }}</span>
+                  </label>
+                </td>
+                <td class="difficulty-column">
+                  <span
+                    *ngIf="question.Difficulty_Level === 'E'"
+                    class="difficulty-badge easy"
+                    >E</span
+                  >
+                  <span
+                    *ngIf="question.Difficulty_Level === 'M'"
+                    class="difficulty-badge medium"
+                    >M</span
+                  >
+                  <span
+                    *ngIf="question.Difficulty_Level === 'H'"
+                    class="difficulty-badge hard"
+                    >H</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-  </div>
-</ng-container>  
- 
- 
-<!-- </div> -->
+  </ng-container>
+
+  <!-- </div> -->
+</div>

@@ -14,18 +14,17 @@ import { LoginComponent } from './modules/login/login.component';
 
 import { SignupComponent } from './modules/signup/signup.component';
 
-
-
 import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { CandidateAssessmentComponent } from './modules/candidate-assessment/candidate-assessment.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
-import { QuestiondbComponent } from './questiondb/questiondb.component';
+import { QuestiondbComponent } from './modules/questiondb/questiondb.component';
 import { authGuard } from './Guard/auth.guard';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 // import { AuthClassGuard } from './Guard/auth-class.guard';
 
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 import { loginGuard } from './Guard/login.guard';
+import { TabView } from 'primeng/tabview';
 
 // import { NgModule } from '@angular/core';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
@@ -37,6 +36,8 @@ import { AssessmentTableComponent } from './modules/assessment-table/assessment-
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
 import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 
+import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
+import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 
 const routes: Routes = [
 
@@ -49,6 +50,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: SchedulepageComponent,
   },
+  { path: 'new-schedule/:param1/:param2/:param3/:param4/:param5', component: NewScheduleComponent },
 
   { path: 'questiondisplay', component: QuestiondisplayComponent },
 
@@ -60,7 +62,7 @@ const routes: Routes = [
 
   { path: 'reviewer', component: ReviewerComponent },
 
-  { path: 'candidateassessment', component: CandidateAssessmentComponent },
+  { path: 'candidatehome', component: CandidateAssessmentComponent },
 
   { path: 'sidebar', component: SidenavbarComponent },
 
@@ -68,18 +70,20 @@ const routes: Routes = [
 
   { path: 'assessment-display', component: AssessmentDisplayComponent },
 
+  {path: 'manage-managers', component: ManageManagersComponent},
+
   { path: 'forgotpassword', component: ForgotpasswordComponent },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
-  
+
   { path: 'AssessmentDisplay', component: AssessmentTableComponent },
 
   { path: 'questiondb', component: QuestiondbComponent },
 
   { path: 'profile', component: ProfileDialogComponent },
-  {path:'candidatetable',component:CandidateTableComponent},
+  { path: 'candidatetable', component: CandidateTableComponent },
 
   // { path: '**', component: LoginComponent }
 

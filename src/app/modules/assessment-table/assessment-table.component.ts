@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
@@ -15,25 +14,25 @@ import { ConfirmationService, MessageService, ConfirmEventType, MenuItem } from 
   selector: 'app-assessment-table',
   templateUrl: './assessment-table.component.html',
   styleUrls: ['./assessment-table.component.scss'],
-  providers: [ConfirmationService, MessageService]
+  providers: [ConfirmationService, MessageService],
 })
 export class AssessmentTableComponent {
-
-  
-  
-  
-  
-
-
-
+  sidebarVisible2: boolean = false;
 
   [x: string]: any;
   questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
 
-  status : string[] = ["Shortlisted", "Rejected" , "Awaiting" , "Cancelled" , "Scheduled"];
+  status: string[] = [
+    'Shortlisted',
+    'Rejected',
+    'Awaiting',
+    'Cancelled',
+    'Scheduled',
+  ];
 
   items: MenuItem[] | undefined;
-  
+  position: string = 'center';
+
   candidateNames: any[] = [];
   name: boolean = true;
   finalizedEmail!: string;
@@ -53,11 +52,9 @@ export class AssessmentTableComponent {
   questions: any;
   cutoff!: number;
   durations!: number;
-  roles: string = "user";
+  roles: string = 'user';
   skillSet: any[] = [];
   managerOption: any[] = [];
-  position: string = 'center';
-  sidebarVisible2=false;
   overlayVisible=false
   previewOptions:any=[
     {
@@ -82,6 +79,8 @@ export class AssessmentTableComponent {
     this.overlayVisible=!this.overlayVisible;
   }
  
+  openEllipsisDialogBox: boolean = false;
+  todayDate!: string;
 
   // candidateForm !: FormGroup;
   constructor(
@@ -92,10 +91,8 @@ export class AssessmentTableComponent {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private candidateService: CandidateAssessmentService,
-    private confirmationService: ConfirmationService, 
+    private confirmationService: ConfirmationService,
     private messageService: MessageService
-    // reviewer
-   
   ) {
     // this.candidateForm = this.formBuilder.group({
     //   candidateName: ['', Validators.required],
@@ -108,7 +105,7 @@ export class AssessmentTableComponent {
  
   ngOnInit() {
     //this.auth.isLoggedIn=true;
-   
+
     //for candidate
     // this.finalizedEmail =
     //   this.managernameService.getCandidateAssessment_Email();
@@ -118,11 +115,11 @@ export class AssessmentTableComponent {
     // this.finalizedManagerEmail = this.managernameService.getManagerName_Email();
     // console.log('manager-email--', this.finalizedManagerEmail);
 
-    
-
+    this.todayDate = this.formattedDate(new Date());
+    console.log('Date--------', this.todayDate);
     this.loadManagerNames();
     this.getSkillSet();
-    
+
     this.loadCandidate();
     this.getCandidatename();
  
@@ -130,29 +127,29 @@ export class AssessmentTableComponent {
     this.items = [{ label: 'Home',routerLink:'/login',icon: 'pi pi-home' }, { label: 'Assessment' , routerLink: "dashboard"}];
   }
 
-  confirmPosition(position: string) {
-    this.position = position;
+  // confirmPosition(position: string) {
+  //   this.position = position;
 
-    this.confirmationService.confirm({
-        message: 'Do you want to cancel this invite?',
-        header: 'Cancel Invite',
-        icon: 'pi pi-info-circle',
-        accept: () => {
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have cancelled the invite successfully' });
-        },
-        reject: (type: ConfirmEventType) => {
-            switch (type) {
-                case ConfirmEventType.REJECT:
-                    this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-                    break;
-                case ConfirmEventType.CANCEL:
-                    this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
-                    break;
-            }
-        },
-        key: 'positionDialog'
-    });
-  }
+  //   this.confirmationService.confirm({
+  //       message: 'Do you want to cancel this invite?',
+  //       header: 'Cancel Invite',
+  //       icon: 'pi pi-info-circle',
+  //       accept: () => {
+  //           this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have cancelled the invite successfully' });
+  //       },
+  //       reject: (type: ConfirmEventType) => {
+  //           switch (type) {
+  //               case ConfirmEventType.REJECT:
+  //                   this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+  //                   break;
+  //               case ConfirmEventType.CANCEL:
+  //                   this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+  //                   break;
+  //           }
+  //       },
+  //       key: 'positionDialog'
+  //   });
+  // }
 
 getSelectedOptions(selected_Option: any,option: any){
 if(selected_Option.includes(option))
@@ -187,9 +184,21 @@ else{
       return "Scheduled"
     }
 
+    this.items = [
+      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Assessment', routerLink: 'dashboard' },
+    ];
   }
 
-  getFormattedSkills(skills: any): { skills: string[], remainingCount: number } {
+  handleEllipsisDialog() {
+    this.openEllipsisDialogBox = true;
+  }
+  
+
+  getFormattedSkills(skills: any): {
+    skills: string[];
+    remainingCount: number;
+  } {
     const maxLength = 8;
 
     let result: string[] = [];
@@ -211,13 +220,12 @@ else{
 
     return { skills: result, remainingCount: remainingCount };
   }
-  remainaingSkills(skills:any ,count:number):string[]{
-return skills.slice(-count);
+  remainaingSkills(skills: any, count: number): string[] {
+    return skills.slice(-count);
   }
   clear(table: Table) {
     table.clear();
-}
-
+  }
 
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
@@ -241,8 +249,6 @@ return skills.slice(-count);
     });
   }
 
- 
-
   loadCandidate() {
     const role = localStorage.getItem('userrole');
     console.log('role', role);
@@ -253,10 +259,7 @@ return skills.slice(-count);
         .subscribe((response) => {
           console.log('res', response);
           this.candidateList = response;
-          console.log(
-            'candidateListdata',
-            this.candidateList
-          );
+          console.log('candidateListdata', this.candidateList);
           this.candidateName = response[0].candidateName;
           console.log('candidateName', this.candidateName);
         });
@@ -302,7 +305,7 @@ return skills.slice(-count);
 
       //show success message
       // this.showEmailSubmitted();
-      
+
       if (existingCandidate) {
         this.tableService
           .postExistingCandidateDetails(
@@ -326,16 +329,13 @@ return skills.slice(-count);
             console.log('Stored data for existing candidate:', data);
             //this.candidateName(data);
             this.candidateList.push(data);
-            
           });
 
         setTimeout(() => {
           this.getCandidatename();
-          
         }, 2000);
       }
     });
-    
   }
 
   loadAssessmentData() {
@@ -348,21 +348,74 @@ return skills.slice(-count);
   getSkillSet() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skillSet = data;
-      console.log('skillset',this.skillSet);
+      console.log('skillset', this.skillSet);
     });
   }
- 
- 
 
   loadManagerNames() {
     this.managernameService.getclientManagerNames().subscribe((data) => {
       this.managerOption = data;
-      console.log('sapna',data);
+      console.log('sapna', data);
+    });
+  }
+  formattedDate(date: Date) {
+    const months: string[] = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    const month: string = months[date.getMonth()];
+    const day: number = date.getDate();
+    const year: number = date.getFullYear();
+    const formatDate: string = `${month} ${day}, ${year}`;
+
+    return formatDate;
+  }
+  confirmPosition(position: string) {
+    this.position = position;
+
+    this.confirmationService.confirm({
+      message: 'Do you want to cancel this invite?',
+      header: 'Cancel Invite',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'You have cancelled the invite successfully',
+        });
+      },
+      reject: (type: ConfirmEventType) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            break;
+          case ConfirmEventType.CANCEL:
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+      key: 'positionDialog',
     });
   }
 
-  
- 
   ////////////////////////view icon//////////////
-
 }

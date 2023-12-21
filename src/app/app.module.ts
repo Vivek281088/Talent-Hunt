@@ -21,22 +21,19 @@ import { AssessmentDisplayComponent } from './modules/assessment-display/assessm
 import { ToastrModule } from 'ngx-toastr';
 import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 import { MessageService } from 'primeng/api';
-import { QuestiondbComponent } from './questiondb/questiondb.component';
+import { QuestiondbComponent } from './modules/questiondb/questiondb.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import { DatePipe } from '@angular/common';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
-import { ChipModule } from 'primeng/chip';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { TagModule } from 'primeng/tag';
-import { BadgeModule } from 'primeng/badge';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 import { CandidateTableComponent } from './candidate-table/candidate-table.component';
-import { SidebarModule } from 'primeng/sidebar';
-import { OverlayModule } from 'primeng/overlay';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 
+import { BodyComponent } from './modules/body/body.component';
+import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
+import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 
 
 @NgModule({
@@ -61,29 +58,24 @@ import { CandidatequestionComponent } from './modules/candidatequestion/candidat
     CandidateTableComponent,
     CandidatequestionComponent,
 
+    BodyComponent,
+      NewScheduleComponent,
+      ManageManagersComponent,
   ],
   imports: [
     BrowserModule,
-    BreadcrumbModule,
-    TagModule,
-    BadgeModule,
     AppRoutingModule,
     PrimeModule,
-    ChipModule,
     FormsModule,
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
-    OverlayPanelModule,
-    SidebarModule,
-    OverlayModule,
-    ConfirmPopupModule,
-    ConfirmDialogModule,
-    ToastrModule.forRoot()
+    
+    ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [MessageService],
+  providers: [MessageService,DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

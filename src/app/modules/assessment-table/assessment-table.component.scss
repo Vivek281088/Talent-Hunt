@@ -4,7 +4,7 @@
 
 .candidate-table {
   border: 1px solid #0000001f;
-  border-radius: 2px;
+  border-radius: 8px;
   background-color: white;
 }
 ::ng-deep .candidateTable {
@@ -13,7 +13,7 @@
     border: 1px solid #dee2e6;
     border-width: 0 0 1px 0;
     /* padding: 1rem 1rem; */
-    padding: 8px 16px 8px 16px;
+    padding: 13.6px 16px 13.6px 7px;
     //styleName: Body 2;
     font-family: "Roboto", sans-serif;
     font-size: 14px;
@@ -24,17 +24,69 @@
     color: #000000de;
   }
   .p-datatable .p-datatable-thead > tr > th {
-    //styleName: Body 2;
-    font-family: "Roboto", sans-serif;
+    text-align: left;
+    padding: 1rem 0.5rem;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     font-weight: 400;
-    line-height: 16px;
-    letter-spacing: 0.25px;
-    text-align: left;
     color: #00000061;
-    background: white;
+    /* background: #f8f9fa; */
+    transition: box-shadow 0.2s;
   }
 }
+
+//searchIcon
+.p-input-icon-right > .p-inputtext {
+  padding-right: 2.5rem;
+  width: 138px;
+  height: 36px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px;
+  margin-right: 7px;
+  gap: 8px;
+
+  border: 1px solid #00000061;
+}
+.managerMultiselect {
+  ::ng-deep {
+    .p-multiselect .p-multiselect-trigger {
+      width: 1rem;
+    }
+
+    .p-fluid .p-multiselect {
+      width: 125px;
+      height: 36px;
+      border-radius: 4px;
+      gap: 8px;
+      background: #efefef;
+    }
+    .p-icon {
+      width: 14px;
+      height: 8px;
+    }
+    .p-multiselect .p-multiselect-label.p-placeholder {
+      margin-top: -6px;
+    }
+    .p-fluid .p-dropdown {
+      display: flex;
+      height: 35px;
+      width: 125px;
+      border-radius: 4px;
+      gap: 8px;
+      background: #efefef;
+    }
+    .p-dropdown .p-dropdown-trigger {
+      width: 1rem;
+    }
+    .p-dropdown .p-dropdown-label.p-placeholder {
+      margin-top: -6px;
+    }
+  }
+}
+
 .customMultiselect {
   ::ng-deep {
     .p-fluid .p-multiselect {
@@ -44,6 +96,22 @@
       background: #efefef;
     }
   }
+}
+ .clear-button {
+  width: 110px;
+  height: 36px;
+  padding: 6px, 6px, 6px, 8px;
+  border-radius: 4px;
+  border: 1px;
+  color: #c81a78;
+  border: 1px solid #c81a78;
+  background: white;
+  
+}
+::ng-deep .p-button .p-button-label {
+    transition-duration: 0.2s;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 ::ng-deep .p-chip {
@@ -55,7 +123,6 @@
   text-align: left;
   background-color: #00000061;
   color: white;
-  margin-right: 2px;
 }
 .plusIcon {
   color: #00000099;
@@ -203,6 +270,7 @@
 
 ::ng-deep .p-breadcrumb {
   border: none;
+  background: #fafafa;
 }
 ::ng-deep .p-paginator-bottom.p-paginator.p-component.ng-star-inserted {
   display: flex;
@@ -212,10 +280,9 @@
   // align-items: center;
 }
 .whole-design {
-  width: (1, 190px);
-  height: Hug (541px);
-  padding: 16px;
-  gap: 16px;
+  width: 100%;
+  height:541px;
+  padding: 16px 5px 16px 16px;
 }
 
 .cursor-design {
@@ -229,8 +296,64 @@
 .filter-components {
   display: flex;
   flex-direction: row;
-  justify-content: start;
-  gap: 40px;
+  justify-content: space-between;
+}
+.clearButton {
+  ::ng-deep {
+    .p-button.p-button-danger,
+    .p-buttonset.p-button-danger > .p-button,
+    .p-splitbutton.p-button-danger > .p-button {
+      height: 36px;
+    }
+  }
+}
+
+.assesment-header {
+  //styleName: Title;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+
+  color: #000;
+}
+
+.breadDate {
+  justify-content: space-between;
+  flex-direction: row;
+
+  .date {
+    text-align: end;
+    width: 86px;
+    height: 19px;
+    color: #00000061;
+    font-family: "Avenir", sans-serif;
+  }
+}
+.BreadCrumb {
+  ::ng-deep .p-breadcrumb {
+    overflow-x: auto;
+    background: transparent;
+  }
+  ::ng-deep .p-icon {
+    display: inline-block;
+    height: 13px;
+    width: 8px;
+    color: #00000061;
+  }
+}
+::ng-deep
+  .p-breadcrumb
+  .p-breadcrumb-list
+  li
+  .p-menuitem-link
+  .p-menuitem-icon {
+  color: #6c757d;
+  margin-right: 0px;
+  margin-left: -14px;
+  // background: beige;
 }
 .assesment-header {
   //styleName: Title;
@@ -242,12 +365,6 @@
   text-align: left;
 
   color: #000;
-}
-
-::ng-deep .breadclass {
-  .p-breadcrumb {
-    padding-left: 0;
-  }
 }
 
 //////////////////////////sidebar design started//////////////
@@ -438,3 +555,124 @@ cursor:pointer;
  background-color: white; 
 }
 }
+// }
+
+.design {
+  width: Fill (705px);
+  height: Hug (215px);
+  gap: 16px;
+}
+
+.wrapper {
+  width: 705px;
+}
+
+.select-size input {
+  display: none;
+}
+.option {
+  display: flex;
+  align-items: center;
+  color: #00000061;
+}
+.option-content {
+  margin-left: 10px; /* Adjust the margin as needed */
+  font-family: "Roboto";
+  font-size: 16px; /* Adjust the font size as needed */
+  /* Add other styles as needed */
+}
+
+label {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #ddd;
+  line-height: 32px;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #00000061;
+}
+
+#small:checked ~ label[for="small"] {
+  background: #999;
+  color: #ffffff;
+}
+.designs {
+  display: flex;
+  flex-direction: column;
+}
+.question-design {
+  // width: 675px;
+  height: 23px;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+  color: #652d90;
+}
+
+.header_design {
+  width: 200px;
+  height: 30px;
+}
+
+::ng-deep .p-sidebar-header {
+  color: #1e22aa;
+  //styleName: Title;
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+}
+.design_panel{
+  margin-bottom: 15px;
+  font-family: 'Roboto';
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  color: #00000061;
+ 
+}
+ 
+ .line_design{
+  margin-bottom: 5px;
+  //styleName: Body 2;
+ 
+ 
+ 
+ 
+ }
+ 
+ .design_panel_last{
+  font-family: 'Roboto';
+font-size: 14px;
+font-weight: 400;
+line-height: 16px;
+letter-spacing: 0.25px;
+text-align: left;
+color: #00000061;
+cursor:pointer;
+ 
+ }
+ 
+ :host ::ng-deep .p-button {
+  color: #ffffff;
+  background: #652D90;
+  border: 1px solid #652D90;
+  &:hover {
+    color: #652D90;
+    ; /* Darker background color on hover */
+    // border: none;
+  }
+  &:focus {
+    box-shadow: none;
+  }
+}
+ 

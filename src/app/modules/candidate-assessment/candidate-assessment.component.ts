@@ -1,69 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-
-import {  Router } from '@angular/router';
-import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
-import { ManagernameService } from 'src/app/services/managername.service';
-
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-candidate-assessment',
   templateUrl: './candidate-assessment.component.html',
   styleUrls: ['./candidate-assessment.component.scss'],
+  providers: [MessageService],
 })
-export class CandidateAssessmentComponent {
-  candidateName: string = '';
-  assessmentFilename: string = 'JAVA_AWS_V1';
-
-  cols!: Column[];
-
-  candidateList: any[] = [];
-
-  showCandidateEmail!: string;
-
-  finalizedEmail!: string;
-
-  assessmentData!: any;
- 
-
-  constructor(
-    private router: Router,
-    private candidateService: CandidateAssessmentService,
-    private managernameService :ManagernameService,
-  ) {}
-
-  ngOnInit(): void {
-    this.finalizedEmail = this.managernameService.getCandidateAssessment_Email()
-
-    //  this.finalizedEmail= this.managernameService.getCandidateAssessment_Email();
-    this.cols = [
-      { field: 'email_Filename', header: 'File Name' },
-      { field: 'email_Status', header: 'Status' },
-    ];
-    this.candidateService
-      .getCandidatedata_by_Email(this.finalizedEmail)
-      .subscribe((response) => {
-        console.log('res', response);
-        this.candidateList = response;
-        console.log('candidateList', this.candidateList);
-        this.candidateName = response[0].candidateName;
-        console.log('candidateName', this.candidateName);
-      });
+export class CandidateAssessmentComponent implements AfterViewInit {
+  constructor(private messageService: MessageService) { }
+  ngOnInit() {
+    
+    const role = localStorage.getItem('userrole');
+    console.log("Role : ", role);
+  }
+  ngAfterViewInit(): void {
+    console.log('onInit');
+    this.show();
   }
 
-  startAssessment() {
-    this.router.navigate(['/assessment-display']);
+  show() {
+    this.messageService.add({
+      severity: 'info',
+      detail: 'You have been assigned a new assessment on 23-Dec-2023',
+      sticky: true,
+    });
   }
-
-  sendQuestions(data: any) {
-    console.log('data', data);
-    this.candidateService.setAssessmentData(data);
-
-    this.router.navigate(['/assessment-display']);
-  }
-}
-
-interface Column {
-  field: string;
-
-  header: string;
 }
