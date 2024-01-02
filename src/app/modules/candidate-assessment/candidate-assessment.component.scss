@@ -14,6 +14,7 @@ flex-direction: column;
 background: linear-gradient(91.47deg, #652D90 14.44%, #D61360 158.5%);
 margin-right: 0px;
 }
+
 .mtalent-icon{
 position:relative;
 width: 32px;
@@ -40,6 +41,7 @@ top: 56px;
 padding: 54px, 0px, 54px, 0px;
 gap: 8px;
 }
+
 .mtalent-slogan{
 font-family: "Poppins", sans-serif;
 font-size: 24px;
@@ -171,27 +173,47 @@ line-height: normal;
 }
 
 .entire-card{
-  display: flex;
-  width: 1024px;
-  align-items: flex-start;
-  gap: 16px;
-  height: 320px;
-  gap: 16px;
-  padding: 14px;
+ display: flex;
+ flex-direction: row;
+ gap: 2%;
+ 
+
   }
 
-.card1{
-  width: 320px;
-height: 320px;
+.assessment-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20%;
+height: 50%;
 padding: 16px;
 border-radius: 8px;
-justify-content: space-between;
 background: #FFFFFF;
 box-shadow: 0px 7px 8px 0px #B3ABBA33;
 box-shadow: 0px 5px 22px 0px #B3ABBA1F;
 box-shadow: 0px 12px 17px 0px #B3ABBA24;
-display: flex;
-justify-content: center;
+
+.card-top{
+
+  .heading{
+    color: #00000061;
+    font-size: 14px;
+    font-family: 'Roboto';
+    padding-bottom: 3%;
+  }
+  .card-title{
+    color: #00000099;
+    font-size: 24px;
+    font-family: 'Roboto';
+    padding-bottom: 3%;
+  }
+  .skill{
+    display: flex;
+    flex-direction: row;
+    color: white;
+  }
+
+}
 }
 
 .card-title{

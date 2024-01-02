@@ -1,42 +1,64 @@
 <div class="top-part">
-  <img class="mtalent-icon" src="../assets\Mtalent-Icon.png" alt="Mtalent-Icon"  />
-<div class="mtalent-heading">
-<p>MTalent</p>
-</div>
-<div class="mtalent-slogan">
-<p> Streamline the Hiring Process</p> 
-  <p>Effortlessly Schedule and Assess with MTalent</p>
-</div>
+  <img
+    class="mtalent-icon"
+    src="../assets\Mtalent-Icon.png"
+    alt="Mtalent-Icon"
+  />
+  <div class="mtalent-heading">
+    <p>MTalent</p>
+  </div>
+  <div class="mtalent-slogan">
+    <p>Streamline the Hiring Process</p>
+    <p>Effortlessly Schedule and Assess with MTalent</p>
+  </div>
 </div>
 <div class="bottom-part">
-  <div class="toast" >
-    <i class="pi pi-info-circle" style="color:rgba(22, 102, 220, 1);" ></i>
-<p class="text">You have been assigned a new assessment on 23-Dec-2023</p>
-<i class="pi pi-times" style="color:rgba(22, 102, 220, 1);"></i>
-</div>
+  <div class="toast">
+    <i class="pi pi-info-circle" style="color: rgba(22, 102, 220, 1)"></i>
+    <p class="text">You have been assigned a new assessment on 23-Dec-2023</p>
+    <i class="pi pi-times" style="color: rgba(22, 102, 220, 1)"></i>
+  </div>
 
-<div class="instruction">
-<p class="assessment-heading">Your Assessments</p>
-<p class="assessment-content">Prepare yourself. Start your assessment from assigned schedule.</p>
-</div>
-<div class="goto">
-<p>
-  Go to my Profile
-</p>
-<p-divider layout="vertical"></p-divider>
-<p>
-  Go to my Assessment History
-</p>
-</div>
+  <div class="instruction">
+    <p class="assessment-heading">Your Assessments</p>
+    <p class="assessment-content">
+      Prepare yourself. Start your assessment from assigned schedule.
+    </p>
+  </div>
+  <div class="goto">
+    <p>Go to my Profile</p>
+    <p-divider layout="vertical"></p-divider>
+    <p>Go to my Assessment History</p>
+  </div>
 
-<div class="entire-card"> 
-<div class="card1">
-<div class="card-title">
-
+  <div class="entire-card">
+    <div class="assessment-card" *ngFor="let data of assessmentData">
+      <div class="card-top">
+        <div class="heading">ONLINE ASSESSMENT</div>
+        <div class="card-title">{{data.testName}}</div>
+        <div class="skill" *ngFor="let skill of data.skills">
+          <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
+      </div>
+      </div>
   
-</div>
-</div>
-</div>
+      <div class="card-bottom">
+        <div>
+          <div class="card-bottom-line1">
+            <div class="content">
+              <i class="pi pi-clock"></i>
+              <p>Duration : {{data.duration}}mins</p>
+            </div>
+            <div class="content">
+              <i class="pi pi-percentage"></i>
+              <p>Cutoff : {{data.cutoff}}</p>
+            </div>
+          </div>
+        </div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
 
-
+  </div>
+  
 </div>

@@ -9,6 +9,20 @@ import { MessageService } from 'primeng/api';
 })
 export class CandidateAssessmentComponent implements AfterViewInit{
 
+  assessmentData: any=[{
+    testName: 'Angular Full Stack',
+    skills : ["AWS","Java"],
+    cutoff : 75,
+    duration: 10,
+    validity : "24-JAN"
+  },
+  {
+    testName: 'NodeJs Dev',
+    skills : ["Node.Js","Java"],
+    cutoff : 65,
+    duration: 15,
+    validity : "28-JAN"
+  }];
   constructor(private messageService: MessageService) {}
   ngAfterViewInit(): void {
     console.log("onInit")
