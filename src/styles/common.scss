@@ -122,6 +122,16 @@
 //   }
 // }
 .scheduleChip {
+  .p-chip {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    background-color: #00000061;
+    color: white;
+  }
   .p-chip .p-chip-text {
     line-height: 1.2;
     margin-top: 0.25rem;
@@ -131,6 +141,14 @@
     line-height: 1.2;
   }
 }
+.plusIcon {
+  color: #00000099;
+  ::ng-deep .p-badge-no-gutter {
+    margin-left: -9px;
+  }
+}
+
+
 
 span.p-badge.p-component.p-badge-no-gutter.ng-star-inserted {
   color: #495057;

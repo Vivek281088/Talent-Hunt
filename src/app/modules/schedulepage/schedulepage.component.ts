@@ -113,6 +113,7 @@ selecteddates!:Date
   selectedSkills!:string;
   cutOff!:number;
   duration!:number;
+  viewQuestionSidebar: boolean=false;
 
  
   // reviewer
@@ -538,6 +539,7 @@ this.showcardFlag=true;
   }
   //view icon
   onViewClick(ManagerName: string, fileName: string) {
+
     this.tableService
       .getdataby_FileName(ManagerName, fileName)
       .subscribe((data) => {
@@ -545,12 +547,24 @@ this.showcardFlag=true;
         this.view_Managername = ManagerName;
         this.view_Filename = fileName;
         this.FinalizedQuestions = data[0].questions;
-        this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
-        this.managernameService.setManagerName(this.view_Managername);
-        this.managernameService.setFileName(this.view_Filename);
-        this.router.navigate(['questiondisplay']);
+       
+        this.viewQuestionSidebar =true;
         console.log('questions :', this.FinalizedQuestions);
       });
+
+  }
+  getSelectedOptions(selected_Option: any,option: any){
+    if(selected_Option.includes(option))
+    {
+      console.log("correct answer")
+    return "correctAnswer";
+    }
+    else{
+      return "wrongAnswer";
+    }
+    }
+  getLabel(index: number): string {
+    return String.fromCharCode(65 + index);
   }
  
   //clone icon

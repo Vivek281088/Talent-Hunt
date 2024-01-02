@@ -59,36 +59,19 @@
   justify-content: flex-end;
   // justify-content: flex-end;
   .Cancelbutton {
-    // width: 64px;
-    // height: 24px;
-    // padding: 4px, 8px, 4px, 6px;
-    // gap: 10px;
     ::ng-deep {
       .p-button {
-        height: 40px;
+        height: 87%;
         background: transparent;
         border: 1px solid #652d90;
         outline: none;
-        margin-right: 14px;
+        color: #652d90;
       }
       .p-button:focus {
         box-shadow: none;
       }
     }
-    // background: transparent;
-    .cancel-word {
-      width: 50px;
-      height: 16px;
-      //styleName: Button;
-      font-family: "Roboto";
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 16px;
-      letter-spacing: 1.25px;
-      text-align: left;
-      color: #652d90;
-      cursor: pointer;
-    }
+    
   }
 
   .Createbutton {
@@ -97,11 +80,10 @@
         cursor: pointer;
       }
       .p-button {
+        height: 87%;
         background: transparent;
         border: 1px solid #652d90;
         outline: none;
-        margin-right: 14px;
-        // height: 40px;
       }
       .p-button:focus {
         box-shadow: none;
@@ -110,7 +92,6 @@
         overflow: hidden;
         position: relative;
         background: #652d90;
-        height: 40px;
         text-align: center;
       }
     }
@@ -171,18 +152,6 @@
     border-width: 0 0 1px 0;
     padding: 8px 16px 8px 16px;
   }
-
-  //   box-shadow: 0 4px 8px #0000001a;
-  //  // border: 1px solid rgb(122, 120, 120);
-  //  // margin-top: 50px;
-  //   // border-radius: 0px;
-  //   width: 1450px;
-  //   border-radius: 17px;
-  //     // border-top-left-radius: 17px;
-  //     // border-top-right-radius: 17px;
-  //     // border-bottom-right-radius: 17px;
-  //     // border-bottom-left-radius: 17px;
-  //   // background-color: red;
 }
 ::ng-deep .p-column-filter-row {
   display: flex;
@@ -273,11 +242,16 @@
     overflow-x: auto;
     background: transparent;
   }
-  ::ng-deep .p-icon {
-    display: inline-block;
-    height: 13px;
-    width: 8px;
-    color: #00000061;
+  ::ng-deep {
+    .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+      color: #1e22aa;
+    }
+    .p-icon {
+      display: inline-block;
+      height: 13px;
+      width: 8px;
+      color: #00000061;
+    }
   }
 }
 ::ng-deep
@@ -289,7 +263,6 @@
   color: #6c757d;
   margin-right: 0px;
   margin-left: -14px;
-  // background: beige;
 }
 
 ::ng-deep .p-datatable .p-datatable-thead tr th {
@@ -347,11 +320,11 @@
 }
 ::ng-deep {
   .p-inputtext:enabled:hover {
-    border-color: #00000061;
+    // border-color: #00000061;
   }
   .p-inputtext:enabled:focus {
     box-shadow: none;
-    border-color: #00000061;
+    // border-color: #00000061;
   }
 }
 .managerMultiselect {
@@ -453,6 +426,19 @@
     // letter-spacing: 0.25px;
     // text-align: left;
     color: #00000099;
+  }
+}
+.questionsidebar{
+
+  ::ng-deep {
+    .p-sidebar .p-sidebar-header {
+      padding: 1.25rem;
+      border: 1px solid #0000001F;
+      color: #1E22AA;
+      font-family: 'Poppins';
+      font-weight: 500;
+      font-size: 20px;
+  }
   }
 }
 
@@ -837,6 +823,7 @@ body {
     }
     .p-dialog .p-dialog-content {
       padding: 0 1.5rem 2rem 1rem;
+      border-bottom: 2px solid #0000001F;
   }
     .p-inputtext {
       width: 100%;
@@ -846,6 +833,9 @@ body {
     }
     .p-multiselect {
       width: 100%;
+    }
+    .p-dialog .p-dialog-footer {
+      padding: 12px;
     }
   }
   .labelvalue {

@@ -1,25 +1,4 @@
 <div class="full-content">
-  <!-- <p-tabView> -->
-  <!-- <ng-template pTemplate="header"> </ng-template> -->
-
-  <!-- <p-tabPanel style="background: #efefef"> -->
-  <!-- <ng-template pTemplate="header">
-        <div class="words-in-firstrow">
-          <span class="schedule-tab">Schedules </span>
- 
-          <div class="flex">
-            <p-breadcrumb
-              class="max-w-full"
-              [model]="items"
-             
-              [home]="home"
-              [style]="{ border: 'none' }"
-            ></p-breadcrumb>
-          </div>
-        </div>
-      </ng-template> -->
-  <!-- </p-tabPanel> -->
-  <!-- </p-tabView> -->
   <div style="margin-bottom: 20px">
     <div class="assesment-header">
       <p class="assessment-text">Schedules</p>
@@ -240,16 +219,14 @@
                         <div class="Newschedule-button">
                           <div class="Cancelbutton">
                             <p-button
+                              label="Cancel"
                               [outlined]="true"
                               (onClick)="cancelButton()"
                             >
-                              <label class="cancel-word"> Cancel </label>
                             </p-button>
                           </div>
                           <div class="Createbutton">
-                            <p-button>
-                              <label class="Create-word"> Create </label>
-                            </p-button>
+                            <p-button label="Create"> </p-button>
                           </div>
                         </div>
                       </ng-template>
@@ -289,45 +266,36 @@
             }}</span>
           </td>
           <td class="skills">
-            <div class="flex">
-              <div
-                class="flex"
-                *ngFor="let item of getFormattedSkills(rowData.Skill).skills"
-              >
-                <p-chip
-                  [style]="{ 'font-size': '12px' }"
-                  label="{{ item }}"
-                  class="scheduleChip"
-                ></p-chip>
-              </div>
-              <div
-                class="flex ml-1"
-                *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0"
-              >
-                +
-                <p-overlayPanel #op>
-                  <ul
-                    *ngFor="
-                      let skill of remainaingSkills(
-                        rowData.Skill,
-                        getFormattedSkills(rowData.Skill).remainingCount
-                      )
-                    "
-                  >
-                    <li>
-                      {{ skill }}
-                    </li>
-                  </ul>
-                </p-overlayPanel>
-                <p-badge
-                  class="flex"
-                  (click)="op.toggle($event)"
-                  [value]="
-                    getFormattedSkills(rowData.Skill).remainingCount.toString()
+            <span *ngFor="let item of getFormattedSkills(rowData.Skill).skills">
+              <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
+            </span>
+            <span
+              *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0"
+              class="plusIcon"
+            >
+              +
+              <p-overlayPanel #op>
+                <ul
+                  *ngFor="
+                    let skill of remainaingSkills(
+                      rowData.Skill,
+                      getFormattedSkills(rowData.Skill).remainingCount
+                    )
                   "
-                ></p-badge>
-              </div>
-            </div>
+                >
+                  <li>
+                    {{ skill }}
+                  </li>
+                </ul>
+              </p-overlayPanel>
+              <p-badge
+                class="cursor-design"
+                (click)="op.toggle($event)"
+                [value]="
+                  getFormattedSkills(rowData.Skill).remainingCount.toString()
+                "
+              ></p-badge>
+            </span>
           </td>
           <!--skill end-->
 
@@ -363,7 +331,7 @@
               <!--View Icon-->
               <!-- <div class="mr-3 cursor-pointer"> -->
               <a
-                class="flex"
+                class="flex cursor-pointer"
                 [class.disabled]="!rowData.isMail"
                 title="View"
                 (click)="onViewClick(rowData.Managername, rowData.fileName)"
@@ -381,9 +349,7 @@
                   />
                 </svg>
               </a>
-              <!-- </div> -->
               <!--add icon-->
-              <!-- <div class="mr-3 cursor-pointer" > -->
               <a class="flex">
                 <svg
                   width="18"
@@ -429,8 +395,56 @@
         </tr>
       </ng-template>
     </p-table>
-    <!-- </div> -->
-    <!-- </div> -->
-    <!-- </div> -->
   </div>
+</div>
+
+<div class="questionsidebar">
+  
+  <p-sidebar
+    [(visible)]="viewQuestionSidebar"
+    position="right"
+    [style]="{ width: '46em' }"
+    [modal]="false"
+  >
+    <ng-template class="header_design" pTemplate="header"
+      >Quiz Preview</ng-template
+    >
+    <ng-template pTemplate="content" *ngIf="FinalizedQuestions.length > 0">
+      <span *ngFor="let question of FinalizedQuestions">
+        <div class="question-design">{{ question.question }}</div>
+
+        <div class="select-size">
+          <div
+            *ngFor="let option of question.options; let i = index"
+            class="option"
+            [ngClass]="getSelectedOptions(question.selectedAnswer, option)"
+          >
+            <!-- <input type="radio" name="first" id="small" />
+            <label class="box-design" for="small">A</label>
+            <span class="option-content">{{ preview.options[0] }}</span> -->
+            <input type="radio" [name]="'option_' + i" [id]="'option_' + i" />
+            <label class="box-design" [for]="'option'+ question + '-' + i">{{ getLabel(i) }}</label>
+
+            <span class="option-content">{{ option }}</span>
+          </div>
+        </div>
+
+        <div class="design_for_line">
+          <hr />
+        </div>
+      </span>
+    </ng-template>
+    <ng-template class="footer_design" pTemplate="footer">
+      <div class="btnfooter">
+        <div class="custom_button">
+          <p-button label="cancel"></p-button>
+        </div>
+        <div class="custom_button_close">
+          <p-button label="close"></p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-sidebar>
+
+  
 </div>
