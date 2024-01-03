@@ -15,5 +15,13 @@ export class DataService {
   //   this.dataSubject.next(data);
 
   // }
+  private localstoragekey='sampledata'
+  savedata(data:string[]):void{
+    localStorage.setItem(this.localstoragekey,JSON.stringify(data));
+  }
+  getData():string[]{
+    const storedData=localStorage.getItem(this.localstoragekey);
+    return storedData? JSON.parse(storedData) : [];
+  }
   
 }

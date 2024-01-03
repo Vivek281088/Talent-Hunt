@@ -113,7 +113,7 @@ selecteddates!:Date
   todayDate !: string;
   scheduleName!:string; 
   manager!:string;
-  selectedSkills!:string[];
+  selectedSkills!:any[];
   cutOff!:number;
   duration!:number;
 
@@ -400,7 +400,7 @@ this.showcardFlag=true;
   }
   existingData() {
     this.tableService.getExistingData().subscribe((data) => {
-      console.log("table",data)
+      console.log("table data ----------------",data)
       this.Tdata = data;
     });
   }
@@ -443,10 +443,12 @@ this.showcardFlag=true;
           }
       this.newScheduleService.setNewScheduleData(dataToSend);
       localStorage.setItem("scheduleName",this.scheduleName)
-      // localStorage.setItem("manager",this.manager)
-      // localStorage.setItem("selectedSkills",JSON.stringify(this.selectedSkills))
-      // localStorage.setItem("cutoff",JSON.stringify(this.cutOff))
-      // localStorage.setItem("duration",JSON.stringify(this.duration))
+      localStorage.setItem("manager",this.manager)
+      // const ss=JSON.stringify(this.selectedSkills)
+      // localStorage.setItem("selectedSkills",ss)
+      this.dataService.savedata(this.selectedSkills)
+      localStorage.setItem("cutoff",this.cutOff.toString())
+      localStorage.setItem("duration",this.duration.toString())
       // const dataToSend={
       // }
       // const a=this.dataService.sharedData={scheduleName:this.scheduleName,manager:this.manager,selectedSkills:this.selectedSkills,cutOff:this.cutOff,duration:this.duration
