@@ -74,7 +74,7 @@ export class Dash1Component implements OnInit {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skillSet = data;
 
-      // console.log(this.skillSet);
+      console.log('Checking skillset',this.skillSet);
 
       // console.log('Users:' + JSON.stringify(this.selectedSkill));
     });

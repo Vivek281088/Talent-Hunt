@@ -14,10 +14,10 @@
     </div>
     <div class="new-schedule-header-2">
       <div class="cancelBtn">
-        <p-button label="Cancel"> </p-button>
+        <p-button label="Cancel" (click)="cancelButton()"> </p-button>
       </div>
-      <div class="saveBtn">
-        <p-button label="Save Changes">
+      <div class="saveBtn" (click)="saveSelected()">
+        <p-button label="Save Changes" >
           <svg
             width="24"
             height="25"
@@ -39,19 +39,19 @@
     <div class="edit-start">
       <div class="edit-name">
         <label>Schedule Name</label>
-        <p>Full Stack Developer Eval</p>
+        <p>{{scheduleName}}</p>
       </div>
       <div class="edit-manager">
         <label>Manager</label>
-        <p>Madhanraj Prabhu</p>
+        <p>{{manager}}</p>
       </div>
       <div class="edit-cutoff">
         <label>Cutoff</label>
-        <p>65 %</p>
+        <p>{{cutOff}}</p>
       </div>
       <div class="edit-duration">
         <label>Duration</label>
-        <p>20 mins</p>
+        <p>{{duration}}</p>
       </div>
     </div>
     <div class="edit-end">
@@ -73,9 +73,14 @@
 
   
     <div class="tabview-count">
+      <!-- {{tabs | json}} -->
       <div class="tabview">
         <p-tabView >
-          <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
+          <p-tabPanel *ngFor="let tab of tabs"  [header]="tab.title" >
+            <!-- <ng-template pTemplate="header">
+              
+            </ng-template> -->
+            
             <ng-template pTemplate="content">
               <p-table
                 #dt2
@@ -90,6 +95,7 @@
                   'questionType',
                   'Difficulty_Level'
                 ]"
+                
               >
                 <ng-template pTemplate="header">
                   <tr>
@@ -148,8 +154,8 @@
 
                 <ng-template pTemplate="body" let-rowData>
                   <tr>
-                    <td>
-                      <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                    <td >
+                      <p-tableCheckbox [value]="rowData"   (click)="toggleSelection(rowData)" > </p-tableCheckbox>
                     </td>
                     <td class="questiontext">{{ rowData.question }}</td>
                     <td class="optiontext">{{ rowData.questionType }}</td>
@@ -200,7 +206,7 @@
 
       <div class="questioncount">
         <label>Selected Questions :</label>
-        <p>24</p>
+        <p>{{(selectedquestions && selectedquestions.length) || 0}}</p>
       </div>
     </div>
 </div>

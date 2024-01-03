@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Guard/auth.service';
 
 import { MessageService } from 'primeng/api';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
