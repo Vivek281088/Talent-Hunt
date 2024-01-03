@@ -872,3 +872,48 @@ body {
     }
   }
 }
+
+.custom_button
+{
+  gap: 3%;
+ ::ng-deep .p-button {
+  color: #652D90;
+  background: #ffffff;
+  border: 1px solid #652D90;
+  &:hover {
+    color: #652D90;
+    ; 
+  }
+  &:focus {
+    box-shadow: none;
+  }
+
+  
+}
+}
+.wholedialog{
+  display: flex;
+  flex-direction: column;
+}
+.btnfooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+.custom_button_send
+{
+ ::ng-deep .p-button {
+  color:white;
+  background: #652D90;
+  border: 1px solid #652D90;
+  &:hover {
+    color: white;
+    ; 
+  }
+  &:focus {
+    box-shadow: none;
+  }
+
+  
+}
+}

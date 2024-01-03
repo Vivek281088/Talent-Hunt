@@ -17,84 +17,89 @@ import { Router } from '@angular/router';
   templateUrl: './new-schedule.component.html',
   styleUrls: ['./new-schedule.component.scss'],
 })
-export class NewScheduleComponent 
-{
+export class NewScheduleComponent {
   [x: string]: any;
   items: MenuItem[] | undefined;
   tabs: { title: any; content: any }[] = [];
   Tdata!: any;
   selectedQuestion!: any;
   state$: Observable<object> | undefined;
-  retrieved_schedulename!:string
-  retrieved_managername!:string
-  retrieved_selectedSkills!:any
-  retrieved_cutoff!:number
-  retrieved_duration!:number
+  retrieved_schedulename!: string;
+  retrieved_managername!: string;
+  retrieved_selectedSkills!: any;
+  retrieved_cutoff!: number;
+  retrieved_duration!: number;
   // showCheckbox:boolean=false
-  selected:boolean=false
-  data:any
-  scheduleName!:string|null
+  selected: boolean = false;
+  data: any;
+  scheduleName!: string | null;
   // scheduleName!:string
-  manager!:String|null
-  selectedSkills!:any|null
-  cutOff!:string|number|null
-  duration!:string|number|null
-  skill!:string|null
-  questions=[];
-  public selectedquestions:any[]=[];
+  manager!: String | null;
+  selectedSkills!: any | null;
+  cutOff!: string | number | null;
+  duration!: string | number | null;
+  skill!: string | null;
+  questions = [];
+  public selectedquestions: any[] = [];
   FinalizedQuestions: any[] = [];
-  selectedQuestionCount!:number;
+  selectedQuestionCount!: number;
+  viewQuestionSidebar: boolean=false;
 
-
-// @ViewChild('yourTable')yourTable:Table | undefined;
+  // @ViewChild('yourTable')yourTable:Table | undefined;
 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
 
-
-  
-
   // selectallItems(){
-    
+
   //   this.tabs.forEach(item=>{
   //     // item.content.showCheckbox=true;
   //     item.content.selected=true;
   //   })
   // }
 
-  constructor(private route:ActivatedRoute,private dataservice:DataService,private skillsdropdownservice:SkillsdropdownService,
-    private newScheduleService:NewScheduleService,private ngzone:NgZone,private cdr: ChangeDetectorRef,private managernameService:ManagernameService,private router:Router) {
-      // this.data=this.dataservice.sharedData;
-     }
-  ngOnInit() 
-  {
-// console.log("se",this.selectedquestions)
-console.log("Selected Questions during ngOnInit:", this.selectedquestions);
+  constructor(
+    private route: ActivatedRoute,
+    private dataservice: DataService,
+    private skillsdropdownservice: SkillsdropdownService,
+    private newScheduleService: NewScheduleService,
+    private ngzone: NgZone,
+    private cdr: ChangeDetectorRef,
+    private managernameService: ManagernameService,
+    private router: Router
+  ) {
+    // this.data=this.dataservice.sharedData;
+  }
+  ngOnInit() {
+    // console.log("se",this.selectedquestions)
+    console.log('Selected Questions during ngOnInit:', this.selectedquestions);
 
-// Remove unselected questions from the selectedquestions array
-this.selectedquestions = this.selectedquestions.filter(question => question.Selected);
-  
+    // Remove unselected questions from the selectedquestions array
+    this.selectedquestions = this.selectedquestions.filter(
+      (question) => question.Selected
+    );
+
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Assessment', routerLink: 'dashboard' },
       { label: 'New Schedule', routerLink: 'new-schedule' },
     ];
-// console.log("selected data",Selected)
-  
-// console.log("data received",this.data)
+    // console.log("selected data",Selected)
+
+    // console.log("data received",this.data)
     // const newScheduleData=this.newScheduleService.getNewScheduleData();
 
-    this.scheduleName=localStorage.getItem("scheduleName")
-    console.log("sname",this.scheduleName)
-    this.manager=localStorage.getItem("manager")
+    this.scheduleName = localStorage.getItem('scheduleName');
+    console.log('sname', this.scheduleName);
+    this.manager = localStorage.getItem('manager');
     // const ss:any=localStorage.getItem(("selectedSkills"))
     // this.selectedSkills= JSON.parse(ss)
-    this.selectedSkills=this.dataservice.getData();
+    this.selectedSkills = this.dataservice.getData();
     //  this.selectedSkills=JSON.parse(this.skill);
-     console.log("ss",this.selectedSkills)
-      this.cutOff=localStorage.getItem("cutoff")
-      this.duration=localStorage.getItem("duration")
-    
+    console.log('ss', this.selectedSkills);
+    this.cutOff = localStorage.getItem('cutoff');
+    this.duration = localStorage.getItem('duration');
+
     // thisretrieved_schedulename=scheduleName
 
     // const manager=localStorage.getItem("manager")
@@ -108,28 +113,26 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
     // this.retrieved_duration=newScheduleData.duration
 
     // console.log("received data",newScheduleData);
-    this.skillsdropdownservice.postskillsList(this.selectedSkills).subscribe(response =>{
-      console.log("recieved response",response);
-      // this.ngzone.run(() => {
+    this.skillsdropdownservice
+      .postskillsList(this.selectedSkills)
+      .subscribe((response) => {
+        console.log('recieved response', response);
+        // this.ngzone.run(() => {
         // Your code that triggers change
         // this.tabs.push(...transformedData);
-        for(let i=0;i<response.length;i++){
-          this.tabs .push(
-            { title: response[i].skills, content: response[i].data }
-          )         
-          
-  
+        for (let i = 0; i < response.length; i++) {
+          this.tabs.push({
+            title: response[i].skills,
+            content: response[i].data,
+          });
         }
-        console.log("Received response", this.tabs);
-      // });
-    
-      console.log("recieved response1",this.tabs);
-      this.cdr.detectChanges();
-     
-    })
-   
-    
-  
+        console.log('Received response', this.tabs);
+        // });
+
+        console.log('recieved response1', this.tabs);
+        this.cdr.detectChanges();
+      });
+
     //   question: "Which of the following is not a functional interface in Java 8?",
     //   questionType: "Single Answer",
     //   options: [
@@ -227,25 +230,25 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
     //   { title: 'MongoDB', content: this.Tdata },
     // ];
   }
-  trackByFn(_index: any, item: { id: any; }) {
+  trackByFn(_index: any, item: { id: any }) {
     return item.id; // Use a unique identifier property of your items
   }
-  
+
   toggleSelection(question: any): void {
     question.Selected = !question.Selected;
-    console.log("loop entered");
+    console.log('loop entered');
 
     if (question.Selected) {
       this.selectedquestions.push(question);
-    console.log("Selected Questions:", this.selectedquestions);
-
+      console.log('Selected Questions:', this.selectedquestions);
     } else {
-      this.selectedquestions = this.selectedquestions.filter((selected) => selected !== question);
-    console.log("Selected Questions:", this.selectedquestions);
-
+      this.selectedquestions = this.selectedquestions.filter(
+        (selected) => selected !== question
+      );
+      console.log('Selected Questions:', this.selectedquestions);
     }
 
-    console.log("Selected Questions:", this.selectedquestions);
+    console.log('Selected Questions:', this.selectedquestions);
     // this.logSelectedQuestions();
   }
   count!: number;
@@ -259,23 +262,19 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
     ).length;
     console.log('count', this.count);
 
-    
-
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
-   
 
     try {
       const selectedSkillName = this.selectedSkills.sort();
 
-    
       const dataToSave = {
         Questions: this.FinalizedQuestions,
         durations: this.duration,
-        
-        JobDescription:this.scheduleName,
-      
+
+        JobDescription: this.scheduleName,
+
         cutoff: this.cutOff,
-       
+
         Managername: this.manager,
         Skill: selectedSkillName,
       };
@@ -286,11 +285,7 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
         .subscribe((response) => {
           console.log('Questions', response);
           this.router.navigate(['/dashboard']);
-          
         });
-
-    
-      
     } catch (error) {
       console.error(error);
     }
@@ -300,8 +295,7 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
     if (tab && tab.content) {
       tab.content.forEach((question: any) => {
         question.selection = true;
-      this.selectedquestions.push(question);
-
+        this.selectedquestions.push(question);
       });
       this.selectedQuestion = tab.content;
     }
@@ -310,21 +304,30 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
     if (tab && tab.content) {
       tab.content.forEach((question: any) => {
         question.selection = false;
-        this.selectedquestions=[];
+        this.selectedquestions = [];
       });
       this.selectedQuestion = [];
     }
   }
- 
- 
-  cancelButton(){
-    this.router.navigate(['/dashboard']);
 
+  cancelButton() {
+    this.router.navigate(['/dashboard']);
   }
-  
-  
-   
+  getSelectedOptions(selected_Option: any, option: any) {
+    if (selected_Option.includes(option)) {
+      console.log('correct answer');
+      return 'correctAnswer';
+    } else {
+      return 'wrongAnswer';
+    }
   }
+  getLabel(index: number): string {
+    return String.fromCharCode(65 + index);
+  }
+  handlePreviewIcon() {
+    this.viewQuestionSidebar = true;
+  }
+}
 
 
  
