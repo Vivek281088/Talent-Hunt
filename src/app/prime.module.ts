@@ -21,10 +21,14 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MenubarModule } from 'primeng/menubar';
+import { DividerModule } from 'primeng/divider';
 import { SidebarModule } from 'primeng/sidebar';
 import { TabView } from 'primeng/tabview';
 import { CalendarModule } from 'primeng/calendar';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PaginatorModule } from 'primeng/paginator';
+import { SplitterModule } from 'primeng/splitter';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ChipModule } from 'primeng/chip';
 import { TagModule } from 'primeng/tag';
@@ -63,6 +67,13 @@ import { MenuModule } from 'primeng/menu';
     TagModule,
     BadgeModule,
     PanelMenuModule,
+    AvatarModule ,
+    AvatarGroupModule,
+    MenubarModule,
+    DividerModule,
+    PaginatorModule,
+    SplitterModule,
+    FormsModule,
     AvatarModule,
     AvatarGroupModule,
     SidebarModule,
@@ -97,6 +108,13 @@ import { MenuModule } from 'primeng/menu';
     TagModule,
     BadgeModule,
     PanelMenuModule,
+    AvatarModule ,
+    AvatarGroupModule,
+    MenubarModule,
+    DividerModule,
+    PaginatorModule,
+    SplitterModule,
+    FormsModule,
     AvatarModule,
     AvatarGroupModule,
     SidebarModule,

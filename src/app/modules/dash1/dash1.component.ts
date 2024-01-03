@@ -13,14 +13,14 @@ import { DatePipe } from '@angular/common';
 })
 export class Dash1Component implements OnInit {
   // manager!: Manager[];
-  rangeDates!: Date[] ;
-  FromDate!:any;
+  rangeDates!: Date[];
+  FromDate!: any;
   // toDate : Date = new Date()
-  ToDate!:any;
+  ToDate!: any;
   Skills: any = [];
 
   selectedManager: any;
-  status:boolean=false;
+  status: boolean = false;
 
   // TotalQuestions: any;
 
@@ -42,12 +42,12 @@ export class Dash1Component implements OnInit {
   duration!: number;
 
   cutoff!: number;
-  JobDescription!:string;
+  JobDescription!: string;
 
   FinalOutput: any[] = [];
 
   emptySkill: boolean = true;
-  selectedManagername!: string ;
+  selectedManagername!: string;
   managerOption: any[] = [];
   //dataToSave: any[] = [];
 
@@ -55,9 +55,9 @@ export class Dash1Component implements OnInit {
     private skillsdropdownservice: SkillsdropdownService,
     private managernameService: ManagernameService,
     public router: Router,
-    private messageService : MessageService,
+    private messageService: MessageService,
     private activatedRoute: ActivatedRoute,
-    private datepipe:DatePipe
+    private datepipe: DatePipe
   ) {}
 
   ngOnInit() {
@@ -79,18 +79,17 @@ export class Dash1Component implements OnInit {
       // console.log('Users:' + JSON.stringify(this.selectedSkill));
     });
   }
- 
+
   loadManagerNames() {
     this.managernameService.getManagerNames().subscribe((data) => {
       this.managerSet = data;
-      
     });
   }
   loadClientManagerNames() {
-    this.managernameService.getclientManagerNames().subscribe((data) => {
-      console.log("cname",data)
-     
-      this.managerOption=data;
+    this.managernameService.getclientManagerName().subscribe((data) => {
+      console.log('cname', data);
+
+      this.managerOption = data;
     });
   }
   dropFunction(rowData: any) {
@@ -104,13 +103,12 @@ export class Dash1Component implements OnInit {
 
     //   });
   }
-  onDateSelect(event:any){
-    if(event.originalEvent && event.originalEvent.type==='date'){
-      this.FromDate=event.value[0];
-      this.ToDate=event.value[1];
+  onDateSelect(event: any) {
+    if (event.originalEvent && event.originalEvent.type === 'date') {
+      this.FromDate = event.value[0];
+      this.ToDate = event.value[1];
     }
-    console.log("date is=------------------",this.FromDate,this.ToDate)
-
+    console.log('date is=------------------', this.FromDate, this.ToDate);
   }
 
   submitForm() {
@@ -183,23 +181,23 @@ export class Dash1Component implements OnInit {
       )}_v${newVersion}`;
       console.log('lv:', latestVersion);
       //save the data
-      
-      this.FromDate= this.datepipe.transform(this.rangeDates[0],'dd-MMM-yy');
-      this.ToDate= this.datepipe.transform(this.rangeDates[1],'dd-MMM-yy');
-      console.log("date to save------------------>",this.FromDate)
-      
+
+      this.FromDate = this.datepipe.transform(this.rangeDates[0], 'dd-MMM-yy');
+      this.ToDate = this.datepipe.transform(this.rangeDates[1], 'dd-MMM-yy');
+      console.log('date to save------------------>', this.FromDate);
+
       const dataToSave = {
         Questions: this.FinalizedQuestions,
         durations: this.duration,
-        FromDate:this.FromDate,
-        ToDate:this.ToDate,
-        JobDescription:this.JobDescription,
-        No_Of_Candidate_Selected:0,
-        No_Of_Candidate_NotSelected:0,
-        No_Of_TimesSend:0,
-        No_Of_Completed:0,
+        FromDate: this.FromDate,
+        ToDate: this.ToDate,
+        JobDescription: this.JobDescription,
+        No_Of_Candidate_Selected: 0,
+        No_Of_Candidate_NotSelected: 0,
+        No_Of_TimesSend: 0,
+        No_Of_Completed: 0,
 
-        Deleted:this.status,
+        Deleted: this.status,
         cutoff: this.cutoff,
         fileName: fileNameWithVersion,
         isCreate: false,
@@ -219,15 +217,13 @@ export class Dash1Component implements OnInit {
       this.saveSuccess();
       setTimeout(() => {
         this.router.navigate(['dashboard']);
-      },1000)
-      
+      }, 1000);
     } catch (error) {
       console.error(error);
     }
   }
   saveSuccess() {
     this.messageService.add({
-
       severity: 'success',
 
       summary: 'Success',

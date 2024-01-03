@@ -39,10 +39,12 @@ export class SidenavbarComponent {
         activeElement.classList.add('active');
       }
       this.activeSection = section;
+      localStorage.setItem(this.activeSection, section);
+      console.log("Active component", this.activeSection);
     });
   }
 
-  changeSublist(sublist: string) {
+  changeSublist(sublist: string,section: string) {
     const sublists = [
       'manageSchedule',
       'manageAssessment',
@@ -66,6 +68,8 @@ export class SidenavbarComponent {
     }
 
     this.activeSublist = sublist;
+
+    this.changeStyle(section);
   }
 
   changeStyle1() {

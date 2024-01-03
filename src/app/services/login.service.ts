@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+ 
 @Injectable({
   providedIn: 'root',
 })
@@ -10,9 +10,9 @@ export class LoginService {
     throw new Error('Method not implemented.');
   }
   private skillsUrl = 'http://localhost:9000/skill';
-
+ 
   constructor(private http: HttpClient) {}
-
+ 
   postlogincredentials(
     userEmail: string,
     encrypted_password: string
@@ -31,7 +31,7 @@ export class LoginService {
     //   headers,
     // });
   }
-
+ 
   postsignup(
     id: Date,
     Firstname: String,
@@ -64,7 +64,7 @@ export class LoginService {
     //   headers,
     // });
   }
-
+ 
   postforgotpassword(
     name: string,
     emailId: string,
@@ -78,7 +78,7 @@ export class LoginService {
       password: password,
       confirmPassword: confirmPassword,
     };
-
+ 
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/forgotpassword',
       body,
@@ -94,3 +94,4 @@ export class LoginService {
     return localStorage.getItem('token');
   }
 }
+ 
