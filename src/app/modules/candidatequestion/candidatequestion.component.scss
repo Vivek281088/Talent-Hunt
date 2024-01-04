@@ -33,6 +33,28 @@
     display: flex;
  
 }
+
+.footer-submit{
+
+ ::ng-deep .p-button{
+  background: #652D90;
+  border:1px solid #652D90;
+  
+ }
+
+
+
+ 
+  display: flex;
+  justify-content: end;
+align-items: center;
+gap: 16px;
+padding: 12px;
+align-self: stretch;
+border-radius: 4px;
+border: 1px solid rgba(0, 0, 0, 0.12);
+background: var(--Surface, #FFF);
+}
  
  
 .button-designs
@@ -270,4 +292,10 @@ text-align: left;
   
   background:#652D90
 
+}
+.confirm-design{
+ ::ng-deep .p-button:enabled:hover{
+  background: #652D90;
+
+}
 }
