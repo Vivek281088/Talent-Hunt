@@ -9,8 +9,9 @@ import { MessageService } from 'primeng/api';
 })
 export class CandidateAssessmentComponent implements AfterViewInit{
 
+  visible: boolean = false;
   assessmentData: any=[{
-    testName: 'Angular Full Stack',
+    testName: 'Angular Full Stack for Junior developers',
     skills : ["AWS","Java"],
     cutoff : 75,
     duration: 10,
@@ -32,4 +33,17 @@ export class CandidateAssessmentComponent implements AfterViewInit{
     show() {
         this.messageService.add({ severity: 'info', detail: 'You have been assigned a new assessment on 23-Dec-2023' , sticky: true});
     }
+
+    showAssessmentDialog(){
+      this.visible = true;
+    }
+
+    cancelButton(){
+
+    }
+
+    startAssessment(){
+      
+    }
+
 }
