@@ -12,7 +12,7 @@ import { lastValueFrom } from 'rxjs';
 // import { CalendarModule } from 'primeng/calendar';
 import { CalendarModule } from 'primeng/calendar';
 // import { ManagernameService } from 'src/app/services/managername.service';
-import { FormControl} from '@angular/forms';
+import { FormControl } from '@angular/forms';
 // import { DatePipe } from '@angular/common';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -986,13 +986,11 @@ export class SchedulepageComponent implements OnInit {
   }
   showEmailSubmitted() {
     this.messageService.add({
-      key: 'tr',
-
       severity: 'success',
 
       summary: 'Success',
 
-      detail: 'Question Sent Successfully',
+      detail: 'Invite Sent Successfully',
     });
   }
 
@@ -1081,7 +1079,6 @@ export class SchedulepageComponent implements OnInit {
       this.skillSet = data.skill;
     });
   }
-  closequestiondialog() {}
 
   addquestion() {
     this.router.navigate(['questiondb']);
@@ -1089,7 +1086,7 @@ export class SchedulepageComponent implements OnInit {
 
   typeSelected() {}
 
-  onSendQuestionClick(managerName: string,jobdescription: string) {
+  onSendQuestionClick(managerName: string, jobdescription: string) {
     this.sendQuestionCardVisible = true;
     this.managernameService.getCandidateStatus().subscribe((response) => {
       console.log('candidate name', response);
@@ -1099,63 +1096,67 @@ export class SchedulepageComponent implements OnInit {
         .getdataby_FileName(managerName, jobdescription)
         .subscribe((data) => {
           console.log('Manager Table Data', data);
-          this.email_Managername = data.managerName;
-          this.email_Filename = data.JobDescription;
+          this.email_Managername = data[0].Managername;
+          this.email_Filename = data[0].JobDescription;
+          this.cutoff = data[0].cutoff;
+          this.durations = data[0].durations;
+          this.questions = data[0].questions;
+          console.log('Manager name---', this.email_Managername);
+          console.log('File name---', this.email_Filename);
+          this.email_Status = 'Not Started';
         });
     });
-
-    
   }
+
   inviteCandidate() {
-    console.log("Selected Candidates", this.selectedCandidates)
-   this.selectedCandidates.forEach((selectedCandidate) => {
-     const existingCandidate = this.candidateData.find(
-       (candidate: { candidateName: any; }) => candidate.candidateName === selectedCandidate
-     );
-     console.log('matched candidate', existingCandidate);
+    console.log('Manager name', this.email_Managername);
+    console.log('File name', this.email_Filename);
+    console.log('Selected Candidates', this.selectedCandidates);
+    this.selectedCandidates.forEach((selectedCandidate) => {
+      const existingCandidate = this.candidateData.find(
+        (candidate: { candidateEmail: any }) =>
+          candidate.candidateEmail === selectedCandidate.candidateEmail
+      );
+      console.log('matched candidate', existingCandidate);
 
-     //rest data
-     this.score = null;
-     this.result = '';
-     const date = Date.now();
-     this.candidateId = new Date(date);
+      //rest data
+      this.score = null;
+      this.result = '';
+      const date = Date.now();
+      this.candidateId = new Date(date);
+      this.showEmailSubmitted();
+      if (existingCandidate) {
+        this.tableService
+          .postExistingCandidateDetails(
+            this.candidateId,
+            this.email_Managername,
+            existingCandidate.candidateName,
+            existingCandidate.candidateEmail,
+            existingCandidate.candidatePhone,
+            this.email_Status,
+            this.email_Filename,
+            this.questions,
+            this.score,
+            this.result,
+            this.cutoff,
+            this.durations,
+            existingCandidate.password,
+            existingCandidate.confirmPassword,
+            this.roles
+          )
+          .subscribe((data) => {
+            console.log('Stored data for existing candidate:', data);
+            this.candidateData.push(data);
+          });
 
+        setTimeout(() => {
+          this.closeInviteDialog();
+        }, 1500);
+      }
+    });
+    this.showEmailSubmitted();
+  }
 
-
-     if (existingCandidate) {
-       this.tableService
-         .postExistingCandidateDetails(
-           this.candidateId,
-           this.email_Managername,
-           existingCandidate.candidateName,
-           existingCandidate.candidateEmail,
-           existingCandidate.candidatePhone,
-           this.email_Status,
-           this.email_Filename,
-           this.questions,
-           this.score,
-           this.result,
-           this.cutoff,
-           this.durations,
-           existingCandidate.password,
-           existingCandidate.confirmPassword,
-           this.roles
-         )
-         .subscribe((data) => {
-           console.log('Stored data for existing candidate:', data);
-           //this.candidateName(data);
-           this.candidateList.push(data);
-         });
-
-       setTimeout(() => {
-         this.getCandidatename();
-         this.cancelEmailPopup();
-       }, 2000);
-     }
-   });
-   this.showEmailSubmitted();
-    };
-    
   closeInviteDialog() {
     this.sendQuestionCardVisible = false;
   }
@@ -1186,12 +1187,12 @@ export class SchedulepageComponent implements OnInit {
     return formatDate;
   }
 }
- 
+
 interface Column {
   field: string;
   header: string;
 }
- 
+
 interface FilterSkill {
   id: number;
   skill: string;
