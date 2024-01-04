@@ -8,14 +8,17 @@
     flex-direction: column;
 }
 .header-design{
+
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background: linear-gradient(91.47deg, #652D90 14.44%, #D61360 158.5%);
     p{
         font-size: 20px;
         font-weight: 450;
+        margin-left: 7px;
+        color: #ffffff
        
     }
     ;
@@ -32,17 +35,21 @@
 }
  
  
-.button-design
+.button-designs
 {
- ::ng-deep .p-button {
-  color: #652D90;
-  background: #ffffff;
-  border: 1px solid #652D90;
-  width:  (122px);
-height: (36px);
-padding: 6px, 6px, 6px, 8px;
-border-radius: 4px;
-border: 1px;
+  ::ng-deep .p-button {
+//   color: #652D90;
+//   background: #ffffff;
+//   border: 1px solid #652D90;
+//   width:  (122px);
+// height: (36px);
+// padding: 6px, 6px, 6px, 8px;
+// border-radius: 4px;
+// border: 1px;
+margin-top: -2px;
+background: none;
+border: 1px solid;
+min-width: max-content;
 
   &:hover {
     color: #ffffff;
@@ -59,16 +66,18 @@ border: 1px;
     flex-direction: row;
     width: 264px;
     height: 36px;
+    padding-right: 12px;
     justify-content: space-between;
     
   .duration{
 
     width: 126px;
-    height: 16px;
+    //height: 16px;
     gap: 4px;
     display: flex;
     flex-direction: row;
     color: #FFFFFFBD;
+    padding-right: 10px;
   
     
 
@@ -124,6 +133,7 @@ text-align: left;
     font-family: "Roboto";
     font-size: 16px; /* Adjust the font size as needed */
     /* Add other styles as needed */
+   
   }
   
   .box-design{
@@ -140,6 +150,30 @@ text-align: left;
   .select-size input {
     display: none;
   }
+  .option-background{
+    &:hover {
+      .optionDiv {
+        background:  #f9f1d1 !important;
+      }
+      .box-design {
+        background:  #652d90 !important;
+      }
+    }
+  }
+  .select-size .whole-option{
+    &:hover {
+        .optionDiv {
+          background: #c1abd3;
+        }
+        .box-design {
+          background: #c1abd3;
+        }
+      }
+     
+     
+  }
+  
+  
 
   .option {
     display: flex;
@@ -162,32 +196,78 @@ text-align: left;
     //margin-left: 20px;
   }
   
-  // #small:checked ~ label[for="small"] {
-  //   background: #999;
-  //   color: #ffffff;
-  // }
+ 
 
-  .whole-option{
-    width: 647px;
-height:  222px;
-gap: 8px;
 
-  }
 
-  .select-size{
+  // --------------------------------
+  .select-size {
     max-height: fit-content;
     overflow: auto;
+  
+    .option {
+      display: flex;
+      width: 647px;
+      height: 222px;
+      gap: 8px;
+    }
+  
+    .whole-option {
+      display: flex;
+      width: 647px;
+      height: 222px;
+      gap: 8px;
+    }
+    // .option{
+    //   input{
+    //     &:checked + label {
+    //       .optionDiv {
+    //         background:red;
+    //       }
+    //       .box-design {
+    //         background:red;
+    //       }
+    //     }
+    //   }
+    // }
+  
+    .optionDiv {
+      width: 647px;
+      height: 222px;
+    }
+  
+    .highlight {
+      background-color: #652d90;
+    }
+  
+    .option-background {
+      .box-design {
+        background: #652d90;
+        color: white;
+      }
+  
+      .optionDiv {
+        background: #f9f1d1;
+      }
+    }
     
   }
-
-  .highlight{
-    background-color: #652D90;
+  
+ 
+  
+  
+  #svg-design{
+    height:auto;
   }
 
-  .option-background{
-    background: #F9F5D1;
-    .box-design{
-      background:#652D90 ;
-      color:white ;
-    }
+  #button-design{
+    .p-button{
+    background: none;
   }
+}
+
+::ng-deep.p-dialog .p-dialog-footer button{
+  
+  background:#652D90
+
+}
