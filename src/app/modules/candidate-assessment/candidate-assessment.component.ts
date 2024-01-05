@@ -34,7 +34,7 @@ export class CandidateAssessmentComponent implements AfterViewInit {
     private messageService: MessageService,
     private managernameService: ManagernameService,
     private candidateAssessmentService: CandidateAssessmentService,
-    private router : Router
+    private router: Router
   ) {}
   ngAfterViewInit(): void {
     this.show();
@@ -70,9 +70,14 @@ export class CandidateAssessmentComponent implements AfterViewInit {
     this.visible = true;
   }
 
-  cancelButton() {}
+  cancelButton() {
+        this.visible = false;
+
+  }
 
   startAssessment() {
     this.router.navigate(['candidatequestion']);
   }
+
+  
 }

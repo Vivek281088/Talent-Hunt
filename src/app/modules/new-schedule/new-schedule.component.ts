@@ -50,11 +50,18 @@ export class NewScheduleComponent {
   FinalizedQuestions: any[] = [];
   selectedQuestionCount!: number;
   visible: boolean = false;
+  questionPreviewvisible: boolean = false;
   visible1: boolean = false;
   ischecked: boolean = true;
   slectedquestionforedit: any;
   TotalQuestions: any[] = [];
   managerOption: any[] = [];
+  options: string[] = [
+    ' A Avoid Writing Long Methods',
+    ' B Avoid Multiple If-else Statements',
+    ' C Avoid Getting the Size of the Collection in the Loop',
+    ' D Avoid Using String Objects For Concatenation',
+  ];
 
   // @ViewChild('yourTable')yourTable:Table | undefined;
 
@@ -445,5 +452,13 @@ export class NewScheduleComponent {
     this.router.navigate(['new-schedule']);
     this.visible = false;
     console.log('hi');
+  }
+
+  questionPreview() {
+    this.questionPreviewvisible = true;
+  }
+
+  closeButton() {
+    this.questionPreviewvisible = false;
   }
 }

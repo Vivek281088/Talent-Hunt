@@ -524,3 +524,41 @@ background: #FFF;
 .assessmentHeader{
   border-bottom: 1px solid #B3ABBA33;
 }
+
+.verticalline1{
+  width: 0px;
+  height: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.38);
+  color: #1666DC;
+ 
+}
+
+.startButton{
+  ::ng-deep {
+    .p-button {
+      height: 40px;
+      color: white;
+      background: #652d90;
+      // border: 1px solid #3d105f;
+      outline: none;
+      margin-right: 14px;
+      border: 1px solid #652D90
+    }
+    .p-button:focus {
+      box-shadow: none;
+    }
+  }
+ 
+  label {
+    width: 50px;
+    height: 16px;
+      font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1.25px;
+    text-align: left;
+    // color: #652d90;
+    cursor: pointer;
+  }
+}

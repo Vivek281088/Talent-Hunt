@@ -27,7 +27,8 @@
   </div>
   <div class="goto">
     <p>Go to my Profile</p>
-    <p-divider layout="vertical"></p-divider>
+    <!-- <p-divider layout="vertical"></p-divider> -->
+    <hr class="verticalline1">
     <p>Go to my Assessment History</p>
   </div>
 
@@ -155,9 +156,9 @@
       </div>
       <ng-template class="assessment-Footer" pTemplate="footer">
         <div class="startAssessmentbutton"></div>
-        <p-button class="Cancelbutton" label="Cancel"></p-button>
+        <p-button (onClick)="cancelButton()" class="Cancelbutton" label="Cancel"></p-button>
         <p-button
-          class="Cancelbutton"
+          class="startButton"
           label="Start Assessment"
           (onClick)="startAssessment()"
         ></p-button>
