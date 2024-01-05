@@ -820,23 +820,22 @@ export class SchedulepageComponent implements OnInit {
         this.existingData();
       });
   }
+
   handleEditIconClick(ManagerName: string, jobDescription: string) {
     // debugger;
-    console.log("getting edit ",ManagerName,jobDescription)
+    console.log('getting edit ', ManagerName, jobDescription);
     this.tableService
       .getdataby_FileName(ManagerName, jobDescription)
       .subscribe((data) => {
         console.log('View Data by edit', data);
-       
-        
-          this.Skill = data[0].Skill;
-         
-         
-          console.log("skills in an array------------------------------------",this.Skill
-          )
-        
-        
-      
+
+        this.Skill = data[0].Skill;
+
+        console.log(
+          'skills in an array------------------------------------',
+          this.Skill
+        );
+
         this.selectedQuestions = data[0].questions;
         this.cutoff = data[0].cutoff;
         this.durations = data[0].durations;
@@ -852,15 +851,17 @@ export class SchedulepageComponent implements OnInit {
         this.managernameService.setFinalizedQuestions(this.selectedQuestions);
         this.managernameService.setManagerName(this.editManagername);
         this.managernameService.setFileName(this.editFilename);
-        localStorage.setItem("scheduleName",jobDescription)
-        localStorage.setItem("boolean","true")
+        localStorage.setItem('scheduleName', jobDescription);
+        localStorage.setItem('boolean', 'true');
         // localStorage.setItem("manager",this.editManagername)
         // localStorage.setItem("cutoff",this.cutOff.toString())
         // localStorage.setItem("duration",this.duration.toString())
-       
+
         this.router.navigate(['new-schedule']);
       });
   }
+
+ 
 
   //Assessment page Filter
 

@@ -17,7 +17,7 @@
         <p-button label="Cancel" (click)="cancelButton()"> </p-button>
       </div>
       <div class="saveBtn" (click)="saveSelected()">
-        <p-button label="Save Changes">
+        <p-button label="Save Changes" >
           <svg
             width="24"
             height="25"
@@ -34,24 +34,24 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="edit-schedule">
     <div class="edit-start">
       <div class="edit-name">
         <label>Schedule Name</label>
-        <p>{{ scheduleName }}</p>
+        <p>{{scheduleName}}</p>
       </div>
       <div class="edit-manager">
         <label>Manager</label>
-        <p>{{ manager }}</p>
+        <p>{{manager}}</p>
       </div>
       <div class="edit-cutoff">
         <label>Cutoff</label>
-        <p>{{ cutOff }}</p>
+        <p>{{cutOff}}</p>
       </div>
       <div class="edit-duration">
         <label>Duration</label>
-        <p>{{ duration }}</p>
+        <p>{{duration}}</p>
       </div>
     </div>
     <div class="edit-end">
@@ -70,214 +70,170 @@
           fill="white"
         />
       </svg>
-
-
-      <div class="newSchedule-Dialog"> 
+ 
+ 
+      <div class="newSchedule-Dialog">
         <p-dialog
-        header="New Schedule"
-        [(visible)]="visible"
-        [modal]="true"
-        [style]="{ width: '47VW' }"
-        [draggable]="false"
-        [resizable]="false"
-       >
-       <!-- <hr class="line"> -->
-
-      
-
-
-        <div class="NewSchedule-content">
-          <div class=" ScheduleName">
-            
-            <label>Schedule Name</label>
-          
-            <svg
-              width="5"
-              height="6"
-              viewBox="0 0 5 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
-                fill="#EE4555"
-              />
-            </svg>
-
-            <div class="newSchedule-card flex justify-content-left schedule-Input">
-              <input type="text" pInputText  [(ngModel)]="scheduleName"/>
-            </div>
-          </div>
-          <div class=" Manager">
-            <label >Manager</label>
-            
-            <svg
-              width="5"
-              height="6"
-              viewBox="0 0 5 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
-                fill="#EE4555"
-              />
-            </svg>
-            <!-- <div class="card flex justify-content-left schedule-Input">
-              <!-- <input type="text" pInputText  />
-             -->
-
-              <!---manager--->
-            <!-- </div> -->
-            <div class="newSchedule-card flex justify-content-left schedule-Input">
-              <input type="text" pInputText  [(ngModel)]="manager"/>
-            </div>
-          </div>
-     
-         
-         
-          <div class="cutoff-duration">
-            <div class="cutoff">
-              <label >Cutoff (in %)</label>
+                      header="New Schedule"
+                      [(visible)]="visible"
+                      [modal]="true"
+                      [style]="{ width: '47VW' }"
+                      [draggable]="false"
+                      [resizable]="false"
+                    >
+                      <div class="NewSchedule-content">
+                        <div class="labelvalue">
+                          <div class="label">
+                            <label>Schedule Name</label>
+                            <span class="important-symbol">&#42;</span>
+                          </div>
+                          <div class="value">
+                            <input
+                              type="text"
+                              pInputText
+                              [(ngModel)]="scheduleName"
+                            />
+                          </div>
+                        </div>
+ 
+                        <div class="labelvalue">
+                          <div class="label">
+                            <label>Manager</label>
+                            <span class="important-symbol">&#42;</span>
+                          </div>
+                          <div class="value">
+                            <p-dropdown
+                              [options]="managerOption"
+                              placeholder=""
+                              [editable]="true"
+                              optionLabel=""
+                              [(ngModel)]="manager"
+                            ></p-dropdown>
+                          </div>
+                        </div>
+ 
               
-              <svg
-                width="5"
-                height="6"
-                viewBox="0 0 5 6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
-                  fill="#EE4555"
-                />
-              </svg>
-              <div class="card flex justify-content-bottom">
-                <input type="text" pInputText [(ngModel)]="cutOff" />
-              </div>
-            </div>
-          <div class="duartion">
-            <label>Duration(minutes)</label>
-            
-            <svg
-              width="5"
-              height="6"
-              viewBox="0 0 5 6"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
-                fill="#EE4555"
-              />
-            </svg>
-             <div class="card flex justify-content-left">
-              <input type="text" pInputText [(ngModel)]="duration" />
-            </div>
-
-          </div>
-         
-         
-      </div>
-         
-         
-        </div>
-
-        <ng-template pTemplate="footer">
-          <div class="Newschedule-button">
-            <div class="Cancelbutton">
-              <p-button  [outlined]="true" (onClick)="cancelButton()" >
-                <label class="cancel-word">
-                  Cancel
-
-                </label>
-              </p-button>
-
-            </div>
-           <div class="Createbutton">
-            <p-button (click)="update(scheduleName,manager,cutOff,duration)"> 
-              <label class="Create-word">
-                Update
-              </label>
-            </p-button>
-
-           </div>
-     
-          </div>
-      </ng-template>
-        
-      </p-dialog>
+ 
+                        <div class="cuttoffDuration">
+                          <div class="labelvalue">
+                            <div class="label">
+                              <label>Cutoff (in %)</label>
+                              <span class="important-symbol">&#42;</span>
+                            </div>
+                            <div class="value">
+                              <input
+                                type="text"
+                                pInputText
+                                [(ngModel)]="cutOff"
+                              />
+                            </div>
+                          </div>
+ 
+                          <div class="labelvalue">
+                            <div class="label">
+                              <label>Duration(minutes)</label>
+                              <span class="important-symbol">&#42;</span>
+                            </div>
+                            <div class="value">
+                              <input
+                                type="text"
+                                pInputText
+                                [(ngModel)]="duration"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+ 
+                      <ng-template pTemplate="footer">
+                        <div class="Newschedule-button">
+                          <div class="Cancelbutton">
+                            <p-button
+                              label="Cancel"
+                              [outlined]="true"
+                              (onClick)="cancelButton()"
+                            >
+                            </p-button>
+                          </div>
+                         
+ 
+                          <div class="Createbutton">
+                            <p-button (click)="update(scheduleName,manager,cutOff,duration)">
+                              <label class="Create-word">
+                                Update
+                              </label>
+                            </p-button>
+                 
+                           </div>
+               
+ 
+                        </div>
+                      </ng-template>
+                    </p-dialog>
     </div>
     </div>
   </div>
-
-  <div class="tabview-count">
-    <!-- {{tabs | json}} -->
-    <div class="tabview">
-      <p-tabView>
-        <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
-          <!-- <ng-template pTemplate="header">
-              
+ 
+ 
+    <div class="tabview-count">
+      <!-- {{tabs | json}} -->
+      <div class="tabview">
+        <p-tabView >
+          <p-tabPanel *ngFor="let tab of tabs"  [header]="tab.title" >
+            <!-- <ng-template pTemplate="header">
+             
             </ng-template> -->
-
-          <ng-template pTemplate="content">
-            <p-table
-              #dt2
-              class="newscheduleTable"
-              [value]="tab.content"
-              [(selection)]="selectedQuestion"
-              dataKey="id"
-              [scrollable]="true"
-              scrollHeight="270px"
-              [globalFilterFields]="[
-                'question',
-                'questionType',
-                'Difficulty_Level'
-              ]"
-            >
-              <ng-template pTemplate="header">
-                <tr>
-                  <th colspan="2" class="headerSearch">
-                    <div>
-                      <span class="p-input-icon-left searchicon">
-                        <i class="pi pi-search"></i>
-                        <input
-                          pInputText
-                          type="text"
-                          (input)="
-                            dt2.filterGlobal(
-                              $any($event.target).value,
-                              'contains'
-                            )
-                          "
-                          placeholder="Search"
-                        />
-                      </span>
-                    </div>
-                  </th>
-                  <th colspan="4">
-                    <div class="schedulebuttons">
-                      <div class="selectallBtn">
-                        <p-button
-                          label="Select All"
-                          (click)="selectAllQuestions(tab)"
-                        >
-                        </p-button>
+           
+            <ng-template pTemplate="content">
+              <p-table
+                #dt2
+                class="newscheduleTable"
+                [value]="tab.content"
+                [(selection)]="selectedQuestion"
+                dataKey="id"
+                [scrollable]="true"
+                scrollHeight="270px"
+                [globalFilterFields]="[
+                  'question',
+                  'questionType',
+                  'Difficulty_Level'
+                ]"
+               
+              >
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th colspan="2" class="headerSearch">
+                      <div >
+                        <span class="p-input-icon-left searchicon">
+                          <i class="pi pi-search"></i>
+                          <input
+                            pInputText
+                            type="text"
+                            (input)="
+                              dt2.filterGlobal(
+                                $any($event.target).value,
+                                'contains'
+                              )
+                            "
+                            placeholder="Search"
+                          />
+                        </span>
                       </div>
-                      <div class="unselectallBtn">
-                        <p-button
-                          label="Unselect All"
-                          (click)="unselectAllQuestions(tab)"
-                        >
-                        </p-button>
-                      </div>
-                      <div class="PreviewBtn">
-                        <p-button
+                    </th>
+                    <th colspan="4">
+                      <div class="schedulebuttons">
+                        <div class="selectallBtn">
+                          <p-button label="Select All"(click)="selectAllQuestions(tab)"> </p-button>
+                        </div>
+                        <div class="unselectallBtn">
+                          <p-button label="Unselect All"(click)="unselectAllQuestions(tab)" > </p-button>
+                        </div>
+                        <div class="PreviewBtn">
+                          <p-button
                           label="Preview"
                           icon="pi pi-eye"
-                          (onClick)="handlePreviewIcon()"
-                        >
-                          <!-- <svg
+                          >
+                            <!-- <svg
                               xmlns="http://www.w3.org/2000/svg"
                               fill="#fafafa"
                               x="0px"
@@ -291,124 +247,72 @@
                                 d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
                               />
                             </svg> -->
-                        </p-button>
+                           
+                          </p-button>
+                        </div>
                       </div>
-                    </div>
-                  </th>
-                </tr>
-              </ng-template>
-
-              <ng-template pTemplate="body" let-rowData>
-                <tr>
-                  <td>
-                    <p-tableCheckbox
-                      [value]="rowData"
-                      (click)="toggleSelection(rowData)"
-                    >
-                    </p-tableCheckbox>
-                  </td>
-                  <td class="questiontext">{{ rowData.question }}</td>
-                  <td class="optiontext">{{ rowData.questionType }}</td>
-                  <td class="optiontext">
-                    {{ rowData.options.length }} Choices
-                  </td>
-                  <td class="optiontext">{{ rowData.Difficulty_Level }}</td>
-                  <td>
-                    <div class="editviewicons">
-                      <div class="editIcon">
-                        <svg
-                          width="24"
-                          height="18"
-                          viewBox="0 0 18 18"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          style="cursor: pointer"
-                        >
-                          <path
-                            d="M3.375 14.625H4.2L12.5062 6.31877L11.6812 5.49377L3.375 13.8V14.625ZM14.8875 5.51252L12.4875 3.11252L13.275 2.32502C13.4875 2.11252 13.7531 2.0094 14.0719 2.01565C14.3906 2.0219 14.6563 2.13127 14.8688 2.34377L15.675 3.15002C15.8875 3.36252 15.9938 3.62502 15.9938 3.93752C15.9938 4.25002 15.8875 4.51252 15.675 4.72502L14.8875 5.51252ZM2.8125 15.75C2.65 15.75 2.51563 15.6969 2.40938 15.5906C2.30313 15.4844 2.25 15.35 2.25 15.1875V13.575C2.25 13.5 2.2625 13.4313 2.2875 13.3688C2.3125 13.3063 2.35625 13.2438 2.41875 13.1813L11.7 3.90002L14.1 6.30002L4.81875 15.5813C4.75625 15.6438 4.69375 15.6875 4.63125 15.7125C4.56875 15.7375 4.5 15.75 4.425 15.75H2.8125ZM12.0938 5.90627L11.6812 5.49377L12.5062 6.31877L12.0938 5.90627Z"
-                            fill="#652D90"
-                          />
-                        </svg>
+                    </th>
+                  </tr>
+                </ng-template>
+ 
+                <ng-template pTemplate="body" let-rowData>
+                  <tr>
+                    <td >
+                      <input type="checkbox" [value]="rowData" [checked]="rowData.selection"  (click)="toggleSelection(rowData)">
+                    </td>
+                    <td class="questiontext">{{ rowData.question }}</td>
+                    <td class="optiontext">{{ rowData.questionType }}</td>
+                    <td class="optiontext">{{ rowData.options.length }} Choices</td>
+                    <td class="optiontext">{{ rowData.Difficulty_Level }}</td>
+                    <td>
+                      <div class="editviewicons">
+                        <div class="editIcon">
+                          <svg
+                            width="24"
+                            height="18"
+                            viewBox="0 0 18 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="cursor: pointer"
+                          >
+                            <path
+                              d="M3.375 14.625H4.2L12.5062 6.31877L11.6812 5.49377L3.375 13.8V14.625ZM14.8875 5.51252L12.4875 3.11252L13.275 2.32502C13.4875 2.11252 13.7531 2.0094 14.0719 2.01565C14.3906 2.0219 14.6563 2.13127 14.8688 2.34377L15.675 3.15002C15.8875 3.36252 15.9938 3.62502 15.9938 3.93752C15.9938 4.25002 15.8875 4.51252 15.675 4.72502L14.8875 5.51252ZM2.8125 15.75C2.65 15.75 2.51563 15.6969 2.40938 15.5906C2.30313 15.4844 2.25 15.35 2.25 15.1875V13.575C2.25 13.5 2.2625 13.4313 2.2875 13.3688C2.3125 13.3063 2.35625 13.2438 2.41875 13.1813L11.7 3.90002L14.1 6.30002L4.81875 15.5813C4.75625 15.6438 4.69375 15.6875 4.63125 15.7125C4.56875 15.7375 4.5 15.75 4.425 15.75H2.8125ZM12.0938 5.90627L11.6812 5.49377L12.5062 6.31877L12.0938 5.90627Z"
+                              fill="#652D90"
+                            />
+                          </svg>
+                        </div>
+                        <div class="previewIcon">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="#652d90"
+                            x="0px"
+                            y="0px"
+                            width="20"
+                            height="18"
+                            viewBox="0 0 576 512"
+                            style="cursor: pointer"
+                          >
+                            <path
+                              d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
+                            />
+                          </svg>
+                        </div>
                       </div>
-                      <div class="previewIcon">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="#652d90"
-                          x="0px"
-                          y="0px"
-                          width="20"
-                          height="18"
-                          viewBox="0 0 576 512"
-                          style="cursor: pointer"
-                        >
-                          <path
-                            d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </ng-template>
-            </p-table>
-          </ng-template>
-        </p-tabPanel>
-      </p-tabView>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </ng-template>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+ 
+      <div class="questioncount">
+        <label>Selected Questions :</label>
+        <p>{{(selectedquestions && selectedquestions.length) || 0}}</p>
+      </div>
     </div>
-
-    <div class="questioncount">
-      <label>Selected Questions :</label>
-      <p>{{ (selectedquestions && selectedquestions.length) || 0 }}</p>
-    </div>
-  </div>
+ 
+ 
+   
 </div>
-
-<p-sidebar
-  [(visible)]="viewQuestionSidebar"
-  position="right"
-  [style]="{ width: '46em' }"
-  [modal]="false"
->
-  <ng-template class="header_design" pTemplate="header"
-    >Quiz Preview</ng-template
-  >
-
-  <ng-template>
-    <span *ngFor="let question of selectedQuestion">
-      <div class="question-design">{{ question.question }}</div>
-
-      <div class="select-size">
-        <div
-          *ngFor="let option of question.options; let i = index"
-          class="option"
-          [ngClass]="getSelectedOptions(question.selectedAnswer, option)"
-        >
-          <!-- <input type="radio" name="first" id="small" />
-            <label class="box-design" for="small">A</label>
-            <span class="option-content">{{ preview.options[0] }}</span> -->
-          <input type="radio" [name]="'option_' + i" [id]="'option_' + i" />
-          <label class="box-design" [for]="'option' + question + '-' + i">{{
-            getLabel(i)
-          }}</label>
-
-          <span class="option-content">{{ option }}</span>
-        </div>
-      </div>
-
-      <div class="design_for_line">
-        <hr />
-      </div>
-    </span>
-  </ng-template>
-
-  <ng-template class="footer_design" pTemplate="footer">
-    <div class="btnfooter">
-      <div class="custom_button">
-        <p-button label="cancel"></p-button>
-      </div>
-      <div class="custom_button_close">
-        <p-button label="close"></p-button>
-      </div>
-    </div>
-  </ng-template>
-</p-sidebar>

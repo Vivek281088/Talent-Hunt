@@ -290,9 +290,9 @@
     .questioncount {
       display: flex;
       flex-direction: row;
-      align-items: baseline;
+      align-items: center;
       position: absolute;
-      transform: translateX(670%);
+      transform: translateX(610%);
 
       label {
         font-family: "Roboto", sans-serif;
@@ -416,3 +416,148 @@ text-align: left;
 
   
 }
+
+.labelvalue {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto';
+  font-weight: 400;
+  color: #00000099;
+ 
+  .label {
+    padding: 2% 0 2% 0;
+ 
+    span{
+      color: #EE4555;
+    }
+  }
+}
+.cuttoffDuration {
+  display: flex;
+  flex-direction: row;
+ 
+  ::ng-deep .p-inputtext {
+    width: 150%;
+  }
+ 
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    padding-right:17.3%;
+ 
+    .label {
+      padding: 6% 0 6% 0;
+    }
+  }
+}
+.newSchedule-Dialog {
+  ::ng-deep {
+ 
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-family: 'Poppins';
+      font-weight: 500;
+      color: #1E22AA;
+  }
+    .p-dialog .p-dialog-header {
+      padding: 1rem;
+      border-bottom: 1px solid #0000001f;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 2rem 1rem;
+      border-bottom: 2px solid #0000001F;
+  }
+    .p-inputtext {
+      width: 100%;
+    }
+    .p-dropdown {
+      width: 100%;
+    }
+    .p-multiselect {
+      width: 100%;
+    }
+    .p-dialog .p-dialog-footer {
+      padding: 12px;
+    }
+  }
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Roboto';
+    font-weight: 400;
+    color: #00000099;
+ 
+    .label {
+      padding: 2% 0 2% 0;
+ 
+      span{
+        color: #EE4555;
+      }
+    }
+  }
+  .cuttoffDuration {
+    display: flex;
+    flex-direction: row;
+ 
+    ::ng-deep .p-inputtext {
+      width: 150%;
+    }
+ 
+    .labelvalue {
+      display: flex;
+      flex-direction: column;
+      padding-right:17.3%;
+ 
+      .label {
+        padding: 6% 0 6% 0;
+      }
+    }
+  }
+}
+.Newschedule-button {
+  margin-top: 10px;
+  display: inline-flex;
+ 
+  border-radius: 4px;
+  border: 1px;
+  justify-content: flex-end;
+  // justify-content: flex-end;
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+   
+  }
+ 
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        text-align: center;
+      }
+    }
+  }
+}
+

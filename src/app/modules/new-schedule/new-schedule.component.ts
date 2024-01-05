@@ -49,12 +49,12 @@ export class NewScheduleComponent {
   public selectedquestions: any[] = [];
   FinalizedQuestions: any[] = [];
   selectedQuestionCount!: number;
-  viewQuestionSidebar: boolean = false;
   visible: boolean = false;
   visible1: boolean = false;
   ischecked: boolean = true;
   slectedquestionforedit: any;
   TotalQuestions: any[] = [];
+  managerOption: any[] = [];
 
   // @ViewChild('yourTable')yourTable:Table | undefined;
 
@@ -84,6 +84,13 @@ export class NewScheduleComponent {
   ngOnInit() {
     // console.log("se",this.selectedquestions)
     console.log('Selected Questions during ngOnInit:', this.selectedquestions);
+
+    // Remove unselected questions from the selectedquestions array
+    this.selectedquestions = this.selectedquestions.filter(
+      (question) => question.Selected
+    );
+
+    this.loadManagerNames();
 
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
@@ -264,6 +271,13 @@ export class NewScheduleComponent {
     return item.id; // Use a unique identifier property of your items
   }
 
+  loadManagerNames() {
+    this.managernameService.getManagerNames().subscribe((data) => {
+      this.managerOption = data;
+      console.log('managernames------------>', this.managerOption);
+    });
+  }
+
   toggleSelection(question: any): void {
     question.Selected = !question.Selected;
     console.log('loop entered');
@@ -340,15 +354,6 @@ export class NewScheduleComponent {
         this.selectedquestions = [];
       });
       this.selectedQuestion = [];
-    }
-  }
-
-  getSelectedOptions(selected_Option: any, option: any) {
-    if (selected_Option.includes(option)) {
-      console.log('correct answer');
-      return 'correctAnswer';
-    } else {
-      return 'wrongAnswer';
     }
   }
   //
@@ -441,12 +446,4 @@ export class NewScheduleComponent {
     this.visible = false;
     console.log('hi');
   }
-  getLabel(index: number): string {
-    return String.fromCharCode(65 + index);
-  }
-  handlePreviewIcon() {
-    this.viewQuestionSidebar = true;
-  }
 }
-
-
