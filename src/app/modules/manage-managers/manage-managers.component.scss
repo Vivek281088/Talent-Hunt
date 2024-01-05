@@ -10,16 +10,16 @@
 
   ::ng-deep {
     .p-datatable .p-sortable-column .p-sortable-column-icon {
-      color: #1e22aa;
+      color: #1666DC;
     }
     .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
-      color: #1e22aa;
+      color: #1666DC;
     }
     .p-datatable .p-datatable-tbody > tr > td {
       font-family: "Roboto";
       color: #000000de;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: 400;
     }
     .p-datatable .p-datatable-thead > tr > th {
       background: white;
@@ -48,15 +48,13 @@
     }
   }
 }
+
 .BreadCrumb {
+  ::ng-deep .p-breadcrumb {
+    overflow-x: auto;
+    background: transparent;
+  }
   ::ng-deep {
-    .p-breadcrumb {
-      overflow-x: auto;
-      background: transparent;
-      font-family: "Roboto";
-      font-weight: 400;
-      font-size: 16px;
-    }
     .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
       color: #1e22aa;
     }
@@ -67,6 +65,16 @@
       color: #00000061;
     }
   }
+}
+::ng-deep
+  .p-breadcrumb
+  .p-breadcrumb-list
+  li
+  .p-menuitem-link
+  .p-menuitem-icon {
+  color: #6c757d;
+  margin-right: 0px;
+  margin-left: -14px;
 }
 .new-schedule-header-2 {
   display: flex;
@@ -90,35 +98,7 @@
     }
   }
 }
-//   ::ng-deep .scheduleTable {
-//     .p-datatable .p-datatable-tbody > tr > td {
-//       text-align: left;
-//       border: 1px solid #dee2e6;
-//       border-width: 0 0 1px 0;
-//       /* padding: 1rem 1rem; */
-//       padding: 13.6px 16px 13.6px 7px;
-//       //styleName: Body 2;
-//       font-family: "Roboto", sans-serif;
-//       font-size: 14px;
-//       font-weight: 400;
-//       line-height: 16px;
-//       letter-spacing: 0.25px;
-//       text-align: left;
-//       color: #000000de;
-//     }
-//     .p-datatable .p-datatable-thead > tr > th {
-//       text-align: left;
-//       padding: 1rem 0.5rem;
-//       border: 1px solid #dee2e6;
-//       border-width: 0 0 1px 0;
-//       font-family: "Poppins", sans-serif;
-//       font-size: 14px;
-//       font-weight: 400;
-//       color: #00000061;
-//       /* background: #f8f9fa; */
-//       transition: box-shadow 0.2s;
-//     }
-//   }
+
 .manager-header {
   display: flex;
   flex-direction: row;
@@ -202,7 +182,7 @@
 }
 
 .EmployeeId {
-  color: #1e22aa !important;
+  color: #1666DC !important;
 }
 .managernamedesign {
   color: #1666dc !important;

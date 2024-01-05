@@ -116,6 +116,7 @@ selecteddates!:Date
   selectedSkills!:any[];
   cutOff!:number;
   duration!:number;
+  viewQuestionSidebar: boolean=false;
 
  
   // reviewer
@@ -239,11 +240,8 @@ getsvgIcon():string{
 }
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
-      // Use a Set to store unique candidate email addresses
       const uniqueEmails = new Set<string>();
-      // Use an array to store unique candidate names
       const uniqueCandidateNames: any[] = [];
-      // Iterate through the data and filter duplicates based on email addresses
       data.forEach(
         (candidate: { candidateName: string; candidateEmail: string }) => {
           if (!uniqueEmails.has(candidate.candidateEmail)) {
@@ -604,19 +602,95 @@ this.showcardFlag=true;
   }
   //view icon
   onViewClick(ManagerName: string, fileName: string) {
-    this.tableService
-      .getdataby_FileName(ManagerName, fileName)
-      .subscribe((data) => {
-        console.log('View Data', data);
-        this.view_Managername = ManagerName;
-        this.view_Filename = fileName;
-        this.FinalizedQuestions = data[0].questions;
-        this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
-        this.managernameService.setManagerName(this.view_Managername);
-        this.managernameService.setFileName(this.view_Filename);
-        this.router.navigate(['questiondisplay']);
-        console.log('questions :', this.FinalizedQuestions);
-      });
+    this.viewQuestionSidebar = true;
+    this.FinalizedQuestions = [
+      {
+        id: 1,
+        question:
+          'Which of the following is not a functional interface in Java 8?',
+        questionType: 'Single Answer',
+        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+        skills: 'Java-8',
+        Difficulty_Level: 'Intermediate',
+        answer: ['Comparator'],
+      },
+      {
+        id: 2,
+        question:
+          'Which is the new method introduced in the String class in Java 8?',
+        questionType: 'Multi Answer',
+        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+        skills: 'Java-8',
+        Difficulty_Level: 'Expert',
+        answer: ['Comparator'],
+      },
+      {
+        id: 3,
+        question:
+          'Which of the following is a valid lambda expression in Java 8?',
+        questionType: 'Multi Answer',
+        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+        skills: 'Java-8',
+        Difficulty_Level: 'Beginner',
+        answer: ['Comparator'],
+      },
+      {
+        id: 4,
+        question:
+          'Which of the following is not a functional interface in Java 8?',
+        questionType: 'Single Answer',
+        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+        skills: 'Java-8',
+        Difficulty_Level: 'Expert',
+        answer: ['Comparator'],
+      },
+      {
+        id: 5,
+        question:
+          "What is the output of the program?List<String> names = Arrays.asList('ABC', 'CAB', 'BCA')",
+        questionType: 'Multi Answer',
+        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+        skills: 'Java-8',
+        Difficulty_Level: 'Intermediate',
+        answer: ['Comparator'],
+      },
+      {
+        id: 6,
+        question: 'What is Java?',
+        questionType: 'Single Answer',
+        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+        skills: 'Java-8',
+        Difficulty_Level: 'Beginner',
+        answer: ['Comparator'],
+      },
+    ];
+     console.log('questions :', this.FinalizedQuestions);
+
+    // this.tableService
+    //   .getdataby_FileName(ManagerName, fileName)
+    //   .subscribe((data) => {
+    //     console.log('View Data', data);
+    //     this.view_Managername = ManagerName;
+    //     this.view_Filename = fileName;
+    //     this.FinalizedQuestions = data[0].questions;
+       
+        
+    //     console.log('questions :', this.FinalizedQuestions);
+    //   });
+
+  }
+  getSelectedOptions(selected_Option: any,option: any){
+    if(selected_Option.includes(option))
+    {
+      console.log("correct answer")
+    return "correctAnswer";
+    }
+    else{
+      return "wrongAnswer";
+    }
+    }
+  getLabel(index: number): string {
+    return String.fromCharCode(65 + index);
   }
  
   //clone icon

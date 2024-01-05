@@ -114,22 +114,17 @@
     font-weight: 500;
 }
 
-::ng-deep .p-chip {
-  font-family: "Roboto", sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 14px;
-  letter-spacing: 0.25px;
-  text-align: left;
-  background-color: #00000061;
-  color: white;
-}
-.plusIcon {
-  color: #00000099;
-  ::ng-deep .p-badge-no-gutter {
-    margin-left: -9px;
-  }
-}
+// ::ng-deep .p-chip {
+//   font-family: "Roboto", sans-serif;
+//   font-size: 12px;
+//   font-weight: 400;
+//   line-height: 14px;
+//   letter-spacing: 0.25px;
+//   text-align: left;
+//   background-color: #00000061;
+//   color: white;
+// }
+
 
 ::ng-deep .p-badge-no-gutter {
   color: #00000099;
@@ -337,11 +332,16 @@
     overflow-x: auto;
     background: transparent;
   }
-  ::ng-deep .p-icon {
-    display: inline-block;
-    height: 13px;
-    width: 8px;
-    color: #00000061;
+  ::ng-deep {
+    .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+      color: #1e22aa;
+    }
+    .p-icon {
+      display: inline-block;
+      height: 13px;
+      width: 8px;
+      color: #00000061;
+    }
   }
 }
 ::ng-deep
@@ -353,8 +353,8 @@
   color: #6c757d;
   margin-right: 0px;
   margin-left: -14px;
-  // background: beige;
 }
+
 .assesment-header {
   //styleName: Title;
   font-family: Poppins;
