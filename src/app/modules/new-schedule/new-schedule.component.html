@@ -61,6 +61,8 @@
         viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
+        (click)="editicon()"
+        class="cursor-pointer"
       >
         <rect width="40" height="40" rx="4" fill="#652D90" />
         <path
@@ -68,6 +70,144 @@
           fill="white"
         />
       </svg>
+
+
+      <div class="newSchedule-Dialog"> 
+        <p-dialog
+        header="New Schedule"
+        [(visible)]="visible"
+        [modal]="true"
+        [style]="{ width: '47VW' }"
+        [draggable]="false"
+        [resizable]="false"
+       >
+       <!-- <hr class="line"> -->
+
+      
+
+
+        <div class="NewSchedule-content">
+          <div class=" ScheduleName">
+            
+            <label>Schedule Name</label>
+          
+            <svg
+              width="5"
+              height="6"
+              viewBox="0 0 5 6"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
+                fill="#EE4555"
+              />
+            </svg>
+
+            <div class="newSchedule-card flex justify-content-left schedule-Input">
+              <input type="text" pInputText  [(ngModel)]="scheduleName"/>
+            </div>
+          </div>
+          <div class=" Manager">
+            <label >Manager</label>
+            
+            <svg
+              width="5"
+              height="6"
+              viewBox="0 0 5 6"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
+                fill="#EE4555"
+              />
+            </svg>
+            <!-- <div class="card flex justify-content-left schedule-Input">
+              <!-- <input type="text" pInputText  />
+             -->
+
+              <!---manager--->
+            <!-- </div> -->
+            <div class="newSchedule-card flex justify-content-left schedule-Input">
+              <input type="text" pInputText  [(ngModel)]="manager"/>
+            </div>
+          </div>
+     
+         
+         
+          <div class="cutoff-duration">
+            <div class="cutoff">
+              <label >Cutoff (in %)</label>
+              
+              <svg
+                width="5"
+                height="6"
+                viewBox="0 0 5 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
+                  fill="#EE4555"
+                />
+              </svg>
+              <div class="card flex justify-content-bottom">
+                <input type="text" pInputText [(ngModel)]="cutOff" />
+              </div>
+            </div>
+          <div class="duartion">
+            <label>Duration(minutes)</label>
+            
+            <svg
+              width="5"
+              height="6"
+              viewBox="0 0 5 6"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
+                fill="#EE4555"
+              />
+            </svg>
+             <div class="card flex justify-content-left">
+              <input type="text" pInputText [(ngModel)]="duration" />
+            </div>
+
+          </div>
+         
+         
+      </div>
+         
+         
+        </div>
+
+        <ng-template pTemplate="footer">
+          <div class="Newschedule-button">
+            <div class="Cancelbutton">
+              <p-button  [outlined]="true" (onClick)="cancelButton()" >
+                <label class="cancel-word">
+                  Cancel
+
+                </label>
+              </p-button>
+
+            </div>
+           <div class="Createbutton">
+            <p-button (click)="update(scheduleName,manager,cutOff,duration)"> 
+              <label class="Create-word">
+                Update
+              </label>
+            </p-button>
+
+           </div>
+     
+          </div>
+      </ng-template>
+        
+      </p-dialog>
+    </div>
     </div>
   </div>
 
