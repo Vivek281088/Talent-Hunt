@@ -335,7 +335,7 @@
                 class="flex cursor-pointer"
                 [class.disabled]="!rowData.isMail"
                 title="View"
-                (click)="onViewClick(rowData.Managername, rowData.fileName)"
+                (click)="onViewClick(rowData.Managername, rowData.JobDescription)"
               >
                 <svg
                   width="18"
@@ -410,15 +410,17 @@
 <div class="questionsidebar">
   <p-sidebar
     [(visible)]="viewQuestionSidebar"
-    [value]="FinalizedQuestions"
     position="right"
     [style]="{ width: '46em' }"
     [modal]="false"
   >
     <ng-template class="header_design" pTemplate="header"
-      >Quiz Preview</ng-template
+      >Quiz Preview
+      
+      </ng-template
     >
-    <ng-template pTemplate="content" *ngIf="FinalizedQuestions.length > 0">
+    <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
+       
       <span *ngFor="let question of FinalizedQuestions">
         <div class="question-design">{{ question.question }}</div>
 
@@ -450,7 +452,7 @@
         <div class="custom_button">
           <p-button label="cancel"></p-button>
         </div>
-        <div class="custom_button_close">
+        <div class="custom_button_send">
           <p-button label="close"></p-button>
         </div>
       </div>

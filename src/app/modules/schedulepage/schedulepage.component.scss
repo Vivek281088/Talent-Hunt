@@ -441,6 +441,64 @@
   }
   }
 }
+.question-design {
+  // height: 23px;
+  font-family: "Roboto";
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+  color: #652d90;
+}
+.select-size input {
+  display: none;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  color: #00000061;
+  margin-bottom: 10px;
+}
+.option-content {
+  margin-left: 10px; /* Adjust the margin as needed */
+  font-family: "Roboto";
+  font-size: 16px; /* Adjust the font size as needed */
+  /* Add other styles as needed */
+}
+
+label {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #ddd;
+  line-height: 32px;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #00000061;
+}
+.correctAnswer{
+  .option-content{
+    padding: 6px 8px 6px 8px;
+    height: 31px;
+    width: 633px;
+    background: #F9F5D1;
+    border-radius: 6px;
+    color:#652D90;
+    font-family: "Roboto";
+    
+  }
+  .box-design{
+    background:#652D90 ;
+    color:white ;
+  }
+ 
+}
+.design_for_line{
+  margin-bottom: 10px;
+}
 
 .search-filter {
   width: 138px;

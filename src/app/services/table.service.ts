@@ -43,9 +43,12 @@ export class TableService {
   }
 
   // Method to fetch data by fileName and Managername
-  getdataby_FileName(Managername: string, fileName: string): Observable<any> {
+  getdataby_FileName(
+    Managername: string,
+    JobDescription: string
+  ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-    const body = { Managername: Managername, JobDescription: fileName };
+    const body = { Managername: Managername, JobDescription: JobDescription };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/viewquestion',
       body,
@@ -99,7 +102,7 @@ export class TableService {
     candidatePassword: string,
     candidateConfirmPassword: string,
     roles: String,
-    candidateSkill:any
+    candidateSkill: any
   ): Observable<any> {
     console.log('name', name);
 
@@ -119,9 +122,9 @@ export class TableService {
       results: results,
       cutoff: cutoff,
       durations: durations,
-      password: "abc123",
-      confirmPassword: "abc123",
-      roles: roles
+      password: 'abc123',
+      confirmPassword: 'abc123',
+      roles: roles,
     };
     console.log('Send email Data', body);
 
@@ -149,7 +152,8 @@ export class TableService {
     durations: number,
     candidatePassword: any,
     candidateConfirmPassword: any,
-    roles: string
+    roles: string,
+    Skill: any
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
@@ -168,7 +172,8 @@ export class TableService {
       durations: durations,
       password: candidatePassword,
       confirmPassword: candidateConfirmPassword,
-      roles: roles
+      roles: roles,
+      Skill: Skill,
     };
 
     console.log('Send Existing email Data', body);

@@ -310,7 +310,7 @@ export class SchedulepageComponent implements OnInit {
 
       //rest data
       this.score = null;
-      this.result = '';
+      this.result = 'Awaiting Eval';
       const date = Date.now();
       this.candidateId = new Date(date);
 
@@ -334,7 +334,8 @@ export class SchedulepageComponent implements OnInit {
             this.durations,
             existingCandidate.password,
             existingCandidate.confirmPassword,
-            this.roles
+            this.roles,
+            this.Skill
           )
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);
@@ -542,7 +543,7 @@ export class SchedulepageComponent implements OnInit {
   storeCandidate() {
     //rest data
     this.score = null;
-    this.result = '';
+    this.result = 'Awaiting Eval';
     console.log('score', this.score);
     console.log('result', this.result);
 
@@ -596,84 +597,84 @@ export class SchedulepageComponent implements OnInit {
     // Reset the form data
   }
   //view icon
-  onViewClick(ManagerName: string, fileName: string) {
+  onViewClick(ManagerName: string, JobDescription: string) {
     this.viewQuestionSidebar = true;
-    this.FinalizedQuestions = [
-      {
-        id: 1,
-        question:
-          'Which of the following is not a functional interface in Java 8?',
-        questionType: 'Single Answer',
-        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-        skills: 'Java-8',
-        Difficulty_Level: 'Intermediate',
-        answer: ['Comparator'],
-      },
-      {
-        id: 2,
-        question:
-          'Which is the new method introduced in the String class in Java 8?',
-        questionType: 'Multi Answer',
-        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-        skills: 'Java-8',
-        Difficulty_Level: 'Expert',
-        answer: ['Comparator'],
-      },
-      {
-        id: 3,
-        question:
-          'Which of the following is a valid lambda expression in Java 8?',
-        questionType: 'Multi Answer',
-        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-        skills: 'Java-8',
-        Difficulty_Level: 'Beginner',
-        answer: ['Comparator'],
-      },
-      {
-        id: 4,
-        question:
-          'Which of the following is not a functional interface in Java 8?',
-        questionType: 'Single Answer',
-        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-        skills: 'Java-8',
-        Difficulty_Level: 'Expert',
-        answer: ['Comparator'],
-      },
-      {
-        id: 5,
-        question:
-          "What is the output of the program?List<String> names = Arrays.asList('ABC', 'CAB', 'BCA')",
-        questionType: 'Multi Answer',
-        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-        skills: 'Java-8',
-        Difficulty_Level: 'Intermediate',
-        answer: ['Comparator'],
-      },
-      {
-        id: 6,
-        question: 'What is Java?',
-        questionType: 'Single Answer',
-        options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-        skills: 'Java-8',
-        Difficulty_Level: 'Beginner',
-        answer: ['Comparator'],
-      },
-    ];
-    console.log('questions :', this.FinalizedQuestions);
+    // this.FinalizedQuestions = [
+    //   {
+    //     id: 1,
+    //     question:
+    //       'Which of the following is not a functional interface in Java 8?',
+    //     questionType: 'Single Answer',
+    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+    //     skills: 'Java-8',
+    //     Difficulty_Level: 'Intermediate',
+    //     answer: ['Comparator'],
+    //   },
+    //   {
+    //     id: 2,
+    //     question:
+    //       'Which is the new method introduced in the String class in Java 8?',
+    //     questionType: 'Multi Answer',
+    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+    //     skills: 'Java-8',
+    //     Difficulty_Level: 'Expert',
+    //     answer: ['Comparator'],
+    //   },
+    //   {
+    //     id: 3,
+    //     question:
+    //       'Which of the following is a valid lambda expression in Java 8?',
+    //     questionType: 'Multi Answer',
+    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+    //     skills: 'Java-8',
+    //     Difficulty_Level: 'Beginner',
+    //     answer: ['Comparator'],
+    //   },
+    //   {
+    //     id: 4,
+    //     question:
+    //       'Which of the following is not a functional interface in Java 8?',
+    //     questionType: 'Single Answer',
+    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+    //     skills: 'Java-8',
+    //     Difficulty_Level: 'Expert',
+    //     answer: ['Comparator'],
+    //   },
+    //   {
+    //     id: 5,
+    //     question:
+    //       "What is the output of the program?List<String> names = Arrays.asList('ABC', 'CAB', 'BCA')",
+    //     questionType: 'Multi Answer',
+    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+    //     skills: 'Java-8',
+    //     Difficulty_Level: 'Intermediate',
+    //     answer: ['Comparator'],
+    //   },
+    //   {
+    //     id: 6,
+    //     question: 'What is Java?',
+    //     questionType: 'Single Answer',
+    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
+    //     skills: 'Java-8',
+    //     Difficulty_Level: 'Beginner',
+    //     answer: ['Comparator'],
+    //   },
+    // ];
+    // console.log('questions :', this.FinalizedQuestions);
 
-    // this.tableService
-    //   .getdataby_FileName(ManagerName, fileName)
-    //   .subscribe((data) => {
-    //     console.log('View Data', data);
-    //     this.view_Managername = ManagerName;
-    //     this.view_Filename = fileName;
-    //     this.FinalizedQuestions = data[0].questions;
+    this.tableService
+      .getdataby_FileName(ManagerName, JobDescription)
+      .subscribe((data) => {
+        console.log('View Data', data);
+        this.view_Managername = ManagerName;
+        this.view_Filename = JobDescription;
+        this.FinalizedQuestions = data[0].questions;
 
-    //     console.log('questions :', this.FinalizedQuestions);
-    //   });
+        console.log('questions :', this.FinalizedQuestions);
+      });
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    if (selected_Option.includes(option)) {
+    if (option.includes(selected_Option)) {
       console.log('correct answer');
       return 'correctAnswer';
     } else {
@@ -1101,6 +1102,7 @@ export class SchedulepageComponent implements OnInit {
           this.cutoff = data[0].cutoff;
           this.durations = data[0].durations;
           this.questions = data[0].questions;
+          this.Skill = data[0].Skill;
           console.log('Manager name---', this.email_Managername);
           console.log('File name---', this.email_Filename);
           this.email_Status = 'Not Started';
@@ -1121,7 +1123,7 @@ export class SchedulepageComponent implements OnInit {
 
       //rest data
       this.score = null;
-      this.result = '';
+      this.result = 'Awaiting Eval';
       const date = Date.now();
       this.candidateId = new Date(date);
       this.showEmailSubmitted();
@@ -1142,7 +1144,8 @@ export class SchedulepageComponent implements OnInit {
             this.durations,
             existingCandidate.password,
             existingCandidate.confirmPassword,
-            this.roles
+            this.roles,
+            this.Skill
           )
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);

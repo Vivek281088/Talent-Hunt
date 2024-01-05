@@ -44,6 +44,7 @@ export class CandidateTableComponent implements OnInit{
   roles: string = "user";
   skillSet: any[] = [];
   managerOption: any[] = [];
+  Skill: any;
 
   // candidateForm !: FormGroup;
   constructor(
@@ -235,7 +236,8 @@ return this.tempSkills.slice(-count);
             this.durations,
             existingCandidate.password,
             existingCandidate.confirmPassword,
-            this.roles
+            this.roles,
+            this.Skill
           )
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);
