@@ -40,7 +40,7 @@ export class CandidateAssessmentService {
   }
 
   // Method to fetch Candidate data by email
-  getCandidatedata_by_Email(candidateEmail: string): Observable<any> {
+  getCandidatedata_by_Email(candidateEmail: string | null): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateEmail: candidateEmail,
