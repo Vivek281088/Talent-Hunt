@@ -82,6 +82,7 @@ export class CandidatequestionComponent implements OnInit {
     this.assessmentData = this.candidateAssessmentService.getAssessmentData();
     console.log("Assessment Data", this.assessmentData);
     this.previewOptions = this.assessmentData[0].questions;
+    console.log('Assessment Questions', this.previewOptions);
     this.selectedOptions1 = this.previewOptions.map(() => []);
     
     // this.candidateService

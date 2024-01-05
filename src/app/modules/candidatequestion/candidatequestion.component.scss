@@ -1,87 +1,76 @@
-.wholepage{
-    display:flex;
-    flex-direction: column;
+.wholepage {
+  display: flex;
+  flex-direction: column;
 }
- 
-.body{
-    display:flex;
-    flex-direction: column;
-}
-.header-design{
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(91.47deg, #652D90 14.44%, #D61360 158.5%);
-    p{
-        font-size: 20px;
-        font-weight: 450;
-        margin-left: 7px;
-        color: #ffffff
-       
-    }
-    ;
-::ng-deep .p-paginator{
-    background: none;
+.body {
+  display: flex;
+  flex-direction: column;
 }
-}
- 
-.duration-design{
- 
-    background: linear-gradient(91.47deg, #652D90 14.44%, #D61360 158.5%);
-    display: flex;
- 
-}
- 
- 
-.button-designs
-{
-  ::ng-deep .p-button {
-//   color: #652D90;
-//   background: #ffffff;
-//   border: 1px solid #652D90;
-//   width:  (122px);
-// height: (36px);
-// padding: 6px, 6px, 6px, 8px;
-// border-radius: 4px;
-// border: 1px;
-margin-top: -2px;
-background: none;
-border: 1px solid;
-min-width: max-content;
-
-  &:hover {
+.header-design {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(91.47deg, #652d90 14.44%, #d61360 158.5%);
+  p {
+    font-size: 20px;
+    font-weight: 450;
+    margin-left: 7px;
     color: #ffffff;
-    ;
   }
-  &:focus {
-    box-shadow: none;
+  ::ng-deep .p-paginator {
+    background: none;
   }
 }
-}
- 
-.fourth-design{
-    display: flex;
-    flex-direction: row;
-    width: 264px;
-    height: 36px;
-    padding-right: 12px;
-    justify-content: space-between;
-    
-  .duration{
 
+.duration-design {
+  background: linear-gradient(91.47deg, #652d90 14.44%, #d61360 158.5%);
+  display: flex;
+}
+
+.button-designs {
+  ::ng-deep .p-button {
+    //   color: #652D90;
+    //   background: #ffffff;
+    //   border: 1px solid #652D90;
+    //   width:  (122px);
+    // height: (36px);
+    // padding: 6px, 6px, 6px, 8px;
+    // border-radius: 4px;
+    // border: 1px;
+    margin-top: -2px;
+    background: none;
+    border: 1px solid;
+    min-width: max-content;
+
+    &:hover {
+      color: #ffffff;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.fourth-design {
+  display: flex;
+  flex-direction: row;
+  width: 264px;
+  height: 36px;
+  padding-right: 12px;
+  justify-content: space-between;
+
+  .duration {
     width: 126px;
     //height: 16px;
     gap: 4px;
     display: flex;
     flex-direction: row;
-    color: #FFFFFFBD;
+    color: #ffffffbd;
     padding-right: 10px;
-  
-    
 
-    p{
+    p {
       display: flex;
       align-items: center;
       flex-direction: row;
@@ -89,185 +78,197 @@ min-width: max-content;
       color: #ffffff;
       font-family: "Roboto";
 
-font-weight: 400;
-line-height: 16px;
-letter-spacing: 0px;
-text-align: left;
-
-  }
-}
-
-.duration-svg{
-  width: 16px;
-  height: 16px;
-  padding: 1.33px, 1.33px, 1.33px, 1.33px;
-  color: #FFFFFFBD;
-
-
-}
-  }
-
-     
-
-.question-design{
-    margin-left: 17px;
-    display: flex;
-    margin-bottom: 350px;
-    color: #212529;
-    margin-right: 4px;
-    margin-top: 15px;
-
-
-}
-::ng-deep .body{
-    p-splitter{
-        padding: 16px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0px;
+      text-align: left;
     }
+  }
+
+  .duration-svg {
+    width: 16px;
+    height: 16px;
+    padding: 1.33px, 1.33px, 1.33px, 1.33px;
+    color: #ffffffbd;
+  }
 }
-.question-display{
-    padding-right: 16px;
+
+.question-design {
+  margin-left: 17px;
+  display: flex;
+  margin-bottom: 350px;
+  color: #212529;
+  margin-right: 4px;
+  margin-top: 15px;
+}
+::ng-deep .body {
+  p-splitter {
+    padding: 16px;
+  }
+}
+.question-display {
+  padding-right: 16px;
 }
 
 .option-content {
-    margin-left: 10px; /* Adjust the margin as needed */
-    font-family: "Roboto";
-    font-size: 16px; /* Adjust the font size as needed */
-    /* Add other styles as needed */
-   
-  }
-  
-  .box-design{
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    text-align: center;
-    border: 1px solid #ddd;
-    line-height: 32px;
-    cursor: pointer;
-    border-radius: 8px;
-    color: #00000061;
-  }
-  .select-size input {
-    display: none;
-  }
-  .option-background{
-    &:hover {
-      .optionDiv {
-        background:  #f9f1d1 !important;
-      }
-      .box-design {
-        background:  #652d90 !important;
-      }
+  margin-left: 10px; /* Adjust the margin as needed */
+  font-family: "Roboto";
+  font-size: 16px; /* Adjust the font size as needed */
+  /* Add other styles as needed */
+}
+
+.box-design {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  border: 1px solid #ddd;
+  line-height: 32px;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #00000061;
+}
+.select-size input {
+  display: none;
+}
+.option-background {
+  &:hover {
+    .optionDiv {
+      background: #f9f1d1 !important;
+    }
+    .box-design {
+      background: #652d90 !important;
     }
   }
-  .select-size .whole-option{
-    &:hover {
-        .optionDiv {
-          background: #c1abd3;
-        }
-        .box-design {
-          background: #c1abd3;
-        }
-      }
-     
-     
+}
+.select-size .whole-option {
+  &:hover {
+    .optionDiv {
+      background: #c1abd3;
+    }
+    .box-design {
+      background: #c1abd3;
+    }
   }
-  
-  
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  color: #00000061;
+  margin-bottom: 10px;
+  margin-top: 50px;
+  padding-left: 20px;
+}
+label {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  // border: 1px solid #ddd;
+  line-height: 32px;
+  cursor: pointer;
+  border-radius: 8px;
+  color: #00000061;
+  //margin-left: 20px;
+}
+.footer-submit{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2%;
+ 
+ ::ng-deep .p-button{
+  background: #652D90;
+  border:1px solid #652D90;
+ 
+ }
+ 
+ 
+ 
+ 
+ 
+//   display: flex;
+//   justify-content: end;
+// align-items: center;
+// gap: 16px;
+// padding: 12px;
+// align-self: stretch;
+// border-radius: 4px;
+// border: 1px solid rgba(0, 0, 0, 0.12);
+// background: var(--Surface, #FFF);
+}
+ 
+
+
+.previewnext{
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+// --------------------------------
+.select-size {
+  max-height: fit-content;
+  overflow: auto;
 
   .option {
     display: flex;
-    align-items: center;
-    color: #00000061;
-    margin-bottom: 10px;
-    margin-top: 50px;
-    padding-left: 20px;
+    width: 647px;
+    height: 222px;
+    gap: 8px;
   }
-  label {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    text-align: center;
-   // border: 1px solid #ddd;
-    line-height: 32px;
-    cursor: pointer;
-    border-radius: 8px;
-    color: #00000061;
-    //margin-left: 20px;
+
+  .whole-option {
+    display: flex;
+    width: 647px;
+    height: 222px;
+    gap: 8px;
   }
-  
- 
+  // .option{
+  //   input{
+  //     &:checked + label {
+  //       .optionDiv {
+  //         background:red;
+  //       }
+  //       .box-design {
+  //         background:red;
+  //       }
+  //     }
+  //   }
+  // }
 
+  .optionDiv {
+    width: 647px;
+    height: 222px;
+  }
 
+  .highlight {
+    background-color: #652d90;
+  }
 
-  // --------------------------------
-  .select-size {
-    max-height: fit-content;
-    overflow: auto;
-  
-    .option {
-      display: flex;
-      width: 647px;
-      height: 222px;
-      gap: 8px;
+  .option-background {
+    .box-design {
+      background: #652d90;
+      color: white;
     }
-  
-    .whole-option {
-      display: flex;
-      width: 647px;
-      height: 222px;
-      gap: 8px;
-    }
-    // .option{
-    //   input{
-    //     &:checked + label {
-    //       .optionDiv {
-    //         background:red;
-    //       }
-    //       .box-design {
-    //         background:red;
-    //       }
-    //     }
-    //   }
-    // }
-  
+
     .optionDiv {
-      width: 647px;
-      height: 222px;
+      background: #f9f1d1;
     }
-  
-    .highlight {
-      background-color: #652d90;
-    }
-  
-    .option-background {
-      .box-design {
-        background: #652d90;
-        color: white;
-      }
-  
-      .optionDiv {
-        background: #f9f1d1;
-      }
-    }
-    
   }
-  
- 
-  
-  
-  #svg-design{
-    height:auto;
-  }
+}
 
-  #button-design{
-    .p-button{
+#svg-design {
+  height: auto;
+}
+
+#button-design {
+  .p-button {
     background: none;
   }
 }
 
-::ng-deep.p-dialog .p-dialog-footer button{
-  
-  background:#652D90
-
+::ng-deep.p-dialog .p-dialog-footer button {
+  background: #652d90;
 }
