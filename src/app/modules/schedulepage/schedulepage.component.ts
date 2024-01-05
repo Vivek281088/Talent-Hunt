@@ -756,18 +756,30 @@ this.showcardFlag=true;
       });
  
   }
-  handleEditIconClick(ManagerName: string, fileName: string) {
+  handleEditIconClick(ManagerName: string, jobDescription: string) {
+    // debugger;
+    console.log("getting edit ",ManagerName,jobDescription)
     this.tableService
-      .getdataby_FileName(ManagerName, fileName)
+      .getdataby_FileName(ManagerName, jobDescription)
       .subscribe((data) => {
-        console.log('View Data', data);
-        this.Skill = data[0].Skill;
+        console.log('View Data by edit', data);
+       
+        
+          this.Skill = data[0].Skill;
+         
+         
+          console.log("skills in an array------------------------------------",this.Skill
+          )
+        
+        
+      
         this.selectedQuestions = data[0].questions;
         this.cutoff = data[0].cutoff;
         this.durations = data[0].durations;
         this.editManagername = ManagerName;
-        this.editFilename = fileName;
+        this.editFilename = jobDescription;
         this.managernameService.setCutoff(this.cutoff);
+        // localStorage.setItem("cutoff",this.cutOff)
         console.log('edit cutoff', this.cutoff);
         this.managernameService.setDuration(this.durations);
         this.skillsdropdownservice.setSkill(this.Skill);
@@ -776,7 +788,13 @@ this.showcardFlag=true;
         this.managernameService.setFinalizedQuestions(this.selectedQuestions);
         this.managernameService.setManagerName(this.editManagername);
         this.managernameService.setFileName(this.editFilename);
-        this.router.navigate(['edit']);
+        localStorage.setItem("scheduleName",jobDescription)
+        localStorage.setItem("boolean","true")
+        // localStorage.setItem("manager",this.editManagername)
+        // localStorage.setItem("cutoff",this.cutOff.toString())
+        // localStorage.setItem("duration",this.duration.toString())
+       
+        this.router.navigate(['new-schedule']);
       });
   }
  

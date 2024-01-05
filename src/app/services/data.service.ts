@@ -17,9 +17,11 @@ export class DataService {
   // }
   private localstoragekey='sampledata'
   savedata(data:string[]):void{
+    console.log("saved data-----------------",data)
     localStorage.setItem(this.localstoragekey,JSON.stringify(data));
   }
   getData():string[]{
+    console.log("get data-----------------",this.localstoragekey)
     const storedData=localStorage.getItem(this.localstoragekey);
     return storedData? JSON.parse(storedData) : [];
   }

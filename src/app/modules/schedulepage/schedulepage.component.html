@@ -419,16 +419,17 @@
                 </svg>
               </td>
               <td>
-                <div class="icons-td flex align-items-center justify-content-between">
+                <div class="icons-td flex align-items-center justify-content-between cursor-pointer">
                   <!--Edit icon-->
                   <!-- <div class="cursor-pointer"> -->
                   <a
                     class="flex"
                     (click)="
-                      handleEditIconClick(rowData.Managername, rowData.fileName)
+                      handleEditIconClick(rowData.Managername, rowData.JobDescription)
                     "
                     [class.disabled]="!rowData.isEdit"
                     title="Edit"
+                    
                   >
                     <svg
                       width="18"
