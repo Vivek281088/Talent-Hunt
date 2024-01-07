@@ -277,69 +277,7 @@
   <!-- <p-button  icon="pi pi-image" label="Show"></p-button> -->
 </div>
 
- <div class="sidebar">
-  <div class="card flex justify-content-center">
-    <p-sidebar  [(visible)]="sidebarVisible2" position="right" [style]="{width:'46em'}" >
-        <ng-template class="header_design" pTemplate="header">Quiz Preview</ng-template>
-        <ng-template  pTemplate="content">
-          <span *ngFor="let preview of previewOptions">
-         <div class="question-design"> {{preview.question}}</div>
-          
-         
 
- <div class="select-size" >
-          <div class="option" [ngClass]="getSelectedOptions(preview.selectedAnswer,preview.options[0])">
-            <input type="radio" name="first" id="small" /> 
-            <label class="box-design" for="small">A</label>
-            <span  class="option-content">{{preview.options[0]}}</span>
-          </div>
-          
-         <div class="option" [ngClass]="getSelectedOptions(preview.selectedAnswer,preview.options[1])">
-          <input type="radio" name="second" id="small" />
-          <label class="box-design" for="small">B</label>
-          <span class="option-content">{{preview.options[1]}}</span>
-         </div>
-         
-         <div class="option" [ngClass]="getSelectedOptions(preview.selectedAnswer,preview.options[2])">
-          <input type="radio" name="third" id="small" />
-          <label class="box-design" for="small">C</label>
-          <span  class="option-content">{{preview.options[2]}}</span>
-         </div>
-         
-         <div class="option" [ngClass]="getSelectedOptions(preview.selectedAnswer,preview.options[3])">
-          <input type="radio" name="fourth" id="small" />
-          <label class="box-design" for="small" >D</label>
-          <span  class="option-content">{{preview.options[3]}}</span>
-         </div>
-         
-         </div>
-         
-         <div class="design_for_line">
-         <hr>
-        </div>
-
-        </span>
-        </ng-template>
-        <ng-template class="footer_design" pTemplate="footer"> 
-          <div class="btnfooter">
-            <div class="custom_button">
-              <p-button  label="cancel"></p-button>
-
-            </div>
-            <div class="custom_button_close">
-              <p-button label="close"></p-button>
-
-            </div>
-            
-          
-
-          </div>
-          
-        </ng-template>
-    </p-sidebar>
-    
-</div>
-</div> 
 
 
 <div class="card flex flex-wrap flex-column align-items-center gap-2">

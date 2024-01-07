@@ -25,7 +25,7 @@ export class AssessmentTableComponent {
   status: string[] = [
     'Shortlisted',
     'Rejected',
-    'Awaiting',
+    'Awaiting Eval',
     'Cancelled',
     'Scheduled',
   ];
@@ -57,24 +57,7 @@ export class AssessmentTableComponent {
   Skill: any;
   managerOption: any[] = [];
   overlayVisible=false
-  previewOptions:any=[
-    {
-      question:"Which of the following keywords is used to define a variable in Javascript ?",
-      options:["var","let","const","None of the above"],
-      selectedAnswer:["var","let"]
-    },
-    {
-      question:"Which of the following methods is used to access HTML elements using Javascript?",
-      options:["getElementbyId()","getElementsByClassName()","Both A and B","None of the above"],
-      selectedAnswer:["Both A and B"]
-    },
-
-    {
-      question:"When the switch statement matches the expression with the given labels, how is the comparison done?",
-      options:["Both the datatype and the result of the expression are compared.","Only the datatype of the expression is compared.","Only the value of the expression is compared.","None of the Above"],
-      selectedAnswer:["Both the datatype and the result of the expression are compared.","Only the value of the expression is compared."]
-    }
-  ];
+  
 
   toggle(){
     this.overlayVisible=!this.overlayVisible;

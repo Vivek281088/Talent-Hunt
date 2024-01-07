@@ -662,17 +662,24 @@ cursor:pointer;
  
  }
  
- :host ::ng-deep .p-button {
-  color: #ffffff;
-  background: #652D90;
-  border: 1px solid #652D90;
-  &:hover {
-    color: #652D90;
-    ; /* Darker background color on hover */
-    // border: none;
+ ::ng-deep {
+  .p-button {
+    color: #c81a78;
+    border: 1px solid #c81a78;
+    background: white;
+    &:hover {
+      color: #c81a78;
+    }
+    
+    &:focus {
+      box-shadow: none;
+    }
   }
-  &:focus {
-    box-shadow: none;
-  }
+  .p-button:enabled:hover {
+    color: #c81a78;
+    border: 1px solid #c81a78;
+    background: white;
 }
+
+ }
  

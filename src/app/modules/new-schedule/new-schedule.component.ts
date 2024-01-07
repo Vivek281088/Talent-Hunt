@@ -51,17 +51,16 @@ export class NewScheduleComponent {
   selectedQuestionCount!: number;
   visible: boolean = false;
   questionPreviewvisible: boolean = false;
+  previewSidebarVisible : boolean = false;
   visible1: boolean = false;
   ischecked: boolean = true;
   slectedquestionforedit: any;
   TotalQuestions: any[] = [];
   managerOption: any[] = [];
-  options: string[] = [
-    ' A Avoid Writing Long Methods',
-    ' B Avoid Multiple If-else Statements',
-    ' C Avoid Getting the Size of the Collection in the Loop',
-    ' D Avoid Using String Objects For Concatenation',
-  ];
+  singleQuestion: any;
+  singleQuestionOption : any
+  singleQuestionAnswer : any;
+ 
 
   // @ViewChild('yourTable')yourTable:Table | undefined;
 
@@ -178,101 +177,7 @@ export class NewScheduleComponent {
     }
     localStorage.removeItem('boolean');
 
-    //   questionType: "Single Answer",
-    //   options: [
-    //     "Consumer",
-    //     "Supplier",
-    //     "Runnable",
-    //     "Comparator"
-    //   ],
-    //   skills: "Java-8",
-    //   Difficulty_Level: "Intermediate",
-    //   answer: [
-    //     "Comparator"
-    //   ]
-    // },{
-    //   id : 2,
-    //   question: "Which is the new method introduced in the String class in Java 8?",
-    //   questionType: "Multi Answer",
-    //   options: [
-    //     "Consumer",
-    //     "Supplier",
-    //     "Runnable",
-    //     "Comparator"
-    //   ],
-    //   skills: "Java-8",
-    //   Difficulty_Level: "Expert",
-    //   answer: [
-    //     "Comparator"
-    //   ]
-    // },{
-    //   id : 3,
-    //   question: "Which of the following is a valid lambda expression in Java 8?",
-    //   questionType: "Multi Answer",
-    //   options: [
-    //     "Consumer",
-    //     "Supplier",
-    //     "Runnable",
-    //     "Comparator"
-    //   ],
-    //   skills: "Java-8",
-    //   Difficulty_Level: "Beginner",
-    //   answer: [
-    //     "Comparator"
-    //   ]
-    // },{
-    //   id : 4,
-    //   question: "Which of the following is not a functional interface in Java 8?",
-    //   questionType: "Single Answer",
-    //   options: [
-    //     "Consumer",
-    //     "Supplier",
-    //     "Runnable",
-    //     "Comparator"
-    //   ],
-    //   skills: "Java-8",
-    //   Difficulty_Level: "Expert",
-    //   answer: [
-    //     "Comparator"
-    //   ]
-    // },{
-    //   id : 5,
-    //   question: "What is the output of the program?List<String> names = Arrays.asList('ABC', 'CAB', 'BCA')",
-    //   questionType: "Multi Answer",
-    //   options: [
-    //     "Consumer",
-    //     "Supplier",
-    //     "Runnable",
-    //     "Comparator"
-    //   ],
-    //   skills: "Java-8",
-    //   Difficulty_Level: "Intermediate",
-    //   answer: [
-    //     "Comparator"
-    //   ]
-    // },{
-    //   id : 6,
-    //   question: "What is Java?",
-    //   questionType: "Single Answer",
-    //   options: [
-    //     "Consumer",
-    //     "Supplier",
-    //     "Runnable",
-    //     "Comparator"
-    //   ],
-    //   skills: "Java-8",
-    //   Difficulty_Level: "Beginner",
-    //   answer: [
-    //     "Comparator"
-    //   ]
-    // }]
 
-    // this.tabs = [
-    //   { title: 'JavaScript', content: this.Tdata },
-    //   { title: 'NodeJS', content: this.Tdata },
-    //   { title: 'React', content: this.Tdata },
-    //   { title: 'MongoDB', content: this.Tdata },
-    // ];
   }
   trackByFn(_index: any, item: { id: any }) {
     return item.id; // Use a unique identifier property of your items
@@ -454,11 +359,33 @@ export class NewScheduleComponent {
     console.log('hi');
   }
 
-  questionPreview() {
+  questionPreview(questions: any) {
     this.questionPreviewvisible = true;
+    this.singleQuestion = questions.question;
+    this.singleQuestionOption = questions.options
+    this.singleQuestionAnswer = questions.answer;
   }
 
   closeButton() {
     this.questionPreviewvisible = false;
+  }
+
+  onPreviewClick(){
+    
+      this.previewSidebarVisible = true;
+    
+    
+  }
+  getSelectedOptions(selected_Option: any, option: any) {
+    console.log("Function Working")
+    if (option.includes(selected_Option)) {
+      console.log('correct answer');
+      return 'correctAnswer';
+    } else {
+      return 'wrongAnswer';
+    }
+  }
+  getLabel(index: number) {
+    return String.fromCharCode(65 + index);
   }
 }

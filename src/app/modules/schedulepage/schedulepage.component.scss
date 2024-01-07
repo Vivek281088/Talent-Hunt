@@ -71,7 +71,6 @@
         box-shadow: none;
       }
     }
-    
   }
 
   .Createbutton {
@@ -428,45 +427,148 @@
     color: #00000099;
   }
 }
-.questionsidebar{
+.questionsidebar {
+
+  .question-design {
+    // height: 23px;
+    font-family: "Roboto";
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.150000006px;
+    text-align: left;
+    color: #652d90;
+    padding: 3% 0% 3% 0%;
+  }
+  .select-size input {
+    display: none;
+  }
+  
+  .option {
+    display: flex;
+    align-items: center;
+    color: #00000061;
+  }
+  .option-content {
+    padding: 0.8% 1% 0.8% 1%;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 3px;
+    width: 100%;
+  }
+  .select-size {
+    padding-bottom: 2%;
+    border-bottom: 1px solid #0000001f;
+  }
+  .option {
+    font-weight: 450;
+    gap: 1%;
+    margin-bottom: 1%;
+    .box-design {
+      border: 1px solid #c1abd3;
+      width: 5%;
+      border-radius: 4px;
+      text-align: center;
+      padding: 5px;
+    }
+    &:hover:not(.correctAnswer) {
+      .box-design,
+      .option-content {
+        background: #c1abd3;
+        color: white;
+      }
+    }
+  }
+  .correctAnswer {
+    .option-content {
+      background: #F9F5D1;
+      color: #652d90;
+    }
+    .box-design {
+      background: #652d90;
+      color: white;
+    }
+    
+  }
+  .custom_button {
+    gap: 3%;
+    ::ng-deep .p-button {
+      color: #652d90;
+      background: #ffffff;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: #652d90;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+  
+  .btnfooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  
+    .instruction {
+      font-size: 16px;
+      font-family: "Poppins";
+      font-weight: 400;
+      color: #00000099;
+      padding: 2% 0% 2% 0%;
+    }
+    .quiz-instruction {
+      padding-bottom: 5%;
+      border-bottom: 1px solid #0000001f;
+    }
+    .points {
+      font-family: "Roboto";
+      color: #00000099;
+      font-weight: 400;
+      padding-left: 4%;
+      li {
+        padding-bottom: 1%;
+      }
+    }
+  
+    .sidebarbuttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-top: 5%;
+    }
+  }
+  .custom_button_send {
+    ::ng-deep .p-button {
+      color: white;
+      background: #652d90;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: white;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
 
   ::ng-deep {
     .p-sidebar .p-sidebar-header {
       padding: 1.25rem;
-      border: 1px solid #0000001F;
-      color: #1E22AA;
-      font-family: 'Poppins';
+      border: 1px solid #0000001f;
+      color: #1e22aa;
+      font-family: "Poppins";
       font-weight: 500;
       font-size: 20px;
+    }
+    .p-sidebar {
+      width: 45%;
+    }
   }
-  }
-}
-.question-design {
-  // height: 23px;
-  font-family: "Roboto";
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 23px;
-  letter-spacing: 0.15000000596046448px;
-  text-align: left;
-  color: #652d90;
-}
-.select-size input {
-  display: none;
 }
 
-.option {
-  display: flex;
-  align-items: center;
-  color: #00000061;
-  margin-bottom: 10px;
-}
-.option-content {
-  margin-left: 10px; /* Adjust the margin as needed */
-  font-family: "Roboto";
-  font-size: 16px; /* Adjust the font size as needed */
-  /* Add other styles as needed */
-}
 
 // label {
 //   display: inline-block;
@@ -479,26 +581,8 @@
 //   border-radius: 8px;
 //   color: #00000061;
 // }
-.correctAnswer{
-  .option-content{
-    padding: 6px 8px 6px 8px;
-    height: 31px;
-    width: 633px;
-    background: #F9F5D1;
-    border-radius: 6px;
-    color:#652D90;
-    font-family: "Roboto";
-    
-  }
-  .box-design{
-    background:#652D90 ;
-    color:white ;
-  }
- 
-}
-.design_for_line{
-  margin-bottom: 10px;
-}
+
+
 
 .search-filter {
   width: 138px;
@@ -674,15 +758,7 @@ body {
   flex-direction: column;
 }
 
-.option {
-  margin-bottom: 10px;
 
-  margin-right: 20px;
-
-  margin-left: 3px;
-
-  font-weight: bold;
-}
 
 .option1 {
   margin-bottom: 10px;
@@ -869,20 +945,19 @@ body {
 }
 .newSchedule-Dialog {
   ::ng-deep {
-
     .p-dialog .p-dialog-header .p-dialog-title {
-      font-family: 'Poppins';
+      font-family: "Poppins";
       font-weight: 500;
-      color: #1E22AA;
-  }
+      color: #1e22aa;
+    }
     .p-dialog .p-dialog-header {
       padding: 1rem;
       border-bottom: 1px solid #0000001f;
     }
     .p-dialog .p-dialog-content {
       padding: 0 1.5rem 2rem 1rem;
-      border-bottom: 2px solid #0000001F;
-  }
+      border-bottom: 2px solid #0000001f;
+    }
     .p-inputtext {
       width: 100%;
     }
@@ -899,15 +974,15 @@ body {
   .labelvalue {
     display: flex;
     flex-direction: column;
-    font-family: 'Roboto';
+    font-family: "Roboto";
     font-weight: 400;
     color: #00000099;
 
     .label {
       padding: 2% 0 2% 0;
 
-      span{
-        color: #EE4555;
+      span {
+        color: #ee4555;
       }
     }
   }
@@ -922,7 +997,7 @@ body {
     .labelvalue {
       display: flex;
       flex-direction: column;
-      padding-right:17.3%;
+      padding-right: 17.3%;
 
       .label {
         padding: 6% 0 6% 0;
@@ -931,47 +1006,9 @@ body {
   }
 }
 
-.custom_button
-{
-  gap: 3%;
- ::ng-deep .p-button {
-  color: #652D90;
-  background: #ffffff;
-  border: 1px solid #652D90;
-  &:hover {
-    color: #652D90;
-    ; 
-  }
-  &:focus {
-    box-shadow: none;
-  }
 
-  
-}
-}
-.wholedialog{
+
+.wholedialog {
   display: flex;
   flex-direction: column;
-}
-.btnfooter{
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-}
-.custom_button_send
-{
- ::ng-deep .p-button {
-  color:white;
-  background: #652D90;
-  border: 1px solid #652D90;
-  &:hover {
-    color: white;
-    ; 
-  }
-  &:focus {
-    box-shadow: none;
-  }
-
-  
-}
 }

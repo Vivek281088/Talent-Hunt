@@ -143,6 +143,7 @@ export class SchedulepageComponent implements OnInit {
   roles: string = 'user';
   showcardFlag: boolean = false;
   candidateData: any;
+  managerData:any;
 
   // candidateForm !: FormGroup;
   constructor(
@@ -402,9 +403,16 @@ export class SchedulepageComponent implements OnInit {
   }
 
   loadManagerNames() {
-    this.managernameService.getManagerNames().subscribe((data) => {
-      this.managerOption = data;
-      console.log('managernames------------>', this.managerOption);
+    // this.managernameService.getManagerNames().subscribe((data) => {
+    //   this.managerOption = data;
+    //   console.log('managernames------------>', this.managerOption);
+    // });
+    this.managernameService.getclientManagerData().subscribe((response) => {
+      
+      this.managerData = response.map((manager: { managerName: string; })=>manager.managerName);
+      console.log('Client Manager Details', this.managerData);
+  
+      
     });
   }
   sendQuestions(data: any) {
@@ -674,6 +682,7 @@ export class SchedulepageComponent implements OnInit {
       });
   }
   getSelectedOptions(selected_Option: any, option: any) {
+    console.log("Function Working")
     if (option.includes(selected_Option)) {
       console.log('correct answer');
       return 'correctAnswer';

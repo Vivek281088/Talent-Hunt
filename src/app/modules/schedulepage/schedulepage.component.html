@@ -65,7 +65,7 @@
                     >
                       <p-multiSelect
                         [ngModel]="value"
-                        [options]="managerOption"
+                        [options]="managerData"
                         placeholder="Manager"
                         (onChange)="filter($event.value)"
                         appendTo="body"
@@ -157,7 +157,7 @@
                           </div>
                           <div class="value">
                             <p-dropdown
-                              [options]="managerOption"
+                              [options]="managerData"
                               placeholder=""
                               [editable]="true"
                               optionLabel=""
@@ -405,60 +405,74 @@
       </ng-template>
     </p-table>
   </div>
-</div>
 
-<div class="questionsidebar">
-  <p-sidebar
-    [(visible)]="viewQuestionSidebar"
-    position="right"
-    [style]="{ width: '46em' }"
-    [modal]="false"
-  >
-    <ng-template class="header_design" pTemplate="header"
-      >Quiz Preview
-      
-      </ng-template
+  <div class="questionsidebar">
+    <p-sidebar
+      [(visible)]="viewQuestionSidebar"
+      position="right"
+      [modal]="false"
     >
-    <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
-       
-      <span *ngFor="let question of FinalizedQuestions">
-        <div class="question-design">{{ question.question }}</div>
-
-        <div class="select-size">
-          <div
-            *ngFor="let option of question.options; let i = index"
-            class="option"
-            [ngClass]="getSelectedOptions(question.selectedAnswer, option)"
-          >
-            <!-- <input type="radio" name="first" id="small" />
-            <label class="box-design" for="small">A</label>
-            <span class="option-content">{{ preview.options[0] }}</span> -->
-            <input type="radio" [name]="'option_' + i" [id]="'option_' + i" />
-            <label class="box-design" [for]="'option' + question + '-' + i">{{
-              getLabel(i)
-            }}</label>
-
-            <span class="option-content">{{ option }}</span>
+      <ng-template class="header_design" pTemplate="header"
+        >Quiz Preview
+        
+        </ng-template
+      >
+      <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
+         
+        <span *ngFor="let question of FinalizedQuestions ; let j = index">
+          <div class="question-design">{{j+1}}. {{ question.question }}</div>
+  
+          <div class="select-size">
+            <div
+              *ngFor="let option of question.options; let i = index"
+              class="option"
+              [ngClass]="getSelectedOptions(question.answer, option)"
+            >
+              <!-- <input type="radio" name="first" id="small" />
+              <label class="box-design" for="small">A</label>
+              <span class="option-content">{{ preview.options[0] }}</span> -->
+              <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
+              <label class="box-design" [for]="'option' + question + '-' + i">{{
+                getLabel(i)
+              }}</label>
+  
+              <span class="option-content">{{ option }}</span>
+            </div>
           </div>
+  
+        </span>
+  
+        <div class="btnfooter">
+          <div class="quiz-instruction">
+  
+            <p class="instruction">Quiz Instructions</p>
+            <ul class="points">
+              <li>Manager approval mandatory </li>
+              <li>Automatic email will be triggered for every status change of the request</li>
+              <li>Approval is the permission to go to Office</li>
+            </ul>
+  
+          </div>
+          <div class="sidebarbuttons">
+            <div class="custom_button">
+              <p-button label="Cancel"></p-button>
+            </div>
+            <div class="custom_button_send">
+              <p-button label="Close"></p-button>
+            </div>
+  
+          </div>
+          
         </div>
-
-        <div class="design_for_line">
-          <hr />
-        </div>
-      </span>
-    </ng-template>
-    <ng-template class="footer_design" pTemplate="footer">
-      <div class="btnfooter">
-        <div class="custom_button">
-          <p-button label="cancel"></p-button>
-        </div>
-        <div class="custom_button_send">
-          <p-button label="close"></p-button>
-        </div>
-      </div>
-    </ng-template>
-  </p-sidebar>
+  
+  
+      </ng-template>
+      
+    </p-sidebar>
+  </div>
 </div>
+
+
 
 <div class="sendinvite">
   <p-dialog
