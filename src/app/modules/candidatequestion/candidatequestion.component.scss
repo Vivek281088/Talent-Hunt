@@ -9,6 +9,7 @@
 }
 .header-design{
 
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -24,15 +25,16 @@
     ;
 ::ng-deep .p-paginator{
     background: none;
+    //color:white !important;
 }
 }
  
-.duration-design{
+// .duration-design{
  
-    background: linear-gradient(91.47deg, #652D90 14.44%, #D61360 158.5%);
-    display: flex;
+//     background: linear-gradient(91.47deg, #652D90 14.44%, #D61360 158.5%);
+//     display: flex;
  
-}
+// }
 
 .footer-submit{
   display: flex;
@@ -68,8 +70,9 @@
     background: none;
     color:#652D90;
     
-    width: 85%;
+    align-items: center;
     height: 81%;
+    width:90%
 
     
   }
@@ -110,16 +113,16 @@ min-width: max-content;
 .fourth-design{
     display: flex;
     flex-direction: row;
-    width: 264px;
+    //width: 264px;
     height: 36px;
     padding-right: 12px;
     justify-content: space-between;
     
   .duration{
 
-    width: 126px;
+   // width: 126px;
     //height: 16px;
-    gap: 4px;
+    //gap: 4px;
     display: flex;
     flex-direction: row;
     color: #FFFFFFBD;
@@ -339,7 +342,9 @@ text-align: left;
     background: #E0D5E9;
   }
 
-  ::ng-deep  .p-paginator-next, .p-paginator-last{
-    color:white;
+  ::ng-deep .p-icon {
+    color: white;
   }
+
+ 
 }
