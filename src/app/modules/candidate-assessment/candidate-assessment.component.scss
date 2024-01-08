@@ -85,15 +85,18 @@ color: #FFFFFFBD;
 }
 
 .bottom-part{
-width: 100%;
+  display: flex;
+  flex-direction: column;
+width: 80%;
+margin-left: 235px;
 height: 605px;
 top: 372px;
 padding: 32px, 0px, 32px, 0px;
 gap: 16px;
-margin-right: 0px;
 }
 
 .toast{
+  // margin: 10px 10px 10px 10px;
   // width: 100%;
   width: 1024px;
   height: 56px;
@@ -109,6 +112,7 @@ border-left: 6px solid rgba(22, 102, 220, 1);
 margin-left: auto;
 margin-right: auto;
 margin-top: 25px;
+margin-bottom: 16px;
 }
 
 .toast i{
@@ -144,7 +148,7 @@ border: 28px;
 display: flex;
 width: 100%;
 flex-direction: column;
-align-items: left;
+// align-items: left;
 gap: 8px;
 height: 89px;
 // margin-left: auto;
@@ -160,11 +164,11 @@ height: 89px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  margin-top: 3px;
-  margin-left: auto;
-  margin-right: auto;
+  // margin-top: 3px;
+  // margin-left: auto;
+  // margin-right: auto;
   border: 28px;
-  padding: 14px;
+  // padding: 14px;
 }
 
 .assessment-content{
@@ -176,9 +180,9 @@ font-size: 24px;
 font-weight: 400;
 line-height: 28px;
 letter-spacing: 0px;
-text-align: center;
-margin-left: auto;
-margin-right: auto;
+// text-align: center;
+// margin-left: auto;
+// margin-right: auto;
 // padding: 14px;
 }
 
@@ -188,10 +192,10 @@ gap: 8px;
 display: flex;
 width: 1024px;
 align-items: center;
-margin-left: auto;
-margin-right: auto;
-margin-top: 30px;
-padding: 14px;
+// margin-left: auto;
+// margin-right: auto;
+// margin-top: 30px;
+// padding: 14px;
 
 p{
 color: var(--05-Blue-500, #1666DC);
@@ -208,8 +212,8 @@ line-height: normal;
  display: flex;
  flex-direction: row;
  gap: 2%;
- margin-left: 322px;
- margin-top: 23px;
+//  margin-left: 322px;
+//  margin-top: 23px;
   }
 
 .assessment-card{
