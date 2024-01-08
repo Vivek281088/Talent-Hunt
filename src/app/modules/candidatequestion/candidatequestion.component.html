@@ -1,21 +1,22 @@
 <div class="wholepage">
   <div class="header">
     <div class="header-design">
-      <p>Angular Developer Driver For Delta</p>
+      <p>Angular Developer Drive For Delta</p>
 
-      <p-paginator
+      <p-paginator id="paginator-design"
+      *ngIf="totalQuestions !== undefined"
         (onPageChange)="onPageChange($event)"
         [first]="first"
         [rows]="rows"
-        [totalRecords]="120"
+        [totalRecords]="totalQuestions"
       ></p-paginator>
       <div class="fourth-design">
         <div class="duration">
-          <!-- <svg xmlns="http://www.w3.org/2000/svg"  fill="#FFFFFFBD" class="duration-svg">
+          <svg xmlns="http://www.w3.org/2000/svg"  fill="#FFFFFFBD" class="duration-svg">
                           <path d="M9.10001 9.84967C9.20001 9.94967 9.31668 9.99967 9.45001 9.99967C9.58334 9.99967 9.70557 9.94412 9.81668 9.83301C9.92779 9.7219 9.98612 9.59412 9.99168 9.44967C9.99723 9.30523 9.94446 9.18301 9.83334 9.08301L7.55001 6.79967V3.93301C7.55001 3.79967 7.50279 3.68579 7.40834 3.59134C7.3139 3.4969 7.19445 3.44967 7.05001 3.44967C6.90557 3.44967 6.78612 3.4969 6.69168 3.59134C6.59723 3.68579 6.55001 3.80523 6.55001 3.94967V6.99967C6.55001 7.06634 6.56112 7.12745 6.58334 7.18301C6.60557 7.23856 6.6389 7.29412 6.68334 7.34967L9.10001 9.84967ZM7.00001 13.6663C6.0889 13.6663 5.22779 13.4913 4.41668 13.1413C3.60557 12.7913 2.89723 12.3136 2.29168 11.708C1.68612 11.1025 1.20834 10.3941 0.858343 9.58301C0.508343 8.7719 0.333344 7.91079 0.333344 6.99967C0.333344 6.08856 0.508343 5.22745 0.858343 4.41634C1.20834 3.60523 1.68612 2.8969 2.29168 2.29134C2.89723 1.68579 3.60557 1.20801 4.41668 0.858008C5.22779 0.508008 6.0889 0.333008 7.00001 0.333008C7.91112 0.333008 8.77223 0.508008 9.58334 0.858008C10.3945 1.20801 11.1028 1.68579 11.7083 2.29134C12.3139 2.8969 12.7917 3.60523 13.1417 4.41634C13.4917 5.22745 13.6667 6.08856 13.6667 6.99967C13.6667 7.91079 13.4917 8.7719 13.1417 9.58301C12.7917 10.3941 12.3139 11.1025 11.7083 11.708C11.1028 12.3136 10.3945 12.7913 9.58334 13.1413C8.77223 13.4913 7.91112 13.6663 7.00001 13.6663ZM7.00001 12.6663C8.55557 12.6663 9.8889 12.1108 11 10.9997C12.1111 9.88856 12.6667 8.55523 12.6667 6.99967C12.6667 5.44412 12.1111 4.11079 11 2.99967C9.8889 1.88856 8.55557 1.33301 7.00001 1.33301C5.44445 1.33301 4.11112 1.88856 3.00001 2.99967C1.8889 4.11079 1.33334 5.44412 1.33334 6.99967C1.33334 8.55523 1.8889 9.88856 3.00001 10.9997C4.11112 12.1108 5.44445 12.6663 7.00001 12.6663Z" fill="white" fill-opacity="0.74"/>
-                        </svg> -->
+                        </svg> 
 
-          <svg
+           <!-- <svg
             id="svg_design"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -29,15 +30,12 @@
               fill="white"
               fill-opacity="0.74"
             />
-          </svg>
+          </svg>  -->
           <p>Duration:{{ formatTime(remainingTime) }}</p>
-        </div>
+        </div> 
 
         <div class="button-designs">
-          <p-button
-            (click)="confirmPosition('top')"
-            label="Exit Session"
-          ></p-button>
+          <p-button label="Exit Session" (click)="exit()"></p-button>
         </div>
       </div>
     </div>
@@ -166,7 +164,25 @@
       </div>
   </div>
 </div>
+
+<div class="footer-submit">
+  <div class="previewnext">
+    <p-button [disabled]="page==0" icon="pi pi-chevron-left" label="prev" (click)="prev()"></p-button>
+    
+    <p-chip id="chip-design"> {{page+1}}/{{totalQuestions}}</p-chip>
+
+    <p-button  [disabled]="page==totalQuestions-1" icon="pi pi-chevron-right"  label="next" iconPos="right" (click)="next()" ></p-button>
+  </div>
+  <div class="submitbutton">
+    <p-toast></p-toast>
+  <p-button (click)="confirmPosition('top')">submit</p-button>
+</div>
+</div>
+ 
+
+
 <p-confirmDialog
+  class="confirm-design"
   [style]="{ width: '40vw' }"
   key="positionDialog"
   [position]="position"
