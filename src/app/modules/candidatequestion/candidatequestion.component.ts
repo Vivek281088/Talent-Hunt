@@ -84,8 +84,14 @@ onBlur(event: FocusEvent): void {
     private candidateService: CandidateAssessmentService,
     private cdr: ChangeDetectorRef,
     
-    private router: Router
-  ) {}
+    private router: Router,
+    
+  ) {if (typeof sessionStorage !== 'undefined') {
+    // Your sessionStorage code here
+    console.log("errorr","sessionstorage");
+  } else {
+    console.error('sessionStorage is not supported.');
+  }}
   ngAfterViewInit(): void {
     console.log("error page " , this.totalQuestions);
     this.totalQuestions = this.previewOptions.length;
@@ -102,6 +108,7 @@ onBlur(event: FocusEvent): void {
     if (storedOptions) {
       this.selectedOptions1 = JSON.parse(storedOptions);
       console.log("suki",this.selectedOptions1);
+      
     }
 
     
@@ -195,7 +202,9 @@ onBlur(event: FocusEvent): void {
   
   updateSessionStorage() {
     // Store the selected options in session storage
+    console.log('Before setting:', sessionStorage.getItem('selectedOptions'));
     sessionStorage.setItem('selectedOptions', JSON.stringify(this.selectedOptions1));
+    console.log('After setting:', sessionStorage.getItem('selectedOptions'));
   }
   
 
