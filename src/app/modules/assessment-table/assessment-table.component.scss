@@ -278,6 +278,10 @@
   width: 100%;
   height:541px;
   padding: 16px 5px 16px 16px;
+  ::ng-deep .card {
+     
+      box-shadow: none;
+  }
 }
 
 .cursor-design {

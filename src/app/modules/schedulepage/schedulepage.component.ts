@@ -435,6 +435,13 @@ export class SchedulepageComponent implements OnInit {
   }
   cancelButton() {
     this.visible = false;
+    this.resetData();
+  }
+  resetData(){
+      this.scheduleName='';
+    this.manager='';
+    this.selectedSkills=[];
+    
   }
   // createButton(scheduleName:string,manager:string,selectedSkill:string,cutOff:number,duration:number){
   // this.router.navigate(['new-schedule'],this.scheduleName,this.manager,this.selectedSkill,this.cutOff,this.duration)
@@ -1142,6 +1149,8 @@ export class SchedulepageComponent implements OnInit {
     console.log('Manager name', this.email_Managername);
     console.log('File name', this.email_Filename);
     console.log('Selected Candidates', this.selectedCandidates);
+    this.showEmailSubmitted();
+
     this.selectedCandidates.forEach((selectedCandidate) => {
       const existingCandidate = this.candidateData.find(
         (candidate: { candidateEmail: any }) =>

@@ -53,7 +53,7 @@
 .Newschedule-button {
   margin-top: 10px;
   display: flex;
-flex-direction: row;
+  flex-direction: row;
   border-radius: 4px;
   border: 1px;
   justify-content: space-between;
@@ -964,6 +964,18 @@ body {
     .p-dialog .p-dialog-footer {
       padding: 12px;
     }
+    .p-multiselect.p-multiselect-chip
+      .p-multiselect-token
+      .p-multiselect-token-icon {
+      display: none;
+    }
+    .p-multiselect.p-multiselect-chip .p-multiselect-token {
+      background: #00000061;
+      color: white;
+      border-radius: 16px;
+      font-size: 90%;
+      padding: 1% 2% 2% 2%;
+    }
   }
   .labelvalue {
     display: flex;
@@ -1031,6 +1043,18 @@ body {
     }
     .p-dialog .p-dialog-content {
       padding: 0 1.5rem 0rem 1.5rem;
+    }
+    .p-multiselect.p-multiselect-chip
+      .p-multiselect-token
+      .p-multiselect-token-icon {
+      display: none;
+    }
+    .p-multiselect.p-multiselect-chip .p-multiselect-token {
+      background: #00000061;
+      color: white;
+      border-radius: 16px;
+      font-size: 90%;
+      padding: 1.5% 2% 2% 2%;
     }
   }
 }

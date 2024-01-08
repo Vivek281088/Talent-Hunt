@@ -72,6 +72,7 @@
       </svg>
  
  
+      <p-toast></p-toast>
       <div class="newSchedule-Dialog">
         <p-dialog
                       header="New Schedule"
@@ -147,7 +148,7 @@
  
                       <ng-template pTemplate="footer">
                         <div class="Newschedule-button">
-                          <div class="Cancelbutton">
+                          <div class="Cancelbutton" *ngIf="!isEditSchedule">
                             <p-button
                               label="Cancel"
                               [outlined]="true"
@@ -471,9 +472,9 @@
           <label>Option</label>
           <span class="important-symbol">&#42;</span>
         </div>
-        <div class="value" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
+        <div class="valueedit" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
 
-          <label for="answer{{ i }}" class="title">{{ letter }}</label>
+          <label for="answer{{ i }}" class="title">{{ letter }} </label>
           <input
           type="text"
           pInputText
@@ -490,7 +491,7 @@
           <label>Answer</label>
           <span class="important-symbol">&#42;</span>
         </div>
-        <div class="value" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
+        <div class="valueans" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
           <ng-container
             *ngIf="questionTypeSelected === 'Radio'; else checkboxBlock"
           >

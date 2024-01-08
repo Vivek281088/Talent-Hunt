@@ -159,7 +159,6 @@
                             <p-dropdown
                               [options]="managerData"
                               placeholder=""
-                              [editable]="true"
                               optionLabel=""
                               [(ngModel)]="manager"
                               appendTo="body"
@@ -173,15 +172,7 @@
                             <span class="important-symbol">&#42;</span>
                           </div>
                           <div class="value">
-                            <p-multiSelect
-                              [options]="skillSet"
-                              placeholder=""
-                              optionLabel=""
-                              display="chip"
-                              [showClear]="true"
-                              [(ngModel)]="selectedSkills"
-                              appendTo="body"
-                            ></p-multiSelect>
+                            <p-multiSelect [options]="skillSet" [(ngModel)]="selectedSkills" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
                           </div>
                         </div>
 
@@ -482,15 +473,7 @@
   >
     <div class="wholedialog">
       <div class="dialogcontent">
-        <p-multiSelect
-          [options]="candidateData"
-          optionLabel="candidateName"
-          [(ngModel)]="selectedCandidates"
-          placeholder="Select Candidate"
-          display="chip"
-          [showClear]="true"
-          appendTo="body"
-        ></p-multiSelect>
+        <p-multiSelect [options]="candidateData" optionLabel="candidateName" [(ngModel)]="selectedCandidates" placeholder="Select Candidate" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
       </div>
       <div class="btnfooter">
         <div class="custom_button">

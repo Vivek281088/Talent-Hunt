@@ -5,7 +5,7 @@ import {
   QueryList,
   ChangeDetectorRef,
 } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
@@ -60,8 +60,9 @@ export class NewScheduleComponent {
   singleQuestion: any;
   singleQuestionOption : any
   singleQuestionAnswer : any;
-  QuestionView:boolean=false
-  question!:string
+  QuestionView:boolean=false;
+  question!:string;
+  isEditSchedule:boolean=false;
 
   // @ViewChild('yourTable')yourTable:Table | undefined;
 
@@ -84,6 +85,7 @@ export class NewScheduleComponent {
     private ngzone: NgZone,
     private cdr: ChangeDetectorRef,
     private managernameService: ManagernameService,
+    private messageService: MessageService,
     private router: Router
   ) {
     // this.data=this.dataservice.sharedData;
@@ -269,6 +271,15 @@ export class NewScheduleComponent {
       this.selectedQuestion = [];
     }
   }
+  showUpdateMessage() {
+    this.messageService.add({
+      severity: 'success',
+
+      summary: 'Success',
+
+      detail: 'Question Updated Successfully',
+    });
+  }
   //
   processTotalQuestions() {
     // console.log("vara edit",this.slectedquestionforedit)
@@ -394,12 +405,17 @@ export class NewScheduleComponent {
     return frontendValue;
   }
   updateQuestionView(){
+    this.showUpdateMessage();
     console.log("dd=>>>>>>>>>>>>>>>>>>",this.difficultyLevel)
    this.difficultyLevel=this.getBackendDifficultyLevel(this.Difficulty_Level)
     this.skillsdropdownservice.updateQuestion(this.id,this.question,this.questionTypeSelected,this.choices,this.skills,this.difficultyLevel,this.answer).subscribe((response)=>{
 
                 console.log("updateQuestionView response",response)
-                this.QuestionView=false
+                setTimeout(()=>{
+                  this.QuestionView=false;
+                  window.location.reload();
+                },1000);
+                
     })
 
   }
@@ -414,6 +430,7 @@ export class NewScheduleComponent {
 
   editicon() {
     this.visible = true;
+    this.isEditSchedule = true;
   }
   cancelQuestionView(){
     this.QuestionView=false
