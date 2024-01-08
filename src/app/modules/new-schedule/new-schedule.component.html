@@ -208,12 +208,172 @@
         
       </p-dialog>
     </div>
+    <!--Individual Question View-->
+    <div class="newSchedule-Dialog"> 
+      <p-dialog
+      header="New Schedule"
+      [(visible)]="QuestionView"
+      [modal]="true"
+      [style]="{ width: '47VW' }"
+      [draggable]="false"
+      [resizable]="false"
+     >
+     <!-- <hr class="line"> -->
+
+    
+
+
+      <div class="NewSchedule-content">
+        <div class=" ScheduleName">
+          
+          <label>Question</label>
+        
+          <svg
+            width="5"
+            height="6"
+            viewBox="0 0 5 6"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
+              fill="#EE4555"
+            />
+          </svg>
+
+          <div class="newSchedule-card flex justify-content-left schedule-Input" style="width: 50vh;">
+            <input type="text" pInputText  [(ngModel)]="question"/>
+          </div>
+        </div>
+        <div class=" Manager">
+          <label >QuestionType</label>
+          
+          <svg
+            width="5"
+            height="6"
+            viewBox="0 0 5 6"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
+              fill="#EE4555"
+            />
+          </svg>
+          <!-- <div class="card flex justify-content-left schedule-Input">
+            <!-- <input type="text" pInputText  />
+           -->
+
+            <!---manager--->
+          <!-- </div> -->
+           <div class="newSchedule-card flex justify-content-left schedule-Input">
+            <!-- <input type="text" pInputText  [(ngModel)]="questionType"/> -->
+     
+          <p-dropdown
+          appendTo="body"
+          class="w-full table_dropdown"
+          placeholder="--Select--"
+          [options]="questionType"
+          [(ngModel)]="questionTypeSelected"
+          >
+          <!-- [disabled]="isViewingQuestion" -->
+        </p-dropdown>
+        </div>
+        </div>
+   
+       
+       
+        <div >
+          <div class="cutoff">
+            <label >Options</label>
+            
+            <svg
+              width="5"
+              height="6"
+              viewBox="0 0 5 6"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
+                fill="#EE4555"
+              />
+            </svg>
+            <div class="card flex justify-content-bottom">
+            <h4 *ngIf="choice1"> A:</h4> <input type="text" pInputText [(ngModel)]="choice1" *ngIf="choice1"/>
+             <h4 *ngIf="choice2">B:</h4><input type="text" pInputText [(ngModel)]="choice2" *ngIf="choice2"/>
+             <h4 *ngIf="choice3">C:</h4><input type="text" pInputText [(ngModel)]="choice3" *ngIf="choice3"/>
+             <h4 *ngIf="choice4">D:</h4><input type="text" pInputText [(ngModel)]="choice4" *ngIf="choice4"/>
+            </div>
+          </div>
+       
+       
+       
+         </div>
+    <div >
+      <label>Difficulty Level</label>
+      
+      <svg
+        width="5"
+        height="6"
+        viewBox="0 0 5 6"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0.755859 4.85156L1.93359 3.23438L0.164062 2.70703L0.439453 1.82812L2.20898 2.47852L2.15625 0.462891H3.04688L2.98828 2.51367L4.73438 1.86328L5.00391 2.75977L3.20508 3.29297L4.35938 4.88086L3.63281 5.42578L2.54883 3.73828L1.48828 5.38477L0.755859 4.85156Z"
+          fill="#EE4555"
+        />
+      </svg>
+       <div class="card flex ">
+        <!-- <input type="text" pInputText [(ngModel)]="Difficulty_Level" />
+         -->
+         <p-dropdown
+         appendTo="body"
+         class="w-full table_dropdown"
+         placeholder="--Select--"
+         [options]="difficultyLevel"
+         [(ngModel)]="Difficulty_Level"
+         >
+         <!-- [disabled]="isViewingQuestion" -->
+       </p-dropdown>
+      </div>
+
+    </div>
+       
+      </div>
+
+      <ng-template pTemplate="footer">
+        <div class="Newschedule-button">
+          <div class="Cancelbutton">
+            <p-button  [outlined]="true" (onClick)="cancelQuestionView()" >
+              <label class="cancel-word">
+                Cancel
+
+              </label>
+            </p-button>
+
+          </div>
+         <div class="Createbutton">
+          <p-button (click)="updateQuestionView()"> 
+            <label class="Create-word">
+              Update
+            </label>
+          </p-button>
+
+         </div>
+   
+        </div>
+    </ng-template>
+      
+    </p-dialog>
+  </div>
     </div>
   </div>
 
   
     <div class="tabview-count">
-      <!-- {{tabs | json}} -->
+     
       <div class="tabview">
         <p-tabView >
           <p-tabPanel *ngFor="let tab of tabs"  [header]="tab.title" >
@@ -297,7 +457,7 @@
                     <td >
                       <input type="checkbox" [value]="rowData" [checked]="rowData.selection"  (click)="toggleSelection(rowData)"> 
                     </td>
-                    <td class="questiontext">{{ rowData.question }}</td>
+                    <td class="questiontext" >{{ rowData.question }}</td>
                     <td class="optiontext">{{ rowData.questionType }}</td>
                     <td class="optiontext">{{ rowData.options.length }} Choices</td>
                     <td class="optiontext">{{ rowData.Difficulty_Level }}</td>
@@ -311,6 +471,7 @@
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                             style="cursor: pointer"
+                            (click)="individualQuestionView(rowData.id,rowData.question,rowData.questionType,rowData.options,rowData.skills,rowData.Difficulty_Level,rowData.answer)"
                           >
                             <path
                               d="M3.375 14.625H4.2L12.5062 6.31877L11.6812 5.49377L3.375 13.8V14.625ZM14.8875 5.51252L12.4875 3.11252L13.275 2.32502C13.4875 2.11252 13.7531 2.0094 14.0719 2.01565C14.3906 2.0219 14.6563 2.13127 14.8688 2.34377L15.675 3.15002C15.8875 3.36252 15.9938 3.62502 15.9938 3.93752C15.9938 4.25002 15.8875 4.51252 15.675 4.72502L14.8875 5.51252ZM2.8125 15.75C2.65 15.75 2.51563 15.6969 2.40938 15.5906C2.30313 15.4844 2.25 15.35 2.25 15.1875V13.575C2.25 13.5 2.2625 13.4313 2.2875 13.3688C2.3125 13.3063 2.35625 13.2438 2.41875 13.1813L11.7 3.90002L14.1 6.30002L4.81875 15.5813C4.75625 15.6438 4.69375 15.6875 4.63125 15.7125C4.56875 15.7375 4.5 15.75 4.425 15.75H2.8125ZM12.0938 5.90627L11.6812 5.49377L12.5062 6.31877L12.0938 5.90627Z"
