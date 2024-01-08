@@ -39,7 +39,7 @@ export class CandidateAssessmentComponent implements AfterViewInit{
     }
 
     cancelButton(){
-
+      this.visible = false;
     }
 
     startAssessment(){
