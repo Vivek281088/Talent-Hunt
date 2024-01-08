@@ -194,10 +194,11 @@
           <th>Manager</th>
 
           <th>Assessment</th>
-          <th>Date</th>
+          
           <th>Skills</th>
           <th>Result</th>
           <th>Score(%)</th>
+          <th></th>
           <th></th>
         </tr>
       </ng-template>
@@ -208,7 +209,6 @@
           <td>{{ rowData.candidateName }}</td>
           <td>{{ rowData.email_Managername }}</td>
           <td class="assessmentName">{{ rowData.email_Filename }}</td>
-          <td>{{ rowData.Managername }}</td>
 
           <td class="skills">
             <span *ngFor="let item of getFormattedSkills(rowData.Skill).skills">

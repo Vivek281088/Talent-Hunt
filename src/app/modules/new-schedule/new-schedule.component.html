@@ -244,7 +244,7 @@
  
                 <ng-template pTemplate="body" let-rowData>
                   <tr>
-                    <td >
+                    <td class="checkboxcell">
                       <input type="checkbox" [value]="rowData" [checked]="rowData.selection"  (click)="toggleSelection(rowData)" class="custom-checkbox">
                     </td>
                     <td class="questiontext">{{ rowData.question }}</td>

@@ -162,6 +162,7 @@
                               [editable]="true"
                               optionLabel=""
                               [(ngModel)]="manager"
+                              appendTo="body"
                             ></p-dropdown>
                           </div>
                         </div>
@@ -473,7 +474,7 @@
 </div>
 
 
-
+<p-toast></p-toast>
 <div class="sendinvite">
   <p-dialog
     [visible]="sendQuestionCardVisible"

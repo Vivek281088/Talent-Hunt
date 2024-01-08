@@ -1185,7 +1185,6 @@ export class SchedulepageComponent implements OnInit {
         }, 1500);
       }
     });
-    this.showEmailSubmitted();
   }
 
   closeInviteDialog() {
