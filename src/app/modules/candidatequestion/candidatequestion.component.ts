@@ -101,7 +101,7 @@ onBlur(event: FocusEvent): void {
     const storedOptions = sessionStorage.getItem('selectedOptions');
     if (storedOptions) {
       this.selectedOptions1 = JSON.parse(storedOptions);
-      console.log("suki",this.selectedOptions1);
+      console.log("Selected Option",this.selectedOptions1);
     }
 
     
@@ -121,6 +121,12 @@ onBlur(event: FocusEvent): void {
     // this.previewOptions = this.assessmentData[0].questions;
     // console.log('Assessment Questions', this.previewOptions);
     // this.selectedOptions1 = this.previewOptions.map(() => []);
+    // this.totalQuestions=this.previewOptions.length;
+    //     console.log("Count Total Quest-",this.totalQuestions)
+    //     this.updateSessionStorage();
+      
+    //     console.log('uygvctytfcfv', this.selectedOptions1);
+
     
     // this.candidateService
     //   .getCandidatedata_by_Email(this.candidateEmail)
