@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
+
 
 import { ManagernameService } from 'src/app/services/managername.service';
 
@@ -13,6 +14,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ReviewerService } from 'src/app/services/reviewer.service';
+import { Toast } from 'ngx-toastr';
 
 @Component({
   selector: 'app-candidatequestion',
@@ -20,7 +22,20 @@ import { ReviewerService } from 'src/app/services/reviewer.service';
   styleUrls: ['./candidatequestion.component.scss'],
   providers: [ConfirmationService, MessageService],
 })
-export class CandidatequestionComponent implements OnInit {
+export class CandidatequestionComponent implements OnInit,AfterViewInit {
+
+  @HostListener('window:focus', ['$event'])
+onFocus(event: FocusEvent): void {
+  // Tab is in focus
+}
+
+@HostListener('window:blur', ['$event'])
+onBlur(event: FocusEvent): void {
+  // Tab is blurred (inactive)
+
+  console.warn('Warning: Please do not switch tabs during the test.');
+}
+
   position: string = 'center';
   remainingTime: number = 0;
   remainingTimeString: string = '';
@@ -45,6 +60,7 @@ export class CandidatequestionComponent implements OnInit {
   duration!: number;
 
   assessmentData: any;
+  totalQuestions!:number;
   assessmentQuestions: any;
   previewOptions: any;
   endTime!: Date;
@@ -67,14 +83,34 @@ export class CandidatequestionComponent implements OnInit {
     private reviewerService: ReviewerService,
     private candidateService: CandidateAssessmentService,
     private cdr: ChangeDetectorRef,
+    
     private router: Router
   ) {}
+  ngAfterViewInit(): void {
+    console.log("error page " , this.totalQuestions);
+    this.totalQuestions = this.previewOptions.length;
+
+     // Update session storage after the view has been initialized
+    this.updateSessionStorage();
+  
+  }
 
   // In your component class
   ngOnInit(): void {
+
+    const storedOptions = sessionStorage.getItem('selectedOptions');
+    if (storedOptions) {
+      this.selectedOptions1 = JSON.parse(storedOptions);
+      console.log("suki",this.selectedOptions1);
+    }
+
+    
     this.startTime = new Date();
-    // this.remainingTime = this.duration * 60;
-    this.remainingTime = 400;
+    this.duration=10;
+    
+    this.remainingTime = this.duration * 60;
+
+    //this.remainingTime = 400;
 
     this.updateTimer();
     this.candidateService
@@ -86,8 +122,16 @@ export class CandidatequestionComponent implements OnInit {
         this.previewOptions = this.assessmentData.questions;
         this.selectedOptions1 = this.previewOptions.map(() => []);
         console.log('questions-----', this.previewOptions[0].options);
+        
+        this.totalQuestions=this.previewOptions.length;
+        console.log("error",this.totalQuestions)
         // this.candidateName = response[0].candidateName;
+        this.totalQuestions = this.previewOptions.length;
         // console.log('candidateName', this.candidateName);
+        console.log("sapna",this.totalQuestions);
+        this.updateSessionStorage();
+      
+        console.log('uygvctytfcfv', this.selectedOptions1);
       });
   }
   // selectOption(option : string , pageIndex :number , optionIndex : number){
@@ -95,31 +139,65 @@ export class CandidatequestionComponent implements OnInit {
   //   this.selectedOptions1[pageIndex][optionIndex] = option;
   // }
 
+
+ 
+
+  // selectOption(option: string, pageIndex: number, optionIndex: number) {
+  //   //debugger;
+  //   console.log('Selected Option', this.previewOptions);
+  //   console.log('asdjbvahbvhabvahbvahbvhv', option, pageIndex, optionIndex);
+
+  //   if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
+  //     console.log('checkbox inside');
+  //     // Toggle checkbox option
+  //     const isSelected = this.selectedOptions1[pageIndex].includes(option);
+  //     if (isSelected) {
+  //       this.selectedOptions1[pageIndex] = this.selectedOptions1[
+  //         pageIndex
+  //       ].filter((selected: any) => selected !== option);
+  //     } else {
+  //       console.log('inside else');
+  //       console.log('page index ????', pageIndex);
+  //       console.log('else option', option);
+  //       this.selectedOptions1[pageIndex].push(option);
+  //       console.log(this.selectedOptions1);
+  //     }
+  //   } else {
+  //     // Radio option (single selection)
+  //     this.selectedOptions1[pageIndex] = option;
+  //   }
+  //   console.log('uygvctytfcfv', this.selectedOptions1);
+  // }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
-    //debugger;
     console.log('Selected Option', this.previewOptions);
     console.log('asdjbvahbvhabvahbvahbvhv', option, pageIndex, optionIndex);
+  
     if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
       console.log('checkbox inside');
       // Toggle checkbox option
       const isSelected = this.selectedOptions1[pageIndex].includes(option);
       if (isSelected) {
-        this.selectedOptions1[pageIndex] = this.selectedOptions1[
-          pageIndex
-        ].filter((selected: any) => selected !== option);
+        this.selectedOptions1[pageIndex] = this.selectedOptions1[pageIndex].filter((selected: any) => selected !== option);
       } else {
         console.log('inside else');
         console.log('page index ????', pageIndex);
         console.log('else option', option);
         this.selectedOptions1[pageIndex].push(option);
-        console.log(this.selectedOptions1);
       }
     } else {
       // Radio option (single selection)
       this.selectedOptions1[pageIndex] = option;
     }
-    console.log('uygvctytfcfv', this.selectedOptions1);
+    
+    // Update session storage
+   
   }
+  
+  updateSessionStorage() {
+    // Store the selected options in session storage
+    sessionStorage.setItem('selectedOptions', JSON.stringify(this.selectedOptions1));
+  }
+  
 
   toggleColor(boxNumber: number, page: number) {
     if (
@@ -148,15 +226,57 @@ export class CandidatequestionComponent implements OnInit {
         }
         this.cdr.detectChanges();
       } else {
+        console.log("remaining",this.remainingTime)
         clearInterval(timerInterval); // Stop the timer
         this.submitAnswers(); // Automatically submit the answers
       }
     }, 1000); // 1000 milliseconds = 1 second
   }
+
+  exit(){
+    this.router.navigate(['/login']);
+
+  }
+  prev()
+  {
+    console.log("prev","previous function called");
+   if(this.first >= this.rows){
+    this.page-=1;
+    this.first -= this.rows;
+    debugger;
+   }
+    
+    }
+  
+       
+    
+    
+  
+
+    
+    
+    
+  
+
+  next(){
+
+
+
+   { 
+    console.log("next","nextfunction called");
+    this.page+=1;
+    
+    this.first +=1;
+    
+  }
+}
   submitAnswers() {
     console.log('submit function');
+   
     this.endTime = new Date();
     this.reviewQuestion();
+    this.router.navigate(['/login']);
+
   }
   reviewQuestion() {
     this.countCorrectQues = 0;
@@ -241,7 +361,7 @@ export class CandidatequestionComponent implements OnInit {
   }
 
   formatTime(seconds: number): string {
-    seconds = 120;
+    
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
@@ -263,9 +383,14 @@ export class CandidatequestionComponent implements OnInit {
         this.messageService.add({
           severity: 'info',
           summary: 'Confirmed',
-          detail: 'Record deleted',
+          detail: 'Submitted',
         });
         this.submitAnswers();
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+        
+        
         console.log('Submitted');
       },
       reject: (type: ConfirmEventType) => {
