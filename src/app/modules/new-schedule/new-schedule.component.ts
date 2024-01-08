@@ -338,6 +338,7 @@ export class NewScheduleComponent {
   choice2!:any
   choice3!:any
   choice4!:any
+  options! : any;
   Difficulty_Level!:any
   id!:any
   answer!:any
@@ -347,16 +348,18 @@ export class NewScheduleComponent {
   questionType: any = ['Radio', 'Checkbox', 'Text'];
   questionTypeSelected!:any
   isViewingQuestion:boolean=false
+
   individualQuestionView(id:any,question:any,questionTypeSelected:any,choices:any,skills:any,Difficulty_Level:any,answer:any){
     this.QuestionView=true
     this.id=id
     this.question=question
     this.questionTypeSelected=questionTypeSelected
-    this.choices=choices
-    this.choice1=choices[0]
-    this.choice2=choices[1]
-    this.choice2=choices[2]
-    this.choice2=choices[3]
+    // this.options=choices;
+    this.choices=choices;
+    // this.choice1=choices[0]
+    // this.choice2=choices[1]
+    // this.choice3=choices[2]
+    // this.choice4=choices[3]
     this.Difficulty_Level=this.getBackendDifficultyLevelViceVersa(
       Difficulty_Level
     );

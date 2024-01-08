@@ -261,6 +261,7 @@
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                             style="cursor: pointer"
+                            (click)="individualQuestionView(rowData.id,rowData.question,rowData.questionType,rowData.options,rowData.skills,rowData.Difficulty_Level,rowData.answer)"
                             
                           >
                             <path
@@ -404,4 +405,129 @@
     </ng-template>
     
   </p-sidebar>
+</div>
+
+<div class="newSchedule-Dialog">
+  <p-dialog
+    header="New Schedule"
+    [(visible)]="QuestionView"
+    [modal]="true"
+    [style]="{ width: '47VW' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="NewSchedule-content">
+      <div class="labelvalue">
+        <div class="label">
+          <label>Question</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input type="text" pInputText [(ngModel)]="question" />
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>QuestionType</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <p-dropdown
+            appendTo="body"
+            class="w-full table_dropdown"
+            placeholder="--Select--"
+            [options]="questionType"
+            [(ngModel)]="questionTypeSelected"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Difficulty Level</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <p-dropdown
+            appendTo="body"
+            class="w-full table_dropdown"
+            placeholder="--Select--"
+            [options]="difficultyLevel"
+            [(ngModel)]="Difficulty_Level"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+
+
+      <div class="labelvalue"
+      *ngIf="
+      questionTypeSelected === 'Radio' ||
+      questionTypeSelected === 'Checkbox'
+    ">
+        <div class="label">
+          <label>Option</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
+
+          <label for="answer{{ i }}" class="title">{{ letter }}</label>
+          <input
+          type="text"
+          pInputText
+          [(ngModel)]="choices[i]"
+        />
+        </div>
+      </div>
+
+      <div class="labelvalue"*ngIf="
+      questionTypeSelected === 'Radio' ||
+      questionTypeSelected === 'Checkbox'
+    ">
+        <div class="label">
+          <label>Answer</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
+          <ng-container
+            *ngIf="questionTypeSelected === 'Radio'; else checkboxBlock"
+          >
+            <p-radioButton
+              [(ngModel)]="answer"
+              [value]="choices[i]"
+              required
+            ></p-radioButton>
+          </ng-container>
+          <ng-template #checkboxBlock>
+            <p-checkbox
+              [(ngModel)]="answer"
+              [value]="choices[i]"
+            ></p-checkbox>
+          </ng-template>
+
+          <label for="answer{{ i }}" class="title">{{ letter }}</label>
+        </div>
+      </div>
+
+      
+
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="Newschedule-button">
+        <div class="Cancelbutton">
+          <p-button [outlined]="true" (onClick)="cancelQuestionView()">
+            <label class="cancel-word"> Cancel </label>
+          </p-button>
+        </div>
+        <div class="Createbutton">
+          <p-button (click)="updateQuestionView()">
+            <label class="Create-word"> Update </label>
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
 </div>
