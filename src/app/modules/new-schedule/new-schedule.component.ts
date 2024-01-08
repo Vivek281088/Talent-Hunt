@@ -60,7 +60,8 @@ export class NewScheduleComponent {
   singleQuestion: any;
   singleQuestionOption : any
   singleQuestionAnswer : any;
- 
+  QuestionView:boolean=false
+  question!:string
 
   // @ViewChild('yourTable')yourTable:Table | undefined;
 
@@ -331,8 +332,75 @@ export class NewScheduleComponent {
       }
     }
   }
+  // questionType!:any
+  choices!:any
+  choice1!:any
+  choice2!:any
+  choice3!:any
+  choice4!:any
+  Difficulty_Level!:any
+  id!:any
+  answer!:any
+  skills!:any
+  difficultyLevel: any= ['Easy', 'Medium', 'Hard'];
 
-  cancelButton() {
+  questionType: any = ['Radio', 'Checkbox', 'Text'];
+  questionTypeSelected!:any
+  isViewingQuestion:boolean=false
+  individualQuestionView(id:any,question:any,questionTypeSelected:any,choices:any,skills:any,Difficulty_Level:any,answer:any){
+    this.QuestionView=true
+    this.id=id
+    this.question=question
+    this.questionTypeSelected=questionTypeSelected
+    this.choices=choices
+    this.choice1=choices[0]
+    this.choice2=choices[1]
+    this.choice2=choices[2]
+    this.choice2=choices[3]
+    this.Difficulty_Level=this.getBackendDifficultyLevelViceVersa(
+      Difficulty_Level
+    );
+    this.skills=skills
+    this.answer=answer
+   
+    console.log("id------------->",id,skills,answer,this.Difficulty_Level)
+    
+
+
+
+  }
+  getBackendDifficultyLevelViceVersa(frontendValue: string): string {
+    if (frontendValue === 'E') {
+      return 'Easy';
+    } else if (frontendValue === 'M') {
+      return 'Medium';
+    } else if (frontendValue === 'H') {
+      return 'Hard';
+    }
+    return frontendValue;
+  }
+  getBackendDifficultyLevel(frontendValue: string): string {
+    console.log('Diff', frontendValue);
+    if (frontendValue === 'Easy') {
+      return 'E';
+    } else if (frontendValue === 'Medium') {
+      return 'M';
+    } else if (frontendValue === 'Hard') {
+      return 'H';
+    }
+    return frontendValue;
+  }
+  updateQuestionView(){
+    console.log("dd=>>>>>>>>>>>>>>>>>>",this.difficultyLevel)
+   this.difficultyLevel=this.getBackendDifficultyLevel(this.Difficulty_Level)
+    this.skillsdropdownservice.updateQuestion(this.id,this.question,this.questionTypeSelected,this.choices,this.skills,this.difficultyLevel,this.answer).subscribe((response)=>{
+
+                console.log("updateQuestionView response",response)
+                this.QuestionView=false
+    })
+
+  }
+  cancelButton(){
     this.router.navigate(['/dashboard']);
     // scheduleName manager cutoff duration
     // localStorage.removeItem("scheduleName")
@@ -344,16 +412,15 @@ export class NewScheduleComponent {
   editicon() {
     this.visible = true;
   }
-  update(
-    scheduleName: string | null,
-    manager: String | null,
-    cutOff: string | number | null,
-    duration: string | number | null
-  ) {
-    this.scheduleName = scheduleName;
-    this.manager = manager;
-    this.cutOff = cutOff;
-    this.duration = duration;
+  cancelQuestionView(){
+    this.QuestionView=false
+  }
+  
+  update(scheduleName: string | null,manager: String | null,cutOff: string | number | null,duration: string | number | null){
+    this.scheduleName=scheduleName
+    this.manager=manager
+    this.cutOff=cutOff
+    this.duration=duration
     this.router.navigate(['new-schedule']);
     this.visible = false;
     console.log('hi');
