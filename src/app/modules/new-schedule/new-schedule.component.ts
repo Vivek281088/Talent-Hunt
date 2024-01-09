@@ -333,12 +333,41 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
       console.error(error);
     }
   }
-
+  //  let increment=0;
+  
   selectAllQuestions(tab: any) {
+    let increment=0
     if (tab && tab.content) {
       tab.content.forEach((question: any) => {
-        question.selection = true;
-      this.selectedquestions.push(question);
+      //   question.selection = true;
+      if(!question.selection){
+        question.selection=true;
+        increment++;
+        
+        this.selectedquestions.push(question);
+
+      }
+      else{
+        if (question.selection) {
+          question.selection = false;
+
+          increment--;
+
+          const index = this.selectedquestions.findIndex(
+            (selectedQuestion) => selectedQuestion.id === question.id
+          );
+
+          if (index !== -1) {
+            this.selectedquestions.splice(index, 1); // Remove the question from the selectedQuestions array
+          }
+        }
+
+      }
+      this.count+=increment;
+
+      if(this.count<0){
+        this.count=0
+      }
 
       });
       this.selectedQuestion = tab.content;
@@ -440,15 +469,15 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
     this.choices=choices
     this.choice1=choices[0]
     this.choice2=choices[1]
-    this.choice2=choices[2]
-    this.choice2=choices[3]
+    this.choice3=choices[2]
+    this.choice4=choices[3]
     this.Difficulty_Level=this.getBackendDifficultyLevelViceVersa(
       Difficulty_Level
     );
     this.skills=skills
     this.answer=answer
    
-    console.log("id------------->",id,skills,answer,this.Difficulty_Level)
+    console.log("id------------->",id,skills,answer,this.Difficulty_Level,choices)
     
 
 
@@ -485,6 +514,9 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
     })
 
   }
+  cancelQuestionView(){
+    this.QuestionView=false
+  }
   cancelButton(){
     this.router.navigate(['/dashboard']);
     // scheduleName manager cutoff duration
@@ -494,9 +526,7 @@ this.selectedquestions = this.selectedquestions.filter(question => question.Sele
     // localStorage.removeItem("duration")
 
   }
-  cancelQuestionView(){
-    this.QuestionView=false
-  }
+ 
   editicon(){
     this.visible=true;
   }
