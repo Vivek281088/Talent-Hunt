@@ -17,7 +17,7 @@
         <p-button label="Cancel" (click)="cancelButton()"> </p-button>
       </div>
       <div class="saveBtn" (click)="saveSelected()">
-        <p-button label="Save Changes" >
+        <p-button label="Save Changes">
           <svg
             width="24"
             height="25"
@@ -39,19 +39,19 @@
     <div class="edit-start">
       <div class="edit-name">
         <label>Schedule Name</label>
-        <p>{{scheduleName}}</p>
+        <p>{{ scheduleName }}</p>
       </div>
       <div class="edit-manager">
         <label>Manager</label>
-        <p>{{manager}}</p>
+        <p>{{ manager }}</p>
       </div>
       <div class="edit-cutoff">
         <label>Cutoff</label>
-        <p>{{cutOff}}</p>
+        <p>{{ cutOff }}</p>
       </div>
       <div class="edit-duration">
         <label>Duration</label>
-        <p>{{duration}}</p>
+        <p>{{ duration }}</p>
       </div>
     </div>
     <div class="edit-end">
@@ -199,28 +199,28 @@
                   'questionType',
                   'Difficulty_Level'
                 ]"
-               
               >
-                <ng-template pTemplate="header">
-                  <tr>
-                    <th colspan="2" class="headerSearch">
-                      <div >
-                        <span class="p-input-icon-left searchicon">
-                          <i class="pi pi-search"></i>
-                          <input
-                            pInputText
-                            type="text"
-                            (input)="
-                              dt2.filterGlobal(
-                                $any($event.target).value,
-                                'contains'
-                              )
-                            "
-                            placeholder="Search"
+        
+              <ng-template pTemplate="header">
+                <tr>
+                  <th colspan="2" class="headerSearch">
+                    <div>
+                      <span class="p-input-icon-left searchicon">
+                        <i class="pi pi-search"></i>
+                        <input
+                          pInputText
+                          type="text"
+                          placeholder="Search"
+                          (input)="
+                            dt2.filterGlobal(
+                              $any($event.target).value,
+                              'contains'
+                            )"
                           />
-                        </span>
-                      </div>
-                    </th>
+                          
+                      </span>
+                    </div>
+                  </th>
                     <th colspan="4">
                       <div class="schedulebuttons">
                         <div class="selectallBtn">

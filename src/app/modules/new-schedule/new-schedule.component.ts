@@ -251,12 +251,42 @@ export class NewScheduleComponent {
       console.error(error);
     }
   }
-
+  //  let increment=0;
+  
   selectAllQuestions(tab: any) {
+    let increment=0
     if (tab && tab.content) {
       tab.content.forEach((question: any) => {
-        question.selection = true;
+      //   question.selection = true;
+      if(!question.selection){
+        question.selection=true;
+        increment++;
+        
         this.selectedquestions.push(question);
+
+      }
+      else{
+        if (question.selection) {
+          question.selection = false;
+
+          increment--;
+
+          const index = this.selectedquestions.findIndex(
+            (selectedQuestion) => selectedQuestion.id === question.id
+          );
+
+          if (index !== -1) {
+            this.selectedquestions.splice(index, 1); // Remove the question from the selectedQuestions array
+          }
+        }
+
+      }
+      this.count+=increment;
+
+      if(this.count<0){
+        this.count=0
+      }
+
       });
       this.selectedQuestion = tab.content;
       console.log(' tab content ', tab.content);
@@ -377,7 +407,7 @@ export class NewScheduleComponent {
     this.skills=skills
     this.answer=answer
    
-    console.log("id------------->",id,skills,answer,this.Difficulty_Level)
+    console.log("id------------->",id,skills,answer,this.Difficulty_Level,choices)
     
 
 
@@ -419,6 +449,9 @@ export class NewScheduleComponent {
     })
 
   }
+  cancelQuestionView(){
+    this.QuestionView=false
+  }
   cancelButton(){
     this.router.navigate(['/dashboard']);
     // scheduleName manager cutoff duration
@@ -431,9 +464,6 @@ export class NewScheduleComponent {
   editicon() {
     this.visible = true;
     this.isEditSchedule = true;
-  }
-  cancelQuestionView(){
-    this.QuestionView=false
   }
   
   update(scheduleName: string | null,manager: String | null,cutOff: string | number | null,duration: string | number | null){
