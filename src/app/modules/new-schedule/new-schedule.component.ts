@@ -183,7 +183,7 @@ export class NewScheduleComponent {
 
   }
   trackByFn(_index: any, item: { id: any }) {
-    return item.id; // Use a unique identifier property of your items
+    return item.id; 
   }
 
   loadManagerNames() {
