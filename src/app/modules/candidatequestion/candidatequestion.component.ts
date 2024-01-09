@@ -141,40 +141,12 @@ onBlur(event: FocusEvent): void {
         console.log('uygvctytfcfv', this.selectedOptions1);
       });
   }
-  // selectOption(option : string , pageIndex :number , optionIndex : number){
-  //   console.log("option " , option)
-  //   this.selectedOptions1[pageIndex][optionIndex] = option;
-  // }
+ 
 
 
  
 
-  // selectOption(option: string, pageIndex: number, optionIndex: number) {
-  //   //debugger;
-  //   console.log('Selected Option', this.previewOptions);
-  //   console.log('asdjbvahbvhabvahbvahbvhv', option, pageIndex, optionIndex);
-
-  //   if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
-  //     console.log('checkbox inside');
-  //     // Toggle checkbox option
-  //     const isSelected = this.selectedOptions1[pageIndex].includes(option);
-  //     if (isSelected) {
-  //       this.selectedOptions1[pageIndex] = this.selectedOptions1[
-  //         pageIndex
-  //       ].filter((selected: any) => selected !== option);
-  //     } else {
-  //       console.log('inside else');
-  //       console.log('page index ????', pageIndex);
-  //       console.log('else option', option);
-  //       this.selectedOptions1[pageIndex].push(option);
-  //       console.log(this.selectedOptions1);
-  //     }
-  //   } else {
-  //     // Radio option (single selection)
-  //     this.selectedOptions1[pageIndex] = option;
-  //   }
-  //   console.log('uygvctytfcfv', this.selectedOptions1);
-  // }
+ 
   selectOption(option: string, pageIndex: number, optionIndex: number) {
     console.log('Selected Option', this.previewOptions);
     console.log('asdjbvahbvhabvahbvahbvhv', option, pageIndex, optionIndex);
@@ -242,10 +214,11 @@ onBlur(event: FocusEvent): void {
     }, 1000); // 1000 milliseconds = 1 second
   }
 
-  exit(){
-    this.router.navigate(['/login']);
+  // exit(){
+  //   this.submitAnswers();
+  //   this.router.navigate(['/login']);
 
-  }
+  // }
   prev()
   {
     console.log("prev","previous function called");
@@ -381,6 +354,53 @@ onBlur(event: FocusEvent): void {
 
     return hoursDisplay + minutesDisplay + secondsDisplay;
   }
+
+
+  confirmExit(position:string){
+    this.position = position;
+
+    this.confirmationService.confirm({
+      message: 'Do you want to exit your session?',
+      header: 'Submit Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'Submitted',
+        });
+        this.submitAnswers();
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+        
+        
+        console.log('Submitted');
+      },
+      reject: (type: ConfirmEventType) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            console.log('Rejected');
+            break;
+          case ConfirmEventType.CANCEL:
+            console.log('Canceled');
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+      key: 'positionDialog',
+    });
+
+  }
   confirmPosition(position: string) {
     this.position = position;
 
@@ -434,25 +454,21 @@ onBlur(event: FocusEvent): void {
     console.log('varun ?????', this.selectedOptions1);
   }
 
-  // =[
+  // previewOptions1:any=[
   //   {
   //     question:{Description :"Which of the following keywords is used to define a variable in Javascript ?", code: "<th>Table Value</th>\n<tr>Sap</tr>"},
   //     options:["var","let","const","None of the above"],
-  //     selectedAnswer:["var","let"],
-  //     questionType:"checkbox"
+  //     selectedAnswer:["var","let"]
   //   },
   //   {
   //     question:{Description :"Which of the following methods is used to access HTML elements using Javascript?", code: "<th>Table Value</th>\n<tr>Sap</tr>"},
   //     options:["getElementbyId()","getElementsByClassName()","Both A and B","None of the above"],
-  //     selectedAnswer:["Both A and B"],
-  //     questionType:"radio"
+  //     selectedAnswer:["Both A and B"]
   //   },
-
   //   {
   //     question:{Description:"When the switch statement matches the expression with the given labels, how is the comparison done?",code: "<th>Table Value</th>\n<tr>Sap</tr>"},
   //     options:["Both the datatype and the result of the expression are compared.","Only the datatype of the expression is compared.","Only the value of the expression is compared.","None of the Above"],
-  //     selectedAnswer:["Both the datatype and the result of the expression are compared.","Only the value of the expression is compared."],
-  //     questionType:"radio"
+  //     selectedAnswer:["Both the datatype and the result of the expression are compared.","Only the value of the expression is compared."]
   //   }
   // ];
 

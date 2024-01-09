@@ -256,16 +256,22 @@ text-align: left;
   
     .option {
       display: flex;
-      width: 647px;
-      height: 222px;
+     // width: 647px;
+     // height: 222px;
       gap: 8px;
     }
   
     .whole-option {
+      // display: flex;
+      // width: 647px;
+      // height: 222px;
+      // gap: 8px;
       display: flex;
-      width: 647px;
-      height: 222px;
-      gap: 8px;
+    flex-direction: row;
+    align-items: baseline;
+    /* width: 647px; */
+    /* height: 222px; */
+    gap: 8px;
     }
     // .option{
     //   input{
@@ -281,8 +287,13 @@ text-align: left;
     // }
   
     .optionDiv {
-      width: 647px;
-      height: 222px;
+      // width: 647px;
+      // height: 222px;
+      border-radius: 5px;
+    /* width: 604px; */
+    /* height: 222px; */
+    padding: 6px;
+    width: 560px;
     }
   
     .highlight {
