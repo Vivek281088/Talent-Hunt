@@ -135,12 +135,9 @@ export class NavbarComponent {
     this.overlayVisible = !this.overlayVisible;
 }
  
- 
 logout(){
   this.authservice.logout();
 }
+ }
  
  
- 
- 
-}

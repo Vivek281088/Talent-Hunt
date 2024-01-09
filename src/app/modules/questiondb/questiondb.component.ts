@@ -67,27 +67,27 @@ export class QuestiondbComponent {
     return skillQuestions.every((question) => question.selected);
   }
 
-  updateQuestions() {
-    const updateData = {
-      id: this.id,
-      question: this.question,
-      questionType: this.selectedQuestionType,
-      options: this.options,
-      skills: this.chosenSkill,
-      Difficulty_Level: this.getBackendDifficultyLevel(
-        this.selectedDifficultyType
-      ),
-      answer: this.selectedAnswer,
-    };
-    console.log('before const data', updateData);
-    this.skillsdropdownservice
+  // updateQuestions() {
+  //   const updateData = {
+  //     id: this.id,
+  //     question: this.question,
+  //     questionType: this.selectedQuestionType,
+  //     options: this.options,
+  //     skills: this.chosenSkill,
+  //     Difficulty_Level: this.getBackendDifficultyLevel(
+  //       this.selectedDifficultyType
+  //     ),
+  //     answer: this.selectedAnswer,
+  //   };
+  //   console.log('before const data', updateData);
+  //   this.skillsdropdownservice
 
-      .updateQuestion(updateData)
+  //     .updateQuestion(updateData)
 
-      .subscribe((response) => {
-        console.log('Question updated successfully', updateData);
-      });
-  }
+  //     .subscribe((response) => {
+  //       console.log('Question updated successfully', updateData);
+  //     });
+  // }
   selectAllChanged(skillKey: any) {
     const skillQuestions = this.totalQuestions[skillKey];
 
@@ -256,44 +256,44 @@ export class QuestiondbComponent {
     this.selectedAnswer = data.answer;
   }
   //question add
-  addQuestion() {
-    if (this.isEditSubmit) {
-      console.log('Inside If---------------->');
-      this.showUpdated();
-      this.updateQuestions();
+  // addQuestion() {
+  //   if (this.isEditSubmit) {
+  //     console.log('Inside If---------------->');
+  //     this.showUpdated();
+  //     this.updateQuestions();
 
-      setTimeout(() => {
-        this.closeDialog();
-        this.submitForm(); //update the display of the table
-        this.resetData();
-      }, 1000);
-    } else {
-      console.log('Inside Else');
-      const backendDifficultyLevel = this.getBackendDifficultyLevel(
-        this.selectedDifficultyType
-      );
+  //     setTimeout(() => {
+  //       this.closeDialog();
+  //       this.submitForm(); //update the display of the table
+  //       this.resetData();
+  //     }, 1000);
+  //   } else {
+  //     console.log('Inside Else');
+  //     const backendDifficultyLevel = this.getBackendDifficultyLevel(
+  //       this.selectedDifficultyType
+  //     );
 
-      this.showSubmitted();
-      this.managernameService
-        .postquestionstodb(
-          this.question,
-          this.selectedQuestionType,
-          this.options,
-          this.chosenSkill,
-          backendDifficultyLevel,
-          this.selectedAnswer
-        )
-        .subscribe((data) => {
-          console.log('hi', data);
-        });
+  //     this.showSubmitted();
+  //     this.managernameService
+  //       .postquestionstodb(
+  //         this.question,
+  //         this.selectedQuestionType,
+  //         this.options,
+  //         this.chosenSkill,
+  //         backendDifficultyLevel,
+  //         this.selectedAnswer
+  //       )
+  //       .subscribe((data) => {
+  //         console.log('hi', data);
+  //       });
 
-      setTimeout(() => {
-        this.closeDialog();
-        this.resetData();
-        this.submitForm();
-      }, 1000);
-    }
-  }
+  //     setTimeout(() => {
+  //       this.closeDialog();
+  //       this.resetData();
+  //       this.submitForm();
+  //     }, 1000);
+  //   }
+  // }
 
   //delete question
   deleteQuestion(data: any) {

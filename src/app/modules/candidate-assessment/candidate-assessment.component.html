@@ -1,17 +1,123 @@
 <div class="top-part">
-  <img class="mtalent-icon" src="../assets\Mtalent-Icon.png" alt="Mtalent-Icon"  />
-<div class="mtalent-heading">
-<p>MTalent</p>
+  <img
+    class="mtalent-icon"
+    src="../assets\Mtalent-Icon.png"
+    alt="Mtalent-Icon"
+  />
+  <div class="mtalent-heading">
+    <p>MTalent</p>
+  </div>
+  <div class="mtalent-slogan">
+    <p>Streamline the Hiring Process</p>
+    <p>Effortlessly Schedule and Assess with MTalent</p>
+  </div>
 </div>
-<div class="mtalent-slogan">
-<p> Streamline the Hiring Process</p>
-  <p>Effortlessly Schedule and Assess with MTalent</p>
-</div>
-</div>
- 
+ <div class="toast">
+    <i class="pi pi-info-circle" style="color: rgba(22, 102, 220, 1)"></i>
+    <p class="text">You have been assigned a new assessment on 23-Dec-2023</p>
+    <i class="pi pi-times" style="color: rgba(22, 102, 220, 1)"></i>
+  </div>
 <div class="bottom-part">
-  <div class="toast">
-    <i class="pi pi-info-circle" style="color:rgba(22, 102, 220, 1);" ></i>
-<p class="text">You have been assigned a new assessment on 23-Dec-2023</p>
-<i class="pi pi-times" style="color:rgba(22, 102, 220, 1);"></i>
+   <div class="instruction">
+    <p class="assessment-heading">Your Assessments</p>
+    <p class="assessment-content">
+      Prepare yourself. Start your assessment from assigned schedule.
+    </p>
+  </div>
+  <div class="goto">
+    <p>Go to my Profile</p>
+    <!-- <p-divider layout="vertical"></p-divider> -->
+    <hr class="verticalline1">
+    <p>Go to my Assessment History</p>
+  </div>
+ 
+  <div class="entire-card">
+    <div class="assessment-card" *ngFor="let data of assessmentData">
+      <div class="card-top">
+        <div class="heading">ONLINE ASSESSMENT</div>
+        <div class="card-title">
+          <h4>{{data.email_Filename}}</h4>
+        </div>
+        <div class="skillcard" >
+          <span *ngFor="let skill of data.skill">
+             <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
+          </span>
+        </div>
+      </div>
+ 
+      <div class="card-bottom">
+        <div class="test-details">
+          <div class="card-bottom-lines">
+              <svg class="imgclass" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M10.1 10.8497C10.2 10.9497 10.3166 10.9997 10.45 10.9997C10.5833 10.9997 10.7055 10.9441 10.8166 10.833C10.9278 10.7219 10.9861 10.5941 10.9916 10.4497C10.9972 10.3052 10.9444 10.183 10.8333 10.083L8.54998 7.79967V4.93301C8.54998 4.79967 8.50276 4.68579 8.40831 4.59134C8.31387 4.4969 8.19442 4.44967 8.04998 4.44967C7.90554 4.44967 7.78609 4.4969 7.69165 4.59134C7.5972 4.68579 7.54998 4.80523 7.54998 4.94967V7.99967C7.54998 8.06634 7.56109 8.12745 7.58331 8.18301C7.60554 8.23856 7.63887 8.29412 7.68331 8.34967L10.1 10.8497ZM7.99998 14.6663C7.08887 14.6663 6.22776 14.4913 5.41665 14.1413C4.60554 13.7913 3.8972 13.3136 3.29165 12.708C2.68609 12.1025 2.20831 11.3941 1.85831 10.583C1.50831 9.7719 1.33331 8.91079 1.33331 7.99967C1.33331 7.08856 1.50831 6.22745 1.85831 5.41634C2.20831 4.60523 2.68609 3.8969 3.29165 3.29134C3.8972 2.68579 4.60554 2.20801 5.41665 1.85801C6.22776 1.50801 7.08887 1.33301 7.99998 1.33301C8.91109 1.33301 9.7722 1.50801 10.5833 1.85801C11.3944 2.20801 12.1028 2.68579 12.7083 3.29134C13.3139 3.8969 13.7916 4.60523 14.1416 5.41634C14.4916 6.22745 14.6666 7.08856 14.6666 7.99967C14.6666 8.91079 14.4916 9.7719 14.1416 10.583C13.7916 11.3941 13.3139 12.1025 12.7083 12.708C12.1028 13.3136 11.3944 13.7913 10.5833 14.1413C9.7722 14.4913 8.91109 14.6663 7.99998 14.6663ZM7.99998 13.6663C9.55554 13.6663 10.8889 13.1108 12 11.9997C13.1111 10.8886 13.6666 9.55523 13.6666 7.99967C13.6666 6.44412 13.1111 5.11079 12 3.99967C10.8889 2.88856 9.55554 2.33301 7.99998 2.33301C6.44442 2.33301 5.11109 2.88856 3.99998 3.99967C2.88887 5.11079 2.33331 6.44412 2.33331 7.99967C2.33331 9.55523 2.88887 10.8886 3.99998 11.9997C5.11109 13.1108 6.44442 13.6663 7.99998 13.6663Z" fill="black" fill-opacity="0.38"/>
+              </svg>
+              <p class="card-p duration">Duration : {{data.duration}}mins</p>
+              <hr class="seperator">
+              <svg class="imgclass" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 14.6668C6.51111 14.6668 5.25 14.1501 4.21667 13.1168C3.18333 12.0834 2.66667 10.8223 2.66667 9.33345C2.66667 8.04456 3.06389 6.79456 3.85833 5.58345C4.65278 4.37234 5.74445 3.339 7.13333 2.48345C7.32222 2.36122 7.51389 2.35845 7.70833 2.47511C7.90278 2.59178 8 2.76678 8 3.00011V4.20011C8 4.57789 8.13056 4.89456 8.39167 5.15011C8.65278 5.40567 8.97222 5.53345 9.35 5.53345C9.55 5.53345 9.73611 5.49178 9.90833 5.40845C10.0806 5.32511 10.2333 5.20011 10.3667 5.03345C10.4556 4.93345 10.5556 4.864 10.6667 4.82511C10.7778 4.78622 10.8833 4.80011 10.9833 4.86678C11.7167 5.36678 12.2917 6.01122 12.7083 6.80011C13.125 7.589 13.3333 8.43345 13.3333 9.33345C13.3333 10.8223 12.8167 12.0834 11.7833 13.1168C10.75 14.1501 9.48889 14.6668 8 14.6668ZM3.66667 9.33345C3.66667 10.0334 3.825 10.6918 4.14167 11.3084C4.45833 11.9251 4.9 12.439 5.46667 12.8501C5.42222 12.7168 5.38889 12.5807 5.36667 12.4418C5.34445 12.3029 5.33333 12.1668 5.33333 12.0334C5.33333 11.6779 5.4 11.3446 5.53333 11.0334C5.66667 10.7223 5.86111 10.439 6.11667 10.1834L8 8.33345L9.88333 10.1834C10.1389 10.439 10.3333 10.7223 10.4667 11.0334C10.6 11.3446 10.6667 11.6779 10.6667 12.0334C10.6667 12.1668 10.6556 12.3029 10.6333 12.4418C10.6111 12.5807 10.5778 12.7168 10.5333 12.8501C11.1 12.439 11.5417 11.9251 11.8583 11.3084C12.175 10.6918 12.3333 10.0334 12.3333 9.33345C12.3333 8.73345 12.2056 8.14734 11.95 7.57511C11.6944 7.00289 11.3278 6.47789 10.85 6.00011C10.6167 6.16678 10.3722 6.29734 10.1167 6.39178C9.86111 6.48622 9.60556 6.53345 9.35 6.53345C8.67222 6.53345 8.11111 6.30289 7.66667 5.84178C7.22222 5.38067 7 4.80011 7 4.10011V3.76678C5.97778 4.50011 5.16667 5.36956 4.56667 6.37511C3.96667 7.38067 3.66667 8.36678 3.66667 9.33345ZM8 9.73345L6.81667 10.9001C6.66111 11.0557 6.54167 11.2279 6.45833 11.4168C6.375 11.6057 6.33333 11.8112 6.33333 12.0334C6.33333 12.489 6.49445 12.8751 6.81667 13.1918C7.13889 13.5084 7.53333 13.6668 8 13.6668C8.46667 13.6668 8.86111 13.5084 9.18333 13.1918C9.50556 12.8751 9.66667 12.489 9.66667 12.0334C9.66667 11.8112 9.625 11.6057 9.54167 11.4168C9.45833 11.2279 9.33889 11.0557 9.18333 10.9001L8 9.73345Z" fill="black" fill-opacity="0.38"/>
+              </svg>
+              <p class="card-p">Cutoff : {{data.cutoff}}%</p>
+          </div>
+          <div class="card-bottom-lines">
+            <svg class="imgclass" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 14.6663C2.73333 14.6663 2.5 14.5663 2.3 14.3663C2.1 14.1663 2 13.933 2 13.6663V3.33301C2 3.06634 2.1 2.83301 2.3 2.63301C2.5 2.43301 2.73333 2.33301 3 2.33301H4.08333V1.33301H5.16667V2.33301H10.8333V1.33301H11.9167V2.33301H13C13.2667 2.33301 13.5 2.43301 13.7 2.63301C13.9 2.83301 14 3.06634 14 3.33301V13.6663C14 13.933 13.9 14.1663 13.7 14.3663C13.5 14.5663 13.2667 14.6663 13 14.6663H3ZM3 13.6663H13V6.49967H3V13.6663ZM3 5.49967H13V3.33301H3V5.49967ZM8 9.33301C7.81111 9.33301 7.65278 9.26912 7.525 9.14134C7.39722 9.01356 7.33333 8.85523 7.33333 8.66634C7.33333 8.47745 7.39722 8.31912 7.525 8.19134C7.65278 8.06356 7.81111 7.99967 8 7.99967C8.18889 7.99967 8.34722 8.06356 8.475 8.19134C8.60278 8.31912 8.66667 8.47745 8.66667 8.66634C8.66667 8.85523 8.60278 9.01356 8.475 9.14134C8.34722 9.26912 8.18889 9.33301 8 9.33301ZM5.33333 9.33301C5.14444 9.33301 4.98611 9.26912 4.85833 9.14134C4.73056 9.01356 4.66667 8.85523 4.66667 8.66634C4.66667 8.47745 4.73056 8.31912 4.85833 8.19134C4.98611 8.06356 5.14444 7.99967 5.33333 7.99967C5.52222 7.99967 5.68056 8.06356 5.80833 8.19134C5.93611 8.31912 6 8.47745 6 8.66634C6 8.85523 5.93611 9.01356 5.80833 9.14134C5.68056 9.26912 5.52222 9.33301 5.33333 9.33301ZM10.6667 9.33301C10.4778 9.33301 10.3194 9.26912 10.1917 9.14134C10.0639 9.01356 10 8.85523 10 8.66634C10 8.47745 10.0639 8.31912 10.1917 8.19134C10.3194 8.06356 10.4778 7.99967 10.6667 7.99967C10.8556 7.99967 11.0139 8.06356 11.1417 8.19134C11.2694 8.31912 11.3333 8.47745 11.3333 8.66634C11.3333 8.85523 11.2694 9.01356 11.1417 9.14134C11.0139 9.26912 10.8556 9.33301 10.6667 9.33301ZM8 11.9997C7.81111 11.9997 7.65278 11.9358 7.525 11.808C7.39722 11.6802 7.33333 11.5219 7.33333 11.333C7.33333 11.1441 7.39722 10.9858 7.525 10.858C7.65278 10.7302 7.81111 10.6663 8 10.6663C8.18889 10.6663 8.34722 10.7302 8.475 10.858C8.60278 10.9858 8.66667 11.1441 8.66667 11.333C8.66667 11.5219 8.60278 11.6802 8.475 11.808C8.34722 11.9358 8.18889 11.9997 8 11.9997ZM5.33333 11.9997C5.14444 11.9997 4.98611 11.9358 4.85833 11.808C4.73056 11.6802 4.66667 11.5219 4.66667 11.333C4.66667 11.1441 4.73056 10.9858 4.85833 10.858C4.98611 10.7302 5.14444 10.6663 5.33333 10.6663C5.52222 10.6663 5.68056 10.7302 5.80833 10.858C5.93611 10.9858 6 11.1441 6 11.333C6 11.5219 5.93611 11.6802 5.80833 11.808C5.68056 11.9358 5.52222 11.9997 5.33333 11.9997ZM10.6667 11.9997C10.4778 11.9997 10.3194 11.9358 10.1917 11.808C10.0639 11.6802 10 11.5219 10 11.333C10 11.1441 10.0639 10.9858 10.1917 10.858C10.3194 10.7302 10.4778 10.6663 10.6667 10.6663C10.8556 10.6663 11.0139 10.7302 11.1417 10.858C11.2694 10.9858 11.3333 11.1441 11.3333 11.333C11.3333 11.5219 11.2694 11.6802 11.1417 11.808C11.0139 11.9358 10.8556 11.9997 10.6667 11.9997Z" fill="black" fill-opacity="0.38"/>
+            </svg>
+            <p class="card-p">Validity : 24-Jan-24 to 27-Jan-24</p>
+          </div>
+          <div class="startButton">
+            <ng-container
+            *ngIf="data.email_Status === 'Completed'; else startbutton"
+          >
+            <p-button [outlined]="true" [disabled]="true">
+              <label class="cancel-word"> Completed </label>
+            </p-button>
+          </ng-container>
+          <ng-template #startbutton>
+            <p-button [outlined]="true" (click)="showAssessmentDialog()" >
+              <label class="cancel-word"> Start </label>
+            </p-button>
+          </ng-template>
+          </div>
+      </div>
+    </div>
+    </div>
+ 
+  </div>
+  <!-- Start Assessment -->
+  <div class=" startassessmentcard flex justify-content-center">
+    <!-- <p-button (click)="showAssessmentDialog()" icon="pi pi-external-link" label="Show"></p-button> -->
+    <p-dialog class="assessmentHeader"  header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '40rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+       
+      <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+                <span class="headertitle">Start Online Assessment</span>
+            </div>
+        </ng-template>
+        <div class="assessmentCardcontent">
+          <div class="content-top">
+            <p class="contentfont">ONLINE ASSESSMENT </p>
+          </div>
+ 
+          <div class="assessmentCardbody">
+            <ul class="assessmentCardbodycontent">
+<li>This session will include up to 2 questions<br>
+  You have 90 minutes to complete all questions.</li>
+  <li>Once the assessment session begins, you cannot pause the timer</li>
+  <li>The assessment session will end when you have successfully submitted a correct answer for each question, the allotted time has expired, or you end the session manually.</li>
+            </ul>
+          </div>
+          <div class="assessmentCardwish">
+        <p>Good Luck !</p>
+          </div>
+           </div>
+        <ng-template class="assessment-Footer" pTemplate="footer">
+          <div class="startAssessmentbutton "></div>
+         <p-button (onClick)="cancelButton()" class="Cancelbutton" label="Cancel" ></p-button>
+         <p-button class="Startbutton"
+          label="Start Assessment"
+          (onClick)="startAssessment()"
+          ></p-button>
+        </ng-template>
+    </p-dialog>
+    </div>
 </div>

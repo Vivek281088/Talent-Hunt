@@ -4,13 +4,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
- 
-
 @Injectable({
   providedIn: 'root',
 })
 export class ManagernameService {
-  private managerNameUrl = 'http://localhost:9000/skill'; 
+  private managerNameUrl = 'http://localhost:9000/skill';
   // Update the URL to match your backend API URL
 
   private finalizedQuestions: any[] = [];
@@ -20,16 +18,17 @@ export class ManagernameService {
   private cutoff!: number;
 
   private SelectedManager: any;
-  
+
   private fileName!: string;
 
-  private finalizedName !: string;
+  private finalizedName!: string;
 
-  finalizedEmail !: string;
+  finalizedEmail!: string;
 
-  finalizedManagerEmail !: string;
+  finalizedManagerEmail!: string;
 
-  userEmail !: string;
+  userEmail!: string;
+  
 
   constructor(private http: HttpClient) {}
 
@@ -38,8 +37,13 @@ export class ManagernameService {
 
     return this.http.get<any>(endpoint);
   }
-  getclientManagerNames(): Observable<any> {
+  getclientManagerData(): Observable<any> {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager`;
+
+    return this.http.get<any>(endpoint);
+  }
+  getclientManagerName(): Observable<any> {
+    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/Client-ManagerName`;
 
     return this.http.get<any>(endpoint);
   }
@@ -78,33 +82,34 @@ export class ManagernameService {
     });
   }
 
-// Posting questions to database
+  // Posting questions to database
   postquestionstodb(
-  question: String,
-  selectedquestionType: String,
-  options: String[],
-  chosenSkill: String,
-  selecteddifficultyType: String,
-  selectedAnswer: String[],
-
-): Observable<any> {
-  const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    question: String,
+    selectedquestionType: String,
+    options: String[],
+    chosenSkill: String,
+    selecteddifficultyType: String,
+    selectedAnswer: String[]
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
-      question: question ,
+      question: question,
       questionType: selectedquestionType,
       options: options,
       skills: chosenSkill,
       Difficulty_Level: selecteddifficultyType,
-      answer: selectedAnswer
+      answer: selectedAnswer,
       // mcqanswer: selectedAnswers
     };
-    console.log("Post Question Data",body)
-  return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb', body, {
-    headers,
-  });
-}
-
-
+    console.log('Post Question Data', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb',
+      body,
+      {
+        headers,
+      }
+    );
+  }
 
   //candidate list
 
@@ -120,6 +125,7 @@ export class ManagernameService {
   getFinalizedQuestions(): any[] {
     return this.finalizedQuestions;
   }
+
 
   setDuration(duration: number) {
     this.duration = duration;
@@ -152,38 +158,31 @@ export class ManagernameService {
     return this.fileName;
   }
 
+  setCandidateAssessment_Email(userEmail: string): void {
+    this.finalizedEmail = userEmail;
+  }
 
+  getCandidateAssessment_Email(): string {
+    return this.finalizedEmail;
+  }
 
-setCandidateAssessment_Email(userEmail: string): void {
-  this.finalizedEmail = userEmail;
-}
+  setManagerName_Email(managerEmail: string): void {
+    this.finalizedManagerEmail = managerEmail;
+  }
 
-getCandidateAssessment_Email(): string {
-  return this.finalizedEmail;
-}
+  getManagerName_Email(): string {
+    return this.finalizedManagerEmail;
+  }
 
-
-setManagerName_Email(managerEmail: string): void {
-  this.finalizedManagerEmail = managerEmail;
-}
-
-getManagerName_Email(): string {
-  return this.finalizedManagerEmail;
-}
-
-
-getManagerdata_by_Email(
-  managerEmail: string,
-  
-): Observable<any> {
-  const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-  const body = {
-    candidateEmail: managerEmail,
-  };
-  return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetch_managerdetails',
-    body,
-    { headers }
-  );
-}
-
+  getManagerdata_by_Email(managerEmail: string): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateEmail: managerEmail,
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetch_managerdetails',
+      body,
+      { headers }
+    );
+  }
 }

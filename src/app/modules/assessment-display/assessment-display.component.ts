@@ -209,7 +209,7 @@ export class AssessmentDisplayComponent implements OnInit {
           question.reviewerResponse = 'Incorrect';
         }
       } else {
-        question.reviewerResponse = 'Incorrect'; // Number of options selected is different
+        question.reviewerResponse = 'Incorrect'; 
       }
     }
     this.CountTotalQuestions = this.FinalizedQuestions.length;

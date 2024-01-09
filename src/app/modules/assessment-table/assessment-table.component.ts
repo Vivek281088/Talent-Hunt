@@ -25,7 +25,7 @@ export class AssessmentTableComponent {
   status: string[] = [
     'Shortlisted',
     'Rejected',
-    'Awaiting',
+    'Awaiting Eval',
     'Cancelled',
     'Scheduled',
   ];
@@ -54,26 +54,10 @@ export class AssessmentTableComponent {
   durations!: number;
   roles: string = 'user';
   skillSet: any[] = [];
+  Skill: any;
   managerOption: any[] = [];
   overlayVisible=false
-  previewOptions:any=[
-    {
-      question:"Which of the following keywords is used to define a variable in Javascript ?",
-      options:["var","let","const","None of the above"],
-      selectedAnswer:["var","let"]
-    },
-    {
-      question:"Which of the following methods is used to access HTML elements using Javascript?",
-      options:["getElementbyId()","getElementsByClassName()","Both A and B","None of the above"],
-      selectedAnswer:["Both A and B"]
-    },
-
-    {
-      question:"When the switch statement matches the expression with the given labels, how is the comparison done?",
-      options:["Both the datatype and the result of the expression are compared.","Only the datatype of the expression is compared.","Only the value of the expression is compared.","None of the Above"],
-      selectedAnswer:["Both the datatype and the result of the expression are compared.","Only the value of the expression is compared."]
-    }
-  ];
+  
 
   toggle(){
     this.overlayVisible=!this.overlayVisible;
@@ -184,10 +168,7 @@ else{
       return "Scheduled"
     }
 
-    this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Assessment', routerLink: 'dashboard' },
-    ];
+
   }
 
   handleEllipsisDialog() {
@@ -272,70 +253,70 @@ else{
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('res', response);
-          this.managerEmail = response[0].Managername;
+          // this.managerEmail = response[0].Managername;
 
           // this.managernameService.setManagerName_Email(this.managerEmail);
 
-          console.log('candidateList1gr4rg', this.managerEmail);
           // this.candidateName = response[0].candidateName;
         });
       this.managernameService.getCandidateStatus().subscribe((data) => {
         // console.log("arole",a)
         this.candidateList = data;
-        console.log('ss', data);
+        console.log('Candidate Data', data);
       });
       // localStorage.removeItem('userrole');
     }
 
-    console.log('load data 1', this.candidateList);
-    console.log('selected candidate', this.selectedCandidates);
-    // Loop through selectedCandidates and store data for each candidate
-    this.selectedCandidates.forEach((selectedCandidate) => {
-      // Find the existing candidate data based on the candidateName
-      const existingCandidate = this.candidateList.find(
-        (candidate) => candidate.candidateName === selectedCandidate
-      );
-      console.log('matched candidate', existingCandidate);
+    // console.log('load data 1', this.candidateList);
+    // console.log('selected candidate', this.selectedCandidates);
+    // // Loop through selectedCandidates and store data for each candidate
+    // this.selectedCandidates.forEach((selectedCandidate) => {
+    //   // Find the existing candidate data based on the candidateName
+    //   const existingCandidate = this.candidateList.find(
+    //     (candidate) => candidate.candidateName === selectedCandidate
+    //   );
+    //   console.log('matched candidate', existingCandidate);
 
-      //rest data
-      this.score = null;
-      this.result = '';
-      const date = Date.now();
-      this.candidateId = new Date(date);
+    //   //rest data
+    //   this.score = null;
+    //   this.result = '';
+    //   const date = Date.now();
+    //   this.candidateId = new Date(date);
 
-      //show success message
-      // this.showEmailSubmitted();
+    //   //show success message
+    //   // this.showEmailSubmitted();
 
-      if (existingCandidate) {
-        this.tableService
-          .postExistingCandidateDetails(
-            this.candidateId,
-            this.email_Managername,
-            existingCandidate.candidateName,
-            existingCandidate.candidateEmail,
-            existingCandidate.candidatePhone,
-            this.email_Status,
-            this.email_Filename,
-            this.questions,
-            this.score,
-            this.result,
-            this.cutoff,
-            this.durations,
-            existingCandidate.password,
-            existingCandidate.confirmPassword,
-            this.roles
-          )
-          .subscribe((data) => {
-            console.log('Stored data for existing candidate:', data);
-            //this.candidateName(data);
-            this.candidateList.push(data);
-          });
+    //   if (existingCandidate) {
+    //     this.tableService
+    //       .postExistingCandidateDetails(
+    //         this.candidateId,
+    //         this.email_Managername,
+    //         existingCandidate.candidateName,
+    //         existingCandidate.candidateEmail,
+    //         existingCandidate.candidatePhone,
+    //         this.email_Status,
+    //         this.email_Filename,
+    //         this.questions,
+    //         this.score,
+    //         this.result,
+    //         this.cutoff,
+    //         this.durations,
+    //         existingCandidate.password,
+    //         existingCandidate.confirmPassword,
+    //         this.roles,
+    //         this.Skill
+    //       )
+    //       .subscribe((data) => {
+    //         console.log('Stored data for existing candidate:', data);
+    //         //this.candidateName(data);
+    //         this.candidateList.push(data);
+    //       });
 
-        setTimeout(() => {
-          this.getCandidatename();
-        }, 2000);
-      }
-    });
+    //     setTimeout(() => {
+    //       this.getCandidatename();
+    //     }, 2000);
+    //   }
+    // });
   }
 
   loadAssessmentData() {
@@ -353,7 +334,7 @@ else{
   }
 
   loadManagerNames() {
-    this.managernameService.getclientManagerNames().subscribe((data) => {
+    this.managernameService.getclientManagerName().subscribe((data) => {
       this.managerOption = data;
       console.log('sapna', data);
     });

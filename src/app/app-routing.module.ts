@@ -39,6 +39,7 @@ import { CandidatequestionComponent } from './modules/candidatequestion/candidat
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 
+
 const routes: Routes = [
 
   {path:'candidatequestion',component:CandidatequestionComponent},
@@ -50,7 +51,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: SchedulepageComponent,
   },
-  { path: 'new-schedule/:param1/:param2/:param3/:param4/:param5', component: NewScheduleComponent },
+  { path: 'new-schedule', component: NewScheduleComponent },
 
   { path: 'questiondisplay', component: QuestiondisplayComponent },
 
@@ -84,6 +85,7 @@ const routes: Routes = [
 
   { path: 'profile', component: ProfileDialogComponent },
   { path: 'candidatetable', component: CandidateTableComponent },
+
 
   // { path: '**', component: LoginComponent }
 

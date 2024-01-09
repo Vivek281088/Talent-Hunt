@@ -2,11 +2,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto&display=swap");
 
-.Skills .options{
+.Skills .options {
   ::ng-deep .p-multiselect.p-multiselect-chip .p-multiselect-token {
     padding: 0.375rem 0.75rem;
     background: none;
-    color: #1D4ED8;
+    color: #1d4ed8;
     border-radius: 16px;
     width: auto;
     height: 25px;
@@ -17,11 +17,11 @@
     margin-right: 8px;
     justify-content: center;
     align-items: center;
-}
+  }
 }
 
-.cutoff-duration{
-  .p-inputtext{
+.cutoff-duration {
+  .p-inputtext {
     width: 290px;
     height: 40px;
     padding: 0px 8px 0px 8px;
@@ -31,109 +31,70 @@
   flex-direction: row;
   width: 588px;
   gap: 10px;
-  .cutoff{
+  .cutoff {
     flex-direction: column;
-    .p-input{
+    .p-input {
       // width: 50%;
       width: 290px;
-height: 40px;
-padding: 0px, 8px, 0px, 8px;
-border-radius: 4px;
-border: 1px;
-gap: 10px;
-
+      height: 40px;
+      padding: 0px, 8px, 0px, 8px;
+      border-radius: 4px;
+      border: 1px;
+      gap: 10px;
     }
-    
   }
-  .duration{
+  .duration {
     flex-direction: column;
-    .p-input{
+    .p-input {
       width: 50%;
     }
-   
   }
 }
 .Newschedule-button {
   margin-top: 10px;
-  display: inline-flex;
-  /* flex-direction: row; */
-  /* width: 78px; */
-  /* height: 36px; */
-  /* padding-top: 18px; */
-  /* padding-right: 6px; */
-  /* padding-bottom: 6px; */
-  /* padding-left: 8px; */
+  display: flex;
+  flex-direction: row;
   border-radius: 4px;
   border: 1px;
-  /* margin-left: 383px; */
-  justify-content: flex-end;
+  justify-content: space-between;
   // justify-content: flex-end;
   .Cancelbutton {
-    // width: 64px;
-    // height: 24px;
-    // padding: 4px, 8px, 4px, 6px;
-    // gap: 10px;
     ::ng-deep {
       .p-button {
-        height: 40px;
+        height: 87%;
         background: transparent;
         border: 1px solid #652d90;
         outline: none;
-        margin-right: 14px;
+        color: #652d90;
       }
       .p-button:focus {
         box-shadow: none;
       }
     }
-    // background: transparent;
-    .cancel-word {
-      width: 50px;
-      height: 16px;
-      //styleName: Button;
-      font-family: "Roboto";
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 16px;
-      letter-spacing: 1.25px;
-      text-align: left;
-      color: #652d90;
-      cursor: pointer;
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
     }
-  }
-
-  .Createbutton{
-  
-
-::ng-deep{
-  .Create-word{
-    cursor: pointer;
-  }
-  .p-button {
-    background: transparent;
-    border: 1px solid #652d90;
-    outline: none;
-    margin-right: 14px;
-    // height: 40px;
-  }
-  .p-button:focus {
-    box-shadow: none;
-  }
-  .p-ripple {
-    // padding: 6px, 6px, 6px, 8px;
-    // border-radius: 4px;
-    // width: 76px;
-    // height: 36px;
-    overflow: hidden;
-    position: relative;
-    background:#652d90;
-    height: 40px;
-    text-align: center;
-  }
-
-}
-
-
-
   }
 }
 ::ng-deep .newschedule-card {
@@ -148,6 +109,32 @@ gap: 10px;
   height: (541px);
   padding: 16px;
   gap: 16px;
+  .serialno {
+    width: 6%;
+  }
+  .schedulenameHeading {
+    width: 30%;
+  }
+  .managernameHeading {
+    width: 20%;
+  }
+  .skillsHeading {
+    width: 30%;
+  }
+
+  ::ng-deep {
+    ::ng-deep .p-datatable .p-datatable-thead > tr > th {
+      text-align: left;
+      padding: 1rem 1rem;
+      border: 1px solid #dee2e6;
+      border-width: 0 0 1px 0;
+      font-family: "Poppins", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #00000061;
+      transition: box-shadow 0.2s;
+    }
+  }
 }
 ::ng-deep .table-content {
   .p-datatable-thead {
@@ -163,22 +150,8 @@ gap: 10px;
     text-align: left;
     border: 1px solid #dee2e6;
     border-width: 0 0 1px 0;
-    /* padding: 1rem 1rem; */
     padding: 8px 16px 8px 16px;
-    //background-color: red;
   }
-
-  //   box-shadow: 0 4px 8px #0000001a;
-  //  // border: 1px solid rgb(122, 120, 120);
-  //  // margin-top: 50px;
-  //   // border-radius: 0px;
-  //   width: 1450px;
-  //   border-radius: 17px;
-  //     // border-top-left-radius: 17px;
-  //     // border-top-right-radius: 17px;
-  //     // border-bottom-right-radius: 17px;
-  //     // border-bottom-left-radius: 17px;
-  //   // background-color: red;
 }
 ::ng-deep .p-column-filter-row {
   display: flex;
@@ -200,6 +173,7 @@ gap: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
 }
 
 .newSchedule-card {
@@ -268,11 +242,16 @@ gap: 10px;
     overflow-x: auto;
     background: transparent;
   }
-  ::ng-deep .p-icon {
-    display: inline-block;
-    height: 13px;
-    width: 8px;
-    color: #00000061;
+  ::ng-deep {
+    .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+      color: #1e22aa;
+    }
+    .p-icon {
+      display: inline-block;
+      height: 13px;
+      width: 8px;
+      color: #00000061;
+    }
   }
 }
 ::ng-deep
@@ -284,7 +263,6 @@ gap: 10px;
   color: #6c757d;
   margin-right: 0px;
   margin-left: -14px;
-  // background: beige;
 }
 
 ::ng-deep .p-datatable .p-datatable-thead tr th {
@@ -318,18 +296,6 @@ gap: 10px;
 //   border-radius: 6px;
 //   height: 368px;
 // }
-::ng-deep .p-datatable .p-datatable-thead > tr > th {
-  text-align: left;
-  padding: 1rem 1rem;
-  border: 1px solid #dee2e6;
-  border-width: 0 0 1px 0;
-  font-family: "Poppins", sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  color: #00000061;
-  /* background: #f8f9fa; */
-  transition: box-shadow 0.2s;
-}
 
 .schedules {
   margin-top: 4px;
@@ -354,11 +320,11 @@ gap: 10px;
 }
 ::ng-deep {
   .p-inputtext:enabled:hover {
-    border-color: #00000061;
+    // border-color: #00000061;
   }
   .p-inputtext:enabled:focus {
     box-shadow: none;
-    border-color: #00000061;
+    // border-color: #00000061;
   }
 }
 .managerMultiselect {
@@ -371,6 +337,7 @@ gap: 10px;
       height: 36px;
       border-radius: 4px;
       gap: 8px;
+      border-color: #efefef;
     }
     .p-icon {
       width: 14px;
@@ -391,6 +358,7 @@ gap: 10px;
       height: 36px;
       border-radius: 4px;
       gap: 8px;
+      border-color: #efefef;
     }
     .p-icon {
       width: 14px;
@@ -460,6 +428,157 @@ gap: 10px;
     color: #00000099;
   }
 }
+.questionsidebar {
+  .question-design {
+    // height: 23px;
+    font-family: "Roboto";
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.150000006px;
+    text-align: left;
+    color: #652d90;
+    padding: 3% 0% 3% 0%;
+  }
+  .select-size input {
+    display: none;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    color: #00000061;
+  }
+  .option-content {
+    padding: 0.8% 1% 0.8% 1%;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 3px;
+    width: 100%;
+  }
+  .select-size {
+    padding-bottom: 2%;
+    border-bottom: 1px solid #0000001f;
+  }
+  .option {
+    font-weight: 450;
+    gap: 1%;
+    margin-bottom: 1%;
+    .box-design {
+      border: 1px solid #c1abd3;
+      width: 5%;
+      border-radius: 4px;
+      text-align: center;
+      padding: 5px;
+    }
+    &:hover:not(.correctAnswer) {
+      .box-design,
+      .option-content {
+        background: #c1abd3;
+        color: white;
+      }
+    }
+  }
+  .correctAnswer {
+    .option-content {
+      background: #f9f5d1;
+      color: #652d90;
+    }
+    .box-design {
+      background: #652d90;
+      color: white;
+    }
+  }
+
+  .btnfooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .instruction {
+      font-size: 16px;
+      font-family: "Poppins";
+      font-weight: 400;
+      color: #00000099;
+      padding: 2% 0% 2% 0%;
+    }
+    .quiz-instruction {
+      padding-bottom: 5%;
+      border-bottom: 1px solid #0000001f;
+    }
+    .points {
+      font-family: "Roboto";
+      color: #00000099;
+      font-weight: 400;
+      padding-left: 4%;
+      li {
+        padding-bottom: 1%;
+      }
+    }
+
+    .sidebarbuttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      padding-top: 5%;
+    }
+  }
+
+  ::ng-deep {
+    .p-sidebar .p-sidebar-header {
+      padding: 1.25rem;
+      border: 1px solid #0000001f;
+      color: #1e22aa;
+      font-family: "Poppins";
+      font-weight: 500;
+      font-size: 20px;
+    }
+    .p-sidebar {
+      width: 45%;
+    }
+  }
+}
+.custom_button_send {
+  ::ng-deep .p-button {
+    color: white;
+    background: #652d90;
+    border: 1px solid #652d90;
+    height: 90%;
+    &:hover {
+      color: white;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+.custom_button {
+  gap: 3%;
+  ::ng-deep .p-button {
+    color: #652d90;
+    background: #ffffff;
+    border: 1px solid #652d90;
+    height: 90%;
+    &:hover {
+      color: #652d90;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+// label {
+//   display: inline-block;
+//   width: 32px;
+//   height: 32px;
+//   text-align: center;
+//   border: 1px solid #ddd;
+//   line-height: 32px;
+//   cursor: pointer;
+//   border-radius: 8px;
+//   color: #00000061;
+// }
 
 .search-filter {
   width: 138px;
@@ -490,12 +609,6 @@ gap: 10px;
   align-content: center;
   text-align: center;
 }
-.icons-td {
-  // display: flex;
-  // flex-direction: row;
-  // justify-content: space-between;
-  // margin-right: 50px;
-}
 
 .schedule-home {
   font-size: 13px;
@@ -520,24 +633,6 @@ gap: 10px;
   height: 19px;
 }
 
-// .new-schedule {
-//   font-family: "Manrope";
-//   font-size: 14px;
-//   font-weight: 500;
-//   line-height: 16px;
-//   letter-spacing: 1.25px;
-//   text-align: center;
-
-//   width: 131px;
-//   height: 36px;
-//   padding: 6px, 6px, 6px, 8px;
-
-//   border-radius: 4px;
-
-//   // background-color: #652d90;
-//   // color: white;
-// }
-
 .top-right-button {
   position: absolute;
   top: 0;
@@ -545,9 +640,8 @@ gap: 10px;
   margin: 10px;
 }
 .no-focus-outline {
-  outline: none; /* Remove the outline when the input is focused */
-  border: 1px solid #ccc; /* Add a border to maintain appearance */
-  /* Add any other styles you need for the input */
+  outline: none;
+  border: 1px solid #ccc;
 }
 
 .table-container {
@@ -567,13 +661,6 @@ gap: 10px;
   }
 }
 .btn {
-  // font-size: 0.875rem;
-  // background-color: #526d82;
-  // border-color: #526d82;
-  // border-radius: 4px;
-  // color: #fff;
-  // padding: 5px 10px;
-  // border: none;
   width: 116px;
   height: 36px;
   //padding: 6px, 6px, 6px, 8px;
@@ -614,43 +701,10 @@ gap: 10px;
 :host ::ng-deep .ng-dirty.ng-invalid {
   border: 1px solid #ced4da;
 }
-// .cursor-pointer::before {
-//   content: attr(pTooltip);
-//   white-space: nowrap;
-//   // overflow: hidden;
-//   // position: absolute;
-//   width: 0;
-//   opacity: 0;
-//   transition: width 1s ease, opacity 1s ease;
-// }
-// .cursor-pointer:hover::before {
-//   width: auto;
-//   opacity: 1;
-// }
-
-// Reviewer
 
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-
-// .page_sec {
-//   background-color: #27374d;
-
-//   color: white;
-
-//   padding: auto;
-
-//   // width: 100%;
-
-//   height: fit-content;
-
-//   //margin-left: 20px;
-
-//   max-width: 100%;
-
-//   //font-family:Helvetica;
-// }
 
 .heading {
   color: white;
@@ -684,20 +738,6 @@ body {
   overflow: hidden auto;
 
   margin-left: 5%;
-
-  //  &.correct-question {
-
-  //    // Highlight color for correct questions
-
-  //   border: 2px solid green;
-
-  // }
-
-  // &.incorrect-question {
-
-  //   border: 2px solid red;  // Highlight color for incorrect questions
-
-  // }
 }
 
 .choices {
@@ -708,52 +748,10 @@ body {
   justify-content: end;
 }
 
-// .page_sec {
-//   height: 100%;
-
-//   width: 100%;
-
-//   color: white;
-
-//   background-color: #27374d;
-
-//   .page_top_sec {
-//     background: #526d82;
-
-//     //margin-right: 60px;
-
-//     // margin-left: 70px;
-
-//     // margin-bottom: 40px;
-
-//     height: 70px;
-
-//     padding-left: 0px;
-
-//     margin-left: 0px;
-//   }
-// }
-
 .vertical-options {
   display: flex;
 
   flex-direction: column;
-
-  /* Display options vertically */
-
-  // margin: 20px;
-}
-
-.option {
-  margin-bottom: 10px;
-
-  /* Add space between options */
-
-  margin-right: 20px;
-
-  margin-left: 3px;
-
-  font-weight: bold;
 }
 
 .option1 {
@@ -785,34 +783,6 @@ body {
 .text_area_ans {
   padding-bottom: 20px;
 }
-
-// :host ::ng-deep .p-dialog-content {
-
-//   background-color: #27374d;
-
-// }
-
-// :host ::ng-deep .p-dialog-header {
-
-//   background-color: #27374d;
-
-// }
-
-// :host ::ng-deep .p-inputtext {
-//   height: 60px;
-
-//   width: 560px;
-// }
-
-// :host ::ng-deep .p-dialog-header .p-dialog-header-close{
-
-//     position: absolute;
-
-//     top: 20px;
-
-//     left: 15px;
-
-// }
 
 :host ::ng-deep .question-column {
   padding: 8px;
@@ -948,11 +918,11 @@ body {
 
 // Option styles
 .option-input {
-  margin-bottom: 10px; /* Add spacing between each option */
+  margin-bottom: 10px;
 }
 
 .option-label {
-  margin-right: 10px; /* Add spacing between the label and input box */
+  margin-right: 10px;
 }
 
 .option-box {
@@ -966,4 +936,125 @@ body {
 
 .wide-input {
   width: 100%;
+}
+.newSchedule-Dialog {
+  ::ng-deep {
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-family: "Poppins";
+      font-weight: 500;
+      color: #1e22aa;
+    }
+    .p-dialog .p-dialog-header {
+      padding: 1rem;
+      border-bottom: 1px solid #0000001f;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 2rem 1rem;
+      border-bottom: 2px solid #0000001f;
+    }
+    .p-inputtext {
+      width: 100%;
+    }
+    .p-dropdown {
+      width: 100%;
+    }
+    .p-multiselect {
+      width: 100%;
+    }
+    .p-dialog .p-dialog-footer {
+      padding: 12px;
+    }
+    .p-multiselect.p-multiselect-chip
+      .p-multiselect-token
+      .p-multiselect-token-icon {
+      display: none;
+    }
+    .p-multiselect.p-multiselect-chip .p-multiselect-token {
+      background: #00000061;
+      color: white;
+      border-radius: 16px;
+      font-size: 90%;
+      padding: 1% 2% 2% 2%;
+    }
+  }
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto";
+    font-weight: 400;
+    color: #00000099;
+
+    .label {
+      padding: 2% 0 2% 0;
+
+      span {
+        color: #ee4555;
+      }
+    }
+  }
+  .cuttoffDuration {
+    display: flex;
+    flex-direction: row;
+
+    ::ng-deep .p-inputtext {
+      width: 150%;
+    }
+
+    .labelvalue {
+      display: flex;
+      flex-direction: column;
+      padding-right: 17.3%;
+
+      .label {
+        padding: 6% 0 6% 0;
+      }
+    }
+  }
+}
+
+.sendinvite {
+  .wholedialog {
+    display: flex;
+    flex-direction: column;
+
+    .dialogcontent {
+      padding: 1rem 1rem 1rem 0;
+    }
+    .btnfooter {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 1rem 1rem 1rem 0.3rem;
+    }
+  }
+
+  ::ng-deep {
+    .p-dialog-draggable .p-dialog-header {
+      cursor: move;
+      padding: 1rem 1rem 1rem 1.5rem;
+      border: 1px solid #0000001f;
+      color: #1e22aa;
+      font-family: "Poppins";
+      font-weight: 400;
+      font-size: 20px;
+    }
+    .p-multiselect {
+      width: 100%;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 0rem 1.5rem;
+    }
+    .p-multiselect.p-multiselect-chip
+      .p-multiselect-token
+      .p-multiselect-token-icon {
+      display: none;
+    }
+    .p-multiselect.p-multiselect-chip .p-multiselect-token {
+      background: #00000061;
+      color: white;
+      border-radius: 16px;
+      font-size: 90%;
+      padding: 1.5% 2% 2% 2%;
+    }
+  }
 }

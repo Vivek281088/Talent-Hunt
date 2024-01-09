@@ -113,33 +113,61 @@ onBlur(event: FocusEvent): void {
 
     
     this.startTime = new Date();
-    this.duration=10;
     
-    this.remainingTime = this.duration * 60;
 
     //this.remainingTime = 400;
 
     this.updateTimer();
-    this.candidateService
-      .getCandidatedata_by_Email(this.candidateEmail)
-      .subscribe((response) => {
-        console.log('res', response);
-        this.assessmentData = response[1];
-        console.log('assessmentdata', this.assessmentData);
-        this.previewOptions = this.assessmentData.questions;
-        this.selectedOptions1 = this.previewOptions.map(() => []);
-        console.log('questions-----', this.previewOptions[0].options);
-        
-        this.totalQuestions=this.previewOptions.length;
-        console.log("error",this.totalQuestions)
-        // this.candidateName = response[0].candidateName;
-        this.totalQuestions = this.previewOptions.length;
-        // console.log('candidateName', this.candidateName);
-        console.log("sapna",this.totalQuestions);
+
+    //get the assessment data
+    this.assessmentData = this.candidateAssessmentService.getAssessmentData();
+    console.log("Assessment Data", this.assessmentData);
+    this.previewOptions = this.assessmentData[0].questions;
+    this.duration=this.assessmentData[0].durations;
+    this.id= this.assessmentData[0].id;
+    console.log("Id--->", this.id);
+    this.candidateEmail=this.assessmentData[0].candidateEmail
+    console.log("Email-->", this.candidateEmail);
+    this.remainingTime = this.duration * 60;
+    console.log('Assessment Questions', this.previewOptions);
+    this.selectedOptions1 = this.previewOptions.map(() => []);
+    this.totalQuestions=this.previewOptions.length;
+        console.log("Count Total Quest-",this.totalQuestions)
         this.updateSessionStorage();
       
-        console.log('uygvctytfcfv', this.selectedOptions1);
-      });
+
+    
+    // this.candidateService
+    //   .getCandidatedata_by_Email(this.candidateEmail)
+    //   .subscribe((response) => {
+    //     console.log('res', response);
+    //     this.assessmentData = response[1];
+    //     console.log('assessmentdata', this.assessmentData);
+    //     this.previewOptions = this.assessmentData.questions;
+    //     this.selectedOptions1 = this.previewOptions.map(() => []);
+    //-----------------------------------
+        
+    // this.candidateService
+    //   .getCandidatedata_by_Email(this.candidateEmail)
+    //   .subscribe((response) => {
+    //     console.log('res', response);
+    //     this.assessmentData = response[0];
+    //     console.log('assessmentdata', this.assessmentData.durations);
+    //     this.previewOptions = this.assessmentData.questions;
+    //     this.selectedOptions1 = this.previewOptions.map(() => []);
+    //     console.log('questions-----', this.previewOptions[0].options);
+        
+    //     this.totalQuestions=this.previewOptions.length;
+    //     console.log("error",this.totalQuestions)
+    //     // this.candidateName = response[0].candidateName;
+    //     this.totalQuestions = this.previewOptions.length;
+    //     // console.log('candidateName', this.candidateName);
+    //   // });
+    //     console.log("sapna",this.totalQuestions);
+    //     this.updateSessionStorage();
+      
+    //     console.log('uygvctytfcfv', this.selectedOptions1);
+    //   });
   }
  
 

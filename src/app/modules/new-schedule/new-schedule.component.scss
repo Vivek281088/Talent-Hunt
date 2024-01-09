@@ -2,6 +2,80 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto&display=swap");
 
+.Newschedule-button {
+  margin-top: 10px;
+  display: inline-flex;
+  /* flex-direction: row; */
+  /* width: 78px; */
+  /* height: 36px; */
+  /* padding-top: 18px; */
+  /* padding-right: 6px; */
+  /* padding-bottom: 6px; */
+  /* padding-left: 8px; */
+  border-radius: 4px;
+  border: 1px;
+  /* margin-left: 383px; */
+  justify-content: flex-end;
+  // justify-content: flex-end;
+  .Cancelbutton {
+    // width: 64px;
+    // height: 24px;
+    // padding: 4px, 8px, 4px, 6px;
+    // gap: 10px;
+    ::ng-deep {
+      .p-button {
+        height: 40px;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        margin-right: 14px;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+    // background: transparent;
+    .cancel-word {
+      width: 50px;
+      height: 16px;
+      //styleName: Button;
+      font-family: "Roboto";
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 16px;
+      letter-spacing: 1.25px;
+      text-align: left;
+      color: #652d90;
+      cursor: pointer;
+    }
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        margin-right: 14px;
+        // height: 40px;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: white;
+        height: 40px;
+        text-align: center;
+      }
+    }
+  }
+}
 .new-schedule-page {
   display: flex;
   flex-direction: column;
@@ -11,26 +85,26 @@
     .p-tabview .p-tabview-panels {
       background: #ffffff;
       padding: 0rem 0rem 0rem 1.25rem;
-  }
-  .p-datatable .p-datatable-thead > tr > th {
-    background: #ffffff;
-    padding: 1rem 0rem;
-  }
-  .p-datatable .p-datatable-tbody > tr > td {
-    padding: 0.85rem 1rem 0.85rem 0rem;
-  }
-  .p-checkbox .p-checkbox-box.p-highlight {
-    border-color: #652D90;
-    background: #652D86;
-  }
-  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
-    border-color: #00000061;
-  }
-  .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
-    border-color: #652D86;
-    background: #652D86;
-    color: #ffffff;
-  }
+    }
+    .p-datatable .p-datatable-thead > tr > th {
+      background: #ffffff;
+      padding: 1rem 0rem;
+    }
+    .p-datatable .p-datatable-tbody > tr > td {
+      padding: 0.85rem 1rem 0.85rem 0rem;
+    }
+    .p-checkbox .p-checkbox-box.p-highlight {
+      border-color: #652d90;
+      background: #652d86;
+    }
+    .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+      border-color: #00000061;
+    }
+    .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+      border-color: #652d86;
+      background: #652d86;
+      color: #ffffff;
+    }
   }
 }
 
@@ -77,7 +151,7 @@
     }
   }
 }
-.headerSearch{
+.headerSearch {
   width: 60%;
 }
 .new-schedule-header-2 {
@@ -180,103 +254,111 @@
   }
 }
 
-  .tabview-count {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: baseline;
+.tabview-count {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
   border: 1px solid #0000001f;
   border-radius: 8px;
   margin: 0px 16px 16px 16px;
 
-    ::ng-deep {
-      .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-        border-color: #652d90;
-        color: #652d90;
-      }
-      .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-        font-family: "Roboto", sans-serif;
-        font-size: 14px;
-      }
-      .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-        box-shadow: none;
-      }
+  ::ng-deep {
+    .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+      border-color: #652d90;
+      color: #652d90;
     }
-    .tabview {
-      width: 100%;
+    .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+      font-family: "Roboto", sans-serif;
+      font-size: 14px;
     }
-
-    .questioncount {
-      display: flex;
-      flex-direction: row;
-      align-items: baseline;
-      position: absolute;
-      transform: translateX(670%);
-
-      label {
-        font-family: "Roboto", sans-serif;
-        font-size: 14px;
-        font-weight: 400;
-        color: #00000061;
-      }
-      p {
-        font-family: "Poppins", sans-serif;
-        font-size: 20px;
-        font-weight: 500;
-        color: #652d90;
-      }
+    .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+      box-shadow: none;
     }
   }
+  .tabview {
+    width: 100%;
+  }
 
+  .questioncount {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    transform: translateX(610%);
 
+    label {
+      font-family: "Roboto", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #00000061;
+    }
+    p {
+      font-family: "Poppins", sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: #652d90;
+    }
+  }
+}
 
-.searchicon{
+.searchicon {
   .p-inputtext {
     width: 200%;
-   font-size: 14px;
+    font-size: 14px;
     padding: 8px 12px 8px 40px;
-    
-}
-.p-input-icon-left > .p-icon-wrapper.p-icon, .p-input-icon-left > i:first-of-type {
-  left: 21.75rem!important;
-}
-  
+  }
+  .p-input-icon-left > .p-icon-wrapper.p-icon,
+  .p-input-icon-left > i:first-of-type {
+    left: 21.75rem !important;
+  }
+
   .p-inputtext:enabled:focus {
     box-shadow: none;
     border: 1px solid #00000061;
+  }
+  .p-inputtext:enabled:hover {
+    border-color: #00000061;
+  }
 }
-.p-inputtext:enabled:hover {
-  border-color:  #00000061;
+.checkboxcell {
+  input[type="checkbox"]:checked {
+    background-color: #652d90;
+    color: white;
+  }
 }
-
+.custom-checkbox {
+  margin-top: 35%;
+  transform: scale(1.4);
+  width: 100%;
+  margin-left: 25%;
 }
-.questiontext{
-font-family: "Roboto", sans-serif;
-font-size: 14px;
-font-weight: 400;
-color: #000000DE;
-text-align: left;
-overflow: hidden;
-text-overflow: ellipsis;
-
+.custom-checkbox:checked {
+  background-color: #652d90;
 }
-.optiontext{
-font-family: "Roboto", sans-serif;
-font-size: 14px;
-font-weight: 400;
-color: #00000061;
-text-align: left;
-
+.questiontext {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000de;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.optiontext {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #00000061;
+  text-align: left;
 }
 
 .newscheduleTable {
-  
   .schedulebuttons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 38px;
-
 
     .selectallBtn {
       font-family: "Roboto", sans-serif;
@@ -307,8 +389,7 @@ text-align: left;
         }
       }
     }
-    .PreviewBtn{
-    
+    .PreviewBtn {
       ::ng-deep {
         .p-button {
           color: #fafafa;
@@ -319,7 +400,7 @@ text-align: left;
         }
         .pi {
           font-size: 100%;
-      }
+        }
 
         .p-button:focus {
           box-shadow: none;
@@ -332,6 +413,454 @@ text-align: left;
     flex-direction: row;
     justify-content: space-between;
   }
+}
 
-  
+.labelvalue {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto";
+  font-weight: 400;
+  color: #00000099;
+
+  .label {
+    padding: 2% 0 2% 0;
+
+    span {
+      color: #ee4555;
+    }
+  }
+  .valueedit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+    padding-bottom: 3%;
+    label {
+      padding: 2% 2% 2% 0;
+    }
+  }
+  .valueans {
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    align-items: center;
+    padding-bottom: 3%;
+  }
+}
+.cuttoffDuration {
+  display: flex;
+  flex-direction: row;
+
+  ::ng-deep .p-inputtext {
+    width: 150%;
+  }
+
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    padding-right: 17.3%;
+
+    .label {
+      padding: 6% 0 6% 0;
+    }
+  }
+}
+.newSchedule-Dialog {
+  ::ng-deep {
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-family: "Poppins";
+      font-weight: 500;
+      color: #1e22aa;
+    }
+    .p-dialog .p-dialog-header {
+      padding: 1rem;
+      border-bottom: 1px solid #0000001f;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 2rem 1rem;
+      border-bottom: 2px solid #0000001f;
+    }
+    .p-inputtext {
+      width: 100%;
+    }
+    .p-dropdown {
+      width: 100%;
+    }
+    .p-multiselect {
+      width: 100%;
+    }
+    .p-dialog .p-dialog-footer {
+      padding: 12px;
+    }
+  }
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto";
+    font-weight: 400;
+    color: #00000099;
+
+    .label {
+      padding: 2% 0 2% 0;
+
+      span {
+        color: #ee4555;
+      }
+    }
+  }
+  .cuttoffDuration {
+    display: flex;
+    flex-direction: row;
+
+    ::ng-deep .p-inputtext {
+      width: 150%;
+    }
+
+    .labelvalue {
+      display: flex;
+      flex-direction: column;
+      padding-right: 17.3%;
+
+      .label {
+        padding: 6% 0 6% 0;
+      }
+    }
+  }
+}
+.Newschedule-button {
+  margin-top: 10px;
+  display: inline-flex;
+
+  border-radius: 4px;
+  border: 1px;
+  justify-content: flex-end;
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.questionPreview {
+  .select-size input {
+    display: none;
+  }
+  .select-size {
+    padding-bottom: 2%;
+    border-bottom: 1px solid #0000001f;
+  }
+  .option {
+    display: flex;
+    align-items: center;
+    color: #00000061;
+  }
+  .option-content {
+    padding: 0.8% 1% 0.8% 1%;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 3px;
+    width: 100%;
+  }
+  .option {
+    font-weight: 450;
+    gap: 1%;
+    margin-bottom: 2%;
+    margin-left: 3%;
+    .box-design {
+      border: 1px solid #c1abd3;
+      width: 6%;
+      border-radius: 4px;
+      text-align: center;
+      padding: 3px;
+    }
+    &:hover:not(.correctAnswer) {
+      .box-design,
+      .option-content {
+        background: #c1abd3;
+        color: white;
+      }
+    }
+  }
+  .correctAnswer {
+    .option-content {
+      background: #f9f5d1;
+      color: #652d90;
+    }
+    .box-design {
+      background: #652d90;
+      color: white;
+    }
+  }
+  .custom_button {
+    gap: 3%;
+    ::ng-deep .p-button {
+      color: #652d90;
+      background: #ffffff;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: #652d90;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  ::ng-deep {
+    .p-dialog .p-dialog-header {
+      border-bottom: 1px solid #0000001f;
+      padding: 1rem;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 1rem 1.9%;
+    }
+    .p-dialog .p-dialog-footer {
+      padding: 0 1rem 1rem 1rem;
+    }
+  }
+}
+
+.questionpreviewtext {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+  color: #1e22aa;
+}
+
+.questionpreviewcardbody {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+}
+
+.questionhead {
+  align-self: stretch;
+  color: var(--01-Primary-500, #652d90);
+  font-family: "Roboto", sans-serif;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.00938rem;
+}
+
+.questionoptions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+
+.Closebutton {
+  ::ng-deep {
+    .p-button {
+      height: 40px;
+      background: white;
+      color: #652d90;
+      // border: 1px solid #3d105f;
+      outline: none;
+      margin-right: 14px;
+      border: 1px solid #652d90;
+    }
+    .p-button:focus {
+      box-shadow: none;
+    }
+  }
+
+  label {
+    width: 50px;
+    height: 16px;
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1.25px;
+    text-align: left;
+    // color: #652d90;
+    cursor: pointer;
+  }
+}
+
+.questionsidebar {
+  .question-design {
+    // height: 23px;
+    font-family: "Roboto";
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.150000006px;
+    text-align: left;
+    color: #652d90;
+    padding: 3% 0% 3% 0%;
+  }
+  .select-size input {
+    display: none;
+  }
+  .select-size {
+    padding-bottom: 2%;
+    border-bottom: 1px solid #0000001f;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    color: #00000061;
+  }
+  .option-content {
+    padding: 0.8% 1% 0.8% 1%;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 3px;
+    width: 100%;
+  }
+  .option {
+    font-weight: 450;
+    gap: 1%;
+    margin-bottom: 1%;
+
+    .box-design {
+      border: 1px solid #c1abd3;
+      width: 5%;
+      border-radius: 4px;
+      text-align: center;
+      padding: 5px;
+    }
+    &:hover:not(.correctAnswer) {
+      .box-design,
+      .option-content {
+        background: #c1abd3;
+        color: white;
+      }
+    }
+  }
+  .correctAnswer {
+    .option-content {
+      background: #f9f5d1;
+      color: #652d90;
+    }
+    .box-design {
+      background: #652d90;
+      color: white;
+    }
+  }
+  .custom_button {
+    gap: 3%;
+    ::ng-deep .p-button {
+      color: #652d90;
+      background: #ffffff;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: #652d90;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .btnfooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .instruction {
+      font-size: 16px;
+      font-family: "Poppins";
+      font-weight: 400;
+      color: #00000099;
+      padding: 2% 0% 2% 0%;
+    }
+    .quiz-instruction {
+      padding-bottom: 5%;
+      border-bottom: 1px solid #0000001f;
+    }
+    .points {
+      font-family: "Roboto";
+      color: #00000099;
+      font-weight: 400;
+      padding-left: 4%;
+      li {
+        padding-bottom: 1%;
+      }
+    }
+
+    .sidebarbuttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-top: 5%;
+    }
+  }
+  .custom_button_send {
+    ::ng-deep .p-button {
+      color: white;
+      background: #652d90;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: white;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  ::ng-deep {
+    .p-sidebar .p-sidebar-header {
+      padding: 1.25rem;
+      border: 1px solid #0000001f;
+      color: #1e22aa;
+      font-family: "Poppins";
+      font-weight: 500;
+      font-size: 20px;
+    }
+    .p-sidebar {
+      width: 45%;
+    }
+    .p-sidebar .p-sidebar-footer {
+      padding: 0;
+    }
+  }
 }
