@@ -12,15 +12,13 @@
     <p>Effortlessly Schedule and Assess with MTalent</p>
   </div>
 </div>
-<div class="toast">
-  <i class="pi pi-info-circle" style="color: rgba(22, 102, 220, 1)"></i>
-  <p class="text">You have been assigned a new assessment on 23-Dec-2023</p>
-  <i class="pi pi-times" style="color: rgba(22, 102, 220, 1)"></i>
-</div>
+ <div class="toast">
+    <i class="pi pi-info-circle" style="color: rgba(22, 102, 220, 1)"></i>
+    <p class="text">You have been assigned a new assessment on 23-Dec-2023</p>
+    <i class="pi pi-times" style="color: rgba(22, 102, 220, 1)"></i>
+  </div>
 <div class="bottom-part">
- 
-
-  <div class="instruction">
+   <div class="instruction">
     <p class="assessment-heading">Your Assessments</p>
     <p class="assessment-content">
       Prepare yourself. Start your assessment from assigned schedule.
@@ -38,10 +36,10 @@
       <div class="card-top">
         <div class="heading">ONLINE ASSESSMENT</div>
         <div class="card-title">
-          <h4>{{data.testName}}</h4>
+          <h4>{{data.email_Filename}}</h4>
         </div>
         <div class="skillcard" >
-          <span *ngFor="let skill of data.skills">
+          <span *ngFor="let skill of data.skill">
              <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
           </span>
         </div>
@@ -67,11 +65,18 @@
             <p class="card-p">Validity : 24-Jan-24 to 27-Jan-24</p>
           </div>
           <div class="startButton">
-            <p-button  [outlined]="true" (click)="showAssessmentDialog()">
-            <label class="cancel-word">
-              Start
-            </label>
+            <ng-container
+            *ngIf="data.email_Status === 'Completed'; else startbutton"
+          >
+            <p-button [outlined]="true" [disabled]="true">
+              <label class="cancel-word"> Completed </label>
             </p-button>
+          </ng-container>
+          <ng-template #startbutton>
+            <p-button [outlined]="true" (click)="showAssessmentDialog()" >
+              <label class="cancel-word"> Start </label>
+            </p-button>
+          </ng-template>
           </div>
       </div>
     </div>
@@ -108,7 +113,10 @@
         <ng-template class="assessment-Footer" pTemplate="footer">
           <div class="startAssessmentbutton "></div>
          <p-button (onClick)="cancelButton()" class="Cancelbutton" label="Cancel" ></p-button>
-         <p-button class="Startbutton" label="Start Assessment" ></p-button>
+         <p-button class="Startbutton"
+          label="Start Assessment"
+          (onClick)="startAssessment()"
+          ></p-button>
         </ng-template>
     </p-dialog>
     </div>
