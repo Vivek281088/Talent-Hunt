@@ -47,7 +47,6 @@ export class CandidateAssessmentComponent implements AfterViewInit {
   }
 
   getAssessmentdatabyEmail() {
-    this.candidateEmail="kabilan@gmail.com"
     this.candidateAssessmentService
       .getCandidatedata_by_Email(this.candidateEmail)
       .subscribe((response) => {
