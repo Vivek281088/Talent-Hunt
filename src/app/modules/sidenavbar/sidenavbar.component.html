@@ -126,6 +126,7 @@
               id="manageCandidates"
               [class.active]="activeSublist === 'manageCandidates'"
               (click)="changeSublist('manageCandidates','user')"
+              [routerLink]="['/manage-candidates']"
             >
               <svg
                 width="24"
@@ -144,7 +145,7 @@
                   stroke-opacity="0.6"
                 />
               </svg>
-              <a href="#">Manage Candidates</a>
+              <a>Manage Candidates</a>
             </li>
           </ul>
         </span>

@@ -38,6 +38,7 @@ import { CandidatequestionComponent } from './modules/candidatequestion/candidat
 
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
+import { ManageCandidatesComponent } from './modules/manage-candidates/manage-candidates.component';
 
 
 const routes: Routes = [
@@ -71,7 +72,6 @@ const routes: Routes = [
 
   { path: 'assessment-display', component: AssessmentDisplayComponent },
 
-  {path: 'manage-managers', component: ManageManagersComponent},
 
   { path: 'forgotpassword', component: ForgotpasswordComponent },
 
@@ -85,9 +85,8 @@ const routes: Routes = [
 
   { path: 'profile', component: ProfileDialogComponent },
   { path: 'candidatetable', component: CandidateTableComponent },
-
-
-  // { path: '**', component: LoginComponent }
+  {path: 'manage-managers', component: ManageManagersComponent},
+  {path: 'manage-candidates', component: ManageCandidatesComponent},
 
   { path: '**', redirectTo: '/login' },
 

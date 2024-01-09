@@ -30,7 +30,7 @@
       [loading]=""
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [globalFilterFields]="['managerName', 'department', 'email', 'empid']"
+      [globalFilterFields]="['managerName', 'department', 'email', 'empid','location']"
     >
       <ng-template pTemplate="header">
         <tr>
@@ -64,13 +64,13 @@
                       <p-multiSelect
                         [ngModel]="value"
                         [options]="uniqueDepartment"
-                        optionLabel="department"
                         placeholder="Department"
                         (onChange)="filter($event.value)"
                         appendTo="body"
                         [maxSelectedLabels]="1"
                         [selectedItemsLabel]="'{0} items'"
                       >
+        
                       </p-multiSelect>
                     </ng-template>
                   </p-columnFilter>

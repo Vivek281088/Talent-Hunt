@@ -6,14 +6,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px;
+  padding: 1.5%;
 
   ::ng-deep {
     .p-datatable .p-sortable-column .p-sortable-column-icon {
-      color: #1666DC;
+      color: #1666dc;
     }
     .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
-      color: #1666DC;
+      color: #1666dc;
     }
     .p-datatable .p-datatable-tbody > tr > td {
       font-family: "Roboto";
@@ -31,7 +31,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-bottom: 16px;
+  padding-bottom: 1.5%;
 }
 .manageManagers-header-1 {
   display: flex;
@@ -79,12 +79,10 @@
 .new-schedule-header-2 {
   display: flex;
   justify-content: end;
-  align-items: center;
-  padding: 16px 16px 5px 16px;
+  align-items: end;
+  padding: 1.5%;
   .date {
     text-align: center;
-    width: 86px;
-    height: 19px;
     color: #00000061;
     font-family: "Avenir", sans-serif;
   }
@@ -110,15 +108,25 @@
   justify-content: space-between;
   width: 60%;
 }
+.manager-header-2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
 .searchIcon {
-  width: 174px;
-  height: 44px;
+  height: 92%;
   border-radius: 4px;
   //searchIcon
 
-  ::ng-deep i {
-    margin-top: -7px !important;
-  }
+  //   ::ng-deep i {
+  //     margin-top: -7px !important;
+  //   }
+}
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 ::ng-deep {
   .p-inputtext:enabled:hover {
@@ -135,9 +143,8 @@
       width: 1rem;
     }
     .p-fluid .p-multiselect {
-      width: 174px;
-      height: 44px;
-      border-radius: 4px;
+      width: 125%;
+      border-radius: 8px;
       gap: 8px;
       background: #efefef;
       border: none;
@@ -150,10 +157,8 @@
 }
 
 .clear-button {
-  height: 44px;
-  padding: 6px, 6px, 6px, 8px;
-  border-radius: 4px;
-  border: 1px;
+  height: 95%;
+  border-radius: 8px;
   color: #c81a78;
   border: 1px solid #c81a78;
   background: white;
@@ -167,11 +172,14 @@
   }
 }
 
-.addmanager {
+.addcandidate {
   ::ng-deep .p-button {
     color: #ffffff;
     background: #652d90;
     border: 1px solid #652d90;
+    height: 95%;
+    border-radius: 8px;
+    text-align: center;
     &:hover {
       color: #ffffff;
     }
@@ -182,20 +190,110 @@
 }
 
 .EmployeeId {
-  color: #1666DC !important;
-}
-.managernamedesign {
   color: #1666dc !important;
 }
-.customoverlay {
+.candidatenamedesign {
+  color: #1666dc !important;
+}
+
+.newSchedule-Dialog {
+  ::ng-deep {
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-family: "Poppins";
+      font-weight: 500;
+      color: #1e22aa;
+    }
+    .p-dialog .p-dialog-header {
+      padding: 1rem;
+      border-bottom: 1px solid #0000001f;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 2rem 1rem;
+      border-bottom: 2px solid #0000001f;
+    }
+    .p-inputtext {
+      width: 100%;
+    }
+    p-inputnumber,
+    .p-inputnumber {
+      display: inline-flex;
+      width: 100%;
+    }
+    .p-dialog {
+      max-height: 75%;
+    }
+
+    .p-dialog .p-dialog-footer {
+      padding: 12px;
+    }
+    .error-message {
+      color: tomato;
+    //   transform: translateY(-168%);
+    //   padding-left: 1%;
+      font-size: 14px;
+    }
+  }
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto";
+    font-weight: 400;
+    color: #00000099;
+
+    .label {
+      padding: 2% 0 2% 0;
+
+      span {
+        color: #ee4555;
+      }
+    }
+  }
+}
+
+.Newschedule-button {
+  margin-top: 10px;
   display: flex;
-  width: 20%;
-  flex-direction: column;
-  align-items: baseline;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0px 11px 15px 0px rgba(179, 171, 186, 0.2),
-    0px 9px 46px 0px rgba(179, 171, 186, 0.12),
-    0px 24px 38px 0px rgba(179, 171, 186, 0.14);
-  padding: 16px;
+  flex-direction: row;
+  border-radius: 4px;
+  border: 1px;
+  justify-content: space-between;
+  // justify-content: flex-end;
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
+    }
+  }
 }
