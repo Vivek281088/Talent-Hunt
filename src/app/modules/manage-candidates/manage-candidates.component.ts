@@ -9,6 +9,7 @@ import {
   HttpErrorResponse,
   HttpEventType,
 } from '@angular/common/http';
+import * as Papa from 'papaparse';
 import { catchError } from 'rxjs/operators';
 
 @Component({
@@ -164,48 +165,87 @@ export class ManageCandidatesComponent {
     this.showUpload = !this.showUpload;
     console.log('hi', this.showUpload);
   }
-  // onFileUpload() {
+  fileUploadMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Candidate stored successfully',
+    });
+  }
+  fileUploadErrorMessage() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'File is Empty',
+    });
+  }
+  
+  // onFileRemove() {
   //   this.messageService.add({
-  //     severity: 'info',
-  //     summary: 'File Uploaded',
+  //     severity: 'warn',
+  //     summary: 'File Removed',
   //     detail: '',
   //   });
-  //   // Handle the uploaded file here if needed
   // }
-  onFileRemove() {
-    this.messageService.add({
-      severity: 'warn',
-      summary: 'File Removed',
-      detail: '',
-    });
-    // Handle the removed file here if needed
+
+  uploadCsv(event: any) {
+  const file: File = event.target.files[0];
+
+  if (file) {
+    const reader: FileReader = new FileReader();
+    reader.onload = () => {
+      const csvData: string = reader.result as string;
+      this.processCsvData(csvData);
+    };
+
+    reader.readAsText(file);
+  
   }
 
-  onFileUpload(event: any) {
-    const fileUpload: FileUpload = event.files[0];
-    console.log("Uploaded Data",this.uploadedFileData)
+}
 
-    // Check if the file is uploaded successfully
-    if (event.originalEvent.type === HttpEventType.Response) {
-      this.uploadedFileData = event.originalEvent.body; // Assuming the server returns the uploaded file data
-      this.messageService.add({
-        severity: 'info',
-        summary: 'File Uploaded',
-        detail: '',
-      });
+processCsvData(csvData: string) {
+  Papa.parse(csvData, {
+    complete: (result: { data: any; }) => {
+      const csvRows = result.data.filter((row: { [row: string]: string; }) => Object.keys(row).some(key => row[key] !== ''));
 
-      // Process the uploaded file data as needed
-      console.log('Uploaded File Data:', this.uploadedFileData);
-    }
+      if (csvRows.length === 0) {
+        this.fileUploadErrorMessage();
+        this.cancelButton();
+        return;
+      }
+      console.log('CSV Data:', csvRows);
+      setTimeout(()=>{
+        this.fileUploadMessage();
+        this.cancelButton();
+      },1000);
+    },
+    header: true, 
+  });
+}
+  // onFileUpload(event: any) {
+  //   const fileUpload: FileUpload = event.files[0];
+  //   console.log("Uploaded Data",this.uploadedFileData)
+  //   if (event.originalEvent.type === HttpEventType.Response) {
+  //     this.uploadedFileData = event.originalEvent.body; 
+  //     this.messageService.add({
+  //       severity: 'info',
+  //       summary: 'File Uploaded',
+  //       detail: '',
+  //     });
 
-    // Handle any errors during file upload
-    if (event.originalEvent.type === HttpEventType.Response) {
-      const errorResponse: HttpErrorResponse = event.originalEvent;
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error Uploading File',
-        detail: errorResponse.message || 'Unknown error',
-      });
-    }
-  }
+  //     // Process the uploaded file data as needed
+  //     console.log('Uploaded File Data:', this.uploadedFileData);
+  //   }
+
+  //   // Handle any errors during file upload
+  //   if (event.originalEvent.type === HttpEventType.Response) {
+  //     const errorResponse: HttpErrorResponse = event.originalEvent;
+  //     this.messageService.add({
+  //       severity: 'error',
+  //       summary: 'Error Uploading File',
+  //       detail: errorResponse.message || 'Unknown error',
+  //     });
+  //   }
+  // }
 }

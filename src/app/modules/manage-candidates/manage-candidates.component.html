@@ -214,6 +214,7 @@
   </div>
 </div>
 
+<p-toast></p-toast>
 <div class="newSchedule-Dialog">
   <p-dialog
     [header]="
@@ -364,17 +365,12 @@
         <div class="Createbutton" *ngIf="isEditCandidate">
           <p-button label="Update" (onClick)="updateCandidate()"> </p-button>
         </div>
-        <div class="Createbutton">
-          <p-toast></p-toast>
-          <p-fileUpload
-            mode="basic"
-            class="uploadButton"
-            accept=".csv"
-            (onUpload)="onFileUpload($event)"
-            [auto]="true"
-            chooseLabel="Upload"
-          ></p-fileUpload>
-        </div>
+        
+        <label class="custom-file-input">
+          Upload File
+          <input type="file" (change)="uploadCsv($event)" style="display: none;" />
+        </label>
+        
       </div>
     </ng-template>
   </p-dialog>
