@@ -56,13 +56,13 @@ export class AssessmentTableComponent {
   skillSet: any[] = [];
   Skill: any;
   managerOption: any[] = [];
-  overlayVisible=false
-  
+  overlayVisible = false;
+  globalSearchValue !: string;
 
-  toggle(){
-    this.overlayVisible=!this.overlayVisible;
+  toggle() {
+    this.overlayVisible = !this.overlayVisible;
   }
- 
+
   openEllipsisDialogBox: boolean = false;
   todayDate!: string;
 
@@ -85,8 +85,6 @@ export class AssessmentTableComponent {
     // });
   }
 
-
- 
   ngOnInit() {
     //this.auth.isLoggedIn=true;
 
@@ -106,9 +104,11 @@ export class AssessmentTableComponent {
 
     this.loadCandidate();
     this.getCandidatename();
- 
 
-    this.items = [{ label: 'Home',routerLink:'/login',icon: 'pi pi-home' }, { label: 'Assessment' , routerLink: "dashboard"}];
+    this.items = [
+      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Assessment', routerLink: 'dashboard' },
+    ];
   }
 
   // confirmPosition(position: string) {
@@ -135,46 +135,35 @@ export class AssessmentTableComponent {
   //   });
   // }
 
-getSelectedOptions(selected_Option: any,option: any){
-if(selected_Option.includes(option))
-{
-  console.log("correct answer")
-return "correctAnswer";
-}
-else{
-  return "wrongAnswer";
-}
-}
-
-
-
+  getSelectedOptions(selected_Option: any, option: any) {
+    if (selected_Option.includes(option)) {
+      console.log('correct answer');
+      return 'correctAnswer';
+    } else {
+      return 'wrongAnswer';
+    }
+  }
 
   // handleEllipsisDialog(){
   //   this['openEllipsisDialogBox']= true;
   //     }
-  getResultClass(result : string): string {
-    if(result == "Shortlisted"){
-      return "Shortlisted"
+  getResultClass(result: string): string {
+    if (result == 'Shortlisted') {
+      return 'Shortlisted';
+    } else if (result == 'Rejected') {
+      return 'Rejected';
+    } else if (result == 'Awaiting Eval') {
+      return 'Awaiting ';
+    } else if (result == 'Cancelled') {
+      return 'Cancelled';
+    } else {
+      return 'Scheduled';
     }
-    else if(result == "Rejected"){
-      return "Rejected"
-    }else if(result=="Awaiting Eval") {
-      return "Awaiting "
-    }
-    else if(result=="Cancelled") {
-      return "Cancelled"
-    }
-    else  {
-      return "Scheduled"
-    }
-
-
   }
 
   handleEllipsisDialog() {
     this.openEllipsisDialogBox = true;
   }
-  
 
   getFormattedSkills(skills: any): {
     skills: string[];

@@ -40,7 +40,7 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th colspan="7">
+          <th colspan="8">
             <div class="manager-header">
               <div class="manager-header1">
                 <div class="p-input-icon-right">
@@ -126,12 +126,21 @@
                   <p-button label="Add candidate" (onClick)="addCandidate()">
                   </p-button>
                 </div>
+
+                <div class="addcandidate">
+                  <p-button
+                    label="Delete candidate"
+                    (onClick)="deleteCandidate()"
+                  >
+                  </p-button>
+                </div>
               </div>
             </div>
           </th>
         </tr>
 
         <tr>
+          <th></th>
           <th class="EmployeeId" pSortableColumn="empid">
             Emp ID <p-sortIcon field="empid"></p-sortIcon>
           </th>
@@ -149,6 +158,9 @@
         class="tableBody"
       >
         <tr>
+          <td class="checkboxcell">
+            <input type="checkbox" [value]="rowData" class="custom-checkbox" />
+          </td>
           <td>{{ rowData.empid }}</td>
           <td class="candidatenamedesign">{{ rowData.managerName }}</td>
           <td>{{ rowData.email }}</td>
@@ -213,6 +225,7 @@
     [style]="{ width: '47VW' }"
     [draggable]="false"
     [resizable]="false"
+    [closable]="false"
   >
     <div class="NewSchedule-content">
       <div class="labelvalue">
@@ -350,6 +363,17 @@
         </div>
         <div class="Createbutton" *ngIf="isEditCandidate">
           <p-button label="Update" (onClick)="updateCandidate()"> </p-button>
+        </div>
+        <div class="Createbutton">
+          <p-toast></p-toast>
+          <p-fileUpload
+            mode="basic"
+            class="uploadButton"
+            accept=".csv"
+            (onUpload)="onFileUpload($event)"
+            [auto]="true"
+            chooseLabel="Upload"
+          ></p-fileUpload>
         </div>
       </div>
     </ng-template>

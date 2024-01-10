@@ -100,7 +100,7 @@
 .manager-header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 4%;
 }
 .manager-header1 {
   display: flex;
@@ -111,7 +111,8 @@
 .manager-header-2 {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: space-between;
+  width: 35%;
 }
 .searchIcon {
   height: 92%;
@@ -174,7 +175,6 @@
 }
 
 .addcandidate {
-  
   ::ng-deep .p-button {
     color: #ffffff;
     background: #652d90;
@@ -230,8 +230,8 @@
     }
     .error-message {
       color: tomato;
-    //   transform: translateY(-168%);
-    //   padding-left: 1%;
+      //   transform: translateY(-168%);
+      //   padding-left: 1%;
       font-size: 14px;
       padding: 1% 2% 2% 0;
     }
@@ -259,7 +259,7 @@
   flex-direction: row;
   border-radius: 4px;
   border: 1px;
-  justify-content: space-between;
+  justify-content: end;
   // justify-content: flex-end;
   .Cancelbutton {
     ::ng-deep {
@@ -297,6 +297,26 @@
         color: #ffffff;
         text-align: center;
       }
+      .p-button .p-button-icon-left {
+        display: none;
+      }
+    }
+    .uploadButton{
+      ::ng-deep .p-button {
+        height: 87%;
+      }
     }
   }
+}
+.checkboxcell {
+  input[type="checkbox"]:checked {
+    background-color: #652d90;
+    color: white;
+  }
+}
+.custom-checkbox {
+  margin-top: 35%;
+  transform: scale(1.4);
+  width: 100%;
+  margin-left: 25%;
 }
