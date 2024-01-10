@@ -22,6 +22,7 @@
   <div class="managerTable">
     <p-table
       #dt2
+      [value]="managerData"
       dataKey="id"
       [rows]="5"
       [showCurrentPageReport]="true"
@@ -48,6 +49,7 @@
                     class="searchIcon"
                     pInputText
                     type="text"
+                    [(ngModel)]="globalSearchValue"
                     (input)="
                       dt2.filterGlobal($any($event.target).value, 'contains')
                     "
@@ -169,7 +171,7 @@
                 </svg>
               </a>
 
-              <a
+              <!-- <a
                 [class.disabled]="!rowData.isMail"
                 title="View"
                 (click)="onViewClick(rowData)"
@@ -186,7 +188,7 @@
                     fill="#652D90"
                   />
                 </svg>
-              </a>
+              </a> -->
             </div>
           </td>
         </tr>
@@ -202,7 +204,9 @@
 
 <div class="newSchedule-Dialog">
   <p-dialog
-    header="New Candidate"
+    [header]="
+      isAddCandidate ? 'New Candidate' : isEditCandidate ? 'Edit Candidate' : ''
+    "
     [(visible)]="addCandidatevisible"
     [formGroup]="addCandidateForm"
     [modal]="true"
@@ -303,19 +307,15 @@
           >
             <div
               class="error-message"
-              *ngIf="
-                addCandidateForm.get('department')?.hasError('required')
-              "
+              *ngIf="addCandidateForm.get('department')?.hasError('required')"
             >
-            Department is required !
+              Department is required !
             </div>
           </div>
         </div>
       </div>
 
-      <div
-        class="labelvalue"
-      >
+      <div class="labelvalue">
         <div class="label">
           <label>Location</label>
           <span class="important-symbol">&#42;</span>
@@ -330,11 +330,9 @@
           >
             <div
               class="error-message"
-              *ngIf="
-                addCandidateForm.get('location')?.hasError('required')
-              "
+              *ngIf="addCandidateForm.get('location')?.hasError('required')"
             >
-            Location is required !
+              Location is required !
             </div>
           </div>
         </div>
@@ -347,8 +345,11 @@
           <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
           </p-button>
         </div>
-        <div class="Createbutton">
+        <div class="Createbutton" *ngIf="isAddCandidate">
           <p-button label="Create" (onClick)="saveCandidate()"> </p-button>
+        </div>
+        <div class="Createbutton" *ngIf="isEditCandidate">
+          <p-button label="Update" (onClick)="updateCandidate()"> </p-button>
         </div>
       </div>
     </ng-template>

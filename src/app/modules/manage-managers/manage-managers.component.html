@@ -43,6 +43,7 @@
                     class="searchIcon"
                     pInputText
                     type="text"
+                    [(ngModel)]="globalSearchValue"
                     (input)="
                       dt2.filterGlobal($any($event.target).value, 'contains')
                     "

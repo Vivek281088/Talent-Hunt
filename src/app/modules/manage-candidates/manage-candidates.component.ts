@@ -12,12 +12,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ManageCandidatesComponent {
   items: MenuItem[] | undefined;
   todayDate!: string;
-
+  managerData: any;
   managerNames!: string;
   uniqueDepartment: any;
   addCandidatevisible: boolean = false;
   addCandidateForm!: FormGroup;
   formSubmitted: boolean = false;
+  isEditCandidate : boolean = false
+  isAddCandidate : boolean= false;
+  selectedRowData: any;
+  globalSearchValue!: string;
 
   constructor(
     private managerService: ManagernameService,
@@ -32,14 +36,14 @@ export class ManageCandidatesComponent {
     });
   }
   ngOnInit() {
-    // this.managerService.getclientManagerData().subscribe((response) => {
-    //   console.log('Client Manager Details', response);
-    //   this.managerData = response;
+    this.managerService.getclientManagerData().subscribe((response) => {
+      console.log('Client Manager Details', response);
+      this.managerData = response;
 
-    //   this.uniqueDepartment =this.getUniqueDepartments(this.managerData);
-    //   console.log('Unique Department', this.uniqueDepartment);
+      this.uniqueDepartment =this.getUniqueDepartments(this.managerData);
+      console.log('Unique Department', this.uniqueDepartment);
 
-    // });
+    });
 
     this.managerService.getclientManagerName().subscribe((response) => {
       console.log('Client Manager Names-->', response);
@@ -78,6 +82,7 @@ export class ManageCandidatesComponent {
   }
   clear(table: Table) {
     table.clear();
+    this.globalSearchValue='';
   }
 
   getUniqueDepartments(data: any[]): any[] {
@@ -91,13 +96,38 @@ export class ManageCandidatesComponent {
       return matchingObject;
     });
   }
-  handleEditIconClick(data: any) {}
+  handleEditIconClick(data: any) {
+    this.isEditCandidate = true;
+    this.isAddCandidate = false;
+    this.addCandidatevisible=true;
+
+    this.selectedRowData= data;
+    console.log(" Selected Edit Data", this.selectedRowData);
+
+    this.populateFormControls();
+    
+  }
+  populateFormControls() {
+    if (this.selectedRowData) {
+      this.addCandidateForm.patchValue({
+        employeeId: this.selectedRowData.empid,
+        candidateName: this.selectedRowData.managerName,
+        email: this.selectedRowData.email,
+        department: this.selectedRowData.department,
+        location: this.selectedRowData.location,
+      });
+    }
+    console.log("Edit Data", this.addCandidateForm)
+  }
   onViewClick(data: any) {}
   addCandidate() {
+    this.isAddCandidate = true;
+    this.isEditCandidate=false;
     this.addCandidatevisible = true;
   }
   cancelButton() {
     this.addCandidatevisible = false;
+    this.addCandidateForm.reset();
   }
 
   saveCandidate() {
@@ -111,5 +141,8 @@ export class ManageCandidatesComponent {
       this.addCandidateForm.reset();
       this.formSubmitted = false;
     }
+  }
+  updateCandidate(){
+    console.log("Updating.....");
   }
 }

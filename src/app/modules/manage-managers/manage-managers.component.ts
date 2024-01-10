@@ -15,6 +15,7 @@ export class ManageManagersComponent {
   managerNames!: string;
   elipsisOverlayVisible: boolean = false;
   uniqueDepartment:any;
+  globalSearchValue!: string;
 
   constructor(private managerService: ManagernameService) {}
   ngOnInit() {
@@ -65,6 +66,7 @@ export class ManageManagersComponent {
   }
   clear(table: Table) {
     table.clear();
+    this.globalSearchValue="";
   }
   handleElipsis() {
     this.elipsisOverlayVisible = !this.elipsisOverlayVisible;
