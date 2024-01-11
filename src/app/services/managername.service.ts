@@ -28,7 +28,6 @@ export class ManagernameService {
   finalizedManagerEmail!: string;
 
   userEmail!: string;
-  
 
   constructor(private http: HttpClient) {}
 
@@ -46,6 +45,30 @@ export class ManagernameService {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/Client-ManagerName`;
 
     return this.http.get<any>(endpoint);
+  }
+
+  postClientManager(
+    employeeId: number,
+    managerName: string,
+    email: string,
+    phone: number,
+    department: string,
+    location: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      empid: employeeId,
+      managerName: managerName,
+      email: email,
+      phone: phone,
+      department: department,
+      manager_location: location,
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
+      body,
+      { headers }
+    );
   }
 
   postManagerList(name: String): Observable<any> {
@@ -125,7 +148,6 @@ export class ManagernameService {
   getFinalizedQuestions(): any[] {
     return this.finalizedQuestions;
   }
-
 
   setDuration(duration: number) {
     this.duration = duration;

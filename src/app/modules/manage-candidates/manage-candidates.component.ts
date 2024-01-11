@@ -3,14 +3,8 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FileUpload } from 'primeng/fileupload';
-import {
-  HttpEvent,
-  HttpErrorResponse,
-  HttpEventType,
-} from '@angular/common/http';
+
 import * as Papa from 'papaparse';
-import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-manage-candidates',
@@ -161,10 +155,7 @@ export class ManageCandidatesComponent {
     console.log('Updating.....');
   }
 
-  showFileUpload() {
-    this.showUpload = !this.showUpload;
-    console.log('hi', this.showUpload);
-  }
+  
   fileUploadMessage() {
     this.messageService.add({
       severity: 'success',
@@ -180,13 +171,6 @@ export class ManageCandidatesComponent {
     });
   }
   
-  // onFileRemove() {
-  //   this.messageService.add({
-  //     severity: 'warn',
-  //     summary: 'File Removed',
-  //     detail: '',
-  //   });
-  // }
 
   uploadCsv(event: any) {
   const file: File = event.target.files[0];
@@ -223,29 +207,5 @@ processCsvData(csvData: string) {
     header: true, 
   });
 }
-  // onFileUpload(event: any) {
-  //   const fileUpload: FileUpload = event.files[0];
-  //   console.log("Uploaded Data",this.uploadedFileData)
-  //   if (event.originalEvent.type === HttpEventType.Response) {
-  //     this.uploadedFileData = event.originalEvent.body; 
-  //     this.messageService.add({
-  //       severity: 'info',
-  //       summary: 'File Uploaded',
-  //       detail: '',
-  //     });
-
-  //     // Process the uploaded file data as needed
-  //     console.log('Uploaded File Data:', this.uploadedFileData);
-  //   }
-
-  //   // Handle any errors during file upload
-  //   if (event.originalEvent.type === HttpEventType.Response) {
-  //     const errorResponse: HttpErrorResponse = event.originalEvent;
-  //     this.messageService.add({
-  //       severity: 'error',
-  //       summary: 'Error Uploading File',
-  //       detail: errorResponse.message || 'Unknown error',
-  //     });
-  //   }
-  // }
+  
 }

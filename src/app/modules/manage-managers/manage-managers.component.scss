@@ -10,10 +10,10 @@
 
   ::ng-deep {
     .p-datatable .p-sortable-column .p-sortable-column-icon {
-      color: #1666DC;
+      color: #1666dc;
     }
     .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
-      color: #1666DC;
+      color: #1666dc;
     }
     .p-datatable .p-datatable-tbody > tr > td {
       font-family: "Roboto";
@@ -166,6 +166,23 @@
     box-shadow: none;
   }
 }
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.custom-file-input {
+  border: 1px solid #652d90;
+  border-radius: 8px;
+  padding: 1.5% 1% 1.5% 2%;
+  height: fit-content;
+  background: #652d90;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
 
 .addmanager {
   ::ng-deep .p-button {
@@ -182,7 +199,7 @@
 }
 
 .EmployeeId {
-  color: #1666DC !important;
+  color: #1666dc !important;
 }
 .managernamedesign {
   color: #1666dc !important;
@@ -198,4 +215,105 @@
     0px 9px 46px 0px rgba(179, 171, 186, 0.12),
     0px 24px 38px 0px rgba(179, 171, 186, 0.14);
   padding: 16px;
+}
+
+.newSchedule-Dialog {
+  ::ng-deep {
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-family: "Poppins";
+      font-weight: 500;
+      color: #1e22aa;
+    }
+    .p-dialog .p-dialog-header {
+      padding: 1rem;
+      border-bottom: 1px solid #0000001f;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 2rem 1rem;
+      border-bottom: 2px solid #0000001f;
+    }
+    .p-inputtext {
+      width: 100%;
+    }
+    p-inputnumber,
+    .p-inputnumber {
+      display: inline-flex;
+      width: 100%;
+    }
+    .p-dialog {
+      max-height: 75%;
+    }
+
+    .p-dialog .p-dialog-footer {
+      padding: 12px;
+    }
+    .error-message {
+      color: tomato;
+      //   transform: translateY(-168%);
+      //   padding-left: 1%;
+      font-size: 14px;
+      padding: 1% 2% 2% 0;
+    }
+  }
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto";
+    font-weight: 400;
+    color: #00000099;
+
+    .label {
+      padding: 2% 0 2% 0;
+
+      span {
+        color: #ee4555;
+      }
+    }
+  }
+}
+.Newschedule-button {
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  border: 1px;
+  justify-content: space-between;
+  // justify-content: flex-end;
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
+    }
+  }
 }
