@@ -54,39 +54,9 @@
                     />
                   </span>
                 </div>
-                
-              
+
                
-                <div class="managerMultiselect">
-                  <p-columnFilter
-                    field="Skill"
-                    matchMode="contains"
-                    [showMenu]="false"
-                    [showClearButton]="true"
-                  >
-                    <ng-template
-                      pTemplate="filter"
-                      let-value
-                      let-filter="filterCallback"
-                    >
-                      <p-multiSelect
-                        [ngModel]="value"
-                        appendTo="body"
-                        [options]="skillSet"
-                        placeholder="Skills"
-                        (onChange)="filter($event.value)"
-                        [maxSelectedLabels]="1"
-                        [selectedItemsLabel]="'{0} items'"
-                      >
-                        <ng-template let-option pTemplate="item">
-                          <div class="inline-block vertical-align-middle">
-                            <span class="ml-1 mt-1">{{ option }}</span>
-                          </div>
-                        </ng-template>
-                      </p-multiSelect>
-                    </ng-template>
-                  </p-columnFilter>
-                </div>
+
                 <div class="clearButton">
                   <button
                     pButton
@@ -96,6 +66,72 @@
                      (click)="clear(dt1)"
                   ></button>
                 </div>
+
+                <div class="addSkill">
+                  <button
+                  pButton
+                    class="btn flex align-items-center justify-content-center cursor-pointer"
+                    (click)="newSchedule()"
+                    label="New Skill"
+                  >
+                  </button>
+                </div>
+              </div>
+              <div>
+                <div class="card flex justify-content-centre">
+                  
+
+                  <div class="newSchedule-Dialog">
+                    <p-dialog
+                      header="New Skill"
+                      [(visible)]="visible"
+                      [modal]="true"
+                      [style]="{ width: '47VW' }"
+                      [draggable]="false"
+                      [resizable]="false"
+                    >
+                      <div class="NewSchedule-content">
+                        <div class="labelvalue">
+                          <div class="label">
+                            <label>Skill Name</label>
+                            <span class="important-symbol">&#42;</span>
+                          </div>
+                          <div class="value">
+                            <input
+                              type="text"
+                              pInputText
+                              [(ngModel)]="scheduleName"
+                            />
+                          </div>
+                        </div>
+
+                       
+
+
+                       
+                      </div>
+
+                      <ng-template pTemplate="footer">
+                        <div class="Newschedule-button">
+                          <div class="Cancelbutton">
+                            <p-button
+                              label="Cancel"
+                              [outlined]="true"
+                              (onClick)="cancelButton()"
+                            >
+                            </p-button>
+                          </div>
+                          <div class="Createbutton">
+                            <p-button label="Add" (onClick)="storeSkill()">
+                            </p-button>
+                          </div>
+                        </div>
+                      </ng-template>
+                    </p-dialog>
+                  </div>
+                </div>
+
+                <!--cord code end-->
               </div>
             </th>
           </tr>
