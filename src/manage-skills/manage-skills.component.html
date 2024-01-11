@@ -1,0 +1,284 @@
+<div class="whole-design">
+    <div class="assesment-header">
+      <p class="assessment-text">Skills</p>
+    </div>
+  
+    <!-- <div class="flex justify-content-start bread">
+      <p-breadcrumb class="max-w-full breadclass" [model]="items"></p-breadcrumb>
+    </div> -->
+    <div class=" flex  breadDate">
+      <div>
+        <p-breadcrumb class=" BreadCrumb" [model]="items"
+        [style]="{ border: 'none' }"></p-breadcrumb>
+      </div>
+      <div class="date">
+        {{todayDate}}
+      </div>
+        
+    </div>
+  
+    <div class="candidate-table">
+      <p-table
+        class="candidateTable"
+        [resizableColumns]="true"
+        [autoLayout]="true"
+        [value]="keyValueArray"
+        #dt1
+        [paginator]="true"
+        [tableStyle]="{ height: 'max-content' }"
+        [rows]="5"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rowsPerPageOptions]="[4, 8, 12]"
+        [globalFilterFields]="[
+'skills'
+          
+          
+        ]"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th colspan="9">
+              <div class="filter-components">
+                <div>
+                  <span class="p-input-icon-right ml-auto">
+                    <i class="pi pi-search"></i>
+                    <input
+                      class="searchIcon"
+                      pInputText
+                      type="text"
+                      (input)="
+                        dt1.filterGlobal($any($event.target).value, 'contains')
+                      "
+                      placeholder="Search"
+                    />
+                  </span>
+                </div>
+                
+              
+               
+                <div class="managerMultiselect">
+                  <p-columnFilter
+                    field="Skill"
+                    matchMode="contains"
+                    [showMenu]="false"
+                    [showClearButton]="true"
+                  >
+                    <ng-template
+                      pTemplate="filter"
+                      let-value
+                      let-filter="filterCallback"
+                    >
+                      <p-multiSelect
+                        [ngModel]="value"
+                        appendTo="body"
+                        [options]="skillSet"
+                        placeholder="Skills"
+                        (onChange)="filter($event.value)"
+                        [maxSelectedLabels]="1"
+                        [selectedItemsLabel]="'{0} items'"
+                      >
+                        <ng-template let-option pTemplate="item">
+                          <div class="inline-block vertical-align-middle">
+                            <span class="ml-1 mt-1">{{ option }}</span>
+                          </div>
+                        </ng-template>
+                      </p-multiSelect>
+                    </ng-template>
+                  </p-columnFilter>
+                </div>
+                <div class="clearButton">
+                  <button
+                    pButton
+                    label="Clear filter"
+                    class="clear-button cursor-pointer"
+                    [style]="{ width: '130px' }"
+                     (click)="clear(dt1)"
+                  ></button>
+                </div>
+              </div>
+            </th>
+          </tr>
+  
+          <tr>
+            <th>Seq.No</th>
+             <th>Skills</th>
+             <th>QuestionCount</th>
+             <th>Questionview</th>
+          
+          </tr>
+        </ng-template>
+  
+        <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ rowData[0] }}</td>
+            <td>
+            {{rowData[1]}}
+
+            </td>
+            
+            <td>
+                <a
+                class="flex cursor-pointer"
+                [class.disabled]="!rowData.isMail"
+                title="View"
+                (click)="onViewClick(rowData[0])"
+                 
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.99998 11.8125C9.88748 11.8125 10.6406 11.5031 11.2593 10.8844C11.8781 10.2656 12.1875 9.5125 12.1875 8.625C12.1875 7.7375 11.8781 6.98438 11.2593 6.36563C10.6406 5.74688 9.88748 5.4375 8.99998 5.4375C8.11248 5.4375 7.35935 5.74688 6.7406 6.36563C6.12185 6.98438 5.81248 7.7375 5.81248 8.625C5.81248 9.5125 6.12185 10.2656 6.7406 10.8844C7.35935 11.5031 8.11248 11.8125 8.99998 11.8125ZM8.99998 10.725C8.41248 10.725 7.9156 10.5219 7.50935 10.1156C7.1031 9.70937 6.89998 9.2125 6.89998 8.625C6.89998 8.0375 7.1031 7.54063 7.50935 7.13437C7.9156 6.72812 8.41248 6.525 8.99998 6.525C9.58748 6.525 10.0844 6.72812 10.4906 7.13437C10.8969 7.54063 11.1 8.0375 11.1 8.625C11.1 9.2125 10.8969 9.70937 10.4906 10.1156C10.0844 10.5219 9.58748 10.725 8.99998 10.725ZM8.99998 14.25C7.27498 14.25 5.7031 13.7812 4.28435 12.8438C2.8656 11.9062 1.76873 10.6688 0.993726 9.13125C0.956226 9.06875 0.928101 8.99375 0.909351 8.90625C0.890601 8.81875 0.881226 8.725 0.881226 8.625C0.881226 8.525 0.890601 8.43125 0.909351 8.34375C0.928101 8.25625 0.956226 8.18125 0.993726 8.11875C1.76873 6.58125 2.8656 5.34375 4.28435 4.40625C5.7031 3.46875 7.27498 3 8.99998 3C10.725 3 12.2969 3.46875 13.7156 4.40625C15.1344 5.34375 16.2312 6.58125 17.0062 8.11875C17.0437 8.18125 17.0719 8.25625 17.0906 8.34375C17.1094 8.43125 17.1187 8.525 17.1187 8.625C17.1187 8.725 17.1094 8.81875 17.0906 8.90625C17.0719 8.99375 17.0437 9.06875 17.0062 9.13125C16.2312 10.6688 15.1344 11.9062 13.7156 12.8438C12.2969 13.7812 10.725 14.25 8.99998 14.25ZM8.99998 13.125C10.5125 13.125 11.9031 12.7156 13.1719 11.8969C14.4406 11.0781 15.4062 9.9875 16.0687 8.625C15.4062 7.2625 14.4406 6.17188 13.1719 5.35312C11.9031 4.53437 10.5125 4.125 8.99998 4.125C7.48748 4.125 6.09685 4.53437 4.8281 5.35312C3.55935 6.17188 2.58748 7.2625 1.91248 8.625C2.58748 9.9875 3.55935 11.0781 4.8281 11.8969C6.09685 12.7156 7.48748 13.125 8.99998 13.125Z"
+                    fill="#652D90"
+                  />
+                </svg>
+              </a>
+
+            </td>
+           
+  
+          
+              
+  
+           
+           
+  
+            
+           
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+     <div class="questionsidebar">
+        <p-sidebar
+          [(visible)]="viewQuestionSidebar"
+          position="right"
+          [modal]="false"
+        >
+          <ng-template class="header_design" pTemplate="header"
+            >Quiz Preview
+            
+            </ng-template
+          >
+          <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
+             
+            <span *ngFor="let question of FinalizedQuestions ; let j = index">
+              <div class="question-design">{{j+1}}. {{ question.question }}</div>
+      
+              <div class="select-size">
+                <div
+                  *ngFor="let option of question.options; let i = index"
+                  class="option"
+                  [ngClass]="getSelectedOptions(question.answer, option)"
+                >
+                  <!-- <input type="radio" name="first" id="small" />
+                  <label class="box-design" for="small">A</label>
+                  <span class="option-content">{{ preview.options[0] }}</span>  -->
+                  <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
+                  <label class="box-design" [for]="'option' + question + '-' + i">{{
+                    getLabel(i)
+                  }}</label>
+      
+                  <span class="option-content">{{ option }}</span>
+                </div>
+              </div>
+      
+            </span>
+      
+            <div class="btnfooter">
+              <div class="quiz-instruction">
+      
+                <p class="instruction">Quiz Instructions</p>
+                <ul class="points">
+                  <li>Manager approval mandatory </li>
+                  <li>Automatic email will be triggered for every status change of the request</li>
+                  <li>Approval is the permission to go to Office</li>
+                </ul>
+      
+              </div>
+              <div class="sidebarbuttons">
+                <div class="custom_button_send">
+                  <p-button label="Close"></p-button>
+                </div>
+      
+              </div>
+              
+            </div>
+            <div class="questionsidebar">
+                <p-sidebar
+                  [(visible)]="viewQuestionSidebar"
+                  position="right"
+                  [modal]="false"
+                >
+                  <ng-template class="header_design" pTemplate="header"
+                    >Quiz Preview
+                    
+                    </ng-template
+                  >
+                  <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
+                     
+                    <span *ngFor="let question of FinalizedQuestions ; let j = index">
+                      <div class="question-design">{{j+1}}. {{ question.question }}</div>
+              
+                      <div class="select-size">
+                        <div
+                          *ngFor="let option of question.options; let i = index"
+                          class="option"
+                          [ngClass]="getSelectedOptions(question.answer, option)"
+                        >
+                          <!-- <input type="radio" name="first" id="small" />
+                          <label class="box-design" for="small">A</label>
+                          <span class="option-content">{{ preview.options[0] }}</span> -->
+                          <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
+                          <label class="box-design" [for]="'option' + question + '-' + i">{{
+                            getLabel(i)
+                          }}</label>
+              
+                          <span class="option-content">{{ option }}</span>
+                        </div>
+                      </div>
+              
+                    </span>
+              
+                    <div class="btnfooter">
+                      <div class="quiz-instruction">
+              
+                        <p class="instruction">Quiz Instructions</p>
+                        <ul class="points">
+                          <li>Manager approval mandatory </li>
+                          <li>Automatic email will be triggered for every status change of the request</li>
+                          <li>Approval is the permission to go to Office</li>
+                        </ul>
+              
+                      </div>
+                      <div class="sidebarbuttons">
+                        <div class="custom_button_send">
+                          <p-button label="Close"></p-button>
+                        </div>
+              
+                      </div>
+                      
+                    </div>
+              
+              
+                  </ng-template>
+                  
+                </p-sidebar>
+              </div>
+      
+          </ng-template>
+          
+        </p-sidebar>
+      </div> 
+  </div>
+  
+ 
+
+  
+  
