@@ -53,8 +53,7 @@ export class CandidateAssessmentComponent implements AfterViewInit {
         this.assessmentData = response;
         console.log('candidate data', this.assessmentData);
 
-        //setting the data for assessment page
-        this.candidateAssessmentService.setAssessmentData(this.assessmentData);
+        
       });
   }
 
@@ -66,7 +65,10 @@ export class CandidateAssessmentComponent implements AfterViewInit {
     });
   }
 
-  showAssessmentDialog() {
+  showAssessmentDialog(data: any) {
+    console.log("Assessment Data", data);
+    //setting the data for assessment page
+    this.candidateAssessmentService.setAssessmentData(data);
     this.visible = true;
   }
 

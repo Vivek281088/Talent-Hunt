@@ -24,7 +24,7 @@ export class NavbarComponent {
   userPhone!: number;
   name: boolean = false;
   modalVisible: boolean = false;
- 
+  isAdmin : boolean = false;
  
   finalizedManagerEmail!: string;
   visible: boolean = false;
@@ -49,6 +49,7 @@ export class NavbarComponent {
     const a = localStorage.getItem('userrole');
  
     if (a == 'manager') {
+      this.isAdmin = true;
       this.managernameService
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {

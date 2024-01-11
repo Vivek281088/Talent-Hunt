@@ -264,7 +264,7 @@
       </div>
       <div class="user-info">
         <p class="user-name">{{ userName }}</p>
-        <p class="user-role">Admin</p>
+        <p class="user-role" *ngIf="isAdmin">Admin</p>
        
       </div>
 
@@ -285,7 +285,7 @@
           </p-avatar>
           <div class="overlay-user-info">
             <p class="overlay-user-name">{{ userName }}</p>
-            <p class="overlay-user-role">Admin</p>
+            <p class="overlay-user-role" *ngIf="isAdmin">Admin</p>
           </div>
               </div>
             

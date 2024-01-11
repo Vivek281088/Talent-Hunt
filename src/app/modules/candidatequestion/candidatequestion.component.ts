@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 
-
 import { ManagernameService } from 'src/app/services/managername.service';
 
 import { TableService } from 'src/app/services/table.service';
@@ -22,19 +21,18 @@ import { Toast } from 'ngx-toastr';
   styleUrls: ['./candidatequestion.component.scss'],
   providers: [ConfirmationService, MessageService],
 })
-export class CandidatequestionComponent implements OnInit,AfterViewInit {
-
+export class CandidatequestionComponent implements OnInit, AfterViewInit {
   @HostListener('window:focus', ['$event'])
-onFocus(event: FocusEvent): void {
-  // Tab is in focus
-}
+  onFocus(event: FocusEvent): void {
+    // Tab is in focus
+  }
 
-@HostListener('window:blur', ['$event'])
-onBlur(event: FocusEvent): void {
-  // Tab is blurred (inactive)
+  @HostListener('window:blur', ['$event'])
+  onBlur(event: FocusEvent): void {
+    // Tab is blurred (inactive)
 
-  console.warn('Warning: Please do not switch tabs during the test.');
-}
+    console.warn('Warning: Please do not switch tabs during the test.');
+  }
 
   position: string = 'center';
   remainingTime: number = 0;
@@ -60,7 +58,7 @@ onBlur(event: FocusEvent): void {
   duration!: number;
 
   assessmentData: any;
-  totalQuestions!:number;
+  totalQuestions!: number;
   assessmentQuestions: any;
   previewOptions: any;
   endTime!: Date;
@@ -69,6 +67,7 @@ onBlur(event: FocusEvent): void {
   score!: number;
   result: string = '';
   cutoff!: number;
+  fileName !: string;
   id: any = '2024-01-04T06:04:10.746Z';
   candidateEmail: string = 'sapna@gmail.com';
 
@@ -83,129 +82,158 @@ onBlur(event: FocusEvent): void {
     private reviewerService: ReviewerService,
     private candidateService: CandidateAssessmentService,
     private cdr: ChangeDetectorRef,
-    
+
     private router: Router
   ) {}
   ngAfterViewInit(): void {
-    console.log("error page " , this.totalQuestions);
     this.totalQuestions = this.previewOptions.length;
 
-     // Update session storage after the view has been initialized
+    // Update session storage after the view has been initialized
     this.updateSessionStorage();
-  
   }
 
   // In your component class
   ngOnInit(): void {
-
     const storedOptions = sessionStorage.getItem('selectedOptions');
     if (storedOptions) {
       this.selectedOptions1 = JSON.parse(storedOptions);
-      console.log("Selected Option",this.selectedOptions1);
+      console.log('Selected Option', this.selectedOptions1);
     }
 
-    
     this.startTime = new Date();
-    
-
-    //this.remainingTime = 400;
 
     this.updateTimer();
 
     //get the assessment data
-    this.assessmentData = this.candidateAssessmentService.getAssessmentData();
-    console.log("Assessment Data", this.assessmentData);
-    this.previewOptions = this.assessmentData[0].questions;
-    this.duration=this.assessmentData[0].durations;
-    this.id= this.assessmentData[0].id;
-    console.log("Id--->", this.id);
-    this.candidateEmail=this.assessmentData[0].candidateEmail
-    console.log("Email-->", this.candidateEmail);
+    // this.assessmentData = this.candidateAssessmentService.getAssessmentData();
+    this.assessmentData = {
+      Skill: ['GraphQL', 'Nodejs'],
+      candidateEmail: 'kabilan@gmail.com',
+      candidateName: 'Kabilan',
+      candidatePhone: 9090909090,
+      confirmPassword: 'abc123',
+      cutoff: '45',
+      durations: '200',
+      email_Filename: 'Angular Training',
+      email_Managername: 'Mathanraj',
+      email_Status: 'Not Started',
+      id: '2024-01-04T13:41:35.740Y',
+      password: 'abc123',
+      questions: [
+        {
+          Difficulty_Level: 'H',
+          Selected: true,
+          answer: 'Answer',
+          id: '1699593363385',
+          options: ['word', 'Para', 'Line', 'Text'],
+          question:
+            'This tab lists all connected branches, select a branch to view build details.',
+          questionType: 'Radio',
+          skills: 'GraphQL',
+        },
+        {
+          Difficulty_Level: 'M',
+          Selected: true,
+          answer: ['useMutation'],
+          id: '2',
+          options: [
+            'useMutation',
+            'useSubscription',
+            'useQuery',
+            'none of the options',
+          ],
+          question:
+            'Which of the following GraphQL’s hooks should be used to update data on server?',
+          questionType: 'Radio',
+          skills: 'GraphQL',
+        },
+        {
+          Difficulty_Level: 'H',
+          answer: ['Use gzip compression'],
+          id: '246789012345',
+          options: [
+            'Do logging correctly',
+            "Don't use synchronous functions",
+            'Handle exceptions properly',
+            'Use gzip compression',
+          ],
+          question:
+            "What should you do in your code to improve your application's performance?",
+          questionType: 'Radio',
+          selection: true,
+          skills: 'Nodejs',
+        },
+
+        {
+          Difficulty_Level: 'M',
+          answer: ['fsread'],
+          id: '1',
+          options: ['HTTPS', 'dgram', 'fsread', 'zlib'],
+          question:
+            'Which of the below modules is not a built-in module in Node.js',
+          questionType: 'Radio',
+          selection: true,
+          skills: 'Nodejs',
+        },
+        {
+          Difficulty_Level: 'H',
+          answer: ['GruntJs'],
+          id: '2467890123',
+          options: ['Express.js', 'GruntJs', 'NPM', 'None of the above'],
+          question:
+            'Which of the following tool is used to automate various tasks in a Node.js application?',
+          questionType: 'Radio',
+          selection: true,
+          skills: 'Nodejs',
+        },
+        {
+          Difficulty_Level: 'E',
+          answer: ['Third Party'],
+          id: '2467890',
+          options: ['Global', 'Third Party', 'core', 'local'],
+          question: 'Http module falls under which type of module?',
+          questionType: 'Radio',
+          selection: true,
+          skills: 'Nodejs',
+        },
+      ],
+      results: 'Awaiting Eval',
+      roles: 'user',
+      score: null,
+    };
+
+    console.log('Assessment Data', this.assessmentData);
+    this.previewOptions = this.assessmentData.questions;
+    this.duration = this.assessmentData.durations;
+    this.fileName = this.assessmentData.email_Filename;
+
+    this.cutoff = this.assessmentData.cutoff;
+    console.log('cutoff--->', this.cutoff);
+    this.id = this.assessmentData.id;
+    console.log('Id--->', this.id);
+    this.candidateEmail = this.assessmentData.candidateEmail;
+    console.log('Email-->', this.candidateEmail);
     this.remainingTime = this.duration * 60;
     console.log('Assessment Questions', this.previewOptions);
     this.selectedOptions1 = this.previewOptions.map(() => []);
-    this.totalQuestions=this.previewOptions.length;
-        console.log("Count Total Quest-",this.totalQuestions)
-        this.updateSessionStorage();
-      
+    this.totalQuestions = this.previewOptions.length;
+    console.log('Count Total Quest-', this.totalQuestions);
+    this.updateSessionStorage();
 
-    
-    // this.candidateService
-    //   .getCandidatedata_by_Email(this.candidateEmail)
-    //   .subscribe((response) => {
-    //     console.log('res', response);
-    //     this.assessmentData = response[1];
-    //     console.log('assessmentdata', this.assessmentData);
-    //     this.previewOptions = this.assessmentData.questions;
-    //     this.selectedOptions1 = this.previewOptions.map(() => []);
-    //-----------------------------------
-        
-    // this.candidateService
-    //   .getCandidatedata_by_Email(this.candidateEmail)
-    //   .subscribe((response) => {
-    //     console.log('res', response);
-    //     this.assessmentData = response[0];
-    //     console.log('assessmentdata', this.assessmentData.durations);
-    //     this.previewOptions = this.assessmentData.questions;
-    //     this.selectedOptions1 = this.previewOptions.map(() => []);
-    //     console.log('questions-----', this.previewOptions[0].options);
-        
-    //     this.totalQuestions=this.previewOptions.length;
-    //     console.log("error",this.totalQuestions)
-    //     // this.candidateName = response[0].candidateName;
-    //     this.totalQuestions = this.previewOptions.length;
-    //     // console.log('candidateName', this.candidateName);
-    //   // });
-    //     console.log("sapna",this.totalQuestions);
-    //     this.updateSessionStorage();
-      
-    //     console.log('uygvctytfcfv', this.selectedOptions1);
-    //   });
   }
-  // selectOption(option : string , pageIndex :number , optionIndex : number){
-  //   console.log("option " , option)
-  //   this.selectedOptions1[pageIndex][optionIndex] = option;
-  // }
-
-
- 
-
-  // selectOption(option: string, pageIndex: number, optionIndex: number) {
-  //   //debugger;
-  //   console.log('Selected Option', this.previewOptions);
-  //   console.log('asdjbvahbvhabvahbvahbvhv', option, pageIndex, optionIndex);
-
-  //   if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
-  //     console.log('checkbox inside');
-  //     // Toggle checkbox option
-  //     const isSelected = this.selectedOptions1[pageIndex].includes(option);
-  //     if (isSelected) {
-  //       this.selectedOptions1[pageIndex] = this.selectedOptions1[
-  //         pageIndex
-  //       ].filter((selected: any) => selected !== option);
-  //     } else {
-  //       console.log('inside else');
-  //       console.log('page index ????', pageIndex);
-  //       console.log('else option', option);
-  //       this.selectedOptions1[pageIndex].push(option);
-  //       console.log(this.selectedOptions1);
-  //     }
-  //   } else {
-  //     // Radio option (single selection)
-  //     this.selectedOptions1[pageIndex] = option;
-  //   }
-  //   console.log('uygvctytfcfv', this.selectedOptions1);
-  // }
+  
   selectOption(option: string, pageIndex: number, optionIndex: number) {
     console.log('Selected Option', this.previewOptions);
     console.log('asdjbvahbvhabvahbvahbvhv', option, pageIndex, optionIndex);
-  
+
     if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
       console.log('checkbox inside');
       // Toggle checkbox option
       const isSelected = this.selectedOptions1[pageIndex].includes(option);
       if (isSelected) {
-        this.selectedOptions1[pageIndex] = this.selectedOptions1[pageIndex].filter((selected: any) => selected !== option);
+        this.selectedOptions1[pageIndex] = this.selectedOptions1[
+          pageIndex
+        ].filter((selected: any) => selected !== option);
       } else {
         console.log('inside else');
         console.log('page index ????', pageIndex);
@@ -216,16 +244,17 @@ onBlur(event: FocusEvent): void {
       // Radio option (single selection)
       this.selectedOptions1[pageIndex] = option;
     }
-    
+
     // Update session storage
-   
   }
-  
+
   updateSessionStorage() {
     // Store the selected options in session storage
-    sessionStorage.setItem('selectedOptions', JSON.stringify(this.selectedOptions1));
+    sessionStorage.setItem(
+      'selectedOptions',
+      JSON.stringify(this.selectedOptions1)
+    );
   }
-  
 
   toggleColor(boxNumber: number, page: number) {
     if (
@@ -254,67 +283,43 @@ onBlur(event: FocusEvent): void {
         }
         this.cdr.detectChanges();
       } else {
-        console.log("remaining",this.remainingTime)
+        console.log('remaining', this.remainingTime);
         clearInterval(timerInterval); // Stop the timer
         this.submitAnswers(); // Automatically submit the answers
       }
     }, 1000); // 1000 milliseconds = 1 second
   }
 
-  exit(){
+  exit() {
     this.router.navigate(['/login']);
-
   }
-  prev()
-  {
-    console.log("prev","previous function called");
-   if(this.first >= this.rows){
-    this.page-=1;
-    this.first -= this.rows;
-    debugger;
-   }
-    
+  prev() {
+    console.log('prev', 'previous function called');
+    if (this.first >= this.rows) {
+      this.page -= 1;
+      this.first -= this.rows;
+      debugger;
     }
-  
-       
-    
-    
-  
-
-    
-    
-    
-  
-
-  next(){
-
-
-
-   { 
-    console.log("next","nextfunction called");
-    this.page+=1;
-    
-    this.first +=1;
-    
   }
-}
+
+  next() {
+    {
+      console.log('next', 'nextfunction called');
+      this.page += 1;
+
+      this.first += 1;
+    }
+  }
   submitAnswers() {
     console.log('submit function');
-   
+
     this.endTime = new Date();
     this.reviewQuestion();
     this.router.navigate(['/login']);
-
   }
   reviewQuestion() {
     this.countCorrectQues = 0;
 
-    //copying the selected
-    // this.previewOptions.forEach((item: { question: { selectedOption: string | any[]; }; }, index: string | number) => {
-    //   if (item.question.selectedOption.length === 0) {
-    //     this.previewOptions[index].question.selectedOption = this.selectedOptions1[index];
-    //   }
-    // });
     for (let i = 0; i < this.selectedOptions1.length; i++) {
       this.previewOptions[i].selectedOption = this.selectedOptions1[i];
     }
@@ -327,14 +332,7 @@ onBlur(event: FocusEvent): void {
       if ((question.questionType = 'Radio')) {
         correct = question.answer.includes(question.selectedOption);
         console.log('correct ', correct);
-        // if (correct) {
-        //   console.log('Selected Option:', question.selectedOption);
-        //   console.log('Answer:', question.answer);
-        //   question.reviewerResponse = 'Correct';
-        //   this.countCorrectQues++;
-        // } else {
-        //   question.reviewerResponse = 'Incorrect';
-        // }
+    
       } else if ((question.questionType = 'Checkbox')) {
         correct = question.selectedOption.every((opt: any) =>
           question.answer.includes(opt)
@@ -356,9 +354,10 @@ onBlur(event: FocusEvent): void {
     this.score = (this.countCorrectQues / this.CountTotalQuestions) * 100;
 
     if (this.score > this.cutoff) {
-      this.result = 'Shorlisted';
+      this.result = 'Shortlisted';
     } else this.result = 'Rejected';
 
+    console.log('Cutoff :', this.cutoff);
     console.log('Score :', this.score);
 
     console.log('Result :', this.result);
@@ -389,7 +388,6 @@ onBlur(event: FocusEvent): void {
   }
 
   formatTime(seconds: number): string {
-    
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
@@ -417,8 +415,7 @@ onBlur(event: FocusEvent): void {
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 2000);
-        
-        
+
         console.log('Submitted');
       },
       reject: (type: ConfirmEventType) => {
@@ -453,27 +450,6 @@ onBlur(event: FocusEvent): void {
     console.log('varun ?????', this.selectedOptions1);
   }
 
-  // =[
-  //   {
-  //     question:{Description :"Which of the following keywords is used to define a variable in Javascript ?", code: "<th>Table Value</th>\n<tr>Sap</tr>"},
-  //     options:["var","let","const","None of the above"],
-  //     selectedAnswer:["var","let"],
-  //     questionType:"checkbox"
-  //   },
-  //   {
-  //     question:{Description :"Which of the following methods is used to access HTML elements using Javascript?", code: "<th>Table Value</th>\n<tr>Sap</tr>"},
-  //     options:["getElementbyId()","getElementsByClassName()","Both A and B","None of the above"],
-  //     selectedAnswer:["Both A and B"],
-  //     questionType:"radio"
-  //   },
-
-  //   {
-  //     question:{Description:"When the switch statement matches the expression with the given labels, how is the comparison done?",code: "<th>Table Value</th>\n<tr>Sap</tr>"},
-  //     options:["Both the datatype and the result of the expression are compared.","Only the datatype of the expression is compared.","Only the value of the expression is compared.","None of the Above"],
-  //     selectedAnswer:["Both the datatype and the result of the expression are compared.","Only the value of the expression is compared."],
-  //     questionType:"radio"
-  //   }
-  // ];
 
   showQuestion(questionId: number) {
     if (!this.questionSelectedOptions[questionId]) {

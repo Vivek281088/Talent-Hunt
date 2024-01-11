@@ -1,43 +1,25 @@
 <div class="wholepage">
   <div class="header">
     <div class="header-design">
-      <p>Angular Developer Drive For Delta</p>
+      <p>{{fileName}}</p>
 
-      <p-paginator id="paginator-design"
-      *ngIf="totalQuestions !== undefined"
+      <p-paginator
+        id="paginator-design"
+        *ngIf="totalQuestions !== undefined"
         (onPageChange)="onPageChange($event)"
         [first]="first"
         [rows]="rows"
         [totalRecords]="totalQuestions"
       ></p-paginator>
-      <div class="fourth-design">
-        <div class="duration">
-          <svg xmlns="http://www.w3.org/2000/svg"  fill="#FFFFFFBD" class="duration-svg">
-                          <path d="M9.10001 9.84967C9.20001 9.94967 9.31668 9.99967 9.45001 9.99967C9.58334 9.99967 9.70557 9.94412 9.81668 9.83301C9.92779 9.7219 9.98612 9.59412 9.99168 9.44967C9.99723 9.30523 9.94446 9.18301 9.83334 9.08301L7.55001 6.79967V3.93301C7.55001 3.79967 7.50279 3.68579 7.40834 3.59134C7.3139 3.4969 7.19445 3.44967 7.05001 3.44967C6.90557 3.44967 6.78612 3.4969 6.69168 3.59134C6.59723 3.68579 6.55001 3.80523 6.55001 3.94967V6.99967C6.55001 7.06634 6.56112 7.12745 6.58334 7.18301C6.60557 7.23856 6.6389 7.29412 6.68334 7.34967L9.10001 9.84967ZM7.00001 13.6663C6.0889 13.6663 5.22779 13.4913 4.41668 13.1413C3.60557 12.7913 2.89723 12.3136 2.29168 11.708C1.68612 11.1025 1.20834 10.3941 0.858343 9.58301C0.508343 8.7719 0.333344 7.91079 0.333344 6.99967C0.333344 6.08856 0.508343 5.22745 0.858343 4.41634C1.20834 3.60523 1.68612 2.8969 2.29168 2.29134C2.89723 1.68579 3.60557 1.20801 4.41668 0.858008C5.22779 0.508008 6.0889 0.333008 7.00001 0.333008C7.91112 0.333008 8.77223 0.508008 9.58334 0.858008C10.3945 1.20801 11.1028 1.68579 11.7083 2.29134C12.3139 2.8969 12.7917 3.60523 13.1417 4.41634C13.4917 5.22745 13.6667 6.08856 13.6667 6.99967C13.6667 7.91079 13.4917 8.7719 13.1417 9.58301C12.7917 10.3941 12.3139 11.1025 11.7083 11.708C11.1028 12.3136 10.3945 12.7913 9.58334 13.1413C8.77223 13.4913 7.91112 13.6663 7.00001 13.6663ZM7.00001 12.6663C8.55557 12.6663 9.8889 12.1108 11 10.9997C12.1111 9.88856 12.6667 8.55523 12.6667 6.99967C12.6667 5.44412 12.1111 4.11079 11 2.99967C9.8889 1.88856 8.55557 1.33301 7.00001 1.33301C5.44445 1.33301 4.11112 1.88856 3.00001 2.99967C1.8889 4.11079 1.33334 5.44412 1.33334 6.99967C1.33334 8.55523 1.8889 9.88856 3.00001 10.9997C4.11112 12.1108 5.44445 12.6663 7.00001 12.6663Z" fill="white" fill-opacity="0.74"/>
-                        </svg> 
 
-           <!-- <svg
-            id="svg_design"
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            style="margin-top: 8px"
-          >
-            <path
-              d="M10.1 10.8497C10.2 10.9497 10.3167 10.9997 10.45 10.9997C10.5833 10.9997 10.7056 10.9441 10.8167 10.833C10.9278 10.7219 10.9861 10.5941 10.9917 10.4497C10.9972 10.3052 10.9445 10.183 10.8333 10.083L8.55001 7.79967V4.93301C8.55001 4.79967 8.50279 4.68579 8.40834 4.59134C8.3139 4.4969 8.19445 4.44967 8.05001 4.44967C7.90557 4.44967 7.78612 4.4969 7.69168 4.59134C7.59723 4.68579 7.55001 4.80523 7.55001 4.94967V7.99967C7.55001 8.06634 7.56112 8.12745 7.58334 8.18301C7.60557 8.23856 7.6389 8.29412 7.68334 8.34967L10.1 10.8497ZM8.00001 14.6663C7.0889 14.6663 6.22779 14.4913 5.41668 14.1413C4.60557 13.7913 3.89723 13.3136 3.29168 12.708C2.68612 12.1025 2.20834 11.3941 1.85834 10.583C1.50834 9.7719 1.33334 8.91079 1.33334 7.99967C1.33334 7.08856 1.50834 6.22745 1.85834 5.41634C2.20834 4.60523 2.68612 3.8969 3.29168 3.29134C3.89723 2.68579 4.60557 2.20801 5.41668 1.85801C6.22779 1.50801 7.0889 1.33301 8.00001 1.33301C8.91112 1.33301 9.77223 1.50801 10.5833 1.85801C11.3945 2.20801 12.1028 2.68579 12.7083 3.29134C13.3139 3.8969 13.7917 4.60523 14.1417 5.41634C14.4917 6.22745 14.6667 7.08856 14.6667 7.99967C14.6667 8.91079 14.4917 9.7719 14.1417 10.583C13.7917 11.3941 13.3139 12.1025 12.7083 12.708C12.1028 13.3136 11.3945 13.7913 10.5833 14.1413C9.77223 14.4913 8.91112 14.6663 8.00001 14.6663ZM8.00001 13.6663C9.55557 13.6663 10.8889 13.1108 12 11.9997C13.1111 10.8886 13.6667 9.55523 13.6667 7.99967C13.6667 6.44412 13.1111 5.11079 12 3.99967C10.8889 2.88856 9.55557 2.33301 8.00001 2.33301C6.44445 2.33301 5.11112 2.88856 4.00001 3.99967C2.8889 5.11079 2.33334 6.44412 2.33334 7.99967C2.33334 9.55523 2.8889 10.8886 4.00001 11.9997C5.11112 13.1108 6.44445 13.6663 8.00001 13.6663Z"
-              fill="white"
-              fill-opacity="0.74"
-            />
-          </svg>  -->
-          <p>Duration:{{ formatTime(remainingTime) }}</p>
-        </div> 
-
-        <div class="button-designs">
-          <p-button label="Exit Session" (click)="exit()"></p-button>
-        </div>
+      <div class="duration">
+        <i class="pi pi-clock"></i>
+        <p>Duration:{{ formatTime(remainingTime) }}</p>
       </div>
+
+      <!-- <div class="button-designs">
+        <p-button label="Exit Session" (click)="exit()"></p-button>
+      </div> -->
     </div>
   </div>
 
@@ -48,69 +30,10 @@
           <div class="question-design">
             {{ previewOptions[page]?.question }}
           </div>
-          <!-- <div class="code-design">
-            <ng-container *ngFor="let line of getCodeLines(previewOptions[page]?.question.code)">
-              <div>{{ line }}</div>
-            </ng-container>
-          </div> -->
         </div>
       </ng-template>
 
       <ng-template pTemplate>
-        <!-- <div class="select-size">
-          
-          <div class="option" >
-            <input type="radio" name="first" id="small" /> 
-            <div class="whole-option"  [ngClass]="{'option-background':selectedBox===1}" (click)="toggleColor(1)">
-            <label class="box-design" for="small">A</label>
-            <span  class="option-content">{{previewOptions[page]?.options[0]}} </span>
-          </div>
-          </div>
-          
-         <div class="option" >
-          <input type="radio" name="second" id="second" />
-          <div class="whole-option"  [ngClass]="{'option-background':selectedBox===2}" (click)="toggleColor(2)" >
-          <label class="box-design" for="small">B</label>
-          <span class="option-content">{{previewOptions[page]?.options[1]}}</span>
-          </div>
-         </div>
-         
-         <div class="option">
-          <input type="radio" name="third" id="third" />
-          <div class="whole-option"   [ngClass]="{'option-background':selectedBox===3}" (click)="toggleColor(3)">
-          <label class="box-design" for="small">C</label>
-          <span  class="option-content">{{previewOptions[page]?.options[2]}}</span>
-         </div>
-        </div>
-         
-         <div class="option">
-          <input type="radio" name="fourth" id="fourth" />
-          <div class="whole-option"  [ngClass]="{'option-background':selectedBox===4}" (click)="toggleColor(4)">
-          <label class="box-design" for="small" >D</label>
-          <span  class="option-content">{{previewOptions[page]?.options[3]}}</span>
-         </div>
-         </div>
-         </div> -->
-
-        <!-- <div class="select-size">
-          <div *ngFor="let option of previewOptions[page]?.options; let i = index" class="option" [ngClass]="{'selected': selectedOptions1[page][i], 'option-background': selectedBox[page] === i + 1}">
-
-            <input 
-              [type]="isCheckbox ? 'checkbox' : 'radio'" 
-              [name]="isCheckbox ? 'checkboxGroup + page + i' : 'radioGroup'" 
-              [id]="'option'+ page + '-' + i"
-              [(ngModel)]="selectedOptions1[page][i]" 
-              (click)="selectOption($any($event.target).value, page , i)"
-            />
-            <div class="whole-option" [ngClass]="{'option-background': selectedBox[page] === i + 1}" (click)="toggleColor(i + 1, page)">
-              <label class="box-design" [for]="'option'+ page + '-' + i">{{ getLabel(i) }}</label>
-              <div class="optionDiv" >
-              <span class="option-content">{{ option }}</span>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
         <div class="select-size">
           <div
             *ngFor="let option of previewOptions[page].options; let i = index"
@@ -119,6 +42,7 @@
               selected: selectedOptions1[page][i],
               'option-background': selectedBox[page] === i + 1
             }"
+            (click)="selectOption(option, page, i)"
           >
             <input
               [type]="
@@ -133,7 +57,6 @@
               "
               [id]="'option' + page + '-' + i"
               [value]="option"
-              (click)="selectOption(option, page, i)"
             />
             <div
               class="whole-option"
@@ -151,36 +74,33 @@
         </div>
       </ng-template>
     </p-splitter>
-    <!-- <div class="footer-submit">
-      <div class="previewnext">
-        <p-button>preview</p-button>
-        <p-button>next</p-button>
-      </div>
-      <div class="submitbutton">
-        <p-toast></p-toast>
-      <p-button (click)="confirmPosition('top')">submit</p-button>
-    </div>
-
-      </div> -->
-
   </div>
 </div>
 
 <div class="footer-submit">
   <div class="previewnext">
-    <p-button [disabled]="page==0" icon="pi pi-chevron-left" label="prev" (click)="prev()"></p-button>
-    
-    <p-chip id="chip-design"> {{page+1}}/{{totalQuestions}}</p-chip>
+    <p-button
+      [disabled]="page == 0"
+      icon="pi pi-chevron-left"
+      label="prev"
+      (click)="prev()"
+    ></p-button>
 
-    <p-button  [disabled]="page==totalQuestions-1" icon="pi pi-chevron-right"  label="next" iconPos="right" (click)="next()" ></p-button>
+    <p-chip id="chip-design"> {{ page + 1 }}/{{ totalQuestions }}</p-chip>
+
+    <p-button
+      [disabled]="page == totalQuestions - 1"
+      icon="pi pi-chevron-right"
+      label="next"
+      iconPos="right"
+      (click)="next()"
+    ></p-button>
   </div>
   <div class="submitbutton">
     <p-toast></p-toast>
-  <p-button (click)="confirmPosition('top')">submit</p-button>
+    <p-button (click)="confirmPosition('top')">submit</p-button>
+  </div>
 </div>
-</div>
- 
-
 
 <p-confirmDialog
   class="confirm-design"
