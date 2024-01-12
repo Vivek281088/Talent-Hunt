@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as Papa from 'papaparse';
 @Component({
   selector: 'app-manage-managers',
   templateUrl: './manage-managers.component.html',
   styleUrls: ['./manage-managers.component.scss'],
+  providers: [MessageService],
 })
 export class ManageManagersComponent {
   items: MenuItem[] | undefined;
@@ -14,18 +16,35 @@ export class ManageManagersComponent {
   managerData: any;
   managerNames!: string;
   elipsisOverlayVisible: boolean = false;
-  uniqueDepartment:any;
+  uniqueDepartment: any;
+  globalSearchValue!: string;
+  visible: boolean = false;
+  isAddManager: boolean = false;
+  isEditManager: boolean = false;
+  addManagerForm!: FormGroup;
+  formSubmitted: boolean = false;
 
-  constructor(private managerService: ManagernameService) {}
+  constructor(
+    private managerService: ManagernameService,
+    private fb: FormBuilder,
+    private messageService: MessageService
+  ) {
+    this.addManagerForm = this.fb.group({
+      employeeId: [null, [Validators.required]],
+      managerName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [null, [Validators.required]],
+      department: ['', [Validators.required]],
+      location: ['', [Validators.required]],
+    });
+  }
   ngOnInit() {
     this.managerService.getclientManagerData().subscribe((response) => {
       console.log('Client Manager Details', response);
       this.managerData = response;
 
-      this.uniqueDepartment =this.getUniqueDepartments(this.managerData);
+      this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
       console.log('Unique Department', this.uniqueDepartment);
-
-      
     });
 
     this.managerService.getclientManagerName().subscribe((response) => {
@@ -65,15 +84,142 @@ export class ManageManagersComponent {
   }
   clear(table: Table) {
     table.clear();
+    this.globalSearchValue = '';
   }
-  handleElipsis() {
-    this.elipsisOverlayVisible = !this.elipsisOverlayVisible;
-  }
+
   getUniqueDepartments(data: any[]): any[] {
-    const uniqueDepartments = Array.from(new Set(data.map(item => item.department)));
-    return uniqueDepartments.map(department => {
-      const matchingObject = data.find(item => item.department === department);
+    const uniqueDepartments = Array.from(
+      new Set(data.map((item) => item.department))
+    );
+    return uniqueDepartments.map((department) => {
+      const matchingObject = data.find(
+        (item) => item.department === department
+      );
       return matchingObject;
     });
+  }
+
+  addManager() {
+    this.visible = true;
+    this.isAddManager = true;
+    this.isEditManager = false;
+  }
+  selectedRowData: any;
+  handleEditIconClick(data: any) {
+    this.isEditManager = true;
+    this.isAddManager = false;
+    this.visible = true;
+
+    this.selectedRowData = data;
+    console.log(' Selected Edit Data', this.selectedRowData);
+
+    this.populateFormControls();
+  }
+  populateFormControls() {
+    if (this.selectedRowData) {
+      this.addManagerForm.patchValue({
+        employeeId: this.selectedRowData.empid,
+        managerName: this.selectedRowData.managerName,
+        email: this.selectedRowData.email,
+        phone: this.selectedRowData.phone,
+        department: this.selectedRowData.department,
+        location: this.selectedRowData.location,
+      });
+    }
+    console.log('Edit Data', this.addManagerForm);
+  }
+
+  cancelButton() {
+    this.visible = false;
+    this.addManagerForm.reset();
+    this.addManagerForm.markAsPristine();
+    this.addManagerForm.markAsUntouched();
+    this.formSubmitted = false;
+  }
+  saveSuccessMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Manager saved successfully',
+    });
+  }
+
+  createButton() {
+    this.formSubmitted = true;
+
+    if (this.addManagerForm.valid) {
+      const formData = this.addManagerForm.value;
+      console.log('Form Data:', formData);
+
+      this.managerService
+        .postClientManager(
+          formData.employeeId,
+          formData.managerName,
+          formData.email,
+          formData.phone,
+          formData.department,
+          formData.location
+        )
+        .subscribe((response) => {
+          console.log('Manager Posted....');
+        });
+       setTimeout(() => {
+          this.saveSuccessMessage();
+          this.cancelButton();
+        }, 1000);
+    }
+  }
+  // uploadCsv(event: any) {
+  //   const file: File = event.target.files[0];
+
+  //   if (file) {
+  //     const reader: FileReader = new FileReader();
+  //     reader.onload = () => {
+  //       const csvData: string = reader.result as string;
+  //       this.processCsvData(csvData);
+  //     };
+
+  //     reader.readAsText(file);
+  //   }
+  // }
+
+  // processCsvData(csvData: string) {
+  //   Papa.parse(csvData, {
+  //     complete: (result: { data: any }) => {
+  //       const csvRows = result.data.filter((row: { [row: string]: string }) =>
+  //         Object.keys(row).some((key) => row[key] !== '')
+  //       );
+
+  //       if (csvRows.length === 0) {
+  //         this.fileUploadErrorMessage();
+  //         this.cancelButton();
+  //         return;
+  //       }
+  //       console.log('CSV Data:', csvRows);
+  //       setTimeout(() => {
+  //         this.fileUploadMessage();
+  //         this.cancelButton();
+  //       }, 1000);
+  //     },
+  //     header: true,
+  //   });
+  // }
+  // fileUploadMessage() {
+  //   this.messageService.add({
+  //     severity: 'success',
+  //     summary: 'Success',
+  //     detail: 'Manager saved successfully',
+  //   });
+  // }
+  // fileUploadErrorMessage() {
+  //   this.messageService.add({
+  //     severity: 'error',
+  //     summary: 'Error',
+  //     detail: 'File is Empty',
+  //   });
+  // }
+
+  updateManager() {
+    console.log('Updating.......');
   }
 }

@@ -2,7 +2,7 @@
   <div class="manageManagers-header">
     <div class="manageManagers-header-1">
       <div class="title">
-        <p>Managers</p>
+        <p>Candidates</p>
       </div>
       <div class="header-breadcrumb">
         <p-breadcrumb
@@ -22,8 +22,8 @@
   <div class="managerTable">
     <p-table
       #dt2
-      dataKey="id"
       [value]="managerData"
+      dataKey="id"
       [rows]="5"
       [showCurrentPageReport]="true"
       [rowsPerPageOptions]="[5, 10, 25, 50]"
@@ -31,7 +31,7 @@
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
-        'managerName',
+        'candidateName',
         'department',
         'email',
         'empid',
@@ -40,7 +40,7 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th colspan="7">
+          <th colspan="8">
             <div class="manager-header">
               <div class="manager-header1">
                 <div class="p-input-icon-right">
@@ -71,6 +71,7 @@
                       <p-multiSelect
                         [ngModel]="value"
                         [options]="uniqueDepartment"
+                        optionLabel="department"
                         placeholder="Department"
                         (onChange)="filter($event.value)"
                         appendTo="body"
@@ -82,6 +83,35 @@
                   </p-columnFilter>
                 </div>
 
+                <!-- <div class="deptMultiselect">
+                    <p-columnFilter
+                      field="location"
+                      matchMode="in"
+                      [showMenu]="false"
+                      [showClearButton]="false"
+                    >
+                      <ng-template
+                        pTemplate="filter"
+                        let-value
+                        let-filter="filterCallback"
+                      >
+                        <p-multiSelect
+                          [ngModel]="value"
+                          [options]="managerData"
+                          placeholder="Manager"
+                          (onChange)="filter($event.value)"
+                          appendTo="body"
+                        >
+                          <ng-template let-option pTemplate="item">
+                            <div class="inline-block vertical-align-middle">
+                              <span class="ml-1 mt-1">{{ option }}</span>
+                            </div>
+                          </ng-template>
+                        </p-multiSelect>
+                      </ng-template>
+                    </p-columnFilter>
+                  </div> -->
+
                 <div class="ml-3">
                   <button
                     pButton
@@ -91,22 +121,30 @@
                   ></button>
                 </div>
               </div>
-              <div class="addmanager">
-                <button
-                  pButton
-                  label="Add Manager"
-                  (click)="addManager()"
-                ></button>
+              <div class="manager-header-2">
+                <div class="addcandidate">
+                  <p-button label="Add candidate" (onClick)="addCandidate()">
+                  </p-button>
+                </div>
+
+                <div class="addcandidate">
+                  <p-button
+                    label="Delete candidate"
+                    (onClick)="deleteCandidate()"
+                  >
+                  </p-button>
+                </div>
               </div>
             </div>
           </th>
         </tr>
 
         <tr>
+          <th></th>
           <th class="EmployeeId" pSortableColumn="empid">
             Emp ID <p-sortIcon field="empid"></p-sortIcon>
           </th>
-          <th>Manager Name</th>
+          <th>Candidate Name</th>
           <th>Email</th>
           <th>Department</th>
           <th>Location</th>
@@ -120,8 +158,11 @@
         class="tableBody"
       >
         <tr>
+          <td class="checkboxcell">
+            <input type="checkbox" [value]="rowData" class="custom-checkbox" />
+          </td>
           <td>{{ rowData.empid }}</td>
-          <td class="managernamedesign">{{ rowData.managerName }}</td>
+          <td class="candidatenamedesign">{{ rowData.managerName }}</td>
           <td>{{ rowData.email }}</td>
           <td>{{ rowData.department }}</td>
           <td>{{ rowData.location }}</td>
@@ -176,9 +217,11 @@
 <p-toast></p-toast>
 <div class="newSchedule-Dialog">
   <p-dialog
-    header="Add Manager"
-    [(visible)]="visible"
-    [formGroup]="addManagerForm"
+    [header]="
+      isAddCandidate ? 'New Candidate' : isEditCandidate ? 'Edit Candidate' : ''
+    "
+    [(visible)]="addCandidatevisible"
+    [formGroup]="addCandidateForm"
     [modal]="true"
     [style]="{ width: '47VW' }"
     [draggable]="false"
@@ -201,13 +244,13 @@
           </p-inputNumber>
           <div
             *ngIf="
-              addManagerForm.get('employeeId')?.invalid &&
-              (addManagerForm.get('employeeId')?.touched || formSubmitted)
+              addCandidateForm.get('employeeId')?.invalid &&
+              (addCandidateForm.get('employeeId')?.touched || formSubmitted)
             "
           >
             <div
               class="error-message"
-              *ngIf="addManagerForm.get('employeeId')?.hasError('required')"
+              *ngIf="addCandidateForm.get('employeeId')?.hasError('required')"
             >
               Employee Id is required !
             </div>
@@ -217,22 +260,24 @@
 
       <div class="labelvalue">
         <div class="label">
-          <label>Manager Name</label>
+          <label>Candidate Name</label>
           <span class="important-symbol">&#42;</span>
         </div>
         <div class="value">
-          <input type="text" formControlName="managerName" pInputText />
+          <input type="text" formControlName="candidateName" pInputText />
           <div
             *ngIf="
-              addManagerForm.get('managerName')?.invalid &&
-              (addManagerForm.get('managerName')?.touched || formSubmitted)
+              addCandidateForm.get('candidateName')?.invalid &&
+              (addCandidateForm.get('candidateName')?.touched || formSubmitted)
             "
           >
             <div
               class="error-message"
-              *ngIf="addManagerForm.get('managerName')?.hasError('required')"
+              *ngIf="
+                addCandidateForm.get('candidateName')?.hasError('required')
+              "
             >
-              Manager Name is required !
+              Candidate Name is required !
             </div>
           </div>
         </div>
@@ -247,44 +292,15 @@
           <input type="email" formControlName="email" pInputText />
           <div
             *ngIf="
-              addManagerForm.get('email')?.invalid &&
-              (addManagerForm.get('email')?.touched || formSubmitted)
+              addCandidateForm.get('email')?.invalid &&
+              (addCandidateForm.get('email')?.touched || formSubmitted)
             "
           >
             <div
               class="error-message"
-              *ngIf="addManagerForm.get('email')?.hasError('required')"
+              *ngIf="addCandidateForm.get('email')?.hasError('required')"
             >
               Email is required !
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="labelvalue">
-        <div class="label">
-          <label>Phone No</label>
-          <span class="important-symbol">&#42;</span>
-        </div>
-        <div class="value">
-          <p-inputNumber
-            formControlName="phone"
-            mode="decimal"
-            inputId="withoutgrouping"
-            [useGrouping]="false"
-          >
-          </p-inputNumber>
-          <div
-            *ngIf="
-              addManagerForm.get('phone')?.invalid &&
-              (addManagerForm.get('phone')?.touched || formSubmitted)
-            "
-          >
-            <div
-              class="error-message"
-              *ngIf="addManagerForm.get('phone')?.hasError('required')"
-            >
-              Phone no is required !
             </div>
           </div>
         </div>
@@ -299,13 +315,13 @@
           <input type="text" formControlName="department" pInputText />
           <div
             *ngIf="
-              addManagerForm.get('department')?.invalid &&
-              (addManagerForm.get('department')?.touched || formSubmitted)
+              addCandidateForm.get('department')?.invalid &&
+              (addCandidateForm.get('department')?.touched || formSubmitted)
             "
           >
             <div
               class="error-message"
-              *ngIf="addManagerForm.get('department')?.hasError('required')"
+              *ngIf="addCandidateForm.get('department')?.hasError('required')"
             >
               Department is required !
             </div>
@@ -322,13 +338,13 @@
           <input type="text" formControlName="location" pInputText />
           <div
             *ngIf="
-              addManagerForm.get('location')?.invalid &&
-              (addManagerForm.get('location')?.touched || formSubmitted)
+              addCandidateForm.get('location')?.invalid &&
+              (addCandidateForm.get('location')?.touched || formSubmitted)
             "
           >
             <div
               class="error-message"
-              *ngIf="addManagerForm.get('location')?.hasError('required')"
+              *ngIf="addCandidateForm.get('location')?.hasError('required')"
             >
               Location is required !
             </div>
@@ -343,13 +359,18 @@
           <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
           </p-button>
         </div>
-
-        <div class="Createbutton" *ngIf="isAddManager">
-          <p-button label="Create" (onClick)="createButton()"> </p-button>
+        <div class="Createbutton" *ngIf="isAddCandidate">
+          <p-button label="Create" (onClick)="saveCandidate()"> </p-button>
         </div>
-        <div class="Createbutton" *ngIf="isEditManager">
-          <p-button label="Update" (onClick)="updateManager()"> </p-button>
+        <div class="Createbutton" *ngIf="isEditCandidate">
+          <p-button label="Update" (onClick)="updateCandidate()"> </p-button>
         </div>
+        
+        <label class="custom-file-input">
+          Upload File
+          <input type="file" (change)="uploadCsv($event)" style="display: none;" />
+        </label>
+        
       </div>
     </ng-template>
   </p-dialog>

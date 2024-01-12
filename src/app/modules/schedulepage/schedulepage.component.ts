@@ -37,7 +37,7 @@ export class SchedulepageComponent implements OnInit {
   toDate!: any;
   difficultyLevel: string[] = ['Easy', 'Medium', 'Hard'];
   formGroup!: FormGroup;
-  value!: string;
+  // value!: string;
   tables: any[] | undefined;
   cols!: Column[];
   selectedManager: string = '';
@@ -143,7 +143,8 @@ export class SchedulepageComponent implements OnInit {
   roles: string = 'user';
   showcardFlag: boolean = false;
   candidateData: any;
-  managerData:any;
+  managerData: any;
+  globalSearchValue!: string;
 
   // candidateForm !: FormGroup;
   constructor(
@@ -205,14 +206,13 @@ export class SchedulepageComponent implements OnInit {
     skills: string[];
     remainingCount: number;
   } {
-    const maxLength = 8;
+    const maxLength = 16;
 
     let result: string[] = [];
     let totalLength = 0;
 
     for (const skill of skills) {
       if (totalLength + skill.length <= maxLength) {
-        // Include the skill in the result
         result.push(skill);
         totalLength += skill.length;
       } else {
@@ -370,15 +370,8 @@ export class SchedulepageComponent implements OnInit {
     this.showcardFlag = true;
   }
   onSearchClick(dt2: Table) {
+    this.globalSearchValue = '';
     dt2.clear();
-    // date1!:Date;
-    // // date1!:Date;
-    // this.fromDate=this.datepipe.transform(this.selectedDate[0],'dd-MMM-yy');
-    // this.toDate=this.datepipe.transform(this.selectedDate[1],'dd-MMM-yy');
-    // console.log('date----------------->', this.selecteddates);
-    // this.Skills.push(this.filterSkills)
-    // this.fromDate=this.selectedDate[0];
-    // this.toDate=this.selectedDate[1];
 
     this.skillsdropdownservice
       .filterManager(
@@ -408,11 +401,10 @@ export class SchedulepageComponent implements OnInit {
     //   console.log('managernames------------>', this.managerOption);
     // });
     this.managernameService.getclientManagerData().subscribe((response) => {
-      
-      this.managerData = response.map((manager: { managerName: string; })=>manager.managerName);
+      this.managerData = response.map(
+        (manager: { managerName: string }) => manager.managerName
+      );
       console.log('Client Manager Details', this.managerData);
-  
-      
     });
   }
   sendQuestions(data: any) {
@@ -436,16 +428,14 @@ export class SchedulepageComponent implements OnInit {
   cancelButton() {
     this.visible = false;
     this.resetData();
+    console.log('Manager after cancel', this.manager);
   }
-  resetData(){
-      this.scheduleName='';
-    this.manager='';
-    this.selectedSkills=[];
-    
+  resetData() {
+    this.scheduleName = '';
+    // this.managerData=[]
+    this.manager = '';
+    this.selectedSkills = [];
   }
-  // createButton(scheduleName:string,manager:string,selectedSkill:string,cutOff:number,duration:number){
-  // this.router.navigate(['new-schedule'],this.scheduleName,this.manager,this.selectedSkill,this.cutOff,this.duration)
-  // console.log("recieved",scheduleName,manager,selectedSkill,cutOff,duration)
   createButton() {
     // this.sendData();
     console.log('sended');
@@ -689,7 +679,7 @@ export class SchedulepageComponent implements OnInit {
       });
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log("Function Working")
+    console.log('Function Working');
     if (option.includes(selected_Option)) {
       console.log('correct answer');
       return 'correctAnswer';
@@ -876,8 +866,6 @@ export class SchedulepageComponent implements OnInit {
         this.router.navigate(['new-schedule']);
       });
   }
-
- 
 
   //Assessment page Filter
 
@@ -1202,6 +1190,8 @@ export class SchedulepageComponent implements OnInit {
   }
   newSchedule() {
     this.visible = true;
+    this.resetData();
+    console.log('Manager-----------', this.manager);
   }
   formattedDate(date: Date) {
     const months: string[] = [

@@ -44,11 +44,11 @@
                   <input
                     pInputText
                     type="text"
-                    (input)="
-                      dt2.filterGlobal($any($event.target).value, 'contains')
-                    "
                     placeholder="Search"
+                    [(ngModel)]="globalSearchValue"
+                    (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
                   />
+                  
                   <i class="pi pi-search"></i>
                 </span>
                 <div class="managerMultiselect">
@@ -158,8 +158,7 @@
                           <div class="value">
                             <p-dropdown
                               [options]="managerData"
-                              placeholder=""
-                              optionLabel=""
+                              placeholder="--Select Manager--"
                               [(ngModel)]="manager"
                               appendTo="body"
                             ></p-dropdown>
@@ -172,7 +171,9 @@
                             <span class="important-symbol">&#42;</span>
                           </div>
                           <div class="value">
-                            <p-multiSelect [options]="skillSet" [(ngModel)]="selectedSkills" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
+                            <p-multiSelect [options]="skillSet"
+                             placeholder="--Select Skill--"
+                            [(ngModel)]="selectedSkills" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
                           </div>
                         </div>
 

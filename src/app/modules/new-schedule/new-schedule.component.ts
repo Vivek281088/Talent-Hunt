@@ -254,6 +254,7 @@ export class NewScheduleComponent {
   //  let increment=0;
   
   selectAllQuestions(tab: any) {
+    console.log("select all",this.selectedquestions)
     let increment=0
     if (tab && tab.content) {
       tab.content.forEach((question: any) => {
