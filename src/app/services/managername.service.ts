@@ -71,6 +71,24 @@ export class ManagernameService {
     );
   }
 
+  addCandidate(
+    candidateName: string,
+    email: string,
+    phone: number,
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateName: candidateName,
+      candidateEmail: email,
+      candidatePhone: phone,
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
+      body,
+      { headers }
+    );
+  }
+
   postManagerList(name: String): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { Managername: name };

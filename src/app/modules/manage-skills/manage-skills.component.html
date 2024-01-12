@@ -24,7 +24,7 @@
       class="candidateTable"
       [resizableColumns]="true"
       [autoLayout]="true"
-      [value]="keyValueArray"
+      [value]="skillUnique"
       #dt1
       [paginator]="true"
       [tableStyle]="{ height: 'max-content' }"
@@ -88,17 +88,16 @@
       <ng-template pTemplate="body" let-rowData let-i="rowIndex">
         <tr>
           <td>{{ i + 1 }}</td>
-          <td>{{ rowData[0] }}</td>
+          <td>{{ rowData.skill }}</td>
           <td>
-            {{ rowData[1] }}
+            {{ rowData.count }}
           </td>
-
           <td>
             <a
               class="flex cursor-pointer"
               [class.disabled]="!rowData.isMail"
               title="View"
-              (click)="onViewClick(rowData[0])"
+              (click)="onViewClick(rowData.skill)"
             >
               <svg
                 width="18"

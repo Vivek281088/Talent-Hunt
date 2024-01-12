@@ -5,6 +5,7 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as Papa from 'papaparse';
+import { response } from 'express';
 
 @Component({
   selector: 'app-manage-candidates',
@@ -34,11 +35,9 @@ export class ManageCandidatesComponent {
     private messageService: MessageService
   ) {
     this.addCandidateForm = this.fb.group({
-      employeeId: [null, [Validators.required]],
       candidateName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      department: ['', [Validators.required]],
-      location: ['', [Validators.required]],
+      phone: [null, [Validators.required]],
     });
   }
   ngOnInit() {
@@ -114,16 +113,15 @@ export class ManageCandidatesComponent {
   populateFormControls() {
     if (this.selectedRowData) {
       this.addCandidateForm.patchValue({
-        employeeId: this.selectedRowData.empid,
-        candidateName: this.selectedRowData.managerName,
+        candidateName: this.selectedRowData.candidateName,
         email: this.selectedRowData.email,
-        department: this.selectedRowData.department,
-        location: this.selectedRowData.location,
+        phone: this.selectedRowData.phone,
       });
     }
     console.log('Edit Data', this.addCandidateForm);
   }
-  onViewClick(data: any) {}
+  onViewClick(data: any) { }
+  
   addCandidate() {
     this.isAddCandidate = true;
     this.isEditCandidate = false;
@@ -138,6 +136,14 @@ export class ManageCandidatesComponent {
     this.formSubmitted = false;
     this.showUpload = false;
   }
+  addSuccessMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Candidate saved successfully',
+    });
+    
+  }
 
   saveCandidate() {
     this.formSubmitted = true;
@@ -145,17 +151,26 @@ export class ManageCandidatesComponent {
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
-      this.addCandidatevisible = false;
 
-      this.addCandidateForm.reset();
-      this.formSubmitted = false;
+      this.managerService.addCandidate(
+        formData.candidateName,
+        formData.email,
+        formData.phone
+      ).subscribe((response) => {
+        console.log("Candidate Saved....")
+      });
+      setTimeout(() => {
+        this.addSuccessMessage();
+        this.cancelButton();
+      },1000);
+
     }
   }
+  
   updateCandidate() {
     console.log('Updating.....');
   }
 
-  
   fileUploadMessage() {
     this.messageService.add({
       severity: 'success',
@@ -170,42 +185,40 @@ export class ManageCandidatesComponent {
       detail: 'File is Empty',
     });
   }
-  
 
   uploadCsv(event: any) {
-  const file: File = event.target.files[0];
+    const file: File = event.target.files[0];
 
-  if (file) {
-    const reader: FileReader = new FileReader();
-    reader.onload = () => {
-      const csvData: string = reader.result as string;
-      this.processCsvData(csvData);
-    };
+    if (file) {
+      const reader: FileReader = new FileReader();
+      reader.onload = () => {
+        const csvData: string = reader.result as string;
+        this.processCsvData(csvData);
+      };
 
-    reader.readAsText(file);
-  
+      reader.readAsText(file);
+    }
   }
 
-}
+  processCsvData(csvData: string) {
+    Papa.parse(csvData, {
+      complete: (result: { data: any }) => {
+        const csvRows = result.data.filter((row: { [row: string]: string }) =>
+          Object.keys(row).some((key) => row[key] !== '')
+        );
 
-processCsvData(csvData: string) {
-  Papa.parse(csvData, {
-    complete: (result: { data: any; }) => {
-      const csvRows = result.data.filter((row: { [row: string]: string; }) => Object.keys(row).some(key => row[key] !== ''));
-
-      if (csvRows.length === 0) {
-        this.fileUploadErrorMessage();
-        this.cancelButton();
-        return;
-      }
-      console.log('CSV Data:', csvRows);
-      setTimeout(()=>{
-        this.fileUploadMessage();
-        this.cancelButton();
-      },1000);
-    },
-    header: true, 
-  });
-}
-  
+        if (csvRows.length === 0) {
+          this.fileUploadErrorMessage();
+          this.cancelButton();
+          return;
+        }
+        console.log('CSV Data:', csvRows);
+        setTimeout(() => {
+          this.fileUploadMessage();
+          this.cancelButton();
+        }, 1000);
+      },
+      header: true,
+    });
+  }
 }

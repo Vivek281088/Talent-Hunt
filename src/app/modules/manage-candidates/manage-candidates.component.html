@@ -229,34 +229,7 @@
     [closable]="false"
   >
     <div class="NewSchedule-content">
-      <div class="labelvalue">
-        <div class="label">
-          <label>Employee Id</label>
-          <span class="important-symbol">&#42;</span>
-        </div>
-        <div class="value">
-          <p-inputNumber
-            formControlName="employeeId"
-            mode="decimal"
-            inputId="withoutgrouping"
-            [useGrouping]="false"
-          >
-          </p-inputNumber>
-          <div
-            *ngIf="
-              addCandidateForm.get('employeeId')?.invalid &&
-              (addCandidateForm.get('employeeId')?.touched || formSubmitted)
-            "
-          >
-            <div
-              class="error-message"
-              *ngIf="addCandidateForm.get('employeeId')?.hasError('required')"
-            >
-              Employee Id is required !
-            </div>
-          </div>
-        </div>
-      </div>
+      
 
       <div class="labelvalue">
         <div class="label">
@@ -308,49 +281,34 @@
 
       <div class="labelvalue">
         <div class="label">
-          <label>Department</label>
+          <label> Phone No</label>
           <span class="important-symbol">&#42;</span>
         </div>
         <div class="value">
-          <input type="text" formControlName="department" pInputText />
+          <p-inputNumber
+            formControlName="phone"
+            mode="decimal"
+            inputId="withoutgrouping"
+            [useGrouping]="false"
+          >
+          
+          </p-inputNumber>
           <div
             *ngIf="
-              addCandidateForm.get('department')?.invalid &&
-              (addCandidateForm.get('department')?.touched || formSubmitted)
+              addCandidateForm.get('phone')?.invalid &&
+              (addCandidateForm.get('phone')?.touched || formSubmitted)
             "
           >
             <div
               class="error-message"
-              *ngIf="addCandidateForm.get('department')?.hasError('required')"
+              *ngIf="addCandidateForm.get('phone')?.hasError('required')"
             >
-              Department is required !
+              Phone No is required !
             </div>
           </div>
         </div>
       </div>
 
-      <div class="labelvalue">
-        <div class="label">
-          <label>Location</label>
-          <span class="important-symbol">&#42;</span>
-        </div>
-        <div class="value">
-          <input type="text" formControlName="location" pInputText />
-          <div
-            *ngIf="
-              addCandidateForm.get('location')?.invalid &&
-              (addCandidateForm.get('location')?.touched || formSubmitted)
-            "
-          >
-            <div
-              class="error-message"
-              *ngIf="addCandidateForm.get('location')?.hasError('required')"
-            >
-              Location is required !
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <ng-template pTemplate="footer">
@@ -360,7 +318,7 @@
           </p-button>
         </div>
         <div class="Createbutton" *ngIf="isAddCandidate">
-          <p-button label="Create" (onClick)="saveCandidate()"> </p-button>
+          <p-button label="Save" (onClick)="saveCandidate()"> </p-button>
         </div>
         <div class="Createbutton" *ngIf="isEditCandidate">
           <p-button label="Update" (onClick)="updateCandidate()"> </p-button>

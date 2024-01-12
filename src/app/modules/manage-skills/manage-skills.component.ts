@@ -95,6 +95,8 @@ export class ManageSkillsComponent {
     this.scheduleName = '';
   }
 
+ 
+
   AddButton() {
     console.log('sended');
     const dataToSend = {
@@ -123,12 +125,12 @@ export class ManageSkillsComponent {
   }
 
   getUniqueSkill() {
-    // this.skillsdropdownservice.getUniqueSkills().subscribe((data) => {
-    //   this.skillUnique = data;
-    //   this.keyValueArray = Object.entries(this.skillUnique);
-    //   console.log('skillsunique', this.skillUnique);
-    //   console.log('keyValueArray', this.keyValueArray);
-    // });
+    this.skillsdropdownservice.getUniqueSkills().subscribe((data) => {
+      this.skillUnique = data;
+      this.keyValueArray = Object.entries(this.skillUnique);
+      console.log('skillsunique', this.skillUnique);
+      console.log('keyValueArray', this.keyValueArray);
+    });
   }
 
   onViewClick(_skill: string) {
@@ -142,13 +144,13 @@ export class ManageSkillsComponent {
       });
   }
   storeSkill() {
-    // this.skillsdropdownservice
-    //   .postOneSkill(this.scheduleName)
-    //   .subscribe((response: any) => {
-    //     console.log('recieved response1', response);
-    //     this.visible = false;
-    //     this.resetData();
+    this.skillsdropdownservice
+      .postOneSkill(this.scheduleName)
+      .subscribe((response: any) => {
+        console.log('recieved response1', response);
+        this.visible = false;
+        this.resetData();
 
-    //   });
+      });
   }
 }
