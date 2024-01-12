@@ -37,6 +37,7 @@ export class ManageSkillsComponent  {
   FinalizedQuestions: any[] = [];
   viewQuestionSidebar: boolean = false;
   visible: boolean = false;
+  globalSearchValue!:string
   
 
 
@@ -108,6 +109,7 @@ export class ManageSkillsComponent  {
 
   clear(table: Table) {
     table.clear();
+    this.globalSearchValue='';
   }
 
   cancelButton() {

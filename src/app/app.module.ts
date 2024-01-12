@@ -34,6 +34,7 @@ import { CandidatequestionComponent } from './modules/candidatequestion/candidat
 import { BodyComponent } from './modules/body/body.component';
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
+import { ManageSkillsComponent } from '../manage-skills/manage-skills.component';
 
 
 
@@ -63,6 +64,7 @@ import { ManageManagersComponent } from './modules/manage-managers/manage-manage
     BodyComponent,
       NewScheduleComponent,
       ManageManagersComponent,
+      ManageSkillsComponent,
   ],
   imports: [
     BrowserModule,

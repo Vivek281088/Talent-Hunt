@@ -38,6 +38,7 @@ import { CandidatequestionComponent } from './modules/candidatequestion/candidat
 
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
+import { ManageSkillsComponent } from 'src/manage-skills/manage-skills.component';
 
 
 const routes: Routes = [
@@ -85,6 +86,7 @@ const routes: Routes = [
 
   { path: 'profile', component: ProfileDialogComponent },
   { path: 'candidatetable', component: CandidateTableComponent },
+  {path:'skills',component:ManageSkillsComponent},
 
 
   // { path: '**', component: LoginComponent }

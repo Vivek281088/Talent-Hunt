@@ -14,6 +14,15 @@ export class SkillsdropdownService {
   getskillsList(): Observable<any> {
     return this.http.get<any>(
       "https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/skills"
+
+    );
+  }
+
+
+
+
+  getUniqueSkills():Observable<any>{
+    return this.http.get<any>("https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondbskills"
     );
   }
 
@@ -26,6 +35,11 @@ export class SkillsdropdownService {
       headers,
     });
   }
+
+
+
+
+
   //question db
   postskillsList(Skills: string[]): Observable<any> {
     const headers = new HttpHeaders({ "content-Type": "application/json" });
@@ -34,6 +48,22 @@ export class SkillsdropdownService {
 
     return this.http.post<any>(
       "https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/allquestions",
+      body,
+      {
+        headers,
+      }
+    );
+  }
+
+
+  postOneSkill(Skill:string):Observable<any> {
+
+    const headers = new HttpHeaders({ "content-Type": "application/json" });
+
+    const body = { skill: Skill };
+
+    return this.http.post<any>(
+      "https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/skills",
       body,
       {
         headers,

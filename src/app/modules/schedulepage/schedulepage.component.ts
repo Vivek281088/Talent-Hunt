@@ -1113,6 +1113,7 @@ export class SchedulepageComponent implements OnInit {
 
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skillSet = data.skill;
+      console.log
     });
   }
 
