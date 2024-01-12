@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
-import { Router } from '@angular/router';
+
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
@@ -15,6 +15,7 @@ import {
   ConfirmEventType,
   MenuItem,
 } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-skills',
@@ -34,38 +35,27 @@ export class ManageSkillsComponent {
   Skill: any;
   managerOption: any[] = [];
   overlayVisible = false;
+  scheduleName!: string;
   todayDate!: string;
   FinalizedQuestions: any[] = [];
   viewQuestionSidebar: boolean = false;
+  visible: boolean = false;
 
-  // candidateForm !: FormGroup;
-  constructor(private skillsdropdownservice: SkillsdropdownService) {
-    // this.candidateForm = this.formBuilder.group({
-    //   candidateName: ['', Validators.required],
-    //   candidateEmail: ['', Validators.required,Validators.email],
-    //   candidatePhone: [null]
-    // });
+  constructor(
+    private skillsdropdownservice: SkillsdropdownService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
-    //this.auth.isLoggedIn=true;
-
-    //for candidate
-    // this.finalizedEmail =
-    //   this.managernameService.getCandidateAssessment_Email();
-    // console.log('a', this.finalizedEmail);
-
-    //for manager
-    // this.finalizedManagerEmail = this.managernameService.getManagerName_Email();
-    // console.log('manager-email--', this.finalizedManagerEmail);
 
     this.todayDate = this.formattedDate(new Date());
-    // this.getUniqueSkill();
+    this.getUniqueSkill();
     console.log('Date--------', this.todayDate);
 
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Assessment', routerLink: 'dashboard' },
+      { label: 'Skills', routerLink: '/manage-skills' },
     ];
   }
   formattedDate(date: Date) {
@@ -96,16 +86,26 @@ export class ManageSkillsComponent {
     table.clear();
   }
 
-  onViewClick(_skill: string) {
-    this.viewQuestionSidebar = true;
-    this.skillsdropdownservice
-      .postskillsList([_skill])
-      .subscribe((response) => {
-        console.log('recieved response', response);
-        this.FinalizedQuestions = response[0].data;
+  cancelButton() {
+    this.visible = false;
+    this.resetData();
+  }
 
-        //this.cdr.detectChanges();
-      });
+  resetData() {
+    this.scheduleName = '';
+  }
+
+  AddButton() {
+    console.log('sended');
+    const dataToSend = {
+      scheduleName: this.scheduleName,
+    };
+
+    this.router.navigate(['/new-schedule']);
+  }
+
+  newSchedule() {
+    this.visible = true;
   }
 
   getLabel(index: number): string {
@@ -122,12 +122,33 @@ export class ManageSkillsComponent {
     }
   }
 
-  // getUniqueSkill() {
-  //   this.skillsdropdownservice.getUniqueSkills().subscribe((data) => {
-  //     this.skillUnique = data;
-  //     this.keyValueArray = Object.entries(this.skillUnique);
-  //     console.log('skillsunique', this.skillUnique);
-  //     console.log('keyValueArray', this.keyValueArray);
-  //   });
-  // }
+  getUniqueSkill() {
+    // this.skillsdropdownservice.getUniqueSkills().subscribe((data) => {
+    //   this.skillUnique = data;
+    //   this.keyValueArray = Object.entries(this.skillUnique);
+    //   console.log('skillsunique', this.skillUnique);
+    //   console.log('keyValueArray', this.keyValueArray);
+    // });
+  }
+
+  onViewClick(_skill: string) {
+    this.viewQuestionSidebar = true;
+    this.skillsdropdownservice
+      .postskillsList([_skill])
+      .subscribe((response) => {
+        console.log('recieved response', response);
+        this.FinalizedQuestions = response[0].data;
+
+      });
+  }
+  storeSkill() {
+    // this.skillsdropdownservice
+    //   .postOneSkill(this.scheduleName)
+    //   .subscribe((response: any) => {
+    //     console.log('recieved response1', response);
+    //     this.visible = false;
+    //     this.resetData();
+
+    //   });
+  }
 }
