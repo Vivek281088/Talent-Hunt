@@ -25,7 +25,7 @@
       [resizableColumns]="true"
       [autoLayout]="true"
       [value]="skillUnique"
-      #dt1
+      #table3
       [paginator]="true"
       [tableStyle]="{ height: 'max-content' }"
       [rows]="5"
@@ -46,7 +46,7 @@
                     pInputText
                     type="text"
                     (input)="
-                      dt1.filterGlobal($any($event.target).value, 'contains')
+                    table3.filterGlobal($any($event.target).value, 'contains')
                     "
                     placeholder="Search"
                   />
@@ -60,7 +60,7 @@
                     label="Clear filter"
                     class="clear-button cursor-pointer"
                     [style]="{ width: '130px' }"
-                    (click)="clear(dt1)"
+                    (click)="clear(table3)"
                   ></button>
                 </div>
 

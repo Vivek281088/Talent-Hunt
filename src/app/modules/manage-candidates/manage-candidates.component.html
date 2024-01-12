@@ -324,10 +324,15 @@
           <p-button label="Update" (onClick)="updateCandidate()"> </p-button>
         </div>
         
-        <label class="custom-file-input">
+        <label class="custom-file-input" *ngIf="isAddCandidate">
           Upload File
           <input type="file" (change)="uploadCsv($event)" style="display: none;" />
-        </label>
+        </label>`
+
+        <div class="Createbutton" *ngIf="isAddCandidate">
+          <p-button label="Download Template" (click)="downloadCsvTemplate()"></p-button>
+
+        </div>
         
       </div>
     </ng-template>

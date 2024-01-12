@@ -79,11 +79,11 @@ export class ManagernameService {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateName: candidateName,
-      candidateEmail: email,
-      candidatePhone: phone,
+      email: email,
+      phone: phone,
     };
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
       body,
       { headers }
     );

@@ -5,6 +5,7 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as Papa from 'papaparse';
+import { saveAs } from 'file-saver';
 import { response } from 'express';
 
 @Component({
@@ -166,6 +167,13 @@ export class ManageCandidatesComponent {
 
     }
   }
+
+  downloadCsvTemplate(){
+    const csvTemplate = `candidateName,email,phone\n`; 
+  const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
+  saveAs(blob, 'csv-template.csv');
+
+  }
   
   updateCandidate() {
     console.log('Updating.....');
@@ -213,6 +221,19 @@ export class ManageCandidatesComponent {
           return;
         }
         console.log('CSV Data:', csvRows);
+        
+        for(let data of csvRows){
+          console.log("Csv File datum--", data);
+
+          this.managerService.addCandidate(
+            data.candidateName,
+            data.email,
+            data.phone
+          ).subscribe((response) => {
+            console.log("Candidate Saved....")
+          });
+
+        }
         setTimeout(() => {
           this.fileUploadMessage();
           this.cancelButton();

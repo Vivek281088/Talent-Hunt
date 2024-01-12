@@ -350,6 +350,17 @@
         <div class="Createbutton" *ngIf="isEditManager">
           <p-button label="Update" (onClick)="updateManager()"> </p-button>
         </div>
+
+        <label class="custom-file-input" *ngIf="isAddManager">
+          Upload File
+          <input type="file" (change)="uploadCsv($event)" style="display: none;" />
+        </label>`
+
+        <div class="Createbutton" *ngIf="isAddManager">
+          <p-button label="Download Template" (click)="downloadCsvTemplate()"></p-button>
+
+        </div>
+
       </div>
     </ng-template>
   </p-dialog>

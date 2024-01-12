@@ -4,6 +4,7 @@ import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as Papa from 'papaparse';
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'app-manage-managers',
   templateUrl: './manage-managers.component.html',
@@ -163,61 +164,85 @@ export class ManageManagersComponent {
         .subscribe((response) => {
           console.log('Manager Posted....');
         });
-       setTimeout(() => {
-          this.saveSuccessMessage();
-          this.cancelButton();
-        }, 1000);
+      setTimeout(() => {
+        this.saveSuccessMessage();
+        this.cancelButton();
+      }, 1000);
     }
   }
-  // uploadCsv(event: any) {
-  //   const file: File = event.target.files[0];
+  uploadCsv(event: any) {
+    const file: File = event.target.files[0];
 
-  //   if (file) {
-  //     const reader: FileReader = new FileReader();
-  //     reader.onload = () => {
-  //       const csvData: string = reader.result as string;
-  //       this.processCsvData(csvData);
-  //     };
+    if (file) {
+      const reader: FileReader = new FileReader();
+      reader.onload = () => {
+        const csvData: string = reader.result as string;
+        this.processCsvData(csvData);
+      };
 
-  //     reader.readAsText(file);
-  //   }
-  // }
+      reader.readAsText(file);
+    }
+  }
 
-  // processCsvData(csvData: string) {
-  //   Papa.parse(csvData, {
-  //     complete: (result: { data: any }) => {
-  //       const csvRows = result.data.filter((row: { [row: string]: string }) =>
-  //         Object.keys(row).some((key) => row[key] !== '')
-  //       );
+  downloadCsvTemplate() {
+    const csvTemplate = `employeeId,managerName,email,phone,department,location\n`;
+    const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
+    saveAs(blob, 'csv-template.csv');
+  }
 
-  //       if (csvRows.length === 0) {
-  //         this.fileUploadErrorMessage();
-  //         this.cancelButton();
-  //         return;
-  //       }
-  //       console.log('CSV Data:', csvRows);
-  //       setTimeout(() => {
-  //         this.fileUploadMessage();
-  //         this.cancelButton();
-  //       }, 1000);
-  //     },
-  //     header: true,
-  //   });
-  // }
-  // fileUploadMessage() {
-  //   this.messageService.add({
-  //     severity: 'success',
-  //     summary: 'Success',
-  //     detail: 'Manager saved successfully',
-  //   });
-  // }
-  // fileUploadErrorMessage() {
-  //   this.messageService.add({
-  //     severity: 'error',
-  //     summary: 'Error',
-  //     detail: 'File is Empty',
-  //   });
-  // }
+  processCsvData(csvData: string) {
+    Papa.parse(csvData, {
+      complete: (result: { data: any }) => {
+        const csvRows = result.data.filter((row: { [row: string]: string }) =>
+          Object.keys(row).some((key) => row[key] !== '')
+        );
+
+        if (csvRows.length === 0) {
+          this.fileUploadErrorMessage();
+          this.cancelButton();
+          return;
+        }
+        console.log('CSV Data:', csvRows);
+
+        for (let data of csvRows) {
+          console.log('Csv File datum--', data);
+
+          this.managerService
+            .postClientManager(
+              data.employeeId = parseInt(data.employeeId, 10),
+              data.managerName,
+              data.email,
+              data.phone,
+              data.department,
+              data.location
+            )
+            .subscribe((response) => {
+              console.log('Manager Saved....');
+            });
+        }
+
+        setTimeout(() => {
+          this.fileUploadMessage();
+          this.cancelButton();
+        }, 1000);
+      },
+      header: true,
+    });
+  }
+  fileUploadMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Manager saved successfully',
+    });
+  }
+  fileUploadErrorMessage() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'File is Empty',
+    });
+  }
 
   updateManager() {
     console.log('Updating.......');
