@@ -1,0 +1,237 @@
+.new-schedule-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  
+    ::ng-deep {
+      .p-tabview .p-tabview-panels {
+        background: #ffffff;
+        padding: 0rem 0rem 0rem 1.25rem;
+      }
+      .p-datatable .p-datatable-thead > tr > th {
+        background: #ffffff;
+      }
+      .p-datatable .p-datatable-tbody > tr > td {
+        padding: 0.85rem 1rem 0.85rem 0rem;
+      }
+      .p-checkbox .p-checkbox-box.p-highlight {
+        border-color: #652d90;
+        background: #652d86;
+      }
+      .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+        border-color: #00000061;
+      }
+      .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+        border-color: #652d86;
+        background: #652d86;
+        color: #ffffff;
+      }
+    }
+  }
+
+  .tabview-count {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: baseline;
+    border: 1px solid #0000001f;
+    border-radius: 8px;
+    margin: 0px 16px 16px 16px;
+  
+    ::ng-deep {
+      .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+        border-color: #652d90;
+        color: #652d90;
+      }
+      .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+      }
+      .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+        box-shadow: none;
+      }
+    }
+    .tabview {
+      width: 100%;
+    }
+  
+    
+  }
+  .questionsidebar {
+    .question-design {
+      // height: 23px;
+      font-family: "Roboto";
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 0.150000006px;
+      text-align: left;
+      color: #652d90;
+      padding: 3% 0% 3% 0%;
+    }
+    .select-size input {
+      display: none;
+    }
+    .select-size {
+      padding-bottom: 2%;
+      border-bottom: 1px solid #0000001f;
+    }
+  
+    .option {
+      display: flex;
+      align-items: center;
+      color: #00000061;
+    }
+    .option-content {
+      padding: 0.8% 1% 0.8% 1%;
+      font-family: "Roboto";
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 3px;
+      width: 100%;
+    }
+    .option {
+      font-weight: 450;
+      gap: 1%;
+      margin-bottom: 1%;
+  
+      .box-design {
+        border: 1px solid #c1abd3;
+        width: 5%;
+        border-radius: 4px;
+        text-align: center;
+        padding: 5px;
+      }
+      &:hover:not(.correctAnswer) {
+        .box-design,
+        .option-content {
+          background: #c1abd3;
+          color: white;
+        }
+      }
+    }
+    .correctAnswer {
+      .option-content {
+        background: #f9f5d1;
+        color: #652d90;
+      }
+      .box-design {
+        background: #652d90;
+        color: white;
+      }
+    }
+    .custom_button {
+      gap: 3%;
+      ::ng-deep .p-button {
+        color: #652d90;
+        background: #ffffff;
+        border: 1px solid #652d90;
+        height: 90%;
+        &:hover {
+          color: #652d90;
+        }
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+  
+    .btnfooter {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+  
+      .instruction {
+        font-size: 16px;
+        font-family: "Poppins";
+        font-weight: 400;
+        color: #00000099;
+        padding: 2% 0% 2% 0%;
+      }
+      .quiz-instruction {
+        padding-bottom: 5%;
+        border-bottom: 1px solid #0000001f;
+      }
+      .points {
+        font-family: "Roboto";
+        color: #00000099;
+        font-weight: 400;
+        padding-left: 4%;
+        li {
+          padding-bottom: 1%;
+        }
+      }
+  
+      .sidebarbuttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding-top: 5%;
+      }
+    }
+    .custom_button_send {
+      ::ng-deep .p-button {
+        color: white;
+        background: #652d90;
+        border: 1px solid #652d90;
+        height: 90%;
+        &:hover {
+          color: white;
+        }
+        &:focus {
+          box-shadow: none;
+        }
+      }
+    }
+  
+    ::ng-deep {
+      .p-sidebar .p-sidebar-header {
+        padding: 1.25rem;
+        border: 1px solid #0000001f;
+        color: #1e22aa;
+        font-family: "Poppins";
+        font-weight: 500;
+        font-size: 20px;
+      }
+      .p-sidebar {
+        width: 45%;
+      }
+      .p-sidebar .p-sidebar-footer {
+        padding: 0;
+      }
+    }
+  }
+  .PreviewBtn {
+    ::ng-deep {
+      .p-button {
+        color: #fafafa;
+        background: #652d90;
+        height: 36px;
+
+        border: 1px solid #652d90;
+      }
+      .pi {
+        font-size: 100%;
+      }
+
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .questiontext {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000de;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .optiontext {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #00000061;
+    text-align: left;
+  }

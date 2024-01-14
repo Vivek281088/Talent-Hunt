@@ -1,0 +1,146 @@
+<div class="new-schedule-page">
+    <div class="tabview-count">
+        <!-- {{tabs | json}} -->
+        <div class="tabview">
+          <p-tabView >
+            <p-tabPanel *ngFor="let tab of tabs"  [header]="tab.title" >
+              <!-- <ng-template pTemplate="header">
+               
+              </ng-template> -->
+                <p-table
+                  #dt2
+                  class="newscheduleTable"
+                  [value]="tab.content"
+                  
+                  dataKey="id"
+                  [scrollable]="true"
+                  scrollHeight="270px"
+                  [globalFilterFields]="[
+                    'question',
+                    'questionType',
+                    'Difficulty_Level'
+                  ]"
+                >
+          
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th colspan="2" class="headerSearch">
+                      <div>
+                        <span class="p-input-icon-left searchicon">
+                          <i class="pi pi-search"></i>
+                          <input
+                            pInputText
+                            type="text"
+                            placeholder="Search"
+                            (input)="
+                              dt2.filterGlobal(
+                                $any($event.target).value,
+                                'contains'
+                              )"
+                            />
+                            
+                        </span>
+                      </div>
+                    </th>
+                      <th colspan="4">
+                        <div class="schedulebuttons">
+                         
+                          
+                          <div class="PreviewBtn">
+                            <p-button
+                            label="Preview"
+                            icon="pi pi-eye"
+                            (onClick)="onPreviewClick(tab.content)"
+
+                            
+                            >
+                             
+                            </p-button>
+                          </div>
+                        </div>
+                      </th>
+                    </tr>
+                  </ng-template>
+    
+                  <ng-template pTemplate="body" let-rowData>
+                    <tr>
+                     
+                      <td class="questiontext">{{ rowData.question }}</td>
+                      <td class="optiontext">{{ rowData.questionType }}</td>
+                      <td class="optiontext">{{ rowData.options.length }} Choices</td>
+                      <td class="optiontext">{{ rowData.Difficulty_Level }}</td>
+                     
+                    </tr>
+                  </ng-template>
+                </p-table>
+              
+            </p-tabPanel>
+          </p-tabView>
+        </div>
+    
+        <div class="questionsidebar">
+          <p-sidebar
+            [(visible)]="previewSidebarVisible"
+            position="right"
+            [modal]="false"
+          >
+            <ng-template class="header_design" pTemplate="header"
+              >Quiz Preview
+              
+              </ng-template
+            >
+            <ng-template pTemplate="content" *ngIf="selectedquestions">
+               
+              <span *ngFor="let question of selectedquestions ; let j = index">
+                <div class="question-design">{{j+1}}. {{ question.question }}</div>
+        
+                <div class="select-size">
+                  <div
+                    *ngFor="let option of question.options; let i = index"
+                    class="option"
+                    [ngClass]="getSelectedOptions(question.answer, option)"
+                  >
+                    <!-- <input type="radio" name="first" id="small" />
+                    <label class="box-design" for="small">A</label>
+                    <span class="option-content">{{ preview.options[0] }}</span> -->
+                    <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
+                    <label class="box-design" [for]="'option' + question + '-' + i">{{
+                      getLabel(i)
+                    }}</label>
+        
+                    <span class="option-content">{{ option }}</span>
+                  </div>
+                </div>
+        
+              </span>
+        
+              <div class="btnfooter">
+                <div class="quiz-instruction">
+        
+                  <p class="instruction">Quiz Instructions</p>
+                  <ul class="points">
+                    <li>Manager approval mandatory </li>
+                    <li>Automatic email will be triggered for every status change of the request</li>
+                    <li>Approval is the permission to go to Office</li>
+                  </ul>
+        
+                </div>
+                <div class="sidebarbuttons">
+                  <div class="custom_button">
+                    <p-button label="Cancel"></p-button>
+                  </div>
+                  <div class="custom_button_send">
+                    <p-button label="Close"></p-button>
+                  </div>
+        
+                </div>
+                
+              </div>
+        
+        
+            </ng-template>
+            
+          </p-sidebar>
+        </div>
+      </div>
+</div>
