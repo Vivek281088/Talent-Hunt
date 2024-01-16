@@ -270,6 +270,15 @@
           <div class="Createbutton">
             <p-button label="Add" (onClick)="storeSkill()"> </p-button>
           </div>
+
+          <div class="Createbutton">
+            <p-button label="Download" (onClick)="downloadQuestionsCsvTemplate()"> </p-button>
+          </div>
+
+          <label class="custom-file-input">
+            Upload File
+            <input type="file" (change)="uploadCsv($event)" style="display: none;" />
+          </label>`
         
       </ng-template>
     </p-dialog>

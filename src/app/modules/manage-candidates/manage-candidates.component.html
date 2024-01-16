@@ -22,7 +22,7 @@
   <div class="managerTable">
     <p-table
       #dt2
-      [value]="managerData"
+      [value]="candidateData"
       dataKey="id"
       [rows]="5"
       [showCurrentPageReport]="true"
@@ -35,7 +35,8 @@
         'department',
         'email',
         'empid',
-        'location'
+        'location',
+        'phone'
       ]"
     >
       <ng-template pTemplate="header">
@@ -56,7 +57,8 @@
                     placeholder="Search"
                   />
                 </div>
-                <div class="deptMultiselect">
+                
+                <!-- <div class="deptMultiselect">
                   <p-columnFilter
                     field="department"
                     matchMode="in"
@@ -81,7 +83,7 @@
                       </p-multiSelect>
                     </ng-template>
                   </p-columnFilter>
-                </div>
+                </div> -->
 
                 <!-- <div class="deptMultiselect">
                     <p-columnFilter
@@ -146,6 +148,7 @@
           </th>
           <th>Candidate Name</th>
           <th>Email</th>
+          <th>Phone no</th>
           <th>Department</th>
           <th>Location</th>
           <th></th>
@@ -162,8 +165,9 @@
             <input type="checkbox" [value]="rowData" class="custom-checkbox" />
           </td>
           <td>{{ rowData.empid }}</td>
-          <td class="candidatenamedesign">{{ rowData.managerName }}</td>
-          <td>{{ rowData.email }}</td>
+          <td class="candidatenamedesign">{{ rowData.candidateName }}</td>
+          <td>{{ rowData.candidateEmail }}</td>
+          <td>{{rowData.candidatePhone}}</td>
           <td>{{ rowData.department }}</td>
           <td>{{ rowData.location }}</td>
           <td>
@@ -230,6 +234,22 @@
   >
     <div class="NewSchedule-content">
       
+      <div class="labelvalue">
+        <div class="label">
+          <label> Employee Id</label>
+        </div>
+        <div class="value">
+          <p-inputNumber
+            formControlName="empid"
+            mode="decimal"
+            inputId="withoutgrouping"
+            [useGrouping]="false"
+          >
+          
+          </p-inputNumber>
+          
+        </div>
+      </div>
 
       <div class="labelvalue">
         <div class="label">
@@ -306,6 +326,28 @@
               Phone No is required !
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Location</label>
+          
+        </div>
+        <div class="value">
+          <input type="text" formControlName="location" pInputText />
+          
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>department</label>
+          
+        </div>
+        <div class="value">
+          <input type="text" formControlName="department" pInputText />
+          
         </div>
       </div>
 

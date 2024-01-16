@@ -1,0 +1,477 @@
+<div class="manageManagers">
+  <div class="manageManagers-header">
+    <div class="manageManagers-header-1">
+      <div class="title">
+        <p>Managers</p>
+      </div>
+      <div class="header-breadcrumb">
+        <p-breadcrumb
+          class="BreadCrumb"
+          [model]="items"
+          [style]="{ border: 'none' }"
+        ></p-breadcrumb>
+      </div>
+    </div>
+    <div class="new-schedule-header-2">
+      <div class="date">
+        {{ todayDate }}
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="managerDetails">
+    <p class="name">Suresh</p>
+    <p class="department">Delta</p>
+    <div class="mailid">
+      <i class="pi pi-envelope"></i>
+      <p>mailid</p>
+    </div>
+    <div class="phone">
+      <i class="pi pi-phone"></i>
+      <p>6382619956</p>
+    </div>
+    <p class="department">Chennai</p>
+  </div> -->
+
+  <div class="managerTabview">
+    <p-tabView>
+      <p-tabPanel header="Profile">
+        <ng-template pTemplate="content">
+          <div class="profilecontent">
+            <div class="labelvalue">
+              <div class="label">
+                <label>Employee Id</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <p-inputNumber
+                  formControlName="employeeId"
+                  mode="decimal"
+                  inputId="withoutgrouping"
+                  [useGrouping]="false"
+                >
+                </p-inputNumber>
+                <div
+                  *ngIf="
+                    editManagerForm.get('employeeId')?.invalid &&
+                    (editManagerForm.get('employeeId')?.touched ||
+                      formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      editManagerForm.get('employeeId')?.hasError('required')
+                    "
+                  >
+                    Employee Id is required !
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="labelvalue">
+              <div class="label">
+                <label>Manager Name</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <input type="text" formControlName="managerName" pInputText />
+                <div
+                  *ngIf="
+                    editManagerForm.get('managerName')?.invalid &&
+                    (editManagerForm.get('managerName')?.touched ||
+                      formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      editManagerForm.get('managerName')?.hasError('required')
+                    "
+                  >
+                    Manager Name is required !
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="labelvalue">
+              <div class="label">
+                <label>Email</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <input type="email" formControlName="email" pInputText />
+                <div
+                  *ngIf="
+                    editManagerForm.get('email')?.invalid &&
+                    (editManagerForm.get('email')?.touched || formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="editManagerForm.get('email')?.hasError('required')"
+                  >
+                    Email is required !
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="labelvalue">
+              <div class="label">
+                <label>Phone No</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <p-inputNumber
+                  formControlName="phone"
+                  mode="decimal"
+                  inputId="withoutgrouping"
+                  [useGrouping]="false"
+                >
+                </p-inputNumber>
+                <div
+                  *ngIf="
+                    editManagerForm.get('phone')?.invalid &&
+                    (editManagerForm.get('phone')?.touched || formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="editManagerForm.get('phone')?.hasError('required')"
+                  >
+                    Phone no is required !
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="labelvalue">
+              <div class="label">
+                <label>Department</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <input type="text" formControlName="department" pInputText />
+                <div
+                  *ngIf="
+                    editManagerForm.get('department')?.invalid &&
+                    (editManagerForm.get('department')?.touched ||
+                      formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      editManagerForm.get('department')?.hasError('required')
+                    "
+                  >
+                    Department is required !
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="labelvalue">
+              <div class="label">
+                <label>Location</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <input type="text" formControlName="location" pInputText />
+                <div
+                  *ngIf="
+                    editManagerForm.get('location')?.invalid &&
+                    (editManagerForm.get('location')?.touched || formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      editManagerForm.get('location')?.hasError('required')
+                    "
+                  >
+                    Location is required !
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="Newschedule-button">
+        
+                    <div class="Createbutton">
+                      <p-button label="Update" (onClick)="updateManager()"> </p-button>
+                    </div>
+                  </div> -->
+          </div>
+        </ng-template>
+      </p-tabPanel>
+      <p-tabPanel header="Schedules">
+        <div class="scheduleTable">
+          <p-table
+            #dt2
+            dataKey="id"
+            [tableStyle]="{ height: 'max-content' }"
+            [value]="Tdata"
+            [rows]="3"
+            [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[3, 5, 10, 25, 50]"
+            [loading]=""
+            [paginator]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [globalFilterFields]="['JobDescription', 'Managername', 'Skill']"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th colspan="4">
+                  
+                  <div class="filter-components">
+                    <div>
+                        <span class="p-input-icon-right searchIcon">
+                            <input
+                              pInputText
+                              type="text"
+                              placeholder="Search"
+                              [(ngModel)]="globalSearchValue"
+                              (input)="
+                                dt2.filterGlobal(
+                                  $any($event.target).value,
+                                  'contains'
+                                )
+                              "
+                            />
+    
+                            <i class="pi pi-search"></i>
+                          </span>
+                    </div>
+                    <div class="clearButton">
+                      <button
+                        pButton
+                        label="Clear filter"
+                        class="clear-button cursor-pointer"
+                        [style]="{ width: '130px' }"
+                        (click)="onSearchClick(dt2)"
+                      ></button>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+
+              <tr>
+                <th class="serialno">Seq.No</th>
+                <th class="schedulenameHeading">Schedule Name</th>
+                <th class="skillsHeading">Skills</th>
+                <th>Preview</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+              <tr>
+                <td>
+                  {{ i + 1 }}
+                </td>
+                <td class="jobDescription">
+                  <span class="ml-1 vertical-align-middle">{{
+                    rowData.JobDescription
+                  }}</span>
+                </td>
+
+                <td class="skills">
+                  <span
+                    *ngFor="
+                      let item of getFormattedSkills(rowData.Skill).skills
+                    "
+                  >
+                    <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
+                  </span>
+                  <span
+                    *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0"
+                    class="plusIcon"
+                  >
+                    +
+                    <p-overlayPanel #op>
+                      <ul
+                        *ngFor="
+                          let skill of remainaingSkills(
+                            rowData.Skill,
+                            getFormattedSkills(rowData.Skill).remainingCount
+                          )
+                        "
+                      >
+                        <li>
+                          {{ skill }}
+                        </li>
+                      </ul>
+                    </p-overlayPanel>
+                    <p-badge
+                      class="cursor-design"
+                      (click)="op.toggle($event)"
+                      [value]="
+                        getFormattedSkills(
+                          rowData.Skill
+                        ).remainingCount.toString()
+                      "
+                    ></p-badge>
+                  </span>
+                </td>
+                <!--skill end-->
+
+                <td>
+                  <div
+                    class="icons-td flex align-items-center justify-content-between cursor-pointer"
+                  >
+                    <!--View Icon-->
+
+                    <div class="PreviewBtn">
+                      <p-button
+                        icon="pi pi-eye"
+                        (onClick)="
+                          onViewClick(
+                            rowData.Managername,
+                            rowData.JobDescription
+                          )
+                        "
+                      >
+                      </p-button>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="5">No Data found.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Assessments">
+        <div class="candidate-table">
+          <p-table
+            class="candidateTable"
+            [resizableColumns]="true"
+            [autoLayout]="true"
+            [value]="candidateList"
+            #dt1
+            [paginator]="true"
+            [tableStyle]="{ height: 'max-content' }"
+            [rows]="5"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+            [rowsPerPageOptions]="[4, 8, 12]"
+            [globalFilterFields]="[
+              'candidateName',
+              'email_Filename',
+              'skills',
+              'results',
+              'score'
+            ]"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th colspan="9">
+                  <div class="filter-components">
+                    <div>
+                        <span class="p-input-icon-right searchIcon">
+                            <input
+                              pInputText
+                              type="text"
+                              placeholder="Search"
+                              [(ngModel)]="globalSearchValue"
+                              (input)="
+                                dt2.filterGlobal(
+                                  $any($event.target).value,
+                                  'contains'
+                                )
+                              "
+                            />
+    
+                            <i class="pi pi-search"></i>
+                          </span>
+                    </div>
+                    <div class="clearButton">
+                      <button
+                        pButton
+                        label="Clear filter"
+                        class="clear-button cursor-pointer"
+                        [style]="{ width: '130px' }"
+                        (click)="clear(dt1)"
+                      ></button>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+
+              <tr>
+                <th>Seq.No</th>
+                <th>Assessment</th>
+                <th>Candidate Name</th>
+                <th>Skills</th>
+                <th>Result</th>
+                <th>Score(%)</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+              <tr>
+                <td>{{ i + 1 }}</td>
+                <td class="assessmentName">{{ rowData.email_Filename }}</td>
+                <td>{{ rowData.candidateName }}</td>
+
+                <td class="skills">
+                  <span
+                    *ngFor="
+                      let item of getFormattedSkills(rowData.Skill).skills
+                    "
+                  >
+                    <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
+                  </span>
+                  <span
+                    *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0"
+                    class="plusIcon"
+                  >
+                    +
+                    <p-overlayPanel #op>
+                      <ul
+                        *ngFor="
+                          let skill of remainaingSkills(
+                            rowData.Skill,
+                            getFormattedSkills(rowData.Skill).remainingCount
+                          )
+                        "
+                      >
+                        <li>
+                          {{ skill }}
+                        </li>
+                      </ul>
+                    </p-overlayPanel>
+                    <p-badge
+                      class="cursor-design"
+                      (click)="op.toggle($event)"
+                      [value]="
+                        getFormattedSkills(
+                          rowData.Skill
+                        ).remainingCount.toString()
+                      "
+                    ></p-badge>
+                  </span>
+                </td>
+
+                <td>
+                  <div class="resultDesign">
+                    <p [ngClass]="getResultClass(rowData.results)">
+                      <span>{{ rowData.results }}</span>
+                    </p>
+                  </div>
+                </td>
+                <td>{{ rowData.score }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>

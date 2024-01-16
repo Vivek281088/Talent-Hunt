@@ -33,13 +33,14 @@ import { isuserguard } from './Guard/user-class.guard';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { ManagernameService } from './services/managername.service';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
-import { CandidateTableComponent } from './candidate-table/candidate-table.component';
 import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 import { ManageCandidatesComponent } from './modules/manage-candidates/manage-candidates.component';
 import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.component';
+import { ManagerProfileComponent } from './modules/manager-profile/manager-profile.component';
+import { CandidateProfileComponent } from './modules/candidate-profile/candidate-profile.component';
 
 
 const routes: Routes = [
@@ -85,10 +86,11 @@ const routes: Routes = [
   { path: 'questiondb', component: QuestiondbComponent },
 
   { path: 'profile', component: ProfileDialogComponent },
-  { path: 'candidatetable', component: CandidateTableComponent },
   {path: 'manage-managers', component: ManageManagersComponent},
   {path: 'manage-candidates', component: ManageCandidatesComponent},
 {path: 'manage-skills', component: ManageSkillsComponent},
+{path: 'managerProfile', component: ManagerProfileComponent},
+{path: 'candidateProfile', component: CandidateProfileComponent},
   { path: '**', redirectTo: '/login' },
 
   // { path: '**', redirectTo:'login' }

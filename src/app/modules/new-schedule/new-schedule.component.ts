@@ -398,10 +398,7 @@ export class NewScheduleComponent {
     this.questionTypeSelected=questionTypeSelected
     // this.options=choices;
     this.choices=choices;
-    // this.choice1=choices[0]
-    // this.choice2=choices[1]
-    // this.choice3=choices[2]
-    // this.choice4=choices[3]
+  
     this.Difficulty_Level=this.getBackendDifficultyLevelViceVersa(
       Difficulty_Level
     );

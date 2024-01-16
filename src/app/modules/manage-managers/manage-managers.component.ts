@@ -187,7 +187,7 @@ export class ManageManagersComponent {
   downloadCsvTemplate() {
     const csvTemplate = `employeeId,managerName,email,phone,department,location\n`;
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
-    saveAs(blob, 'csv-template.csv');
+    saveAs(blob, 'manager-template.csv');
   }
 
   processCsvData(csvData: string) {

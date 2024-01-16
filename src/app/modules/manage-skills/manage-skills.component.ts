@@ -9,6 +9,8 @@ import { CandidateAssessmentService } from 'src/app/services/candidate-assessmen
 import { ReviewerService } from 'src/app/services/reviewer.service';
 //import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
+import * as Papa from 'papaparse';
+import { saveAs } from 'file-saver';
 import {
   ConfirmationService,
   MessageService,
@@ -43,12 +45,12 @@ export class ManageSkillsComponent {
 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
-    private router: Router
-  ) {
-  }
+    private router: Router,
+    private managerService: ManagernameService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit() {
-
     this.todayDate = this.formattedDate(new Date());
     this.getUniqueSkill();
     console.log('Date--------', this.todayDate);
@@ -95,8 +97,6 @@ export class ManageSkillsComponent {
     this.scheduleName = '';
   }
 
- 
-
   AddButton() {
     console.log('sended');
     const dataToSend = {
@@ -140,7 +140,6 @@ export class ManageSkillsComponent {
       .subscribe((response) => {
         console.log('recieved response', response);
         this.FinalizedQuestions = response[0].data;
-
       });
   }
   storeSkill() {
@@ -150,7 +149,106 @@ export class ManageSkillsComponent {
         console.log('recieved response1', response);
         this.visible = false;
         this.resetData();
-
       });
+  }
+  storeQuestion(data: any) {
+    this.managerService
+      .postquestionstodb(
+        data.Question,
+        data.questionType,
+        data.options,
+        data.skill,
+        data.difficulty,
+        data.answer
+      )
+      .subscribe((data) => {
+        console.log('Stored Question', data);
+      });
+  }
+  uploadCsv(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      const reader: FileReader = new FileReader();
+      reader.onload = () => {
+        const csvData: string = reader.result as string;
+        this.processCsvData(csvData);
+      };
+
+      reader.readAsText(file);
+    }
+  }
+  processCsvData(csvData: string) {
+    Papa.parse(csvData, {
+      complete: (result: { data: any }) => {
+        const csvRows = result.data.filter((row: { [row: string]: string }) =>
+          Object.keys(row).some((key) => row[key] !== '')
+        );
+
+        if (csvRows.length === 0) {
+          this.fileUploadErrorMessage();
+          this.cancelButton();
+          return;
+        }
+        console.log('CSV Data:', csvRows);
+
+        for (let data of csvRows) {
+
+          console.log("Data---->",data)
+
+          const optionsArray = [];
+          for (let i = 1; data['option-' + i]; i++) {
+            optionsArray.push(data['option-' + i]);
+          }
+          console.log('Options Array', optionsArray);
+
+          const answerArray = [];
+          for (let i = 1; data['answer-' + i]; i++) {
+            answerArray.push(data['answer-' + i]);
+          }
+          console.log('Answer Array--', answerArray);
+
+          const questionData = {
+            Question: data.Question,
+            questionType: data.questionType,
+            options: optionsArray,
+            skill: data.skill,
+            difficulty: data.difficulty,
+            answer: answerArray,
+          };
+
+          console.log('Question Data--', questionData);
+
+          this.storeQuestion(questionData);
+        }
+
+        setTimeout(() => {
+          this.fileUploadMessage();
+          this.cancelButton();
+        }, 1000);
+      },
+      header: true,
+    });
+  }
+
+  fileUploadMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Question saved successfully',
+    });
+  }
+  fileUploadErrorMessage() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'File is Empty',
+    });
+  }
+  downloadQuestionsCsvTemplate() {
+    let csvTemplate;
+    csvTemplate = `Question,questionType,difficulty,option-1,option-2,option-3,option-4,answer-1,answer2,answer-3,answer-4,skill\n`;
+    const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
+    saveAs(blob, 'questions-template.csv');
   }
 }

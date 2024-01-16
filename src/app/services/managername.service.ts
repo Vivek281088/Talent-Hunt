@@ -72,18 +72,50 @@ export class ManagernameService {
   }
 
   addCandidate(
+    
     candidateName: string,
     email: string,
     phone: number,
+    empid?: number,
+    department?: string,
+    location?: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      
+      candidateName: candidateName,
+      email: email,
+      phone: phone,
+      ...(empid !== undefined && { empid: empid }),
+      ...(department !== undefined && { department: department }),
+      ...(location !== undefined && { candidate_location: location })
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
+      body,
+      { headers }
+    );
+  }
+
+  updateCandidate(
+    candidateName: string,
+    email: string,
+    phone: number,
+    empid?: number,
+    department?: string,
+    location?: string
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateName: candidateName,
-      email: email,
-      phone: phone,
+      candidateEmail: email,
+      candidatePhone: phone,
+      ...(empid !== undefined && { empid: empid }),
+      ...(department !== undefined && { department: department }),
+      ...(location !== undefined && { candidate_location: location })
     };
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
+    return this.http.put<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_CandidateDetails',
       body,
       { headers }
     );
@@ -124,6 +156,7 @@ export class ManagernameService {
   }
 
   // Posting questions to database
+
   postquestionstodb(
     question: String,
     selectedquestionType: String,
@@ -140,7 +173,6 @@ export class ManagernameService {
       skills: chosenSkill,
       Difficulty_Level: selecteddifficultyType,
       answer: selectedAnswer,
-      // mcqanswer: selectedAnswers
     };
     console.log('Post Question Data', body);
     return this.http.post<any>(

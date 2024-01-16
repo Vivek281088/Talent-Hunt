@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { response } from 'express';
+import { NewScheduleService } from 'src/app/services/new-schedule.service';
 
 @Component({
   selector: 'app-manage-candidates',
@@ -18,6 +19,7 @@ export class ManageCandidatesComponent {
   items: MenuItem[] | undefined;
   todayDate!: string;
   managerData: any;
+  candidateData: any;
   managerNames!: string;
   uniqueDepartment: any;
   addCandidatevisible: boolean = false;
@@ -33,15 +35,20 @@ export class ManageCandidatesComponent {
   constructor(
     private managerService: ManagernameService,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private newScheduleService: NewScheduleService
   ) {
     this.addCandidateForm = this.fb.group({
+      empid: [null, [Validators.required]],
       candidateName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: [null, [Validators.required]],
+      location: [''],
+      department: [''],
     });
   }
   ngOnInit() {
+    this.getUniqueCandidatedata();
     this.managerService.getclientManagerData().subscribe((response) => {
       console.log('Client Manager Details', response);
       this.managerData = response;
@@ -89,6 +96,16 @@ export class ManageCandidatesComponent {
     table.clear();
     this.globalSearchValue = '';
   }
+  getUniqueCandidatedata() {
+    this.newScheduleService
+      .getUniqueCandidateDetails()
+      .subscribe((response) => {
+        this.candidateData = response.filter(
+          (candidate: any) => candidate !== null
+        );
+        console.log('Candidate Data', this.candidateData);
+      });
+  }
 
   getUniqueDepartments(data: any[]): any[] {
     const uniqueDepartments = Array.from(
@@ -114,15 +131,22 @@ export class ManageCandidatesComponent {
   populateFormControls() {
     if (this.selectedRowData) {
       this.addCandidateForm.patchValue({
+        empid: this.selectedRowData.empid,
         candidateName: this.selectedRowData.candidateName,
-        email: this.selectedRowData.email,
-        phone: this.selectedRowData.phone,
+        email: this.selectedRowData.candidateEmail,
+        phone: this.selectedRowData.candidatePhone,
+        location: this.selectedRowData.location,
+        department: this.selectedRowData.department,
       });
     }
     console.log('Edit Data', this.addCandidateForm);
+
+    // this.formSubmitted = true;
+
+    
   }
-  onViewClick(data: any) { }
-  
+  onViewClick(data: any) {}
+
   addCandidate() {
     this.isAddCandidate = true;
     this.isEditCandidate = false;
@@ -143,7 +167,6 @@ export class ManageCandidatesComponent {
       summary: 'Success',
       detail: 'Candidate saved successfully',
     });
-    
   }
 
   saveCandidate() {
@@ -153,30 +176,51 @@ export class ManageCandidatesComponent {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
 
-      this.managerService.addCandidate(
-        formData.candidateName,
-        formData.email,
-        formData.phone
-      ).subscribe((response) => {
-        console.log("Candidate Saved....")
-      });
+      this.managerService
+        .addCandidate(formData.candidateName, formData.email, formData.phone,formData?.empid,formData?.department,formData?.location)
+        .subscribe((response) => {
+          console.log('Candidate Saved....');
+        });
       setTimeout(() => {
         this.addSuccessMessage();
         this.cancelButton();
-      },1000);
-
+      }, 1000);
     }
   }
 
-  downloadCsvTemplate(){
-    const csvTemplate = `candidateName,email,phone\n`; 
-  const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
-  saveAs(blob, 'csv-template.csv');
-
+  downloadCsvTemplate() {
+    const csvTemplate = `empid,candidateName,email,phone,Location,Department\n`;
+    const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
+    saveAs(blob, 'Candidate-template.csv');
   }
-  
+
   updateCandidate() {
     console.log('Updating.....');
+    this.formSubmitted = true;
+
+    if (this.addCandidateForm.valid) {
+      const formData = this.addCandidateForm.value;
+      console.log('Form Data:', formData);
+
+      this.managerService
+        .updateCandidate(formData.candidateName, formData.email, formData.phone,formData?.empid,formData?.department,formData?.location)
+        .subscribe((response) => {
+          console.log('Candidate Saved....');
+        });
+
+        setTimeout(() => {
+          this.UpdateMessage();
+          this.cancelButton();
+        }, 1000);
+    }
+  }
+
+  UpdateMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Candidate updated successfully',
+    });
   }
 
   fileUploadMessage() {
@@ -221,18 +265,15 @@ export class ManageCandidatesComponent {
           return;
         }
         console.log('CSV Data:', csvRows);
-        
-        for(let data of csvRows){
-          console.log("Csv File datum--", data);
 
-          this.managerService.addCandidate(
-            data.candidateName,
-            data.email,
-            data.phone
-          ).subscribe((response) => {
-            console.log("Candidate Saved....")
-          });
+        for (let data of csvRows) {
+          console.log('Csv File datum--', data);
 
+          this.managerService
+            .addCandidate(data.empid,data.candidateName, data.email, data.phone,data?.Department,data?.Location)
+            .subscribe((response) => {
+              console.log('Candidate Saved....');
+            });
         }
         setTimeout(() => {
           this.fileUploadMessage();
