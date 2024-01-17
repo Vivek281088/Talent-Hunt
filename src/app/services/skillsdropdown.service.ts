@@ -85,7 +85,7 @@ export class SkillsdropdownService {
   }
 
   //post questions,cuttoff,duration
-  postquestions(dataToSave: any): Observable<any> {
+  postNewSchedule(dataToSave: any): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = dataToSave;

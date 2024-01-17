@@ -769,7 +769,7 @@ export class SchedulepageComponent implements OnInit {
             this.Tdata.push(dataToSave);
             console.log('Updated Clone Data', dataToSave);
             this.skillsdropdownservice
-              .postquestions(dataToSave)
+              .postNewSchedule(dataToSave)
               .subscribe((response) => {
                 console.log('output----->', response);
               });

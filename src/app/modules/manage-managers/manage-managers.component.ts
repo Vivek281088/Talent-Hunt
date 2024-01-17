@@ -40,18 +40,9 @@ export class ManageManagersComponent {
     });
   }
   ngOnInit() {
-    this.managerService.getclientManagerData().subscribe((response) => {
-      console.log('Client Manager Details', response);
-      this.managerData = response;
+    this.loadManagerData();
+    this.getClientManagerName();
 
-      this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
-      console.log('Unique Department', this.uniqueDepartment);
-    });
-
-    this.managerService.getclientManagerName().subscribe((response) => {
-      console.log('Client Manager Names-->', response);
-      this.managerNames = response;
-    });
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
 
@@ -59,6 +50,21 @@ export class ManageManagersComponent {
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Managers', routerLink: '/manage-managers' },
     ];
+  }
+  loadManagerData() {
+    this.managerService.getclientManagerData().subscribe((response) => {
+      console.log('Client Manager Details', response);
+      this.managerData = response;
+
+      this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
+      console.log('Unique Department', this.uniqueDepartment);
+    });
+  }
+  getClientManagerName() {
+    this.managerService.getclientManagerName().subscribe((response) => {
+      console.log('Client Manager Names-->', response);
+      this.managerNames = response;
+    });
   }
   formattedDate(date: Date) {
     const months: string[] = [
@@ -128,7 +134,6 @@ export class ManageManagersComponent {
       });
     }
     console.log('Edit Data', this.addManagerForm);
-
   }
 
   cancelButton() {
@@ -143,6 +148,13 @@ export class ManageManagersComponent {
       severity: 'success',
       summary: 'Success',
       detail: 'Manager saved successfully',
+    });
+  }
+  updateSuccessMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Manager updated successfully',
     });
   }
 
@@ -168,6 +180,7 @@ export class ManageManagersComponent {
       setTimeout(() => {
         this.saveSuccessMessage();
         this.cancelButton();
+        this.loadManagerData();
       }, 1000);
     }
   }
@@ -210,7 +223,7 @@ export class ManageManagersComponent {
 
           this.managerService
             .postClientManager(
-              data.employeeId = parseInt(data.employeeId, 10),
+              (data.employeeId = parseInt(data.employeeId, 10)),
               data.managerName,
               data.email,
               data.phone,
@@ -245,12 +258,25 @@ export class ManageManagersComponent {
     });
   }
 
-  updateManager(data : any) {
+  updateManager(data: any) {
     console.log('Updating.......', data);
     this.managerService
-        .updateManagerDetails(data.managerName, data.email, data.phone,data.employeeId,data.department,data.location)
-        .subscribe((response) => {
-          console.log('Manager Updated....');
-        });
+      .updateManagerDetails(
+        data.managerName,
+        data.email,
+        data.phone,
+        data.employeeId,
+        data.department,
+        data.location
+      )
+      .subscribe((response) => {
+        console.log('Manager Updated....');
+      });
+
+    setTimeout(() => {
+      this.updateSuccessMessage();
+      this.cancelButton();
+      this.loadManagerData();
+    }, 1000);
   }
 }

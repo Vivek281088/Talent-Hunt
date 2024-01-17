@@ -31,7 +31,8 @@ export class ManagerProfileComponent {
     private fb: FormBuilder,
     private messageService: MessageService,
     private tableService: TableService,
-    private managernameService : ManagernameService
+    private managernameService : ManagernameService,
+    private router : Router
   ) {
     this.editManagerForm = this.fb.group({
       employeeId: [null, [Validators.required]],
@@ -89,6 +90,9 @@ export class ManagerProfileComponent {
   }
   updateManager(){
 
+}
+closeManagerProfile(){
+  this.router.navigate(['/manage-managers'])
 }
 
 //schedules

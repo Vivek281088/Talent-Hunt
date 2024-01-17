@@ -39,7 +39,7 @@ export class ManageCandidatesComponent {
     private newScheduleService: NewScheduleService
   ) {
     this.addCandidateForm = this.fb.group({
-      empid: [null, [Validators.required]],
+      empid: [null],
       candidateName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: [null, [Validators.required]],
@@ -69,6 +69,7 @@ export class ManageCandidatesComponent {
       { label: 'Candidates', routerLink: '/manage-candidates' },
     ];
   }
+  
   formattedDate(date: Date) {
     const months: string[] = [
       'Jan',
@@ -135,7 +136,7 @@ export class ManageCandidatesComponent {
         candidateName: this.selectedRowData.candidateName,
         email: this.selectedRowData.candidateEmail,
         phone: this.selectedRowData.candidatePhone,
-        location: this.selectedRowData.location,
+        location: this.selectedRowData.candidate_location,
         department: this.selectedRowData.department,
       });
     }
@@ -205,11 +206,12 @@ export class ManageCandidatesComponent {
       this.managerService
         .updateCandidate(formData.candidateName, formData.email, formData.phone,formData?.empid,formData?.department,formData?.location)
         .subscribe((response) => {
-          console.log('Candidate Saved....');
+          console.log('Candidate Updated....');
         });
 
         setTimeout(() => {
           this.UpdateMessage();
+          this.getUniqueCandidatedata();
           this.cancelButton();
         }, 1000);
     }

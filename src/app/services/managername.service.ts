@@ -114,7 +114,7 @@ export class ManagernameService {
       ...(department !== undefined && { department: department }),
       ...(location !== undefined && { candidate_location: location })
     };
-    return this.http.put<any>(
+    return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_CandidateDetails',
       body,
       { headers }
@@ -139,7 +139,7 @@ export class ManagernameService {
       managerLocation: managerLocation
     };
     console.log("Updated data :",body)
-    return this.http.put<any>(
+    return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_ManagerDetail',
       body,
       { headers }
