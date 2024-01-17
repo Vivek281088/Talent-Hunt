@@ -72,23 +72,21 @@ export class ManagernameService {
   }
 
   addCandidate(
-    
     candidateName: string,
     email: string,
     phone: number,
-    empid?: number,
+    empid: number,
     department?: string,
     location?: string
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
-      
       candidateName: candidateName,
       email: email,
       phone: phone,
-      ...(empid !== undefined && { empid: empid }),
-      ...(department !== undefined && { department: department }),
-      ...(location !== undefined && { candidate_location: location })
+      empid: empid,
+      department: department !== undefined ? department : '--',
+      candidate_location: location !== undefined ? location : '--',
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
@@ -101,7 +99,7 @@ export class ManagernameService {
     candidateName: string,
     email: string,
     phone: number,
-    empid?: number,
+    empid: number,
     department?: string,
     location?: string
   ): Observable<any> {
@@ -110,9 +108,9 @@ export class ManagernameService {
       candidateName: candidateName,
       candidateEmail: email,
       candidatePhone: phone,
-      ...(empid !== undefined && { empid: empid }),
-      ...(department !== undefined && { department: department }),
-      ...(location !== undefined && { candidate_location: location })
+      empid: empid,
+      department: department !== undefined ? department : '--',
+      candidate_location: location !== undefined ? location : '--',
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_CandidateDetails',
@@ -136,19 +134,21 @@ export class ManagernameService {
       phoneNo: phoneNo,
       empid: empid,
       department: department,
-      managerLocation: managerLocation
+      managerLocation: managerLocation,
     };
-    console.log("Updated data :",body)
+    console.log('Updated data :', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_ManagerDetail',
       body,
       { headers }
     );
   }
-  postManagerList(name: String): Observable<any> {
+
+  //To get Manager profile Data
+  postManagerName(name: String): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { Managername: name };
-    return this.http.post<any>(this.managerNameUrl + '/select-manager', body, {
+    return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/managerProfile', body, {
       headers,
     });
   }

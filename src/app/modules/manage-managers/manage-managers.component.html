@@ -121,7 +121,10 @@
       >
         <tr>
           <td>{{ rowData.empid }}</td>
-          <td class="managernamedesign">{{ rowData.managerName }}</td>
+          <td class="managernamedesign">
+            <a (click)="gotoManagerProfile(rowData)">{{ rowData.managerName }}</a>
+            
+          </td>
           <td>{{ rowData.email }}</td>
           <td>{{ rowData.department }}</td>
           <td>{{ rowData.managerLocation }}</td>

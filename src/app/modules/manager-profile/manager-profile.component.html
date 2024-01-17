@@ -35,7 +35,7 @@
 
   <div class="managerTabview">
     <p-tabView>
-      <p-tabPanel header="Profile">
+      <p-tabPanel header="Profile" [formGroup]="editManagerForm">
         <ng-template pTemplate="content">
           <div class="profilecontent">
             <div class="labelvalue">
@@ -49,9 +49,10 @@
                   mode="decimal"
                   inputId="withoutgrouping"
                   [useGrouping]="false"
+                  [disabled]="true"
                 >
                 </p-inputNumber>
-                <div
+                <!-- <div
                   *ngIf="
                     editManagerForm.get('employeeId')?.invalid &&
                     (editManagerForm.get('employeeId')?.touched ||
@@ -66,7 +67,7 @@
                   >
                     Employee Id is required !
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -76,8 +77,8 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input type="text" formControlName="managerName" pInputText />
-                <div
+                <input type="text" formControlName="managerName" pInputText [disabled]="true"/>
+                <!-- <div
                   *ngIf="
                     editManagerForm.get('managerName')?.invalid &&
                     (editManagerForm.get('managerName')?.touched ||
@@ -92,7 +93,7 @@
                   >
                     Manager Name is required !
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -102,8 +103,8 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input type="email" formControlName="email" pInputText />
-                <div
+                <input type="email" formControlName="email" pInputText [disabled]="true"/>
+                <!-- <div
                   *ngIf="
                     editManagerForm.get('email')?.invalid &&
                     (editManagerForm.get('email')?.touched || formSubmitted)
@@ -115,7 +116,7 @@
                   >
                     Email is required !
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -130,9 +131,10 @@
                   mode="decimal"
                   inputId="withoutgrouping"
                   [useGrouping]="false"
+                  [disabled]="true"
                 >
                 </p-inputNumber>
-                <div
+                <!-- <div
                   *ngIf="
                     editManagerForm.get('phone')?.invalid &&
                     (editManagerForm.get('phone')?.touched || formSubmitted)
@@ -144,7 +146,7 @@
                   >
                     Phone no is required !
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -154,8 +156,8 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input type="text" formControlName="department" pInputText />
-                <div
+                <input type="text" formControlName="department" pInputText [disabled]="true"/>
+                <!-- <div
                   *ngIf="
                     editManagerForm.get('department')?.invalid &&
                     (editManagerForm.get('department')?.touched ||
@@ -170,7 +172,7 @@
                   >
                     Department is required !
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -180,8 +182,8 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input type="text" formControlName="location" pInputText />
-                <div
+                <input type="text" formControlName="location" pInputText [disabled]="true"/>
+                <!-- <div
                   *ngIf="
                     editManagerForm.get('location')?.invalid &&
                     (editManagerForm.get('location')?.touched || formSubmitted)
@@ -195,7 +197,7 @@
                   >
                     Location is required !
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
 

@@ -39,7 +39,7 @@ export class ManageCandidatesComponent {
     private newScheduleService: NewScheduleService
   ) {
     this.addCandidateForm = this.fb.group({
-      empid: [null],
+      empid: [null, [Validators.required]],
       candidateName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: [null, [Validators.required]],
@@ -178,7 +178,7 @@ export class ManageCandidatesComponent {
       console.log('Form Data:', formData);
 
       this.managerService
-        .addCandidate(formData.candidateName, formData.email, formData.phone,formData?.empid,formData?.department,formData?.location)
+        .addCandidate(formData.candidateName, formData.email, formData.phone,formData.empid,formData?.department,formData?.location)
         .subscribe((response) => {
           console.log('Candidate Saved....');
         });
@@ -204,7 +204,7 @@ export class ManageCandidatesComponent {
       console.log('Form Data:', formData);
 
       this.managerService
-        .updateCandidate(formData.candidateName, formData.email, formData.phone,formData?.empid,formData?.department,formData?.location)
+        .updateCandidate(formData.candidateName, formData.email, formData.phone,formData.empid,formData?.department,formData?.location)
         .subscribe((response) => {
           console.log('Candidate Updated....');
         });

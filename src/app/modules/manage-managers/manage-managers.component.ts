@@ -5,6 +5,8 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
+import { Router } from '@angular/router';
+import { NewScheduleService } from 'src/app/services/new-schedule.service';
 @Component({
   selector: 'app-manage-managers',
   templateUrl: './manage-managers.component.html',
@@ -28,7 +30,9 @@ export class ManageManagersComponent {
   constructor(
     private managerService: ManagernameService,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router : Router,
+    private newScheduleService : NewScheduleService,
   ) {
     this.addManagerForm = this.fb.group({
       employeeId: [null, [Validators.required]],
@@ -156,6 +160,15 @@ export class ManageManagersComponent {
       summary: 'Success',
       detail: 'Manager updated successfully',
     });
+  }
+  gotoManagerProfile(data : any){
+
+    console.log("name",data)
+    this.newScheduleService.setManagerProfileData(data);
+    
+    this.router.navigate(['/managerProfile'])
+    
+
   }
 
   createButton() {
