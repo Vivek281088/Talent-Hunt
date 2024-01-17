@@ -122,12 +122,13 @@ export class ManageManagersComponent {
         employeeId: this.selectedRowData.empid,
         managerName: this.selectedRowData.managerName,
         email: this.selectedRowData.email,
-        phone: this.selectedRowData.phone,
+        phone: this.selectedRowData.phoneNo,
         department: this.selectedRowData.department,
-        location: this.selectedRowData.location,
+        location: this.selectedRowData.managerLocation,
       });
     }
     console.log('Edit Data', this.addManagerForm);
+
   }
 
   cancelButton() {
@@ -244,7 +245,12 @@ export class ManageManagersComponent {
     });
   }
 
-  updateManager() {
-    console.log('Updating.......');
+  updateManager(data : any) {
+    console.log('Updating.......', data);
+    this.managerService
+        .updateManagerDetails(data.managerName, data.email, data.phone,data.employeeId,data.department,data.location)
+        .subscribe((response) => {
+          console.log('Manager Updated....');
+        });
   }
 }

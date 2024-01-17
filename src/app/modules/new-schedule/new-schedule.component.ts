@@ -226,7 +226,7 @@ export class NewScheduleComponent {
     try {
       const selectedSkillName = this.selectedSkills.sort();
 
-      // const date = Date.now();
+      const date = Date.now();
       const dataToSave = {
         Questions: this.FinalizedQuestions,
         durations: this.duration,
@@ -236,7 +236,7 @@ export class NewScheduleComponent {
         cutoff: this.cutOff,
 
         Managername: this.manager,
-        // id:date,
+        id:date,
         Skill: selectedSkillName,
       };
       console.log('response', dataToSave);

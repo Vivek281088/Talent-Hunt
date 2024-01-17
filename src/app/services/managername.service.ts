@@ -121,6 +121,30 @@ export class ManagernameService {
     );
   }
 
+  updateManagerDetails(
+    managerName: string,
+    email: string,
+    phoneNo: number,
+    empid: number,
+    department: string,
+    managerLocation: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      managerName: managerName,
+      email: email,
+      phoneNo: phoneNo,
+      empid: empid,
+      department: department,
+      managerLocation: managerLocation
+    };
+    console.log("Updated data :",body)
+    return this.http.put<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_ManagerDetail',
+      body,
+      { headers }
+    );
+  }
   postManagerList(name: String): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { Managername: name };

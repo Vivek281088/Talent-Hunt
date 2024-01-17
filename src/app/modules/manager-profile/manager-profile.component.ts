@@ -52,7 +52,8 @@ export class ManagerProfileComponent {
   
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Managers', routerLink: '/manage-managers' },
+      { label: 'Manager', routerLink: '/manage-managers' },
+      { label: 'Manager Profile', routerLink: '/managerProfile' },
     ];
 
   }

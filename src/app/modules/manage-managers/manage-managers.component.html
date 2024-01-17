@@ -124,7 +124,7 @@
           <td class="managernamedesign">{{ rowData.managerName }}</td>
           <td>{{ rowData.email }}</td>
           <td>{{ rowData.department }}</td>
-          <td>{{ rowData.location }}</td>
+          <td>{{ rowData.managerLocation }}</td>
           <td>
             <div class="icons">
               <a (click)="handleEditIconClick(rowData)" title="Edit">
@@ -348,7 +348,7 @@
           <p-button label="Create" (onClick)="createButton()"> </p-button>
         </div>
         <div class="Createbutton" *ngIf="isEditManager">
-          <p-button label="Update" (onClick)="updateManager()"> </p-button>
+          <p-button label="Update" (onClick)="updateManager(addManagerForm.value)"> </p-button>
         </div>
 
         <label class="custom-file-input" *ngIf="isAddManager">
