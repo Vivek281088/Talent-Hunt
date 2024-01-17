@@ -21,7 +21,6 @@ export class ManagerProfileComponent {
   managerData: any;
 
   //schedules
-  Tdata: any[] = [];
   globalSearchValue!: string;
   viewQuestionSidebar: boolean = false;
   FinalizedQuestions!: any;
@@ -49,7 +48,7 @@ export class ManagerProfileComponent {
   }
 
   ngOnInit() {
-    this.existingData();
+    
     this.getManagerData();
     this.getCandidateData();
     this.todayDate = this.formattedDate(new Date());
@@ -122,12 +121,7 @@ export class ManagerProfileComponent {
   }
 
   //schedules
-  existingData() {
-    this.tableService.getExistingData().subscribe((data) => {
-      console.log('table data ----------------', data);
-      this.Tdata = data;
-    });
-  }
+  
 
   onSearchClick(dt2: Table) {
     this.globalSearchValue = '';
@@ -159,18 +153,23 @@ export class ManagerProfileComponent {
     return skills.slice(-count);
   }
 
-  onViewClick(ManagerName: string, JobDescription: string) {
+  onViewClick(questions : any) {
     this.viewQuestionSidebar = true;
-
-    this.tableService
-      .getdataby_FileName(ManagerName, JobDescription)
-      .subscribe((data) => {
-        console.log('View Data', data);
-        // this.view_Managername = ManagerName;
-        // this.view_Filename = JobDescription;
-        this.FinalizedQuestions = data[0].questions;
-        console.log('questions :', this.FinalizedQuestions);
-      });
+        this.FinalizedQuestions = questions
+        console.log('View questions :', this.FinalizedQuestions);
+      
+  }
+  getSelectedOptions(selected_Option: any, option: any) {
+    console.log("Function Working")
+    if (option.includes(selected_Option)) {
+      console.log('correct answer');
+      return 'correctAnswer';
+    } else {
+      return 'wrongAnswer';
+    }
+  }
+  getLabel(index: number) {
+    return String.fromCharCode(65 + index);
   }
 
   //Assessment

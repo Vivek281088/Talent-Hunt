@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TableService } from 'src/app/services/table.service';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
+import { NewScheduleService } from 'src/app/services/new-schedule.service';
 
 @Component({
   selector: 'app-candidate-profile',
@@ -16,7 +17,7 @@ import { ManagernameService } from 'src/app/services/managername.service';
 export class CandidateProfileComponent {
   items: MenuItem[] | undefined;
   todayDate!: string;
-  editManagerForm!: FormGroup;
+  editCandidateForm!: FormGroup;
   formSubmitted: boolean = false;
 
   //schedules
@@ -26,27 +27,30 @@ export class CandidateProfileComponent {
   FinalizedQuestions !:any;
 
   //assessment
-  candidateList: any[] = [];
+  candidateAssessmentData: any[] = [];
+  candidateData : any;
 
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
     private tableService: TableService,
-    private managernameService : ManagernameService
+    private managernameService : ManagernameService,
+    private router: Router,
+    private newScheduleService: NewScheduleService
   ) {
-    this.editManagerForm = this.fb.group({
-      employeeId: [null, [Validators.required]],
+    this.editCandidateForm = this.fb.group({
+      employeeId: [null],
       candidateName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       phone: [null, [Validators.required]],
-      department: ['', [Validators.required]],
-      location: ['', [Validators.required]],
+      department: [''],
+      location: [''],
     });
   }
 
   ngOnInit(){
 
-    this.getCandidateData();
+    this.getCandidateProfileData();
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
   
@@ -82,9 +86,9 @@ export class CandidateProfileComponent {
     return formatDate;
   }
   cancelButton() {
-    this.editManagerForm.reset();
-    this.editManagerForm.markAsPristine();
-    this.editManagerForm.markAsUntouched();
+    this.editCandidateForm.reset();
+    this.editCandidateForm.markAsPristine();
+    this.editCandidateForm.markAsUntouched();
     this.formSubmitted = false;
   }
   updateManager(){
@@ -122,11 +126,31 @@ remainaingSkills(skills: any, count: number): string[] {
 
 
 //Assessment
-getCandidateData(){
-  this.managernameService.getCandidateStatus().subscribe((data) => {
-    this.candidateList = data;
-    console.log('Candidate data ----------------', data);
-});
+getCandidateProfileData(){
+
+  this.candidateData = this.newScheduleService.getCandidateProfileData();
+  console.log('Get Candidate Data', this.candidateData);
+ 
+  // Set values for the form controls
+  this.editCandidateForm.setValue({
+    employeeId: this.candidateData.empid,
+    candidateName: this.candidateData.candidateName,
+    email: this.candidateData.candidateEmail,
+    phone: this.candidateData.candidatePhone,
+    department: this.candidateData.department,
+    location: this.candidateData.candidate_location,
+  });
+
+  console.log('Form Values', this.editCandidateForm.value);
+  console.log('Candidate Email--', this.editCandidateForm.value.email);
+
+
+  this.managernameService
+      .postCandidateEmail(this.editCandidateForm.value.email)
+      .subscribe((response) => {
+        console.log('Assessment Data---->', response);
+        this.candidateAssessmentData = response;
+      });
 }
 clear(table: Table) {
   table.clear();

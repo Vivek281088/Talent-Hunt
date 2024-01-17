@@ -35,7 +35,7 @@
   
     <div class="managerTabview">
       <p-tabView>
-        <p-tabPanel header="Profile">
+        <p-tabPanel header="Profile" [formGroup]="editCandidateForm">
           <ng-template pTemplate="content">
             <div class="profilecontent">
               <div class="labelvalue">
@@ -51,22 +51,22 @@
                     [useGrouping]="false"
                   >
                   </p-inputNumber>
-                  <div
+                  <!-- <div
                     *ngIf="
-                      editManagerForm.get('employeeId')?.invalid &&
-                      (editManagerForm.get('employeeId')?.touched ||
+                    editCandidateForm.get('employeeId')?.invalid &&
+                      (editCandidateForm.get('employeeId')?.touched ||
                         formSubmitted)
                     "
                   >
                     <div
                       class="error-message"
                       *ngIf="
-                        editManagerForm.get('employeeId')?.hasError('required')
+                      editCandidateForm.get('employeeId')?.hasError('required')
                       "
                     >
                       Employee Id is required !
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
   
@@ -76,22 +76,22 @@
                 </div>
                 <div class="value">
                   <input type="text" formControlName="candidateName" pInputText />
-                  <div
+                  <!-- <div
                     *ngIf="
-                      editManagerForm.get('candidateName')?.invalid &&
-                      (editManagerForm.get('candidateName')?.touched ||
+                    editCandidateForm.get('candidateName')?.invalid &&
+                      (editCandidateForm.get('candidateName')?.touched ||
                         formSubmitted)
                     "
                   >
                     <div
                       class="error-message"
                       *ngIf="
-                        editManagerForm.get('candidateName')?.hasError('required')
+                      editCandidateForm.get('candidateName')?.hasError('required')
                       "
                     >
                       Candidate Name is required !
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
   
@@ -101,19 +101,19 @@
                 </div>
                 <div class="value">
                   <input type="email" formControlName="email" pInputText />
-                  <div
+                  <!-- <div
                     *ngIf="
-                      editManagerForm.get('email')?.invalid &&
-                      (editManagerForm.get('email')?.touched || formSubmitted)
+                    editCandidateForm.get('email')?.invalid &&
+                      (editCandidateForm.get('email')?.touched || formSubmitted)
                     "
                   >
                     <div
                       class="error-message"
-                      *ngIf="editManagerForm.get('email')?.hasError('required')"
+                      *ngIf="editCandidateForm.get('email')?.hasError('required')"
                     >
                       Email is required !
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
   
@@ -129,19 +129,19 @@
                     [useGrouping]="false"
                   >
                   </p-inputNumber>
-                  <div
+                  <!-- <div
                     *ngIf="
-                      editManagerForm.get('phone')?.invalid &&
-                      (editManagerForm.get('phone')?.touched || formSubmitted)
+                    editCandidateForm.get('phone')?.invalid &&
+                      (editCandidateForm.get('phone')?.touched || formSubmitted)
                     "
                   >
                     <div
                       class="error-message"
-                      *ngIf="editManagerForm.get('phone')?.hasError('required')"
+                      *ngIf="editCandidateForm.get('phone')?.hasError('required')"
                     >
                       Phone no is required !
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
   
@@ -151,22 +151,22 @@
                 </div>
                 <div class="value">
                   <input type="text" formControlName="department" pInputText />
-                  <div
+                  <!-- <div
                     *ngIf="
-                      editManagerForm.get('department')?.invalid &&
-                      (editManagerForm.get('department')?.touched ||
+                    editCandidateForm.get('department')?.invalid &&
+                      (editCandidateForm.get('department')?.touched ||
                         formSubmitted)
                     "
                   >
                     <div
                       class="error-message"
                       *ngIf="
-                        editManagerForm.get('department')?.hasError('required')
+                      editCandidateForm.get('department')?.hasError('required')
                       "
                     >
                       Department is required !
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
   
@@ -176,21 +176,21 @@
                 </div>
                 <div class="value">
                   <input type="text" formControlName="location" pInputText />
-                  <div
+                  <!-- <div
                     *ngIf="
-                      editManagerForm.get('location')?.invalid &&
-                      (editManagerForm.get('location')?.touched || formSubmitted)
+                    editCandidateForm.get('location')?.invalid &&
+                      (editCandidateForm.get('location')?.touched || formSubmitted)
                     "
                   >
                     <div
                       class="error-message"
                       *ngIf="
-                        editManagerForm.get('location')?.hasError('required')
+                      editCandidateForm.get('location')?.hasError('required')
                       "
                     >
                       Location is required !
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
   
@@ -210,7 +210,7 @@
               class="candidateTable"
               [resizableColumns]="true"
               [autoLayout]="true"
-              [value]="candidateList"
+              [value]="candidateAssessmentData"
               #dt1
               [paginator]="true"
               [tableStyle]="{ height: 'max-content' }"

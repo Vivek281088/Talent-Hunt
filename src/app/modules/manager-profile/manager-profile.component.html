@@ -77,7 +77,12 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input type="text" formControlName="managerName" pInputText [disabled]="true"/>
+                <input
+                  type="text"
+                  formControlName="managerName"
+                  pInputText
+                  [disabled]="true"
+                />
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('managerName')?.invalid &&
@@ -103,7 +108,12 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input type="email" formControlName="email" pInputText [disabled]="true"/>
+                <input
+                  type="email"
+                  formControlName="email"
+                  pInputText
+                  [disabled]="true"
+                />
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('email')?.invalid &&
@@ -156,7 +166,12 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input type="text" formControlName="department" pInputText [disabled]="true"/>
+                <input
+                  type="text"
+                  formControlName="department"
+                  pInputText
+                  [disabled]="true"
+                />
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('department')?.invalid &&
@@ -182,7 +197,12 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input type="text" formControlName="location" pInputText [disabled]="true"/>
+                <input
+                  type="text"
+                  formControlName="location"
+                  pInputText
+                  [disabled]="true"
+                />
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('location')?.invalid &&
@@ -216,7 +236,7 @@
             #dt2
             dataKey="id"
             [tableStyle]="{ height: 'max-content' }"
-            [value]="Tdata"
+            [value]="scheduleData"
             [rows]="3"
             [showCurrentPageReport]="true"
             [rowsPerPageOptions]="[3, 5, 10, 25, 50]"
@@ -228,27 +248,26 @@
             <ng-template pTemplate="header">
               <tr>
                 <th colspan="4">
-                  
                   <div class="filter-components">
                     <div>
-                        <span class="p-input-icon-right searchIcon">
-                            <input
-                              pInputText
-                              type="text"
-                              placeholder="Search"
-                              [(ngModel)]="globalSearchValue"
-                              (input)="
-                                dt2.filterGlobal(
-                                  $any($event.target).value,
-                                  'contains'
-                                )
-                              "
-                            />
-    
-                            <i class="pi pi-search"></i>
-                          </span>
+                      <span class="p-input-icon-right searchIcon">
+                        <input
+                          pInputText
+                          type="text"
+                          placeholder="Search"
+                          [(ngModel)]="globalSearchValue"
+                          (input)="
+                            dt2.filterGlobal(
+                              $any($event.target).value,
+                              'contains'
+                            )
+                          "
+                        />
+
+                        <i class="pi pi-search"></i>
+                      </span>
                     </div>
-                    <div class="clearButton">
+                    <div class="clear-button">
                       <button
                         pButton
                         label="Clear filter"
@@ -328,12 +347,7 @@
                     <div class="PreviewBtn">
                       <p-button
                         icon="pi pi-eye"
-                        (onClick)="
-                          onViewClick(
-                            rowData.Managername,
-                            rowData.JobDescription
-                          )
-                        "
+                        (onClick)="onViewClick(rowData.questions)"
                       >
                       </p-button>
                     </div>
@@ -376,22 +390,22 @@
                 <th colspan="9">
                   <div class="filter-components">
                     <div>
-                        <span class="p-input-icon-right searchIcon">
-                            <input
-                              pInputText
-                              type="text"
-                              placeholder="Search"
-                              [(ngModel)]="globalSearchValue"
-                              (input)="
-                                dt2.filterGlobal(
-                                  $any($event.target).value,
-                                  'contains'
-                                )
-                              "
-                            />
-    
-                            <i class="pi pi-search"></i>
-                          </span>
+                      <span class="p-input-icon-right searchIcon">
+                        <input
+                          pInputText
+                          type="text"
+                          placeholder="Search"
+                          [(ngModel)]="globalSearchValue"
+                          (input)="
+                            dt2.filterGlobal(
+                              $any($event.target).value,
+                              'contains'
+                            )
+                          "
+                        />
+
+                        <i class="pi pi-search"></i>
+                      </span>
                     </div>
                     <div class="clearButton">
                       <button
@@ -476,4 +490,56 @@
       </p-tabPanel>
     </p-tabView>
   </div>
+</div>
+
+<div class="questionsidebar">
+  <p-sidebar [(visible)]="viewQuestionSidebar" position="right" [modal]="false">
+    <ng-template class="header_design" pTemplate="header"
+      >Quiz Preview
+    </ng-template>
+    <ng-template pTemplate="content">
+      <span *ngFor="let question of FinalizedQuestions; let j = index">
+        <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
+
+        <div class="select-size">
+          <div
+            *ngFor="let option of question.options; let i = index"
+            class="option"
+            [ngClass]="getSelectedOptions(question.answer, option)"
+          >
+            <input
+              type="radio"
+              [name]="'option_' + i"
+              [id]="'option_' + i"
+              [checked]="option === question.answer"
+            />
+            <label class="box-design" [for]="'option' + question + '-' + i">{{
+              getLabel(i)
+            }}</label>
+
+            <span class="option-content">{{ option }}</span>
+          </div>
+        </div>
+      </span>
+
+      <div class="btnfooter">
+        <div class="quiz-instruction">
+          <p class="instruction">Quiz Instructions</p>
+          <ul class="points">
+            <li>Manager approval mandatory</li>
+            <li>
+              Automatic email will be triggered for every status change of the
+              request
+            </li>
+            <li>Approval is the permission to go to Office</li>
+          </ul>
+        </div>
+        <div class="sidebarbuttons">
+          <div class="custom_button_send">
+            <p-button label="Close"></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-sidebar>
 </div>

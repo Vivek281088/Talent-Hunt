@@ -8,6 +8,7 @@ import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { response } from 'express';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-candidates',
@@ -36,7 +37,8 @@ export class ManageCandidatesComponent {
     private managerService: ManagernameService,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private newScheduleService: NewScheduleService
+    private newScheduleService: NewScheduleService,
+    private router : Router
   ) {
     this.addCandidateForm = this.fb.group({
       empid: [null, [Validators.required]],
@@ -284,5 +286,15 @@ export class ManageCandidatesComponent {
       },
       header: true,
     });
+  }
+
+  gotoCandidateProfile(data : any){
+
+    console.log("Candidate data",data)
+    this.newScheduleService.setCandidateProfileData(data);
+    
+    this.router.navigate(['/candidateProfile'])
+    
+
   }
 }

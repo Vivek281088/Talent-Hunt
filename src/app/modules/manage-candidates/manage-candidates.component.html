@@ -165,7 +165,9 @@
             <input type="checkbox" [value]="rowData" class="custom-checkbox" />
           </td>
           <td>{{ rowData.empid }}</td>
-          <td class="candidatenamedesign">{{ rowData.candidateName }}</td>
+          <td class="candidatenamedesign">
+            <a (click)="gotoCandidateProfile(rowData)">{{ rowData.candidateName }}</a>
+          </td>
           <td>{{ rowData.candidateEmail }}</td>
           <td>{{rowData.candidatePhone}}</td>
           <td>{{ rowData.department }}</td>

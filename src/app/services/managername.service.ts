@@ -153,6 +153,15 @@ export class ManagernameService {
     });
   }
 
+  //to get candidate Profile Data
+  postCandidateEmail(email: String): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = { candidateEmail: email };
+    return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidateProfile', body, {
+      headers,
+    });
+  }
+
   postexistingcandidates(
     managername: string,
     name: string[],

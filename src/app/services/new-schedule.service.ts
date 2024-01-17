@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class NewScheduleService {
   newScheduleData: any;
   managerProfileData : any;
+  candidateProfileData : any;
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +23,13 @@ export class NewScheduleService {
   }
   getManagerProfileData() {
     return this.managerProfileData;
+  }
+
+  setCandidateProfileData(Data: any) {
+    this.candidateProfileData = Data;
+  }
+  getCandidateProfileData() {
+    return this.candidateProfileData;
   }
 
   getUniqueCandidateDetails(): Observable<any> {

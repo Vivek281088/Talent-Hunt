@@ -82,8 +82,7 @@
 
               <ng-template pTemplate="body" let-rowData>
                 <tr>
-                  
-                    <td class="questiontext">{{ rowData.question}}</td>
+                  <td class="questiontext">{{ rowData.question }}</td>
                   <td class="optiontext">{{ rowData.questionType }}</td>
                   <td class="optiontext">
                     {{ rowData.options.length }} Choices
@@ -99,8 +98,6 @@
   </div>
 </div>
 
-
-
 <div class="questionsidebar">
   <p-sidebar
     [(visible)]="previewSidebarVisible"
@@ -112,9 +109,7 @@
     </ng-template>
     <ng-template pTemplate="content" *ngIf="selectedquestions">
       <span *ngFor="let question of selectedquestions; let j = index">
-        <div class="question-design">
-          {{ j + 1 }}. {{ question.question }}
-        </div>
+        <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
 
         <div class="select-size">
           <div
@@ -155,6 +150,9 @@
           </div>
         </div>
       </div>
+    </ng-template>
+  </p-sidebar>
+</div>
 
 <div class="card flex justify-content-centre">
   <div class="newSchedule-Dialog">
