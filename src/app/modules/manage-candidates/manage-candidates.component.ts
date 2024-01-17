@@ -210,11 +210,12 @@ export class ManageCandidatesComponent {
         .subscribe((response) => {
           console.log('Candidate Updated....');
         });
-
+        
         setTimeout(() => {
           this.UpdateMessage();
-          this.getUniqueCandidatedata();
           this.cancelButton();
+          this.getUniqueCandidatedata();
+
         }, 1000);
     }
   }

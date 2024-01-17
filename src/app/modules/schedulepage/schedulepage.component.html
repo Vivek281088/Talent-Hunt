@@ -97,6 +97,7 @@
                         [options]="skillSet"
                         placeholder="Skills"
                         (onChange)="filter($event.value)"
+                        appendTo="body"
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
@@ -110,7 +111,7 @@
                 <div class="ml-3">
                   <button
                     class="clear-button cursor-pointer"
-                    (click)="onSearchClick(dt2)"
+                    (click)="onClearClick(dt2)"
                   >
                     Clear Filter
                   </button>
@@ -270,6 +271,7 @@
               +
               <p-overlayPanel #op>
                 <ul
+                style="list-style-type: none;"
                   *ngFor="
                     let skill of remainaingSkills(
                       rowData.Skill,
@@ -278,7 +280,7 @@
                   "
                 >
                   <li>
-                    {{ skill }}
+                    <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
                   </li>
                 </ul>
               </p-overlayPanel>
@@ -449,7 +451,7 @@
         </div>
         <div class="sidebarbuttons">
           <div class="custom_button_send">
-            <p-button label="Close"></p-button>
+            <p-button label="Close" (onClick)="closeSidebar()"></p-button>
           </div>
 
         </div>

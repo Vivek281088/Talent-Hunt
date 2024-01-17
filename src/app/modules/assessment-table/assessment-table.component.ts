@@ -63,7 +63,6 @@ export class AssessmentTableComponent {
     this.overlayVisible = !this.overlayVisible;
   }
 
-  openEllipsisDialogBox: boolean = false;
   todayDate!: string;
 
   // candidateForm !: FormGroup;
@@ -102,7 +101,7 @@ export class AssessmentTableComponent {
     this.loadManagerNames();
     this.getSkillSet();
 
-    this.loadCandidate();
+    this.loadCandidateTableData();
     this.getCandidatename();
 
     this.items = [
@@ -144,9 +143,6 @@ export class AssessmentTableComponent {
     }
   }
 
-  // handleEllipsisDialog(){
-  //   this['openEllipsisDialogBox']= true;
-  //     }
   getResultClass(result: string): string {
     if (result == 'Shortlisted') {
       return 'Shortlisted';
@@ -161,9 +157,7 @@ export class AssessmentTableComponent {
     }
   }
 
-  handleEllipsisDialog() {
-    this.openEllipsisDialogBox = true;
-  }
+
 
   getFormattedSkills(skills: any): {
     skills: string[];
@@ -219,93 +213,11 @@ export class AssessmentTableComponent {
     });
   }
 
-  loadCandidate() {
-    const role = localStorage.getItem('userrole');
-    console.log('role', role);
-    if (role == 'user') {
-      this.name = false;
-      this.candidateService
-        .getCandidatedata_by_Email(this.finalizedEmail)
-        .subscribe((response) => {
-          console.log('res', response);
-          this.candidateList = response;
-          console.log('candidateListdata', this.candidateList);
-          this.candidateName = response[0].candidateName;
-          console.log('candidateName', this.candidateName);
-        });
-
-      // localStorage.removeItem('userrole');
-    } else if (role == 'manager') {
-      // localStorage.removeItem('userrole');
-      console.log('manager email--', this.finalizedManagerEmail);
-      this.managernameService
-        .getManagerdata_by_Email(this.finalizedManagerEmail)
-        .subscribe((response) => {
-          console.log('res', response);
-          // this.managerEmail = response[0].Managername;
-
-          // this.managernameService.setManagerName_Email(this.managerEmail);
-
-          // this.candidateName = response[0].candidateName;
-        });
-      this.managernameService.getCandidateStatus().subscribe((data) => {
-        // console.log("arole",a)
-        this.candidateList = data;
-        console.log('Candidate Data', data);
-      });
-      // localStorage.removeItem('userrole');
-    }
-
-    // console.log('load data 1', this.candidateList);
-    // console.log('selected candidate', this.selectedCandidates);
-    // // Loop through selectedCandidates and store data for each candidate
-    // this.selectedCandidates.forEach((selectedCandidate) => {
-    //   // Find the existing candidate data based on the candidateName
-    //   const existingCandidate = this.candidateList.find(
-    //     (candidate) => candidate.candidateName === selectedCandidate
-    //   );
-    //   console.log('matched candidate', existingCandidate);
-
-    //   //rest data
-    //   this.score = null;
-    //   this.result = '';
-    //   const date = Date.now();
-    //   this.candidateId = new Date(date);
-
-    //   //show success message
-    //   // this.showEmailSubmitted();
-
-    //   if (existingCandidate) {
-    //     this.tableService
-    //       .postExistingCandidateDetails(
-    //         this.candidateId,
-    //         this.email_Managername,
-    //         existingCandidate.candidateName,
-    //         existingCandidate.candidateEmail,
-    //         existingCandidate.candidatePhone,
-    //         this.email_Status,
-    //         this.email_Filename,
-    //         this.questions,
-    //         this.score,
-    //         this.result,
-    //         this.cutoff,
-    //         this.durations,
-    //         existingCandidate.password,
-    //         existingCandidate.confirmPassword,
-    //         this.roles,
-    //         this.Skill
-    //       )
-    //       .subscribe((data) => {
-    //         console.log('Stored data for existing candidate:', data);
-    //         //this.candidateName(data);
-    //         this.candidateList.push(data);
-    //       });
-
-    //     setTimeout(() => {
-    //       this.getCandidatename();
-    //     }, 2000);
-    //   }
-    // });
+  loadCandidateTableData(){
+    this.managernameService.getCandidateStatus().subscribe((data) => {
+      this.candidateList = data;
+      console.log('Candidate Data', data);
+    });
   }
 
   loadAssessmentData() {

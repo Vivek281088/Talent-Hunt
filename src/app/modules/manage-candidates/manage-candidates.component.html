@@ -129,20 +129,20 @@
                   </p-button>
                 </div>
 
-                <div class="addcandidate">
+                <!-- <div class="addcandidate">
                   <p-button
                     label="Delete candidate"
                     (onClick)="deleteCandidate()"
                   >
                   </p-button>
-                </div>
+                </div> -->
               </div>
             </div>
           </th>
         </tr>
 
         <tr>
-          <th></th>
+          <!-- <th></th> -->
           <th class="EmployeeId" pSortableColumn="empid">
             Emp ID <p-sortIcon field="empid"></p-sortIcon>
           </th>
@@ -161,9 +161,9 @@
         class="tableBody"
       >
         <tr>
-          <td class="checkboxcell">
+          <!-- <td class="checkboxcell">
             <input type="checkbox" [value]="rowData" class="custom-checkbox" />
-          </td>
+          </td> -->
           <td>{{ rowData.empid }}</td>
           <td class="candidatenamedesign">
             <a (click)="gotoCandidateProfile(rowData)">{{ rowData.candidateName }}</a>

@@ -46,7 +46,7 @@ export class NewScheduleComponent {
   duration!: string | number | null;
   skill!: string | null;
   questions = [];
-  public selectedquestions: any[] = [];
+  selectedquestions: any[] = [];
   FinalizedQuestions: any[] = [];
   selectedQuestionCount!: number;
   visible: boolean = false;
@@ -213,6 +213,7 @@ export class NewScheduleComponent {
   count!: number;
 
   async saveSelected() {
+    this.scheduleMessage();
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
     console.log('Final', this.FinalizedQuestions);
@@ -245,7 +246,11 @@ export class NewScheduleComponent {
         .postNewSchedule(dataToSave)
         .subscribe((response) => {
           console.log('Questions', response);
-          this.router.navigate(['/dashboard']);
+          setTimeout(()=>{
+            this.router.navigate(['/dashboard']);
+          },1500)
+          
+          
         });
     } catch (error) {
       console.error(error);
@@ -301,6 +306,16 @@ export class NewScheduleComponent {
       });
       this.selectedQuestion = [];
     }
+  }
+  scheduleMessage(){
+      this.messageService.add({
+        severity: 'success',
+  
+        summary: 'Success',
+  
+        detail: 'Schedule saved Successfully',
+      });
+    
   }
   showUpdateMessage() {
     this.messageService.add({
@@ -376,10 +391,6 @@ export class NewScheduleComponent {
   }
   // questionType!:any
   choices!:any
-  choice1!:any
-  choice2!:any
-  choice3!:any
-  choice4!:any
   options! : any;
   Difficulty_Level!:any
   id!:any
@@ -488,7 +499,6 @@ export class NewScheduleComponent {
   onPreviewClick(){
     
       this.previewSidebarVisible = true;
-    
     
   }
   getSelectedOptions(selected_Option: any, option: any) {

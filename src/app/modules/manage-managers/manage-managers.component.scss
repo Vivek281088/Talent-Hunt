@@ -273,12 +273,10 @@
   }
 }
 .Newschedule-button {
-  display: flex;
-  flex-direction: row;
-  border-radius: 4px;
-  border: 1px;
-  justify-content: space-between;
-  // justify-content: flex-end;
+  display: inline-flex;
+    flex-direction: row;
+    border-radius: 4px;
+    border: 1px;
   .Cancelbutton {
     ::ng-deep {
       .p-button {
