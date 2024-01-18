@@ -362,4 +362,8 @@ export class ManageSkillsComponent {
   closeButton() {
     this.questionPreviewvisible = false;
   }
+  sidebarClose() {
+    this.previewSidebarVisible = false;
+    
+  }
 }

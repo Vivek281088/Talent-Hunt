@@ -108,7 +108,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 60%;
+  width: 80%;
 }
 .searchIcon {
   width: 174px;
@@ -183,12 +183,48 @@
   font-weight: 700;
   cursor: pointer;
 }
+::ng-deep {
+  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-color: #652d90;
+    color: #652d90;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+    box-shadow: none;
+  }
+  .p-datatable .p-datatable-thead > tr > th {
+    padding: 1rem 1rem 1rem 1rem;
+  }
+}
+.instruction {
+  font-size: 16px;
+  font-family: "Poppins";
+  font-weight: 400;
+  color: #00000099;
+  padding: 2% 0% 2% 0%;
+}
+.quiz-instruction {
+  padding-bottom: 5%;
+}
+.points {
+  font-family: "Roboto";
+  color: #00000099;
+  font-weight: 400;
+  padding-left: 4%;
+  li {
+    padding-bottom: 1%;
+  }
+}
 
 .addmanager {
   ::ng-deep .p-button {
     color: #ffffff;
     background: #652d90;
     border: 1px solid #652d90;
+    height: 95%;
     &:hover {
       color: #ffffff;
     }
@@ -225,12 +261,13 @@
       font-weight: 500;
       color: #1e22aa;
     }
+
     .p-dialog .p-dialog-header {
       padding: 1rem;
       border-bottom: 1px solid #0000001f;
     }
     .p-dialog .p-dialog-content {
-      padding: 0 1.5rem 2rem 1rem;
+      padding: 0 ;
       border-bottom: 2px solid #0000001f;
     }
     .p-inputtext {
@@ -242,7 +279,7 @@
       width: 100%;
     }
     .p-dialog {
-      max-height: 75%;
+      height: 65%;
     }
 
     .p-dialog .p-dialog-footer {
@@ -272,11 +309,106 @@
     }
   }
 }
+.tabview-button {
+  display: inline-flex;
+  flex-direction: row;
+  border-radius: 4px;
+  border: 1px;
+  padding: 4% 0% 2% 0%;
+  gap: 200%;
+
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
+    }
+  }
+}
+.tabview-button-upload {
+  display: inline-flex;
+  flex-direction: row;
+  border-radius: 4px;
+  border: 1px;
+  padding: 4% 0% 2% 0%;
+  gap: 8%;
+  width: 100%;
+
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
+    }
+  }
+}
 .Newschedule-button {
   display: inline-flex;
-    flex-direction: row;
-    border-radius: 4px;
-    border: 1px;
+  flex-direction: row;
+  border-radius: 4px;
+  border: 1px;
   .Cancelbutton {
     ::ng-deep {
       .p-button {

@@ -423,8 +423,8 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           case ConfirmEventType.REJECT:
             this.messageService.add({
               severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected',
+              summary: 'Cancel',
+              detail: 'You have Cancelled',
             });
             console.log('Rejected');
             break;
@@ -447,7 +447,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.rows = event.rows;
     this.page = event.page;
     this.pageCount = event.pageCount;
-    console.log('varun ?????', this.selectedOptions1);
+    console.log('selected Option', this.selectedOptions1);
   }
 
 

@@ -189,6 +189,7 @@ export class AssessmentTableComponent {
   }
   clear(table: Table) {
     table.clear();
+    this.globalSearchValue = '';
   }
 
   getCandidatename(): void {

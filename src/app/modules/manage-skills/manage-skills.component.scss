@@ -273,15 +273,7 @@
 }
 
 
-.tabview-count {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: baseline;
-  border: 1px solid #0000001f;
-  border-radius: 8px;
-
-  ::ng-deep {
+ ::ng-deep {
     .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
       border-color: #652d90;
       color: #652d90;
@@ -297,6 +289,16 @@
       padding: 0; 
   }
   }
+
+.tabview-count {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
+  border: 1px solid #0000001f;
+  border-radius: 8px;
+
+ 
   .tabview {
     width: 100%;
   }
@@ -676,6 +678,7 @@
       }
     }
   }
+  
 
   .btnfooter {
     display: flex;
@@ -742,6 +745,26 @@
     }
   }
 }
+.instruction {
+      font-size: 16px;
+      font-family: "Poppins";
+      font-weight: 400;
+      color: #00000099;
+      padding: 2% 0% 2% 0%;
+    }
+    .quiz-instruction {
+      padding-bottom: 5%;
+    }
+    .points {
+      font-family: "Roboto";
+      color: #00000099;
+      font-weight: 400;
+      padding-left: 4%;
+      li {
+        padding-bottom: 1%;
+      }
+    }
+
 .Update-button {
   display: inline-flex;
   justify-content: flex-end;

@@ -41,10 +41,17 @@
   padding: 12px;
   border: 1px solid#dee2e6;
 
-  ::ng-deep .p-button {
+  ::ng-deep {
+    .p-button:focus {
+        box-shadow: none;
+      }
+      .p-button {
     background: #652d90;
     border: 1px solid #652d90;
+    color: #ffffff;
   }
+  }
+ 
 
   //   display: flex;
   //   justify-content: end;
@@ -71,6 +78,19 @@
     align-items: center;
     height: 81%;
     width: 90%;
+  }
+  ::ng-deep {
+    .p-button:focus {
+        box-shadow: none;
+      }
+      .p-button {
+    background: #ffffff;
+    border: 1px solid #652d90;
+    color: #652d90;
+  }
+  .p-button:enabled:hover {
+    background: white;
+}
   }
   
 }
@@ -279,10 +299,35 @@ label {
   background: #652d90;
 }
 .confirm-design {
+
+  
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
+      .p-button .p-button-icon-left {
+        display: none;
+      }
+    }
+    
+  }
   ::ng-deep .p-button:enabled:hover {
     background: #652d90;
   }
-}
+
 #chip-design {
   padding-top: 5px;
   ::ng-deep .p-chip {
