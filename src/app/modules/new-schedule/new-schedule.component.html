@@ -229,10 +229,10 @@
                       </div>
 
                       <div class="selectallBtn">
-                        <p-button label="Select All"(click)="selectAllQuestions(tab)"> </p-button>
+                        <p-button label="Select All"(click)="selectQuestions(tab.content)"> </p-button>
                       </div>
                       <div class="unselectallBtn">
-                        <p-button label="Unselect All"(click)="unselectAllQuestions(tab)" > </p-button>
+                        <p-button label="Unselect All"(click)="unselectAllQuestions(tab.content)" > </p-button>
                       </div>
                       <div class="PreviewBtn">
                         <p-button

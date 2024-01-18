@@ -105,102 +105,102 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.updateTimer();
 
     //get the assessment data
-    // this.assessmentData = this.candidateAssessmentService.getAssessmentData();
-    this.assessmentData = {
-      Skill: ['GraphQL', 'Nodejs'],
-      candidateEmail: 'kabilan@gmail.com',
-      candidateName: 'Kabilan',
-      candidatePhone: 9090909090,
-      confirmPassword: 'abc123',
-      cutoff: '45',
-      durations: '200',
-      email_Filename: 'Angular Training',
-      email_Managername: 'Mathanraj',
-      email_Status: 'Not Started',
-      id: '2024-01-04T13:41:35.740Y',
-      password: 'abc123',
-      questions: [
-        {
-          Difficulty_Level: 'H',
-          Selected: true,
-          answer: 'Answer',
-          id: '1699593363385',
-          options: ['word', 'Para', 'Line', 'Text'],
-          question:
-            'This tab lists all connected branches, select a branch to view build details.',
-          questionType: 'Radio',
-          skills: 'GraphQL',
-        },
-        {
-          Difficulty_Level: 'M',
-          Selected: true,
-          answer: ['useMutation'],
-          id: '2',
-          options: [
-            'useMutation',
-            'useSubscription',
-            'useQuery',
-            'none of the options',
-          ],
-          question:
-            'Which of the following GraphQL’s hooks should be used to update data on server?',
-          questionType: 'Radio',
-          skills: 'GraphQL',
-        },
-        {
-          Difficulty_Level: 'H',
-          answer: ['Use gzip compression'],
-          id: '246789012345',
-          options: [
-            'Do logging correctly',
-            "Don't use synchronous functions",
-            'Handle exceptions properly',
-            'Use gzip compression',
-          ],
-          question:
-            "What should you do in your code to improve your application's performance?",
-          questionType: 'Radio',
-          selection: true,
-          skills: 'Nodejs',
-        },
+    this.assessmentData = this.candidateAssessmentService.getAssessmentData();
+    // this.assessmentData = {
+    //   Skill: ['GraphQL', 'Nodejs'],
+    //   candidateEmail: 'kabilan@gmail.com',
+    //   candidateName: 'Kabilan',
+    //   candidatePhone: 9090909090,
+    //   confirmPassword: 'abc123',
+    //   cutoff: '45',
+    //   durations: '200',
+    //   email_Filename: 'Angular Training',
+    //   email_Managername: 'Mathanraj',
+    //   email_Status: 'Not Started',
+    //   id: '2024-01-04T13:41:35.740Y',
+    //   password: 'abc123',
+    //   questions: [
+    //     {
+    //       Difficulty_Level: 'H',
+    //       Selected: true,
+    //       answer: 'Answer',
+    //       id: '1699593363385',
+    //       options: ['word', 'Para', 'Line', 'Text'],
+    //       question:
+    //         'This tab lists all connected branches, select a branch to view build details.',
+    //       questionType: 'Radio',
+    //       skills: 'GraphQL',
+    //     },
+    //     {
+    //       Difficulty_Level: 'M',
+    //       Selected: true,
+    //       answer: ['useMutation'],
+    //       id: '2',
+    //       options: [
+    //         'useMutation',
+    //         'useSubscription',
+    //         'useQuery',
+    //         'none of the options',
+    //       ],
+    //       question:
+    //         'Which of the following GraphQL’s hooks should be used to update data on server?',
+    //       questionType: 'Radio',
+    //       skills: 'GraphQL',
+    //     },
+    //     {
+    //       Difficulty_Level: 'H',
+    //       answer: ['Use gzip compression'],
+    //       id: '246789012345',
+    //       options: [
+    //         'Do logging correctly',
+    //         "Don't use synchronous functions",
+    //         'Handle exceptions properly',
+    //         'Use gzip compression',
+    //       ],
+    //       question:
+    //         "What should you do in your code to improve your application's performance?",
+    //       questionType: 'Radio',
+    //       selection: true,
+    //       skills: 'Nodejs',
+    //     },
 
-        {
-          Difficulty_Level: 'M',
-          answer: ['fsread'],
-          id: '1',
-          options: ['HTTPS', 'dgram', 'fsread', 'zlib'],
-          question:
-            'Which of the below modules is not a built-in module in Node.js',
-          questionType: 'Radio',
-          selection: true,
-          skills: 'Nodejs',
-        },
-        {
-          Difficulty_Level: 'H',
-          answer: ['GruntJs'],
-          id: '2467890123',
-          options: ['Express.js', 'GruntJs', 'NPM', 'None of the above'],
-          question:
-            'Which of the following tool is used to automate various tasks in a Node.js application?',
-          questionType: 'Radio',
-          selection: true,
-          skills: 'Nodejs',
-        },
-        {
-          Difficulty_Level: 'E',
-          answer: ['Third Party'],
-          id: '2467890',
-          options: ['Global', 'Third Party', 'core', 'local'],
-          question: 'Http module falls under which type of module?',
-          questionType: 'Radio',
-          selection: true,
-          skills: 'Nodejs',
-        },
-      ],
-      results: 'Awaiting Eval',
-      roles: 'user',
-      score: null,
-    };
+    //     {
+    //       Difficulty_Level: 'M',
+    //       answer: ['fsread'],
+    //       id: '1',
+    //       options: ['HTTPS', 'dgram', 'fsread', 'zlib'],
+    //       question:
+    //         'Which of the below modules is not a built-in module in Node.js',
+    //       questionType: 'Radio',
+    //       selection: true,
+    //       skills: 'Nodejs',
+    //     },
+    //     {
+    //       Difficulty_Level: 'H',
+    //       answer: ['GruntJs'],
+    //       id: '2467890123',
+    //       options: ['Express.js', 'GruntJs', 'NPM', 'None of the above'],
+    //       question:
+    //         'Which of the following tool is used to automate various tasks in a Node.js application?',
+    //       questionType: 'Radio',
+    //       selection: true,
+    //       skills: 'Nodejs',
+    //     },
+    //     {
+    //       Difficulty_Level: 'E',
+    //       answer: ['Third Party'],
+    //       id: '2467890',
+    //       options: ['Global', 'Third Party', 'core', 'local'],
+    //       question: 'Http module falls under which type of module?',
+    //       questionType: 'Radio',
+    //       selection: true,
+    //       skills: 'Nodejs',
+    //     },
+    //   ],
+    //   results: 'Awaiting Eval',
+    //   roles: 'user',
+    //   score: null,
+    // };
 
     console.log('Assessment Data', this.assessmentData);
     this.previewOptions = this.assessmentData.questions;

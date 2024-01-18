@@ -51,18 +51,18 @@ export class NewScheduleComponent {
   selectedQuestionCount!: number;
   visible: boolean = false;
   questionPreviewvisible: boolean = false;
-  previewSidebarVisible : boolean = false;
+  previewSidebarVisible: boolean = false;
   visible1: boolean = false;
   ischecked: boolean = true;
   slectedquestionforedit: any;
   TotalQuestions: any[] = [];
   managerOption: any[] = [];
   singleQuestion: any;
-  singleQuestionOption : any
-  singleQuestionAnswer : any;
-  QuestionView:boolean=false;
-  question!:string;
-  isEditSchedule:boolean=false;
+  singleQuestionOption: any;
+  singleQuestionAnswer: any;
+  QuestionView: boolean = false;
+  question!: string;
+  isEditSchedule: boolean = false;
 
   // @ViewChild('yourTable')yourTable:Table | undefined;
 
@@ -179,11 +179,9 @@ export class NewScheduleComponent {
         });
     }
     localStorage.removeItem('boolean');
-
-
   }
   trackByFn(_index: any, item: { id: any }) {
-    return item.id; 
+    return item.id;
   }
 
   loadManagerNames() {
@@ -194,10 +192,10 @@ export class NewScheduleComponent {
   }
 
   toggleSelection(question: any): void {
-    question.Selected = !question.Selected;
+    question.selection = !question.selection;
     console.log('loop entered');
 
-    if (question.Selected) {
+    if (question.selection) {
       this.selectedquestions.push(question);
       console.log('Selected Questions:', this.selectedquestions);
     } else {
@@ -246,76 +244,86 @@ export class NewScheduleComponent {
         .postNewSchedule(dataToSave)
         .subscribe((response) => {
           console.log('Questions', response);
-          setTimeout(()=>{
+          setTimeout(() => {
             this.router.navigate(['/dashboard']);
-          },1500)
-          
-          
+          }, 1500);
         });
     } catch (error) {
       console.error(error);
     }
   }
   //  let increment=0;
-  
-  selectAllQuestions(tab: any) {
-    console.log("select all",this.selectedquestions)
-    let increment=0
-    if (tab && tab.content) {
-      tab.content.forEach((question: any) => {
-      //   question.selection = true;
-      if(!question.selection){
-        question.selection=true;
-        increment++;
-        
+
+  // selectAllQuestions(tab: any) {
+  //   console.log("select all",this.selectedquestions)
+  //   let increment=0
+  //   if (tab && tab.content) {
+  //     tab.content.forEach((question: any) => {
+  //     //   question.selection = true;
+  //     if(!question.selection){
+  //       question.selection=true;
+  //       increment++;
+
+  //       this.selectedquestions.push(question);
+
+  //     }
+  //     else{
+  //       if (question.selection) {
+  //         question.selection = false;
+
+  //         increment--;
+
+  //         const index = this.selectedquestions.findIndex(
+  //           (selectedQuestion) => selectedQuestion.id === question.id
+  //         );
+
+  //         if (index !== -1) {
+  //           this.selectedquestions.splice(index, 1); // Remove the question from the selectedQuestions array
+  //         }
+  //       }
+
+  //     }
+  //     this.count+=increment;
+
+  //     if(this.count<0){
+  //       this.count=0
+  //     }
+
+  //     });
+  //     this.selectedQuestion = tab.content;
+  //     console.log(' tab content ', tab.content);
+  //   }
+  // }
+  selectQuestions(tabs: any) {
+    tabs.forEach((question: any) => {
+      if (!question.selection) {
+        question.selection = true;
         this.selectedquestions.push(question);
-
       }
-      else{
-        if (question.selection) {
-          question.selection = false;
-
-          increment--;
-
-          const index = this.selectedquestions.findIndex(
-            (selectedQuestion) => selectedQuestion.id === question.id
-          );
-
-          if (index !== -1) {
-            this.selectedquestions.splice(index, 1); // Remove the question from the selectedQuestions array
-          }
-        }
-
-      }
-      this.count+=increment;
-
-      if(this.count<0){
-        this.count=0
-      }
-
-      });
-      this.selectedQuestion = tab.content;
-      console.log(' tab content ', tab.content);
-    }
+    });
+    console.log('selectQuestions', this.selectedquestions);
   }
-  unselectAllQuestions(tab: any) {
-    if (tab && tab.content) {
-      tab.content.forEach((question: any) => {
-        question.selection = false;
-        this.selectedquestions = [];
-      });
-      this.selectedQuestion = [];
+
+  unselectAllQuestions(questions: any) {
+    const duplicateQuestions = this.selectedquestions;
+    for (let i = 0; i < questions.length; i++) {
+      if (questions[i].selection) {
+        questions[i].selection = false;
+      }
     }
+    this.selectedquestions = duplicateQuestions.filter(
+      (question) => !questions.includes(question)
+    );
+    console.log('un select all ', this.selectedquestions);
   }
-  scheduleMessage(){
-      this.messageService.add({
-        severity: 'success',
-  
-        summary: 'Success',
-  
-        detail: 'Schedule saved Successfully',
-      });
-    
+  scheduleMessage() {
+    this.messageService.add({
+      severity: 'success',
+
+      summary: 'Success',
+
+      detail: 'Schedule saved Successfully',
+    });
   }
   showUpdateMessage() {
     this.messageService.add({
@@ -390,37 +398,47 @@ export class NewScheduleComponent {
     }
   }
   // questionType!:any
-  choices!:any
-  options! : any;
-  Difficulty_Level!:any
-  id!:any
-  answer!:any
-  skills!:any
-  difficultyLevel: any= ['Easy', 'Medium', 'Hard'];
+  choices!: any;
+  options!: any;
+  Difficulty_Level!: any;
+  id!: any;
+  answer!: any;
+  skills!: any;
+  difficultyLevel: any = ['Easy', 'Medium', 'Hard'];
 
   questionType: any = ['Radio', 'Checkbox', 'Text'];
-  questionTypeSelected!:any
-  isViewingQuestion:boolean=false
+  questionTypeSelected!: any;
+  isViewingQuestion: boolean = false;
 
-  individualQuestionView(id:any,question:any,questionTypeSelected:any,choices:any,skills:any,Difficulty_Level:any,answer:any){
-    this.QuestionView=true
-    this.id=id
-    this.question=question
-    this.questionTypeSelected=questionTypeSelected
+  individualQuestionView(
+    id: any,
+    question: any,
+    questionTypeSelected: any,
+    choices: any,
+    skills: any,
+    Difficulty_Level: any,
+    answer: any
+  ) {
+    this.QuestionView = true;
+    this.id = id;
+    this.question = question;
+    this.questionTypeSelected = questionTypeSelected;
     // this.options=choices;
-    this.choices=choices;
-  
-    this.Difficulty_Level=this.getBackendDifficultyLevelViceVersa(
-      Difficulty_Level
+    this.choices = choices;
+
+    this.Difficulty_Level =
+      this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
+    this.skills = skills;
+    this.answer = answer;
+
+    console.log(
+      'id------------->',
+      id,
+      skills,
+      answer,
+      this.Difficulty_Level,
+      choices
     );
-    this.skills=skills
-    this.answer=answer
-   
-    console.log("id------------->",id,skills,answer,this.Difficulty_Level,choices)
-    
-
-
-
   }
   getBackendDifficultyLevelViceVersa(frontendValue: string): string {
     if (frontendValue === 'E') {
@@ -443,25 +461,34 @@ export class NewScheduleComponent {
     }
     return frontendValue;
   }
-  updateQuestionView(){
+  updateQuestionView() {
     this.showUpdateMessage();
-    console.log("dd=>>>>>>>>>>>>>>>>>>",this.difficultyLevel)
-   this.difficultyLevel=this.getBackendDifficultyLevel(this.Difficulty_Level)
-    this.skillsdropdownservice.updateQuestion(this.id,this.question,this.questionTypeSelected,this.choices,this.skills,this.difficultyLevel,this.answer).subscribe((response)=>{
-
-                console.log("updateQuestionView response",response)
-                setTimeout(()=>{
-                  this.QuestionView=false;
-                  window.location.reload();
-                },1000);
-                
-    })
-
+    console.log('dd=>>>>>>>>>>>>>>>>>>', this.difficultyLevel);
+    this.difficultyLevel = this.getBackendDifficultyLevel(
+      this.Difficulty_Level
+    );
+    this.skillsdropdownservice
+      .updateQuestion(
+        this.id,
+        this.question,
+        this.questionTypeSelected,
+        this.choices,
+        this.skills,
+        this.difficultyLevel,
+        this.answer
+      )
+      .subscribe((response) => {
+        console.log('updateQuestionView response', response);
+        setTimeout(() => {
+          this.QuestionView = false;
+          window.location.reload();
+        }, 1000);
+      });
   }
-  cancelQuestionView(){
-    this.QuestionView=false
+  cancelQuestionView() {
+    this.QuestionView = false;
   }
-  cancelButton(){
+  cancelButton() {
     this.router.navigate(['/dashboard']);
     // scheduleName manager cutoff duration
     // localStorage.removeItem("scheduleName")
@@ -474,12 +501,17 @@ export class NewScheduleComponent {
     this.visible = true;
     this.isEditSchedule = true;
   }
-  
-  update(scheduleName: string | null,manager: String | null,cutOff: string | number | null,duration: string | number | null){
-    this.scheduleName=scheduleName
-    this.manager=manager
-    this.cutOff=cutOff
-    this.duration=duration
+
+  update(
+    scheduleName: string | null,
+    manager: String | null,
+    cutOff: string | number | null,
+    duration: string | number | null
+  ) {
+    this.scheduleName = scheduleName;
+    this.manager = manager;
+    this.cutOff = cutOff;
+    this.duration = duration;
     this.router.navigate(['new-schedule']);
     this.visible = false;
     console.log('hi');
@@ -488,7 +520,7 @@ export class NewScheduleComponent {
   questionPreview(questions: any) {
     this.questionPreviewvisible = true;
     this.singleQuestion = questions.question;
-    this.singleQuestionOption = questions.options
+    this.singleQuestionOption = questions.options;
     this.singleQuestionAnswer = questions.answer;
   }
 
@@ -496,13 +528,11 @@ export class NewScheduleComponent {
     this.questionPreviewvisible = false;
   }
 
-  onPreviewClick(){
-    
-      this.previewSidebarVisible = true;
-    
+  onPreviewClick() {
+    this.previewSidebarVisible = true;
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log("Function Working")
+    console.log('Function Working');
     if (option.includes(selected_Option)) {
       console.log('correct answer');
       return 'correctAnswer';
