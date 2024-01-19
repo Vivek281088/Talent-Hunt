@@ -36,6 +36,7 @@ import { NewScheduleComponent } from './modules/new-schedule/new-schedule.compon
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 import { ManageCandidatesComponent } from './modules/manage-candidates/manage-candidates.component';
 import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.component';
+import { ManageSkillsQuestionsComponent } from './modules/manage-skills-questions/manage-skills-questions.component';
 
 
 
@@ -67,6 +68,7 @@ import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.com
       ManageManagersComponent,
       ManageCandidatesComponent,
       ManageSkillsComponent,
+      ManageSkillsQuestionsComponent,
   ],
   imports: [
     BrowserModule,

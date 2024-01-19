@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
-
+ 
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
@@ -16,7 +16,7 @@ import {
   MenuItem,
 } from 'primeng/api';
 import { Router } from '@angular/router';
-
+ 
 @Component({
   selector: 'app-manage-skills',
   templateUrl: './manage-skills.component.html',
@@ -25,12 +25,12 @@ import { Router } from '@angular/router';
 })
 export class ManageSkillsComponent {
   item: any[] = [];
-
+  globalSearchValue!:string;
   items: MenuItem[] | undefined;
-
+ 
   skillUnique: any[] = [];
   keyValueArray: any[] = [];
-
+ 
   skillSet: any[] = [];
   Skill: any;
   managerOption: any[] = [];
@@ -40,19 +40,19 @@ export class ManageSkillsComponent {
   FinalizedQuestions: any[] = [];
   viewQuestionSidebar: boolean = false;
   visible: boolean = false;
-
+ 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
     private router: Router
   ) {
   }
-
+ 
   ngOnInit() {
-
+ 
     this.todayDate = this.formattedDate(new Date());
     this.getUniqueSkill();
     console.log('Date--------', this.todayDate);
-
+ 
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Skills', routerLink: '/manage-skills' },
@@ -73,45 +73,47 @@ export class ManageSkillsComponent {
       'Nov',
       'Dec',
     ];
-
+ 
     const month: string = months[date.getMonth()];
     const day: number = date.getDate();
     const year: number = date.getFullYear();
     const formatDate: string = `${month} ${day}, ${year}`;
-
+ 
     return formatDate;
   }
-
+ 
   clear(table: Table) {
     table.clear();
   }
-
+ 
   cancelButton() {
     this.visible = false;
     this.resetData();
   }
-
+ 
   resetData() {
     this.scheduleName = '';
   }
-
+ 
+ 
+ 
   AddButton() {
     console.log('sended');
     const dataToSend = {
       scheduleName: this.scheduleName,
     };
-
+ 
     this.router.navigate(['/new-schedule']);
   }
-
+ 
   newSchedule() {
     this.visible = true;
   }
-
+ 
   getLabel(index: number): string {
     return String.fromCharCode(65 + index);
   }
-
+ 
   getSelectedOptions(selected_Option: any, option: any) {
     console.log('Function Working');
     if (option.includes(selected_Option)) {
@@ -121,16 +123,16 @@ export class ManageSkillsComponent {
       return 'wrongAnswer';
     }
   }
-
+ 
   getUniqueSkill() {
-    // this.skillsdropdownservice.getUniqueSkills().subscribe((data) => {
-    //   this.skillUnique = data;
-    //   this.keyValueArray = Object.entries(this.skillUnique);
-    //   console.log('skillsunique', this.skillUnique);
-    //   console.log('keyValueArray', this.keyValueArray);
-    // });
+    this.skillsdropdownservice.getUniqueSkills().subscribe((data) => {
+      this.skillUnique = data;
+      this.keyValueArray = Object.entries(this.skillUnique);
+      console.log('skillsunique', this.skillUnique);
+      console.log('keyValueArray', this.keyValueArray);
+    });
   }
-
+ 
   onViewClick(_skill: string) {
     this.viewQuestionSidebar = true;
     this.skillsdropdownservice
@@ -138,17 +140,18 @@ export class ManageSkillsComponent {
       .subscribe((response) => {
         console.log('recieved response', response);
         this.FinalizedQuestions = response[0].data;
-
+ 
       });
   }
   storeSkill() {
-    // this.skillsdropdownservice
-    //   .postOneSkill(this.scheduleName)
-    //   .subscribe((response: any) => {
-    //     console.log('recieved response1', response);
-    //     this.visible = false;
-    //     this.resetData();
-
-    //   });
+    this.skillsdropdownservice
+      .postOneSkill(this.scheduleName)
+      .subscribe((response: any) => {
+        console.log('recieved response1', response);
+        this.visible = false;
+        this.resetData();
+ 
+      });
   }
 }
+ 

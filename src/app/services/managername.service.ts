@@ -29,6 +29,8 @@ export class ManagernameService {
 
   userEmail!: string;
 
+  candidateEmail!:string;
+
   constructor(private http: HttpClient) {}
 
   getManagerNames(): Observable<any> {
@@ -172,6 +174,15 @@ export class ManagernameService {
   getManagerName(): any {
     return this.SelectedManager;
   }
+
+setcandidateEmail(email: any){
+  return this.candidateEmail=email;
+}
+
+getcandidateEmail():any{
+ return this.candidateEmail;
+}
+
   setFileName(fileName: string) {
     this.fileName = fileName;
   }

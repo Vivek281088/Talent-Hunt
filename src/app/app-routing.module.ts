@@ -40,6 +40,7 @@ import { NewScheduleComponent } from './modules/new-schedule/new-schedule.compon
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 import { ManageCandidatesComponent } from './modules/manage-candidates/manage-candidates.component';
 import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.component';
+import { ManageSkillsQuestionsComponent } from './modules/manage-skills-questions/manage-skills-questions.component';
 
 
 const routes: Routes = [
@@ -94,6 +95,7 @@ const routes: Routes = [
   {path: 'manage-managers', component: ManageManagersComponent},
   {path: 'manage-candidates', component: ManageCandidatesComponent},
 {path: 'manage-skills', component: ManageSkillsComponent},
+{path:'Skills',component:ManageSkillsQuestionsComponent},
   { path: '**', redirectTo: '/login' },
 
   // { path: '**', redirectTo:'login' }

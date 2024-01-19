@@ -6,17 +6,15 @@
   <!-- <div class="flex justify-content-start bread">
     <p-breadcrumb class="max-w-full breadclass" [model]="items"></p-breadcrumb>
   </div> -->
-  <div class="flex breadDate">
+  <div class=" flex  breadDate">
     <div>
-      <p-breadcrumb
-        class="BreadCrumb"
-        [model]="items"
-        [style]="{ border: 'none' }"
-      ></p-breadcrumb>
+      <p-breadcrumb class=" BreadCrumb" [model]="items"
+      [style]="{ border: 'none' }"></p-breadcrumb>
     </div>
     <div class="date">
-      {{ todayDate }}
+      {{todayDate}}
     </div>
+      
   </div>
 
   <div class="candidate-table">
@@ -24,7 +22,7 @@
       class="candidateTable"
       [resizableColumns]="true"
       [autoLayout]="true"
-      [value]="keyValueArray"
+      [value]="skillUnique"
       #dt1
       [paginator]="true"
       [tableStyle]="{ height: 'max-content' }"
@@ -32,7 +30,11 @@
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [rowsPerPageOptions]="[4, 8, 12]"
-      [globalFilterFields]="['skills']"
+      [globalFilterFields]="[
+'skill','count'
+        
+        
+      ]"
     >
       <ng-template pTemplate="header">
         <tr>
@@ -45,6 +47,7 @@
                     class="searchIcon"
                     pInputText
                     type="text"
+                   [(ngModel)]="globalSearchValue"
                     (input)="
                       dt1.filterGlobal($any($event.target).value, 'contains')
                     "
@@ -53,52 +56,112 @@
                 </span>
               </div>
 
-              <div class="skillButtons">
-                <div class="clearButton">
-                  <button
-                    pButton
-                    label="Clear filter"
-                    class="clear-button cursor-pointer"
-                    [style]="{ width: '130px' }"
-                    (click)="clear(dt1)"
-                  ></button>
-                </div>
+             
 
-                <div class="addSkill">
-                  <button
-                    pButton
-                    class="btn flex align-items-center justify-content-center cursor-pointer"
-                    (click)="newSchedule()"
-                    label="New Skill"
-                  ></button>
+              <div class="clearButton">
+                <button
+                  pButton
+                  label="Clear filter"
+                  class="clear-button cursor-pointer"
+                  [style]="{ width: '130px' }"
+                   (click)="clear(dt1)"
+                ></button>
+              </div>
+
+              <div class="addSkill">
+                <button
+                pButton
+                  class="btn flex align-items-center justify-content-center cursor-pointer"
+                  (click)="newSchedule()"
+                  label="New Skill"
+                >
+                </button>
+              </div>
+            </div>
+            <div>
+              <div class="card flex justify-content-centre">
+                
+
+                <div class="newSchedule-Dialog">
+                  <p-dialog
+                    header="New Skill"
+                    [(visible)]="visible"
+                    [modal]="true"
+                    [style]="{ width: '47VW' }"
+                    [draggable]="false"
+                    [resizable]="false"
+                  >
+                    <div class="NewSchedule-content">
+                      <div class="labelvalue">
+                        <div class="label">
+                          <label>Skill Name</label>
+                          <span class="important-symbol">&#42;</span>
+                        </div>
+                        <div class="value">
+                          <input
+                            type="text"
+                            pInputText
+                            [(ngModel)]="scheduleName"
+                          />
+                        </div>
+                      </div>
+
+                     
+
+
+                     
+                    </div>
+
+                    <ng-template pTemplate="footer">
+                      <div class="Newschedule-button">
+                        <div class="Cancelbutton">
+                          <p-button
+                            label="Cancel"
+                            [outlined]="true"
+                            (onClick)="cancelButton()"
+                          >
+                          </p-button>
+                        </div>
+                        <div class="Createbutton">
+                          <p-button label="Add" (onClick)="storeSkill()">
+                          </p-button>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </p-dialog>
                 </div>
               </div>
+
+              <!--cord code end-->
             </div>
           </th>
         </tr>
 
         <tr>
           <th>Seq.No</th>
-          <th>Skills</th>
-          <th>QuestionCount</th>
-          <th>Questionview</th>
+           <th>Skills</th>
+           <th>QuestionCount</th>
+           <th>Questionview</th>
+        
         </tr>
       </ng-template>
 
       <ng-template pTemplate="body" let-rowData let-i="rowIndex">
         <tr>
           <td>{{ i + 1 }}</td>
-          <td>{{ rowData[0] }}</td>
+          <td>{{ rowData.skill }}</td>
           <td>
-            {{ rowData[1] }}
-          </td>
+          {{rowData.count}}
 
+          </td>
+          
           <td>
-            <a
+              <a
               class="flex cursor-pointer"
               [class.disabled]="!rowData.isMail"
               title="View"
-              (click)="onViewClick(rowData[0])"
+              (click)="onViewClick(rowData.skill)"
+               
             >
               <svg
                 width="18"
@@ -113,166 +176,143 @@
                 />
               </svg>
             </a>
+
           </td>
+         
+
+        
+            
+
+         
+         
+
+          
+         
         </tr>
       </ng-template>
     </p-table>
   </div>
-  <div class="questionsidebar">
-    <p-sidebar
-      [(visible)]="viewQuestionSidebar"
-      position="right"
-      [modal]="false"
-    >
-      <ng-template class="header_design" pTemplate="header"
-        >Quiz Preview
-      </ng-template>
-      <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
-        <span *ngFor="let question of FinalizedQuestions; let j = index">
-          <div class="question-design">
-            {{ j + 1 }}. {{ question.question }}
-          </div>
-
-          <div class="select-size">
-            <div
-              *ngFor="let option of question.options; let i = index"
-              class="option"
-              [ngClass]="getSelectedOptions(question.answer, option)"
-            >
-              <input
-                type="radio"
-                [name]="'option_' + i"
-                [id]="'option_' + i"
-                [checked]="option === question.answer"
-              />
-              <label class="box-design" [for]="'option' + question + '-' + i">{{
-                getLabel(i)
-              }}</label>
-
-              <span class="option-content">{{ option }}</span>
-            </div>
-          </div>
-        </span>
-
-        <div class="btnfooter">
-          <div class="quiz-instruction">
-            <p class="instruction">Quiz Instructions</p>
-            <ul class="points">
-              <li>Manager approval mandatory</li>
-              <li>
-                Automatic email will be triggered for every status change of the
-                request
-              </li>
-              <li>Approval is the permission to go to Office</li>
-            </ul>
-          </div>
-          <div class="sidebarbuttons">
-            <div class="custom_button_send">
-              <p-button label="Close"></p-button>
-            </div>
-          </div>
-        </div>
-        <div class="questionsidebar">
-          <p-sidebar
-            [(visible)]="viewQuestionSidebar"
-            position="right"
-            [modal]="false"
-          >
-            <ng-template class="header_design" pTemplate="header"
-              >Quiz Preview
-            </ng-template>
-            <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
-              <span *ngFor="let question of FinalizedQuestions; let j = index">
-                <div class="question-design">
-                  {{ j + 1 }}. {{ question.question }}
-                </div>
-
-                <div class="select-size">
-                  <div
-                    *ngFor="let option of question.options; let i = index"
-                    class="option"
-                    [ngClass]="getSelectedOptions(question.answer, option)"
-                  >
-                    <input
-                      type="radio"
-                      [name]="'option_' + i"
-                      [id]="'option_' + i"
-                      [checked]="option === question.answer"
-                    />
-                    <label
-                      class="box-design"
-                      [for]="'option' + question + '-' + i"
-                      >{{ getLabel(i) }}</label
-                    >
-
-                    <span class="option-content">{{ option }}</span>
-                  </div>
-                </div>
-              </span>
-
-              <div class="btnfooter">
-                <div class="quiz-instruction">
-                  <p class="instruction">Quiz Instructions</p>
-                  <ul class="points">
-                    <li>Manager approval mandatory</li>
-                    <li>
-                      Automatic email will be triggered for every status change
-                      of the request
-                    </li>
-                    <li>Approval is the permission to go to Office</li>
-                  </ul>
-                </div>
-                <div class="sidebarbuttons">
-                  <div class="custom_button_send">
-                    <p-button label="Close"></p-button>
-                  </div>
-                </div>
-              </div>
-            </ng-template>
-          </p-sidebar>
-        </div>
-      </ng-template>
-    </p-sidebar>
-  </div>
-</div>
-
-<div class="card flex justify-content-centre">
-  <div class="newSchedule-Dialog">
-    <p-dialog
-      header="New Skill"
-      [(visible)]="visible"
-      [modal]="true"
-      [style]="{ width: '47VW' }"
-      [draggable]="false"
-      [resizable]="false"
-    >
-      <div class="NewSchedule-content">
-        <div class="labelvalue">
-          <div class="label">
-            <label>Skill Name</label>
-            <span class="important-symbol">&#42;</span>
-          </div>
-          <div class="value">
-            <input type="text" pInputText [(ngModel)]="scheduleName" />
-          </div>
-        </div>
-      </div>
-
-      <ng-template pTemplate="footer" class="Newschedule-button">
-          <div class="Cancelbutton">
-            <p-button
-              label="Cancel"
-              [outlined]="true"
-              (onClick)="cancelButton()"
-            >
-            </p-button>
-          </div>
+   <div class="questionsidebar">
+      <p-sidebar
+        [(visible)]="viewQuestionSidebar"
+        position="right"
+        [modal]="false"
+      >
+        <ng-template class="header_design" pTemplate="header"
+          >Quiz Preview
           
-          <div class="Createbutton">
-            <p-button label="Add" (onClick)="storeSkill()"> </p-button>
+          </ng-template
+        >
+        <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
+           
+          <span *ngFor="let question of FinalizedQuestions ; let j = index">
+            <div class="question-design">{{j+1}}. {{ question.question }}</div>
+    
+            <div class="select-size">
+              <div
+                *ngFor="let option of question.options; let i = index"
+                class="option"
+                [ngClass]="getSelectedOptions(question.answer, option)"
+              >
+                <!-- <input type="radio" name="first" id="small" />
+                <label class="box-design" for="small">A</label>
+                <span class="option-content">{{ preview.options[0] }}</span>  -->
+                <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
+                <label class="box-design" [for]="'option' + question + '-' + i">{{
+                  getLabel(i)
+                }}</label>
+    
+                <span class="option-content">{{ option }}</span>
+              </div>
+            </div>
+    
+          </span>
+    
+          <div class="btnfooter">
+            <div class="quiz-instruction">
+    
+              <p class="instruction">Quiz Instructions</p>
+              <ul class="points">
+                <li>Manager approval mandatory </li>
+                <li>Automatic email will be triggered for every status change of the request</li>
+                <li>Approval is the permission to go to Office</li>
+              </ul>
+    
+            </div>
+            <div class="sidebarbuttons">
+              <div class="custom_button_send">
+                <p-button label="Close"></p-button>
+              </div>
+    
+            </div>
+            
           </div>
+          <div class="questionsidebar">
+              <p-sidebar
+                [(visible)]="viewQuestionSidebar"
+                position="right"
+                [modal]="false"
+              >
+                <ng-template class="header_design" pTemplate="header"
+                  >Quiz Preview
+                  
+                  </ng-template
+                >
+                <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
+                   
+                  <span *ngFor="let question of FinalizedQuestions ; let j = index">
+                    <div class="question-design">{{j+1}}. {{ question.question }}</div>
+            
+                    <div class="select-size">
+                      <div
+                        *ngFor="let option of question.options; let i = index"
+                        class="option"
+                        [ngClass]="getSelectedOptions(question.answer, option)"
+                      >
+                        <!-- <input type="radio" name="first" id="small" />
+                        <label class="box-design" for="small">A</label>
+                        <span class="option-content">{{ preview.options[0] }}</span> -->
+                        <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
+                        <label class="box-design" [for]="'option' + question + '-' + i">{{
+                          getLabel(i)
+                        }}</label>
+            
+                        <span class="option-content">{{ option }}</span>
+                      </div>
+                    </div>
+            
+                  </span>
+            
+                  <div class="btnfooter">
+                    <div class="quiz-instruction">
+            
+                      <p class="instruction">Quiz Instructions</p>
+                      <ul class="points">
+                        <li>Manager approval mandatory </li>
+                        <li>Automatic email will be triggered for every status change of the request</li>
+                        <li>Approval is the permission to go to Office</li>
+                      </ul>
+            
+                    </div>
+                    <div class="sidebarbuttons">
+                      <div class="custom_button_send">
+                        <p-button label="Close"></p-button>
+                      </div>
+            
+                    </div>
+                    
+                  </div>
+            
+            
+                </ng-template>
+                
+              </p-sidebar>
+            </div>
+    
+        </ng-template>
         
-      </ng-template>
-    </p-dialog>
-  </div>
+      </p-sidebar>
+    </div> 
 </div>
+
+

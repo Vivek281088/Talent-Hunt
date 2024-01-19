@@ -63,6 +63,7 @@ export class ManageSkillsQuestionsComponent {
         });
       }
 console.log("tabs",this.tabs);
+
       this.cdr.detectChanges();
     });
   }
