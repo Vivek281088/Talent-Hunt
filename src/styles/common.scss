@@ -1,0 +1,241 @@
+// .newSchedule-Dialog {
+//   .p-dialog .p-dialog-content {
+//     background: #ffffff;
+//     color: #495057;
+//     padding: 1rem 1.5rem 2rem 1rem;
+//   }
+//   .p-dialog .p-dialog-header .p-dialog-title {
+//     font-weight: 700;
+//     font-size: 1.25rem;
+//     width: 144px;
+//     color: #1e22aa;
+//     font-family: "Poppins";
+//     height: 30px;
+//     size: 20px;
+//     letter-spacing: 0.15px;
+//   }
+//   .p-dialog {
+//     color: red;
+//     .p-dialog-header {
+//       border-bottom: 0.5px solid #e0e3e7;
+//       background: #ffffff;
+//       color: #343a40;
+//       padding: 0.75rem;
+//       border-top-right-radius: 6px;
+//       border-top-left-radius: 6px;
+//     }
+//     .p-dialog-footer {
+//       border-top: 1px solid #e0e3e7;
+//       padding-bottom: 0.35rem;
+//     }
+//   }
+//   position: relative;
+//   .line {
+//     margin-right: -20px;
+//     margin-left: -20px;
+//     margin-bottom: 6px;
+//     color: red;
+//   }
+
+//   .NewSchedule-content {
+//     .ScheduleName {
+//       font-family: "Roboto";
+//       font-size: 14px;
+//       font-weight: 400;
+//       line-height: 17px;
+//       letter-spacing: 0.4000000059604645px;
+//       text-align: left;
+//       color: #838383;
+//     }
+//     .Manager {
+//       font-family: "Roboto";
+//       font-size: 14px;
+//       font-weight: 400;
+//       line-height: 17px;
+//       letter-spacing: 0.4000000059604645px;
+//       text-align: left;
+//       color: #838383;
+//       outline: transparent;
+//       // background: ;
+//       .Manager:focus {
+//         outline: none;
+//       }
+//     }
+//     .Skills {
+//       font-family: "Roboto";
+//       font-size: 14px;
+//       font-weight: 400;
+//       line-height: 17px;
+//       letter-spacing: 0.4000000059604645px;
+//       text-align: left;
+//       color: #838383;
+//     }
+//     .cutoffduration {
+//       .cutoff {
+//         font-family: "Roboto";
+//         font-size: 14px;
+//         font-weight: 400;
+//         line-height: 17px;
+//         letter-spacing: 0.4000000059604645px;
+//         text-align: left;
+//         color: #838383;
+//       }
+//       .duartion {
+//         font-family: "Roboto";
+//         font-size: 14px;
+//         font-weight: 400;
+//         line-height: 17px;
+//         letter-spacing: 0.4000000059604645px;
+//         text-align: left;
+//         color: #838383;
+//       }
+//     }
+
+//     display: flex;
+//     flex-direction: column;
+//     margin-top: 10px;
+//     gap: 16px;
+//   }
+// }
+
+// .schedule-Input {
+//   .p-inputtext {
+//     margin: 0;
+//     width: 588px;
+//     height: 40px;
+//     border-radius: 4px;
+//     margin: 6px 0px 0px 0px;
+//   }
+//   .p-dropdown {
+//     margin: 0;
+//     width: 588px;
+//     height: 40px;
+//     border-radius: 4px;
+//     margin: 6px 0px 0px 0px;
+//   }
+//   .p-multiselect {
+//     margin: 0;
+//     width: 588px;
+//     height: 40px;
+//     border-radius: 4px;
+//     margin: 6px 0px 0px 0px;
+//   }
+// }
+.scheduleChip {
+  .p-chip {
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    background-color: #00000061;
+    color: white;
+  }
+  .p-chip .p-chip-text {
+    line-height: 1.2;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+  .p-chip-text {
+    line-height: 1.2;
+  }
+}
+.plusIcon {
+  cursor: pointer;
+  color: #00000099;
+  ::ng-deep .p-badge-no-gutter {
+    margin-left: -9px;
+  }
+}
+
+
+
+span.p-badge.p-component.p-badge-no-gutter.ng-star-inserted {
+  color: #495057;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 0.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  background: transparent;
+  margin-left: 1px;
+}
+
+.p-paginator-bottom.p-paginator.p-component.ng-star-inserted {
+  justify-content: flex-end;
+  background: white;
+}
+
+.p-datatable .p-paginator-bottom {
+  border-radius: 0;
+}
+.p-datatable .p-datatable-tbody > tr > td {
+  text-align: left;
+  border: 1px solid #dee2e6;
+  border-width: 0 0 1px 0;
+  padding: 0.85em 1rem;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 14px;
+}
+.p-paginator {
+  background: transparent;
+  color: #6c757d;
+  border: solid #e9ecef;
+  border-width: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  justify-content: flex-end;
+}
+.p-datatable-wrapper {
+  border-radius: inherit;
+}
+
+.login-card {
+  .p-card .p-card-body {
+    width: 400px;
+    height: 449px;
+    gap: 24px;
+    padding: 0px;
+  }
+  .p-inputtext {
+    color: #aaa;
+  }
+  .p-card .p-card-content {
+    box-shadow: 0px 0px 30px rgba(179, 171, 186, 0.2) !important;
+  }
+}
+.loginButton {
+  .p-button.p-button:enabled:hover {
+    background: #652d90;
+    color: #ffffff;
+    border-color: #652d90;
+  }
+}
+.candidateTable {
+  .p-datatable .p-datatable-tbody .tr .td {
+    text-align: left;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    padding: 8px 16px 8px 16px;
+  }
+}
+//Assessment Table
+
+.searchIcon {
+  ::ng-deep {
+    .p-input-icon-right > .p-inputtext {
+      padding-right: 2.5rem;
+      width: 138px;
+      height: 36px;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px;
+      margin-right: 7px;
+      gap: 8px;
+
+      border: 1px solid #00000061;
+    }
+  }
+}

@@ -1,0 +1,960 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.candidate-table {
+  border: 1px solid #0000001f;
+  border-radius: 8px;
+  background-color: white;
+
+  .headerSearch{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .searchbox{
+      width: 60%;
+    }
+  }
+  .customRow{
+    .questiontext{
+      width: 60%;
+    }
+
+  }
+  .editviewicons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+.labelvalue {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto";
+  font-weight: 400;
+  color: #00000099;
+
+  .label {
+    padding: 2% 0 2% 0;
+
+    span {
+      color: #ee4555;
+    }
+  }
+  .valueedit {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2%;
+    padding-bottom: 3%;
+    label {
+      padding: 2% 2% 2% 0;
+    }
+  }
+  .valueans {
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+    align-items: center;
+    padding-bottom: 3%;
+  }
+}
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  background: white;
+}
+::ng-deep .candidateTable {
+  .p-datatable .p-datatable-tbody > tr > td {
+    text-align: left;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    /* padding: 1rem 1rem; */
+    padding: 13.6px 16px 13.6px 7px;
+    //styleName: Body 2;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.25px;
+    text-align: left;
+    color: #000000de;
+  }
+
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto";
+    font-weight: 400;
+    color: #00000099;
+
+    .label {
+      padding: 2% 0 2% 0;
+      display: flex;
+      flex-direction: row;
+
+      span {
+        color: #ee4555;
+      }
+    }
+  }
+
+  .p-datatable .p-datatable-thead > tr > th {
+    text-align: left;
+    padding: 1rem 0.5rem;
+    border: 1px solid #dee2e6;
+    border-width: 0 0 1px 0;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #00000061;
+    /* background: #f8f9fa; */
+    transition: box-shadow 0.2s;
+  }
+}
+.Cancelbutton {
+  ::ng-deep {
+    .p-button {
+      height: 87%;
+      background: transparent;
+      border: 1px solid #652d90;
+      outline: none;
+      color: #652d90;
+    }
+    .p-button:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.questionPreview {
+  .select-size input {
+    display: none;
+  }
+  .select-size {
+    padding-bottom: 2%;
+    border-bottom: 1px solid #0000001f;
+  }
+  .option {
+    display: flex;
+    align-items: center;
+    color: #00000061;
+  }
+  .option-content {
+    padding: 0.8% 1% 0.8% 1%;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 3px;
+    width: 100%;
+  }
+  .option {
+    font-weight: 450;
+    gap: 1%;
+    margin-bottom: 2%;
+    margin-left: 3%;
+    .box-design {
+      border: 1px solid #c1abd3;
+      width: 6%;
+      border-radius: 4px;
+      text-align: center;
+      padding: 3px;
+    }
+    &:hover:not(.correctAnswer) {
+      .box-design,
+      .option-content {
+        background: #c1abd3;
+        color: white;
+      }
+    }
+  }
+  .correctAnswer {
+    .option-content {
+      background: #f9f5d1;
+      color: #652d90;
+    }
+    .box-design {
+      background: #652d90;
+      color: white;
+    }
+  }
+  .custom_button {
+    gap: 3%;
+    ::ng-deep .p-button {
+      color: #652d90;
+      background: #ffffff;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: #652d90;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  ::ng-deep {
+    .p-dialog .p-dialog-header {
+      border-bottom: 1px solid #0000001f;
+      padding: 1rem;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 1rem 0;
+    }
+    .p-dialog .p-dialog-footer {
+      padding: 0 1rem 1rem 1rem;
+    }
+  }
+}
+.questionpreviewtext {
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+  color: #1e22aa;
+}
+
+.questionpreviewcardbody {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+}
+.questionhead {
+  align-self: stretch;
+  color: var(--01-Primary-500, #652d90);
+  font-family: "Roboto", sans-serif;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.00938rem;
+}
+
+.questionoptions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+
+.Closebutton {
+  ::ng-deep {
+    .p-button {
+      height: 40px;
+      background: white;
+      color: #652d90;
+      // border: 1px solid #3d105f;
+      outline: none;
+      margin-right: 14px;
+      border: 1px solid #652d90;
+    }
+    .p-button:focus {
+      box-shadow: none;
+    }
+  }
+
+  label {
+    width: 50px;
+    height: 16px;
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 1.25px;
+    text-align: left;
+    // color: #652d90;
+    cursor: pointer;
+  }
+}
+
+
+ ::ng-deep {
+    .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+      border-color: #652d90;
+      color: #652d90;
+    }
+    .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+      font-family: "Roboto", sans-serif;
+      font-size: 14px;
+    }
+    .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+      box-shadow: none;
+    }
+    .p-tabview .p-tabview-panels {
+      padding: 0; 
+  }
+  }
+
+.tabview-count {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
+  border: 1px solid #0000001f;
+  border-radius: 8px;
+
+ 
+  .tabview {
+    width: 100%;
+  }
+
+
+}
+
+.Createbutton {
+  ::ng-deep {
+    .p-button {
+      height: 87%;
+      color: #fafafa;
+      background: #652d90;;
+      border: 1px solid #652d90;
+      outline: none;
+    }
+    .p-button:focus {
+      box-shadow: none;
+    }
+    .p-ripple {
+      overflow: hidden;
+      position: relative;
+      background: #652d90;
+      color: #ffffff;
+      text-align: center;
+    }
+  }
+}
+
+//searchIcon
+.p-input-icon-right > .p-inputtext {
+  width: 100%;
+  /* height: 36px; */
+  padding: 5%;
+  border-radius: 4px;
+  border: 1px;
+  /* margin-right: 7px; */
+  gap: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.3803921569);
+}
+.skillButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 4%;
+  width: 30%;
+}
+
+.clear-button {
+  height: 90%;
+  border-radius: 4px;
+  color: #c81a78;
+  border: 1px solid #c81a78;
+  background: white;
+}
+.addSkill {
+  cursor: pointer;
+  font-weight: 700;
+  ::ng-deep {
+    .p-button {
+      color: #ffffff;
+      background: #652d90;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: #ffffff;
+        background: #652d90;
+        border: 1px solid #652d90;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}
+::ng-deep .p-button .p-button-label {
+  transition-duration: 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.questionsidebar{
+  ::ng-deep {
+    .p-sidebar-right {
+      width: 48%;
+  }
+  }
+}
+::ng-deep .p-badge-no-gutter {
+  color: #00000099;
+}
+
+::ng-deep .p-badge {
+  //styleName: Body 2;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  color: #00000099;
+  background: transparent;
+}
+
+::ng-deep .p-breadcrumb {
+  border: none;
+  background: #fafafa;
+}
+::ng-deep .p-paginator-bottom.p-paginator.p-component.ng-star-inserted {
+  display: flex;
+  justify-content: flex-end;
+  // height: 52px;
+  // width: 1158px;
+  // align-items: center;
+}
+.whole-design {
+  width: 100%;
+  height: 541px;
+  padding: 16px 5px 16px 16px;
+  ::ng-deep .card {
+    box-shadow: none;
+  }
+}
+
+.cursor-design {
+  cursor: pointer;
+}
+// .filter-components{
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: flex-end;
+// }
+.filter-components {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0% 1%;
+}
+.clearButton {
+  ::ng-deep {
+    .p-button {
+      color: #c81a78;
+      border: 1px solid #c81a78;
+      background: white;
+      &:hover {
+        color: #c81a78;
+      }
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    .p-button:enabled:hover {
+      color: #c81a78;
+      border: 1px solid #c81a78;
+      background: white;
+    }
+  }
+}
+
+.assesment-header {
+  //styleName: Title;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+
+  color: #000;
+}
+
+.breadDate {
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 0% 1% 1% 0%;
+
+  .date {
+    text-align: end;
+    width: 86px;
+    height: 19px;
+    color: #00000061;
+    font-family: "Avenir", sans-serif;
+  }
+}
+.BreadCrumb {
+  ::ng-deep .p-breadcrumb {
+    overflow-x: auto;
+    background: transparent;
+  }
+  ::ng-deep {
+    .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+      color: #1e22aa;
+    }
+    .p-icon {
+      display: inline-block;
+      height: 13px;
+      width: 8px;
+      color: #00000061;
+    }
+  }
+}
+::ng-deep
+  .p-breadcrumb
+  .p-breadcrumb-list
+  li
+  .p-menuitem-link
+  .p-menuitem-icon {
+  color: #6c757d;
+  margin-right: 0px;
+  margin-left: -14px;
+}
+
+.assesment-header {
+  //styleName: Title;
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+
+  color: #000;
+}
+
+//////////////////////////sidebar design started//////////////
+// ::ng-deep .header_design{
+//   .p-sidebar{
+//   color:violet;
+// }
+// }
+
+.design {
+  width: Fill (705px);
+  height: Hug (215px);
+  gap: 16px;
+}
+
+.wrapper {
+  width: 705px;
+}
+
+
+
+
+
+#small:checked ~ label[for="small"] {
+  background: #999;
+  color: #ffffff;
+}
+.designs {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.header_design {
+  width: 200px;
+  height: 30px;
+}
+
+::ng-deep .p-sidebar-header {
+  color: #1e22aa;
+  //styleName: Title;
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+}
+
+.custom_button {
+  ::ng-deep .p-button {
+    color: #652d90;
+    background: #ffffff;
+    border: 1px solid #652d90;
+    &:hover {
+      color: #652d90;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+.custom_button_close {
+  ::ng-deep .p-button {
+    color: white;
+    background: #652d90;
+    border: 1px solid #652d90;
+    &:hover {
+      color: white;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+
+.questionsidebar {
+  .question-design {
+    // height: 23px;
+    font-family: "Roboto";
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.150000006px;
+    text-align: left;
+    color: #652d90;
+    padding: 3% 0% 3% 0%;
+  }
+  .select-size input {
+    display: none;
+  }
+  .select-size {
+    padding-bottom: 2%;
+    border-bottom: 1px solid #0000001f;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    color: #00000061;
+  }
+  .option-content {
+    padding: 0.8% 1% 0.8% 1%;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 3px;
+    width: 100%;
+  }
+  .option {
+    font-weight: 450;
+    gap: 1%;
+    margin-bottom: 1%;
+
+    .box-design {
+      border: 1px solid #c1abd3;
+      width: 5%;
+      border-radius: 4px;
+      text-align: center;
+      padding: 5px;
+    }
+    &:hover:not(.correctAnswer) {
+      .box-design,
+      .option-content {
+        background: #c1abd3;
+        color: white;
+      }
+    }
+  }
+  .correctAnswer {
+    .option-content {
+      background: #f9f5d1;
+      color: #652d90;
+    }
+    .box-design {
+      background: #652d90;
+      color: white;
+    }
+  }
+  .custom_button {
+    gap: 3%;
+    ::ng-deep .p-button {
+      color: #652d90;
+      background: #ffffff;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: #652d90;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+  
+
+  .btnfooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .instruction {
+      font-size: 16px;
+      font-family: "Poppins";
+      font-weight: 400;
+      color: #00000099;
+      padding: 2% 0% 2% 0%;
+    }
+    .quiz-instruction {
+      padding-bottom: 5%;
+      border-bottom: 1px solid #0000001f;
+    }
+    .points {
+      font-family: "Roboto";
+      color: #00000099;
+      font-weight: 400;
+      padding-left: 4%;
+      li {
+        padding-bottom: 1%;
+      }
+    }
+
+    .sidebarbuttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-top: 5%;
+    }
+  }
+  .custom_button_send {
+    ::ng-deep .p-button {
+      color: white;
+      background: #652d90;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: white;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  ::ng-deep {
+    .p-sidebar .p-sidebar-header {
+      padding: 1.25rem;
+      border: 1px solid #0000001f;
+      color: #1e22aa;
+      font-family: "Poppins";
+      font-weight: 500;
+      font-size: 20px;
+    }
+    .p-sidebar {
+      width: 45%;
+    }
+    .p-sidebar .p-sidebar-footer {
+      padding: 0;
+    }
+  }
+}
+.instruction {
+      font-size: 16px;
+      font-family: "Poppins";
+      font-weight: 400;
+      color: #00000099;
+      padding: 2% 0% 2% 0%;
+    }
+    .quiz-instruction {
+      padding-bottom: 5%;
+    }
+    .points {
+      font-family: "Roboto";
+      color: #00000099;
+      font-weight: 400;
+      padding-left: 4%;
+      li {
+        padding-bottom: 1%;
+      }
+    }
+
+.Update-button {
+  display: inline-flex;
+  justify-content: flex-end;
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.correctAnswer {
+  .option-content {
+    padding: 6px 8px 6px 8px;
+    height: 31px;
+    width: 633px;
+    background: #f9f5d1;
+    border-radius: 6px;
+    color: #652d90;
+    font-family: "Roboto";
+  }
+  .box-design {
+    background: #652d90;
+    color: white;
+  }
+}
+.newSchedule-Dialog {
+  ::ng-deep {
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-family: "Poppins";
+      font-weight: 500;
+      color: #1e22aa;
+    }
+    .p-dialog .p-dialog-header {
+      padding: 1rem;
+      border-bottom: 1px solid #0000001f;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 2rem 1rem;
+      border-bottom: 2px solid #0000001f;
+    }
+    .p-inputtext {
+      width: 100%;
+    }
+    .p-dropdown {
+      width: 100%;
+    }
+    .p-multiselect {
+      width: 100%;
+    }
+    .p-dialog .p-dialog-footer {
+      display: inline-flex;
+    justify-content: flex-end;
+      padding: 2%;
+    }
+    .p-multiselect.p-multiselect-chip
+      .p-multiselect-token
+      .p-multiselect-token-icon {
+      display: none;
+    }
+    .p-multiselect.p-multiselect-chip .p-multiselect-token {
+      background: #00000061;
+      color: white;
+      border-radius: 16px;
+      font-size: 90%;
+      padding: 1% 2% 2% 2%;
+    }
+  }
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto";
+    font-weight: 400;
+    color: #00000099;
+
+    .label {
+      padding: 2% 0 2% 0;
+
+      span {
+        color: #ee4555;
+      }
+    }
+  }
+  .cuttoffDuration {
+    display: flex;
+    flex-direction: row;
+
+    ::ng-deep .p-inputtext {
+      width: 150%;
+    }
+
+    .labelvalue {
+      display: flex;
+      flex-direction: column;
+      padding-right: 17.3%;
+
+      .label {
+        padding: 6% 0 6% 0;
+      }
+    }
+  }
+}
+
+
+.custom-file-input {
+  border: 1px solid #652d90;
+  border-radius: 8px;
+  padding: 1.5% 1% 1.5% 2%;
+  height: fit-content;
+  background: #652d90;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+// }
+
+.design {
+  width: Fill (705px);
+  height: Hug (215px);
+  gap: 16px;
+}
+
+.wrapper {
+  width: 705px;
+}
+
+
+
+
+
+
+
+.header_design {
+  width: 200px;
+  height: 30px;
+}
+
+::ng-deep .p-sidebar-header {
+  color: #1e22aa;
+  //styleName: Title;
+  font-family: "Poppins";
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+}
+.design_panel {
+  margin-bottom: 15px;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+  text-align: left;
+  color: #00000061;
+}
+
+.line_design {
+  margin-bottom: 5px;
+  //styleName: Body 2;
+}

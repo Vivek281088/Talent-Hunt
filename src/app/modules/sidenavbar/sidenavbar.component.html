@@ -1,0 +1,399 @@
+<div class="wholebar relative" *ngIf="showSidebar">
+  <div class="side-nav" [class.collapsed]="isSideNavCollapsed">
+    <div class="top-sec">
+      <ul class="ul1">
+        <li
+          id="home"
+          [class.active]="activeSection === 'home'"
+          (click)="changeStyle('home')"
+        >
+          <i class="pi pi-th-large"></i>
+          <p>Home</p>
+          <span class="disabled">
+            <i class="pi pi-angle-down"></i>
+          </span>
+        </li>
+        <li
+          id="assessment"
+          [class.active]="activeSection === 'assessment'"
+          (click)="changeStyle('assessment')"
+          (click)="changeStyle1()"
+        >
+          <i class="pi pi-map"></i>
+          <p>Assessment</p>
+          <span>
+            <i class="pi pi-angle-down"></i>
+          </span>
+        </li>
+        <span *ngIf="assessmentShow">
+          <ul class="sub-list">
+            <li
+              id="manageSchedule"
+              [class.active]="activeSublist === 'manageSchedule'"
+              (click)="changeSublist('manageSchedule','assessment')"
+              [routerLink]="['/dashboard']"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+  
+              <a >Manage Schedule</a>
+            </li>
+  
+            <li
+              id="manageAssessment"
+              [class.active]="activeSublist === 'manageAssessment'"
+              (click)="changeSublist('manageAssessment','assessment')"
+              [routerLink]="['/AssessmentDisplay']"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+              <a >Manage Assessment</a>
+            </li>
+          </ul>
+        </span>
+        <li
+          id="user"
+          [class.active]="activeSection === 'user'"
+          (click)="changeStyle('user')"
+          (click)="changeStyle2()"
+        >
+          <i class="pi pi-user"></i>
+          <p>User</p>
+          <span>
+            <i class="pi pi-angle-down"></i>
+          </span>
+        </li>
+        <span *ngIf="userShow">
+          <ul class="sub-list">
+            <li
+              id="manageManagers"
+              [class.active]="activeSublist === 'manageManagers'"
+              (click)="changeSublist('manageManagers','user')"
+              [routerLink]="['/manage-managers']"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+  
+              <a >Manage Managers</a>
+            </li>
+  
+            <li
+              id="manageCandidates"
+              [class.active]="activeSublist === 'manageCandidates'"
+              (click)="changeSublist('manageCandidates','user')"
+              [routerLink]="['/manage-candidates']"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+              <a>Manage Candidates</a>
+            </li>
+          </ul>
+        </span>
+  
+        <li
+          id="question_bank"
+          [class.active]="activeSection === 'question_bank'"
+          (click)="changeStyle('question_bank')"
+          (click)="changeStyle3()"
+          
+        >
+          <i class="pi pi-book"></i>
+          <p>Question Bank</p>
+          <span><i class="pi pi-angle-down"></i></span>
+        </li>
+        <span *ngIf="questionBankShow">
+          <ul class="sub-list">
+            <li
+              id="manageSkills"
+              [class.active]="activeSublist === 'manageSkills'"
+              (click)="changeSublist('manageSkills','question_bank')"
+              [routerLink]="['/manage-skills']"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+  
+              <a >Manage Questions</a>
+            </li>
+  
+            <!-- <li
+              id="manageQuestions"
+              [class.active]="activeSublist === 'manageQuestions'"
+              (click)="changeSublist('manageQuestions','question_bank')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+              <a href="#">Manage Questions</a>
+            </li> -->
+          </ul>
+        </span>
+  
+        <!-- <li
+          id="system"
+          [class.active]="activeSection === 'system'"
+          (click)="changeStyle('system')"
+          (click)="changeStyle4()"
+        >
+          <i class="pi pi-cog"></i>
+          <p>System</p>
+          <span><i class="pi pi-angle-down"></i></span>
+        </li>
+        <span *ngIf="systemShow">
+          <ul class="sub-list">
+            <li
+              id="manageProfile"
+              [class.active]="activeSublist === 'manageProfile'"
+              (click)="changeSublist('manageProfile','system')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+  
+              <a href="#">Manage Profile</a>
+            </li>
+  
+            <li
+              id="configuration"
+              [class.active]="activeSublist === 'configuration'"
+              (click)="changeSublist('configuration','system')"
+            >
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="17.5"
+                  y="9.5"
+                  width="5"
+                  height="5"
+                  rx="2.5"
+                  stroke="black"
+                  stroke-opacity="0.6"
+                />
+              </svg>
+              <a href="#">Configuration</a>
+            </li>
+          </ul>
+        </span> -->
+      </ul>
+  
+      <ul class="ul2">
+        <li>
+          <i class="pi pi-question-circle"></i>
+          <p>Help</p>
+        </li>
+        <li>
+          <i class="pi pi-power-off"></i>
+          <a href="#">Sign Out</a>
+        </li>
+      </ul>
+    </div>
+  
+    
+  </div>
+  <div class="toggleBtn">
+     
+    <svg
+      width="44"
+      height="44"
+      viewBox="0 0 44 44"
+      class="toggle-btn"
+      (click)="toggleSideNav()"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g filter="url(#filter0_ddd_126_3853)">
+        <rect
+          width="24"
+          height="24"
+          rx="12"
+          transform="matrix(-1 0 0 1 34 9)"
+          fill="white"
+        />
+        <path
+          d="M25 21.0029C25 21.1468 24.9428 21.2907 24.834 21.3886L20.2935 25.8445C20.1961 25.9424 20.0702 26 19.927 26C19.6293 26 19.4003 25.7755 19.4003 25.4761C19.4003 25.3322 19.4575 25.1998 19.5491 25.1019L24.0324 20.692L24.0324 21.308L19.5491 16.8981C19.4575 16.806 19.4003 16.6736 19.4003 16.5239C19.4003 16.2245 19.6293 16 19.927 16C20.0702 16 20.1961 16.0576 20.2992 16.1554L24.834 20.6114C24.9428 20.7208 25 20.8532 25 21.0029Z"
+          fill="black"
+          fill-opacity="0.6"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_ddd_126_3853"
+          x="0"
+          y="0"
+          width="44"
+          height="44"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="2" />
+          <feGaussianBlur stdDeviation="2" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.701961 0 0 0 0 0.670588 0 0 0 0 0.729412 0 0 0 0.2 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_126_3853"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="1" />
+          <feGaussianBlur stdDeviation="5" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.701961 0 0 0 0 0.670588 0 0 0 0 0.729412 0 0 0 0.12 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="effect1_dropShadow_126_3853"
+            result="effect2_dropShadow_126_3853"
+          />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="2.5" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.701961 0 0 0 0 0.670588 0 0 0 0 0.729412 0 0 0 0.14 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="effect2_dropShadow_126_3853"
+            result="effect3_dropShadow_126_3853"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect3_dropShadow_126_3853"
+            result="shape"
+          />
+        </filter>
+      </defs>
+    </svg>
+  </div>
+
+</div>
+

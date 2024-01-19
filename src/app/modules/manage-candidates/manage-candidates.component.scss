@@ -1,0 +1,334 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+.manageManagers {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5%;
+
+  ::ng-deep {
+    .p-datatable .p-sortable-column .p-sortable-column-icon {
+      color: #1666dc;
+    }
+    .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+      color: #1666dc;
+    }
+    .p-datatable .p-datatable-tbody > tr > td {
+      font-family: "Roboto";
+      color: #000000de;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .p-datatable .p-datatable-thead > tr > th {
+      background: white;
+    }
+  }
+}
+
+.manageManagers-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 1.5%;
+}
+.manageManagers-header-1 {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    p {
+      font-family: "Poppins", sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 30px;
+      letter-spacing: 0.15000000596046448px;
+      text-align: left;
+    }
+  }
+}
+
+.BreadCrumb {
+  ::ng-deep .p-breadcrumb {
+    overflow-x: auto;
+    background: transparent;
+  }
+  ::ng-deep {
+    .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+      color: #1e22aa;
+    }
+    .p-icon {
+      display: inline-block;
+      height: 13px;
+      width: 8px;
+      color: #00000061;
+    }
+  }
+}
+::ng-deep
+  .p-breadcrumb
+  .p-breadcrumb-list
+  li
+  .p-menuitem-link
+  .p-menuitem-icon {
+  color: #6c757d;
+  margin-right: 0px;
+  margin-left: -14px;
+}
+.new-schedule-header-2 {
+  display: flex;
+  justify-content: end;
+  align-items: end;
+  padding: 1.5%;
+  .date {
+    text-align: center;
+    color: #00000061;
+    font-family: "Avenir", sans-serif;
+  }
+}
+.managerTable {
+  ::ng-deep {
+    .p-datatable {
+      position: relative;
+      border: 1px solid #0000001f;
+      border-radius: 8px;
+    }
+  }
+}
+
+.manager-header {
+  display: flex;
+  flex-direction: row;
+  gap: 4%;
+}
+.manager-header1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.manager-header-2 {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+  width: 20%;
+}
+.searchIcon {
+  height: 92%;
+  border-radius: 4px;
+  //searchIcon
+
+  //   ::ng-deep i {
+  //     margin-top: -7px !important;
+  //   }
+}
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+::ng-deep {
+  .p-inputtext:enabled:hover {
+    border: 1px solid #00000061;
+  }
+  .p-inputtext:enabled:focus {
+    box-shadow: none;
+    border: 1px solid #00000061;
+  }
+}
+.deptMultiselect {
+  ::ng-deep {
+    .p-multiselect .p-multiselect-trigger {
+      width: 1rem;
+    }
+    .p-fluid .p-multiselect {
+      width: 125%;
+      border-radius: 8px;
+      gap: 8px;
+      background: #efefef;
+      border: none;
+    }
+    .p-icon {
+      width: 14px;
+      height: 8px;
+    }
+  }
+}
+
+.clear-button {
+  height: 95%;
+  border-radius: 8px;
+  color: #c81a78;
+  border: 1px solid #c81a78;
+  background: white;
+  &:hover {
+    color: #c81a78;
+    border: 1px solid #c81a78;
+    background: white;
+  }
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.addcandidate {
+  ::ng-deep .p-button {
+    color: #ffffff;
+    background: #652d90;
+    border: 1px solid #652d90;
+    height: 95%;
+    border-radius: 8px;
+    text-align: center;
+    &:hover {
+      color: #ffffff;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.EmployeeId {
+  color: #1666dc !important;
+}
+.candidatenamedesign {
+  cursor: pointer;
+  color: #1666dc !important;
+}
+
+.newSchedule-Dialog {
+  ::ng-deep {
+    .p-dialog .p-dialog-header .p-dialog-title {
+      font-family: "Poppins";
+      font-weight: 500;
+      color: #1e22aa;
+    }
+    .p-dialog .p-dialog-header {
+      padding: 1rem;
+      border-bottom: 1px solid #0000001f;
+    }
+    .p-dialog .p-dialog-content {
+      padding: 0 1.5rem 2rem 1rem;
+      border-bottom: 2px solid #0000001f;
+    }
+    .p-inputtext {
+      width: 100%;
+    }
+    p-inputnumber,
+    .p-inputnumber {
+      display: inline-flex;
+      width: 100%;
+    }
+    .p-dialog {
+      max-height: 75%;
+    }
+
+    .p-dialog .p-dialog-footer {
+      padding: 12px;
+    }
+    .error-message {
+      color: tomato;
+      //   transform: translateY(-168%);
+      //   padding-left: 1%;
+      font-size: 14px;
+      padding: 1% 2% 2% 0;
+    }
+  }
+  .labelvalue {
+    display: flex;
+    flex-direction: column;
+    font-family: "Roboto";
+    font-weight: 400;
+    color: #00000099;
+
+    .label {
+      padding: 2% 0 2% 0;
+
+      span {
+        color: #ee4555;
+      }
+    }
+  }
+}
+
+.Newschedule-button {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  border: 1px;
+  justify-content: end;
+  // justify-content: flex-end;
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
+      .p-button .p-button-icon-left {
+        display: none;
+      }
+    }
+    .uploadButton{
+      ::ng-deep .p-button {
+        height: 87%;
+      }
+    }
+  }
+}
+.custom-file-input{
+    border: 1px solid #652d90;
+    border-radius: 8px;
+    padding: 1.5% 1% 1.5% 2%;
+    height: fit-content;
+    background: #652d90;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.checkboxcell {
+  input[type="checkbox"]:checked {
+    background-color: #652d90;
+    color: white;
+  }
+}
+.custom-checkbox {
+  margin-top: 35%;
+  transform: scale(1.4);
+  width: 100%;
+  margin-left: 25%;
+}

@@ -1,0 +1,204 @@
+<div class="table-container">
+  <p-table
+    class="custom_table"
+    [columns]="column"
+    [value]="candidateList"
+    [scrollable]="true"
+    scrollHeight="calc(79vh - 10px)"
+  >
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th pSortableColumn="email_Managername" style="width: 20rem">
+          Manager <p-sortIcon field="email_Managername"></p-sortIcon>
+        </th>
+
+        <th style="width: 20rem">Candidate Name</th>
+
+        <th style="width: 20rem">File Name</th>
+
+        <th pSortableColumn="email_Status" style="width: 20rem">
+          Status <p-sortIcon field="Status"></p-sortIcon>
+        </th>
+
+        <th pSortableColumn="score" style="width: 3rem">
+          Score
+
+          <p-sortIcon field="score"></p-sortIcon>
+        </th>
+
+        <th pSortableColumn="result" style="width: 20rem">
+          Result
+
+          <p-sortIcon field="result"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-rowData>
+      <tr class="table-row">
+        <td style="width: 20rem">{{ rowData.email_Managername }}</td>
+
+        <td style="width: 20rem">{{ rowData.candidateName }}</td>
+
+        <td style="width: 20rem">
+          <ng-container
+            *ngIf="rowData.email_Status === 'Submitted'; else normalText"
+          >
+            <a class="submitted-link" (click)="showDialog(rowData)">{{
+              rowData.email_Filename
+            }}</a>
+          </ng-container>
+
+          <ng-template #normalText>
+            {{ rowData.email_Filename }}
+          </ng-template>
+        </td>
+
+        <td style="width: 20rem">{{ rowData.email_Status }}</td>
+
+        <td style="width: 20rem">{{ rowData.score }}</td>
+
+        <td style="width: 20rem">{{ rowData.result }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    [style]="{ width: '75vw' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <ng-container *ngIf="FinalizedQuestions.length > 0">
+      <div
+        *ngFor="let question of FinalizedQuestions; let i = index"
+        class="question_sec"
+      >
+        <h3>{{ i + 1 }}. {{ question.question }}</h3>
+
+        <ng-container *ngIf="question.questionType === 'Checkbox'">
+          <div class="vertical-options-checkbox display-row">
+            <div *ngFor="let option of question.options" class="option">
+              <p-checkbox
+                [(ngModel)]="question.selectedOption"
+                class="mr-2"
+                [value]="option"
+                inputId="binary"
+                [class.correct-option]="
+                  question.selectedOption &&
+                  question.selectedOption.includes(option)
+                "
+              ></p-checkbox>
+
+              <span class="correct-option">
+                {{ option }}
+              </span>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="question.questionType === 'Radio'">
+          <div class="vertical-options">
+            <div *ngFor="let option of question.options" class="option">
+              <p-radioButton
+                [(ngModel)]="question.selectedOption"
+                [value]="option"
+                class="mr-1"
+                [class.correct-option]="question.selectedOption === option"
+              ></p-radioButton>
+
+              {{ option }}
+            </div>
+
+            <div class="review-buttons">
+              <button
+                pButton
+                type="button"
+                class="p-button leftbutton"
+                (click)="markAsCorrect(i)"
+                style="padding: auto"
+                [class.light-green]="buttonColors[i] && question.isCorrect"
+                [class.light-red]="buttonColorsWrong[i] && question.isCorrect"
+              >
+                <svg
+                  id="crt"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1em"
+                  viewBox="0 0 448 512"
+                >
+                  <style>
+                    #crt {
+                      fill: green;
+                    }
+                  </style>
+
+                  <path
+                    d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"
+                  />
+                </svg>
+              </button>
+
+              <button
+                pButton
+                type="button"
+                class="p-button-danger"
+                (click)="markAsIncorrect(i)"
+                style="padding: auto"
+                [class.light-green]="buttonColors[i] && !question.isCorrect"
+                [class.light-red]="buttonColorsWrong[i] && !question.isCorrect"
+              >
+                <svg
+                  id="wrong"
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="1em"
+                  viewBox="0 0 384 512"
+                >
+                  <style>
+                    #wrong {
+                      fill: red;
+                    }
+                  </style>
+
+                  <path
+                    d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <p-toast></p-toast>
+
+    <div
+      class="save_button flex cursor-pointer"
+      pTooltip="Submit"
+      (click)="submitReview(FinalizedQuestions)"
+    >
+      <svg
+        id="Layer_1"
+        width="26"
+        viewBox="0 0 30 30"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        fill="white"
+      >
+        <style>
+          #Layer_1 {
+            fill: #d6dfe7;
+          }
+        </style>
+
+        <path
+          d="M22,4h-2v6c0,0.552-0.448,1-1,1h-9c-0.552,0-1-0.448-1-1V4H6C4.895,4,4,4.895,4,6v18c0,1.105,0.895,2,2,2h18  c1.105,0,2-0.895,2-2V8L22,4z M22,24H8v-6c0-1.105,0.895-2,2-2h10c1.105,0,2,0.895,2,2V24z"
+        />
+
+        <rect height="5" width="2" x="16" y="4" />
+      </svg>
+    </div>
+  </p-dialog>
+</div>

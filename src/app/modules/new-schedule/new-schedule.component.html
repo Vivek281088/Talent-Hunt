@@ -1,0 +1,539 @@
+<div class="new-schedule-page">
+  <div class="new-schedule-header">
+    <div class="new-schedule-header-1">
+      <div class="title">
+        <p>New Schedule - Full-Stack-Developer Eval</p>
+      </div>
+      <div class="header-breadcrumb">
+        <p-breadcrumb
+          class="BreadCrumb"
+          [model]="items"
+          [style]="{ border: 'none' }"
+        ></p-breadcrumb>
+      </div>
+    </div>
+    <div class="new-schedule-header-2">
+      <div class="cancelBtn">
+        <p-button label="Cancel" (click)="cancelButton()"> </p-button>
+      </div>
+      <div class="saveBtn" (click)="saveSelected()">
+        <p-button label="Save Changes">
+          <svg
+            width="24"
+            height="25"
+            viewBox="0 0 24 25"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.55005 22.4999C4.81672 22.4999 4.19588 22.2457 3.68755 21.7374C3.17922 21.2291 2.92505 20.6082 2.92505 19.8749V17.4999C2.92505 17.2832 2.99588 17.1041 3.13755 16.9624C3.27922 16.8207 3.45838 16.7499 3.67505 16.7499H6.10005V3.1499C6.10005 2.98324 6.16672 2.8999 6.30005 2.8999C6.43338 2.8999 6.56672 2.96657 6.70005 3.0999L7.60005 3.9999L8.82505 2.7749C8.90838 2.69157 9.00005 2.6499 9.10005 2.6499C9.20005 2.6499 9.29172 2.69157 9.37505 2.7749L10.575 3.9999L11.8 2.7749C11.8834 2.69157 11.975 2.6499 12.075 2.6499C12.175 2.6499 12.2667 2.69157 12.35 2.7749L13.575 3.9999L14.8 2.7749C14.8834 2.69157 14.975 2.6499 15.075 2.6499C15.175 2.6499 15.2667 2.69157 15.35 2.7749L16.575 3.9999L17.8 2.7749C17.8834 2.69157 17.975 2.6499 18.075 2.6499C18.175 2.6499 18.2667 2.69157 18.35 2.7749L19.5751 3.9999L20.475 3.0999C20.6084 2.96657 20.7417 2.8999 20.875 2.8999C21.0084 2.8999 21.0751 2.98324 21.0751 3.1499V19.8749C21.0751 20.6082 20.8209 21.2291 20.3125 21.7374C19.8042 22.2457 19.1834 22.4999 18.45 22.4999H5.55005ZM18.45 20.9999C18.7834 20.9999 19.0542 20.8957 19.2626 20.6874C19.4709 20.4791 19.5751 20.2082 19.5751 19.8749V4.9999H7.60005V16.7499H16.575C16.7917 16.7499 16.9709 16.8207 17.1125 16.9624C17.2542 17.1041 17.325 17.2832 17.325 17.4999V19.8749C17.325 20.2082 17.4292 20.4791 17.6375 20.6874C17.8459 20.8957 18.1167 20.9999 18.45 20.9999ZM9.65005 8.9499C9.45005 8.9499 9.27922 8.8749 9.13755 8.7249C8.99588 8.5749 8.92505 8.39157 8.92505 8.1749C8.92505 7.9749 8.99588 7.80407 9.13755 7.6624C9.27922 7.52074 9.45838 7.4499 9.67505 7.4499H14.175C14.3917 7.4499 14.5709 7.52074 14.7125 7.6624C14.8542 7.80407 14.925 7.98324 14.925 8.1999C14.925 8.41657 14.8542 8.59574 14.7125 8.7374C14.5709 8.87907 14.3917 8.9499 14.175 8.9499H9.65005ZM9.65005 12.2999C9.45005 12.2999 9.27922 12.2249 9.13755 12.0749C8.99588 11.9249 8.92505 11.7416 8.92505 11.5249C8.92505 11.3249 8.99588 11.1541 9.13755 11.0124C9.27922 10.8707 9.45838 10.7999 9.67505 10.7999H14.175C14.3917 10.7999 14.5709 10.8707 14.7125 11.0124C14.8542 11.1541 14.925 11.3332 14.925 11.5499C14.925 11.7666 14.8542 11.9457 14.7125 12.0874C14.5709 12.2291 14.3917 12.2999 14.175 12.2999H9.65005ZM17.25 8.9499C17.05 8.9499 16.875 8.8749 16.725 8.7249C16.575 8.5749 16.5 8.3999 16.5 8.1999C16.5 7.9999 16.575 7.8249 16.725 7.6749C16.875 7.5249 17.05 7.4499 17.25 7.4499C17.45 7.4499 17.625 7.5249 17.775 7.6749C17.925 7.8249 18 7.9999 18 8.1999C18 8.3999 17.925 8.5749 17.775 8.7249C17.625 8.8749 17.45 8.9499 17.25 8.9499ZM17.25 12.1749C17.05 12.1749 16.875 12.0999 16.725 11.9499C16.575 11.7999 16.5 11.6249 16.5 11.4249C16.5 11.2249 16.575 11.0499 16.725 10.8999C16.875 10.7499 17.05 10.6749 17.25 10.6749C17.45 10.6749 17.625 10.7499 17.775 10.8999C17.925 11.0499 18 11.2249 18 11.4249C18 11.6249 17.925 11.7999 17.775 11.9499C17.625 12.0999 17.45 12.1749 17.25 12.1749ZM5.52505 20.9999H15.825V18.2499H4.42505V19.8749C4.42505 20.2082 4.52922 20.4791 4.73755 20.6874C4.94588 20.8957 5.20838 20.9999 5.52505 20.9999Z"
+              fill="white"
+            />
+          </svg>
+        </p-button>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="edit-schedule">
+    <div class="edit-start">
+      <div class="edit-name">
+        <label>Schedule Name</label>
+        <p>{{ scheduleName }}</p>
+      </div>
+      <div class="edit-manager">
+        <label>Manager</label>
+        <p>{{ manager }}</p>
+      </div>
+      <div class="edit-cutoff">
+        <label>Cutoff</label>
+        <p>{{ cutOff }}</p>
+      </div>
+      <div class="edit-duration">
+        <label>Duration</label>
+        <p>{{ duration }}</p>
+      </div>
+    </div>
+    <div class="edit-end">
+      <svg
+        width="40"
+        height="40"
+        viewBox="0 0 40 40"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        (click)="editicon()"
+        class="cursor-pointer"
+      >
+        <rect width="40" height="40" rx="4" fill="#652D90" />
+        <path
+          d="M12.5 27.5001H13.6L24.675 16.4251L23.575 15.3251L12.5 26.4001V27.5001ZM27.85 15.3501L24.65 12.1501L25.7 11.1001C25.9833 10.8168 26.3375 10.6793 26.7625 10.6876C27.1875 10.6959 27.5417 10.8418 27.825 11.1251L28.9 12.2001C29.1833 12.4834 29.325 12.8334 29.325 13.2501C29.325 13.6668 29.1833 14.0168 28.9 14.3001L27.85 15.3501ZM11.75 29.0001C11.5333 29.0001 11.3542 28.9293 11.2125 28.7876C11.0708 28.6459 11 28.4668 11 28.2501V26.1001C11 26.0001 11.0167 25.9084 11.05 25.8251C11.0833 25.7418 11.1417 25.6584 11.225 25.5751L23.6 13.2001L26.8 16.4001L14.425 28.7751C14.3417 28.8584 14.2583 28.9168 14.175 28.9501C14.0917 28.9834 14 29.0001 13.9 29.0001H11.75ZM24.125 15.8751L23.575 15.3251L24.675 16.4251L24.125 15.8751Z"
+          fill="white"
+        />
+      </svg>
+ 
+ 
+      <p-toast></p-toast>
+      <div class="newSchedule-Dialog">
+        <p-dialog
+                      header="New Schedule"
+                      [(visible)]="visible"
+                      [modal]="true"
+                      [style]="{ width: '47VW' }"
+                      [draggable]="false"
+                      [resizable]="false"
+                    >
+                      <div class="NewSchedule-content">
+                        <div class="labelvalue">
+                          <div class="label">
+                            <label>Schedule Name</label>
+                            <span class="important-symbol">&#42;</span>
+                          </div>
+                          <div class="value">
+                            <input
+                              type="text"
+                              pInputText
+                              [(ngModel)]="scheduleName"
+                            />
+                          </div>
+                        </div>
+ 
+                        <div class="labelvalue">
+                          <div class="label">
+                            <label>Manager</label>
+                            <span class="important-symbol">&#42;</span>
+                          </div>
+                          <div class="value">
+                            <p-dropdown
+                              [options]="managerOption"
+                              placeholder=""
+                              [editable]="true"
+                              optionLabel=""
+                              [(ngModel)]="manager"
+                            ></p-dropdown>
+                          </div>
+                        </div>
+ 
+              
+ 
+                        <div class="cuttoffDuration">
+                          <div class="labelvalue">
+                            <div class="label">
+                              <label>Cutoff (in %)</label>
+                              <span class="important-symbol">&#42;</span>
+                            </div>
+                            <div class="value">
+                              <input
+                                type="text"
+                                pInputText
+                                [(ngModel)]="cutOff"
+                              />
+                            </div>
+                          </div>
+ 
+                          <div class="labelvalue">
+                            <div class="label">
+                              <label>Duration(minutes)</label>
+                              <span class="important-symbol">&#42;</span>
+                            </div>
+                            <div class="value">
+                              <input
+                                type="text"
+                                pInputText
+                                [(ngModel)]="duration"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+ 
+                      <ng-template pTemplate="footer">
+                        <div class="Newschedule-button">
+                          <div class="Cancelbutton" *ngIf="!isEditSchedule">
+                            <p-button
+                              label="Cancel"
+                              [outlined]="true"
+                              (onClick)="cancelButton()"
+                            >
+                            </p-button>
+                          </div>
+                         
+ 
+                          <div class="Createbutton">
+                            <p-button (click)="update(scheduleName,manager,cutOff,duration)">
+                              <label class="Create-word">
+                                Update
+                              </label>
+                            </p-button>
+                 
+                           </div>
+               
+ 
+                        </div>
+                      </ng-template>
+                    </p-dialog>
+    </div>
+    </div>
+  </div>
+
+  <div class="questioncount">
+        <label>Selected Questions :</label>
+        <p>{{(selectedquestions && selectedquestions.length) || 0}}</p>
+      </div>
+ 
+ 
+    <div class="tabview-count">
+      <!-- {{tabs | json}} -->
+      <div class="tabview">
+        <p-tabView >
+          <p-tabPanel *ngFor="let tab of tabs"  [header]="tab.title" >
+            <!-- <ng-template pTemplate="header">
+             
+            </ng-template> -->
+           
+            <ng-template pTemplate="content">
+              <p-table
+                #dt2
+                class="newscheduleTable"
+                [value]="tab.content"
+                [(selection)]="selectedQuestion"
+                dataKey="id"
+                [scrollable]="true"
+                scrollHeight="270px"
+                [globalFilterFields]="[
+                  'question',
+                  'questionType',
+                  'Difficulty_Level'
+                ]"
+              >
+        
+              <ng-template pTemplate="header">
+                <tr>
+                  <th colspan="6">
+                    <div  class="headerSearch">
+                      <div class="searchbox">
+                        <span class="p-input-icon-left searchicon">
+                          <i class="pi pi-search"></i>
+                          <input
+                            pInputText
+                            type="text"
+                            placeholder="Search"
+                            (input)="
+                              dt2.filterGlobal(
+                                $any($event.target).value,
+                                'contains'
+                              )"
+                            />
+                            
+                        </span>
+
+                      </div>
+
+                      <div class="selectallBtn">
+                        <p-button label="Select All"(click)="selectQuestions(tab.content)"> </p-button>
+                      </div>
+                      <div class="unselectallBtn">
+                        <p-button label="Unselect All"(click)="unselectAllQuestions(tab.content)" > </p-button>
+                      </div>
+                      <div class="PreviewBtn">
+                        <p-button
+                        label="Preview"
+                        icon="pi pi-eye"
+                        (onClick)="onPreviewClick()"
+                        >
+                         
+                        </p-button>
+                      </div>
+                      
+                    </div>
+
+                
+                    </th>
+                  </tr>
+                </ng-template>
+ 
+                <ng-template pTemplate="body" let-rowData>
+                  <tr class="customRow">
+                    <td class="checkboxcell">
+                      <input type="checkbox" [value]="rowData" [checked]="rowData.selection"  (click)="toggleSelection(rowData)" class="custom-checkbox">
+                    </td>
+                    <td class="questiontext">{{ rowData.question }}</td>
+                    <td class="optiontext">{{ rowData.questionType }}</td>
+                    <td class="optiontext">{{ rowData.options.length }} Choices</td>
+                    <td class="optiontext">{{ rowData.Difficulty_Level }}</td>
+                    <!-- <td>
+                      <div class="editviewicons">
+                        <div class="editIcon">
+                          <svg
+                            width="24"
+                            height="18"
+                            viewBox="0 0 18 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="cursor: pointer"
+                            (click)="individualQuestionView(rowData.id,rowData.question,rowData.questionType,rowData.options,rowData.skills,rowData.Difficulty_Level,rowData.answer)"
+                            
+                          >
+                            <path
+                              d="M3.375 14.625H4.2L12.5062 6.31877L11.6812 5.49377L3.375 13.8V14.625ZM14.8875 5.51252L12.4875 3.11252L13.275 2.32502C13.4875 2.11252 13.7531 2.0094 14.0719 2.01565C14.3906 2.0219 14.6563 2.13127 14.8688 2.34377L15.675 3.15002C15.8875 3.36252 15.9938 3.62502 15.9938 3.93752C15.9938 4.25002 15.8875 4.51252 15.675 4.72502L14.8875 5.51252ZM2.8125 15.75C2.65 15.75 2.51563 15.6969 2.40938 15.5906C2.30313 15.4844 2.25 15.35 2.25 15.1875V13.575C2.25 13.5 2.2625 13.4313 2.2875 13.3688C2.3125 13.3063 2.35625 13.2438 2.41875 13.1813L11.7 3.90002L14.1 6.30002L4.81875 15.5813C4.75625 15.6438 4.69375 15.6875 4.63125 15.7125C4.56875 15.7375 4.5 15.75 4.425 15.75H2.8125ZM12.0938 5.90627L11.6812 5.49377L12.5062 6.31877L12.0938 5.90627Z"
+                              fill="#652D90"
+                            />
+                          </svg>
+                        </div>
+                        <div class="previewIcon" (click)="questionPreview(rowData)" >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="#652d90"
+                            x="0px"
+                            y="0px"
+                            width="20"
+                            height="18"
+                            viewBox="0 0 576 512"
+                            style="cursor: pointer"
+                          >
+                            <path
+                              d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </td> -->
+                  </tr>
+                </ng-template>
+              </p-table>
+            </ng-template>
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+ 
+      
+    </div>
+ 
+ 
+   
+</div>
+
+
+<div class="questionPreview">
+    <p-dialog header="Question Preview" [(visible)]="questionPreviewvisible" [modal]="true" [style]="{ width: '38.75rem' , height:'auto'}"[breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <ng-template pTemplate="header">
+            <div class="inline-flex align-items-center justify-content-center gap-2">
+               <p class="questionpreviewtext">
+                Question Preview
+               </p>
+            </div>
+        </ng-template>
+     <div class="questionpreviewcardbody">
+<div class="questionhead">
+ {{singleQuestion}}
+</div>
+     </div>
+     <div class="select-size">
+      <div
+        *ngFor="let option of singleQuestionOption; let i = index"
+        class="option"
+        [ngClass]="getSelectedOptions(singleQuestionAnswer, option)"
+      >
+  
+        <input type="radio" [checked]="option === singleQuestionAnswer" />
+        <label class="box-design">{{
+          getLabel(i)
+        }}</label>
+
+        <span class="option-content">{{ option }}</span>
+      </div>
+    </div>
+        <ng-template pTemplate="footer">
+          <p-button (onClick)="closeButton()" class="Closebutton" label="Close" ></p-button>
+        </ng-template>
+</p-dialog>
+</div>
+
+<div class="questionsidebar">
+  <p-sidebar
+    [(visible)]="previewSidebarVisible"
+    position="right"
+    [modal]="false"
+  >
+    <ng-template class="header_design" pTemplate="header"
+      >Quiz Preview
+      
+      </ng-template
+    >
+    <ng-template pTemplate="content" *ngIf="selectedquestions">
+       
+      <span *ngFor="let question of selectedquestions ; let j = index">
+        <div class="question-design">{{j+1}}. {{ question.question }}</div>
+
+        <div class="select-size">
+          <div
+            *ngFor="let option of question.options; let i = index"
+            class="option"
+            [ngClass]="getSelectedOptions(question.answer, option)"
+          >
+            <!-- <input type="radio" name="first" id="small" />
+            <label class="box-design" for="small">A</label>
+            <span class="option-content">{{ preview.options[0] }}</span> -->
+            <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
+            <label class="box-design" [for]="'option' + question + '-' + i">{{
+              getLabel(i)
+            }}</label>
+
+            <span class="option-content">{{ option }}</span>
+          </div>
+        </div>
+
+      </span>
+
+      <div class="btnfooter">
+        <div class="quiz-instruction">
+
+          <p class="instruction">Quiz Instructions</p>
+          <ul class="points">
+            <li>Manager approval mandatory </li>
+            <li>Automatic email will be triggered for every status change of the request</li>
+            <li>Approval is the permission to go to Office</li>
+          </ul>
+
+        </div>
+        <div class="sidebarbuttons">
+          <div class="custom_button">
+            <p-button label="Cancel"></p-button>
+          </div>
+          <div class="custom_button_send">
+            <p-button label="Close"></p-button>
+          </div>
+
+        </div>
+        
+      </div>
+
+
+    </ng-template>
+    
+  </p-sidebar>
+</div>
+
+<div class="newSchedule-Dialog">
+  <p-dialog
+    header="New Schedule"
+    [(visible)]="QuestionView"
+    [modal]="true"
+    [style]="{ width: '47VW' }"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <div class="NewSchedule-content">
+      <div class="labelvalue">
+        <div class="label">
+          <label>Question</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input type="text" pInputText [(ngModel)]="question" />
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>QuestionType</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <p-dropdown
+            appendTo="body"
+            class="w-full table_dropdown"
+            placeholder="--Select--"
+            [options]="questionType"
+            [(ngModel)]="questionTypeSelected"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Difficulty Level</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <p-dropdown
+            appendTo="body"
+            class="w-full table_dropdown"
+            placeholder="--Select--"
+            [options]="difficultyLevel"
+            [(ngModel)]="Difficulty_Level"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+
+
+      <div class="labelvalue"
+      *ngIf="
+      questionTypeSelected === 'Radio' ||
+      questionTypeSelected === 'Checkbox'
+    ">
+        <div class="label">
+          <label>Option</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="valueedit" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
+
+          <label for="answer{{ i }}" class="title">{{ letter }} </label>
+          <input
+          type="text"
+          pInputText
+          [(ngModel)]="choices[i]"
+        />
+        </div>
+      </div>
+
+      <div class="labelvalue"*ngIf="
+      questionTypeSelected === 'Radio' ||
+      questionTypeSelected === 'Checkbox'
+    ">
+        <div class="label">
+          <label>Answer</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="valueans" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
+          <ng-container
+            *ngIf="questionTypeSelected === 'Radio'; else checkboxBlock"
+          >
+            <p-radioButton
+              [(ngModel)]="answer"
+              [value]="choices[i]"
+              required
+            ></p-radioButton>
+          </ng-container>
+          <ng-template #checkboxBlock>
+            <p-checkbox
+              [(ngModel)]="answer"
+              [value]="choices[i]"
+            ></p-checkbox>
+          </ng-template>
+
+          <label for="answer{{ i }}" class="title">{{ letter }}</label>
+        </div>
+      </div>
+
+      
+
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="Newschedule-button">
+        <div class="Cancelbutton">
+          <p-button [outlined]="true" (onClick)="cancelQuestionView()">
+            <label class="cancel-word"> Cancel </label>
+          </p-button>
+        </div>
+        <div class="Createbutton">
+          <p-button (click)="updateQuestionView()">
+            <label class="Create-word"> Update </label>
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

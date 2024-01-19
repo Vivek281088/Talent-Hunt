@@ -1,0 +1,111 @@
+<div class="wholepage">
+  <div class="header">
+    <div class="header-design">
+      <p>{{fileName}}</p>
+
+      <p-paginator
+        id="paginator-design"
+        *ngIf="totalQuestions !== undefined"
+        (onPageChange)="onPageChange($event)"
+        [first]="first"
+        [rows]="rows"
+        [totalRecords]="totalQuestions"
+      ></p-paginator>
+
+      <div class="duration">
+        <i class="pi pi-clock"></i>
+        <p>Duration:{{ formatTime(remainingTime) }}</p>
+      </div>
+
+      <!-- <div class="button-designs">
+        <p-button label="Exit Session" (click)="exit()"></p-button>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="body">
+    <p-splitter [style]="{ height: '450px' }" styleClass="mb-5">
+      <ng-template pTemplate>
+        <div class="flex question-display">
+          <div class="question-design">
+            {{ previewOptions[page]?.question }}
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate>
+        <div class="select-size">
+          <div
+            *ngFor="let option of previewOptions[page].options; let i = index"
+            class="option"
+            [ngClass]="{
+              selected: selectedOptions1[page][i],
+              'option-background': selectedBox[page] === i + 1
+            }"
+            (click)="selectOption(option, page, i)"
+          >
+            <input
+              [type]="
+                previewOptions[page]?.questionType === 'Checkbox'
+                  ? 'checkbox'
+                  : 'radio'
+              "
+              [name]="
+                previewOptions[page]?.questionType === 'Checkbox'
+                  ? 'checkboxGroup' + page
+                  : 'radioGroup' + page
+              "
+              [id]="'option' + page + '-' + i"
+              [value]="option"
+            />
+            <div
+              class="whole-option"
+              [ngClass]="{ 'option-background': selectedBox[page] === i + 1 }"
+              (click)="toggleColor(i + 1, page)"
+            >
+              <label class="box-design" [for]="'option' + page + '-' + i">{{
+                getLabel(i)
+              }}</label>
+              <div class="optionDiv">
+                <span class="option-content">{{ option }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-splitter>
+  </div>
+</div>
+
+<div class="footer-submit">
+  <div class="previewnext">
+    <p-button
+      [disabled]="page == 0"
+      icon="pi pi-chevron-left"
+      label="prev"
+      (click)="prev()"
+    ></p-button>
+
+    <p-chip id="chip-design"> {{ page + 1 }}/{{ totalQuestions }}</p-chip>
+
+    <p-button
+      [disabled]="page == totalQuestions - 1"
+      icon="pi pi-chevron-right"
+      label="next"
+      iconPos="right"
+      (click)="next()"
+    ></p-button>
+  </div>
+  <div class="submitbutton">
+    <p-toast></p-toast>
+    <p-button (click)="confirmPosition('top')" label="Submit"></p-button>
+  </div>
+</div>
+
+<p-confirmDialog
+  class="confirm-design"
+  [style]="{ width: '40vw' }"
+  key="positionDialog"
+  [position]="position"
+  rejectButtonStyleClass=""
+></p-confirmDialog>
