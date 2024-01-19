@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 16px;
+  padding: 1.5%;
 
   ::ng-deep {
     .p-datatable .p-sortable-column .p-sortable-column-icon {
@@ -31,7 +31,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-bottom: 16px;
+  padding-bottom: 1.5%;
 }
 .manageManagers-header-1 {
   display: flex;
@@ -79,12 +79,10 @@
 .new-schedule-header-2 {
   display: flex;
   justify-content: end;
-  align-items: center;
-  padding: 16px 16px 5px 16px;
+  align-items: end;
+  padding: 1.5%;
   .date {
     text-align: center;
-    width: 86px;
-    height: 19px;
     color: #00000061;
     font-family: "Avenir", sans-serif;
   }
@@ -102,23 +100,35 @@
 .manager-header {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  gap: 4%;
 }
 .manager-header1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 80%;
+  width: 100%;
+}
+.manager-header-2 {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+  width: 20%;
 }
 .searchIcon {
-  width: 174px;
-  height: 44px;
+  height: 92%;
   border-radius: 4px;
   //searchIcon
 
-  ::ng-deep i {
-    margin-top: -7px !important;
-  }
+  //   ::ng-deep i {
+  //     margin-top: -7px !important;
+  //   }
+}
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
 }
 ::ng-deep {
   .p-inputtext:enabled:hover {
@@ -135,9 +145,8 @@
       width: 1rem;
     }
     .p-fluid .p-multiselect {
-      width: 174px;
-      height: 44px;
-      border-radius: 4px;
+      width: 125%;
+      border-radius: 8px;
       gap: 8px;
       background: #efefef;
       border: none;
@@ -150,10 +159,8 @@
 }
 
 .clear-button {
-  height: 44px;
-  padding: 6px, 6px, 6px, 8px;
-  border-radius: 4px;
-  border: 1px;
+  height: 95%;
+  border-radius: 8px;
   color: #c81a78;
   border: 1px solid #c81a78;
   background: white;
@@ -166,65 +173,15 @@
     box-shadow: none;
   }
 }
-.icons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-.custom-file-input {
-  border: 1px solid #652d90;
-  border-radius: 8px;
-  padding: 1.5% 1% 1.5% 2%;
-  height: fit-content;
-  background: #652d90;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
-}
-::ng-deep {
-  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    border-color: #652d90;
-    color: #652d90;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-    box-shadow: none;
-  }
-  .p-datatable .p-datatable-thead > tr > th {
-    padding: 1rem 1rem 1rem 1rem;
-  }
-}
-.instruction {
-  font-size: 16px;
-  font-family: "Poppins";
-  font-weight: 400;
-  color: #00000099;
-  padding: 2% 0% 2% 0%;
-}
-.quiz-instruction {
-  padding-bottom: 5%;
-}
-.points {
-  font-family: "Roboto";
-  color: #00000099;
-  font-weight: 400;
-  padding-left: 4%;
-  li {
-    padding-bottom: 1%;
-  }
-}
 
-.addmanager {
+.addcandidate {
   ::ng-deep .p-button {
     color: #ffffff;
     background: #652d90;
     border: 1px solid #652d90;
     height: 95%;
+    border-radius: 8px;
+    text-align: center;
     &:hover {
       color: #ffffff;
     }
@@ -237,21 +194,9 @@
 .EmployeeId {
   color: #1666dc !important;
 }
-.managernamedesign {
+.candidatenamedesign {
   cursor: pointer;
   color: #1666dc !important;
-}
-.customoverlay {
-  display: flex;
-  width: 20%;
-  flex-direction: column;
-  align-items: baseline;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0px 11px 15px 0px rgba(179, 171, 186, 0.2),
-    0px 9px 46px 0px rgba(179, 171, 186, 0.12),
-    0px 24px 38px 0px rgba(179, 171, 186, 0.14);
-  padding: 16px;
 }
 
 .newSchedule-Dialog {
@@ -261,13 +206,12 @@
       font-weight: 500;
       color: #1e22aa;
     }
-
     .p-dialog .p-dialog-header {
       padding: 1rem;
       border-bottom: 1px solid #0000001f;
     }
     .p-dialog .p-dialog-content {
-      padding: 0 ;
+      padding: 0 1.5rem 2rem 1rem;
       border-bottom: 2px solid #0000001f;
     }
     .p-inputtext {
@@ -279,7 +223,7 @@
       width: 100%;
     }
     .p-dialog {
-      height: 65%;
+      max-height: 75%;
     }
 
     .p-dialog .p-dialog-footer {
@@ -309,106 +253,15 @@
     }
   }
 }
-.tabview-button {
-  display: inline-flex;
-  flex-direction: row;
-  border-radius: 4px;
-  border: 1px;
-  padding: 4% 0% 2% 0%;
-  gap: 200%;
 
-  .Cancelbutton {
-    ::ng-deep {
-      .p-button {
-        height: 87%;
-        background: transparent;
-        border: 1px solid #652d90;
-        outline: none;
-        color: #652d90;
-      }
-      .p-button:focus {
-        box-shadow: none;
-      }
-    }
-  }
-
-  .Createbutton {
-    ::ng-deep {
-      .Create-word {
-        cursor: pointer;
-      }
-      .p-button {
-        height: 87%;
-        background: transparent;
-        border: 1px solid #652d90;
-        outline: none;
-      }
-      .p-button:focus {
-        box-shadow: none;
-      }
-      .p-ripple {
-        overflow: hidden;
-        position: relative;
-        background: #652d90;
-        color: #ffffff;
-        text-align: center;
-      }
-    }
-  }
-}
-.tabview-button-upload {
-  display: inline-flex;
-  flex-direction: row;
-  border-radius: 4px;
-  border: 1px;
-  padding: 4% 0% 2% 0%;
-  gap: 8%;
-  width: 100%;
-
-  .Cancelbutton {
-    ::ng-deep {
-      .p-button {
-        height: 87%;
-        background: transparent;
-        border: 1px solid #652d90;
-        outline: none;
-        color: #652d90;
-      }
-      .p-button:focus {
-        box-shadow: none;
-      }
-    }
-  }
-
-  .Createbutton {
-    ::ng-deep {
-      .Create-word {
-        cursor: pointer;
-      }
-      .p-button {
-        height: 87%;
-        background: transparent;
-        border: 1px solid #652d90;
-        outline: none;
-      }
-      .p-button:focus {
-        box-shadow: none;
-      }
-      .p-ripple {
-        overflow: hidden;
-        position: relative;
-        background: #652d90;
-        color: #ffffff;
-        text-align: center;
-      }
-    }
-  }
-}
 .Newschedule-button {
-  display: inline-flex;
+  margin-top: 10px;
+  display: flex;
   flex-direction: row;
   border-radius: 4px;
   border: 1px;
+  justify-content: end;
+  // justify-content: flex-end;
   .Cancelbutton {
     ::ng-deep {
       .p-button {
@@ -445,6 +298,37 @@
         color: #ffffff;
         text-align: center;
       }
+      .p-button .p-button-icon-left {
+        display: none;
+      }
+    }
+    .uploadButton{
+      ::ng-deep .p-button {
+        height: 87%;
+      }
     }
   }
+}
+.custom-file-input{
+    border: 1px solid #652d90;
+    border-radius: 8px;
+    padding: 1.5% 1% 1.5% 2%;
+    height: fit-content;
+    background: #652d90;
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.checkboxcell {
+  input[type="checkbox"]:checked {
+    background-color: #652d90;
+    color: white;
+  }
+}
+.custom-checkbox {
+  margin-top: 35%;
+  transform: scale(1.4);
+  width: 100%;
+  margin-left: 25%;
 }

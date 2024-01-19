@@ -209,7 +209,7 @@ export class Dash1Component implements OnInit {
       console.log('response', dataToSave);
 
       this.skillsdropdownservice
-        .postquestions(dataToSave)
+        .postNewSchedule(dataToSave)
         .subscribe((response) => {
           console.log('Questions', response);
         });

@@ -27,13 +27,15 @@ import { DatePipe } from '@angular/common';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
 
-import { CandidateTableComponent } from './candidate-table/candidate-table.component';
-
 import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 
 import { BodyComponent } from './modules/body/body.component';
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
+import { ManageCandidatesComponent } from './modules/manage-candidates/manage-candidates.component';
+import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.component';
+import { CandidateProfileComponent } from './modules/candidate-profile/candidate-profile.component';
+import { ManagerProfileComponent } from './modules/manager-profile/manager-profile.component';
 
 
 
@@ -57,12 +59,15 @@ import { ManageManagersComponent } from './modules/manage-managers/manage-manage
     ProfileDialogComponent,
     SidenavbarComponent,
     AssessmentTableComponent,
-    CandidateTableComponent,
     CandidatequestionComponent,
 
     BodyComponent,
       NewScheduleComponent,
       ManageManagersComponent,
+      ManageCandidatesComponent,
+      ManageSkillsComponent,
+      CandidateProfileComponent,
+      ManagerProfileComponent,
   ],
   imports: [
     BrowserModule,

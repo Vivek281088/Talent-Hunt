@@ -28,7 +28,6 @@ export class ManagernameService {
   finalizedManagerEmail!: string;
 
   userEmail!: string;
-  
 
   constructor(private http: HttpClient) {}
 
@@ -48,10 +47,117 @@ export class ManagernameService {
     return this.http.get<any>(endpoint);
   }
 
-  postManagerList(name: String): Observable<any> {
+  postClientManager(
+    employeeId: number,
+    managerName: string,
+    email: string,
+    phone: number,
+    department: string,
+    location: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      empid: employeeId,
+      managerName: managerName,
+      email: email,
+      phone: phone,
+      department: department,
+      manager_location: location,
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
+      body,
+      { headers }
+    );
+  }
+
+  addCandidate(
+    candidateName: string,
+    email: string,
+    phone: number,
+    empid: number,
+    department?: string,
+    location?: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateName: candidateName,
+      email: email,
+      phone: phone,
+      empid: empid,
+      department: department !== undefined ? department : '--',
+      candidate_location: location !== undefined ? location : '--',
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
+      body,
+      { headers }
+    );
+  }
+
+  updateCandidate(
+    candidateName: string,
+    email: string,
+    phone: number,
+    empid: number,
+    department?: string,
+    location?: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateName: candidateName,
+      candidateEmail: email,
+      candidatePhone: phone,
+      empid: empid,
+      department: department !== undefined ? department : '--',
+      candidate_location: location !== undefined ? location : '--',
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_CandidateDetails',
+      body,
+      { headers }
+    );
+  }
+
+  updateManagerDetails(
+    managerName: string,
+    email: string,
+    phoneNo: number,
+    empid: number,
+    department: string,
+    managerLocation: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      managerName: managerName,
+      email: email,
+      phoneNo: phoneNo,
+      empid: empid,
+      department: department,
+      managerLocation: managerLocation,
+    };
+    console.log('Updated data :', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_ManagerDetail',
+      body,
+      { headers }
+    );
+  }
+
+  //To get Manager profile Data
+  postManagerName(name: String): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { Managername: name };
-    return this.http.post<any>(this.managerNameUrl + '/select-manager', body, {
+    return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/managerProfile', body, {
+      headers,
+    });
+  }
+
+  //to get candidate Profile Data
+  postCandidateEmail(email: String): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = { candidateEmail: email };
+    return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidateProfile', body, {
       headers,
     });
   }
@@ -83,6 +189,7 @@ export class ManagernameService {
   }
 
   // Posting questions to database
+
   postquestionstodb(
     question: String,
     selectedquestionType: String,
@@ -99,7 +206,6 @@ export class ManagernameService {
       skills: chosenSkill,
       Difficulty_Level: selecteddifficultyType,
       answer: selectedAnswer,
-      // mcqanswer: selectedAnswers
     };
     console.log('Post Question Data', body);
     return this.http.post<any>(
@@ -125,7 +231,6 @@ export class ManagernameService {
   getFinalizedQuestions(): any[] {
     return this.finalizedQuestions;
   }
-
 
   setDuration(duration: number) {
     this.duration = duration;

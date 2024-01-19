@@ -46,23 +46,23 @@ export class NewScheduleComponent {
   duration!: string | number | null;
   skill!: string | null;
   questions = [];
-  public selectedquestions: any[] = [];
+  selectedquestions: any[] = [];
   FinalizedQuestions: any[] = [];
   selectedQuestionCount!: number;
   visible: boolean = false;
   questionPreviewvisible: boolean = false;
-  previewSidebarVisible : boolean = false;
+  previewSidebarVisible: boolean = false;
   visible1: boolean = false;
   ischecked: boolean = true;
   slectedquestionforedit: any;
   TotalQuestions: any[] = [];
   managerOption: any[] = [];
   singleQuestion: any;
-  singleQuestionOption : any
-  singleQuestionAnswer : any;
-  QuestionView:boolean=false;
-  question!:string;
-  isEditSchedule:boolean=false;
+  singleQuestionOption: any;
+  singleQuestionAnswer: any;
+  QuestionView: boolean = false;
+  question!: string;
+  isEditSchedule: boolean = false;
 
   // @ViewChild('yourTable')yourTable:Table | undefined;
 
@@ -181,11 +181,9 @@ export class NewScheduleComponent {
         });
     }
     localStorage.removeItem('boolean');
-
-
   }
   trackByFn(_index: any, item: { id: any }) {
-    return item.id; 
+    return item.id;
   }
 
   loadManagerNames() {
@@ -200,11 +198,11 @@ export class NewScheduleComponent {
     console.log('loop entered');
 
     if (question.selection) {
-      this.selectedquestions.push(question);
+      this.selectedquestions.push(question.id);
       console.log('Selected Questions:', this.selectedquestions);
     } else {
       this.selectedquestions = this.selectedquestions.filter(
-        (selected) => selected !== question
+        (selected) => selected !== question.id
       );
       console.log('Selected Questions:', this.selectedquestions);
     }
@@ -215,6 +213,7 @@ export class NewScheduleComponent {
   count!: number;
 
   async saveSelected() {
+    this.scheduleMessage();
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
     console.log('Final', this.FinalizedQuestions);
@@ -244,90 +243,90 @@ export class NewScheduleComponent {
       console.log('response', dataToSave);
 
       this.skillsdropdownservice
-        .postquestions(dataToSave)
+        .postNewSchedule(dataToSave)
         .subscribe((response) => {
           console.log('Questions', response);
-          this.router.navigate(['/dashboard']);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1500);
         });
     } catch (error) {
       console.error(error);
     }
   }
   //  let increment=0;
-  
-  selectAllQuestions(tab: any) {
-    let increment=0
-    if (tab && tab.content) {
-      tab.content.forEach((question: any) => {
-      //   question.selection = true;
-      if(!question.selection){
-        question.selection=true;
-        increment++;
-        
-        this.selectedquestions.push(question);
 
+  // selectAllQuestions(tab: any) {
+  //   console.log("select all",this.selectedquestions)
+  //   let increment=0
+  //   if (tab && tab.content) {
+  //     tab.content.forEach((question: any) => {
+  //     //   question.selection = true;
+  //     if(!question.selection){
+  //       question.selection=true;
+  //       increment++;
+
+  //       this.selectedquestions.push(question);
+
+  //     }
+  //     else{
+  //       if (question.selection) {
+  //         question.selection = false;
+
+  //         increment--;
+
+  //         const index = this.selectedquestions.findIndex(
+  //           (selectedQuestion) => selectedQuestion.id === question.id
+  //         );
+
+  //         if (index !== -1) {
+  //           this.selectedquestions.splice(index, 1); // Remove the question from the selectedQuestions array
+  //         }
+  //       }
+
+  //     }
+  //     this.count+=increment;
+
+  //     if(this.count<0){
+  //       this.count=0
+  //     }
+
+  //     });
+  //     this.selectedQuestion = tab.content;
+  //     console.log(' tab content ', tab.content);
+  //   }
+  // }
+  selectQuestions(tabs: any) {
+    tabs.forEach((question: any) => {
+      if (!question.selection) {
+        question.selection = true;
+        this.selectedquestions.push(question.id);
       }
-      else{
-        if (question.selection) {
-          question.selection = false;
-
-          increment--;
-
-          const index = this.selectedquestions.findIndex(
-            (selectedQuestion) => selectedQuestion.id === question.id
-          );
-
-          if (index !== -1) {
-            this.selectedquestions.splice(index, 1); // Remove the question from the selectedQuestions array
-          }
-        }
-
-      }
-      this.count+=increment;
-      let a=this.count
-      localStorage.setItem("a",JSON.stringify(this.count))
-
-      if(this.count<0){
-        this.count=0
-      }
-
-      });
-      this.selectedQuestion = tab.content;
-      console.log(' tab content ', tab.content);
-    }
+    });
+    console.log('select all Questions', this.selectedquestions);
   }
 
-  selectQuestions(tabs: any){
-    tabs.forEach((question: any) => {
-      
-      if(!question.selection){
-        question.selection=true;
-this.selectedquestions.push(question);
-
-
-    
+  unselectAllQuestions(questions: any) {
+    const duplicateQuestions = this.selectedquestions;
+    for (let i = 0; i < questions.length; i++) {
+      if (questions[i].selection) {
+        questions[i].selection = false;
       }
-      
-
-        
-
-      }
-      
-    )
-    console.log("qwertyuuiii",this.selectedquestions);
     }
-     
-      
-  unselectAllQuestions(tab: any) {
-    if (tab && tab.content) {
-      tab.content.forEach((question: any) => {
-        question.selection = false;
-        // this.selectedquestions = [];
-      });
-      // this.selectedQuestion = [];
-      this.selectedquestions = [];
+    const questionIds = questions.map((item: { id: any; }) => item.id);
+    this.selectedquestions = duplicateQuestions.filter(
+      (question) => !questionIds.includes(question)
+    );
+    console.log('un select all ', this.selectedquestions);
+  }
+  scheduleMessage() {
+    this.messageService.add({
+      severity: 'success',
 
-    }
+      summary: 'Success',
+
+      detail: 'Schedule saved Successfully',
+    });
   }
   showUpdateMessage() {
     this.messageService.add({
@@ -402,44 +401,47 @@ this.selectedquestions.push(question);
     }
   }
   // questionType!:any
-  choices!:any
-  choice1!:any
-  choice2!:any
-  choice3!:any
-  choice4!:any
-  options! : any;
-  Difficulty_Level!:any
-  id!:any
-  answer!:any
-  skills!:any
-  difficultyLevel: any= ['Easy', 'Medium', 'Hard'];
+  choices!: any;
+  options!: any;
+  Difficulty_Level!: any;
+  id!: any;
+  answer!: any;
+  skills!: any;
+  difficultyLevel: any = ['Easy', 'Medium', 'Hard'];
 
   questionType: any = ['Radio', 'Checkbox', 'Text'];
-  questionTypeSelected!:any
-  isViewingQuestion:boolean=false
+  questionTypeSelected!: any;
+  isViewingQuestion: boolean = false;
 
-  individualQuestionView(id:any,question:any,questionTypeSelected:any,choices:any,skills:any,Difficulty_Level:any,answer:any){
-    this.QuestionView=true
-    this.id=id
-    this.question=question
-    this.questionTypeSelected=questionTypeSelected
+  individualQuestionView(
+    id: any,
+    question: any,
+    questionTypeSelected: any,
+    choices: any,
+    skills: any,
+    Difficulty_Level: any,
+    answer: any
+  ) {
+    this.QuestionView = true;
+    this.id = id;
+    this.question = question;
+    this.questionTypeSelected = questionTypeSelected;
     // this.options=choices;
-    this.choices=choices;
-    // this.choice1=choices[0]
-    // this.choice2=choices[1]
-    // this.choice3=choices[2]
-    // this.choice4=choices[3]
-    this.Difficulty_Level=this.getBackendDifficultyLevelViceVersa(
-      Difficulty_Level
+    this.choices = choices;
+
+    this.Difficulty_Level =
+      this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
+    this.skills = skills;
+    this.answer = answer;
+
+    console.log(
+      'id------------->',
+      id,
+      skills,
+      answer,
+      this.Difficulty_Level,
+      choices
     );
-    this.skills=skills
-    this.answer=answer
-   
-    console.log("id------------->",id,skills,answer,this.Difficulty_Level,choices)
-    
-
-
-
   }
   getBackendDifficultyLevelViceVersa(frontendValue: string): string {
     if (frontendValue === 'E') {
@@ -462,25 +464,34 @@ this.selectedquestions.push(question);
     }
     return frontendValue;
   }
-  updateQuestionView(){
+  updateQuestionView() {
     this.showUpdateMessage();
-    console.log("dd=>>>>>>>>>>>>>>>>>>",this.difficultyLevel)
-   this.difficultyLevel=this.getBackendDifficultyLevel(this.Difficulty_Level)
-    this.skillsdropdownservice.updateQuestion(this.id,this.question,this.questionTypeSelected,this.choices,this.skills,this.difficultyLevel,this.answer).subscribe((response)=>{
-
-                console.log("updateQuestionView response",response)
-                setTimeout(()=>{
-                  this.QuestionView=false;
-                  window.location.reload();
-                },1000);
-                
-    })
-
+    console.log('dd=>>>>>>>>>>>>>>>>>>', this.difficultyLevel);
+    this.difficultyLevel = this.getBackendDifficultyLevel(
+      this.Difficulty_Level
+    );
+    this.skillsdropdownservice
+      .updateQuestion(
+        this.id,
+        this.question,
+        this.questionTypeSelected,
+        this.choices,
+        this.skills,
+        this.difficultyLevel,
+        this.answer
+      )
+      .subscribe((response) => {
+        console.log('updateQuestionView response', response);
+        setTimeout(() => {
+          this.QuestionView = false;
+          window.location.reload();
+        }, 1000);
+      });
   }
-  cancelQuestionView(){
-    this.QuestionView=false
+  cancelQuestionView() {
+    this.QuestionView = false;
   }
-  cancelButton(){
+  cancelButton() {
     this.router.navigate(['/dashboard']);
     // scheduleName manager cutoff duration
     // localStorage.removeItem("scheduleName")
@@ -493,12 +504,17 @@ this.selectedquestions.push(question);
     this.visible = true;
     this.isEditSchedule = true;
   }
-  
-  update(scheduleName: string | null,manager: String | null,cutOff: string | number | null,duration: string | number | null){
-    this.scheduleName=scheduleName
-    this.manager=manager
-    this.cutOff=cutOff
-    this.duration=duration
+
+  update(
+    scheduleName: string | null,
+    manager: String | null,
+    cutOff: string | number | null,
+    duration: string | number | null
+  ) {
+    this.scheduleName = scheduleName;
+    this.manager = manager;
+    this.cutOff = cutOff;
+    this.duration = duration;
     this.router.navigate(['new-schedule']);
     this.visible = false;
     console.log('hi');
@@ -507,7 +523,7 @@ this.selectedquestions.push(question);
   questionPreview(questions: any) {
     this.questionPreviewvisible = true;
     this.singleQuestion = questions.question;
-    this.singleQuestionOption = questions.options
+    this.singleQuestionOption = questions.options;
     this.singleQuestionAnswer = questions.answer;
   }
 
@@ -515,14 +531,11 @@ this.selectedquestions.push(question);
     this.questionPreviewvisible = false;
   }
 
-  onPreviewClick(){
-    
-      this.previewSidebarVisible = true;
-    
-    
+  onPreviewClick() {
+    this.previewSidebarVisible = true;
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log("Function Working")
+    console.log('Function Working');
     if (option.includes(selected_Option)) {
       console.log('correct answer');
       return 'correctAnswer';

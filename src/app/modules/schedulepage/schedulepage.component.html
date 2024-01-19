@@ -44,11 +44,11 @@
                   <input
                     pInputText
                     type="text"
-                    (input)="
-                      dt2.filterGlobal($any($event.target).value, 'contains')
-                    "
                     placeholder="Search"
+                    [(ngModel)]="globalSearchValue"
+                    (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
                   />
+                  
                   <i class="pi pi-search"></i>
                 </span>
                 <div class="managerMultiselect">
@@ -97,6 +97,7 @@
                         [options]="skillSet"
                         placeholder="Skills"
                         (onChange)="filter($event.value)"
+                        appendTo="body"
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
@@ -110,7 +111,7 @@
                 <div class="ml-3">
                   <button
                     class="clear-button cursor-pointer"
-                    (click)="onSearchClick(dt2)"
+                    (click)="onClearClick(dt2)"
                   >
                     Clear Filter
                   </button>
@@ -158,8 +159,7 @@
                           <div class="value">
                             <p-dropdown
                               [options]="managerData"
-                              placeholder=""
-                              optionLabel=""
+                              placeholder="--Select Manager--"
                               [(ngModel)]="manager"
                               appendTo="body"
                             ></p-dropdown>
@@ -172,7 +172,9 @@
                             <span class="important-symbol">&#42;</span>
                           </div>
                           <div class="value">
-                            <p-multiSelect [options]="skillSet" [(ngModel)]="selectedSkills" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
+                            <p-multiSelect [options]="skillSet"
+                             placeholder="--Select Skill--"
+                            [(ngModel)]="selectedSkills" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
                           </div>
                         </div>
 
@@ -269,6 +271,7 @@
               +
               <p-overlayPanel #op>
                 <ul
+                style="list-style-type: none;"
                   *ngFor="
                     let skill of remainaingSkills(
                       rowData.Skill,
@@ -277,7 +280,7 @@
                   "
                 >
                   <li>
-                    {{ skill }}
+                    <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
                   </li>
                 </ul>
               </p-overlayPanel>
@@ -397,68 +400,68 @@
       </ng-template>
     </p-table>
   </div>
+</div>
 
-  <div class="questionsidebar">
-    <p-sidebar
-      [(visible)]="viewQuestionSidebar"
-      position="right"
-      [modal]="false"
-    >
-      <ng-template class="header_design" pTemplate="header"
-        >Quiz Preview
-        
-        </ng-template
-      >
-      <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
-         
-        <span *ngFor="let question of FinalizedQuestions ; let j = index">
-          <div class="question-design">{{j+1}}. {{ question.question }}</div>
-  
-          <div class="select-size">
-            <div
-              *ngFor="let option of question.options; let i = index"
-              class="option"
-              [ngClass]="getSelectedOptions(question.answer, option)"
-            >
-              <!-- <input type="radio" name="first" id="small" />
-              <label class="box-design" for="small">A</label>
-              <span class="option-content">{{ preview.options[0] }}</span> -->
-              <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
-              <label class="box-design" [for]="'option' + question + '-' + i">{{
-                getLabel(i)
-              }}</label>
-  
-              <span class="option-content">{{ option }}</span>
-            </div>
-          </div>
-  
-        </span>
-  
-        <div class="btnfooter">
-          <div class="quiz-instruction">
-  
-            <p class="instruction">Quiz Instructions</p>
-            <ul class="points">
-              <li>Manager approval mandatory </li>
-              <li>Automatic email will be triggered for every status change of the request</li>
-              <li>Approval is the permission to go to Office</li>
-            </ul>
-  
-          </div>
-          <div class="sidebarbuttons">
-            <div class="custom_button_send">
-              <p-button label="Close"></p-button>
-            </div>
-  
-          </div>
-          
-        </div>
-  
-  
-      </ng-template>
+<div class="questionsidebar">
+  <p-sidebar
+    [(visible)]="viewQuestionSidebar"
+    position="right"
+    [modal]="false"
+  >
+    <ng-template class="header_design" pTemplate="header"
+      >Quiz Preview
       
-    </p-sidebar>
-  </div>
+      </ng-template
+    >
+    <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
+       
+      <span *ngFor="let question of FinalizedQuestions ; let j = index">
+        <div class="question-design">{{j+1}}. {{ question.question }}</div>
+
+        <div class="select-size">
+          <div
+            *ngFor="let option of question.options; let i = index"
+            class="option"
+            [ngClass]="getSelectedOptions(question.answer, option)"
+          >
+            <!-- <input type="radio" name="first" id="small" />
+            <label class="box-design" for="small">A</label>
+            <span class="option-content">{{ preview.options[0] }}</span> -->
+            <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
+            <label class="box-design" [for]="'option' + question + '-' + i">{{
+              getLabel(i)
+            }}</label>
+
+            <span class="option-content">{{ option }}</span>
+          </div>
+        </div>
+
+      </span>
+
+      <div class="btnfooter">
+        <div class="quiz-instruction">
+
+          <p class="instruction">Quiz Instructions</p>
+          <ul class="points">
+            <li>Manager approval mandatory </li>
+            <li>Automatic email will be triggered for every status change of the request</li>
+            <li>Approval is the permission to go to Office</li>
+          </ul>
+
+        </div>
+        <div class="sidebarbuttons">
+          <div class="custom_button_send">
+            <p-button label="Close" (onClick)="closeSidebar()"></p-button>
+          </div>
+
+        </div>
+        
+      </div>
+
+
+    </ng-template>
+    
+  </p-sidebar>
 </div>
 
 

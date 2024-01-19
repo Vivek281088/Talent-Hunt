@@ -58,7 +58,7 @@ export class LoginComponent implements OnDestroy {
     });
   }
   forgotpassword() {
-    this.router.navigate(['forgotpassword']);
+    this.router.navigate(['signup']);
   }
  
   sign() {

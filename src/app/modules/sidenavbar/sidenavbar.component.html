@@ -126,6 +126,7 @@
               id="manageCandidates"
               [class.active]="activeSublist === 'manageCandidates'"
               (click)="changeSublist('manageCandidates','user')"
+              [routerLink]="['/manage-candidates']"
             >
               <svg
                 width="24"
@@ -144,7 +145,7 @@
                   stroke-opacity="0.6"
                 />
               </svg>
-              <a href="#">Manage Candidates</a>
+              <a>Manage Candidates</a>
             </li>
           </ul>
         </span>
@@ -154,6 +155,7 @@
           [class.active]="activeSection === 'question_bank'"
           (click)="changeStyle('question_bank')"
           (click)="changeStyle3()"
+          
         >
           <i class="pi pi-book"></i>
           <p>Question Bank</p>
@@ -165,6 +167,7 @@
               id="manageSkills"
               [class.active]="activeSublist === 'manageSkills'"
               (click)="changeSublist('manageSkills','question_bank')"
+              [routerLink]="['/manage-skills']"
             >
               <svg
                 width="24"
@@ -184,10 +187,10 @@
                 />
               </svg>
   
-              <a href="#">Manage Skills</a>
+              <a >Manage Questions</a>
             </li>
   
-            <li
+            <!-- <li
               id="manageQuestions"
               [class.active]="activeSublist === 'manageQuestions'"
               (click)="changeSublist('manageQuestions','question_bank')"
@@ -210,11 +213,11 @@
                 />
               </svg>
               <a href="#">Manage Questions</a>
-            </li>
+            </li> -->
           </ul>
         </span>
   
-        <li
+        <!-- <li
           id="system"
           [class.active]="activeSection === 'system'"
           (click)="changeStyle('system')"
@@ -277,7 +280,7 @@
               <a href="#">Configuration</a>
             </li>
           </ul>
-        </span>
+        </span> -->
       </ul>
   
       <ul class="ul2">

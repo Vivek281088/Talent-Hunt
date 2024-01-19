@@ -7,10 +7,10 @@ import { AuthService } from 'src/app/Guard/auth.service';
   styleUrls: ['./sidenavbar.component.scss'],
 })
 export class SidenavbarComponent {
-  assessmentShow: boolean = false;
-  userShow: boolean = false;
-  questionBankShow: boolean = false;
-  systemShow: boolean = false;
+  assessmentShow: boolean = true;
+  userShow: boolean = true;
+  questionBankShow: boolean = true;
+  systemShow: boolean = true;
   isSideNavCollapsed: boolean = false;
   activeSection: string = 'home';
   activeSublist: string = '';

@@ -169,11 +169,10 @@ border-bottom: 1px solid #B3ABBA33;
 .overlay-user-info{
 display: flex;
 flex-direction: column;
+padding-top: 2%;
 align-items: flex-start;
 gap: 2px;
 flex: 1 0 0;
-width: 164px;
-height: 32px;
 }
 .overlay-user-name{
 color: var(--On-Surface-High-Emphasis, rgba(0, 0, 0, 0.87));

@@ -56,14 +56,13 @@ export class AssessmentTableComponent {
   skillSet: any[] = [];
   Skill: any;
   managerOption: any[] = [];
-  overlayVisible=false
-  
+  overlayVisible = false;
+  globalSearchValue !: string;
 
-  toggle(){
-    this.overlayVisible=!this.overlayVisible;
+  toggle() {
+    this.overlayVisible = !this.overlayVisible;
   }
- 
-  openEllipsisDialogBox: boolean = false;
+
   todayDate!: string;
 
   // candidateForm !: FormGroup;
@@ -85,8 +84,6 @@ export class AssessmentTableComponent {
     // });
   }
 
-
- 
   ngOnInit() {
     //this.auth.isLoggedIn=true;
 
@@ -104,11 +101,13 @@ export class AssessmentTableComponent {
     this.loadManagerNames();
     this.getSkillSet();
 
-    this.loadCandidate();
+    this.loadCandidateTableData();
     this.getCandidatename();
- 
 
-    this.items = [{ label: 'Home',routerLink:'/login',icon: 'pi pi-home' }, { label: 'Assessment' , routerLink: "dashboard"}];
+    this.items = [
+      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Assessment', routerLink: 'dashboard' },
+    ];
   }
 
   // confirmPosition(position: string) {
@@ -135,46 +134,30 @@ export class AssessmentTableComponent {
   //   });
   // }
 
-getSelectedOptions(selected_Option: any,option: any){
-if(selected_Option.includes(option))
-{
-  console.log("correct answer")
-return "correctAnswer";
-}
-else{
-  return "wrongAnswer";
-}
-}
-
-
-
-
-  // handleEllipsisDialog(){
-  //   this['openEllipsisDialogBox']= true;
-  //     }
-  getResultClass(result : string): string {
-    if(result == "Shortlisted"){
-      return "Shortlisted"
+  getSelectedOptions(selected_Option: any, option: any) {
+    if (selected_Option.includes(option)) {
+      console.log('correct answer');
+      return 'correctAnswer';
+    } else {
+      return 'wrongAnswer';
     }
-    else if(result == "Rejected"){
-      return "Rejected"
-    }else if(result=="Awaiting Eval") {
-      return "Awaiting "
-    }
-    else if(result=="Cancelled") {
-      return "Cancelled"
-    }
-    else  {
-      return "Scheduled"
-    }
-
-
   }
 
-  handleEllipsisDialog() {
-    this.openEllipsisDialogBox = true;
+  getResultClass(result: string): string {
+    if (result == 'Shortlisted') {
+      return 'Shortlisted';
+    } else if (result == 'Rejected') {
+      return 'Rejected';
+    } else if (result == 'Awaiting Eval') {
+      return 'Awaiting ';
+    } else if (result == 'Cancelled') {
+      return 'Cancelled';
+    } else {
+      return 'Scheduled';
+    }
   }
-  
+
+
 
   getFormattedSkills(skills: any): {
     skills: string[];
@@ -206,6 +189,7 @@ else{
   }
   clear(table: Table) {
     table.clear();
+    this.globalSearchValue = '';
   }
 
   getCandidatename(): void {
@@ -230,93 +214,11 @@ else{
     });
   }
 
-  loadCandidate() {
-    const role = localStorage.getItem('userrole');
-    console.log('role', role);
-    if (role == 'user') {
-      this.name = false;
-      this.candidateService
-        .getCandidatedata_by_Email(this.finalizedEmail)
-        .subscribe((response) => {
-          console.log('res', response);
-          this.candidateList = response;
-          console.log('candidateListdata', this.candidateList);
-          this.candidateName = response[0].candidateName;
-          console.log('candidateName', this.candidateName);
-        });
-
-      // localStorage.removeItem('userrole');
-    } else if (role == 'manager') {
-      // localStorage.removeItem('userrole');
-      console.log('manager email--', this.finalizedManagerEmail);
-      this.managernameService
-        .getManagerdata_by_Email(this.finalizedManagerEmail)
-        .subscribe((response) => {
-          console.log('res', response);
-          // this.managerEmail = response[0].Managername;
-
-          // this.managernameService.setManagerName_Email(this.managerEmail);
-
-          // this.candidateName = response[0].candidateName;
-        });
-      this.managernameService.getCandidateStatus().subscribe((data) => {
-        // console.log("arole",a)
-        this.candidateList = data;
-        console.log('Candidate Data', data);
-      });
-      // localStorage.removeItem('userrole');
-    }
-
-    // console.log('load data 1', this.candidateList);
-    // console.log('selected candidate', this.selectedCandidates);
-    // // Loop through selectedCandidates and store data for each candidate
-    // this.selectedCandidates.forEach((selectedCandidate) => {
-    //   // Find the existing candidate data based on the candidateName
-    //   const existingCandidate = this.candidateList.find(
-    //     (candidate) => candidate.candidateName === selectedCandidate
-    //   );
-    //   console.log('matched candidate', existingCandidate);
-
-    //   //rest data
-    //   this.score = null;
-    //   this.result = '';
-    //   const date = Date.now();
-    //   this.candidateId = new Date(date);
-
-    //   //show success message
-    //   // this.showEmailSubmitted();
-
-    //   if (existingCandidate) {
-    //     this.tableService
-    //       .postExistingCandidateDetails(
-    //         this.candidateId,
-    //         this.email_Managername,
-    //         existingCandidate.candidateName,
-    //         existingCandidate.candidateEmail,
-    //         existingCandidate.candidatePhone,
-    //         this.email_Status,
-    //         this.email_Filename,
-    //         this.questions,
-    //         this.score,
-    //         this.result,
-    //         this.cutoff,
-    //         this.durations,
-    //         existingCandidate.password,
-    //         existingCandidate.confirmPassword,
-    //         this.roles,
-    //         this.Skill
-    //       )
-    //       .subscribe((data) => {
-    //         console.log('Stored data for existing candidate:', data);
-    //         //this.candidateName(data);
-    //         this.candidateList.push(data);
-    //       });
-
-    //     setTimeout(() => {
-    //       this.getCandidatename();
-    //     }, 2000);
-    //   }
-    // });
+  loadCandidateTableData(){
+    this.managernameService.getCandidateStatus().subscribe((data) => {
+      this.candidateList = data;
+      console.log('Candidate Data', data);
+    });
   }
 
   loadAssessmentData() {

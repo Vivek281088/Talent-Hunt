@@ -174,6 +174,11 @@
     </div>
     </div>
   </div>
+
+  <div class="questioncount">
+        <label>Selected Questions :</label>
+        <p>{{(selectedquestions && selectedquestions.length) || 0}}</p>
+      </div>
  
  
     <div class="tabview-count">
@@ -203,48 +208,51 @@
         
               <ng-template pTemplate="header">
                 <tr>
-                  <th colspan="2" class="headerSearch">
-                    <div>
-                      <span class="p-input-icon-left searchicon">
-                        <i class="pi pi-search"></i>
-                        <input
-                          pInputText
-                          type="text"
-                          placeholder="Search"
-                          (input)="
-                            dt2.filterGlobal(
-                              $any($event.target).value,
-                              'contains'
-                            )"
-                          />
-                          
-                      </span>
-                    </div>
-                  </th>
-                    <th colspan="4">
-                      <div class="schedulebuttons">
-                        <div class="selectallBtn">
-                          <p-button label="Select All"(click)="selectQuestions(tab.content)"> </p-button>
-                        </div>
-                        <div class="unselectallBtn">
-                          <p-button label="Unselect All"(click)="unselectAllQuestions(tab)" > </p-button>
-                        </div>
-                        <div class="PreviewBtn">
-                          <p-button
-                          label="Preview"
-                          icon="pi pi-eye"
-                          (onClick)="onPreviewClick()"
-                          >
-                           
-                          </p-button>
-                        </div>
+                  <th colspan="6">
+                    <div  class="headerSearch">
+                      <div class="searchbox">
+                        <span class="p-input-icon-left searchicon">
+                          <i class="pi pi-search"></i>
+                          <input
+                            pInputText
+                            type="text"
+                            placeholder="Search"
+                            (input)="
+                              dt2.filterGlobal(
+                                $any($event.target).value,
+                                'contains'
+                              )"
+                            />
+                            
+                        </span>
+
                       </div>
+
+                      <div class="selectallBtn">
+                        <p-button label="Select All"(click)="selectQuestions(tab.content)"> </p-button>
+                      </div>
+                      <div class="unselectallBtn">
+                        <p-button label="Unselect All"(click)="unselectAllQuestions(tab.content)" > </p-button>
+                      </div>
+                      <div class="PreviewBtn">
+                        <p-button
+                        label="Preview"
+                        icon="pi pi-eye"
+                        (onClick)="onPreviewClick()"
+                        >
+                         
+                        </p-button>
+                      </div>
+                      
+                    </div>
+
+                
                     </th>
                   </tr>
                 </ng-template>
  
                 <ng-template pTemplate="body" let-rowData>
-                  <tr>
+                  <tr class="customRow">
                     <td class="checkboxcell">
                       <input type="checkbox" [value]="rowData" [checked]="rowData.selection"  (click)="toggleSelection(rowData)" class="custom-checkbox">
                     </td>
@@ -252,7 +260,7 @@
                     <td class="optiontext">{{ rowData.questionType }}</td>
                     <td class="optiontext">{{ rowData.options.length }} Choices</td>
                     <td class="optiontext">{{ rowData.Difficulty_Level }}</td>
-                    <td>
+                    <!-- <td>
                       <div class="editviewicons">
                         <div class="editIcon">
                           <svg
@@ -288,7 +296,7 @@
                           </svg>
                         </div>
                       </div>
-                    </td>
+                    </td> -->
                   </tr>
                 </ng-template>
               </p-table>
@@ -297,10 +305,7 @@
         </p-tabView>
       </div>
  
-      <div class="questioncount">
-        <label>Selected Questions :</label>
-        <p>{{( selectedquestions.length) }}</p>
-      </div>
+      
     </div>
  
  

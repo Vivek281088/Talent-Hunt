@@ -50,6 +50,7 @@
                     class="searchIcon"
                     pInputText
                     type="text"
+                    [(ngModel)]="globalSearchValue"
                     (input)="
                       dt1.filterGlobal($any($event.target).value, 'contains')
                     "
@@ -198,8 +199,6 @@
           <th>Skills</th>
           <th>Result</th>
           <th>Score(%)</th>
-          <th></th>
-          <th></th>
         </tr>
       </ng-template>
 
@@ -221,6 +220,7 @@
               +
               <p-overlayPanel #op>
                 <ul
+                style="list-style-type: none;"
                   *ngFor="
                     let skill of remainaingSkills(
                       rowData.Skill,
@@ -228,9 +228,9 @@
                     )
                   "
                 >
-                  <li>
-                    {{ skill }}
-                  </li>
+                <li>
+                  <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
+                </li>
                 </ul>
               </p-overlayPanel>
               <p-badge
@@ -253,9 +253,6 @@
           <td>{{ rowData.score }}</td>
 
           
-          <td>
-            <i class="pi pi-ellipsis-h" (click)="handleEllipsisDialog()"></i>
-          </td>
         </tr>
       </ng-template>
     </p-table>

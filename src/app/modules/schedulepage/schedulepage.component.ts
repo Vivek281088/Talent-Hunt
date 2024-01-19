@@ -37,7 +37,7 @@ export class SchedulepageComponent implements OnInit {
   toDate!: any;
   difficultyLevel: string[] = ['Easy', 'Medium', 'Hard'];
   formGroup!: FormGroup;
-  value!: string;
+  // value!: string;
   tables: any[] | undefined;
   cols!: Column[];
   selectedManager: string = '';
@@ -143,7 +143,8 @@ export class SchedulepageComponent implements OnInit {
   roles: string = 'user';
   showcardFlag: boolean = false;
   candidateData: any;
-  managerData:any;
+  managerData: any;
+  globalSearchValue!: string;
 
   // candidateForm !: FormGroup;
   constructor(
@@ -206,14 +207,13 @@ export class SchedulepageComponent implements OnInit {
     skills: string[];
     remainingCount: number;
   } {
-    const maxLength = 15;
+    const maxLength = 16;
 
     let result: string[] = [];
     let totalLength = 0;
 
     for (const skill of skills) {
       if (totalLength + skill.length <= maxLength) {
-        // Include the skill in the result
         result.push(skill);
         totalLength += skill.length;
       } else {
@@ -351,7 +351,6 @@ export class SchedulepageComponent implements OnInit {
         }, 2000);
       }
     });
-    this.showEmailSubmitted();
   }
 
   loadAssessmentData() {
@@ -370,31 +369,9 @@ export class SchedulepageComponent implements OnInit {
   showcard() {
     this.showcardFlag = true;
   }
-  onSearchClick(dt2: Table) {
+  onClearClick(dt2: Table) {
+    this.globalSearchValue = '';
     dt2.clear();
-    // date1!:Date;
-    // // date1!:Date;
-    // this.fromDate=this.datepipe.transform(this.selectedDate[0],'dd-MMM-yy');
-    // this.toDate=this.datepipe.transform(this.selectedDate[1],'dd-MMM-yy');
-    // console.log('date----------------->', this.selecteddates);
-    // this.Skills.push(this.filterSkills)
-    // this.fromDate=this.selectedDate[0];
-    // this.toDate=this.selectedDate[1];
-
-    this.skillsdropdownservice
-      .filterManager(
-        this.filterManager,
-        this.filterSkills,
-        this.fromDate,
-        this.toDate
-      )
-      .subscribe((data) => {
-        console.log('Api response', data);
-        this.filteredData = data;
-        this.Tdata = this.filteredData;
-        console.log('filtered data', this.filteredData);
-        console.log('Filter Skills:', this.filterSkills);
-      });
   }
   existingData() {
     this.tableService.getExistingData().subscribe((data) => {
@@ -409,11 +386,10 @@ export class SchedulepageComponent implements OnInit {
     //   console.log('managernames------------>', this.managerOption);
     // });
     this.managernameService.getclientManagerData().subscribe((response) => {
-      
-      this.managerData = response.map((manager: { managerName: string; })=>manager.managerName);
+      this.managerData = response.map(
+        (manager: { managerName: string }) => manager.managerName
+      );
       console.log('Client Manager Details', this.managerData);
-  
-      
     });
   }
   sendQuestions(data: any) {
@@ -437,16 +413,14 @@ export class SchedulepageComponent implements OnInit {
   cancelButton() {
     this.visible = false;
     this.resetData();
+    console.log('Manager after cancel', this.manager);
   }
-  resetData(){
-      this.scheduleName='';
-    this.manager='';
-    this.selectedSkills=[];
-    
+  resetData() {
+    this.scheduleName = '';
+    // this.managerData=[]
+    this.manager = '';
+    this.selectedSkills = [];
   }
-  // createButton(scheduleName:string,manager:string,selectedSkill:string,cutOff:number,duration:number){
-  // this.router.navigate(['new-schedule'],this.scheduleName,this.manager,this.selectedSkill,this.cutOff,this.duration)
-  // console.log("recieved",scheduleName,manager,selectedSkill,cutOff,duration)
   createButton() {
     // this.sendData();
     console.log('sended');
@@ -613,70 +587,13 @@ export class SchedulepageComponent implements OnInit {
     // Reset the form data
   }
   //view icon
+
+  closeSidebar(){
+    this,this.viewQuestionSidebar=false;
+  }
   onViewClick(ManagerName: string, JobDescription: string) {
     this.viewQuestionSidebar = true;
-    // this.FinalizedQuestions = [
-    //   {
-    //     id: 1,
-    //     question:
-    //       'Which of the following is not a functional interface in Java 8?',
-    //     questionType: 'Single Answer',
-    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-    //     skills: 'Java-8',
-    //     Difficulty_Level: 'Intermediate',
-    //     answer: ['Comparator'],
-    //   },
-    //   {
-    //     id: 2,
-    //     question:
-    //       'Which is the new method introduced in the String class in Java 8?',
-    //     questionType: 'Multi Answer',
-    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-    //     skills: 'Java-8',
-    //     Difficulty_Level: 'Expert',
-    //     answer: ['Comparator'],
-    //   },
-    //   {
-    //     id: 3,
-    //     question:
-    //       'Which of the following is a valid lambda expression in Java 8?',
-    //     questionType: 'Multi Answer',
-    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-    //     skills: 'Java-8',
-    //     Difficulty_Level: 'Beginner',
-    //     answer: ['Comparator'],
-    //   },
-    //   {
-    //     id: 4,
-    //     question:
-    //       'Which of the following is not a functional interface in Java 8?',
-    //     questionType: 'Single Answer',
-    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-    //     skills: 'Java-8',
-    //     Difficulty_Level: 'Expert',
-    //     answer: ['Comparator'],
-    //   },
-    //   {
-    //     id: 5,
-    //     question:
-    //       "What is the output of the program?List<String> names = Arrays.asList('ABC', 'CAB', 'BCA')",
-    //     questionType: 'Multi Answer',
-    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-    //     skills: 'Java-8',
-    //     Difficulty_Level: 'Intermediate',
-    //     answer: ['Comparator'],
-    //   },
-    //   {
-    //     id: 6,
-    //     question: 'What is Java?',
-    //     questionType: 'Single Answer',
-    //     options: ['Consumer', 'Supplier', 'Runnable', 'Comparator'],
-    //     skills: 'Java-8',
-    //     Difficulty_Level: 'Beginner',
-    //     answer: ['Comparator'],
-    //   },
-    // ];
-    // console.log('questions :', this.FinalizedQuestions);
+    
 
     this.tableService
       .getdataby_FileName(ManagerName, JobDescription)
@@ -690,7 +607,7 @@ export class SchedulepageComponent implements OnInit {
       });
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log("Function Working")
+    console.log('Function Working');
     if (option.includes(selected_Option)) {
       console.log('correct answer');
       return 'correctAnswer';
@@ -780,7 +697,7 @@ export class SchedulepageComponent implements OnInit {
             this.Tdata.push(dataToSave);
             console.log('Updated Clone Data', dataToSave);
             this.skillsdropdownservice
-              .postquestions(dataToSave)
+              .postNewSchedule(dataToSave)
               .subscribe((response) => {
                 console.log('output----->', response);
               });
@@ -859,7 +776,6 @@ export class SchedulepageComponent implements OnInit {
         this.editManagername = ManagerName;
         this.editFilename = jobDescription;
         this.managernameService.setCutoff(this.cutoff);
-        // localStorage.setItem("cutoff",this.cutOff)
         console.log('edit cutoff', this.cutoff);
         this.managernameService.setDuration(this.durations);
         this.skillsdropdownservice.setSkill(this.Skill);
@@ -870,15 +786,10 @@ export class SchedulepageComponent implements OnInit {
         this.managernameService.setFileName(this.editFilename);
         localStorage.setItem('scheduleName', jobDescription);
         localStorage.setItem('boolean', 'true');
-        // localStorage.setItem("manager",this.editManagername)
-        // localStorage.setItem("cutoff",this.cutOff.toString())
-        // localStorage.setItem("duration",this.duration.toString())
 
         this.router.navigate(['new-schedule']);
       });
   }
-
- 
 
   //Assessment page Filter
 
@@ -1125,9 +1036,10 @@ export class SchedulepageComponent implements OnInit {
 
   onSendQuestionClick(managerName: string, jobdescription: string) {
     this.sendQuestionCardVisible = true;
-    this.managernameService.getCandidateStatus().subscribe((response) => {
-      console.log('candidate name', response);
-      this.candidateData = response;
+    this.getUniqueCandidatedata();
+    // this.managernameService.getCandidateStatus().subscribe((response) => {
+    //   console.log('candidate name', response);
+    //   this.candidateData = response;
 
       this.tableService
         .getdataby_FileName(managerName, jobdescription)
@@ -1143,14 +1055,14 @@ export class SchedulepageComponent implements OnInit {
           console.log('File name---', this.email_Filename);
           this.email_Status = 'Not Started';
         });
-    });
+  
   }
 
   inviteCandidate() {
     console.log('Manager name', this.email_Managername);
     console.log('File name', this.email_Filename);
     console.log('Selected Candidates', this.selectedCandidates);
-    this.showEmailSubmitted();
+    
 
     this.selectedCandidates.forEach((selectedCandidate) => {
       const existingCandidate = this.candidateData.find(
@@ -1164,7 +1076,7 @@ export class SchedulepageComponent implements OnInit {
       this.result = 'Awaiting Eval';
       const date = Date.now();
       this.candidateId = new Date(date);
-      this.showEmailSubmitted();
+      
       if (existingCandidate) {
         this.tableService
           .postExistingCandidateDetails(
@@ -1192,16 +1104,30 @@ export class SchedulepageComponent implements OnInit {
 
         setTimeout(() => {
           this.closeInviteDialog();
-        }, 1500);
+          this.showEmailSubmitted();
+        }, 1000);
       }
     });
   }
 
   closeInviteDialog() {
     this.sendQuestionCardVisible = false;
+    this.selectedCandidates=[];
+  }
+  getUniqueCandidatedata() {
+    this.newScheduleService
+      .getUniqueCandidateDetails()
+      .subscribe((response) => {
+        this.candidateData = response.filter(
+          (candidate: any) => candidate !== null
+        );
+        console.log('Candidate Data', this.candidateData);
+      });
   }
   newSchedule() {
     this.visible = true;
+    this.resetData();
+    console.log('Manager-----------', this.manager);
   }
   formattedDate(date: Date) {
     const months: string[] = [
