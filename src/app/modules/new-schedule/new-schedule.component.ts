@@ -193,14 +193,14 @@ export class NewScheduleComponent {
 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
-    console.log('loop entered');
+    console.log('loop entered',question);
 
     if (question.selection) {
-      this.selectedquestions.push(question);
+      this.selectedquestions.push(question.id);
       console.log('Selected Questions:', this.selectedquestions);
     } else {
       this.selectedquestions = this.selectedquestions.filter(
-        (selected) => selected !== question
+        (selected) => selected !== question.id
       );
       console.log('Selected Questions:', this.selectedquestions);
     }
