@@ -196,11 +196,11 @@ export class NewScheduleComponent {
     console.log('loop entered');
 
     if (question.selection) {
-      this.selectedquestions.push(question);
+      this.selectedquestions.push(question.id);
       console.log('Selected Questions:', this.selectedquestions);
     } else {
       this.selectedquestions = this.selectedquestions.filter(
-        (selected) => selected !== question
+        (selected) => selected !== question.id
       );
       console.log('Selected Questions:', this.selectedquestions);
     }
@@ -298,10 +298,10 @@ export class NewScheduleComponent {
     tabs.forEach((question: any) => {
       if (!question.selection) {
         question.selection = true;
-        this.selectedquestions.push(question);
+        this.selectedquestions.push(question.id);
       }
     });
-    console.log('selectQuestions', this.selectedquestions);
+    console.log('select all Questions', this.selectedquestions);
   }
 
   unselectAllQuestions(questions: any) {
@@ -311,8 +311,9 @@ export class NewScheduleComponent {
         questions[i].selection = false;
       }
     }
+    const questionIds = questions.map((item: { id: any; }) => item.id);
     this.selectedquestions = duplicateQuestions.filter(
-      (question) => !questions.includes(question)
+      (question) => !questionIds.includes(question)
     );
     console.log('un select all ', this.selectedquestions);
   }
