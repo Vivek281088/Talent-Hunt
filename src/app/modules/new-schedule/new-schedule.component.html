@@ -224,7 +224,7 @@
                     <th colspan="4">
                       <div class="schedulebuttons">
                         <div class="selectallBtn">
-                          <p-button label="Select All"(click)="selectAllQuestions(tab)"> </p-button>
+                          <p-button label="Select All"(click)="selectQuestions(tab.content)"> </p-button>
                         </div>
                         <div class="unselectallBtn">
                           <p-button label="Unselect All"(click)="unselectAllQuestions(tab)" > </p-button>
@@ -299,7 +299,7 @@
  
       <div class="questioncount">
         <label>Selected Questions :</label>
-        <p>{{(selectedquestions && selectedquestions.length) || 0}}</p>
+        <p>{{( selectedquestions.length) }}</p>
       </div>
     </div>
  

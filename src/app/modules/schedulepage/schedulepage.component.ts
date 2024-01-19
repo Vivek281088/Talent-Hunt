@@ -201,11 +201,12 @@ export class SchedulepageComponent implements OnInit {
       { field: 'result', header: 'S/R' },
     ];
   }
+ 
   getFormattedSkills(skills: any): {
     skills: string[];
     remainingCount: number;
   } {
-    const maxLength = 8;
+    const maxLength = 15;
 
     let result: string[] = [];
     let totalLength = 0;

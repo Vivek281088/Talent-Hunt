@@ -91,6 +91,8 @@ export class NewScheduleComponent {
     // this.data=this.dataservice.sharedData;
   }
   ngOnInit() {
+
+  
     // console.log("se",this.selectedquestions)
     console.log('Selected Questions during ngOnInit:', this.selectedquestions);
 
@@ -194,10 +196,10 @@ export class NewScheduleComponent {
   }
 
   toggleSelection(question: any): void {
-    question.Selected = !question.Selected;
+    question.selection = !question.selection;
     console.log('loop entered');
 
-    if (question.Selected) {
+    if (question.selection) {
       this.selectedquestions.push(question);
       console.log('Selected Questions:', this.selectedquestions);
     } else {
@@ -282,6 +284,8 @@ export class NewScheduleComponent {
 
       }
       this.count+=increment;
+      let a=this.count
+      localStorage.setItem("a",JSON.stringify(this.count))
 
       if(this.count<0){
         this.count=0
@@ -292,13 +296,37 @@ export class NewScheduleComponent {
       console.log(' tab content ', tab.content);
     }
   }
+
+  selectQuestions(tabs: any){
+    tabs.forEach((question: any) => {
+      
+      if(!question.selection){
+        question.selection=true;
+this.selectedquestions.push(question);
+
+
+    
+      }
+      
+
+        
+
+      }
+      
+    )
+    console.log("qwertyuuiii",this.selectedquestions);
+    }
+     
+      
   unselectAllQuestions(tab: any) {
     if (tab && tab.content) {
       tab.content.forEach((question: any) => {
         question.selection = false;
-        this.selectedquestions = [];
+        // this.selectedquestions = [];
       });
-      this.selectedQuestion = [];
+      // this.selectedQuestion = [];
+      this.selectedquestions = [];
+
     }
   }
   showUpdateMessage() {
