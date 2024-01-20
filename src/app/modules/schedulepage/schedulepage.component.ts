@@ -8,18 +8,12 @@ import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
 import { MessageService } from 'primeng/api';
-import { lastValueFrom } from 'rxjs';
-// import { CalendarModule } from 'primeng/calendar';
-import { CalendarModule } from 'primeng/calendar';
-// import { ManagernameService } from 'src/app/services/managername.service';
 import { FormControl } from '@angular/forms';
-// import { DatePipe } from '@angular/common';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DataService } from 'src/app/services/data.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
-
-// import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -37,7 +31,6 @@ export class SchedulepageComponent implements OnInit {
   toDate!: any;
   difficultyLevel: string[] = ['Easy', 'Medium', 'Hard'];
   formGroup!: FormGroup;
-  // value!: string;
   tables: any[] | undefined;
   cols!: Column[];
   selectedManager: string = '';
@@ -73,7 +66,7 @@ export class SchedulepageComponent implements OnInit {
   candidateList: any[] = [];
   questions: any;
   filterPopupVisible: boolean = false;
-  candidateNameOptions: any[] = []; // Replace with actual data
+  candidateNameOptions: any[] = []; 
   statusOptions: any[] = [];
   names: string[] = [];
   status: string = '';
@@ -248,7 +241,6 @@ export class SchedulepageComponent implements OnInit {
           }
         }
       );
-      // Assign the unique candidate names to your variable
       this.candidateNames = uniqueCandidateNames;
       console.log('candidate', data);
       console.log(this.candidateNames);
@@ -600,11 +592,19 @@ export class SchedulepageComponent implements OnInit {
         console.log('View Data', data);
         this.view_Managername = ManagerName;
         this.view_Filename = JobDescription;
-        this.FinalizedQuestions = data[0].questions;
+        // this.FinalizedQuestions = data[0].questions;
+        const observables = data[0].questions.map((questionId: string) =>
+          this.newScheduleService.getIndividualQuestion(questionId)
+        );
+        forkJoin(observables).subscribe((responses : any) => {
+          this.FinalizedQuestions = responses;
+          console.log('Updated Total Question data--', this.FinalizedQuestions);
+        });
 
         console.log('questions :', this.FinalizedQuestions);
       });
   }
+  
   getSelectedOptions(selected_Option: any, option: any) {
     console.log('Function Working');
     if (option.includes(selected_Option)) {

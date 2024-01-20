@@ -17,6 +17,7 @@ import { Table } from 'primeng/table';
 import { Checkbox } from 'primeng/checkbox';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-new-schedule',
@@ -54,7 +55,7 @@ export class NewScheduleComponent {
   previewSidebarVisible: boolean = false;
   visible1: boolean = false;
   ischecked: boolean = true;
-  slectedquestionforedit: any;
+  // slectedquestionforedit: any;
   TotalQuestions: any[] = [];
   managerOption: any[] = [];
   singleQuestion: any;
@@ -64,18 +65,9 @@ export class NewScheduleComponent {
   question!: string;
   isEditSchedule: boolean = false;
 
-  // @ViewChild('yourTable')yourTable:Table | undefined;
 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
-
-  // selectallItems(){
-
-  //   this.tabs.forEach(item=>{
-  //     // item.content.showCheckbox=true;
-  //     item.content.selected=true;
-  //   })
-  // }
 
   constructor(
     private route: ActivatedRoute,
@@ -122,9 +114,7 @@ export class NewScheduleComponent {
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
           console.log('recieved response', response);
-          // this.ngzone.run(() => {
-          // Your code that triggers change
-          // this.tabs.push(...transformedData);
+         
           for (let i = 0; i < response.length; i++) {
             this.tabs.push({
               title: response[i].skills,
@@ -140,15 +130,25 @@ export class NewScheduleComponent {
       this.cutOff = this.managernameService.getCutoff();
       this.duration = this.managernameService.getDuration();
       this.selectedSkills = this.skillsdropdownservice.getSkill();
-      this.slectedquestionforedit =
+      this.totalSelectedQuestions =
         this.managernameService.getFinalizedQuestions();
+      console.log('selected edit question', this.totalSelectedQuestions);
+      
+      // const observables = this.managernameService.getFinalizedQuestions()
+      //   .map((questionId: string) =>
+      //     this.newScheduleService.getIndividualQuestion(questionId)
+      //   );
+      // forkJoin(observables).subscribe((responses) => {
+        
+      //   this.totalSelectedQuestions = responses;
+      //   console.log('Edit Question ---', this.totalSelectedQuestions);
+      //   console.log('selected edit question', this.totalSelectedQuestions);
+      // });
+      
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
           console.log('recieved response', response);
-          // this.ngzone.run(() => {
-          // Your code that triggers change
-          // this.tabs.push(...transformedData);
           for (var i = 0; i < response.length; i++) {
             // console.log("received id--------------------------",response.data[i].id)
             this.TotalQuestions.push(response[i].data);
@@ -164,15 +164,15 @@ export class NewScheduleComponent {
           );
           console.log(
             'selected ques----------------------------------',
-            this.slectedquestionforedit
+            this.totalSelectedQuestions
           );
-          var count = 0;
-          for (var res of response) {
-            for (var data of res.data) {
-              console.log(data.id);
-              console.log(count++);
-            }
-          }
+          // var count = 0;
+          // for (var res of response) {
+          //   for (var data of res.data) {
+          //     console.log(data.id);
+          //     console.log(count++);
+          //   }
+          // }
 
           this.cdr.detectChanges();
           this.processTotalQuestions();
@@ -193,7 +193,7 @@ export class NewScheduleComponent {
 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
-    console.log('loop entered',question);
+    console.log('loop entered');
 
     if (question.selection) {
       this.selectedquestions.push(question.id);
@@ -206,6 +206,7 @@ export class NewScheduleComponent {
     }
 
     console.log('Selected Questions:', this.selectedquestions);
+    this.getQuestionsById(this.selectedquestions);
     // this.logSelectedQuestions();
   }
   count!: number;
@@ -298,10 +299,10 @@ export class NewScheduleComponent {
     tabs.forEach((question: any) => {
       if (!question.selection) {
         question.selection = true;
-        this.selectedquestions.push(question);
+        this.selectedquestions.push(question.id);
       }
     });
-    console.log('selectQuestions', this.selectedquestions);
+    console.log('select all Questions', this.selectedquestions);
   }
 
   unselectAllQuestions(questions: any) {
@@ -311,8 +312,9 @@ export class NewScheduleComponent {
         questions[i].selection = false;
       }
     }
+    const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions.filter(
-      (question) => !questions.includes(question)
+      (question) => !questionIds.includes(question)
     );
     console.log('un select all ', this.selectedquestions);
   }
@@ -337,7 +339,7 @@ export class NewScheduleComponent {
   //
   processTotalQuestions() {
     // console.log("vara edit",this.slectedquestionforedit)
-    this.count = this.slectedquestionforedit.length;
+    this.count = this.totalSelectedQuestions.length;
     console.log('count----------------------->', this.count);
 
     // // this.slectedquestionforedit.forEach((finalizedQuestion: any) =>
@@ -377,21 +379,21 @@ export class NewScheduleComponent {
     if (!this.selectedquestions) {
       this.selectedquestions = [];
     }
-    for (let sec of this.slectedquestionforedit) {
+    for (let sec of this.totalSelectedQuestions) {
       for (let i = 0; i < this.tabs.length; i++) {
-        console.log('tabs value', this.tabs[i].content);
+       
         for (let j = 0; j < this.tabs[i].content.length; j++) {
           if (sec.id == this.tabs[i].content[j].id) {
-            console.log('match found');
+            // console.log('match found');
             this.tabs[i].content[j].selection = true;
             if (!this.selectedquestions) {
               this.selectedquestions = [];
             }
             this.selectedquestions.push(this.tabs[i].content[j]);
-            console.log(
-              'content after pushed===================',
-              this.selectedQuestion
-            );
+            // console.log(
+            //   'content after pushed===================',
+            //   this.selectedQuestion
+            // );
           }
         }
       }
@@ -484,6 +486,17 @@ export class NewScheduleComponent {
           window.location.reload();
         }, 1000);
       });
+  }
+  totalSelectedQuestions: any;
+  getQuestionsById(questionIdArray: any) {
+    console.log('get id', questionIdArray);
+    const observables = questionIdArray.map((questionId: string) =>
+      this.newScheduleService.getIndividualQuestion(questionId)
+    );
+    forkJoin(observables).subscribe((responses) => {
+      this.totalSelectedQuestions = responses;
+      console.log('Updated Total Question data--', this.totalSelectedQuestions);
+    });
   }
   cancelQuestionView() {
     this.QuestionView = false;

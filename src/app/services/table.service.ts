@@ -113,7 +113,6 @@ export class TableService {
       email_Managername: managerName,
       candidateName: name,
       candidateEmail: emailId,
-
       candidatePhone: phoneNumber,
       email_Status: status,
       email_Filename: fileName,

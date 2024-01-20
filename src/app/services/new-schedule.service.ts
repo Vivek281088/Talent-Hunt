@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class NewScheduleService {
   newScheduleData: any;
-  managerProfileData : any;
-  candidateProfileData : any;
+  managerProfileData: any;
+  candidateProfileData: any;
 
   constructor(private http: HttpClient) {}
 
@@ -35,6 +35,20 @@ export class NewScheduleService {
   getUniqueCandidateDetails(): Observable<any> {
     return this.http.get<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidate_Details'
+    );
+  }
+  getIndividualQuestion(id: string ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      id: id,
+    };
+    console.log("service body",body)
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-Questions_GetById',
+      body,
+      {
+        headers,
+      }
     );
   }
 }
