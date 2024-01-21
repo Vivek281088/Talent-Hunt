@@ -223,8 +223,17 @@
   ::ng-deep .p-tabview .p-tabview-panels {
     padding: 0;
   }
+  // .clear-button {
+  //   width: 110px;
+  //   height: 36px;
+  //   padding: 6px, 6px, 6px, 8px;
+  //   border-radius: 4px;
+  //   border: 1px;
+  //   color: #c81a78;
+  //   border: 1px solid #c81a78;
+  //   background: white;
+  // }
   .clear-button {
-    width: 110px;
     height: 36px;
     padding: 6px, 6px, 6px, 8px;
     border-radius: 4px;
@@ -232,7 +241,36 @@
     color: #c81a78;
     border: 1px solid #c81a78;
     background: white;
+    ::ng-deep .p-button:enabled:hover {
+      background: white;
+      color: #c81a78;
+      border-color: #c81a78;
   }
+
+  }
+  .cancelBtn {
+    padding-right: 2rem;
+    ::ng-deep {
+      .p-button {
+        color: #652d90;
+        background: #fafafa;
+        border: 1px solid #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-button:enabled:hover {
+        color: #652d90;
+        background: #fafafa;
+        border: 1px solid #652d90;
+    }
+    }
+  }
+  ::ng-deep .p-button:enabled:hover {
+    background: #ffffff;
+    color: #c81a78;
+    border-color: #c81a78;
+}
 
   //Assessment design
   .searchIcon {
