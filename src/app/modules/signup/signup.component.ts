@@ -43,15 +43,15 @@ export class SignupComponent {
         '',
         [
           Validators.required,
-          Validators.pattern('^[0-9]{10}$'), // Only allow exactly 10 numeric values
+          Validators.pattern('^[0-9]{10}$'),
         ],
       ],
       emailId: [
         '',
         [
           Validators.required,
-          Validators.email, // Ensures it's a valid email format
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@gmail.com$'), // Ensures it's a gmail.com address
+          Validators.email, 
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@gmail.com$'), 
         ],
       ],
 

@@ -66,14 +66,12 @@ export class LoginService {
   }
  
   postforgotpassword(
-    name: string,
     emailId: string,
     password: string,
     confirmPassword: string
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
-      Managername: name,
       candidateEmail: emailId,
       password: password,
       confirmPassword: confirmPassword,

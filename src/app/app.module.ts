@@ -19,7 +19,6 @@ import { CandidateAssessmentComponent } from './modules/candidate-assessment/can
 import { ReviewerComponent } from './modules/reviewer/reviewer.component';
 import { AssessmentDisplayComponent } from './modules/assessment-display/assessment-display.component';
 import { ToastrModule } from 'ngx-toastr';
-import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 import { MessageService } from 'primeng/api';
 import { QuestiondbComponent } from './modules/questiondb/questiondb.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
@@ -36,6 +35,7 @@ import { ManageCandidatesComponent } from './modules/manage-candidates/manage-ca
 import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.component';
 import { CandidateProfileComponent } from './modules/candidate-profile/candidate-profile.component';
 import { ManagerProfileComponent } from './modules/manager-profile/manager-profile.component';
+import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.component';
 
 
 
@@ -54,7 +54,6 @@ import { ManagerProfileComponent } from './modules/manager-profile/manager-profi
     CandidateAssessmentComponent,
     ReviewerComponent,
     AssessmentDisplayComponent,
-    ForgotpasswordComponent,
     QuestiondbComponent,
     ProfileDialogComponent,
     SidenavbarComponent,
@@ -68,6 +67,7 @@ import { ManagerProfileComponent } from './modules/manager-profile/manager-profi
       ManageSkillsComponent,
       CandidateProfileComponent,
       ManagerProfileComponent,
+      ResetpasswordComponent,
   ],
   imports: [
     BrowserModule,

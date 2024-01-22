@@ -57,7 +57,7 @@
                     placeholder="Search"
                   />
                 </div>
-                
+
                 <!-- <div class="deptMultiselect">
                   <p-columnFilter
                     field="department"
@@ -165,10 +165,12 @@
           </td> -->
           <td>{{ rowData.empid }}</td>
           <td class="candidatenamedesign">
-            <a (click)="gotoCandidateProfile(rowData)">{{ rowData.candidateName }}</a>
+            <a (click)="gotoCandidateProfile(rowData)">{{
+              rowData.candidateName
+            }}</a>
           </td>
           <td>{{ rowData.candidateEmail }}</td>
-          <td>{{rowData.candidatePhone}}</td>
+          <td>{{ rowData.candidatePhone }}</td>
           <td>{{ rowData.department }}</td>
           <td>{{ rowData.candidate_location }}</td>
           <td>
@@ -233,152 +235,190 @@
     [resizable]="false"
     [closable]="false"
   >
-    <div class="NewSchedule-content">
-      
-      <div class="labelvalue">
-        <div class="label">
-          <label> Employee Id</label>
-          <span class="important-symbol">&#42;</span>
-        </div>
-        <div class="value">
-          <p-inputNumber
-            formControlName="empid"
-            mode="decimal"
-            inputId="withoutgrouping"
-            [useGrouping]="false"
-          >
-          
-          </p-inputNumber>
-          
-        </div>
-      </div>
+    <p-tabView>
+      <p-tabPanel header="Add a Single Candidate">
+        <div class="NewSchedule-content">
+          <div class="labelvalue">
+            <div class="label">
+              <label> Employee Id</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <p-inputNumber
+                formControlName="empid"
+                mode="decimal"
+                inputId="withoutgrouping"
+                [useGrouping]="false"
+              >
+              </p-inputNumber>
+            </div>
+          </div>
 
-      <div class="labelvalue">
-        <div class="label">
-          <label>Candidate Name</label>
-          <span class="important-symbol">&#42;</span>
-        </div>
-        <div class="value">
-          <input type="text" formControlName="candidateName" pInputText />
-          <div
-            *ngIf="
-              addCandidateForm.get('candidateName')?.invalid &&
-              (addCandidateForm.get('candidateName')?.touched || formSubmitted)
-            "
-          >
-            <div
-              class="error-message"
-              *ngIf="
-                addCandidateForm.get('candidateName')?.hasError('required')
-              "
-            >
-              Candidate Name is required !
+          <div class="labelvalue">
+            <div class="label">
+              <label>Candidate Name</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <input type="text" formControlName="candidateName" pInputText />
+              <div
+                *ngIf="
+                  addCandidateForm.get('candidateName')?.invalid &&
+                  (addCandidateForm.get('candidateName')?.touched ||
+                    formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="
+                    addCandidateForm.get('candidateName')?.hasError('required')
+                  "
+                >
+                  Candidate Name is required !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>Email</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <input type="email" formControlName="email" pInputText />
+              <div
+                *ngIf="
+                  addCandidateForm.get('email')?.invalid &&
+                  (addCandidateForm.get('email')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addCandidateForm.get('email')?.hasError('required')"
+                >
+                  Email is required !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label> Phone No</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <p-inputNumber
+                formControlName="phone"
+                mode="decimal"
+                inputId="withoutgrouping"
+                [useGrouping]="false"
+              >
+              </p-inputNumber>
+              <div
+                *ngIf="
+                  addCandidateForm.get('phone')?.invalid &&
+                  (addCandidateForm.get('phone')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addCandidateForm.get('phone')?.hasError('required')"
+                >
+                  Phone No is required !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>Location</label>
+            </div>
+            <div class="value">
+              <input type="text" formControlName="location" pInputText />
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>department</label>
+            </div>
+            <div class="value">
+              <input type="text" formControlName="department" pInputText />
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="labelvalue">
-        <div class="label">
-          <label>Email</label>
-          <span class="important-symbol">&#42;</span>
-        </div>
-        <div class="value">
-          <input type="email" formControlName="email" pInputText />
-          <div
-            *ngIf="
-              addCandidateForm.get('email')?.invalid &&
-              (addCandidateForm.get('email')?.touched || formSubmitted)
-            "
-          >
-            <div
-              class="error-message"
-              *ngIf="addCandidateForm.get('email')?.hasError('required')"
-            >
-              Email is required !
+        <ng-template pTemplate="footer">
+          <div class="tabview-button">
+            <div class="Cancelbutton">
+              <p-button
+                label="Cancel"
+                [outlined]="true"
+                (onClick)="cancelButton()"
+              >
+              </p-button>
+            </div>
+            <div class="Createbutton" *ngIf="isAddCandidate">
+              <p-button label="Save" (onClick)="saveCandidate()"> </p-button>
+            </div>
+            <div class="Createbutton" *ngIf="isEditCandidate">
+              <p-button label="Update" (onClick)="updateCandidate()">
+              </p-button>
             </div>
           </div>
-        </div>
-      </div>
+        </ng-template>
+      </p-tabPanel>
 
-      <div class="labelvalue">
-        <div class="label">
-          <label> Phone No</label>
-          <span class="important-symbol">&#42;</span>
+      <p-tabPanel header="Add Multiple Candidate">
+        <div class="quiz-instruction">
+          <p class="instruction">Upload Candidate Instructions</p>
+          <ul class="points">
+            <li>Download the provided Candidate template.</li>
+            <li>Provide the correct value for each specific field.</li>
+            <li>Do not alter the heading in any way.</li>
+            <li>
+              Specify the correct employee Id for each Candidate which must be
+              unique.
+            </li>
+            <li>
+              Specify the correct email Id for each candidate which must be
+              unique.
+            </li>
+          </ul>
         </div>
-        <div class="value">
-          <p-inputNumber
-            formControlName="phone"
-            mode="decimal"
-            inputId="withoutgrouping"
-            [useGrouping]="false"
-          >
-          
-          </p-inputNumber>
-          <div
-            *ngIf="
-              addCandidateForm.get('phone')?.invalid &&
-              (addCandidateForm.get('phone')?.touched || formSubmitted)
-            "
-          >
-            <div
-              class="error-message"
-              *ngIf="addCandidateForm.get('phone')?.hasError('required')"
-            >
-              Phone No is required !
+
+        <ng-template pTemplate="footer">
+          <div class="tabview-button-upload">
+            <div class="Cancelbutton">
+              <p-button
+                label="Cancel"
+                [outlined]="true"
+                (onClick)="cancelButton()"
+              >
+              </p-button>
+            </div>
+
+            <label class="custom-file-input" *ngIf="isAddCandidate">
+              Upload File
+              <input
+                type="file"
+                (change)="uploadCsv($event)"
+                style="display: none"
+              /> </label
+            >`
+
+            <div class="Createbutton" *ngIf="isAddCandidate">
+              <p-button
+                label="Download Template"
+                (click)="downloadCsvTemplate()"
+              ></p-button>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="labelvalue">
-        <div class="label">
-          <label>Location</label>
-          
-        </div>
-        <div class="value">
-          <input type="text" formControlName="location" pInputText />
-          
-        </div>
-      </div>
-
-      <div class="labelvalue">
-        <div class="label">
-          <label>department</label>
-          
-        </div>
-        <div class="value">
-          <input type="text" formControlName="department" pInputText />
-          
-        </div>
-      </div>
-
-    </div>
-
-    <ng-template pTemplate="footer">
-      <div class="Newschedule-button">
-        <div class="Cancelbutton">
-          <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
-          </p-button>
-        </div>
-        <div class="Createbutton" *ngIf="isAddCandidate">
-          <p-button label="Save" (onClick)="saveCandidate()"> </p-button>
-        </div>
-        <div class="Createbutton" *ngIf="isEditCandidate">
-          <p-button label="Update" (onClick)="updateCandidate()"> </p-button>
-        </div>
-        
-        <label class="custom-file-input" *ngIf="isAddCandidate">
-          Upload File
-          <input type="file" (change)="uploadCsv($event)" style="display: none;" />
-        </label>`
-
-        <div class="Createbutton" *ngIf="isAddCandidate">
-          <p-button label="Download Template" (click)="downloadCsvTemplate()"></p-button>
-
-        </div>
-        
-      </div>
-    </ng-template>
+        </ng-template>
+      </p-tabPanel>
+    </p-tabView>
   </p-dialog>
 </div>

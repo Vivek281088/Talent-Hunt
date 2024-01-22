@@ -9,9 +9,10 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./body.component.scss'],
 })
 export class BodyComponent {
-  showNavbar: boolean = true; // Initialize to true by default
+  showNavbar: boolean = true; 
   showNavbar1: boolean = true;
   showNavbar2: boolean = true;
+  showNavbar3: boolean = true;
 
   constructor(private service: AppServiceService, private router: Router) {
     // Subscribe to the route changes
@@ -23,8 +24,8 @@ export class BodyComponent {
         // Check if the last segment is 'login' to hide the navbar
         this.showNavbar = urlSegments[urlSegments.length - 1] !== 'login';
         this.showNavbar1 = urlSegments[urlSegments.length - 1] !== 'signup';
-        this.showNavbar2 =
-          urlSegments[urlSegments.length - 1] !== 'forgotpassword';
+        this.showNavbar2 =urlSegments[urlSegments.length - 1] !== 'forgotpassword';
+        this.showNavbar3 = urlSegments[urlSegments.length - 1] !== 'resetpassword';
       }
     });
   }
