@@ -66,7 +66,7 @@ export class SchedulepageComponent implements OnInit {
   candidateList: any[] = [];
   questions: any;
   // filterPopupVisible: boolean = false;
-  // candidateNameOptions: any[] = []; 
+  // candidateNameOptions: any[] = [];
   // statusOptions: any[] = [];
   // names: string[] = [];
   // status: string = '';
@@ -87,12 +87,12 @@ export class SchedulepageComponent implements OnInit {
   question!: string;
   // selectedAnswer!: string;
   // chosenSkill!: String;
-  
+
   // selectedType: boolean = false;
   // selectedquestionType!: string;
   // selecteddifficultyType!: string;
   candidateSkill!: any;
-  
+
   candidateId!: Date | null;
 
   todayDate!: string;
@@ -130,6 +130,8 @@ export class SchedulepageComponent implements OnInit {
   candidateData: any;
   managerData: any;
   globalSearchValue!: string;
+  addnewScheduleForm!: FormGroup;
+  formSubmitted: boolean = false;
 
   // candidateForm !: FormGroup;
   constructor(
@@ -137,7 +139,7 @@ export class SchedulepageComponent implements OnInit {
     private managernameService: ManagernameService,
     private skillsdropdownservice: SkillsdropdownService,
     private router: Router,
-    private formBuilder: FormBuilder,
+    private fb: FormBuilder,
     private auth: AuthService,
     private candidateService: CandidateAssessmentService,
     // reviewer
@@ -146,7 +148,15 @@ export class SchedulepageComponent implements OnInit {
     private reviewerService: ReviewerService,
     private dataService: DataService,
     private newScheduleService: NewScheduleService
-  ) {}
+  ) {
+    this.addnewScheduleForm = this.fb.group({
+      scheduleName: ['', [Validators.required]],
+      managerName: ['', [Validators.required]],
+      skills: ['', [Validators.required]],
+      cutoff: [null, [Validators.required, Validators.max(100)]],
+      duration: [null, [Validators.required]],
+    });
+  }
   ngOnInit() {
     this.items = [{ label: 'Schedules' }];
 
@@ -215,7 +225,6 @@ export class SchedulepageComponent implements OnInit {
     return skills.slice(-count);
   }
 
-  
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
       const uniqueEmails = new Set<string>();
@@ -262,7 +271,6 @@ export class SchedulepageComponent implements OnInit {
   }
 
   loadManagerNames() {
-    
     this.managernameService.getclientManagerData().subscribe((response) => {
       this.managerData = response.map(
         (manager: { managerName: string }) => manager.managerName
@@ -279,112 +287,75 @@ export class SchedulepageComponent implements OnInit {
   }
 
   cancelButton() {
+    console.log('gfgdfxcghcnghcycgh');
     this.visible = false;
-    this.resetData();
+    this.formSubmitted = false;
+    this.addnewScheduleForm.markAsPristine();
+    this.addnewScheduleForm.markAsUntouched();
+    this.addnewScheduleForm.reset();
+
+    // this.resetData();
     console.log('Manager after cancel', this.manager);
   }
-  resetData() {
-    this.scheduleName = '';
-    this.manager = '';
-    this.selectedSkills = [];
-  }
+
   createButton() {
-    // this.sendData();
-    console.log('sended');
-    const dataToSend = {
-      scheduleName: this.scheduleName,
-      manager: this.manager,
-      selectedSkills: this.selectedSkills,
-      cutOff: this.cutOff,
-      duration: this.duration,
-    };
-    this.newScheduleService.setNewScheduleData(dataToSend);
-    localStorage.setItem('scheduleName', this.scheduleName);
-    localStorage.setItem('manager', this.manager);
-    this.dataService.savedata(this.selectedSkills);
-    localStorage.setItem('cutoff', this.cutOff.toString());
-    localStorage.setItem('duration', this.duration.toString());
-    this.router.navigate(['/new-schedule']);
+    this.formSubmitted = true;
+    if (this.addnewScheduleForm.valid) {
+      const formData = this.addnewScheduleForm.value;
+      console.log('Form Data:', formData);
+
+      // this.sendData();
+      console.log('sended');
+      const dataToSend = {
+        scheduleName: formData.scheduleName,
+        manager: formData.managerName,
+        selectedSkills: formData.skills,
+        cutOff: formData.cutoff,
+        duration: formData.duration,
+      };
+      this.newScheduleService.setNewScheduleData(dataToSend);
+      localStorage.setItem('scheduleName', formData.scheduleName);
+      localStorage.setItem('manager', formData.managerName);
+      // const ss=JSON.stringify(this.selectedSkills)
+      // localStorage.setItem("selectedSkills",ss)
+      this.dataService.savedata(formData.skills);
+      localStorage.setItem('cutoff', formData.cutoff);
+      localStorage.setItem('duration', formData.duration);
+      // const dataToSend={
+      this.router.navigate(['/new-schedule']);
+    }
   }
-  
 
   //Mail dialog
-  displayEmailDialog = false;
+
   candidateName!: string;
   candidateEmail!: string;
   candidatePhone: number | null = null;
-  cancelEmailPopup() {
-    this.displayEmailDialog = false;
-    this.selectedCandidates = [];
-    this.resetForm();
-    this.loadAssessmentData();
-    this.getCandidatename();
-  }
-
-  // storeCandidate() {
-  //   //rest data
-  //   this.score = null;
-  //   this.result = 'Awaiting Eval';
-  //   console.log('score', this.score);
-  //   console.log('result', this.result);
-
-  //   //to load the candidate name
-
-  //   const date = Date.now();
-  //   this.candidateId = new Date(date);
-
-  //   //show success message
-
-  //   this.showEmailSubmitted();
-  //   this.tableService
-  //     .postCandidateDetails(
-  //       this.candidateId,
-  //       this.email_Managername,
-  //       this.candidateName,
-  //       this.candidateEmail,
-  //       this.candidatePhone,
-  //       this.email_Status,
-  //       this.email_Filename,
-  //       this.questions,
-  //       this.score,
-  //       this.result,
-  //       this.cutoff,
-  //       this.durations,
-  //       this.candidatePassword,
-  //       this.candidateConfirmPassword,
-  //       this.roles,
-  //       this.candidateSkill
-  //     )
-  //     .subscribe((response) => {
-  //       console.log('stored', response);
-  //       this.candidateList.push(response);
-  //       //
-  //     });
-
-  //   // Close the dialog
-  //   setTimeout(() => {
-  //     this.cancelEmailPopup();
-  //   }, 2000);
+  // cancelEmailPopup() {
+  //   this.displayEmailDialog = false;
+  //   this.selectedCandidates = [];
+  //   this.resetForm();
+  //   this.loadAssessmentData();
+  //   this.getCandidatename();
   // }
-  resetForm() {
-    this.candidateName = '';
-    this.candidateEmail = '';
-    this.candidatePhone = null;
-    this.candidatePassword = '';
-    this.candidateConfirmPassword = '';
-  }
-  sendEmail() {
-    this.displayEmailDialog = false;
-    // Reset the form data
-  }
+  // resetForm() {
+  //   this.candidateName = '';
+  //   this.candidateEmail = '';
+  //   this.candidatePhone = null;
+  //   this.candidatePassword = '';
+  //   this.candidateConfirmPassword = '';
+  // }
+  // sendEmail() {
+  //   this.displayEmailDialog = false;
+  //   // Reset the form data
+  // }
   //view icon
 
-  closeSidebar(){
-    this,this.viewQuestionSidebar=false;
+  closeSidebar() {
+    this, (this.viewQuestionSidebar = false);
   }
   onViewClick(ManagerName: string, JobDescription: string) {
     this.viewQuestionSidebar = true;
-    
 
     this.tableService
       .getdataby_FileName(ManagerName, JobDescription)
@@ -396,7 +367,7 @@ export class SchedulepageComponent implements OnInit {
         const observables = data[0].questions.map((questionId: string) =>
           this.newScheduleService.getIndividualQuestion(questionId)
         );
-        forkJoin(observables).subscribe((responses : any) => {
+        forkJoin(observables).subscribe((responses: any) => {
           this.FinalizedQuestions = responses;
           console.log('Updated Total Question data--', this.FinalizedQuestions);
         });
@@ -404,7 +375,7 @@ export class SchedulepageComponent implements OnInit {
         console.log('questions :', this.FinalizedQuestions);
       });
   }
-  
+
   getSelectedOptions(selected_Option: any, option: any) {
     console.log('Function Working');
     if (option.includes(selected_Option)) {
@@ -454,7 +425,6 @@ export class SchedulepageComponent implements OnInit {
       });
   }
 
-
   showEmailSubmitted() {
     this.messageService.add({
       severity: 'success',
@@ -477,7 +447,6 @@ export class SchedulepageComponent implements OnInit {
     console.log('updated', this.FinalizedQuestions);
   }
 
-  
   openquestiondialog() {
     this.visible = true;
   }
@@ -502,28 +471,26 @@ export class SchedulepageComponent implements OnInit {
     //   console.log('candidate name', response);
     //   this.candidateData = response;
 
-      this.tableService
-        .getdataby_FileName(managerName, jobdescription)
-        .subscribe((data) => {
-          console.log('Manager Table Data', data);
-          this.email_Managername = data[0].Managername;
-          this.email_Filename = data[0].JobDescription;
-          this.cutoff = data[0].cutoff;
-          this.durations = data[0].durations;
-          this.questions = data[0].questions;
-          this.Skill = data[0].Skill;
-          console.log('Manager name---', this.email_Managername);
-          console.log('File name---', this.email_Filename);
-          this.email_Status = 'Not Started';
-        });
-  
+    this.tableService
+      .getdataby_FileName(managerName, jobdescription)
+      .subscribe((data) => {
+        console.log('Manager Table Data', data);
+        this.email_Managername = data[0].Managername;
+        this.email_Filename = data[0].JobDescription;
+        this.cutoff = data[0].cutoff;
+        this.durations = data[0].durations;
+        this.questions = data[0].questions;
+        this.Skill = data[0].Skill;
+        console.log('Manager name---', this.email_Managername);
+        console.log('File name---', this.email_Filename);
+        this.email_Status = 'Not Started';
+      });
   }
 
   inviteCandidate() {
     console.log('Manager name', this.email_Managername);
     console.log('File name', this.email_Filename);
     console.log('Selected Candidates', this.selectedCandidates);
-    
 
     this.selectedCandidates.forEach((selectedCandidate) => {
       const existingCandidate = this.candidateData.find(
@@ -537,7 +504,7 @@ export class SchedulepageComponent implements OnInit {
       this.result = 'Awaiting Eval';
       const date = Date.now();
       this.candidateId = new Date(date);
-      
+
       if (existingCandidate) {
         this.tableService
           .postExistingCandidateDetails(
@@ -573,7 +540,7 @@ export class SchedulepageComponent implements OnInit {
 
   closeInviteDialog() {
     this.sendQuestionCardVisible = false;
-    this.selectedCandidates=[];
+    this.selectedCandidates = [];
   }
   getUniqueCandidatedata() {
     this.newScheduleService
@@ -587,7 +554,10 @@ export class SchedulepageComponent implements OnInit {
   }
   newSchedule() {
     this.visible = true;
-    this.resetData();
+    this.formSubmitted = false;
+    this.addnewScheduleForm.markAsPristine();
+    this.addnewScheduleForm.markAsUntouched();
+    this.addnewScheduleForm.reset();
     console.log('Manager-----------', this.manager);
   }
   formattedDate(date: Date) {
@@ -619,4 +589,3 @@ interface Column {
   field: string;
   header: string;
 }
-

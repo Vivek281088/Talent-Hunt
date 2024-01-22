@@ -55,7 +55,7 @@ export class ManageSkillsComponent {
     this.getSkillSet();
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Skills', routerLink: '/manage-skills' },
+      { label: 'Questions', routerLink: '/manage-skills' },
     ];
   }
   formattedDate(date: Date) {

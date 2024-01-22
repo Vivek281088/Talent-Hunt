@@ -400,89 +400,169 @@
   <p-dialog
     header="New Schedule"
     [(visible)]="visible"
+    [formGroup]="addnewScheduleForm"
     [modal]="true"
     [style]="{ width: '47VW' }"
     [draggable]="false"
     [resizable]="false"
   >
     <div class="NewSchedule-content">
-      <div class="labelvalue">
-        <div class="label">
-          <label>Schedule Name</label>
-          <span class="important-symbol">&#42;</span>
-        </div>
-        <div class="value">
-          <input
-            type="text"
-            pInputText
-            [(ngModel)]="scheduleName"
-          />
-        </div>
-      </div>
-
-      <div class="labelvalue">
-        <div class="label">
-          <label>Manager</label>
-          <span class="important-symbol">&#42;</span>
-        </div>
-        <div class="value">
-          <p-dropdown
-            [options]="managerData"
-            placeholder="--Select Manager--"
-            [(ngModel)]="manager"
-            appendTo="body"
-          ></p-dropdown>
-        </div>
-      </div>
-
-      <div class="labelvalue">
-        <div class="label">
-          <label>Skills</label>
-          <span class="important-symbol">&#42;</span>
-        </div>
-        <div class="value">
-          <p-multiSelect
-            [options]="skillSet"
-            placeholder="--Select Skill--"
-            [(ngModel)]="selectedSkills"
-            [filter]="true"
-            appendTo="body"
-            display="chip"
-            [showClear]="false"
-          ></p-multiSelect>
-        </div>
-      </div>
-
-      <div class="cuttoffDuration">
-        <div class="labelvalue">
-          <div class="label">
-            <label>Cutoff (in %)</label>
-            <span class="important-symbol">&#42;</span>
-          </div>
-          <div class="value">
-            <input
-              type="text"
-              pInputText
-              [(ngModel)]="cutOff"
-            />
-          </div>
-        </div>
-
-        <div class="labelvalue">
-          <div class="label">
-            <label>Duration(minutes)</label>
-            <span class="important-symbol">&#42;</span>
-          </div>
-          <div class="value">
-            <input
-              type="text"
-              pInputText
-              [(ngModel)]="duration"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+                        <div class="labelvalue">
+                          <div class="label">
+                            <label>Schedule Name</label>
+                            <span class="important-symbol">&#42;</span>
+                          </div>
+                          <div class="value">
+                            <input
+                              type="text" formControlName="scheduleName"
+                              pInputText
+                             
+                            />
+ 
+                            <div
+                            *ngIf="
+                            addnewScheduleForm.get('scheduleName')?.invalid &&
+                              (addnewScheduleForm.get('scheduleName')?.touched || formSubmitted)
+                            "
+                          >
+                            <div
+                              class="error-message"
+                              *ngIf="
+                              addnewScheduleForm.get('scheduleName')?.hasError('required')
+                              "
+                            >
+                              Schedule Name is required !
+                            </div>
+                          </div>
+ 
+                          </div>
+                        </div>
+ 
+                        <div class="labelvalue">
+                          <div class="label">
+                            <label>Manager</label>
+                            <span class="important-symbol">&#42;</span>
+                          </div>
+                          <div class="value">
+                            <p-dropdown
+                              [options]="managerData"
+                              placeholder="--Select Manager--"
+                              formControlName="managerName"
+                              appendTo="body"
+                            ></p-dropdown>
+ 
+                            <div
+                            *ngIf="
+                            addnewScheduleForm.get('managerName')?.invalid &&
+                              (addnewScheduleForm.get('managerName')?.touched || formSubmitted)
+                            "
+                          >
+                            <div
+                              class="error-message"
+                              *ngIf="
+                              addnewScheduleForm.get('managerName')?.hasError('required')
+                              "
+                            >
+                              Manager Name is required !
+                            </div>
+                          </div>
+                          </div>
+                        </div>
+ 
+                        <div class="labelvalue">
+                          <div class="label">
+                            <label>Skills</label>
+                            <span class="important-symbol">&#42;</span>
+                          </div>
+                          <div class="value">
+                            <p-multiSelect
+                            [options]="skillSet"
+                             placeholder="--Select Skill--"
+                             formControlName="skills" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
+                           
+                             <div
+                             *ngIf="
+                             addnewScheduleForm.get('skills')?.invalid &&
+                               (addnewScheduleForm.get('skills')?.touched || formSubmitted)
+                             "
+                           >
+                             <div
+                               class="error-message"
+                               *ngIf="
+                               addnewScheduleForm.get('skills')?.hasError('required')
+                               "
+                             >
+                               Skills is required !
+                             </div>
+                           </div>
+                          </div>
+                        </div>
+ 
+                        <div class="cuttoffDuration">
+                          <div class="labelvalue">
+                            <div class="label">
+                              <label>Cutoff (in %)</label>
+                              <span class="important-symbol">&#42;</span>
+                            </div>
+                            <div class="value">
+                              <input
+                                type="text"
+                                pInputText
+                                formControlName="cutoff"
+                mode="decimal"
+                              />
+ 
+                              <div
+                              *ngIf="
+                              addnewScheduleForm.get('cutoff')?.invalid &&
+                                (addnewScheduleForm.get('cutoff')?.touched || formSubmitted)
+                              "
+                            >
+                              <div
+                                class="error-message"
+                                *ngIf="
+                                addnewScheduleForm.get('cutoff')?.hasError('required')
+                                "
+                              >
+                              cutoff is required !
+                              </div>
+                            </div>
+ 
+                            </div>
+                          </div>
+ 
+                          <div class="labelvalue">
+                            <div class="label">
+                              <label>Duration(minutes)</label>
+                              <span class="important-symbol">&#42;</span>
+                            </div>
+                            <div class="value">
+                              <input
+                                type="text"
+                                pInputText
+                                formControlName="duration"
+                                mode="decimal"
+                              />
+                              <div
+                              *ngIf="
+                              addnewScheduleForm.get('duration')?.invalid &&
+                                (addnewScheduleForm.get('duration')?.touched || formSubmitted)
+                              "
+                            >
+                              <div
+                                class="error-message"
+                                *ngIf="
+                                addnewScheduleForm.get('duration')?.hasError('required')
+                                "
+                              >
+                              duration is required !
+                              </div>
+                            </div>
+ 
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
     <ng-template pTemplate="footer">
       <div class="Newschedule-button">

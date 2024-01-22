@@ -293,6 +293,18 @@
         width: 40%;
       }
   }
+  .custom-clear {
+  ::ng-deep {
+    .p-button:enabled:hover {
+      background: white;
+      color: #c81a78;
+      border-color: #c81a78;
+    }
+    .p-button:focus {
+      box-shadow: none;
+    }
+  }
+}
   .clear-button {
     height: 36px;
     padding: 6px, 6px, 6px, 8px;
@@ -301,6 +313,7 @@
     color: #c81a78;
     border: 1px solid #c81a78;
     background: white;
+
     ::ng-deep .p-button:enabled:hover {
       background: white;
       color: #c81a78;

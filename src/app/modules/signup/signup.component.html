@@ -1,3 +1,4 @@
+
 <div class="signup-container">
   <div class="signup-box">
     <div class="signup-slogan">
@@ -11,46 +12,21 @@
     <div class="signup-card">
       <p-card>
         <h4 class="signup-wording">Register with your personal information</h4>
-        <form  class="signup-form">
+        <form  [formGroup]="signupForm" (ngSubmit)="signup()">
           <div class="p-inputgroup name">
-            <input
-              class="signup-firstname"
-              type="text"
-              pInputText
-              placeholder="First Name"
-              [(ngModel)]="Firstname"
-              name="FirstName"
-            />
-            <input
-              class="signup-lastname"
-              type="text"
-              pInputText
-              placeholder="Last Name"
-              [(ngModel)]="Lastname"
-              name="Lastname"
-            />
+            <input formControlName="firstName" class="signup-firstname" type="text" pInputText placeholder="First Name" />
+            <input formControlName="lastName" class="signup-lastname" type="text" pInputText placeholder="Last Name" />
           </div>
-          <!-- <div class="p-inputgroup signup-phone ">
-          <p-inputNumber
-            mode="decimal"
-            [ngModelOptions]="{ standalone: true }"
-            placeholder="Phone number"
-            inputId="withoutgrouping"
-            [useGrouping]="false"
-            [(ngModel)]="phoneNumber"
-                     >
-          </p-inputNumber>
-        </div> -->
- 
-          <div class="p-inputgroup signup-phone">
+
+            <div class="p-inputgroup signup-phone">
             <input
+            
+              formControlName="phoneNumber"
               class="signup-firstname"
               type="number"
               pInputText
               placeholder="Phone number"
-              [useGrouping]="false"
-              [(ngModel)]="phoneNumber"
-              name="emailId"
+
             />
           </div>
  
@@ -58,12 +34,11 @@
             <div class="input-with-icon">
               <i class="pi pi-user"></i>
               <input
+                formControlName="emailId"
                 class="email-signup"
                 type="text"
                 pInputText
                 placeholder="Email"
-                [(ngModel)]="emailId"
-                name="emailId"
               />
             </div>
             <div class="email-caption">
@@ -73,12 +48,12 @@
           <div class="p-inputgroup input-with-icon1">
             <i class="pi pi-lock"></i>
             <input
+            
+              formControlName="password"
               class="signup-newpassword"
               type="password"
               pInputText
               placeholder="New Password"
-              [(ngModel)]="password"
-              name="password"
             />
             <div class="info-circle">
               <p-overlayPanel
@@ -123,12 +98,11 @@
           <div class="p-inputgroup input-with-icon1">
             <i class="pi pi-lock"></i>
             <input
+                         formControlName="confirmPassword"
               class="confirmpassword-signup"
               type="password"
               pInputText
               placeholder="Confirm Password"
-              [(ngModel)]="confirmPassword"
-              name="confirmPassword"
             />
           </div>
           <span class="agree-signup"
@@ -139,26 +113,18 @@
           <p-toast></p-toast>
           <div class="button-signup">
             <button
-              pButton
-              type="submit"
-              (click)="signup()"
-              label="Sign Up"
-              class="p-button-success"
-              [disabled]="
-                !emailId ||
-                !Firstname ||
-                !Lastname ||
-                !phoneNumber ||
-                !password ||
-                !confirmPassword
-              "
-            ></button>
+    pButton
+    type="submit"
+    label="Sign Up"
+    class="p-button-success"
+   
+  ></button>
           </div>
         </form>
          <div class="hrLine"></div>
         <div class="login-signup">
           <button
-            (click)="alreadyhasaccount()"
+            (click)="alreadyHasAccount()"
             class="signup-button"
             style="border: #652d90"
           >
