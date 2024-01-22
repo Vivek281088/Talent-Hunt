@@ -509,6 +509,7 @@ export class SchedulepageComponent implements OnInit {
         this.tableService
           .postExistingCandidateDetails(
             this.candidateId,
+            existingCandidate.empid,
             this.email_Managername,
             existingCandidate.candidateName,
             existingCandidate.candidateEmail,
@@ -523,19 +524,20 @@ export class SchedulepageComponent implements OnInit {
             existingCandidate.password,
             existingCandidate.confirmPassword,
             this.roles,
-            this.Skill
+            this.Skill,
+            existingCandidate.department,
+            existingCandidate.candidate_location
           )
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);
             this.candidateData.push(data);
           });
-
-        setTimeout(() => {
-          this.closeInviteDialog();
-          this.showEmailSubmitted();
-        }, 1000);
       }
     });
+    setTimeout(() => {
+      this.closeInviteDialog();
+      this.showEmailSubmitted();
+    }, 1000);
   }
 
   closeInviteDialog() {
@@ -582,6 +584,10 @@ export class SchedulepageComponent implements OnInit {
     const formatDate: string = `${month} ${day}, ${year}`;
 
     return formatDate;
+  }
+
+  selectingCandidate() {
+    console.log("Selected",this.selectedCandidates)
   }
 }
 
