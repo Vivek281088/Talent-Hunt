@@ -24,35 +24,35 @@ export class SchedulepageComponent implements OnInit {
   items: MenuItem[] | undefined;
 
   home: MenuItem | undefined;
-  selecteddates!: Date;
-  questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
-  selectedDate!: any;
-  fromDate!: any;
-  toDate!: any;
-  difficultyLevel: string[] = ['Easy', 'Medium', 'Hard'];
+  // selecteddates!: Date;
+  // questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
+  // selectedDate!: any;
+  // fromDate!: any;
+  // toDate!: any;
+  // difficultyLevel: string[] = ['Easy', 'Medium', 'Hard'];
   formGroup!: FormGroup;
-  tables: any[] | undefined;
+  // tables: any[] | undefined;
   cols!: Column[];
-  selectedManager: string = '';
-  managerOption: any[] = [];
+  // selectedManager: string = '';
+  // managerOption: any[] = [];
   skillSet: any[] = [];
-  selectedSkill: any[] = [];
+  // selectedSkill: any[] = [];
   managerName: string = '';
-  skill: String[] = [];
-  filteredSkill: String[] = [];
-  fskill: String[] = [];
-  exdata: any[] = [];
-  filterSkills: any;
-  Skills: any[] = [];
-  filterManager: any;
-  filteredData: any[] = [];
-  isCreate: boolean = false;
-  isEdit: boolean = false;
-  isMail: boolean = false;
-  create: boolean = false;
+  // skill: String[] = [];
+  // filteredSkill: String[] = [];
+  // fskill: String[] = [];
+  // exdata: any[] = [];
+  // filterSkills: any;
+  // Skills: any[] = [];
+  // filterManager: any;
+  // filteredData: any[] = [];
+  // isCreate: boolean = false;
+  // isEdit: boolean = false;
+  // isMail: boolean = false;
+  // create: boolean = false;
   Tdata: any[] = [];
-  isCreateClicked = false;
-  dropdownOptions: any[] = [];
+  // isCreateClicked = false;
+  // dropdownOptions: any[] = [];
   FinalizedQuestions: any[] = [];
   Skill: any[] = []; //for edit
   selectedQuestions: any[] = [];
@@ -65,12 +65,12 @@ export class SchedulepageComponent implements OnInit {
   selectedCandidates: any[] = [];
   candidateList: any[] = [];
   questions: any;
-  filterPopupVisible: boolean = false;
-  candidateNameOptions: any[] = []; 
-  statusOptions: any[] = [];
-  names: string[] = [];
-  status: string = '';
-  CandidatefilteredData: any[] = [];
+  // filterPopupVisible: boolean = false;
+  // candidateNameOptions: any[] = []; 
+  // statusOptions: any[] = [];
+  // names: string[] = [];
+  // status: string = '';
+  // CandidatefilteredData: any[] = [];
   view_Managername!: string;
   view_Filename!: string;
   editManagername!: string;
@@ -79,18 +79,18 @@ export class SchedulepageComponent implements OnInit {
   score: number | null = null;
   candidatePassword: string = 'abc123';
   candidateConfirmPassword: string = 'abc123';
-  name: boolean = true;
+  // name: boolean = true;
   finalizedEmail!: string;
   finalizedManagerEmail!: string;
   managerEmail!: string;
   column!: Column[];
   question!: string;
-  selectedAnswer!: string;
-  chosenSkill!: String;
+  // selectedAnswer!: string;
+  // chosenSkill!: String;
   
-  selectedType: boolean = false;
-  selectedquestionType!: string;
-  selecteddifficultyType!: string;
+  // selectedType: boolean = false;
+  // selectedquestionType!: string;
+  // selecteddifficultyType!: string;
   candidateSkill!: any;
   
   candidateId!: Date | null;
@@ -104,26 +104,26 @@ export class SchedulepageComponent implements OnInit {
   viewQuestionSidebar: boolean = false;
   sendQuestionCardVisible: boolean = false;
   // reviewer
-  totalQuestions!: number;
+  // totalQuestions!: number;
 
-  correctQuestions!: number;
+  // correctQuestions!: number;
 
-  textQuestions: any[] = [];
+  // textQuestions: any[] = [];
 
-  id: string = '';
+  // id: string = '';
 
   visible: boolean = false;
 
-  buttonColors: boolean[] = [];
+  // buttonColors: boolean[] = [];
 
-  buttonColorsWrong: boolean[] = [];
+  // buttonColorsWrong: boolean[] = [];
 
-  response: boolean = false;
-  newScheduleVisible: boolean = false;
+  // response: boolean = false;
+  // newScheduleVisible: boolean = false;
 
-  reviewerStatus: string = 'Completed';
+  // reviewerStatus: string = 'Completed';
 
-  dialogEmailStatus: string | null = null;
+  // dialogEmailStatus: string | null = null;
 
   roles: string = 'user';
   showcardFlag: boolean = false;
@@ -321,51 +321,51 @@ export class SchedulepageComponent implements OnInit {
     this.getCandidatename();
   }
 
-  storeCandidate() {
-    //rest data
-    this.score = null;
-    this.result = 'Awaiting Eval';
-    console.log('score', this.score);
-    console.log('result', this.result);
+  // storeCandidate() {
+  //   //rest data
+  //   this.score = null;
+  //   this.result = 'Awaiting Eval';
+  //   console.log('score', this.score);
+  //   console.log('result', this.result);
 
-    //to load the candidate name
+  //   //to load the candidate name
 
-    const date = Date.now();
-    this.candidateId = new Date(date);
+  //   const date = Date.now();
+  //   this.candidateId = new Date(date);
 
-    //show success message
+  //   //show success message
 
-    this.showEmailSubmitted();
-    this.tableService
-      .postCandidateDetails(
-        this.candidateId,
-        this.email_Managername,
-        this.candidateName,
-        this.candidateEmail,
-        this.candidatePhone,
-        this.email_Status,
-        this.email_Filename,
-        this.questions,
-        this.score,
-        this.result,
-        this.cutoff,
-        this.durations,
-        this.candidatePassword,
-        this.candidateConfirmPassword,
-        this.roles,
-        this.candidateSkill
-      )
-      .subscribe((response) => {
-        console.log('stored', response);
-        this.candidateList.push(response);
-        //
-      });
+  //   this.showEmailSubmitted();
+  //   this.tableService
+  //     .postCandidateDetails(
+  //       this.candidateId,
+  //       this.email_Managername,
+  //       this.candidateName,
+  //       this.candidateEmail,
+  //       this.candidatePhone,
+  //       this.email_Status,
+  //       this.email_Filename,
+  //       this.questions,
+  //       this.score,
+  //       this.result,
+  //       this.cutoff,
+  //       this.durations,
+  //       this.candidatePassword,
+  //       this.candidateConfirmPassword,
+  //       this.roles,
+  //       this.candidateSkill
+  //     )
+  //     .subscribe((response) => {
+  //       console.log('stored', response);
+  //       this.candidateList.push(response);
+  //       //
+  //     });
 
-    // Close the dialog
-    setTimeout(() => {
-      this.cancelEmailPopup();
-    }, 2000);
-  }
+  //   // Close the dialog
+  //   setTimeout(() => {
+  //     this.cancelEmailPopup();
+  //   }, 2000);
+  // }
   resetForm() {
     this.candidateName = '';
     this.candidateEmail = '';
