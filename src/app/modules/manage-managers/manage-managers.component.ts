@@ -60,6 +60,11 @@ export class ManageManagersComponent {
       console.log('Client Manager Details', response);
       this.managerData = response;
 
+      // setting selection false
+      this.managerData.forEach((manager: { selection: boolean }) => {
+        manager.selection = manager.selection || false; // Initialize or keep false if already set
+      });
+
       this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
       console.log('Unique Department', this.uniqueDepartment);
     });
@@ -263,6 +268,14 @@ export class ManageManagersComponent {
       detail: 'Manager saved successfully',
     });
   }
+
+  deleteMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Deleted',
+      detail: 'Manager Deleted successfully',
+    });
+  }
   fileUploadErrorMessage() {
     this.messageService.add({
       severity: 'error',
@@ -294,5 +307,38 @@ export class ManageManagersComponent {
   }
 
   selectedDeleteManager: any;
-  deleteManager() {}
+  deleteManager() {
+    console.log('Deleteting Manager.....', this.selectedDeleteManager);
+    for (let managerData of this.selectedDeleteManager) {
+      this.managerService
+        .deleteManagerDetails(managerData.empid, managerData.email)
+        .subscribe((response) => {
+          console.log('Deleted Manager.....', managerData.managerName);
+        });
+    }
+
+    setTimeout(() => {
+      this.deleteMessage();
+      this.loadManagerData();
+    }, 1500);
+  }
+
+  toggleSelection(data: any) {
+    if (!data || !data.empid) {
+      return;
+    }
+    data.selection = !data.selection;
+
+    if (data.selection) {
+      console.log('Selected Manager:', this.selectedDeleteManager);
+    } else {
+      this.selectedDeleteManager = this.selectedDeleteManager.filter(
+        (selected: any) => selected.empid !== data.empid
+      );
+      console.log('Selected ----Manager :', this.selectedDeleteManager);
+    }
+  }
+  selectAll() {
+    console.log('Selected all Manager:', this.selectedDeleteManager);
+  }
 }

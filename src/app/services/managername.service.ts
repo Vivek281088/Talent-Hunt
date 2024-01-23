@@ -85,8 +85,8 @@ export class ManagernameService {
       email: email,
       phone: phone,
       empid: empid,
-      department: department !== undefined ? department : '--',
-      candidate_location: location !== undefined ? location : '--',
+      department: department !== undefined || '' ? department : '--',
+      candidate_location: location !== undefined || ''? location : '--',
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
@@ -109,11 +109,25 @@ export class ManagernameService {
       candidateEmail: email,
       candidatePhone: phone,
       empid: empid,
-      department: department !== undefined ? department : '--',
-      candidate_location: location !== undefined ? location : '--',
+      department: department !== undefined || ''? department : '--',
+      candidate_location: location !== undefined || ''? location : '--',
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_CandidateDetails',
+      body,
+      { headers }
+    );
+  }
+  deleteCandidate(
+    email: string
+    
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateEmail: email
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteCandidate',
       body,
       { headers }
     );
@@ -139,6 +153,23 @@ export class ManagernameService {
     console.log('Updated data :', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_ManagerDetail',
+      body,
+      { headers }
+    );
+  }
+
+  deleteManagerDetails(
+    empid: number,
+    email: string
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      empid: empid,
+      email: email,
+    };
+    console.log('Deleted data :', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteManager',
       body,
       { headers }
     );

@@ -154,7 +154,7 @@ export class ManageCandidatesComponent {
     this.isEditCandidate = false;
     this.addCandidatevisible = true;
   }
-  deleteCandidate() {}
+  
   cancelButton() {
     this.addCandidatevisible = false;
     this.editCandidatevisible = false;
@@ -316,5 +316,50 @@ export class ManageCandidatesComponent {
     this.newScheduleService.setCandidateProfileData(data);
 
     this.router.navigate(['/candidateProfile']);
+  }
+
+  selectedDeleteCandidate: any;
+  deleteCandidate() {
+    console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
+    for (let candidateData of this.selectedDeleteCandidate) {
+      console.log('Deleteting Candidate.....', candidateData.candidateName);
+      // this.managerService
+      //   .deleteCandidate(candidateData.email)
+      //   .subscribe((response) => {
+      //     console.log('Deleted Candidate.....', candidateData.candidateName);
+      //   });
+    }
+
+    setTimeout(() => {
+      this.deleteMessage();
+      this.getUniqueCandidatedata();
+    }, 1500);
+  }
+
+  deleteMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Deleted',
+      detail: 'Candidate Deleted successfully',
+    });
+  }
+
+  toggleSelection(data: any) {
+    if (!data || !data.empid) {
+      return;
+    }
+    data.selection = !data.selection;
+
+    if (data.selection) {
+      console.log('Selected Candidate:', this.selectedDeleteCandidate);
+    } else {
+      this.selectedDeleteCandidate = this.selectedDeleteCandidate.filter(
+        (selected: any) => selected.empid !== data.empid
+      );
+      console.log('Selected ----Candidate :', this.selectedDeleteCandidate);
+    }
+  }
+  selectAll() {
+    console.log('Selected all Candidate:', this.selectedDeleteCandidate);
   }
 }

@@ -111,8 +111,8 @@
 .manager-header-2 {
   display: flex;
   flex-direction: row;
-  // justify-content: space-between;
-  width: 20%;
+  gap: 7%;
+  width: 50%;
 }
 .searchIcon {
   height: 92%;
@@ -227,6 +227,8 @@
     text-align: center;
     &:hover {
       color: #ffffff;
+      background: #652d90;
+      border: 1px solid #652d90;
     }
     &:focus {
       box-shadow: none;
@@ -430,15 +432,15 @@
     padding: 1rem 1rem 1rem 1rem;
   }
 }
-.custom-file-input{
-    border: 1px solid #652d90;
-    border-radius: 8px;
-    padding: 1.5% 1% 1.5% 2%;
-    height: fit-content;
-    background: #652d90;
-    color: white;
-    font-weight: 700;
-    cursor: pointer;
+.custom-file-input {
+  border: 1px solid #652d90;
+  border-radius: 8px;
+  padding: 1.5% 1% 1.5% 2%;
+  height: fit-content;
+  background: #652d90;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .checkboxcell {

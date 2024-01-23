@@ -27,6 +27,8 @@
       [rows]="5"
       [showCurrentPageReport]="true"
       [rowsPerPageOptions]="[5, 10, 25, 50]"
+      dataKey="empid"
+      [(selection)]="selectedDeleteCandidate"
       [loading]=""
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -41,7 +43,7 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th colspan="7">
+          <th colspan="8">
             <div class="manager-header">
               <div class="manager-header1">
                 <div class="p-input-icon-right">
@@ -129,19 +131,23 @@
                   </p-button>
                 </div>
 
-                <!-- <div class="addcandidate">
+                <div class="addcandidate">
                   <p-button
                     label="Delete candidate"
                     (onClick)="deleteCandidate()"
+                    
                   >
                   </p-button>
-                </div> -->
+                </div>
               </div>
             </div>
           </th>
         </tr>
 
         <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox [value]="candidateData" (click)="selectAll()"></p-tableHeaderCheckbox>
+          </th>
           <th class="EmployeeId" pSortableColumn="empid">
             Emp ID <p-sortIcon field="empid"></p-sortIcon>
           </th>
@@ -160,9 +166,9 @@
         class="tableBody"
       >
         <tr>
-          <!-- <td class="checkboxcell">
-            <input type="checkbox" [value]="rowData" class="custom-checkbox" />
-          </td> -->
+          <td>
+            <p-tableCheckbox [value]="rowData" [checked]="rowData.selection" (click)="toggleSelection(rowData)"></p-tableCheckbox>
+          </td>
           <td>{{ rowData.empid }}</td>
           <td class="candidatenamedesign">
             <a (click)="gotoCandidateProfile(rowData)">{{
@@ -214,7 +220,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="7">No Data found.</td>
+          <td colspan="8">No Data found.</td>
         </tr>
       </ng-template>
     </p-table>

@@ -113,7 +113,7 @@
 
         <tr>
           <th style="width: 4rem">
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            <p-tableHeaderCheckbox [value]="managerData" (click)="selectAll()"></p-tableHeaderCheckbox>
           </th>
           <th class="EmployeeId" pSortableColumn="empid">
             Emp ID <p-sortIcon field="empid"></p-sortIcon>
@@ -133,7 +133,7 @@
       >
         <tr>
           <td>
-            <p-tableCheckbox [value]="managerData"></p-tableCheckbox>
+            <p-tableCheckbox [value]="rowData" [checked]="rowData.selection" (click)="toggleSelection(rowData)"></p-tableCheckbox>
           </td>
           <td>{{ rowData.empid }}</td>
           <td class="managernamedesign">
