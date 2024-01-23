@@ -31,8 +31,8 @@ export class ManageManagersComponent {
     private managerService: ManagernameService,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private router : Router,
-    private newScheduleService : NewScheduleService,
+    private router: Router,
+    private newScheduleService: NewScheduleService
   ) {
     this.addManagerForm = this.fb.group({
       employeeId: [null, [Validators.required]],
@@ -116,10 +116,11 @@ export class ManageManagersComponent {
     this.isEditManager = false;
   }
   selectedRowData: any;
+  EditManagerDialog: boolean = false;
   handleEditIconClick(data: any) {
     this.isEditManager = true;
     this.isAddManager = false;
-    this.visible = true;
+    this.EditManagerDialog = true;
 
     this.selectedRowData = data;
     console.log(' Selected Edit Data', this.selectedRowData);
@@ -142,6 +143,7 @@ export class ManageManagersComponent {
 
   cancelButton() {
     this.visible = false;
+    this.EditManagerDialog = false;
     this.addManagerForm.reset();
     this.addManagerForm.markAsPristine();
     this.addManagerForm.markAsUntouched();
@@ -161,14 +163,11 @@ export class ManageManagersComponent {
       detail: 'Manager updated successfully',
     });
   }
-  gotoManagerProfile(data : any){
-
-    console.log("name",data)
+  gotoManagerProfile(data: any) {
+    console.log('name', data);
     this.newScheduleService.setManagerProfileData(data);
-    
-    this.router.navigate(['/managerProfile'])
-    
 
+    this.router.navigate(['/managerProfile']);
   }
 
   createButton() {

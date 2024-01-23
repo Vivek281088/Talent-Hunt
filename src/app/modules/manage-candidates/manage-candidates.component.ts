@@ -157,6 +157,7 @@ export class ManageCandidatesComponent {
   deleteCandidate() {}
   cancelButton() {
     this.addCandidatevisible = false;
+    this.editCandidatevisible = false;
     this.addCandidateForm.reset();
     this.addCandidateForm.markAsPristine();
     this.addCandidateForm.markAsUntouched();

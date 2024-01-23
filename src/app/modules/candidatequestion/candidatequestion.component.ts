@@ -329,7 +329,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
     this.endTime = new Date();
     this.reviewQuestion();
-    this.router.navigate(['/candidatehome']);
+    this.router.navigate(['/login']);
   }
   reviewQuestion() {
     this.countCorrectQues = 0;
@@ -433,7 +433,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           allowOutsideClick: false,
         }).then((result: { isConfirmed: any; }) => {
           if (result.isConfirmed) {
-            this.router.navigate(['/candidatehome']);
+            this.router.navigate(['/login']);
           }
         });
 
