@@ -36,6 +36,8 @@
 
               "node_modules/primeflex/primeflex.css",
 
+              "node_modules/sweetalert2/src/sweetalert2.scss",
+
               "src/styles.scss"
             ],
             "scripts": []

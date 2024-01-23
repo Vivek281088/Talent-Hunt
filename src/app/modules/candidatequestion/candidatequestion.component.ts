@@ -16,6 +16,7 @@ import { ReviewerService } from 'src/app/services/reviewer.service';
 import { Toast } from 'ngx-toastr';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { forkJoin } from 'rxjs';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-candidatequestion',
   templateUrl: './candidatequestion.component.html',
@@ -424,9 +425,17 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           detail: 'Submitted',
         });
         this.submitAnswers();
-        setTimeout(() => {
-          this.router.navigate(['/candidatehome']);
-        }, 2000);
+        
+        Swal.fire({
+          title: 'Submitted Successfully!',
+          text: 'You have submitted the test succesfully!',
+          icon: 'success',
+          allowOutsideClick: false,
+        }).then((result: { isConfirmed: any; }) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/candidatehome']);
+          }
+        });
 
         console.log('Submitted');
       },

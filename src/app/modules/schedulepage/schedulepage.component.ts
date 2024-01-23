@@ -153,7 +153,10 @@ export class SchedulepageComponent implements OnInit {
       scheduleName: ['', [Validators.required]],
       managerName: ['', [Validators.required]],
       skills: ['', [Validators.required]],
-      cutoff: [null, [Validators.required, Validators.max(100)]],
+      cutoff: [
+        null,
+        [Validators.required, Validators.max(100), Validators.min(1)],
+      ],
       duration: [null, [Validators.required]],
     });
   }
@@ -587,7 +590,7 @@ export class SchedulepageComponent implements OnInit {
   }
 
   selectingCandidate() {
-    console.log("Selected",this.selectedCandidates)
+    console.log('Selected', this.selectedCandidates);
   }
 }
 

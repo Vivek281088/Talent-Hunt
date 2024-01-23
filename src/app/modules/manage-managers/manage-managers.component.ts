@@ -251,6 +251,7 @@ export class ManageManagersComponent {
         setTimeout(() => {
           this.fileUploadMessage();
           this.cancelButton();
+          this.loadManagerData();
         }, 1000);
       },
       header: true,

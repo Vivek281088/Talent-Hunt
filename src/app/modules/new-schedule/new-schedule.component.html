@@ -17,7 +17,7 @@
         <p-button label="Cancel" (click)="cancelButton()"> </p-button>
       </div>
       <div class="saveBtn" (click)="saveSelected()">
-        <p-button label="Save Changes">
+        <p-button label="Save Changes" [disabled]="selectedquestions.length==0" >
           <svg
             width="24"
             height="25"
