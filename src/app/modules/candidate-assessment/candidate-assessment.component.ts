@@ -81,5 +81,6 @@ export class CandidateAssessmentComponent implements AfterViewInit {
     this.router.navigate(['candidatequestion']);
   }
 
+ 
   
 }

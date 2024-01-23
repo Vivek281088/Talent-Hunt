@@ -46,7 +46,9 @@
                     type="text"
                     placeholder="Search"
                     [(ngModel)]="globalSearchValue"
-                    (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+                  
+                    (input)="dt2.filterGlobal($any($event.target).value.trim(), 'contains')"
+                   
                   />
                   
                   <i class="pi pi-search"></i>
@@ -68,6 +70,7 @@
                         [options]="managerData"
                         placeholder="Manager"
                         (onChange)="filter($event.value)"
+                       
                         appendTo="body"
                       >
                         <ng-template let-option pTemplate="item">
@@ -133,6 +136,7 @@
                       [(visible)]="visible"
                       [modal]="true"
                       [style]="{ width: '47VW' }"
+                      [formGroup]="addnewScheduleForm"
                       [draggable]="false"
                       [resizable]="false"
                     >
@@ -144,10 +148,27 @@
                           </div>
                           <div class="value">
                             <input
-                              type="text"
+                              type="text" formControlName="scheduleName"
                               pInputText
-                              [(ngModel)]="scheduleName"
+                              
                             />
+
+                            <div
+                            *ngIf="
+                            addnewScheduleForm.get('scheduleName')?.invalid &&
+                              (addnewScheduleForm.get('scheduleName')?.touched || formSubmitted)
+                            "
+                          >
+                            <div
+                              class="error-message"
+                              *ngIf="
+                              addnewScheduleForm.get('scheduleName')?.hasError('required')
+                              "
+                            >
+                              Schedule Name is required !
+                            </div>
+                          </div>
+
                           </div>
                         </div>
 
@@ -160,9 +181,25 @@
                             <p-dropdown
                               [options]="managerData"
                               placeholder="--Select Manager--"
-                              [(ngModel)]="manager"
+                              formControlName="managerName"
                               appendTo="body"
                             ></p-dropdown>
+
+                            <div
+                            *ngIf="
+                            addnewScheduleForm.get('managerName')?.invalid &&
+                              (addnewScheduleForm.get('managerName')?.touched || formSubmitted)
+                            "
+                          >
+                            <div
+                              class="error-message"
+                              *ngIf="
+                              addnewScheduleForm.get('managerName')?.hasError('required')
+                              "
+                            >
+                              Manager Name is required !
+                            </div>
+                          </div>
                           </div>
                         </div>
 
@@ -172,9 +209,26 @@
                             <span class="important-symbol">&#42;</span>
                           </div>
                           <div class="value">
-                            <p-multiSelect [options]="skillSet"
+                            <p-multiSelect 
+                            [options]="skillSet"
                              placeholder="--Select Skill--"
-                            [(ngModel)]="selectedSkills" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
+                             formControlName="skills" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
+                            
+                             <div
+                             *ngIf="
+                             addnewScheduleForm.get('skills')?.invalid &&
+                               (addnewScheduleForm.get('skills')?.touched || formSubmitted)
+                             "
+                           >
+                             <div
+                               class="error-message"
+                               *ngIf="
+                               addnewScheduleForm.get('skills')?.hasError('required')
+                               "
+                             >
+                               Skills is required !
+                             </div>
+                           </div>
                           </div>
                         </div>
 
@@ -186,10 +240,50 @@
                             </div>
                             <div class="value">
                               <input
-                                type="text"
+                                type="number"
                                 pInputText
-                                [(ngModel)]="cutOff"
+                                formControlName="cutoff"
+                mode="decimal"
                               />
+
+                              <div
+                              *ngIf="
+                              addnewScheduleForm.get('cutoff')?.invalid &&
+                                (addnewScheduleForm.get('cutoff')?.touched || formSubmitted)
+                              "
+                            >
+                              <div
+                                class="error-message"
+                                *ngIf="
+                                addnewScheduleForm.get('cutoff')?.hasError('required')
+                                "
+                              >
+                              cutoff is required !
+
+                              </div>
+                              <div
+                              class="error-message"
+                              *ngIf="
+                              addnewScheduleForm.get('cutoff')?.hasError('max')
+                              "
+                            >
+                            cutoff must be less than 100!
+                            
+                            </div>
+
+
+                            <div
+                            class="error-message"
+                            *ngIf="
+                            addnewScheduleForm.get('cutoff')?.hasError('min')
+                            "
+                          >
+                          Cutoff value must be greater than 0 !
+
+                          </div>
+
+                            </div>
+
                             </div>
                           </div>
 
@@ -200,10 +294,48 @@
                             </div>
                             <div class="value">
                               <input
-                                type="text"
+                                type="number"
                                 pInputText
-                                [(ngModel)]="duration"
+                                formControlName="duration"
+                                mode="decimal"
                               />
+                              <div
+                              *ngIf="
+                              addnewScheduleForm.get('duration')?.invalid &&
+                                (addnewScheduleForm.get('duration')?.touched || formSubmitted)
+                              "
+                            >
+                            <div
+                            class="error-message"
+                            *ngIf="
+                            addnewScheduleForm.get('duration')?.hasError('required')
+                            "
+                          >
+                          duration is required !
+                          </div>
+
+                          <div
+                          class="error-message"
+                          *ngIf="
+                          addnewScheduleForm.get('duration')?.hasError('max')
+                          "
+                        >
+                        duration must be less than 5 hours!
+                        
+                        </div>
+
+
+                        <div
+                        class="error-message"
+                        *ngIf="
+                        addnewScheduleForm.get('duration')?.hasError('min')
+                        "
+                      >
+                      duration must be greater than 1 minute!
+                      
+                      </div>
+                            </div>
+
                             </div>
                           </div>
                         </div>
@@ -372,7 +504,7 @@
               <!-- </div> -->
               <!--add on icon-->
               <!-- <div class="mr-3 cursor-pointer" > -->
-              <a class="flex">
+              <!-- <a class="flex">
                 <svg
                   width="18"
                   height="18"
@@ -387,7 +519,7 @@
                   />
                 </svg>
               </a>
-              <!-- <app-card *ngIf="showcardFlag">hi</app-card> -->
+              <app-card *ngIf="showcardFlag">hi</app-card> -->
               <!-- </div> -->
             </div>
           </td>

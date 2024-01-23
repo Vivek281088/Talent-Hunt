@@ -977,6 +977,14 @@ body {
       padding: 1% 2% 2% 2%;
     }
   }
+  .error-message {
+    color: tomato;
+    //   transform: translateY(-168%);
+    //   padding-left: 1%;
+    font-size: 14px;
+    padding: 1% 2% 2% 0;
+  }
+}
   .labelvalue {
     display: flex;
     flex-direction: column;
@@ -1010,7 +1018,7 @@ body {
       }
     }
   }
-}
+
 
 .sendinvite {
   .wholedialog {
@@ -1058,3 +1066,4 @@ body {
     }
   }
 }
+

@@ -17,6 +17,7 @@ import { Table } from 'primeng/table';
 import { Checkbox } from 'primeng/checkbox';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-new-schedule',
@@ -63,7 +64,9 @@ export class NewScheduleComponent {
   QuestionView: boolean = false;
   question!: string;
   isEditSchedule: boolean = false;
-
+  updateNewScheduleForm!: FormGroup;
+  formSubmitted: boolean = false;
+  formData : any;
   // @ViewChild('yourTable')yourTable:Table | undefined;
 
   @ViewChildren('tableCheckbox')
@@ -85,11 +88,20 @@ export class NewScheduleComponent {
     private ngzone: NgZone,
     private cdr: ChangeDetectorRef,
     private managernameService: ManagernameService,
+    private fb: FormBuilder,
     private messageService: MessageService,
     private router: Router
-  ) {
-    // this.data=this.dataservice.sharedData;
-  }
+  )
+  {
+    this.updateNewScheduleForm = this.fb.group({
+      scheduleName: ['', [Validators.required]],
+      managerName: ['', [Validators.required]],
+    
+      cutoff: [null, [Validators.required]],
+      duration: [null, [Validators.required]],
+      
+    });
+  } 
   ngOnInit() {
     // console.log("se",this.selectedquestions)
     console.log('Selected Questions during ngOnInit:', this.selectedquestions);
@@ -135,13 +147,26 @@ export class NewScheduleComponent {
           this.cdr.detectChanges();
         });
     } else {
-      this.scheduleName = localStorage.getItem('scheduleName');
-      this.manager = this.managernameService.getManagerName();
-      this.cutOff = this.managernameService.getCutoff();
-      this.duration = this.managernameService.getDuration();
+      this.updateNewScheduleForm.patchValue({
+        scheduleName:localStorage.getItem('scheduleName'),
+      managerName: this.managernameService.getManagerName(),
+    
+      cutoff: this.managernameService.getCutoff(),
+      duration: this.managernameService.getDuration()
+      });
+      console.log("Edit Data------",this.updateNewScheduleForm.value);
+
+      this.formData=this.updateNewScheduleForm.value;
+      
+      this.formData.scheduleName=localStorage.getItem('scheduleName');
+     
+      this.formData.managerName = this.managernameService.getManagerName();
+      this.formData. cutoff= this.managernameService.getCutoff();
+      this.formData. duration= this.managernameService.getDuration();
       this.selectedSkills = this.skillsdropdownservice.getSkill();
       this.slectedquestionforedit =
         this.managernameService.getFinalizedQuestions();
+        console.log("formData",this.formData);
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
@@ -489,6 +514,11 @@ export class NewScheduleComponent {
     this.QuestionView = false;
   }
   cancelButton() {
+    this.visible = false;
+    this.formSubmitted=false;
+    this.updateNewScheduleForm.markAsPristine();
+    this.updateNewScheduleForm.markAsUntouched();
+    this.updateNewScheduleForm.reset();
     this.router.navigate(['/dashboard']);
     // scheduleName manager cutoff duration
     // localStorage.removeItem("scheduleName")
@@ -503,19 +533,26 @@ export class NewScheduleComponent {
   }
 
   update(
+    
     scheduleName: string | null,
     manager: String | null,
     cutOff: string | number | null,
     duration: string | number | null
   ) {
-    this.scheduleName = scheduleName;
-    this.manager = manager;
-    this.cutOff = cutOff;
-    this.duration = duration;
+
+    this.formSubmitted = true;
+    if (this.updateNewScheduleForm.valid) {
+      const formData = this.updateNewScheduleForm.value;
+      console.log('Form Data:', formData);
+    formData.scheduleName = scheduleName;
+    formData.managerName = manager;
+    formData.cutOff = cutOff;
+    formData.duration= duration;
     this.router.navigate(['new-schedule']);
     this.visible = false;
     console.log('hi');
   }
+}
 
   questionPreview(questions: any) {
     this.questionPreviewvisible = true;

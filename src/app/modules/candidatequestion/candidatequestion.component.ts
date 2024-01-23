@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit, } from '@angular/core';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
+import Swal from 'sweetalert2';
 
 import { ManagernameService } from 'src/app/services/managername.service';
 
@@ -14,6 +15,8 @@ import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ReviewerService } from 'src/app/services/reviewer.service';
 import { Toast } from 'ngx-toastr';
+
+
 
 @Component({
   selector: 'app-candidatequestion',
@@ -70,6 +73,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   fileName !: string;
   id: any = '2024-01-04T06:04:10.746Z';
   candidateEmail: string = 'sapna@gmail.com';
+  congratsVisible:boolean=false;
 
   constructor(
     private managernameService: ManagernameService,
@@ -221,6 +225,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.updateSessionStorage();
 
   }
+
+
+  
   
   selectOption(option: string, pageIndex: number, optionIndex: number) {
     console.log('Selected Option', this.previewOptions);
@@ -411,10 +418,23 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           summary: 'Confirmed',
           detail: 'Submitted',
         });
-        this.submitAnswers();
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
+        //this.submitAnswers();
+        Swal.fire({
+        
+          title: "Submitted Successfully!",
+          text: "You have submitted the test succesfully!",
+          icon: "success",
+          allowOutsideClick:false,
+          confirmButtonColor:'green',
+          
+        }).then((result) =>{
+          if(result.isConfirmed){
+            this.router.navigate(['/candidatehome']);
+          }
+          });
+        // setTimeout(() => {
+        //   this.router.navigate(['/candidatehome']);
+        // }, 50000);
 
         console.log('Submitted');
       },
@@ -472,5 +492,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     } else {
       return 'wrongAnswer';
     }
+  }
+
+  showAssessmentDialog(){
+    this.congratsVisible=true;
   }
 }

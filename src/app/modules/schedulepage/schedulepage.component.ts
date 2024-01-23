@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
@@ -18,7 +18,11 @@ import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DataService } from 'src/app/services/data.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
+ 
+// @HostListener('input' , ['$event.type','$event.target.value'])
+// onInput(event:string , value:string) : void{
 
+// }
 // import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-schedulepage',
@@ -145,6 +149,9 @@ export class SchedulepageComponent implements OnInit {
   candidateData: any;
   managerData: any;
   globalSearchValue!: string;
+  addnewScheduleForm!: FormGroup;
+  formSubmitted: boolean = false;
+  
 
   // candidateForm !: FormGroup;
   constructor(
@@ -160,9 +167,14 @@ export class SchedulepageComponent implements OnInit {
 
     private reviewerService: ReviewerService,
     private dataService: DataService,
-    private newScheduleService: NewScheduleService
-  ) {}
-  ngOnInit() {
+    private newScheduleService: NewScheduleService,
+    private fb: FormBuilder,
+  ) 
+  {
+    
+  } 
+  ngOnInit() { 
+    this.createForm();
     this.items = [{ label: 'Schedules' }];
 
     this.todayDate = this.formattedDate(new Date());
@@ -228,6 +240,10 @@ export class SchedulepageComponent implements OnInit {
   }
   remainaingSkills(skills: any, count: number): string[] {
     return skills.slice(-count);
+  }
+  trimvalue(){
+    console.log("onModel change")
+    this.globalSearchValue = this.globalSearchValue.trim();
   }
 
   getsvgIcon(): string {
@@ -385,6 +401,8 @@ export class SchedulepageComponent implements OnInit {
     //   console.log('managernames------------>', this.managerOption);
     // });
     this.managernameService.getclientManagerData().subscribe((response) => {
+      console.log("response manager data" , response)
+      // this.managerData = response
       this.managerData = response.map(
         (manager: { managerName: string }) => manager.managerName
       );
@@ -410,34 +428,56 @@ export class SchedulepageComponent implements OnInit {
     //   });
   }
   cancelButton() {
+    console.log("get values " , this.addnewScheduleForm.value)
     this.visible = false;
-    this.resetData();
+    this.formSubmitted=false;
+    this.addnewScheduleForm.markAsPristine();
+    this.addnewScheduleForm.markAsUntouched();
+    this.addnewScheduleForm.reset();
+
+    // this.resetData();
     console.log('Manager after cancel', this.manager);
   }
   resetData() {
-    this.scheduleName = '';
-    // this.managerData=[]
-    this.manager = '';
-    this.selectedSkills = [];
+  
+   
+    this.addnewScheduleForm.markAsPristine();
+    this.addnewScheduleForm.markAsUntouched();
+    this.addnewScheduleForm.reset();
+  }
+  createForm(){
+    this.addnewScheduleForm = this.fb.group({
+      scheduleName: ['', [Validators.required]],
+      managerName: ['', [Validators.required]],
+      skills: ['', [Validators.required]],
+      cutoff: [null, [Validators.required,Validators.max(100),Validators.min(1)]],
+      duration: [null, [Validators.required,Validators.max(300),Validators.min(1)]],
+      
+    });
   }
   createButton() {
+   this.formSubmitted = true;
+    if (this.addnewScheduleForm.valid) {
+      const formData = this.addnewScheduleForm.value;
+      console.log('Form Data:', formData);
+    
     // this.sendData();
     console.log('sended');
     const dataToSend = {
-      scheduleName: this.scheduleName,
-      manager: this.manager,
-      selectedSkills: this.selectedSkills,
-      cutOff: this.cutOff,
-      duration: this.duration,
+      scheduleName: formData.scheduleName,
+      manager: formData.managerName,
+      selectedSkills: formData.skills,
+      cutOff: formData.cutoff,
+      duration: formData.duration,
     };
     this.newScheduleService.setNewScheduleData(dataToSend);
-    localStorage.setItem('scheduleName', this.scheduleName);
-    localStorage.setItem('manager', this.manager);
+    localStorage.setItem('scheduleName', formData.scheduleName);
+    localStorage.setItem('manager', formData.managerName);
     // const ss=JSON.stringify(this.selectedSkills)
     // localStorage.setItem("selectedSkills",ss)
-    this.dataService.savedata(this.selectedSkills);
-    localStorage.setItem('cutoff', this.cutOff.toString());
-    localStorage.setItem('duration', this.duration.toString());
+    this.dataService.savedata(formData.skills);
+    localStorage.setItem('cutoff', formData.cutoff);
+    localStorage.setItem('duration', formData.duration);
     // const dataToSend={
     // }
     // const a=this.dataService.sharedData={scheduleName:this.scheduleName,manager:this.manager,selectedSkills:this.selectedSkills,cutOff:this.cutOff,duration:this.duration
@@ -481,6 +521,7 @@ export class SchedulepageComponent implements OnInit {
   // //  })
   // }
   // }
+}
   addNewRow() {
     this.router.navigate(['/create']);
     // const newRow = {
@@ -1125,7 +1166,11 @@ export class SchedulepageComponent implements OnInit {
   }
   newSchedule() {
     this.visible = true;
-    this.resetData();
+  //  this.addnewScheduleForm.reset();
+  //  this.addnewScheduleForm.markAsPristine();
+  //   this.addnewScheduleForm.markAsUntouched();
+
+    // this.resetData();
     console.log('Manager-----------', this.manager);
   }
   formattedDate(date: Date) {
