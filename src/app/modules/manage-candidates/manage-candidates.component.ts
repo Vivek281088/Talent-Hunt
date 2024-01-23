@@ -38,7 +38,7 @@ export class ManageCandidatesComponent {
     private fb: FormBuilder,
     private messageService: MessageService,
     private newScheduleService: NewScheduleService,
-    private router : Router
+    private router: Router
   ) {
     this.addCandidateForm = this.fb.group({
       empid: [null, [Validators.required]],
@@ -71,7 +71,7 @@ export class ManageCandidatesComponent {
       { label: 'Candidates', routerLink: '/manage-candidates' },
     ];
   }
-  
+
   formattedDate(date: Date) {
     const months: string[] = [
       'Jan',
@@ -121,10 +121,11 @@ export class ManageCandidatesComponent {
       return matchingObject;
     });
   }
+  editCandidatevisible: boolean = false;
   handleEditIconClick(data: any) {
     this.isEditCandidate = true;
     this.isAddCandidate = false;
-    this.addCandidatevisible = true;
+    this.editCandidatevisible = true;
 
     this.selectedRowData = data;
     console.log(' Selected Edit Data', this.selectedRowData);
@@ -145,8 +146,6 @@ export class ManageCandidatesComponent {
     console.log('Edit Data', this.addCandidateForm);
 
     // this.formSubmitted = true;
-
-    
   }
   onViewClick(data: any) {}
 
@@ -180,13 +179,21 @@ export class ManageCandidatesComponent {
       console.log('Form Data:', formData);
 
       this.managerService
-        .addCandidate(formData.candidateName, formData.email, formData.phone,formData.empid,formData?.department,formData?.location)
+        .addCandidate(
+          formData.candidateName,
+          formData.email,
+          formData.phone,
+          formData.empid,
+          formData?.department,
+          formData?.location
+        )
         .subscribe((response) => {
           console.log('Candidate Saved....');
         });
       setTimeout(() => {
         this.addSuccessMessage();
         this.cancelButton();
+        this.getUniqueCandidatedata();
       }, 1000);
     }
   }
@@ -206,17 +213,23 @@ export class ManageCandidatesComponent {
       console.log('Form Data:', formData);
 
       this.managerService
-        .updateCandidate(formData.candidateName, formData.email, formData.phone,formData.empid,formData?.department,formData?.location)
+        .updateCandidate(
+          formData.candidateName,
+          formData.email,
+          formData.phone,
+          formData.empid,
+          formData?.department,
+          formData?.location
+        )
         .subscribe((response) => {
           console.log('Candidate Updated....');
         });
-        
-        setTimeout(() => {
-          this.UpdateMessage();
-          this.cancelButton();
-          this.getUniqueCandidatedata();
 
-        }, 1000);
+      setTimeout(() => {
+        this.UpdateMessage();
+        this.cancelButton();
+        this.getUniqueCandidatedata();
+      }, 1000);
     }
   }
 
@@ -275,7 +288,14 @@ export class ManageCandidatesComponent {
           console.log('Csv File datum--', data);
 
           this.managerService
-            .addCandidate(data.empid,data.candidateName, data.email, data.phone,data?.Department,data?.Location)
+            .addCandidate(
+              data.candidateName,
+              data.email,
+              data.phone,
+              data.empid,
+              data?.Department,
+              data?.Location
+            )
             .subscribe((response) => {
               console.log('Candidate Saved....');
             });
@@ -283,19 +303,17 @@ export class ManageCandidatesComponent {
         setTimeout(() => {
           this.fileUploadMessage();
           this.cancelButton();
+          this.getUniqueCandidatedata();
         }, 1000);
       },
       header: true,
     });
   }
 
-  gotoCandidateProfile(data : any){
-
-    console.log("Candidate data",data)
+  gotoCandidateProfile(data: any) {
+    console.log('Candidate data', data);
     this.newScheduleService.setCandidateProfileData(data);
-    
-    this.router.navigate(['/candidateProfile'])
-    
 
+    this.router.navigate(['/candidateProfile']);
   }
 }

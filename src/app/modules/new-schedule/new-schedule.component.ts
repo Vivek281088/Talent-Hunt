@@ -9,14 +9,18 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
-import { response } from 'express';
 import { NgZone } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
-import { Table } from 'primeng/table';
-import { Checkbox } from 'primeng/checkbox';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
+import { forkJoin } from 'rxjs';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-new-schedule',
@@ -54,7 +58,7 @@ export class NewScheduleComponent {
   previewSidebarVisible: boolean = false;
   visible1: boolean = false;
   ischecked: boolean = true;
-  slectedquestionforedit: any;
+  // slectedquestionforedit: any;
   TotalQuestions: any[] = [];
   managerOption: any[] = [];
   singleQuestion: any;
@@ -64,18 +68,12 @@ export class NewScheduleComponent {
   question!: string;
   isEditSchedule: boolean = false;
 
-  // @ViewChild('yourTable')yourTable:Table | undefined;
+  updateNewScheduleForm!: FormGroup;
+  formSubmitted: boolean = false;
+  formData: any;
 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
-
-  // selectallItems(){
-
-  //   this.tabs.forEach(item=>{
-  //     // item.content.showCheckbox=true;
-  //     item.content.selected=true;
-  //   })
-  // }
 
   constructor(
     private route: ActivatedRoute,
@@ -86,12 +84,19 @@ export class NewScheduleComponent {
     private cdr: ChangeDetectorRef,
     private managernameService: ManagernameService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {
-    // this.data=this.dataservice.sharedData;
+    this.updateNewScheduleForm = this.fb.group({
+      scheduleName: ['', [Validators.required]],
+      managerName: ['', [Validators.required]],
+
+      cutoff: [null, [Validators.required]],
+      duration: [null, [Validators.required]],
+    });
   }
   ngOnInit() {
-    // console.log("se",this.selectedquestions)
+    // console.log("se",this.selectedquestions);
     console.log('Selected Questions during ngOnInit:', this.selectedquestions);
 
     // Remove unselected questions from the selectedquestions array
@@ -109,22 +114,27 @@ export class NewScheduleComponent {
 
     const a = localStorage.getItem('boolean');
     if (a == null) {
-      this.scheduleName = localStorage.getItem('scheduleName');
-      console.log('sname', this.scheduleName);
-      this.manager = localStorage.getItem('manager');
+      this.updateNewScheduleForm.patchValue({
+        scheduleName: localStorage.getItem('scheduleName'),
+        managerName: localStorage.getItem('manager'),
+
+        cutoff: localStorage.getItem('cutoff'),
+        duration: localStorage.getItem('duration'),
+      });
+      // this.scheduleName = localStorage.getItem('scheduleName');
+      // console.log('sname', this.scheduleName);
+      // this.manager = localStorage.getItem('manager');
 
       this.selectedSkills = this.dataservice.getData();
 
       console.log('ss', this.selectedSkills);
-      this.cutOff = localStorage.getItem('cutoff');
-      this.duration = localStorage.getItem('duration');
+      // this.cutOff = localStorage.getItem('cutoff');
+      // this.duration = localStorage.getItem('duration');
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
           console.log('recieved response', response);
-          // this.ngzone.run(() => {
-          // Your code that triggers change
-          // this.tabs.push(...transformedData);
+
           for (let i = 0; i < response.length; i++) {
             this.tabs.push({
               title: response[i].skills,
@@ -135,23 +145,45 @@ export class NewScheduleComponent {
           this.cdr.detectChanges();
         });
     } else {
-      this.scheduleName = localStorage.getItem('scheduleName');
-      this.manager = this.managernameService.getManagerName();
-      this.cutOff = this.managernameService.getCutoff();
-      this.duration = this.managernameService.getDuration();
+      this.updateNewScheduleForm.patchValue({
+        scheduleName: localStorage.getItem('scheduleName'),
+        managerName: this.managernameService.getManagerName(),
+
+        cutoff: this.managernameService.getCutoff(),
+        duration: this.managernameService.getDuration(),
+      });
+      console.log('Edit Data------', this.updateNewScheduleForm.value);
+
+      this.formData = this.updateNewScheduleForm.value;
+
+      this.formData.scheduleName = localStorage.getItem('scheduleName');
+
+      this.formData.managerName = this.managernameService.getManagerName();
+      this.formData.cutoff = this.managernameService.getCutoff();
+      this.formData.duration = this.managernameService.getDuration();
+
       this.selectedSkills = this.skillsdropdownservice.getSkill();
-      this.slectedquestionforedit =
-        this.managernameService.getFinalizedQuestions();
+      this.selectedquestions = this.managernameService.getFinalizedQuestions();
+      console.log('selected edit question', this.selectedquestions);
+
+      // const observables = this.managernameService.getFinalizedQuestions()
+      //   .map((questionId: string) =>
+      //     this.newScheduleService.getIndividualQuestion(questionId)
+      //   );
+      // forkJoin(observables).subscribe((responses) => {
+
+      //   this.totalSelectedQuestions = responses;
+      //   console.log('Edit Question ---', this.totalSelectedQuestions);
+      //   console.log('selected edit question', this.totalSelectedQuestions);
+      // });
+
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
           console.log('recieved response', response);
-          // this.ngzone.run(() => {
-          // Your code that triggers change
-          // this.tabs.push(...transformedData);
-          for (var i = 0; i < response.length; i++) {
-            // console.log("received id--------------------------",response.data[i].id)
-            this.TotalQuestions.push(response[i].data);
+          for (let i = 0; i < response.length; i++) {
+            for (let j = 0; j < response[i].data.length; j++)
+              this.TotalQuestions.push(response[i].data[j]);
 
             this.tabs.push({
               title: response[i].skills,
@@ -164,21 +196,31 @@ export class NewScheduleComponent {
           );
           console.log(
             'selected ques----------------------------------',
-            this.slectedquestionforedit
+            this.selectedquestions
           );
-          var count = 0;
-          for (var res of response) {
-            for (var data of res.data) {
-              console.log(data.id);
-              console.log(count++);
-            }
-          }
+          this.checkEditQuestions(this.TotalQuestions, this.selectedquestions);
+          // var count = 0;
+          // for (var res of response) {
+          //   for (var data of res.data) {
+          //     console.log(data.id);
+          //     console.log(count++);
+          //   }
+          // }
 
           this.cdr.detectChanges();
           this.processTotalQuestions();
         });
     }
     localStorage.removeItem('boolean');
+  }
+  checkEditQuestions(Totalquestion: any, selectedQuestion: any) {
+    for (let i = 0; i < Totalquestion.length; i++) {
+      for (let j = 0; j < selectedQuestion.length; j++) {
+        if (Totalquestion[i].id == selectedQuestion[j]) {
+          Totalquestion[i].selection = true;
+        }
+      }
+    }
   }
   trackByFn(_index: any, item: { id: any }) {
     return item.id;
@@ -205,8 +247,10 @@ export class NewScheduleComponent {
       console.log('Selected Questions:', this.selectedquestions);
     }
 
-    console.log('Selected Questions:', this.selectedquestions);
-    // this.logSelectedQuestions();
+    // console.log('Selected Questions:', this.selectedquestions);
+    // for (let i=0 ; i<this.selectedquestions.length ; i++){
+    //   this.getQuestionsById(this.selectedquestions[i]);
+    // }
   }
   count!: number;
 
@@ -215,10 +259,10 @@ export class NewScheduleComponent {
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
     console.log('Final', this.FinalizedQuestions);
-    this.count = this.FinalizedQuestions.filter(
-      (question) => question.selected
-    ).length;
-    console.log('count', this.count);
+    // this.count = this.FinalizedQuestions.filter(
+    //   (question) => question.selected
+    // ).length;
+    // console.log('count', this.count);
 
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
 
@@ -228,13 +272,13 @@ export class NewScheduleComponent {
       // const date = Date.now();
       const dataToSave = {
         Questions: this.FinalizedQuestions,
-        durations: this.duration,
+        durations: this.updateNewScheduleForm.get('duration')?.value,
 
-        JobDescription: this.scheduleName,
+        JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
 
-        cutoff: this.cutOff,
+        cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
 
-        Managername: this.manager,
+        Managername: this.updateNewScheduleForm.get('managerName')?.value,
         // id:date,
         Skill: selectedSkillName,
       };
@@ -311,7 +355,7 @@ export class NewScheduleComponent {
         questions[i].selection = false;
       }
     }
-    const questionIds = questions.map((item: { id: any; }) => item.id);
+    const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions.filter(
       (question) => !questionIds.includes(question)
     );
@@ -338,61 +382,26 @@ export class NewScheduleComponent {
   //
   processTotalQuestions() {
     // console.log("vara edit",this.slectedquestionforedit)
-    this.count = this.slectedquestionforedit.length;
+    this.count = this.selectedquestions.length;
     console.log('count----------------------->', this.count);
-
-    // // this.slectedquestionforedit.forEach((finalizedQuestion: any) =>
-    // for(let a=0;a<this.count;a++)
-    //  {
-    //   console.log("first lop--------------------------",this.TotalQuestions)
-    //   for (let key of this.TotalQuestions) {
-    //     console.log("key--------------------",key)
-    //     if (this.TotalQuestions.hasOwnProperty(key)) {
-    //       const skillQuestions = this.TotalQuestions[key];
-    //       console.log("toa")
-
-    //       for (let i = 0; i < skillQuestions.length; i++) {
-    //         if (skillQuestions[i].id === this.slectedquestionforedit[a].id) {
-    //           console.log('Matched question', skillQuestions[i].id);
-
-    //           skillQuestions[i].selected = true;
-
-    //           break;
-    //         }
-    //       }
-    //     }
-    //   }
-    // };
-    // for(let i=0;i<this.TotalQuestions.length;i++){
-    //   for(let j=0;j<this.TotalQuestions[i].length;j++){
-    //     for(let k=0;k<this.slectedquestionforedit.length;k++){
-    //       if(this.TotalQuestions[i][j].id===this.slectedquestionforedit[k].id){
-    //         console.log("match found")
-    //         this.TotalQuestions[i][j].selection=true
-    //         console.log("total after match",this.TotalQuestions[i][j])
-    //       }
-    //     }
-    //   }
-    // }
 
     if (!this.selectedquestions) {
       this.selectedquestions = [];
     }
-    for (let sec of this.slectedquestionforedit) {
+    for (let sec of this.selectedquestions) {
       for (let i = 0; i < this.tabs.length; i++) {
-        console.log('tabs value', this.tabs[i].content);
         for (let j = 0; j < this.tabs[i].content.length; j++) {
           if (sec.id == this.tabs[i].content[j].id) {
-            console.log('match found');
+            // console.log('match found');
             this.tabs[i].content[j].selection = true;
             if (!this.selectedquestions) {
               this.selectedquestions = [];
             }
             this.selectedquestions.push(this.tabs[i].content[j]);
-            console.log(
-              'content after pushed===================',
-              this.selectedQuestion
-            );
+            // console.log(
+            //   'content after pushed===================',
+            //   this.selectedQuestion
+            // );
           }
         }
       }
@@ -486,16 +495,26 @@ export class NewScheduleComponent {
         }, 1000);
       });
   }
+  getQuestionsById(questionIdArray: any) {
+    console.log('get id', questionIdArray);
+    const observables = questionIdArray.map((questionId: string) =>
+      this.newScheduleService.getIndividualQuestion(questionId)
+    );
+    forkJoin(observables).subscribe((responses: any) => {
+      this.selectedquestions = responses;
+      console.log('Updated Total Question data--', this.selectedquestions);
+    });
+  }
   cancelQuestionView() {
     this.QuestionView = false;
   }
   cancelButton() {
+    this.visible = false;
+    this.formSubmitted = false;
+    this.updateNewScheduleForm.markAsPristine();
+    this.updateNewScheduleForm.markAsUntouched();
+    this.updateNewScheduleForm.reset();
     this.router.navigate(['/dashboard']);
-    // scheduleName manager cutoff duration
-    // localStorage.removeItem("scheduleName")
-    // localStorage.removeItem("manager")
-    // localStorage.removeItem("cutoff")
-    // localStorage.removeItem("duration")
   }
 
   editicon() {
@@ -509,13 +528,18 @@ export class NewScheduleComponent {
     cutOff: string | number | null,
     duration: string | number | null
   ) {
-    this.scheduleName = scheduleName;
-    this.manager = manager;
-    this.cutOff = cutOff;
-    this.duration = duration;
-    this.router.navigate(['new-schedule']);
-    this.visible = false;
-    console.log('hi');
+    this.formSubmitted = true;
+    if (this.updateNewScheduleForm.valid) {
+      const formData = this.updateNewScheduleForm.value;
+      console.log('Form Data:', formData);
+      formData.scheduleName = scheduleName;
+      formData.managerName = manager;
+      formData.cutOff = cutOff;
+      formData.duration = duration;
+      this.router.navigate(['new-schedule']);
+      this.visible = false;
+      console.log('hi');
+    }
   }
 
   questionPreview(questions: any) {
@@ -529,8 +553,17 @@ export class NewScheduleComponent {
     this.questionPreviewvisible = false;
   }
 
+  totalSelectedQuestion: any;
   onPreviewClick() {
     this.previewSidebarVisible = true;
+
+    const observables = this.selectedquestions.map((questionId: string) =>
+      this.newScheduleService.getIndividualQuestion(questionId)
+    );
+    forkJoin(observables).subscribe((responses) => {
+      this.totalSelectedQuestion = responses;
+      console.log('Updated Total Question data--', this.totalSelectedQuestion);
+    });
   }
   getSelectedOptions(selected_Option: any, option: any) {
     console.log('Function Working');

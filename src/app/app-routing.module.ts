@@ -22,7 +22,6 @@ import { authGuard } from './Guard/auth.guard';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 // import { AuthClassGuard } from './Guard/auth-class.guard';
 
-import { ForgotpasswordComponent } from './modules/forgotpassword/forgotpassword.component';
 import { loginGuard } from './Guard/login.guard';
 import { TabView } from 'primeng/tabview';
 
@@ -41,6 +40,7 @@ import { ManageCandidatesComponent } from './modules/manage-candidates/manage-ca
 import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.component';
 import { ManagerProfileComponent } from './modules/manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from './modules/candidate-profile/candidate-profile.component';
+import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.component';
 
 
 const routes: Routes = [
@@ -74,9 +74,6 @@ const routes: Routes = [
 
   { path: 'assessment-display', component: AssessmentDisplayComponent },
 
-
-  { path: 'forgotpassword', component: ForgotpasswordComponent },
-
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   { path: 'login', component: LoginComponent },
@@ -91,6 +88,7 @@ const routes: Routes = [
 {path: 'manage-skills', component: ManageSkillsComponent},
 {path: 'managerProfile', component: ManagerProfileComponent},
 {path: 'candidateProfile', component: CandidateProfileComponent},
+{path: 'resetpassword', component: ResetpasswordComponent},
   { path: '**', redirectTo: '/login' },
 
   // { path: '**', redirectTo:'login' }

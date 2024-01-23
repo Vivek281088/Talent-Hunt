@@ -113,7 +113,6 @@ export class TableService {
       email_Managername: managerName,
       candidateName: name,
       candidateEmail: emailId,
-
       candidatePhone: phoneNumber,
       email_Status: status,
       email_Filename: fileName,
@@ -139,6 +138,7 @@ export class TableService {
   //Post the data of Existing Candidates
   postExistingCandidateDetails(
     candidateId: Date,
+    empid : number | null,
     managerName: string,
     candidateName: string,
     candidateEmail: string,
@@ -153,12 +153,16 @@ export class TableService {
     candidatePassword: any,
     candidateConfirmPassword: any,
     roles: string,
-    Skill: any
+    Skill: any,
+    department : string,
+    candidate_location: string,
+    
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
       id: candidateId,
+      empid: empid,
       email_Managername: managerName,
       candidateName: candidateName,
       candidateEmail: candidateEmail,
@@ -174,6 +178,9 @@ export class TableService {
       confirmPassword: candidateConfirmPassword,
       roles: roles,
       Skill: Skill,
+      department: department !== undefined ? department : '--',
+      candidate_location:
+        candidate_location !== undefined ? candidate_location : '--',
     };
 
     console.log('Send Existing email Data', body);

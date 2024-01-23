@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
+import { Router } from '@angular/router';
  
  
 @Component({
@@ -12,8 +13,6 @@ import { CandidateAssessmentService } from 'src/app/services/candidate-assessmen
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
- 
- 
   overlayVisible: boolean = false;
   candidateName: string = '';
   candidateList: any[] = [];
@@ -24,45 +23,43 @@ export class NavbarComponent {
   userPhone!: number;
   name: boolean = false;
   modalVisible: boolean = false;
-  isAdmin : boolean = false;
- 
+  isAdmin: boolean = false;
+
   finalizedManagerEmail!: string;
   visible: boolean = false;
   tempUserName!: string | null;
   id!: number;
- 
+
   constructor(
     private authservice: AuthService,
     private managernameService: ManagernameService,
-    private candidateService: CandidateAssessmentService
+    private candidateService: CandidateAssessmentService,
+    private router : Router
   ) {}
   ngOnInit(): void {
- 
     this.authUserOrManager();
- 
- 
   }
   authUserOrManager() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
- 
+
     const a = localStorage.getItem('userrole');
- 
+
     if (a == 'manager') {
       this.isAdmin = true;
       this.managernameService
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('Navbar-res', response);
-          this.tempUserName = response[0].Firstname + ' '+ response[0].Lastname;
-          this.userName = response[0].Firstname + ' '+ response[0].Lastname;
+          this.tempUserName =
+            response[0].Firstname + ' ' + response[0].Lastname;
+          this.userName = response[0].Firstname + ' ' + response[0].Lastname;
           this.id = response[0].id;
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].phoneNumber;
- 
+
           this.managernameService.setManagerName_Email(this.userEmail);
           this.name = true;
- 
         });
     } else {
       this.candidateService
@@ -79,27 +76,27 @@ export class NavbarComponent {
         });
     }
   }
- 
+
   authUserOrManager1() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
- 
+
     const a = localStorage.getItem('userrole');
- 
+
     if (a == 'manager') {
       this.managernameService
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('Navbar-res', response);
-          this.tempUserName = response[0].Firstname + ' '+ response[0].Lastname;
-          this.userName = response[0].Firstname + ' '+ response[0].Lastname;
+          this.tempUserName =
+            response[0].Firstname + ' ' + response[0].Lastname;
+          this.userName = response[0].Firstname + ' ' + response[0].Lastname;
           this.id = response[0].id;
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].phoneNumber;
- 
+
           this.managernameService.setManagerName_Email(this.userEmail);
           this.name = true;
- 
         });
     } else {
       this.candidateService
@@ -117,28 +114,31 @@ export class NavbarComponent {
     }
     this.refreshPage();
   }
- 
+
   refreshPage() {
     window.location.reload();
   }
- 
+  changePassword() {
+    this.router.navigate(['/resetpassword']);
+  }
+
   getInitials(name: string | null): string {
     if (!name) {
       return '';
     }
- 
+
     const names = name.split(' ');
     const initials = names.map((n) => n.charAt(0)).join('');
     return initials.toUpperCase();
   }
- 
+
   toggle() {
     this.overlayVisible = !this.overlayVisible;
+  }
+
+  logout() {
+    this.authservice.logout();
+  }
 }
- 
-logout(){
-  this.authservice.logout();
-}
- }
  
  

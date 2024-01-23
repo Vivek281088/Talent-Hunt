@@ -13,8 +13,8 @@
         </div>
       </div>
       <div class="new-schedule-header-2">
-        <div class="date">
-          {{ todayDate }}
+        <div class="cancelBtn">
+          <p-button label="Close" (onClick)="closeManagerProfile()"> </p-button>
         </div>
       </div>
     </div>
@@ -248,7 +248,7 @@
                               <i class="pi pi-search"></i>
                             </span>
                       </div>
-                      <div class="clearButton">
+                      <div >
                         <button
                           pButton
                           label="Clear filter"

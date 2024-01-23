@@ -6,6 +6,7 @@ import { TableService } from 'src/app/services/table.service';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-manager-profile',
@@ -155,10 +156,21 @@ export class ManagerProfileComponent {
 
   onViewClick(questions : any) {
     this.viewQuestionSidebar = true;
-        this.FinalizedQuestions = questions
+        this.getQuestionsById(questions);
         console.log('View questions :', this.FinalizedQuestions);
       
   }
+  getQuestionsById(questionIdArray: any) {
+    console.log('get id', questionIdArray);
+    const observables = questionIdArray.map((questionId: string) =>
+      this.newScheduleService.getIndividualQuestion(questionId)
+    );
+    forkJoin(observables).subscribe((responses : any) => {
+      this.FinalizedQuestions = responses;
+      console.log('Updated Total Question data--', this.FinalizedQuestions);
+    });
+  }
+
   getSelectedOptions(selected_Option: any, option: any) {
     console.log("Function Working")
     if (option.includes(selected_Option)) {
