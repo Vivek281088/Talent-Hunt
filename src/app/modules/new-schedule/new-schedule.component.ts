@@ -67,6 +67,7 @@ export class NewScheduleComponent {
   updateNewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
   formData : any;
+
   // @ViewChild('yourTable')yourTable:Table | undefined;
 
   @ViewChildren('tableCheckbox')
@@ -102,6 +103,11 @@ export class NewScheduleComponent {
       
     });
   } 
+  //   private messageService: MessageService,
+  //   private router: Router
+  // ) {
+  //   // this.data=this.dataservice.sharedData;
+  // }
   ngOnInit() {
     // console.log("se",this.selectedquestions)
     console.log('Selected Questions during ngOnInit:', this.selectedquestions);
@@ -147,26 +153,13 @@ export class NewScheduleComponent {
           this.cdr.detectChanges();
         });
     } else {
-      this.updateNewScheduleForm.patchValue({
-        scheduleName:localStorage.getItem('scheduleName'),
-      managerName: this.managernameService.getManagerName(),
-    
-      cutoff: this.managernameService.getCutoff(),
-      duration: this.managernameService.getDuration()
-      });
-      console.log("Edit Data------",this.updateNewScheduleForm.value);
-
-      this.formData=this.updateNewScheduleForm.value;
-      
-      this.formData.scheduleName=localStorage.getItem('scheduleName');
-     
-      this.formData.managerName = this.managernameService.getManagerName();
-      this.formData. cutoff= this.managernameService.getCutoff();
-      this.formData. duration= this.managernameService.getDuration();
+      this.scheduleName = localStorage.getItem('scheduleName');
+      this.manager = this.managernameService.getManagerName();
+      this.cutOff = this.managernameService.getCutoff();
+      this.duration = this.managernameService.getDuration();
       this.selectedSkills = this.skillsdropdownservice.getSkill();
       this.slectedquestionforedit =
         this.managernameService.getFinalizedQuestions();
-        console.log("formData",this.formData);
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {

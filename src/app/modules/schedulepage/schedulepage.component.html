@@ -46,9 +46,13 @@
                     type="text"
                     placeholder="Search"
                     [(ngModel)]="globalSearchValue"
+<<<<<<< HEAD
                   
                     (input)="dt2.filterGlobal($any($event.target).value.trim(), 'contains')"
                    
+=======
+                    (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
                   />
                   
                   <i class="pi pi-search"></i>
@@ -70,7 +74,10 @@
                         [options]="managerData"
                         placeholder="Manager"
                         (onChange)="filter($event.value)"
+<<<<<<< HEAD
                        
+=======
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
                         appendTo="body"
                       >
                         <ng-template let-option pTemplate="item">
@@ -136,7 +143,10 @@
                       [(visible)]="visible"
                       [modal]="true"
                       [style]="{ width: '47VW' }"
+<<<<<<< HEAD
                       [formGroup]="addnewScheduleForm"
+=======
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
                       [draggable]="false"
                       [resizable]="false"
                     >
@@ -148,6 +158,7 @@
                           </div>
                           <div class="value">
                             <input
+<<<<<<< HEAD
                               type="text" formControlName="scheduleName"
                               pInputText
                               
@@ -169,6 +180,12 @@
                             </div>
                           </div>
 
+=======
+                              type="text"
+                              pInputText
+                              [(ngModel)]="scheduleName"
+                            />
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
                           </div>
                         </div>
 
@@ -181,6 +198,7 @@
                             <p-dropdown
                               [options]="managerData"
                               placeholder="--Select Manager--"
+<<<<<<< HEAD
                               formControlName="managerName"
                               appendTo="body"
                             ></p-dropdown>
@@ -200,6 +218,11 @@
                               Manager Name is required !
                             </div>
                           </div>
+=======
+                              [(ngModel)]="manager"
+                              appendTo="body"
+                            ></p-dropdown>
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
                           </div>
                         </div>
 
@@ -209,6 +232,7 @@
                             <span class="important-symbol">&#42;</span>
                           </div>
                           <div class="value">
+<<<<<<< HEAD
                             <p-multiSelect 
                             [options]="skillSet"
                              placeholder="--Select Skill--"
@@ -229,6 +253,11 @@
                                Skills is required !
                              </div>
                            </div>
+=======
+                            <p-multiSelect [options]="skillSet"
+                             placeholder="--Select Skill--"
+                            [(ngModel)]="selectedSkills" [filter]="true" appendTo="body" display="chip" [showClear]="false" ></p-multiSelect>
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
                           </div>
                         </div>
 
@@ -240,6 +269,7 @@
                             </div>
                             <div class="value">
                               <input
+<<<<<<< HEAD
                                 type="number"
                                 pInputText
                                 formControlName="cutoff"
@@ -284,6 +314,12 @@
 
                             </div>
 
+=======
+                                type="text"
+                                pInputText
+                                [(ngModel)]="cutOff"
+                              />
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
                             </div>
                           </div>
 
@@ -294,6 +330,7 @@
                             </div>
                             <div class="value">
                               <input
+<<<<<<< HEAD
                                 type="number"
                                 pInputText
                                 formControlName="duration"
@@ -336,6 +373,12 @@
                       </div>
                             </div>
 
+=======
+                                type="text"
+                                pInputText
+                                [(ngModel)]="duration"
+                              />
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
                             </div>
                           </div>
                         </div>
@@ -504,7 +547,11 @@
               <!-- </div> -->
               <!--add on icon-->
               <!-- <div class="mr-3 cursor-pointer" > -->
+<<<<<<< HEAD
               <!-- <a class="flex">
+=======
+              <a class="flex">
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
                 <svg
                   width="18"
                   height="18"
@@ -519,7 +566,11 @@
                   />
                 </svg>
               </a>
+<<<<<<< HEAD
               <app-card *ngIf="showcardFlag">hi</app-card> -->
+=======
+              <!-- <app-card *ngIf="showcardFlag">hi</app-card> -->
+>>>>>>> 21efb2c81cf563f16c4e3310647bd504a9bdbb59
               <!-- </div> -->
             </div>
           </td>
