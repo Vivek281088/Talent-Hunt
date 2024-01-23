@@ -292,4 +292,7 @@ export class ManageManagersComponent {
       this.loadManagerData();
     }, 1000);
   }
+
+  selectedDeleteManager: any;
+  deleteManager() {}
 }

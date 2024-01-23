@@ -51,7 +51,7 @@ export class ManagerProfileComponent {
   ngOnInit() {
     
     this.getManagerData();
-    this.getCandidateData();
+    // this.getCandidateData();
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
 
@@ -83,7 +83,9 @@ export class ManagerProfileComponent {
       .subscribe((response) => {
         console.log('ManagerData---->', response);
         this.scheduleData = response.result1;
+        this.candidateList = response.result2;
         console.log('ManagerScheduleData---->', this.scheduleData);
+        console.log('Manager Assessment Data---->', this.candidateList);
       });
   }
 
@@ -185,12 +187,12 @@ export class ManagerProfileComponent {
   }
 
   //Assessment
-  getCandidateData() {
-    this.managernameService.getCandidateStatus().subscribe((data) => {
-      this.candidateList = data;
-      console.log('Candidate data ----------------', data);
-    });
-  }
+  // getCandidateData() {
+  //   this.managernameService.getCandidateStatus().subscribe((data) => {
+  //     this.candidateList = data;
+  //     console.log('Candidate data ----------------', data);
+  //   });
+  // }
   clear(table: Table) {
     table.clear();
   }

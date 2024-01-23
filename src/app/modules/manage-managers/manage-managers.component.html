@@ -29,6 +29,8 @@
       [rowsPerPageOptions]="[5, 10, 25, 50]"
       [loading]=""
       [paginator]="true"
+      dataKey="empid"
+      [(selection)]="selectedDeleteManager"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
         'managerName',
@@ -98,11 +100,21 @@
                   (click)="addManager()"
                 ></button>
               </div>
+              <div class="addmanager">
+                <button
+                  pButton
+                  label="Delete Manager"
+                  (click)="deleteManager()"
+                ></button>
+              </div>
             </div>
           </th>
         </tr>
 
         <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
           <th class="EmployeeId" pSortableColumn="empid">
             Emp ID <p-sortIcon field="empid"></p-sortIcon>
           </th>
@@ -120,6 +132,9 @@
         class="tableBody"
       >
         <tr>
+          <td>
+            <p-tableCheckbox [value]="managerData"></p-tableCheckbox>
+          </td>
           <td>{{ rowData.empid }}</td>
           <td class="managernamedesign">
             <a (click)="gotoManagerProfile(rowData)">{{
@@ -370,7 +385,6 @@
         </ng-template>
       </p-tabPanel>
       <p-tabPanel header="Add Multiple Managers">
-
         <div class="quiz-instruction">
           <p class="instruction">Upload Manager Instructions</p>
           <ul class="points">
@@ -378,10 +392,12 @@
             <li>Provide the correct value for each specific field.</li>
             <li>Do not alter the heading in any way.</li>
             <li>
-              Specify the correct employee Id for each manager which must be unique.
+              Specify the correct employee Id for each manager which must be
+              unique.
             </li>
             <li>
-              Specify the correct email Id for each manager which must be unique.
+              Specify the correct email Id for each manager which must be
+              unique.
             </li>
           </ul>
         </div>
@@ -431,179 +447,172 @@
     [resizable]="false"
     [closable]="false"
   >
-        <div class="NewSchedule-content">
-          <div class="labelvalue">
-            <div class="label">
-              <label>Employee Id</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <p-inputNumber
-                formControlName="employeeId"
-                mode="decimal"
-                inputId="withoutgrouping"
-                [useGrouping]="false"
-              >
-              </p-inputNumber>
-              <div
-                *ngIf="
-                  addManagerForm.get('employeeId')?.invalid &&
-                  (addManagerForm.get('employeeId')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addManagerForm.get('employeeId')?.hasError('required')"
-                >
-                  Employee Id is required !
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>Manager Name</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <input type="text" formControlName="managerName" pInputText />
-              <div
-                *ngIf="
-                  addManagerForm.get('managerName')?.invalid &&
-                  (addManagerForm.get('managerName')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="
-                    addManagerForm.get('managerName')?.hasError('required')
-                  "
-                >
-                  Manager Name is required !
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>Email</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <input type="email" formControlName="email" pInputText />
-              <div
-                *ngIf="
-                  addManagerForm.get('email')?.invalid &&
-                  (addManagerForm.get('email')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addManagerForm.get('email')?.hasError('required')"
-                >
-                  Email is required !
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>Phone No</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <p-inputNumber
-                formControlName="phone"
-                mode="decimal"
-                inputId="withoutgrouping"
-                [useGrouping]="false"
-              >
-              </p-inputNumber>
-              <div
-                *ngIf="
-                  addManagerForm.get('phone')?.invalid &&
-                  (addManagerForm.get('phone')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addManagerForm.get('phone')?.hasError('required')"
-                >
-                  Phone no is required !
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>Department</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <input type="text" formControlName="department" pInputText />
-              <div
-                *ngIf="
-                  addManagerForm.get('department')?.invalid &&
-                  (addManagerForm.get('department')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addManagerForm.get('department')?.hasError('required')"
-                >
-                  Department is required !
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>Location</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <input type="text" formControlName="location" pInputText />
-              <div
-                *ngIf="
-                  addManagerForm.get('location')?.invalid &&
-                  (addManagerForm.get('location')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addManagerForm.get('location')?.hasError('required')"
-                >
-                  Location is required !
-                </div>
-              </div>
+    <div class="NewSchedule-content">
+      <div class="labelvalue">
+        <div class="label">
+          <label>Employee Id</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <p-inputNumber
+            formControlName="employeeId"
+            mode="decimal"
+            inputId="withoutgrouping"
+            [useGrouping]="false"
+          >
+          </p-inputNumber>
+          <div
+            *ngIf="
+              addManagerForm.get('employeeId')?.invalid &&
+              (addManagerForm.get('employeeId')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('employeeId')?.hasError('required')"
+            >
+              Employee Id is required !
             </div>
           </div>
         </div>
+      </div>
 
-        <ng-template pTemplate="footer">
-          <div class="Newschedule-button">
-            <div class="Cancelbutton">
-              <p-button
-                label="Cancel"
-                [outlined]="true"
-                (onClick)="cancelButton()"
-              >
-              </p-button>
-            </div>
-            <div class="Createbutton" *ngIf="isEditManager">
-              <p-button
-                label="Update"
-                (onClick)="updateManager(addManagerForm.value)"
-              >
-              </p-button>
+      <div class="labelvalue">
+        <div class="label">
+          <label>Manager Name</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input type="text" formControlName="managerName" pInputText />
+          <div
+            *ngIf="
+              addManagerForm.get('managerName')?.invalid &&
+              (addManagerForm.get('managerName')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('managerName')?.hasError('required')"
+            >
+              Manager Name is required !
             </div>
           </div>
-        </ng-template>
-      
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Email</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input type="email" formControlName="email" pInputText />
+          <div
+            *ngIf="
+              addManagerForm.get('email')?.invalid &&
+              (addManagerForm.get('email')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('email')?.hasError('required')"
+            >
+              Email is required !
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Phone No</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <p-inputNumber
+            formControlName="phone"
+            mode="decimal"
+            inputId="withoutgrouping"
+            [useGrouping]="false"
+          >
+          </p-inputNumber>
+          <div
+            *ngIf="
+              addManagerForm.get('phone')?.invalid &&
+              (addManagerForm.get('phone')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('phone')?.hasError('required')"
+            >
+              Phone no is required !
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Department</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input type="text" formControlName="department" pInputText />
+          <div
+            *ngIf="
+              addManagerForm.get('department')?.invalid &&
+              (addManagerForm.get('department')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('department')?.hasError('required')"
+            >
+              Department is required !
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Location</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input type="text" formControlName="location" pInputText />
+          <div
+            *ngIf="
+              addManagerForm.get('location')?.invalid &&
+              (addManagerForm.get('location')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('location')?.hasError('required')"
+            >
+              Location is required !
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="Newschedule-button">
+        <div class="Cancelbutton">
+          <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
+          </p-button>
+        </div>
+        <div class="Createbutton" *ngIf="isEditManager">
+          <p-button
+            label="Update"
+            (onClick)="updateManager(addManagerForm.value)"
+          >
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
   </p-dialog>
 </div>
