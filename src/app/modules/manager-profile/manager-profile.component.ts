@@ -49,7 +49,6 @@ export class ManagerProfileComponent {
   }
 
   ngOnInit() {
-    
     this.getManagerData();
     // this.getCandidateData();
     this.todayDate = this.formattedDate(new Date());
@@ -76,7 +75,6 @@ export class ManagerProfileComponent {
     });
     console.log('Form Values', this.editManagerForm.value);
     console.log('Manager Name', this.editManagerForm.value.managerName);
-
 
     this.managernameService
       .postManagerName(this.editManagerForm.value.managerName)
@@ -118,13 +116,12 @@ export class ManagerProfileComponent {
     this.editManagerForm.markAsUntouched();
     this.formSubmitted = false;
   }
-  updateManager() {}
+
   closeManagerProfile() {
     this.router.navigate(['/manage-managers']);
   }
 
   //schedules
-  
 
   onSearchClick(dt2: Table) {
     this.globalSearchValue = '';
@@ -156,25 +153,24 @@ export class ManagerProfileComponent {
     return skills.slice(-count);
   }
 
-  onViewClick(questions : any) {
+  onViewClick(questions: any) {
     this.viewQuestionSidebar = true;
-        this.getQuestionsById(questions);
-        console.log('View questions :', this.FinalizedQuestions);
-      
+    this.getQuestionsById(questions);
+    console.log('View questions :', this.FinalizedQuestions);
   }
   getQuestionsById(questionIdArray: any) {
     console.log('get id', questionIdArray);
     const observables = questionIdArray.map((questionId: string) =>
       this.newScheduleService.getIndividualQuestion(questionId)
     );
-    forkJoin(observables).subscribe((responses : any) => {
+    forkJoin(observables).subscribe((responses: any) => {
       this.FinalizedQuestions = responses;
       console.log('Updated Total Question data--', this.FinalizedQuestions);
     });
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log("Function Working")
+    console.log('Function Working');
     if (option.includes(selected_Option)) {
       console.log('correct answer');
       return 'correctAnswer';
@@ -208,5 +204,8 @@ export class ManagerProfileComponent {
     } else {
       return 'Scheduled';
     }
+  }
+  closePreview() {
+    this.viewQuestionSidebar = false;
   }
 }

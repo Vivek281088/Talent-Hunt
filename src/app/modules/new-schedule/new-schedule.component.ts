@@ -551,6 +551,7 @@ export class NewScheduleComponent {
 
   closeButton() {
     this.questionPreviewvisible = false;
+    this.previewSidebarVisible = false;
   }
 
   totalSelectedQuestion: any;

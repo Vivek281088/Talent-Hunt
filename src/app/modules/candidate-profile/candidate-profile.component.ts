@@ -152,7 +152,7 @@ getCandidateProfileData(){
       .postCandidateEmail(this.editCandidateForm.value.email)
       .subscribe((response) => {
         console.log('Assessment Data---->', response);
-        this.candidateAssessmentData = response;
+        this.candidateAssessmentData = response.filter((data: { email_Filename: any; })=>(data.email_Filename!=null));
       });
 }
 clear(table: Table) {

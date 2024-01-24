@@ -322,12 +322,11 @@ export class ManageCandidatesComponent {
   deleteCandidate() {
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
     for (let candidateData of this.selectedDeleteCandidate) {
-      console.log('Deleteting Candidate.....', candidateData.candidateName);
-      // this.managerService
-      //   .deleteCandidate(candidateData.email)
-      //   .subscribe((response) => {
-      //     console.log('Deleted Candidate.....', candidateData.candidateName);
-      //   });
+      this.managerService
+        .deleteCandidate(candidateData.id,candidateData.candidateEmail)
+        .subscribe((response) => {
+          console.log('Deleted Candidate.....', candidateData.candidateName);
+        });
     }
 
     setTimeout(() => {

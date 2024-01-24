@@ -50,7 +50,7 @@ export class CandidateAssessmentComponent implements AfterViewInit {
     this.candidateAssessmentService
       .getCandidatedata_by_Email(this.candidateEmail)
       .subscribe((response) => {
-        this.assessmentData = response;
+        this.assessmentData = response.filter((data: { email_Filename: any; }) => data.email_Filename!=null);
         console.log('candidate data', this.assessmentData);
 
         

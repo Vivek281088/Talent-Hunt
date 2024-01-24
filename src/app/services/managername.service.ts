@@ -86,7 +86,7 @@ export class ManagernameService {
       phone: phone,
       empid: empid,
       department: department !== undefined || '' ? department : '--',
-      candidate_location: location !== undefined || ''? location : '--',
+      candidate_location: location !== undefined || '' ? location : '--',
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
@@ -109,8 +109,8 @@ export class ManagernameService {
       candidateEmail: email,
       candidatePhone: phone,
       empid: empid,
-      department: department !== undefined || ''? department : '--',
-      candidate_location: location !== undefined || ''? location : '--',
+      department: department !== undefined || '' ? department : '--',
+      candidate_location: location !== undefined || '' ? location : '--',
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_CandidateDetails',
@@ -118,16 +118,26 @@ export class ManagernameService {
       { headers }
     );
   }
-  deleteCandidate(
-    email: string
-    
-  ): Observable<any> {
+  deleteCandidate(id: string, email: string): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
-      candidateEmail: email
+      id: id,
+      candidateEmail: email,
     };
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteCandidate',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deletecandidatedetails',
+      body,
+      { headers }
+    );
+  }
+
+  deleteSchedule(id: string): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      id: id
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteScheduleData',
       body,
       { headers }
     );
@@ -158,10 +168,7 @@ export class ManagernameService {
     );
   }
 
-  deleteManagerDetails(
-    empid: number,
-    email: string
-  ): Observable<any> {
+  deleteManagerDetails(empid: number, email: string): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       empid: empid,
@@ -179,18 +186,26 @@ export class ManagernameService {
   postManagerName(name: String): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { Managername: name };
-    return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/managerProfile', body, {
-      headers,
-    });
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/managerProfile',
+      body,
+      {
+        headers,
+      }
+    );
   }
 
   //to get candidate Profile Data
   postCandidateEmail(email: String): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { candidateEmail: email };
-    return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidateProfile', body, {
-      headers,
-    });
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidateProfile',
+      body,
+      {
+        headers,
+      }
+    );
   }
 
   postexistingcandidates(

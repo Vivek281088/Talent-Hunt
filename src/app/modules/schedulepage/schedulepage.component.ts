@@ -592,6 +592,49 @@ export class SchedulepageComponent implements OnInit {
   selectingCandidate() {
     console.log('Selected', this.selectedCandidates);
   }
+  selectedDeleteSchedule: any;
+  deleteSchedule() {
+    console.log('Deleteting Candidate.....', this.selectedDeleteSchedule);
+    // for (let Schedule of this.selectedDeleteSchedule) {
+    //   this.managernameService
+    //     .deleteSchedule(Schedule.id)
+    //     .subscribe((response) => {
+    //       console.log('Deleted Candidate.....', Schedule.candidateName);
+    //     });
+    // }
+
+    setTimeout(() => {
+      this.deleteMessage();
+      this.existingData();
+    }, 1500);
+  }
+
+  deleteMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Deleted',
+      detail: 'Schedule Deleted successfully',
+    });
+  }
+
+  toggleSelection(data: any) {
+    if (!data || !data.id) {
+      return;
+    }
+    data.selection = !data.selection;
+
+    if (data.selection) {
+      console.log('Selected schedule:', this.selectedDeleteSchedule);
+    } else {
+      this.selectedDeleteSchedule = this.selectedDeleteSchedule.filter(
+        (selected: any) => selected.id !== data.id
+      );
+      console.log('Selected ----schedule :', this.selectedDeleteSchedule);
+    }
+  }
+  selectAll() {
+    console.log('Selected all Schedule:', this.selectedDeleteSchedule);
+  }
 }
 
 interface Column {

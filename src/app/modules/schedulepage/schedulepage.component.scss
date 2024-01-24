@@ -45,6 +45,13 @@
   letter-spacing: 0.15000000596046448px;
   text-align: left;
 }
+.addDeletebutton{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 25%;
+
+}
 .breadDate {
   justify-content: space-between;
   flex-direction: row;
