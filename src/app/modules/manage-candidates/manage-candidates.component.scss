@@ -158,8 +158,9 @@
   }
 }
 .Newschedule-button {
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
   border-radius: 4px;
   border: 1px;
   .Cancelbutton {
@@ -303,12 +304,12 @@
 }
 
 .tabview-button {
-  display: inline-flex;
+  display: flex;
   flex-direction: row;
+  justify-content: space-between;
   border-radius: 4px;
   border: 1px;
   padding: 4% 0% 2% 0%;
-  gap: 200%;
 
   .Cancelbutton {
     ::ng-deep {
