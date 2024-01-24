@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, HostListener, OnInit, } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
-import Swal from 'sweetalert2';
 
 import { ManagernameService } from 'src/app/services/managername.service';
 
@@ -15,9 +14,9 @@ import { Message } from 'primeng/api';
 import { Router } from '@angular/router';
 import { ReviewerService } from 'src/app/services/reviewer.service';
 import { Toast } from 'ngx-toastr';
-
-
-
+import { NewScheduleService } from 'src/app/services/new-schedule.service';
+import { forkJoin } from 'rxjs';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-candidatequestion',
   templateUrl: './candidatequestion.component.html',
@@ -70,10 +69,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   score!: number;
   result: string = '';
   cutoff!: number;
-  fileName !: string;
+  fileName!: string;
   id: any = '2024-01-04T06:04:10.746Z';
   candidateEmail: string = 'sapna@gmail.com';
-  congratsVisible:boolean=false;
 
   constructor(
     private managernameService: ManagernameService,
@@ -87,7 +85,8 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     private candidateService: CandidateAssessmentService,
     private cdr: ChangeDetectorRef,
 
-    private router: Router
+    private router: Router,
+    private newScheduleService : NewScheduleService,
   ) {}
   ngAfterViewInit(): void {
     this.totalQuestions = this.previewOptions.length;
@@ -217,18 +216,26 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     console.log('Id--->', this.id);
     this.candidateEmail = this.assessmentData.candidateEmail;
     console.log('Email-->', this.candidateEmail);
+
+     this.getQuestionsById(this.previewOptions);
     this.remainingTime = this.duration * 60;
     console.log('Assessment Questions', this.previewOptions);
     this.selectedOptions1 = this.previewOptions.map(() => []);
     this.totalQuestions = this.previewOptions.length;
     console.log('Count Total Quest-', this.totalQuestions);
     this.updateSessionStorage();
-
   }
-
-
   
-  
+  getQuestionsById(previewOptions: any) {
+    console.log('get id', previewOptions);
+    const observables = previewOptions.map((questionId: string) =>
+      this.newScheduleService.getIndividualQuestion(questionId)
+    );
+    forkJoin(observables).subscribe((responses) => {
+      this.previewOptions = responses;
+      console.log('Updated Total Question data--', this.previewOptions);
+    });
+  }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
     console.log('Selected Option', this.previewOptions);
     console.log('asdjbvahbvhabvahbvahbvhv', option, pageIndex, optionIndex);
@@ -322,7 +329,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
     this.endTime = new Date();
     this.reviewQuestion();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/candidatehome']);
   }
   reviewQuestion() {
     this.countCorrectQues = 0;
@@ -339,7 +346,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       if ((question.questionType = 'Radio')) {
         correct = question.answer.includes(question.selectedOption);
         console.log('correct ', correct);
-    
       } else if ((question.questionType = 'Checkbox')) {
         correct = question.selectedOption.every((opt: any) =>
           question.answer.includes(opt)
@@ -418,23 +424,18 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           summary: 'Confirmed',
           detail: 'Submitted',
         });
-        //this.submitAnswers();
-        Swal.fire({
+        this.submitAnswers();
         
-          title: "Submitted Successfully!",
-          text: "You have submitted the test succesfully!",
-          icon: "success",
-          allowOutsideClick:false,
-          confirmButtonColor:'green',
-          
-        }).then((result) =>{
-          if(result.isConfirmed){
+        Swal.fire({
+          title: 'Submitted Successfully!',
+          text: 'You have submitted the test succesfully!',
+          icon: 'success',
+          allowOutsideClick: false,
+        }).then((result: { isConfirmed: any; }) => {
+          if (result.isConfirmed) {
             this.router.navigate(['/candidatehome']);
           }
-          });
-        // setTimeout(() => {
-        //   this.router.navigate(['/candidatehome']);
-        // }, 50000);
+        });
 
         console.log('Submitted');
       },
@@ -470,7 +471,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     console.log('selected Option', this.selectedOptions1);
   }
 
-
   showQuestion(questionId: number) {
     if (!this.questionSelectedOptions[questionId]) {
       this.questionSelectedOptions[questionId] = null;
@@ -492,9 +492,5 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     } else {
       return 'wrongAnswer';
     }
-  }
-
-  showAssessmentDialog(){
-    this.congratsVisible=true;
   }
 }

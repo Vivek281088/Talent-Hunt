@@ -97,7 +97,7 @@
     ></p-button>
   </div>
   <div class="submitbutton">
-    <!-- <p-toast></p-toast> -->
+    <p-toast></p-toast>
     <p-button (click)="confirmPosition('top')" label="Submit"></p-button>
   </div>
 </div>
@@ -109,31 +109,3 @@
   [position]="position"
   rejectButtonStyleClass=""
 ></p-confirmDialog>
-
-<div class=" startassessmentcard flex justify-content-center">
-  <!-- <p-button (click)="showAssessmentDialog()" icon="pi pi-external-link" label="Show"></p-button>  -->
-  <p-dialog class="assessmentHeader"  header="Header" [(visible)]="congratsVisible" [modal]="true" [style]="{ width: '55%' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-     
-    <ng-template pTemplate="header">
-          <div class="inline-flex align-items-center justify-content-center gap-2">
-              <span class="headertitle">Congratulations!!!</span>
-          </div>
-      </ng-template>
-      <div class="assessmentCardcontent">
-       
-
-        <div class="assessmentCardbody">
-          <ul class="assessmentCardbodycontent">
-<li>You have completed your test..<br>
-Please wait for some time</li>
-<li>It redirects you to Home page</li>
-
-          </ul>
-        </div>
-        <div class="assessmentCardwish">
-      <p>All the best !</p>
-        </div>
-         </div>
-      
-  </p-dialog>
-  </div>

@@ -109,6 +109,7 @@ export class LoginComponent implements OnDestroy {
             }
           } else if (data.role == 'user') {
             console.log("Entered USer role")
+            sessionStorage.setItem("candidateEmail" , this.userEmail);
             this.managernameService.setCandidateAssessment_Email(
               this.userEmail
             );
