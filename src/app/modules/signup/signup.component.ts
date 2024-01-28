@@ -23,6 +23,7 @@ export class SignupComponent {
   confirmPassword!: string;
   visible: boolean = false;
   signupForm: FormGroup;
+  formSubmitted:boolean=false;
   
   constructor(
     private loginservice: LoginService,
@@ -79,11 +80,16 @@ export class SignupComponent {
   }
 
 
+  hasValueInForm(): boolean {
+    const formValues = this.signupForm.value;
+    return Object.values(formValues).some(value => value !== '' && value !== null);
+  }
   resetForm() {
     this.signupForm.reset();
   }
   id!: Date;
   signup() {
+    this.formSubmitted=true;
     console.log('Form Values:', this.signupForm.value);
     console.log('Form Validity:', this.signupForm.valid);
 

@@ -12,10 +12,24 @@
     <div class="signup-card">
       <p-card>
         <h4 class="signup-wording">Register with your personal information</h4>
-        <form  [formGroup]="signupForm" (ngSubmit)="signup()">
+        <form  [formGroup]="signupForm"  
+        (ngSubmit)="signup()">
           <div class="p-inputgroup name">
             <input formControlName="firstName" class="signup-firstname" type="text" pInputText placeholder="First Name" />
+            <div
+            class="error-message"
+            *ngIf="signupForm.get('firstName')?.hasError('required')&&
+            signupForm.get('firstName')?.touched|| formSubmitted"
+          >
+          firstName  is required !
+          </div>
             <input formControlName="lastName" class="signup-lastname" type="text" pInputText placeholder="Last Name" />
+            <div
+            class="error-message"
+            *ngIf="signupForm.get('lastName')?.hasError('required')&&signupForm.get('firstName')?.touched|| formSubmitted"
+          >
+          lastName is required !
+          </div>
           </div>
 
             <div class="p-inputgroup signup-phone">
@@ -28,6 +42,15 @@
               placeholder="Phone number"
 
             />
+
+            <div
+            class="error-message"
+            *ngIf="signupForm.get('phoneNumber')?.hasError('required')&&signupForm.get('phoneNumber')?.touched|| formSubmitted"
+          >
+          phoneNumber is required !
+          </div>
+
+            
           </div>
  
           <div class="email-group">
@@ -40,6 +63,12 @@
                 pInputText
                 placeholder="Email"
               />
+              <div
+            class="error-message"
+            *ngIf="signupForm.get('emailId')?.hasError('required')&&signupForm.get('emailId')?.touched|| formSubmitted"
+          >
+          emailid is required !
+          </div>
             </div>
             <div class="email-caption">
               <span>Please provide the email from your Resume</span>
@@ -55,6 +84,14 @@
               pInputText
               placeholder="New Password"
             />
+            <div
+            class="error-message"
+            *ngIf="signupForm.get('password')?.hasError('required')&&signupForm.get('password')?.touched|| formSubmitted"
+          >
+          password is required !
+          </div>
+
+            
             <div class="info-circle">
               <p-overlayPanel
                 #op
@@ -104,6 +141,12 @@
               pInputText
               placeholder="Confirm Password"
             />
+            <div
+            class="error-message"
+            *ngIf="signupForm.get('confirmPassword')?.hasError('required')&&signupForm.get('confirmPassword')?.touched|| formSubmitted"
+          >
+          password is required !
+          </div>
           </div>
           <span class="agree-signup"
             >By clicking Sign Up, you agree to our <a href="#">Terms</a>,
@@ -117,6 +160,8 @@
     type="submit"
     label="Sign Up"
     class="p-button-success"
+    [disabled]="formSubmitted || !hasValueInForm()"
+  
    
   ></button>
           </div>
