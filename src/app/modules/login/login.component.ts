@@ -15,6 +15,7 @@ import * as CryptoJS from 'crypto-js';
 import { NgModule } from '@angular/core';
 import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
 import { LoginService } from 'src/app/services/login.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
  
 @Component({
   selector: 'app-login',
@@ -33,6 +34,8 @@ export class LoginComponent implements OnDestroy {
   userEmail!: string;
  
   encrypted_password!: string;
+  loginForm!: FormGroup;
+  formSubmitted:boolean=false
  
   constructor(
     private router: Router,
@@ -41,8 +44,19 @@ export class LoginComponent implements OnDestroy {
     private managernameService: ManagernameService,
     private loginservice: LoginService,
     private messageservice: MessageService,
-    private location: Location
-  ) {}
+    private location: Location,
+    private fb: FormBuilder,
+  ) {
+    this.loginForm = this.fb.group({
+      userName: ['', [Validators.required
+
+      ]],
+      password: ['', [Validators.required]],
+    
+     
+      
+    });
+  } 
   //  ) {}
  
   ngOnInit() {
@@ -58,47 +72,38 @@ export class LoginComponent implements OnDestroy {
     });
   }
   forgotpassword() {
-    this.router.navigate(['signup']);
+    this.router.navigate(['resetpassword']);
   }
+
+
  
   sign() {
-    // const encryptionkey = '123456qwertyuio';
- 
-    // const iv = '  ';
- 
-    // const ciphertext = CryptoJS.AES.encrypt(this.password, encryptionkey, {
-    //   iv: CryptoJS.enc.Base64.parse(iv),
- 
-    //   mode: CryptoJS.mode.CBC,
- 
-    //   padding: CryptoJS.pad.Pkcs7,
-    // });
- 
-    // this.encrypted_password = ciphertext.toString();
- 
-    // console.log(this.encrypted_password);
- 
-    // console.log(this.userEmail);
+console.log("inside sign in")
+    this.formSubmitted = true;
+    if (this.loginForm.valid) {
+      const formData = this.loginForm.value;
+      console.log('Form Data:', formData);
  
     this.loginservice
-      .postlogincredentials(this.userEmail, this.password)
+      .postlogincredentials(formData.userName, formData.password)
       .subscribe((data) => {
         console.log('authenticatetoke', data.token);
- 
+       
         console.log('role', data.role);
- 
+        console.log(data)
         if (data.status == 200) {
           localStorage.setItem('token', data.token);
  
           if (data.role == 'manager') {
+
             //display manager name
-            this.managernameService.setManagerName_Email(this.userEmail);
+            this.managernameService.setManagerName_Email(formData.userName);
  
             localStorage.setItem('role', data.role);
  
             localStorage.setItem('userrole', 'manager');
  
-            localStorage.setItem('managerEmail', this.userEmail);
+            localStorage.setItem('managerEmail', formData.userName);
  
             if (this.authService.isAuthenticated()) {
               const redirectUrl = this.authService.redirectUrl
@@ -108,16 +113,17 @@ export class LoginComponent implements OnDestroy {
               this.router.navigate(['dashboard']);
             }
           } else if (data.role == 'user') {
+            console.log("inside else if")
             console.log("Entered USer role")
-            sessionStorage.setItem("candidateEmail" , this.userEmail);
+            sessionStorage.setItem("candidateEmail",  formData.userName)
             this.managernameService.setCandidateAssessment_Email(
-              this.userEmail
+              formData.userName
             );
  
             localStorage.setItem('role1', data.role);
             localStorage.setItem('userrole', 'user');
  
-             localStorage.setItem('Candidateemail', this.userEmail);
+             localStorage.setItem('Candidateemail', formData.userName);
  
             if (this.authService.isAuthenticated1()) {
               console.log("entered")
@@ -139,9 +145,13 @@ export class LoginComponent implements OnDestroy {
           alert(data.message);
         }
       });
+  }else{
+    console.log("invalid form");
+    
   }
-  createNewAcc() {
-    this.router.navigate(['signup']);
+}
+createNewAcc() {
+    this.router.navigate(['/signup']);
   }
 }
  
