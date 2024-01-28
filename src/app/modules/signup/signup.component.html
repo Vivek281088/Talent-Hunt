@@ -1,4 +1,3 @@
-
 <div class="signup-container">
   <div class="signup-box">
     <div class="signup-slogan">
@@ -12,116 +11,196 @@
     <div class="signup-card">
       <p-card>
         <h4 class="signup-wording">Register with your personal information</h4>
-        <form  [formGroup]="signupForm" (ngSubmit)="signup()">
-          <div class="p-inputgroup name">
-            <input formControlName="firstName" class="signup-firstname" type="text" pInputText placeholder="First Name" />
-            <input formControlName="lastName" class="signup-lastname" type="text" pInputText placeholder="Last Name" />
-          </div>
+        <div class="customsignupform">
+          <form [formGroup]="signupForm" (ngSubmit)="signup()">
+            <div class="p-inputgroup name">
+              <div class="firstname">
+                <input
+                  formControlName="firstName"
+                  class="signup-firstname"
+                  type="text"
+                  pInputText
+                  placeholder="First Name"
+                />
+                <div
+                  class="error-message"
+                  *ngIf="
+                    (signupForm.get('firstName')?.hasError('required') &&
+                      signupForm.get('firstName')?.touched) ||
+                    formSubmitted
+                  "
+                >
+                  required !
+                </div>
+              </div>
+              <div class="lastname">
+                <input
+                  formControlName="lastName"
+                  class="signup-lastname"
+                  type="text"
+                  pInputText
+                  placeholder="Last Name"
+                />
+                <div
+                  class="error-message"
+                  *ngIf="
+                    (signupForm.get('lastName')?.hasError('required') &&
+                      signupForm.get('firstName')?.touched) ||
+                    formSubmitted
+                  "
+                >
+                  required !
+                </div>
+              </div>
+            </div>
 
             <div class="p-inputgroup signup-phone">
-            <input
-            
-              formControlName="phoneNumber"
-              class="signup-firstname"
-              type="number"
-              pInputText
-              placeholder="Phone number"
+              <div>
+                <input
+                  formControlName="phoneNumber"
+                  class="signup-firstname"
+                  type="number"
+                  pInputText
+                  placeholder="Phone number"
+                />
+              </div>
 
-            />
-          </div>
- 
-          <div class="email-group">
-            <div class="input-with-icon">
-              <i class="pi pi-user"></i>
-              <input
-                formControlName="emailId"
-                class="email-signup"
-                type="text"
-                pInputText
-                placeholder="Email"
-              />
+              <div
+                class="error-message"
+                *ngIf="
+                  (signupForm.get('phoneNumber')?.hasError('required') &&
+                    signupForm.get('phoneNumber')?.touched) ||
+                  formSubmitted
+                "
+              >
+                required !
+              </div>
+            </div>
+
+            <div class="email-group">
+              <div class="input-with-icon">
+                <i class="pi pi-user"></i>
+                <input
+                  formControlName="emailId"
+                  class="email-signup"
+                  type="text"
+                  pInputText
+                  placeholder="Email"
+                />
+                <div
+                  class="error-message"
+                  *ngIf="
+                    (signupForm.get('emailId')?.hasError('required') &&
+                      signupForm.get('emailId')?.touched) ||
+                    formSubmitted
+                  "
+                >
+                  required !
+                </div>
+              </div>
             </div>
             <div class="email-caption">
               <span>Please provide the email from your Resume</span>
             </div>
-          </div>
-          <div class="p-inputgroup input-with-icon1">
-            <i class="pi pi-lock"></i>
-            <input
-            
-              formControlName="password"
-              class="signup-newpassword"
-              type="password"
-              pInputText
-              placeholder="New Password"
-            />
-            <div class="info-circle">
-              <p-overlayPanel
-                #op
-                class="password-requirements"
-                [style]="{ width: '350px' }"
+            <div class="p-inputgroup input-with-icon1">
+              <i class="pi pi-lock"></i>
+              <input
+                formControlName="password"
+                class="signup-newpassword"
+                type="password"
+                pInputText
+                placeholder="New Password"
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  (signupForm.get('password')?.hasError('required') &&
+                    signupForm.get('password')?.touched) ||
+                  formSubmitted
+                "
               >
-                <p class="password-title">Password Requirements</p>
-                <p class="password-content1">
-                  To ensure the security of your account, please make sure your
-                  password meets the following criteria:
-                </p>
-                <ul class="password-content2">
-                  <li><b>Length:</b> At least 8 characters.</li>
-                  <li>
-                    <b>Character Variety:</b>
-                    <ul>
-                      <li>At least one uppercase letter (A-Z)</li>
-                      <li>At least one lowercase letter (a-z)</li>
-                      <li>At least one number (0-9)</li>
-                      <li>
-                        At least one special character (e.g., !, @, #, $, %)
-                      </li>
-                    </ul>
-                  </li>
- 
-                  <li>
-                    <b>Unique Information:</b> Avoid using your name, birthdate,
-                    or common words.
-                  </li>
-                </ul>
-              </p-overlayPanel>
-              <i
-                (mouseover)="op.toggle($event)"
-                (mouseleave)="op.toggle($event)"
-                class="pi pi-info-circle"
-                style="color: green"
-              ></i>
+                required !
+              </div>
+
+              <div class="info-circle">
+                <p-overlayPanel
+                  #op
+                  class="password-requirements"
+                  [style]="{ width: '350px' }"
+                >
+                  <p class="password-title">Password Requirements</p>
+                  <p class="password-content1">
+                    To ensure the security of your account, please make sure
+                    your password meets the following criteria:
+                  </p>
+                  <ul class="password-content2">
+                    <li><b>Length:</b> At least 8 characters.</li>
+                    <li>
+                      <b>Character Variety:</b>
+                      <ul>
+                        <li>At least one uppercase letter (A-Z)</li>
+                        <li>At least one lowercase letter (a-z)</li>
+                        <li>At least one number (0-9)</li>
+                        <li>
+                          At least one special character (e.g., !, @, #, $, %)
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li>
+                      <b>Unique Information:</b> Avoid using your name,
+                      birthdate, or common words.
+                    </li>
+                  </ul>
+                </p-overlayPanel>
+                <i
+                  (mouseover)="op.toggle($event)"
+                  (mouseleave)="op.toggle($event)"
+                  class="pi pi-info-circle"
+                  style="color: green"
+                ></i>
+              </div>
             </div>
-          </div>
- 
-          <div class="p-inputgroup input-with-icon1">
-            <i class="pi pi-lock"></i>
-            <input
-                         formControlName="confirmPassword"
-              class="confirmpassword-signup"
-              type="password"
-              pInputText
-              placeholder="Confirm Password"
-            />
-          </div>
-          <span class="agree-signup"
-            >By clicking Sign Up, you agree to our <a href="#">Terms</a>,
-            <a href="#">Privacy Policy</a> and
-            <a href="#">Cookies Policy</a>.</span
-          >
-          <p-toast></p-toast>
-          <div class="button-signup">
-            <button
-    pButton
-    type="submit"
-    label="Sign Up"
-    class="p-button-success"
-   
-  ></button>
-          </div>
-        </form>
-         <div class="hrLine"></div>
+
+            <div class="p-inputgroup input-with-icon1">
+              <i class="pi pi-lock"></i>
+              <input
+                formControlName="confirmPassword"
+                class="confirmpassword-signup"
+                type="password"
+                pInputText
+                placeholder="Confirm Password"
+              />
+              <div
+                class="error-message"
+                *ngIf="
+                  (signupForm.get('confirmPassword')?.hasError('required') &&
+                    signupForm.get('confirmPassword')?.touched) ||
+                  formSubmitted
+                "
+              >
+                required !
+              </div>
+            </div>
+            <span class="agree-signup"
+              >By clicking Sign Up, you agree to our <a href="#">Terms</a>,
+              <a href="#">Privacy Policy</a> and
+              <a href="#">Cookies Policy</a>.</span
+            >
+            <p-toast></p-toast>
+            <div class="button-signup">
+              <button
+                pButton
+                type="submit"
+                label="Sign Up"
+                class="p-button-success"
+                [disabled]="formSubmitted || !hasValueInForm()"
+              ></button>
+            </div>
+          </form>
+        </div>
+
+        <div class="hrLine"></div>
         <div class="login-signup">
           <button
             (click)="alreadyHasAccount()"

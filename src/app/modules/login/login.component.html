@@ -11,52 +11,86 @@
     <div class="login-card">
       <p-card>
         <h4 class="login-wording">Please sign in to Continue</h4>
-        <div class="logincontent">
-          <div class="input-with-icon">
-            <i class="pi pi-user"></i>
-            <input
-              type="email"
-              pInputText
-              placeholder="Email"
-              [(ngModel)]="userEmail"
-              id="userEmail"
-              name="userEmail"
-            />
-          </div>
-          <div class="input-with-icon">
-            <i class="pi pi-lock"></i>
-            <input
-              type="password"
-              pInputText
-              placeholder="Password"
-              [(ngModel)]="password"
-              id="password"
-              name="password"
-            />
-          </div>
+        <div class="formdesign">
+          <div class="customform">
+            <form [formGroup]="loginForm" class="inputForm">
+              <div class="input-with-icon">
+                <i class="pi pi-user"></i>
+                <input
+                  type="email"
+                  pInputText
+                  placeholder="Email"
+                  formControlName="userName"
+                  id="userEmail"
+                  name="userEmail"
+                />
+                <div
+                  *ngIf="
+                    loginForm.get('userName')?.invalid &&
+                    (loginForm.get('userName')?.touched || formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="loginForm.get('userName')?.hasError('required')"
+                  >
+                    Email is required !
+                  </div>
+                </div>
+              </div>
+              <div class="input-with-icon">
+                <div>
+                  <i class="pi pi-lock"></i>
+                  <input
+                    type="password"
+                    pInputText
+                    placeholder="Password"
+                    formControlName="password"
+                    id="password"
+                    name="password"
+                  />
+                </div>
 
-          <p-toast></p-toast>
-          <div class="customloginbutton">
-            <button
-              type="button"
-              class="loginButton"
-              (click)="sign()"
-              [disabled]="!userEmail || !password"
+                <div
+                  *ngIf="
+                    loginForm.get('password')?.invalid &&
+                    (loginForm.get('password')?.touched || formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="loginForm.get('password')?.hasError('required')"
+                  >
+                    password is required !
+                  </div>
+                </div>
+              </div>
+
+              <p-toast></p-toast>
+
+              <button type="button" class="loginButton" (click)="sign()">
+                Log in
+              </button>
+            </form>
+            
+          </div><div class="bottomcontent">
+            <a (click)="forgotpassword()" class="forgot-password"
+              >Forgotten Password ?</a
             >
-              Log in
-            </button>
+            <div class="hrLine"></div>
+
+            <div class="signup">
+              <button
+                type="button"
+                (click)="createNewAcc()"
+                class="createButton"
+              >
+                Create new account
+              </button>
+            </div>
           </div>
 
-          <a (click)="forgotpassword()" class="forgot-password"
-            >Forgotten Password ?</a
-          >
-          <div class="hrLine"></div>
-
-          <div class="signup">
-            <button type="button" (click)="createNewAcc()" class="createButton">
-              Create new account
-            </button>
-          </div>
+         
         </div>
       </p-card>
       <div class="cardfooter">
