@@ -18,20 +18,21 @@ import { MessageService } from 'primeng/api';
 })
 export class ResetpasswordComponent {
   resetForm!: FormGroup;
- 
+  formSubmitted: boolean = false;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private loginservice : LoginService,
-    private messageService: MessageService,
+    private loginservice: LoginService,
+    private messageService: MessageService
   ) {
     this.resetForm = this.fb.group({
       emailId: [
         '',
         [
           Validators.required,
-          Validators.email, 
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@gmail.com$'), 
+          Validators.email,
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@gmail.com$'),
         ],
       ],
 
@@ -39,31 +40,28 @@ export class ResetpasswordComponent {
       confirmPassword: ['', [Validators.required, this.passwordMatchValidator]],
     });
   }
- 
-  ngOnInit() {
-  }
+
+  ngOnInit() {}
   private passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password')?.value; 
-    const confirmPassword: string = control.get('confirmPassword')?.value; 
+    const password: string = control.get('password')?.value;
+    const confirmPassword: string = control.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
- 
-  reset(){
-      this.loginservice.postforgotpassword(
+
+  reset() {
+    this.formSubmitted = true;
+    this.loginservice
+      .postforgotpassword(
         this.resetForm.value.emailId,
         this.resetForm.value.password,
-        this.resetForm.value.confirmPassword,
-        
-      ).subscribe((data)=>{
-  
-
-        console.log("data",data);
+        this.resetForm.value.confirmPassword
+      )
+      .subscribe((data) => {
+        console.log('data', data);
         this.showUpdateMessage();
-        setTimeout(()=>{
-          this.router.navigate(['/login'])
-        },1000);
-        
-  
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 1000);
       });
   }
   showUpdateMessage() {
