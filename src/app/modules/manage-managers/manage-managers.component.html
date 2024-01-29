@@ -103,6 +103,7 @@
               <div class="addmanager">
                 <button
                   pButton
+                  [disabled]="!selectedDeleteManager||selectedDeleteManager.length==0"
                   label="Delete Manager"
                   (click)="deleteManager()"
                 ></button>

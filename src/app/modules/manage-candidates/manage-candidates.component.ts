@@ -331,6 +331,7 @@ export class ManageCandidatesComponent {
 
     setTimeout(() => {
       this.deleteMessage();
+      this.selectedDeleteCandidate = [];
       this.getUniqueCandidatedata();
     }, 1500);
   }

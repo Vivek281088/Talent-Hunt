@@ -13,8 +13,8 @@
         <h4 class="signup-wording">Register with your personal information</h4>
         <div class="customsignupform">
           <form [formGroup]="signupForm" (ngSubmit)="signup()">
-            <div class="p-inputgroup name">
-              <div class="firstname">
+            <div class="fullname">
+              <div class=" firstname">
                 <input
                   formControlName="firstName"
                   class="signup-firstname"
@@ -164,17 +164,16 @@
             </div>
             <div class="confirmpassword">
               <div class="p-inputgroup input-with-icon1">
-              <i class="pi pi-lock"></i>
-              <input
-                formControlName="confirmPassword"
-                class="confirmpassword-signup"
-                type="password"
-                pInputText
-                placeholder="Confirm Password"
-              />
-  
-            </div>
-            <div
+                <i class="pi pi-lock"></i>
+                <input
+                  formControlName="confirmPassword"
+                  class="confirmpassword-signup"
+                  type="password"
+                  pInputText
+                  placeholder="Confirm Password"
+                />
+              </div>
+              <div
                 class="error-message"
                 *ngIf="
                   (signupForm.get('confirmPassword')?.hasError('required') &&
@@ -184,9 +183,8 @@
               >
                 required !
               </div>
-
             </div>
-            
+
             <span class="agree-signup"
               >By clicking Sign Up, you agree to our <a href="#">Terms</a>,
               <a href="#">Privacy Policy</a> and

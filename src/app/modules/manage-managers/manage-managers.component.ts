@@ -319,6 +319,7 @@ export class ManageManagersComponent {
 
     setTimeout(() => {
       this.deleteMessage();
+      this.selectedDeleteManager = [];
       this.loadManagerData();
     }, 1500);
   }

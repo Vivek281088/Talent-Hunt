@@ -136,6 +136,7 @@
                 <div class="card flex justify-content-centre newscheduleButton">
                   <button
                     pButton
+                    [disabled]="!selectedDeleteSchedule || selectedDeleteSchedule.length==0 "
                     class="btn flex align-items-center justify-content-center cursor-pointer"
                     (click)="deleteSchedule()"
                     label="Delete"

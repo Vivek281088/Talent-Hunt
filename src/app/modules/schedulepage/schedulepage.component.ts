@@ -594,19 +594,20 @@ export class SchedulepageComponent implements OnInit {
   }
   selectedDeleteSchedule: any;
   deleteSchedule() {
-    console.log('Deleteting Candidate.....', this.selectedDeleteSchedule);
-    // for (let Schedule of this.selectedDeleteSchedule) {
-    //   this.managernameService
-    //     .deleteSchedule(Schedule.id)
-    //     .subscribe((response) => {
-    //       console.log('Deleted Candidate.....', Schedule.candidateName);
-    //     });
-    // }
+    console.log('Deleteting Schedule.....', this.selectedDeleteSchedule);
+    for (let Schedule of this.selectedDeleteSchedule) {
+      this.managernameService
+        .deleteSchedule(Schedule.id)
+        .subscribe((response) => {
+          console.log('Deleted Candidate.....', Schedule.JobDescription);
+        });
+    }
 
-    setTimeout(() => {
-      this.deleteMessage();
-      this.existingData();
-    }, 1500);
+     setTimeout(() => {
+       this.deleteMessage();
+       this.existingData();
+       this.selectedDeleteSchedule = [];
+     }, 1500);
   }
 
   deleteMessage() {

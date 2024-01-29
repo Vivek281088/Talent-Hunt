@@ -73,10 +73,20 @@
     gap: 16px;
   }
 
-  .firstname,
+  .fullname{
+    display: flex;
+    flex-direction: row;
+    gap: 4%;
+  }
+  .firstname {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 4%;
+  }
   .lastname {
     display: flex;
     flex-direction: column;
+    padding-bottom: 4%;
   }
   .signup-firstname {
     font-size: 14px;
@@ -93,7 +103,6 @@
   .signup-lastname {
     font-size: 14px;
     width: (168px);
-    height: (40px);
     padding: 0px, 8px, 0px, 8px;
     border-radius: 8px;
     border: 1px;
@@ -147,7 +156,6 @@
   }
   .name {
     width: 352px;
-    padding-bottom: 4%;
     gap: 16px;
   }
 
