@@ -45,7 +45,7 @@
                   class="error-message"
                   *ngIf="
                     (signupForm.get('lastName')?.hasError('required') &&
-                      signupForm.get('firstName')?.touched) ||
+                      signupForm.get('lastName')?.touched) ||
                     formSubmitted
                   "
                 >
@@ -87,30 +87,70 @@
                   pInputText
                   placeholder="Email"
                 />
-                <div
-                  class="error-message"
-                  *ngIf="
-                    (signupForm.get('emailId')?.hasError('required') &&
-                      signupForm.get('emailId')?.touched) ||
-                    formSubmitted
-                  "
-                >
-                  required !
-                </div>
+              </div>
+              <div
+                class="error-message"
+                *ngIf="
+                  (signupForm.get('emailId')?.hasError('required') &&
+                    signupForm.get('emailId')?.touched) ||
+                  formSubmitted
+                "
+              >
+                required !
               </div>
             </div>
             <div class="email-caption">
               <span>Please provide the email from your Resume</span>
             </div>
-            <div class="p-inputgroup input-with-icon1">
-              <i class="pi pi-lock"></i>
-              <input
-                formControlName="password"
-                class="signup-newpassword"
-                type="password"
-                pInputText
-                placeholder="New Password"
-              />
+            <div class="formpassword">
+              <div class="p-inputgroup input-with-icon1">
+                <i class="pi pi-lock"></i>
+                <input
+                  formControlName="password"
+                  class="signup-newpassword"
+                  type="password"
+                  pInputText
+                  placeholder="New Password"
+                />
+                <div class="info-circle">
+                  <p-overlayPanel
+                    #op
+                    class="password-requirements"
+                    [style]="{ width: '350px' }"
+                  >
+                    <p class="password-title">Password Requirements</p>
+                    <p class="password-content1">
+                      To ensure the security of your account, please make sure
+                      your password meets the following criteria:
+                    </p>
+                    <ul class="password-content2">
+                      <li><b>Length:</b> At least 8 characters.</li>
+                      <li>
+                        <b>Character Variety:</b>
+                        <ul>
+                          <li>At least one uppercase letter (A-Z)</li>
+                          <li>At least one lowercase letter (a-z)</li>
+                          <li>At least one number (0-9)</li>
+                          <li>
+                            At least one special character (e.g., !, @, #, $, %)
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li>
+                        <b>Unique Information:</b> Avoid using your name,
+                        birthdate, or common words.
+                      </li>
+                    </ul>
+                  </p-overlayPanel>
+                  <i
+                    (mouseover)="op.toggle($event)"
+                    (mouseleave)="op.toggle($event)"
+                    class="pi pi-info-circle"
+                    style="color: green"
+                  ></i>
+                </div>
+              </div>
               <div
                 class="error-message"
                 *ngIf="
@@ -121,48 +161,9 @@
               >
                 required !
               </div>
-
-              <div class="info-circle">
-                <p-overlayPanel
-                  #op
-                  class="password-requirements"
-                  [style]="{ width: '350px' }"
-                >
-                  <p class="password-title">Password Requirements</p>
-                  <p class="password-content1">
-                    To ensure the security of your account, please make sure
-                    your password meets the following criteria:
-                  </p>
-                  <ul class="password-content2">
-                    <li><b>Length:</b> At least 8 characters.</li>
-                    <li>
-                      <b>Character Variety:</b>
-                      <ul>
-                        <li>At least one uppercase letter (A-Z)</li>
-                        <li>At least one lowercase letter (a-z)</li>
-                        <li>At least one number (0-9)</li>
-                        <li>
-                          At least one special character (e.g., !, @, #, $, %)
-                        </li>
-                      </ul>
-                    </li>
-
-                    <li>
-                      <b>Unique Information:</b> Avoid using your name,
-                      birthdate, or common words.
-                    </li>
-                  </ul>
-                </p-overlayPanel>
-                <i
-                  (mouseover)="op.toggle($event)"
-                  (mouseleave)="op.toggle($event)"
-                  class="pi pi-info-circle"
-                  style="color: green"
-                ></i>
-              </div>
             </div>
-
-            <div class="p-inputgroup input-with-icon1">
+            <div class="confirmpassword">
+              <div class="p-inputgroup input-with-icon1">
               <i class="pi pi-lock"></i>
               <input
                 formControlName="confirmPassword"
@@ -171,7 +172,9 @@
                 pInputText
                 placeholder="Confirm Password"
               />
-              <div
+  
+            </div>
+            <div
                 class="error-message"
                 *ngIf="
                   (signupForm.get('confirmPassword')?.hasError('required') &&
@@ -181,7 +184,9 @@
               >
                 required !
               </div>
+
             </div>
+            
             <span class="agree-signup"
               >By clicking Sign Up, you agree to our <a href="#">Terms</a>,
               <a href="#">Privacy Policy</a> and
