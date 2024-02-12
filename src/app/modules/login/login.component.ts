@@ -5,7 +5,6 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
  
 import { AuthService } from 'src/app/Guard/auth.service';
-// import { AuthClassGuard } from 'src/app/Guard/auth-class.guard';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
 import { LoginService } from 'src/app/services/login.service';
@@ -54,23 +53,20 @@ export class LoginComponent implements OnDestroy {
   //  ) {}
  
   ngOnInit() {
-    history.pushState(null, '', '');
-    // this.showCandidateName = this.managernameService.getManagerName();
-    window.addEventListener('popstate', () => {
-      this.location.forward();
-    });
+    // history.pushState(null, '', '');
+    // window.addEventListener('popstate', () => {
+    //   this.location.forward();
+    // });
   }
   ngOnDestroy(): void {
-    window.removeEventListener('popstate', () => {
-      this.location.forward();
-    });
+    // window.removeEventListener('popstate', () => {
+    //   this.location.forward();
+    // });
   }
   forgotpassword() {
     this.router.navigate(['resetpassword']);
   }
 
-
- 
   sign() {
 console.log("inside sign in")
     this.formSubmitted = true;
@@ -81,12 +77,12 @@ console.log("inside sign in")
     this.loginservice
       .postlogincredentials(formData.userName, formData.password)
       .subscribe((data) => {
-        console.log('authenticatetoke', data.token);
-       
-        console.log('role', data.role);
+        
+        console.log('role', data);
         console.log(data)
         if (data.status == 200) {
           localStorage.setItem('token', data.token);
+          console.log('Token-', data.token);
  
           if (data.role == 'manager') {
 
@@ -102,7 +98,7 @@ console.log("inside sign in")
             if (this.authService.isAuthenticated()) {
               const redirectUrl = this.authService.redirectUrl
                 ? this.authService.redirectUrl
-                : '/dashboard';
+                : '/dashboard';  //not in use
  
               this.router.navigate(['dashboard']);
             }
@@ -136,14 +132,19 @@ console.log("inside sign in")
             detail: '',
           });
         } else {
-          alert(data.message);
+          this.messageservice.add({
+            severity: 'error',
+            summary: 'Wrong Credentials! Try Again',
+            detail: '',
+          });
         }
       });
   }else{
     console.log("invalid form");
     
   }
-}
+  }
+  
 createNewAcc() {
     this.router.navigate(['/signup']);
   }

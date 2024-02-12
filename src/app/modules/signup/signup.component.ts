@@ -1,11 +1,15 @@
-
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { MessageService } from 'primeng/api';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -23,73 +27,65 @@ export class SignupComponent {
   confirmPassword!: string;
   visible: boolean = false;
   signupForm: FormGroup;
-  formSubmitted:boolean=false;
-  
+  formSubmitted: boolean = false;
+
   constructor(
     private loginservice: LoginService,
     private toastr: ToastrService,
     private messageService: MessageService,
     private router: Router,
     private authService: AuthService,
-    private fb: FormBuilder,
-
-      ) {
+    private fb: FormBuilder
+  ) {
     this.signupForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phoneNumber: [
         '',
-        [
-          Validators.required,
-          Validators.pattern('^[0-9]{10}$'), // Only allow exactly 10 numeric values
-        ],
-      ],    
+        [Validators.required, Validators.pattern('^[0-9]{10}$')],
+      ],
       emailId: [
         '',
         [
           Validators.required,
-          Validators.email, // Ensures it's a valid email format
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@gmail.com$'), // Ensures it's a gmail.com address
+          Validators.email,
+          Validators.pattern('^[a-zA-Z0-9._%+-]+@gmail.com$'),
         ],
       ],
-      
+
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, this.passwordMatchValidator]],
     });
-    
   }
   ngOnInit() {}
 
   private passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password')?.value; // Get the password from the form
-    const confirmPassword: string = control.get('confirmPassword')?.value; // Get the confirm password from the form
+    const password: string = control.get('password')?.value;
+    const confirmPassword: string = control.get('confirmPassword')?.value;
 
-    // Check if the password and confirm password match
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
-   
-  initializeForm() {
-    this.signupForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.minLength(10)]],
-      emailId: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, this.passwordMatchValidator]],
-    });
-  }
 
+  // initializeForm() {
+  //   this.signupForm = this.fb.group({
+  //     firstName: ['', Validators.required],
+  //     lastName: ['', Validators.required],
+  //     phoneNumber: ['', [Validators.required, Validators.minLength(10)]],
+  //     emailId: ['', [Validators.required, Validators.email]],
+  //     password: ['', [Validators.required, Validators.minLength(6)]],
+  //     confirmPassword: ['', [Validators.required, this.passwordMatchValidator]],
+  //   });
+  // }
 
   hasValueInForm(): boolean {
     const formValues = this.signupForm.value;
-    return Object.values(formValues).some(value => value !== '' && value !== null);
-  }
-  resetForm() {
-    this.signupForm.reset();
+    return Object.values(formValues).some(
+      (value) => value !== '' && value !== null
+    );
   }
   id!: Date;
   signup() {
-    this.formSubmitted=true;
+    this.formSubmitted = true;
     console.log('Form Values:', this.signupForm.value);
     console.log('Form Validity:', this.signupForm.valid);
 
@@ -105,7 +101,7 @@ export class SignupComponent {
           summary: 'Password and Confirm Password must match',
           detail: '',
         });
-        return; 
+        return;
       }
 
       this.loginservice
@@ -126,17 +122,16 @@ export class SignupComponent {
               detail: '',
             });
           } else {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Message Content',
-            });
+            
             this.signupForm.reset();
             this.router.navigate(['login']);
           }
         });
     } else {
-      console.error('Form is not valid. Validation errors:', this.signupForm.errors);
+      console.error(
+        'Form is not valid. Validation errors:',
+        this.signupForm.errors
+      );
 
       if (this.signupForm.controls['phoneNumber'].hasError('pattern')) {
         this.messageService.add({
@@ -153,8 +148,7 @@ export class SignupComponent {
           detail: '',
         });
       }
-
-        }
+    }
   }
   // showDialog() {
   //   this.visible = true;
