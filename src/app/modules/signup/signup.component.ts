@@ -10,6 +10,8 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { Subscription, Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-signup',
@@ -18,16 +20,13 @@ import {
   providers: [MessageService],
 })
 export class SignupComponent {
-  passwordRequirements: string = '';
-  Firstname!: string;
-  Lastname!: string;
-  emailId!: string;
-  phoneNumber: number | null = null;
-  password!: string;
-  confirmPassword!: string;
-  visible: boolean = false;
   signupForm: FormGroup;
   formSubmitted: boolean = false;
+  isPasswordInvalid: boolean = false;
+  isPhonenoInvalid: boolean = false;
+  isMailIdInvalid: boolean = false;
+  passwordNotMatching: boolean = true;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private loginservice: LoginService,
@@ -49,29 +48,75 @@ export class SignupComponent {
         [
           Validators.required,
           Validators.email,
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@gmail.com$'),
+          Validators.pattern('^[a-z0-9._%+-]+@gmail.com$'),
         ],
       ],
 
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, this.passwordMatchValidator]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+          ),
+        ],
+      ],
+      confirmPassword: ['', [Validators.required]],
     });
+
+    this.subscription.add(
+      this.signupForm
+        .get('password')!
+        .valueChanges.pipe(debounceTime(2000))
+        .subscribe(() => {
+          this.isPasswordInvalid = this.signupForm.get('password')!.invalid;
+        })
+    );
+
+    this.subscription.add(
+      this.signupForm
+        .get('phoneNumber')!
+        .valueChanges.pipe(debounceTime(2000))
+        .subscribe(() => {
+          this.isPhonenoInvalid = this.signupForm.get('phoneNumber')!.invalid;
+        })
+    );
+
+    this.subscription.add(
+      this.signupForm
+        .get('emailId')!
+        .valueChanges.pipe(debounceTime(2000))
+        .subscribe(() => {
+          this.isMailIdInvalid = this.signupForm.get('emailId')!.invalid;
+        })
+    );
+
+    this.subscription.add(
+      this.signupForm
+        .get('confirmPassword')!
+        .valueChanges.pipe(debounceTime(2000))
+        .subscribe(() => {
+          console.log(
+            this.signupForm.get('password')?.value,
+            this.signupForm.get('confirmPassword')?.value
+          );
+          console.log("Fomrs " , this.signupForm)
+          if(this.signupForm.get('password')?.value !==
+            this.signupForm.get('confirmPassword')?.value) {
+            this.passwordNotMatching = true;
+            console.log("from confirm password" , this.passwordNotMatching)
+          }
+          else {
+            this.passwordNotMatching = false;
+          }
+            
+        })
+    );
   }
   ngOnInit() {}
 
-  private passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password')?.value;
-    const confirmPassword: string = control.get('confirmPassword')?.value;
 
-    return password === confirmPassword ? null : { passwordMismatch: true };
-  }
-
-  hasValueInForm(): boolean {
-    const formValues = this.signupForm.value;
-    return Object.values(formValues).some(
-      (value) => value !== '' && value !== null
-    );
-  }
   id!: Date;
   signup() {
     this.formSubmitted = true;
@@ -111,7 +156,6 @@ export class SignupComponent {
               detail: '',
             });
           } else {
-            
             this.signupForm.reset();
             this.router.navigate(['login']);
           }
@@ -121,21 +165,13 @@ export class SignupComponent {
         'Form is not valid. Validation errors:',
         this.signupForm.errors
       );
-
-      if (this.signupForm.controls['phoneNumber'].hasError('pattern')) {
-        document.getElementById("phoneno-error");
-      }
-
-      if (this.signupForm.controls['emailId'].hasError('pattern')) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Email should be a valid',
-          detail: '',
-        });
-      }
     }
   }
   alreadyHasAccount() {
     this.router.navigate(['login']);
   }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+  
 }
