@@ -51,6 +51,7 @@ export class ManageSkillsComponent {
   }
 
   ngOnInit() {
+    sessionStorage.setItem('Component-Name', 'question_bank');
     this.todayDate = this.formattedDate(new Date());
     this.getSkillSet();
     this.items = [

@@ -19,7 +19,9 @@ export class SidenavbarComponent {
 
   constructor(private authService: AuthService) {}
   ngOnInit(): void {
-    this.changeStyle('home');
+    const defaultPage=sessionStorage.getItem("Component-Name")
+    this.changeStyle(defaultPage);
+    console.log('defaultPage--',defaultPage);
     this.shouldDisplaySidebar();
   }
 
@@ -27,7 +29,7 @@ export class SidenavbarComponent {
     this.isSideNavCollapsed = !this.isSideNavCollapsed;
   }
 
-  changeStyle(section: string) {
+  changeStyle(section: any) {
     const sections = ['home', 'assessment', 'user', 'question_bank', 'system'];
     sections.forEach((sec) => {
       const element = document.getElementById(sec);

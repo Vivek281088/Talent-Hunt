@@ -20,39 +20,11 @@ import { forkJoin } from 'rxjs';
   styleUrls: ['./schedulepage.component.scss'],
 })
 export class SchedulepageComponent implements OnInit {
-  // [x: string]: any;
   items: MenuItem[] | undefined;
-
   home: MenuItem | undefined;
-  // selecteddates!: Date;
-  // questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
-  // selectedDate!: any;
-  // fromDate!: any;
-  // toDate!: any;
-  // difficultyLevel: string[] = ['Easy', 'Medium', 'Hard'];
-  formGroup!: FormGroup;
-  // tables: any[] | undefined;
-  cols!: Column[];
-  // selectedManager: string = '';
-  // managerOption: any[] = [];
   skillSet: any[] = [];
-  // selectedSkill: any[] = [];
   managerName: string = '';
-  // skill: String[] = [];
-  // filteredSkill: String[] = [];
-  // fskill: String[] = [];
-  // exdata: any[] = [];
-  // filterSkills: any;
-  // Skills: any[] = [];
-  // filterManager: any;
-  // filteredData: any[] = [];
-  // isCreate: boolean = false;
-  // isEdit: boolean = false;
-  // isMail: boolean = false;
-  // create: boolean = false;
   Tdata: any[] = [];
-  // isCreateClicked = false;
-  // dropdownOptions: any[] = [];
   FinalizedQuestions: any[] = [];
   Skill: any[] = []; //for edit
   selectedQuestions: any[] = [];
@@ -65,12 +37,6 @@ export class SchedulepageComponent implements OnInit {
   selectedCandidates: any[] = [];
   candidateList: any[] = [];
   questions: any;
-  // filterPopupVisible: boolean = false;
-  // candidateNameOptions: any[] = [];
-  // statusOptions: any[] = [];
-  // names: string[] = [];
-  // status: string = '';
-  // CandidatefilteredData: any[] = [];
   view_Managername!: string;
   view_Filename!: string;
   editManagername!: string;
@@ -79,18 +45,8 @@ export class SchedulepageComponent implements OnInit {
   score: number | null = null;
   candidatePassword: string = 'abc123';
   candidateConfirmPassword: string = 'abc123';
-  // name: boolean = true;
-  finalizedEmail!: string;
-  finalizedManagerEmail!: string;
   managerEmail!: string;
-  column!: Column[];
   question!: string;
-  // selectedAnswer!: string;
-  // chosenSkill!: String;
-
-  // selectedType: boolean = false;
-  // selectedquestionType!: string;
-  // selecteddifficultyType!: string;
   candidateSkill!: any;
 
   candidateId!: Date | null;
@@ -103,49 +59,24 @@ export class SchedulepageComponent implements OnInit {
   duration!: number;
   viewQuestionSidebar: boolean = false;
   sendQuestionCardVisible: boolean = false;
-  // reviewer
-  // totalQuestions!: number;
-
-  // correctQuestions!: number;
-
-  // textQuestions: any[] = [];
-
-  // id: string = '';
-
   visible: boolean = false;
 
-  // buttonColors: boolean[] = [];
-
-  // buttonColorsWrong: boolean[] = [];
-
-  // response: boolean = false;
-  // newScheduleVisible: boolean = false;
-
-  // reviewerStatus: string = 'Completed';
-
-  // dialogEmailStatus: string | null = null;
-
   roles: string = 'user';
-  showcardFlag: boolean = false;
   candidateData: any;
   managerData: any;
   globalSearchValue!: string;
   addnewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
 
-  // candidateForm !: FormGroup;
+  
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
     private skillsdropdownservice: SkillsdropdownService,
     private router: Router,
     private fb: FormBuilder,
-    private auth: AuthService,
-    private candidateService: CandidateAssessmentService,
     // reviewer
     private messageService: MessageService,
-
-    private reviewerService: ReviewerService,
     private dataService: DataService,
     private newScheduleService: NewScheduleService
   ) {
@@ -162,43 +93,17 @@ export class SchedulepageComponent implements OnInit {
   }
   ngOnInit() {
     this.items = [{ label: 'Schedules' }];
+    sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
 
-    this.home = { icon: 'pi pi-home', routerLink: '/', label: 'Home' };
-    this.formGroup = new FormGroup({
-      date: new FormControl<Date | null>(null),
-    });
+    this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
 
     this.loadSkills();
-
-    this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
-    this.finalizedEmail = localStorage.getItem('Candidateemail')!;
-
     this.loadManagerNames();
-    this.getSkillSet();
     this.existingData();
-    // this.loadCandidate();
     this.getCandidatename();
-    this.cols = [
-      { field: 'manager', header: 'Manager' },
-      { field: 'file name', header: 'File name' },
-      { field: 'actions', header: 'Actions' },
-    ];
-    this.column = [
-      { field: 'email_Managername', header: 'Manager' },
-
-      { field: 'candidateName', header: 'Candidate Name' },
-
-      { field: 'email_Filename', header: 'File Name' },
-
-      { field: 'email_Status', header: 'Status' },
-
-      { field: 'score', header: 'Score' },
-
-      { field: 'result', header: 'S/R' },
-    ];
   }
   getFormattedSkills(skills: any): {
     skills: string[];
@@ -245,23 +150,6 @@ export class SchedulepageComponent implements OnInit {
       console.log(this.candidateNames);
     });
   }
-
-  loadAssessmentData() {
-    this.managernameService.getCandidateStatus().subscribe((data) => {
-      // console.log("arole",a)
-      this.candidateList = data;
-      console.log('loadDAta', data);
-    });
-  }
-  getSkillSet() {
-    this.skillsdropdownservice.getskillsList().subscribe((data) => {
-      this.skillSet = data;
-    });
-  }
-
-  showcard() {
-    this.showcardFlag = true;
-  }
   onClearClick(dt2: Table) {
     this.globalSearchValue = '';
     dt2.clear();
@@ -280,13 +168,6 @@ export class SchedulepageComponent implements OnInit {
       );
       console.log('Client Manager Details', this.managerData);
     });
-  }
-  sendQuestions(data: any) {
-    console.log('data', data);
-
-    this.candidateService.setAssessmentData(data);
-
-    this.router.navigate(['/assessment-display']);
   }
 
   cancelButton() {
@@ -319,8 +200,6 @@ export class SchedulepageComponent implements OnInit {
       this.newScheduleService.setNewScheduleData(dataToSend);
       localStorage.setItem('scheduleName', formData.scheduleName);
       localStorage.setItem('manager', formData.managerName);
-      // const ss=JSON.stringify(this.selectedSkills)
-      // localStorage.setItem("selectedSkills",ss)
       this.dataService.savedata(formData.skills);
       localStorage.setItem('cutoff', formData.cutoff);
       localStorage.setItem('duration', formData.duration);
@@ -456,10 +335,10 @@ export class SchedulepageComponent implements OnInit {
 
   // Loading skills for dropdown in add question
   loadSkills() {
-    console.log('hi from Client');
 
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
-      this.skillSet = data.skill;
+      this.skillSet = data;
+       console.log('Skill Set', data);
     });
   }
 
@@ -638,7 +517,7 @@ export class SchedulepageComponent implements OnInit {
   }
 }
 
-interface Column {
-  field: string;
-  header: string;
-}
+// interface Column {
+//   field: string;
+//   header: string;
+// }

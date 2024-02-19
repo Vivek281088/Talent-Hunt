@@ -53,6 +53,7 @@ export class LoginComponent implements OnDestroy {
   //  ) {}
  
   ngOnInit() {
+    sessionStorage.setItem('Component-Name', 'home');
     // history.pushState(null, '', '');
     // window.addEventListener('popstate', () => {
     //   this.location.forward();

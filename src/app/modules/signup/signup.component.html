@@ -67,6 +67,7 @@
 
               <div
                 class="error-message"
+                id="phoneno-error"
                 *ngIf="
                   (signupForm.get('phoneNumber')?.hasError('required') &&
                     signupForm.get('phoneNumber')?.touched) ||
@@ -197,7 +198,7 @@
                 type="submit"
                 label="Sign Up"
                 class="p-button-success"
-                [disabled]="formSubmitted || !hasValueInForm()"
+                [disabled]="!hasValueInForm()"
               ></button>
             </div>
           </form>

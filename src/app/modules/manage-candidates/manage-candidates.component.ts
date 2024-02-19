@@ -50,6 +50,7 @@ export class ManageCandidatesComponent {
     });
   }
   ngOnInit() {
+    sessionStorage.setItem('Component-Name', 'user');
     this.getUniqueCandidatedata();
     this.managerService.getclientManagerData().subscribe((response) => {
       console.log('Client Manager Details', response);

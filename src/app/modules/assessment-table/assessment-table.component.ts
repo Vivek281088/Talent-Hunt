@@ -95,7 +95,7 @@ export class AssessmentTableComponent {
     //for manager
     // this.finalizedManagerEmail = this.managernameService.getManagerName_Email();
     // console.log('manager-email--', this.finalizedManagerEmail);
-
+    sessionStorage.setItem('Component-Name', 'assessment');
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
     this.loadManagerNames();

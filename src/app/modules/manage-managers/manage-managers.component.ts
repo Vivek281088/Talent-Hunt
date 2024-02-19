@@ -44,6 +44,7 @@ export class ManageManagersComponent {
     });
   }
   ngOnInit() {
+    sessionStorage.setItem('Component-Name', 'user');
     this.loadManagerData();
     this.getClientManagerName();
 

@@ -66,17 +66,6 @@ export class SignupComponent {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  // initializeForm() {
-  //   this.signupForm = this.fb.group({
-  //     firstName: ['', Validators.required],
-  //     lastName: ['', Validators.required],
-  //     phoneNumber: ['', [Validators.required, Validators.minLength(10)]],
-  //     emailId: ['', [Validators.required, Validators.email]],
-  //     password: ['', [Validators.required, Validators.minLength(6)]],
-  //     confirmPassword: ['', [Validators.required, this.passwordMatchValidator]],
-  //   });
-  // }
-
   hasValueInForm(): boolean {
     const formValues = this.signupForm.value;
     return Object.values(formValues).some(
@@ -134,25 +123,18 @@ export class SignupComponent {
       );
 
       if (this.signupForm.controls['phoneNumber'].hasError('pattern')) {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Invalid Phone Number',
-          detail: '',
-        });
+        document.getElementById("phoneno-error");
       }
 
       if (this.signupForm.controls['emailId'].hasError('pattern')) {
         this.messageService.add({
           severity: 'error',
-          summary: 'Email should be a valid Gmail address',
+          summary: 'Email should be a valid',
           detail: '',
         });
       }
     }
   }
-  // showDialog() {
-  //   this.visible = true;
-  // }
   alreadyHasAccount() {
     this.router.navigate(['login']);
   }
