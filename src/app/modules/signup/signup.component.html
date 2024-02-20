@@ -14,7 +14,7 @@
         <div class="customsignupform">
           <form [formGroup]="signupForm" (ngSubmit)="signup()">
             <div class="fullname">
-              <div class=" firstname">
+              <div class="firstname">
                 <input
                   formControlName="firstName"
                   class="signup-firstname"
@@ -24,11 +24,7 @@
                 />
                 <div
                   class="error-message"
-                  *ngIf="
-                    (signupForm.get('firstName')?.hasError('required') &&
-                      signupForm.get('firstName')?.touched) ||
-                    formSubmitted
-                  "
+                  *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched"
                 >
                   required !
                 </div>
@@ -43,11 +39,7 @@
                 />
                 <div
                   class="error-message"
-                  *ngIf="
-                    (signupForm.get('lastName')?.hasError('required') &&
-                      signupForm.get('lastName')?.touched) ||
-                    formSubmitted
-                  "
+                  *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched"
                 >
                   required !
                 </div>
@@ -59,7 +51,7 @@
                 <input
                   formControlName="phoneNumber"
                   class="signup-firstname"
-                  type="number"
+                  type="tel"
                   pInputText
                   placeholder="Phone number"
                 />
@@ -67,14 +59,19 @@
 
               <div
                 class="error-message"
-                id="phoneno-error"
-                *ngIf="
-                  (signupForm.get('phoneNumber')?.hasError('required') &&
-                    signupForm.get('phoneNumber')?.touched) ||
-                  formSubmitted
+                id="phonenoError"
+                *ngIf=" signupForm.get('phoneNumber')?.hasError('required') 
+                && signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched"
+              >
+                Phone No is required !
+              </div>
+              <div
+                class="error-message"
+                *ngIf="isPhonenoInvalid && 
+                  signupForm.get('phoneNumber')?.hasError('pattern')
                 "
               >
-                required !
+                Invalid Phone No
               </div>
             </div>
 
@@ -91,13 +88,15 @@
               </div>
               <div
                 class="error-message"
-                *ngIf="
-                  (signupForm.get('emailId')?.hasError('required') &&
-                    signupForm.get('emailId')?.touched) ||
-                  formSubmitted
-                "
+                *ngIf="signupForm.get('emailId')?.hasError('required') && signupForm.get('emailId')?.invalid && signupForm.get('emailId')?.touched"
               >
-                required !
+                Email is required !
+              </div>
+              <div
+                class="error-message"
+                *ngIf="isMailIdInvalid && signupForm.get('emailId')?.hasError('pattern')"
+              >
+                Please Enter valid Email
               </div>
             </div>
             <div class="email-caption">
@@ -133,7 +132,7 @@
                           <li>At least one lowercase letter (a-z)</li>
                           <li>At least one number (0-9)</li>
                           <li>
-                            At least one special character (e.g., !, @, #, $, %)
+                            At least one special character (e.g., !, @, $, %, *)
                           </li>
                         </ul>
                       </li>
@@ -154,13 +153,15 @@
               </div>
               <div
                 class="error-message"
-                *ngIf="
-                  (signupForm.get('password')?.hasError('required') &&
-                    signupForm.get('password')?.touched) ||
-                  formSubmitted
-                "
+               *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
               >
-                required !
+                Password is required !
+              </div>
+              <div
+                class="error-message"
+               *ngIf="isPasswordInvalid && signupForm.get('password')?.hasError('pattern')"
+              >
+                Password should match given Criteria
               </div>
             </div>
             <div class="confirmpassword">
@@ -176,21 +177,18 @@
               </div>
               <div
                 class="error-message"
-                *ngIf="
-                  (signupForm.get('confirmPassword')?.hasError('required') &&
-                    signupForm.get('confirmPassword')?.touched) ||
-                  formSubmitted
-                "
+                *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.invalid &&  signupForm.get('confirmPassword')?.touched"
               >
-                required !
+                Confirm Password is required !
+              </div>
+              <div
+                class="error-message"
+               *ngIf=" signupForm.get('confirmPassword')?.dirty && passwordNotMatching"
+              >
+                Password and Confirm Password are not Matching
               </div>
             </div>
 
-            <span class="agree-signup"
-              >By clicking Sign Up, you agree to our <a href="#">Terms</a>,
-              <a href="#">Privacy Policy</a> and
-              <a href="#">Cookies Policy</a>.</span
-            >
             <p-toast></p-toast>
             <div class="button-signup">
               <button
@@ -198,7 +196,7 @@
                 type="submit"
                 label="Sign Up"
                 class="p-button-success"
-                [disabled]="!hasValueInForm()"
+                [disabled]='(!signupForm.valid) && passwordNotMatching'
               ></button>
             </div>
           </form>
@@ -215,13 +213,6 @@
           </button>
         </div>
       </p-card>
-      <div class="cardfooter">
-        <a class="a1">Privacy Policy</a>
-        <i class="pi pi-circle-on"></i>
-        <a class="a2">About Us</a>
-        <i class="pi pi-circle-on"></i>
-        <a class="a3">Contact Us</a>
-      </div>
     </div>
   </div>
 </div>
