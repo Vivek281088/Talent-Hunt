@@ -41,7 +41,7 @@ export class SidenavbarComponent {
         activeElement.classList.add('active');
       }
       this.activeSection = section;
-      localStorage.setItem(this.activeSection, section);
+      sessionStorage.setItem(this.activeSection, section);
       console.log("Active component", this.activeSection);
     });
   }
@@ -87,7 +87,7 @@ export class SidenavbarComponent {
     this.systemShow = !this.systemShow;
   }
   shouldDisplaySidebar() {
-    this.role = localStorage.getItem('userrole');
+    this.role = sessionStorage.getItem('userrole');
     console.log('Role : ', this.role);
     if (this.role === 'manager') {
       this.showSidebar = true;

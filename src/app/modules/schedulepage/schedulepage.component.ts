@@ -195,11 +195,11 @@ export class SchedulepageComponent implements OnInit {
         duration: formData.duration,
       };
       this.newScheduleService.setNewScheduleData(dataToSend);
-      localStorage.setItem('scheduleName', formData.scheduleName);
-      localStorage.setItem('manager', formData.managerName);
+      sessionStorage.setItem('scheduleName', formData.scheduleName);
+      sessionStorage.setItem('manager', formData.managerName);
       this.dataService.savedata(formData.skills);
-      localStorage.setItem('cutoff', formData.cutoff);
-      localStorage.setItem('duration', formData.duration);
+      sessionStorage.setItem('cutoff', formData.cutoff);
+      sessionStorage.setItem('duration', formData.duration);
       // const dataToSend={
       this.router.navigate(['/new-schedule']);
     }
@@ -270,8 +270,8 @@ export class SchedulepageComponent implements OnInit {
         this.managernameService.setFinalizedQuestions(this.selectedQuestions);
         this.managernameService.setManagerName(this.editManagername);
         this.managernameService.setFileName(this.editFilename);
-        localStorage.setItem('scheduleName', this.editFilename);
-        localStorage.setItem('boolean', 'true');
+        sessionStorage.setItem('scheduleName', this.editFilename);
+        sessionStorage.setItem('boolean', 'true');
 
         this.router.navigate(['new-schedule']);
       });
@@ -412,7 +412,6 @@ export class SchedulepageComponent implements OnInit {
     this.addnewScheduleForm.markAsPristine();
     this.addnewScheduleForm.markAsUntouched();
     this.addnewScheduleForm.reset();
-    console.log('Manager-----------', this.manager);
   }
   formattedDate(date: Date) {
     const months: string[] = [
