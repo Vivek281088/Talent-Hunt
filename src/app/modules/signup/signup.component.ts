@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { Subscription, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { PasswordValidator } from './password-validator';
 
 @Component({
   selector: 'app-signup',
@@ -36,7 +37,8 @@ export class SignupComponent {
     private authService: AuthService,
     private fb: FormBuilder
   ) {
-    this.signupForm = this.fb.group({
+    this.signupForm = this.fb.group(
+      {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       phoneNumber: [
@@ -63,7 +65,8 @@ export class SignupComponent {
         ],
       ],
       confirmPassword: ['', [Validators.required]],
-    });
+      },
+    {validator : PasswordValidator.match });
 
     this.subscription.add(
       this.signupForm

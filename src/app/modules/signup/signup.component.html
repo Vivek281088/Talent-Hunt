@@ -183,7 +183,7 @@
               </div>
               <div
                 class="error-message"
-               *ngIf=" signupForm.get('confirmPassword')?.dirty && passwordNotMatching"
+               *ngIf=" signupForm?.errors?.['match'] && signupForm.get('confirmPassword')?.touched"
               >
                 Password and Confirm Password are not Matching
               </div>
@@ -196,7 +196,7 @@
                 type="submit"
                 label="Sign Up"
                 class="p-button-success"
-                [disabled]='(!signupForm.valid) && passwordNotMatching'
+                [disabled]='(!signupForm.valid)'
               ></button>
             </div>
           </form>
