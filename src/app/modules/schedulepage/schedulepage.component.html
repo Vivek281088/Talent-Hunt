@@ -136,21 +136,26 @@
                 <div class="card flex justify-content-centre newscheduleButton">
                   <button
                     pButton
-                    [disabled]="!selectedDeleteSchedule || selectedDeleteSchedule.length==0 "
+                    [disabled]="
+                      !selectedDeleteSchedule ||
+                      selectedDeleteSchedule.length == 0
+                    "
                     class="btn flex align-items-center justify-content-center cursor-pointer"
                     (click)="deleteSchedule()"
                     label="Delete"
                   ></button>
                 </div>
-
               </div>
             </div>
           </th>
         </tr>
 
         <tr>
-           <th style="width: 4rem">
-            <p-tableHeaderCheckbox [value]="Tdata" (click)="selectAll()"></p-tableHeaderCheckbox>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox
+              [value]="Tdata"
+              (click)="selectAll()"
+            ></p-tableHeaderCheckbox>
           </th>
           <th class="schedulenameHeading">Schedule Name</th>
           <th class="managernameHeading">Manager</th>
@@ -161,9 +166,13 @@
       <ng-template pTemplate="body" let-rowData let-i="rowIndex">
         <tr>
           <td>
-            <p-tableCheckbox [value]="rowData" [checked]="rowData.selection" (click)="toggleSelection(rowData)"></p-tableCheckbox>
+            <p-tableCheckbox
+              [value]="rowData"
+              [checked]="rowData.selection"
+              (click)="toggleSelection(rowData)"
+            ></p-tableCheckbox>
           </td>
-         
+
           <td class="jobDescription">
             <!-- <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" /> -->
             <span class="ml-1 vertical-align-middle">{{
@@ -219,12 +228,7 @@
               <!-- <div class="cursor-pointer"> -->
               <a
                 class="flex"
-                (click)="
-                  handleEditIconClick(
-                    rowData.Managername,
-                    rowData.JobDescription
-                  )
-                "
+                (click)="handleEditIconClick(rowData.id)"
                 [class.disabled]="!rowData.isEdit"
                 title="Edit"
               >
@@ -249,9 +253,7 @@
                 class="flex cursor-pointer"
                 [class.disabled]="!rowData.isMail"
                 title="View"
-                (click)="
-                  onViewClick(rowData.Managername, rowData.JobDescription)
-                "
+                (click)="onViewClick(rowData.id)"
               >
                 <svg
                   width="18"
@@ -275,12 +277,7 @@
                   viewBox="0 0 18 12"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  (click)="
-                    onSendQuestionClick(
-                      rowData.Managername,
-                      rowData.JobDescription
-                    )
-                  "
+                  (click)="onSendQuestionClick(rowData.id)"
                   style="cursor: pointer"
                 >
                   <path
@@ -289,8 +286,6 @@
                   />
                 </svg>
               </a>
-
-            
             </div>
           </td>
         </tr>

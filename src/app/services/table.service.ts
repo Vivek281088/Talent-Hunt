@@ -43,12 +43,11 @@ export class TableService {
   }
 
   // Method to fetch data by fileName and Managername
-  getdataby_FileName(
-    Managername: string,
-    JobDescription: string
+  getdataby_Id(
+    id: any
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-    const body = { Managername: Managername, JobDescription: JobDescription };
+    const body = { id: id };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/viewquestion',
       body,
