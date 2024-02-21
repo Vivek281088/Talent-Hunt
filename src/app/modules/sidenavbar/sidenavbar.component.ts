@@ -87,7 +87,7 @@ export class SidenavbarComponent {
     this.systemShow = !this.systemShow;
   }
   shouldDisplaySidebar() {
-    this.role = sessionStorage.getItem('userrole');
+    this.role = localStorage.getItem('userrole');
     console.log('Role : ', this.role);
     if (this.role === 'manager') {
       this.showSidebar = true;

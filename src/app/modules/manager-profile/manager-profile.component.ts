@@ -170,9 +170,7 @@ export class ManagerProfileComponent {
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log('Function Working');
     if (option.includes(selected_Option)) {
-      console.log('correct answer');
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -182,13 +180,6 @@ export class ManagerProfileComponent {
     return String.fromCharCode(65 + index);
   }
 
-  //Assessment
-  // getCandidateData() {
-  //   this.managernameService.getCandidateStatus().subscribe((data) => {
-  //     this.candidateList = data;
-  //     console.log('Candidate data ----------------', data);
-  //   });
-  // }
   clear(table: Table) {
     table.clear();
   }

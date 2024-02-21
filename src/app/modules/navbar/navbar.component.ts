@@ -40,10 +40,10 @@ export class NavbarComponent {
     this.authUserOrManager();
   }
   authUserOrManager() {
-    this.finalizedManagerEmail = sessionStorage.getItem('managerEmail')!;
-    this.finalizedEmail = sessionStorage.getItem('Candidateemail')!;
+    this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
+    this.finalizedEmail = localStorage.getItem('Candidateemail')!;
 
-    const a = sessionStorage.getItem('userrole');
+    const a = localStorage.getItem('userrole');
 
     if (a == 'manager') {
       this.isAdmin = true;
@@ -78,10 +78,10 @@ export class NavbarComponent {
   }
 
   authUserOrManager1() {
-    this.finalizedManagerEmail = sessionStorage.getItem('managerEmail')!;
-    this.finalizedEmail = sessionStorage.getItem('Candidateemail')!;
+    this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
+    this.finalizedEmail = localStorage.getItem('Candidateemail')!;
 
-    const a = sessionStorage.getItem('userrole');
+    const a = localStorage.getItem('userrole');
 
     if (a == 'manager') {
       this.managernameService
