@@ -313,24 +313,21 @@ export class SchedulepageComponent implements OnInit {
   }
 
 
-  onSendQuestionClick(id: any) {
+  onSendQuestionClick(data: any) {
     this.sendQuestionCardVisible = true;
     this.getUniqueCandidatedata();
+    console.log('Manager Table Data', data[0]);
+    this.email_Managername = data[0].Managername;
+    this.email_Filename = data[0].JobDescription;
+    this.cutoff = data[0].cutoff;
+    this.durations = data[0].durations;
+    this.questions = data[0].questions;
+    this.Skill = data[0].Skill;
+    console.log('Manager name---', this.email_Managername);
+    console.log('File name---', this.email_Filename);
+    this.email_Status = 'Not Started';
 
-    this.tableService
-      .getdataby_Id(id)
-      .subscribe((data) => {
-        console.log('Manager Table Data', data);
-        this.email_Managername = data[0].Managername;
-        this.email_Filename = data[0].JobDescription;
-        this.cutoff = data[0].cutoff;
-        this.durations = data[0].durations;
-        this.questions = data[0].questions;
-        this.Skill = data[0].Skill;
-        console.log('Manager name---', this.email_Managername);
-        console.log('File name---', this.email_Filename);
-        this.email_Status = 'Not Started';
-      });
+   
   }
 
   inviteCandidate() {
