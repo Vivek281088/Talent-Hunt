@@ -312,16 +312,10 @@ export class SchedulepageComponent implements OnInit {
     });
   }
 
-  addquestion() {
-    this.router.navigate(['questiondb']);
-  }
 
   onSendQuestionClick(id: any) {
     this.sendQuestionCardVisible = true;
     this.getUniqueCandidatedata();
-    // this.managernameService.getCandidateStatus().subscribe((response) => {
-    //   console.log('candidate name', response);
-    //   this.candidateData = response;
 
     this.tableService
       .getdataby_Id(id)
