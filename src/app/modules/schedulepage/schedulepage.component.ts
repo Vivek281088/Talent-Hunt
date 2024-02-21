@@ -37,8 +37,6 @@ export class SchedulepageComponent implements OnInit {
   selectedCandidates: any[] = [];
   candidateList: any[] = [];
   questions: any;
-  view_Managername!: string;
-  view_Filename!: string;
   editManagername!: string;
   editFilename!: any;
   result: string = '';
@@ -171,7 +169,6 @@ export class SchedulepageComponent implements OnInit {
   }
 
   cancelButton() {
-    console.log('gfgdfxcghcnghcycgh');
     this.visible = false;
     this.formSubmitted = false;
     this.addnewScheduleForm.markAsPristine();
@@ -198,54 +195,29 @@ export class SchedulepageComponent implements OnInit {
         duration: formData.duration,
       };
       this.newScheduleService.setNewScheduleData(dataToSend);
-      localStorage.setItem('scheduleName', formData.scheduleName);
-      localStorage.setItem('manager', formData.managerName);
+      sessionStorage.setItem('scheduleName', formData.scheduleName);
+      sessionStorage.setItem('manager', formData.managerName);
       this.dataService.savedata(formData.skills);
-      localStorage.setItem('cutoff', formData.cutoff);
-      localStorage.setItem('duration', formData.duration);
+      sessionStorage.setItem('cutoff', formData.cutoff);
+      sessionStorage.setItem('duration', formData.duration);
       // const dataToSend={
       this.router.navigate(['/new-schedule']);
     }
   }
 
-  //Mail dialog
 
-  candidateName!: string;
-  candidateEmail!: string;
-  candidatePhone: number | null = null;
-  // cancelEmailPopup() {
-  //   this.displayEmailDialog = false;
-  //   this.selectedCandidates = [];
-  //   this.resetForm();
-  //   this.loadAssessmentData();
-  //   this.getCandidatename();
-  // }
-  // resetForm() {
-  //   this.candidateName = '';
-  //   this.candidateEmail = '';
-  //   this.candidatePhone = null;
-  //   this.candidatePassword = '';
-  //   this.candidateConfirmPassword = '';
-  // }
-  // sendEmail() {
-  //   this.displayEmailDialog = false;
-  //   // Reset the form data
-  // }
-  //view icon
+ 
 
   closeSidebar() {
     this, (this.viewQuestionSidebar = false);
   }
-  onViewClick(ManagerName: string, JobDescription: string) {
+  onViewClick(id: any) {
     this.viewQuestionSidebar = true;
 
     this.tableService
-      .getdataby_FileName(ManagerName, JobDescription)
+      .getdataby_Id(id)
       .subscribe((data) => {
         console.log('View Data', data);
-        this.view_Managername = ManagerName;
-        this.view_Filename = JobDescription;
-        // this.FinalizedQuestions = data[0].questions;
         const observables = data[0].questions.map((questionId: string) =>
           this.newScheduleService.getIndividualQuestion(questionId)
         );
@@ -259,9 +231,7 @@ export class SchedulepageComponent implements OnInit {
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log('Function Working');
     if (option.includes(selected_Option)) {
-      console.log('correct answer');
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -271,11 +241,11 @@ export class SchedulepageComponent implements OnInit {
     return String.fromCharCode(65 + index);
   }
 
-  handleEditIconClick(ManagerName: string, jobDescription: string) {
+  handleEditIconClick(id: any) {
     // debugger;
-    console.log('getting edit ', ManagerName, jobDescription);
+    console.log('getting edit ', id);
     this.tableService
-      .getdataby_FileName(ManagerName, jobDescription)
+      .getdataby_Id(id)
       .subscribe((data) => {
         console.log('View Data by edit', data);
 
@@ -289,8 +259,8 @@ export class SchedulepageComponent implements OnInit {
         this.selectedQuestions = data[0].questions;
         this.cutoff = data[0].cutoff;
         this.durations = data[0].durations;
-        this.editManagername = ManagerName;
-        this.editFilename = jobDescription;
+        this.editManagername = data[0].Managername;
+        this.editFilename = data[0].JobDescription;
         this.managernameService.setCutoff(this.cutoff);
         console.log('edit cutoff', this.cutoff);
         this.managernameService.setDuration(this.durations);
@@ -300,8 +270,8 @@ export class SchedulepageComponent implements OnInit {
         this.managernameService.setFinalizedQuestions(this.selectedQuestions);
         this.managernameService.setManagerName(this.editManagername);
         this.managernameService.setFileName(this.editFilename);
-        localStorage.setItem('scheduleName', jobDescription);
-        localStorage.setItem('boolean', 'true');
+        sessionStorage.setItem('scheduleName', this.editFilename);
+        sessionStorage.setItem('boolean', 'true');
 
         this.router.navigate(['new-schedule']);
       });
@@ -346,7 +316,7 @@ export class SchedulepageComponent implements OnInit {
     this.router.navigate(['questiondb']);
   }
 
-  onSendQuestionClick(managerName: string, jobdescription: string) {
+  onSendQuestionClick(id: any) {
     this.sendQuestionCardVisible = true;
     this.getUniqueCandidatedata();
     // this.managernameService.getCandidateStatus().subscribe((response) => {
@@ -354,7 +324,7 @@ export class SchedulepageComponent implements OnInit {
     //   this.candidateData = response;
 
     this.tableService
-      .getdataby_FileName(managerName, jobdescription)
+      .getdataby_Id(id)
       .subscribe((data) => {
         console.log('Manager Table Data', data);
         this.email_Managername = data[0].Managername;
@@ -442,7 +412,6 @@ export class SchedulepageComponent implements OnInit {
     this.addnewScheduleForm.markAsPristine();
     this.addnewScheduleForm.markAsUntouched();
     this.addnewScheduleForm.reset();
-    console.log('Manager-----------', this.manager);
   }
   formattedDate(date: Date) {
     const months: string[] = [
@@ -516,8 +485,3 @@ export class SchedulepageComponent implements OnInit {
     console.log('Selected all Schedule:', this.selectedDeleteSchedule);
   }
 }
-
-// interface Column {
-//   field: string;
-//   header: string;
-// }

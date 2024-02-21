@@ -128,22 +128,15 @@ background: #C81A78;
 }
 
 .overlay-whole{
-display: flex;
-width: 250px;
-padding: 16px 8px;
-flex-direction: column;
-align-items: flex-start;
-border-radius: 8px;
-background: #FFF;
-box-shadow: 0px 11px 15px 0px 
-rgba(179, 171, 186, 0.20), 
-0px 9px 46px 0px rgba(179, 171, 186, 0.12), 
-0px 24px 38px 0px rgba(179, 171, 186, 0.14);
-margin-top: 13px;
-margin-right: 15px;
-height: 170px;
-top: 196px;
-left: 834px;
+    display: flex;
+    width: 226px;
+    padding: 9px 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: 0px 11px 15px 0px rgba(179, 171, 186, 0.2), 0px 9px 46px 0px rgba(179, 171, 186, 0.12), 0px 24px 38px 0px rgba(179, 171, 186, 0.14);
+    margin-top: 11px;
 }
 
 .overlay-content1{
@@ -157,15 +150,6 @@ height: 56px;
 border-bottom: 1px solid #B3ABBA33;
 }
 
-// .overlay-avatar{
-// width: 48px;
-// height: 48px;
-// flex-shrink: 0;
-// border-radius: 38px;
-// border: 1px;
-// border: 1px solid #0000001F;
-// left: 8px;
-// }
 .overlay-user-info{
 display: flex;
 flex-direction: column;
