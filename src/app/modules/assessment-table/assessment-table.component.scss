@@ -282,6 +282,26 @@
      
       box-shadow: none;
   }
+  ::ng-deep {
+    .p-button {
+      color: #c81a78;
+      border: 1px solid #c81a78;
+      background: white;
+      &:hover {
+        color: #c81a78;
+      }
+      
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    .p-button:enabled:hover {
+      color: #c81a78;
+      border: 1px solid #c81a78;
+      background: white;
+  }
+  
+   }
 }
 
 .cursor-design {
@@ -307,17 +327,7 @@
   }
 }
 
-.assesment-header {
-  //styleName: Title;
-  font-family: "Poppins", sans-serif;
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 30px;
-  letter-spacing: 0.15000000596046448px;
-  text-align: left;
 
-  color: #000;
-}
 
 .breadDate {
   justify-content: space-between;
@@ -329,6 +339,7 @@
     height: 19px;
     color: #00000061;
     font-family: "Avenir", sans-serif;
+    cursor: pointer;
   }
 }
 .BreadCrumb {
@@ -367,7 +378,7 @@
   line-height: 30px;
   letter-spacing: 0.15000000596046448px;
   text-align: left;
-
+  cursor: pointer;
   color: #000;
 }
 
@@ -666,24 +677,5 @@ cursor:pointer;
  
  }
  
- ::ng-deep {
-  .p-button {
-    color: #c81a78;
-    border: 1px solid #c81a78;
-    background: white;
-    &:hover {
-      color: #c81a78;
-    }
-    
-    &:focus {
-      box-shadow: none;
-    }
-  }
-  .p-button:enabled:hover {
-    color: #c81a78;
-    border: 1px solid #c81a78;
-    background: white;
-}
 
- }
  

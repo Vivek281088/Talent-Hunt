@@ -1,6 +1,6 @@
 <div class="whole-design">
   <div class="assesment-header">
-    <p class="assessment-text">Assessments</p>
+    <p>Assessments</p>
   </div>
 
   <!-- <div class="flex justify-content-start bread">
@@ -26,7 +26,7 @@
       #dt1
       [paginator]="true"
       [tableStyle]="{ height: 'max-content' }"
-      [rows]="5"
+      [rows]="4"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [rowsPerPageOptions]="[4, 8, 12]"
@@ -135,7 +135,6 @@
                       [options]="status"
                       (onChange)="filter($event.value)"
                       placeholder="Status"
-                      [showClear]="true"
                       appendTo="body"
                     >
                       <ng-template let-option pTemplate="item">
@@ -151,7 +150,7 @@
                   field="Skill"
                   matchMode="contains"
                   [showMenu]="false"
-                  [showClearButton]="true"
+                  [showClearButton]="false"
                 >
                   <ng-template
                     pTemplate="filter"

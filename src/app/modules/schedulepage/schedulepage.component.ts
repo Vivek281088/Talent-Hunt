@@ -89,7 +89,7 @@ export class SchedulepageComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.items = [{ label: 'Schedules' }];
+    this.items = [{ label: 'Schedules',routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
     this.todayDate = this.formattedDate(new Date());
@@ -100,6 +100,7 @@ export class SchedulepageComponent implements OnInit {
     this.loadSkills();
     this.loadManagerNames();
     this.existingData();
+    this.getUniqueCandidatedata();
     this.getCandidatename();
   }
   getFormattedSkills(skills: any): {
@@ -143,7 +144,7 @@ export class SchedulepageComponent implements OnInit {
         }
       );
       this.candidateNames = uniqueCandidateNames;
-      console.log('candidate', data);
+      console.log('candidate', this.candidateNames );
       console.log(this.candidateNames);
     });
   }
@@ -163,7 +164,7 @@ export class SchedulepageComponent implements OnInit {
       this.managerData = response.map(
         (manager: { managerName: string }) => manager.managerName
       );
-      console.log('Client Manager Details', this.managerData);
+      console.log('Client Manager Details', response);
     });
   }
 
@@ -360,7 +361,7 @@ export class SchedulepageComponent implements OnInit {
         this.candidateData = response.filter(
           (candidate: any) => candidate !== null
         );
-        console.log('Candidate Data', this.candidateData);
+        console.log('Candidate Data---', this.candidateData);
       });
   }
   newSchedule() {

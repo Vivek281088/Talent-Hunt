@@ -10,12 +10,13 @@ import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { NgZone } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, debounceTime, map } from 'rxjs';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -33,17 +34,9 @@ export class NewScheduleComponent {
   tabs: { title: any; content: any }[] = [];
   Tdata!: any;
   selectedQuestion!: any;
-  // state$: Observable<object> | undefined;
-  // retrieved_schedulename!: string;
-  // retrieved_managername!: string;
-  // retrieved_selectedSkills!: any;
-  // retrieved_cutoff!: number;
-  // retrieved_duration!: number;
-  // showCheckbox:boolean=false
   selected: boolean = false;
   data: any;
   scheduleName!: string | null;
-  // scheduleName!:string
   manager!: String | null;
   selectedSkills!: any | null;
   cutOff!: string | number | null;
@@ -71,6 +64,7 @@ export class NewScheduleComponent {
   updateNewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
   formData: any;
+  isScheduleInvalid: boolean = false;
 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
@@ -87,12 +81,20 @@ export class NewScheduleComponent {
     private fb: FormBuilder
   ) {
     this.updateNewScheduleForm = this.fb.group({
-      scheduleName: ['', [Validators.required]],
-      managerName: ['', [Validators.required]],
+      scheduleName: ['', [Validators.required, this.maxLengthValidator(30),this.minLengthValidator(6)]],
+  managerName: ['', [Validators.required, this.maxLengthValidator(30),this.minLengthValidator(6)]],
 
-      cutoff: [null, [Validators.required]],
-      duration: [null, [Validators.required]],
+      cutoff: [
+        null,
+        [Validators.required, Validators.max(100), Validators.min(1)],
+      ],
+      duration: [null, [Validators.required, Validators.max(180), Validators.min(30)]],
     });
+    this.updateNewScheduleForm.get('scheduleName')!.valueChanges
+      .pipe(debounceTime(1500)) 
+      .subscribe(() => {
+        this.isScheduleInvalid=this.updateNewScheduleForm.get('scheduleName')!.invalid;
+      });
   }
   ngOnInit() {
     // console.log("se",this.selectedquestions);
@@ -106,9 +108,9 @@ export class NewScheduleComponent {
     this.loadManagerNames();
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Assessment', routerLink: 'dashboard' },
-      { label: 'New Schedule', routerLink: 'new-schedule' },
+      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
+      { label: 'Schedule', routerLink: '/dashboard' },
+      { label: 'New Schedule', routerLink: '/new-schedule' },
     ];
 
     const a = sessionStorage.getItem('boolean');
@@ -205,10 +207,13 @@ export class NewScheduleComponent {
     return item.id;
   }
 
+  
   loadManagerNames() {
-    this.managernameService.getManagerNames().subscribe((data) => {
-      this.managerOption = data;
-      console.log('managernames------------>', this.managerOption);
+    this.managernameService.getclientManagerData().subscribe((response) => {
+      this.managerOption = response.map(
+        (manager: { managerName: string }) => manager.managerName
+      );
+      console.log('Client Manager Details', response);
     });
   }
 
@@ -501,4 +506,21 @@ export class NewScheduleComponent {
   getLabel(index: number) {
     return String.fromCharCode(65 + index);
   }
+  maxLengthValidator(maxLength: number) {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value && control.value.length > maxLength) {
+        return { maxLengthExceeded: true };
+      }
+      return null;
+    };
+  }
+  minLengthValidator(minLength: number) {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value && control.value.length < minLength) {
+        return { minLength: true };
+      }
+      return null;
+    };
+  }
+  
 }

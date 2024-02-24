@@ -44,6 +44,7 @@
   line-height: 30px;
   letter-spacing: 0.15000000596046448px;
   text-align: left;
+  cursor: pointer;
 }
 .addDeletebutton{
   display: flex;
@@ -62,6 +63,7 @@
     height: 19px;
     color: #00000061;
     font-family: "Avenir", sans-serif;
+    cursor: pointer;
   }
 }
 .BreadCrumb {

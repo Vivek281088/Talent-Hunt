@@ -2,7 +2,7 @@
   <div class="new-schedule-header">
     <div class="new-schedule-header-1">
       <div class="title">
-        <p>New Schedule - {{updateNewScheduleForm.value.scheduleName}}</p>
+        <p>New Schedule - {{ updateNewScheduleForm.value.scheduleName }}</p>
       </div>
       <div class="header-breadcrumb">
         <p-breadcrumb
@@ -17,7 +17,10 @@
         <p-button label="Cancel" (click)="cancelButton()"> </p-button>
       </div>
       <div class="saveBtn" (click)="saveSelected()">
-        <p-button label="Save Changes" [disabled]="selectedquestions.length==0" >
+        <p-button
+          label="Save Changes"
+          [disabled]="selectedquestions.length == 0"
+        >
           <svg
             width="24"
             height="25"
@@ -34,24 +37,24 @@
       </div>
     </div>
   </div>
- 
+
   <div class="edit-schedule">
     <div class="edit-start">
       <div class="edit-name">
         <label>Schedule Name</label>
-        <p>{{ updateNewScheduleForm.get('scheduleName')?.value }}</p>
+        <p>{{ updateNewScheduleForm.get("scheduleName")?.value }}</p>
       </div>
       <div class="edit-manager">
         <label>Manager</label>
-        <p>{{ updateNewScheduleForm.get('managerName')?.value }}</p>
+        <p>{{ updateNewScheduleForm.get("managerName")?.value }}</p>
       </div>
       <div class="edit-cutoff">
         <label>Cutoff</label>
-        <p>{{ updateNewScheduleForm.get('cutoff')?.value }}</p>
+        <p>{{ updateNewScheduleForm.get("cutoff")?.value }}</p>
       </div>
       <div class="edit-duration">
         <label>Duration</label>
-        <p>{{ updateNewScheduleForm.get('duration')?.value }}</p>
+        <p>{{ updateNewScheduleForm.get("duration")?.value }}</p>
       </div>
     </div>
     <div class="edit-end">
@@ -70,209 +73,263 @@
           fill="white"
         />
       </svg>
- 
- 
+
       <p-toast></p-toast>
       <div class="newSchedule-Dialog">
         <p-dialog
-                      header="New Schedule"
-                      [(visible)]="visible"
-                      [modal]="true"
-                      [style]="{ width: '47VW' }"
-                       [formGroup]="updateNewScheduleForm"
-                      [draggable]="false"
-                      [resizable]="false"
-                    >
-                      <div class="NewSchedule-content">
-                        <div class="labelvalue">
-                          <div class="label">
-                            <label>Schedule Name</label>
-                            <span class="important-symbol">&#42;</span>
-                          </div>
-                          <div class="value">
-                            <input
-                              type="text" formControlName="scheduleName"
-                              pInputText
-                             
-                            />
-                            <div
-                *ngIf="
-                updateNewScheduleForm.get('scheduleName')?.invalid &&
-                  (updateNewScheduleForm.get('scheduleName')?.touched || formSubmitted)
-                "
-              >
+          header="New Schedule"
+          [(visible)]="visible"
+          [modal]="true"
+          [style]="{ width: '47VW' }"
+          [formGroup]="updateNewScheduleForm"
+          [draggable]="false"
+          [resizable]="false"
+        >
+          <div class="NewSchedule-content">
+            <div class="labelvalue">
+              <div class="label">
+                <label>Schedule Name</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <input type="text" formControlName="scheduleName" pInputText />
                 <div
-                  class="error-message"
                   *ngIf="
-                  updateNewScheduleForm.get('scheduleName')?.hasError('required')
+                    updateNewScheduleForm.get('scheduleName')?.invalid &&
+                    (updateNewScheduleForm.get('scheduleName')?.touched ||
+                      formSubmitted)
                   "
                 >
-                  Schedule Name is required !
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      updateNewScheduleForm
+                        .get('scheduleName')
+                        ?.hasError('required')
+                    "
+                  >
+                    Schedule Name is required !
+                  </div>
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      updateNewScheduleForm
+                        .get('scheduleName')
+                        ?.hasError('maxLengthExceeded')
+                    "
+                  >
+                    Schedule Name cannot exceed 30 characters !
+                  </div>
+                  <div
+                    class="error-message"
+                    *ngIf="isScheduleInvalid &&
+                      updateNewScheduleForm
+                        .get('scheduleName')
+                        ?.hasError('minLength')
+                    "
+                  >
+                    Schedule Name should be greater than 6 !
+                  </div>
                 </div>
               </div>
-                          </div>
-                        </div>
- 
-                        <div class="labelvalue">
-                          <div class="label">
-                            <label>Manager</label>
-                            <span class="important-symbol">&#42;</span>
-                          </div>
-                          <div class="value">
-                            <p-dropdown
-                              [options]="managerOption"
-                              placeholder=""
-                              [editable]="true"
-                              formControlName="managerName"
-                            ></p-dropdown>
- 
-                            <div
-                            *ngIf="
-                            updateNewScheduleForm.get('managerName')?.invalid &&
-                              (updateNewScheduleForm.get('managerName')?.touched || formSubmitted)
-                            "
-                          >
-                            <div
-                              class="error-message"
-                              *ngIf="
-                              updateNewScheduleForm.get('managerName')?.hasError('required')
-                              "
-                            >
-                              Manager Name is required !
-                            </div>
-                          </div>
- 
-                          </div>
-                        </div>
- 
-             
- 
-                        <div class="cuttoffDuration">
-                          <div class="labelvalue">
-                            <div class="label">
-                              <label>Cutoff (in %)</label>
-                              <span class="important-symbol">&#42;</span>
-                            </div>
-                            <div class="value">
-                              <input
-                                type="text"
-                                pInputText
-                                formControlName="cutoff"
-                              />
- 
-                              <div
-                              *ngIf="
-                              updateNewScheduleForm.get('cutoff')?.invalid &&
-                                (updateNewScheduleForm.get('cutoff')?.touched || formSubmitted)
-                              "
-                            >
-                              <div
-                                class="error-message"
-                                *ngIf="
-                                updateNewScheduleForm.get('cutoff')?.hasError('required')
-                                "
-                              >
-                                Cut off is required !
-                              </div>
-                            </div>
-                            </div>
-                          </div>
- 
-                          <div class="labelvalue">
-                            <div class="label">
-                              <label>Duration(minutes)</label>
-                              <span class="important-symbol">&#42;</span>
-                            </div>
-                            <div class="value">
-                              <input
-                                type="text"
-                                pInputText
-                                formControlName="duration"
-                              />
-                              <div
-                              *ngIf="
-                              updateNewScheduleForm.get('cutoff')?.invalid &&
-                                (updateNewScheduleForm.get('cutoff')?.touched || formSubmitted)
-                              "
-                            >
-                              <div
-                                class="error-message"
-                                *ngIf="
-                                updateNewScheduleForm.get('cutoff')?.hasError('required')
-                                "
-                              >
-                                Cut off is required !
-                              </div>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
- 
-                      <ng-template pTemplate="footer">
-                        <div class="Newschedule-button">
-                          <div class="Cancelbutton" *ngIf="!isEditSchedule">
-                            <p-button
-                              label="Cancel"
-                              [outlined]="true"
-                              (onClick)="cancelButton()"
-                            >
-                            </p-button>
-                          </div>
-                         
- 
-                          <div class="Createbutton">
-                            <p-button (click)="update(scheduleName,manager,cutOff,duration)">
-                              <label class="Create-word">
-                                Update
-                              </label>
-                            </p-button>
-                 
-                           </div>
-               
- 
-                        </div>
-                      </ng-template>
-                    </p-dialog>
-    </div>
+            </div>
+
+            <div class="labelvalue">
+              <div class="label">
+                <label>Manager</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <p-dropdown
+                  [options]="managerOption"
+                  placeholder=""
+                  [editable]="true"
+                  formControlName="managerName"
+                ></p-dropdown>
+
+                <div
+                  *ngIf="
+                    updateNewScheduleForm.get('managerName')?.invalid &&
+                    (updateNewScheduleForm.get('managerName')?.touched ||
+                      formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      updateNewScheduleForm
+                        .get('managerName')
+                        ?.hasError('required')
+                    "
+                  >
+                    Manager Name is required !
+                  </div>
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      updateNewScheduleForm
+                        .get('managerName')
+                        ?.hasError('maxLengthExceeded')
+                    "
+                  >
+                    Manager Name cannot exceed 30 characters !
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cuttoffDuration">
+              <div class="labelvalue">
+                <div class="label">
+                  <label>Cutoff (in %)</label>
+                  <span class="important-symbol">&#42;</span>
+                </div>
+                <div class="value">
+                  <input type="text" pInputText formControlName="cutoff" />
+
+                  <div
+                    *ngIf="
+                      updateNewScheduleForm.get('cutoff')?.invalid &&
+                      (updateNewScheduleForm.get('cutoff')?.touched ||
+                        formSubmitted)
+                    "
+                  >
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        updateNewScheduleForm
+                          .get('cutoff')
+                          ?.hasError('required')
+                      "
+                    >
+                      Cut off is required !
+                    </div>
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        updateNewScheduleForm.get('cutoff')?.hasError('max')
+                      "
+                    >
+                      Cutoff must be less than 100!
+                    </div>
+
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        updateNewScheduleForm.get('cutoff')?.hasError('min')
+                      "
+                    >
+                      Cutoff value must be greater than 0 !
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="labelvalue">
+                <div class="label">
+                  <label>Duration(minutes)</label>
+                  <span class="important-symbol">&#42;</span>
+                </div>
+                <div class="value">
+                  <input type="text" pInputText formControlName="duration" />
+                  <div
+                    *ngIf="
+                      updateNewScheduleForm.get('duration')?.invalid &&
+                      (updateNewScheduleForm.get('duration')?.touched ||
+                        formSubmitted)
+                    "
+                  >
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        updateNewScheduleForm
+                          .get('duration')
+                          ?.hasError('required')
+                      "
+                    >
+                      Duration is required !
+                    </div>
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        updateNewScheduleForm.get('duration')?.hasError('max')
+                      "
+                    >
+                      Duration should not exceed 180 mins (3hr)!
+                    </div>
+
+                    <div
+                      class="error-message"
+                      *ngIf="
+                        updateNewScheduleForm.get('duration')?.hasError('min')
+                      "
+                    >
+                      Duration value must be greater than 30mins !
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template pTemplate="footer">
+            <div class="Newschedule-button">
+              <div class="Cancelbutton" *ngIf="!isEditSchedule">
+                <p-button
+                  label="Cancel"
+                  [outlined]="true"
+                  (onClick)="cancelButton()"
+                >
+                </p-button>
+              </div>
+
+              <div class="Createbutton">
+                <p-button
+                  (click)="update(scheduleName, manager, cutOff, duration)"
+                >
+                  <label class="Create-word"> Update </label>
+                </p-button>
+              </div>
+            </div>
+          </ng-template>
+        </p-dialog>
+      </div>
     </div>
   </div>
 
   <div class="questioncount">
-        <label>Selected Questions :</label>
-        <p>{{(selectedquestions && selectedquestions.length) || 0}}</p>
-      </div>
- 
- 
-    <div class="tabview-count">
-      <!-- {{tabs | json}} -->
-      <div class="tabview">
-        <p-tabView >
-          <p-tabPanel *ngFor="let tab of tabs"  [header]="tab.title" >
-            <!-- <ng-template pTemplate="header">
+    <label>Selected Questions :</label>
+    <p>{{ (selectedquestions && selectedquestions.length) || 0 }}</p>
+  </div>
+
+  <div class="tabview-count">
+    <!-- {{tabs | json}} -->
+    <div class="tabview">
+      <p-tabView>
+        <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
+          <!-- <ng-template pTemplate="header">
              
             </ng-template> -->
-           
-            <ng-template pTemplate="content">
-              <p-table
-                #dt2
-                class="newscheduleTable"
-                [value]="tab.content"
-                [(selection)]="selectedQuestion"
-                dataKey="id"
-                [scrollable]="true"
-                scrollHeight="270px"
-                [globalFilterFields]="[
-                  'question',
-                  'questionType',
-                  'Difficulty_Level'
-                ]"
-              >
-        
+
+          <ng-template pTemplate="content">
+            <p-table
+              #dt2
+              class="newscheduleTable"
+              [value]="tab.content"
+              [(selection)]="selectedQuestion"
+              dataKey="id"
+              [scrollable]="true"
+              scrollHeight="270px"
+              [globalFilterFields]="[
+                'question',
+                'questionType',
+                'Difficulty_Level'
+              ]"
+            >
               <ng-template pTemplate="header">
                 <tr>
                   <th colspan="6">
-                    <div  class="headerSearch">
+                    <div class="headerSearch">
                       <div class="searchbox">
                         <span class="p-input-icon-left searchicon">
                           <i class="pi pi-search"></i>
@@ -284,46 +341,57 @@
                               dt2.filterGlobal(
                                 $any($event.target).value,
                                 'contains'
-                              )"
-                            />
-                            
+                              )
+                            "
+                          />
                         </span>
-
                       </div>
 
                       <div class="selectallBtn">
-                        <p-button label="Select All"(click)="selectQuestions(tab.content)"> </p-button>
+                        <p-button
+                          label="Select All"
+                          (click)="selectQuestions(tab.content)"
+                        >
+                        </p-button>
                       </div>
                       <div class="unselectallBtn">
-                        <p-button label="Unselect All"(click)="unselectAllQuestions(tab.content)" > </p-button>
+                        <p-button
+                          label="Unselect All"
+                          (click)="unselectAllQuestions(tab.content)"
+                        >
+                        </p-button>
                       </div>
                       <div class="PreviewBtn">
                         <p-button
-                        label="Preview"
-                        icon="pi pi-eye"
-                        (onClick)="onPreviewClick()"
+                          label="Preview"
+                          icon="pi pi-eye"
+                          (onClick)="onPreviewClick()"
                         >
-                         
                         </p-button>
                       </div>
-                      
                     </div>
+                  </th>
+                </tr>
+              </ng-template>
 
-                
-                    </th>
-                  </tr>
-                </ng-template>
- 
-                <ng-template pTemplate="body" let-rowData>
-                  <tr class="customRow">
-                    <td class="checkboxcell">
-                      <input type="checkbox" [value]="rowData" [checked]="rowData.selection"  (click)="toggleSelection(rowData)" class="custom-checkbox">
-                    </td>
-                    <td class="questiontext">{{ rowData.question }}</td>
-                    <td class="optiontext">{{ rowData.questionType }}</td>
-                    <td class="optiontext">{{ rowData.options.length }} Choices</td>
-                    <td class="optiontext">{{ rowData.Difficulty_Level }}</td>
-                    <!-- <td>
+              <ng-template pTemplate="body" let-rowData>
+                <tr class="customRow">
+                  <td class="checkboxcell">
+                    <input
+                      type="checkbox"
+                      [value]="rowData"
+                      [checked]="rowData.selection"
+                      (click)="toggleSelection(rowData)"
+                      class="custom-checkbox"
+                    />
+                  </td>
+                  <td class="questiontext">{{ rowData.question }}</td>
+                  <td class="optiontext">{{ rowData.questionType }}</td>
+                  <td class="optiontext">
+                    {{ rowData.options.length }} Choices
+                  </td>
+                  <td class="optiontext">{{ rowData.Difficulty_Level }}</td>
+                  <!-- <td>
                       <div class="editviewicons">
                         <div class="editIcon">
                           <svg
@@ -360,55 +428,54 @@
                         </div>
                       </div>
                     </td> -->
-                  </tr>
-                </ng-template>
-              </p-table>
-            </ng-template>
-          </p-tabPanel>
-        </p-tabView>
-      </div>
- 
-      
+                </tr>
+              </ng-template>
+            </p-table>
+          </ng-template>
+        </p-tabPanel>
+      </p-tabView>
     </div>
- 
- 
-   
+  </div>
 </div>
-
 
 <div class="questionPreview">
-    <p-dialog header="Question Preview" [(visible)]="questionPreviewvisible" [modal]="true" [style]="{ width: '38.75rem' , height:'auto'}"[breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-        <ng-template pTemplate="header">
-            <div class="inline-flex align-items-center justify-content-center gap-2">
-               <p class="questionpreviewtext">
-                Question Preview
-               </p>
-            </div>
-        </ng-template>
-     <div class="questionpreviewcardbody">
-<div class="questionhead">
- {{singleQuestion}}
-</div>
-     </div>
-     <div class="select-size">
+  <p-dialog
+    header="Question Preview"
+    [(visible)]="questionPreviewvisible"
+    [modal]="true"
+    [style]="{ width: '38.75rem', height: 'auto' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  >
+    <ng-template pTemplate="header">
+      <div class="inline-flex align-items-center justify-content-center gap-2">
+        <p class="questionpreviewtext">Question Preview</p>
+      </div>
+    </ng-template>
+    <div class="questionpreviewcardbody">
+      <div class="questionhead">
+        {{ singleQuestion }}
+      </div>
+    </div>
+    <div class="select-size">
       <div
         *ngFor="let option of singleQuestionOption; let i = index"
         class="option"
         [ngClass]="getSelectedOptions(singleQuestionAnswer, option)"
       >
-  
         <input type="radio" [checked]="option === singleQuestionAnswer" />
-        <label class="box-design">{{
-          getLabel(i)
-        }}</label>
+        <label class="box-design">{{ getLabel(i) }}</label>
 
         <span class="option-content">{{ option }}</span>
       </div>
     </div>
-        <ng-template pTemplate="footer">
-          <p-button (onClick)="closeButton()" class="Closebutton" label="Close" ></p-button>
-        </ng-template>
-</p-dialog>
+    <ng-template pTemplate="footer">
+      <p-button
+        (onClick)="closeButton()"
+        class="Closebutton"
+        label="Close"
+      ></p-button>
+    </ng-template>
+  </p-dialog>
 </div>
 
 <div class="questionsidebar">
@@ -419,13 +486,10 @@
   >
     <ng-template class="header_design" pTemplate="header"
       >Questions Preview
-      
-      </ng-template
-    >
-    <ng-template pTemplate="content" >
-       
-      <span *ngFor="let question of totalSelectedQuestion ; let j = index">
-        <div class="question-design">{{j+1}}. {{ question.question }}</div>
+    </ng-template>
+    <ng-template pTemplate="content">
+      <span *ngFor="let question of totalSelectedQuestion; let j = index">
+        <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
 
         <div class="select-size">
           <div
@@ -436,7 +500,12 @@
             <!-- <input type="radio" name="first" id="small" />
             <label class="box-design" for="small">A</label>
             <span class="option-content">{{ preview.options[0] }}</span> -->
-            <input type="radio" [name]="'option_' + i" [id]="'option_' + i"  [checked]="option === question.answer" />
+            <input
+              type="radio"
+              [name]="'option_' + i"
+              [id]="'option_' + i"
+              [checked]="option === question.answer"
+            />
             <label class="box-design" [for]="'option' + question + '-' + i">{{
               getLabel(i)
             }}</label>
@@ -444,33 +513,27 @@
             <span class="option-content">{{ option }}</span>
           </div>
         </div>
-
       </span>
 
       <div class="btnfooter">
         <div class="quiz-instruction">
-
           <p class="instruction">Quiz Instructions</p>
           <ul class="points">
-            <li>Manager approval mandatory </li>
-            <li>Automatic email will be triggered for every status change of the request</li>
+            <li>Manager approval mandatory</li>
+            <li>
+              Automatic email will be triggered for every status change of the
+              request
+            </li>
             <li>Approval is the permission to go to Office</li>
           </ul>
-
         </div>
         <div class="sidebarbuttons">
-          
           <div class="custom_button_send">
             <p-button label="Close" (onClick)="closeButton()"></p-button>
           </div>
-
         </div>
-        
       </div>
-
-
     </ng-template>
-    
   </p-sidebar>
 </div>
 
@@ -528,36 +591,41 @@
         </div>
       </div>
 
-
-      <div class="labelvalue"
-      *ngIf="
-      questionTypeSelected === 'Radio' ||
-      questionTypeSelected === 'Checkbox'
-    ">
+      <div
+        class="labelvalue"
+        *ngIf="
+          questionTypeSelected === 'Radio' ||
+          questionTypeSelected === 'Checkbox'
+        "
+      >
         <div class="label">
           <label>Option</label>
           <span class="important-symbol">&#42;</span>
         </div>
-        <div class="valueedit" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
-
+        <div
+          class="valueedit"
+          *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index"
+        >
           <label for="answer{{ i }}" class="title">{{ letter }} </label>
-          <input
-          type="text"
-          pInputText
-          [(ngModel)]="choices[i]"
-        />
+          <input type="text" pInputText [(ngModel)]="choices[i]" />
         </div>
       </div>
 
-      <div class="labelvalue"*ngIf="
-      questionTypeSelected === 'Radio' ||
-      questionTypeSelected === 'Checkbox'
-    ">
+      <div
+        class="labelvalue"
+        *ngIf="
+          questionTypeSelected === 'Radio' ||
+          questionTypeSelected === 'Checkbox'
+        "
+      >
         <div class="label">
           <label>Answer</label>
           <span class="important-symbol">&#42;</span>
         </div>
-        <div class="valueans" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
+        <div
+          class="valueans"
+          *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index"
+        >
           <ng-container
             *ngIf="questionTypeSelected === 'Radio'; else checkboxBlock"
           >
@@ -568,18 +636,12 @@
             ></p-radioButton>
           </ng-container>
           <ng-template #checkboxBlock>
-            <p-checkbox
-              [(ngModel)]="answer"
-              [value]="choices[i]"
-            ></p-checkbox>
+            <p-checkbox [(ngModel)]="answer" [value]="choices[i]"></p-checkbox>
           </ng-template>
 
           <label for="answer{{ i }}" class="title">{{ letter }}</label>
         </div>
       </div>
-
-      
-
     </div>
 
     <ng-template pTemplate="footer">
