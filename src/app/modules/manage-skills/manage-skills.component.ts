@@ -136,9 +136,7 @@ export class ManageSkillsComponent {
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log('Function Working');
     if (option.includes(selected_Option)) {
-      console.log('correct answer');
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -147,7 +145,7 @@ export class ManageSkillsComponent {
   getLabel(index: number) {
     return String.fromCharCode(65 + index);
   }
-  newUestionAdd() {
+  newQuestionAdd() {
     this.visible = true;
   }
 
@@ -365,6 +363,5 @@ export class ManageSkillsComponent {
   }
   sidebarClose() {
     this.previewSidebarVisible = false;
-    
   }
 }

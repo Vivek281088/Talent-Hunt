@@ -145,6 +145,11 @@ console.log("inside sign in")
     
   }
   }
+  onEnterKey() {
+    if (this.loginForm.valid) {
+      this.sign()
+    }
+  }
   
 createNewAcc() {
     this.router.navigate(['/signup']);

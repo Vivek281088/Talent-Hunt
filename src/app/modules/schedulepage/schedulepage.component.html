@@ -228,7 +228,7 @@
               <!-- <div class="cursor-pointer"> -->
               <a
                 class="flex"
-                (click)="handleEditIconClick(rowData.id)"
+                (click)="handleEditIconClick(rowData)"
                 [class.disabled]="!rowData.isEdit"
                 title="Edit"
               >
@@ -253,7 +253,7 @@
                 class="flex cursor-pointer"
                 [class.disabled]="!rowData.isMail"
                 title="View"
-                (click)="onViewClick(rowData.id)"
+                (click)="onViewClick(rowData)"
               >
                 <svg
                   width="18"
@@ -375,7 +375,7 @@
         ></p-multiSelect>
       </div>
       <div class="btnfooter">
-        <div class="custom_button">
+         <div class="custom_button">
           <p-button label="Cancel" (onClick)="closeInviteDialog()"></p-button>
         </div>
         <div class="custom_button_send">

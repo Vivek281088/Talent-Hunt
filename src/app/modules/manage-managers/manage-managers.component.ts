@@ -46,7 +46,6 @@ export class ManageManagersComponent {
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'user');
     this.loadManagerData();
-    this.getClientManagerName();
 
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
@@ -61,21 +60,12 @@ export class ManageManagersComponent {
       console.log('Client Manager Details', response);
       this.managerData = response;
 
-      // setting selection false
       this.managerData.forEach((manager: { selection: boolean }) => {
-        manager.selection = manager.selection || false; // Initialize or keep false if already set
+        manager.selection = manager.selection || false; 
       });
-
-      this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
-      console.log('Unique Department', this.uniqueDepartment);
     });
   }
-  getClientManagerName() {
-    this.managerService.getclientManagerName().subscribe((response) => {
-      console.log('Client Manager Names-->', response);
-      this.managerNames = response;
-    });
-  }
+  
   formattedDate(date: Date) {
     const months: string[] = [
       'Jan',
@@ -104,17 +94,7 @@ export class ManageManagersComponent {
     this.globalSearchValue = '';
   }
 
-  getUniqueDepartments(data: any[]): any[] {
-    const uniqueDepartments = Array.from(
-      new Set(data.map((item) => item.department))
-    );
-    return uniqueDepartments.map((department) => {
-      const matchingObject = data.find(
-        (item) => item.department === department
-      );
-      return matchingObject;
-    });
-  }
+ 
 
   addManager() {
     this.visible = true;
@@ -170,8 +150,15 @@ export class ManageManagersComponent {
     });
   }
   gotoManagerProfile(data: any) {
-    console.log('name', data);
-    this.newScheduleService.setManagerProfileData(data);
+    console.log('Selected Manager Data', data);
+    // this.newScheduleService.setManagerProfileData(data);
+    sessionStorage.setItem("ManagerProfileId", data.empid);
+    sessionStorage.setItem('ManagerProfileName', data.managerName);
+    sessionStorage.setItem('ManagerProfileEmail', data.email);
+    sessionStorage.setItem('ManagerProfilePhone', data.phoneNo);
+    sessionStorage.setItem('ManagerProfileLocation', data.managerLocation);
+    sessionStorage.setItem('ManagerProfiledepartment', data.department);
+
 
     this.router.navigate(['/managerProfile']);
   }

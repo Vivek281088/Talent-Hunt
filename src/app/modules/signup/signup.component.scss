@@ -379,12 +379,15 @@
 .input-with-icon1 i {
   position: absolute;
   top: 50%;
-  transform: translateY(-60%);
+  transform: translateY(-47%);
   left: 10px;
   color: #00000099;
   margin-left: 6px;
 
   // margin-bottom: 20px;
+}
+.info-circle i{
+left: -16px;
 }
 .formpassword, .confirmpassword{
   display: flex;

@@ -1,4 +1,4 @@
-<div class="login-container">
+<div class="login-container" (keydown.enter)="onEnterKey()">
   <div class="login-box">
     <div class="login-slogan">
       <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
@@ -61,7 +61,7 @@
                     class="error-message"
                     *ngIf="loginForm.get('password')?.hasError('required')"
                   >
-                    password is required !
+                    Password is required !
                   </div>
                 </div>
               </div>
@@ -75,7 +75,7 @@
             
           </div><div class="bottomcontent">
             <a (click)="forgotpassword()" class="forgot-password"
-              >Forgotten Password ?</a
+              >Forgot Password ?</a
             >
             <div class="hrLine"></div>
 

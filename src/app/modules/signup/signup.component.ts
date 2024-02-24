@@ -39,34 +39,35 @@ export class SignupComponent {
   ) {
     this.signupForm = this.fb.group(
       {
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      phoneNumber: [
-        '',
-        [Validators.required, Validators.pattern('^[0-9]{10}$')],
-      ],
-      emailId: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-          Validators.pattern('^[a-z0-9._%+-]+@gmail.com$'),
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        phoneNumber: [
+          '',
+          [Validators.required, Validators.pattern('^[0-9]{10}$')],
         ],
-      ],
+        emailId: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$'),
+          ],
+        ],
 
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-          ),
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+            ),
+          ],
         ],
-      ],
-      confirmPassword: ['', [Validators.required]],
+        confirmPassword: ['', [Validators.required]],
       },
-    {validator : PasswordValidator.match });
+      { validator: PasswordValidator.match }
+    );
 
     this.subscription.add(
       this.signupForm
@@ -104,22 +105,21 @@ export class SignupComponent {
             this.signupForm.get('password')?.value,
             this.signupForm.get('confirmPassword')?.value
           );
-          console.log("Fomrs " , this.signupForm)
-          if(this.signupForm.get('password')?.value !==
-            this.signupForm.get('confirmPassword')?.value) {
+          console.log('Fomrs ', this.signupForm);
+          if (
+            this.signupForm.get('password')?.value !==
+            this.signupForm.get('confirmPassword')?.value
+          ) {
             this.passwordNotMatching = true;
-            console.log("from confirm password" , this.passwordNotMatching)
-          }
-          else {
+            console.log('from confirm password', this.passwordNotMatching);
+          } else {
             this.passwordNotMatching = false;
           }
-            
         })
     );
   }
-  
-  ngOnInit() {}
 
+  ngOnInit() {}
 
   id!: Date;
   signup() {
@@ -142,6 +142,7 @@ export class SignupComponent {
         return;
       }
 
+      this.successValidForm();
       this.loginservice
         .postsignup(
           id,
@@ -153,17 +154,13 @@ export class SignupComponent {
           this.signupForm.value.confirmPassword
         )
         .subscribe((data) => {
-          if (data.status == 404) {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Check password and confirm-password',
-              detail: '',
-            });
-          } else {
-            this.signupForm.reset();
-            this.router.navigate(['login']);
-          }
+          console.log('Sign Up successfully', data);
         });
+
+      setTimeout(() => {
+        this.signupForm.reset();
+        this.router.navigate(['login']);
+      }, 1500);
     } else {
       console.error(
         'Form is not valid. Validation errors:',
@@ -177,5 +174,18 @@ export class SignupComponent {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  
+  successValidForm() {
+    this.messageService.add({
+      severity: 'success',
+
+      summary: 'Success',
+
+      detail: 'Account created Successfully',
+    });
+  }
+  onEnterKey() {
+    if (this.signupForm.valid) {
+      this.signup();
+    }
+  }
 }

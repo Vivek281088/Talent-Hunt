@@ -1,4 +1,4 @@
-<div class="signup-container">
+<div class="signup-container" (keydown.enter)="onEnterKey()">
   <div class="signup-box">
     <div class="signup-slogan">
       <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
@@ -26,7 +26,7 @@
                   class="error-message"
                   *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched"
                 >
-                  required !
+                  Required !
                 </div>
               </div>
               <div class="lastname">
@@ -41,7 +41,7 @@
                   class="error-message"
                   *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched"
                 >
-                  required !
+                  Required !
                 </div>
               </div>
             </div>
@@ -146,7 +146,7 @@
                   <i
                     (mouseover)="op.toggle($event)"
                     (mouseleave)="op.toggle($event)"
-                    class="pi pi-info-circle"
+                    class="pi pi-info-circle "
                     style="color: green"
                   ></i>
                 </div>
