@@ -35,12 +35,12 @@ export class ManageManagersComponent {
     private newScheduleService: NewScheduleService
   ) {
     this.addManagerForm = this.fb.group({
-      employeeId: [null, [Validators.required]],
-      managerName: ['', [Validators.required]],
+      employeeId: [null, [Validators.required,Validators.maxLength(7),Validators.minLength(7)]],
+      managerName: ['', [Validators.required,Validators.maxLength(30)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: [null, [Validators.required]],
-      department: ['', [Validators.required]],
-      location: ['', [Validators.required]],
+      phone: [null, [Validators.required,Validators.maxLength(10)]],
+      department: ['', [Validators.required,Validators.maxLength(10)]],
+      location: ['', [Validators.required,Validators.maxLength(10)]],
     });
   }
   ngOnInit() {
