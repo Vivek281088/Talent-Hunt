@@ -14,6 +14,7 @@ import { Table } from 'primeng/table';
 import { DataService } from 'src/app/services/data.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { forkJoin } from 'rxjs';
+
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -66,6 +67,7 @@ export class SchedulepageComponent implements OnInit {
   addnewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
 
+
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
@@ -93,7 +95,7 @@ export class SchedulepageComponent implements OnInit {
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
     this.todayDate = this.formattedDate(new Date());
-    console.log('Date--------', this.todayDate);
+   // console.log('Date--------', this.todayDate);
 
     this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
 
@@ -161,9 +163,10 @@ export class SchedulepageComponent implements OnInit {
 
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((response) => {
-      this.managerData = response.map(
-        (manager: { managerName: string }) => manager.managerName
-      );
+      this.managerData = response
+      // .map(
+      //   (manager: { managerName: string }) => manager.managerName
+      // );
       console.log('Client Manager Details', response);
     });
   }
@@ -442,4 +445,9 @@ export class SchedulepageComponent implements OnInit {
   selectAll() {
     console.log('Selected all Schedule:', this.selectedDeleteSchedule);
   }
+
+ 
+  
+  
+
 }

@@ -66,20 +66,25 @@
                       pTemplate="filter"
                       let-value
                       let-filter="filterCallback"
+                     
                     >
                       <p-multiSelect
-                        [ngModel]="value"
+                        [ngModel] = "value"
                         [options]="managerData"
                         placeholder="Manager"
                         (onChange)="filter($event.value)"
                         appendTo="body"
-                      >
+                        [filter]="true"
+                        optionLabel="managerName"
+                        optionValue="managerName"
+                                                                     >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
-                            <span class="ml-1 mt-1">{{ option }}</span>
+                            <span class="ml-1 mt-1"> {{option.managerName}}</span>
                           </div>
                         </ng-template>
                       </p-multiSelect>
+
                     </ng-template>
                   </p-columnFilter>
                 </div>
@@ -87,7 +92,7 @@
                 <div class="skillMultiselect">
                   <p-columnFilter
                     field="Skill"
-                    matchMode="contains"
+                    matchMode="in"
                     [showMenu]="false"
                     [showClearButton]="false"
                   >
@@ -102,7 +107,8 @@
                         placeholder="Skills"
                         (onChange)="filter($event.value)"
                         appendTo="body"
-                      >
+                        [filter]="true"
+                                                                    >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
                             <span class="ml-1 mt-1">{{ option }}</span>
@@ -122,7 +128,6 @@
                   ></button>
                 </div>
               </div>
-
               <div class="addDeletebutton">
                 <div class="card flex justify-content-centre newscheduleButton">
                   <button
