@@ -66,7 +66,6 @@ export class SchedulepageComponent implements OnInit {
   addnewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
 
-  
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
@@ -90,7 +89,7 @@ export class SchedulepageComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.items = [{ label: 'Schedules' }];
+    this.items = [{ label: 'Schedules',routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
     this.todayDate = this.formattedDate(new Date());
@@ -101,6 +100,7 @@ export class SchedulepageComponent implements OnInit {
     this.loadSkills();
     this.loadManagerNames();
     this.existingData();
+    this.getUniqueCandidatedata();
     this.getCandidatename();
   }
   getFormattedSkills(skills: any): {
@@ -144,7 +144,7 @@ export class SchedulepageComponent implements OnInit {
         }
       );
       this.candidateNames = uniqueCandidateNames;
-      console.log('candidate', data);
+      console.log('candidate', this.candidateNames );
       console.log(this.candidateNames);
     });
   }
@@ -164,7 +164,7 @@ export class SchedulepageComponent implements OnInit {
       this.managerData = response.map(
         (manager: { managerName: string }) => manager.managerName
       );
-      console.log('Client Manager Details', this.managerData);
+      console.log('Client Manager Details', response);
     });
   }
 
@@ -205,29 +205,22 @@ export class SchedulepageComponent implements OnInit {
     }
   }
 
-
- 
-
   closeSidebar() {
     this, (this.viewQuestionSidebar = false);
   }
-  onViewClick(id: any) {
+  onViewClick(data: any) {
     this.viewQuestionSidebar = true;
+    console.log('View Data', data);
+    const observables = data.questions.map((questionId: string) =>
+      this.newScheduleService.getIndividualQuestion(questionId)
+    );
+    forkJoin(observables).subscribe((responses: any) => {
+      this.FinalizedQuestions = responses;
+      console.log('Updated Total Question data--', this.FinalizedQuestions);
+    });
 
-    this.tableService
-      .getdataby_Id(id)
-      .subscribe((data) => {
-        console.log('View Data', data);
-        const observables = data[0].questions.map((questionId: string) =>
-          this.newScheduleService.getIndividualQuestion(questionId)
-        );
-        forkJoin(observables).subscribe((responses: any) => {
-          this.FinalizedQuestions = responses;
-          console.log('Updated Total Question data--', this.FinalizedQuestions);
-        });
-
-        console.log('questions :', this.FinalizedQuestions);
-      });
+    console.log('questions :', this.FinalizedQuestions);
+  
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
@@ -241,40 +234,29 @@ export class SchedulepageComponent implements OnInit {
     return String.fromCharCode(65 + index);
   }
 
-  handleEditIconClick(id: any) {
+  handleEditIconClick(data: any) {
     // debugger;
-    console.log('getting edit ', id);
-    this.tableService
-      .getdataby_Id(id)
-      .subscribe((data) => {
-        console.log('View Data by edit', data);
+    console.log('getting edit ', data);
+    this.Skill = data.Skill;
 
-        this.Skill = data[0].Skill;
+    this.selectedQuestions = data.questions;
+    this.cutoff = data.cutoff;
+    this.durations = data.durations;
+    this.editManagername = data.Managername;
+    this.editFilename = data.JobDescription;
+    this.managernameService.setCutoff(this.cutoff);
+    console.log('edit cutoff', this.cutoff);
+    this.managernameService.setDuration(this.durations);
+    this.skillsdropdownservice.setSkill(this.Skill);
+    console.log('edit skill', this.Skill);
+    console.log('edit questions', this.selectedQuestions);
+    this.managernameService.setFinalizedQuestions(this.selectedQuestions);
+    this.managernameService.setManagerName(this.editManagername);
+    this.managernameService.setFileName(this.editFilename);
+    sessionStorage.setItem('scheduleName', this.editFilename);
+    sessionStorage.setItem('boolean', 'true');
 
-        console.log(
-          'skills in an array------------------------------------',
-          this.Skill
-        );
-
-        this.selectedQuestions = data[0].questions;
-        this.cutoff = data[0].cutoff;
-        this.durations = data[0].durations;
-        this.editManagername = data[0].Managername;
-        this.editFilename = data[0].JobDescription;
-        this.managernameService.setCutoff(this.cutoff);
-        console.log('edit cutoff', this.cutoff);
-        this.managernameService.setDuration(this.durations);
-        this.skillsdropdownservice.setSkill(this.Skill);
-        console.log('edit skill', this.Skill);
-        console.log('edit questions', this.selectedQuestions);
-        this.managernameService.setFinalizedQuestions(this.selectedQuestions);
-        this.managernameService.setManagerName(this.editManagername);
-        this.managernameService.setFileName(this.editFilename);
-        sessionStorage.setItem('scheduleName', this.editFilename);
-        sessionStorage.setItem('boolean', 'true');
-
-        this.router.navigate(['new-schedule']);
-      });
+    this.router.navigate(['new-schedule']);
   }
 
   showEmailSubmitted() {
@@ -287,17 +269,7 @@ export class SchedulepageComponent implements OnInit {
     });
   }
 
-  showSubmitted() {
-    this.messageService.add({
-      severity: 'success',
 
-      summary: 'Success',
-
-      detail: 'Review Submitted Successfully',
-    });
-
-    console.log('updated', this.FinalizedQuestions);
-  }
 
   openquestiondialog() {
     this.visible = true;
@@ -305,34 +277,29 @@ export class SchedulepageComponent implements OnInit {
 
   // Loading skills for dropdown in add question
   loadSkills() {
-
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skillSet = data;
-       console.log('Skill Set', data);
+      console.log('Skill Set', data);
     });
   }
-
 
   onSendQuestionClick(data: any) {
     this.sendQuestionCardVisible = true;
     this.getUniqueCandidatedata();
-    console.log('Manager Table Data', data[0]);
-    this.email_Managername = data[0].Managername;
-    this.email_Filename = data[0].JobDescription;
-    this.cutoff = data[0].cutoff;
-    this.durations = data[0].durations;
-    this.questions = data[0].questions;
-    this.Skill = data[0].Skill;
+    console.log('Manager Table Data', data);
+    this.email_Managername = data.Managername;
+    this.email_Filename = data.JobDescription;
+    this.cutoff = data.cutoff;
+    this.durations = data.durations;
+    this.questions = data.questions;
+    this.Skill = data.Skill;
     console.log('Manager name---', this.email_Managername);
     console.log('File name---', this.email_Filename);
     this.email_Status = 'Not Started';
-
-   
   }
 
   inviteCandidate() {
-    console.log('Manager name', this.email_Managername);
-    console.log('File name', this.email_Filename);
+   
     console.log('Selected Candidates', this.selectedCandidates);
 
     this.selectedCandidates.forEach((selectedCandidate) => {
@@ -394,7 +361,7 @@ export class SchedulepageComponent implements OnInit {
         this.candidateData = response.filter(
           (candidate: any) => candidate !== null
         );
-        console.log('Candidate Data', this.candidateData);
+        console.log('Candidate Data---', this.candidateData);
       });
   }
   newSchedule() {
@@ -442,11 +409,11 @@ export class SchedulepageComponent implements OnInit {
         });
     }
 
-     setTimeout(() => {
-       this.deleteMessage();
-       this.existingData();
-       this.selectedDeleteSchedule = [];
-     }, 1500);
+    setTimeout(() => {
+      this.deleteMessage();
+      this.existingData();
+      this.selectedDeleteSchedule = [];
+    }, 1500);
   }
 
   deleteMessage() {

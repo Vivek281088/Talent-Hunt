@@ -228,7 +228,7 @@
               <!-- <div class="cursor-pointer"> -->
               <a
                 class="flex"
-                (click)="handleEditIconClick(rowData.id)"
+                (click)="handleEditIconClick(rowData)"
                 [class.disabled]="!rowData.isEdit"
                 title="Edit"
               >
@@ -253,7 +253,7 @@
                 class="flex cursor-pointer"
                 [class.disabled]="!rowData.isMail"
                 title="View"
-                (click)="onViewClick(rowData.id)"
+                (click)="onViewClick(rowData)"
               >
                 <svg
                   width="18"
@@ -333,12 +333,14 @@
         <div class="quiz-instruction">
           <p class="instruction">Quiz Instructions</p>
           <ul class="points">
-            <li>Manager approval mandatory</li>
+            <li>Read each question carefully, and select the corresponding answer for each of the questions.</li>
             <li>
-              Automatic email will be triggered for every status change of the
-              request
+              After responding to a question, click on the "Next" button at the bottom to go to the next questino.
             </li>
-            <li>Approval is the permission to go to Office</li>
+            <li>Click on "Prev" button at the bottom of the page to go to the next question</li>
+            <li>After responding to all the question, click on "Submit" on the top of the window to exit the quiz.</li>
+            <li>The questions which you have skipped or unmarked will be considered as wrong</li>
+            <li>Complete the test within the given time limit. It will be automatically submitted once the duration is over</li>
           </ul>
         </div>
         <div class="sidebarbuttons">
@@ -375,11 +377,11 @@
         ></p-multiSelect>
       </div>
       <div class="btnfooter">
-        <div class="custom_button">
+         <div class="custom_button">
           <p-button label="Cancel" (onClick)="closeInviteDialog()"></p-button>
         </div>
         <div class="custom_button_send">
-          <p-button label="Send" (onClick)="inviteCandidate()"></p-button>
+          <p-button label="Send" (onClick)="inviteCandidate()" [disabled]="selectedCandidates.length<1"></p-button>
         </div>
       </div>
     </div>

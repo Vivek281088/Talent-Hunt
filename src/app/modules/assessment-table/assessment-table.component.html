@@ -1,6 +1,6 @@
 <div class="whole-design">
   <div class="assesment-header">
-    <p class="assessment-text">Assessments</p>
+    <p>Assessments</p>
   </div>
 
   <!-- <div class="flex justify-content-start bread">
@@ -26,7 +26,7 @@
       #dt1
       [paginator]="true"
       [tableStyle]="{ height: 'max-content' }"
-      [rows]="5"
+      [rows]="4"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [rowsPerPageOptions]="[4, 8, 12]"
@@ -135,7 +135,6 @@
                       [options]="status"
                       (onChange)="filter($event.value)"
                       placeholder="Status"
-                      [showClear]="true"
                       appendTo="body"
                     >
                       <ng-template let-option pTemplate="item">
@@ -151,7 +150,7 @@
                   field="Skill"
                   matchMode="contains"
                   [showMenu]="false"
-                  [showClearButton]="true"
+                  [showClearButton]="false"
                 >
                   <ng-template
                     pTemplate="filter"
@@ -259,32 +258,3 @@
   </div>
 </div>
 
-<div class="card flex justify-content-center">
-  <p-overlayPanel #op>
-      <ng-template pTemplate="content">
-          <p class="design_panel">Resend Invite</p>
-          <p class="design_panel">Evaluate</p>
-          <p class="design_panel">preview</p>
-          <hr class="line_design">
- 
-          <p class="design_panel_last" (click)="confirmPosition('top')">Cancel Invite</p>
-         
-      </ng-template>
-  </p-overlayPanel>
-  <!-- <p-button  icon="pi pi-image" label="Show"></p-button> -->
-</div>
-
-
-
-
-<div class="card flex flex-wrap flex-column align-items-center gap-2">
-  <p-toast></p-toast>
-  <p-confirmDialog [style]="{ width: '45vw' }" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
-  
-  <div class="flex flex-wrap justify-content-center gap-2">
-     
-      <!-- <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button> -->
-      
-  </div>
-  
-</div>

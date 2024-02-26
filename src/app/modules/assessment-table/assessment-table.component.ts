@@ -77,24 +77,10 @@ export class AssessmentTableComponent {
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {
-    // this.candidateForm = this.formBuilder.group({
-    //   candidateName: ['', Validators.required],
-    //   candidateEmail: ['', Validators.required,Validators.email],
-    //   candidatePhone: [null]
-    // });
   }
 
   ngOnInit() {
-    //this.auth.isLoggedIn=true;
-
-    //for candidate
-    // this.finalizedEmail =
-    //   this.managernameService.getCandidateAssessment_Email();
-    // console.log('a', this.finalizedEmail);
-
-    //for manager
-    // this.finalizedManagerEmail = this.managernameService.getManagerName_Email();
-    // console.log('manager-email--', this.finalizedManagerEmail);
+    
     sessionStorage.setItem('Component-Name', 'assessment');
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
@@ -110,38 +96,7 @@ export class AssessmentTableComponent {
     ];
   }
 
-  // confirmPosition(position: string) {
-  //   this.position = position;
-
-  //   this.confirmationService.confirm({
-  //       message: 'Do you want to cancel this invite?',
-  //       header: 'Cancel Invite',
-  //       icon: 'pi pi-info-circle',
-  //       accept: () => {
-  //           this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have cancelled the invite successfully' });
-  //       },
-  //       reject: (type: ConfirmEventType) => {
-  //           switch (type) {
-  //               case ConfirmEventType.REJECT:
-  //                   this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-  //                   break;
-  //               case ConfirmEventType.CANCEL:
-  //                   this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
-  //                   break;
-  //           }
-  //       },
-  //       key: 'positionDialog'
-  //   });
-  // }
-
-  getSelectedOptions(selected_Option: any, option: any) {
-    if (selected_Option.includes(option)) {
-      console.log('correct answer');
-      return 'correctAnswer';
-    } else {
-      return 'wrongAnswer';
-    }
-  }
+  
 
   getResultClass(result: string): string {
     if (result == 'Shortlisted') {
@@ -194,11 +149,9 @@ export class AssessmentTableComponent {
 
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
-      // Use a Set to store unique candidate email addresses
+     
       const uniqueEmails = new Set<string>();
-      // Use an array to store unique candidate names
       const uniqueCandidateNames: any[] = [];
-      // Iterate through the data and filter duplicates based on email addresses
       data.forEach(
         (candidate: { candidateName: string; candidateEmail: string }) => {
           if (!uniqueEmails.has(candidate.candidateEmail)) {
@@ -207,7 +160,6 @@ export class AssessmentTableComponent {
           }
         }
       );
-      // Assign the unique candidate names to your variable
       this.candidateNames = uniqueCandidateNames;
       console.log('candidate', data);
       console.log(this.candidateNames);
@@ -221,13 +173,7 @@ export class AssessmentTableComponent {
     });
   }
 
-  loadAssessmentData() {
-    this.managernameService.getCandidateStatus().subscribe((data) => {
-      // console.log("arole",a)
-      this.candidateList = data;
-      console.log('sapna', data);
-    });
-  }
+ 
   getSkillSet() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skillSet = data;
@@ -238,7 +184,7 @@ export class AssessmentTableComponent {
   loadManagerNames() {
     this.managernameService.getclientManagerName().subscribe((data) => {
       this.managerOption = data;
-      console.log('sapna', data);
+      console.log('Manager Data', data);
     });
   }
   formattedDate(date: Date) {
@@ -264,41 +210,7 @@ export class AssessmentTableComponent {
 
     return formatDate;
   }
-  confirmPosition(position: string) {
-    this.position = position;
+  
 
-    this.confirmationService.confirm({
-      message: 'Do you want to cancel this invite?',
-      header: 'Cancel Invite',
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'You have cancelled the invite successfully',
-        });
-      },
-      reject: (type: ConfirmEventType) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected',
-            });
-            break;
-          case ConfirmEventType.CANCEL:
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled',
-            });
-            break;
-        }
-      },
-      key: 'positionDialog',
-    });
-  }
-
-  ////////////////////////view icon//////////////
+ 
 }

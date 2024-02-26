@@ -19,7 +19,6 @@ export class ManagerProfileComponent {
   todayDate!: string;
   editManagerForm!: FormGroup;
   formSubmitted: boolean = false;
-  managerData: any;
 
   //schedules
   globalSearchValue!: string;
@@ -61,17 +60,14 @@ export class ManagerProfileComponent {
     ];
   }
   getManagerData() {
-    this.managerData = this.newScheduleService.getManagerProfileData();
-    console.log('Get manager Data', this.managerData);
-
-    // Set values for the form controls
+    
     this.editManagerForm.setValue({
-      employeeId: this.managerData.empid,
-      managerName: this.managerData.managerName,
-      email: this.managerData.email,
-      phone: this.managerData.phoneNo,
-      department: this.managerData.department,
-      location: this.managerData.managerLocation,
+      employeeId: sessionStorage.getItem('ManagerProfileId'),
+      managerName: sessionStorage.getItem('ManagerProfileName'),
+      email: sessionStorage.getItem('ManagerProfileEmail'),
+      phone: sessionStorage.getItem('ManagerProfilePhone'),
+      department: sessionStorage.getItem('ManagerProfiledepartment'),
+      location: sessionStorage.getItem('ManagerProfileLocation'),
     });
     console.log('Form Values', this.editManagerForm.value);
     console.log('Manager Name', this.editManagerForm.value.managerName);
