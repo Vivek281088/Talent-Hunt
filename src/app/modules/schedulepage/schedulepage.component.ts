@@ -91,7 +91,7 @@ export class SchedulepageComponent implements OnInit {
     });
   }
   ngOnInit() {
-    this.items = [{ label: 'Schedules',routerLink: '/dashboard' }];
+    this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
     this.todayDate = this.formattedDate(new Date());
@@ -119,12 +119,10 @@ export class SchedulepageComponent implements OnInit {
         result.push(skill);
         totalLength += skill.length;
       } else {
-        // Stop adding skills if the limit is reached
         break;
       }
     }
 
-    // Calculate the count of remaining skills
     const remainingCount = skills.length - result.length;
 
     return { skills: result, remainingCount: remainingCount };
@@ -146,7 +144,7 @@ export class SchedulepageComponent implements OnInit {
         }
       );
       this.candidateNames = uniqueCandidateNames;
-      console.log('candidate', this.candidateNames );
+      console.log('candidate', this.candidateNames);
       console.log(this.candidateNames);
     });
   }
@@ -223,7 +221,6 @@ export class SchedulepageComponent implements OnInit {
     });
 
     console.log('questions :', this.FinalizedQuestions);
-  
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
@@ -247,10 +244,16 @@ export class SchedulepageComponent implements OnInit {
     this.durations = data.durations;
     this.editManagername = data.Managername;
     this.editFilename = data.JobDescription;
-    this.managernameService.setCutoff(this.cutoff);
+     sessionStorage.setItem('scheduleName', data.JobDescription),
+       sessionStorage.setItem('manager', data.Managername),
+       sessionStorage.setItem('cutoff', data.cutoff),
+      sessionStorage.setItem('duration', data.durations);
+    sessionStorage.setItem('FinalizedQuestion', data.questions);
+    sessionStorage.setItem('SelectedSkill', data.Skill);
+    // this.managernameService.setCutoff(this.cutoff);
     console.log('edit cutoff', this.cutoff);
-    this.managernameService.setDuration(this.durations);
-    this.skillsdropdownservice.setSkill(this.Skill);
+    // this.managernameService.setDuration(this.durations);
+    // this.skillsdropdownservice.setSkill(this.Skill);
     console.log('edit skill', this.Skill);
     console.log('edit questions', this.selectedQuestions);
     this.managernameService.setFinalizedQuestions(this.selectedQuestions);
@@ -258,7 +261,8 @@ export class SchedulepageComponent implements OnInit {
     this.managernameService.setFileName(this.editFilename);
     sessionStorage.setItem('scheduleName', this.editFilename);
     sessionStorage.setItem('boolean', 'true');
-
+    sessionStorage.setItem('SaveOrEdit', 'Edit');
+    sessionStorage.setItem('scheduleId', data.id);
     this.router.navigate(['new-schedule']);
   }
 
@@ -272,8 +276,6 @@ export class SchedulepageComponent implements OnInit {
     });
   }
 
-
-
   openquestiondialog() {
     this.visible = true;
   }
@@ -285,6 +287,7 @@ export class SchedulepageComponent implements OnInit {
       console.log('Skill Set', data);
     });
   }
+ 
 
   onSendQuestionClick(data: any) {
     this.sendQuestionCardVisible = true;
@@ -302,7 +305,6 @@ export class SchedulepageComponent implements OnInit {
   }
 
   inviteCandidate() {
-   
     console.log('Selected Candidates', this.selectedCandidates);
 
     this.selectedCandidates.forEach((selectedCandidate) => {
@@ -373,6 +375,7 @@ export class SchedulepageComponent implements OnInit {
     this.addnewScheduleForm.markAsPristine();
     this.addnewScheduleForm.markAsUntouched();
     this.addnewScheduleForm.reset();
+    sessionStorage.setItem('SaveOrEdit', 'Save');
   }
   formattedDate(date: Date) {
     const months: string[] = [

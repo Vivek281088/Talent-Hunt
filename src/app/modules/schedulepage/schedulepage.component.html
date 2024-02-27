@@ -341,14 +341,30 @@
         <div class="quiz-instruction">
           <p class="instruction">Quiz Instructions</p>
           <ul class="points">
-            <li>Read each question carefully, and select the corresponding answer for each of the questions.</li>
             <li>
-              After responding to a question, click on the "Next" button at the bottom to go to the next questino.
+              Read each question carefully, and select the corresponding answer
+              for each of the questions.
             </li>
-            <li>Click on "Prev" button at the bottom of the page to go to the next question</li>
-            <li>After responding to all the question, click on "Submit" on the top of the window to exit the quiz.</li>
-            <li>The questions which you have skipped or unmarked will be considered as wrong</li>
-            <li>Complete the test within the given time limit. It will be automatically submitted once the duration is over</li>
+            <li>
+              After responding to a question, click on the "Next" button at the
+              bottom to go to the next questino.
+            </li>
+            <li>
+              Click on "Prev" button at the bottom of the page to go to the next
+              question
+            </li>
+            <li>
+              After responding to all the question, click on "Submit" on the top
+              of the window to exit the quiz.
+            </li>
+            <li>
+              The questions which you have skipped or unmarked will be
+              considered as wrong
+            </li>
+            <li>
+              Complete the test within the given time limit. It will be
+              automatically submitted once the duration is over
+            </li>
           </ul>
         </div>
         <div class="sidebarbuttons">
@@ -396,11 +412,15 @@
         ></p-multiSelect>
       </div>
       <div class="btnfooter">
-         <div class="custom_button">
+        <div class="custom_button">
           <p-button label="Cancel" (onClick)="closeInviteDialog()"></p-button>
         </div>
         <div class="custom_button_send">
-          <p-button label="Send" (onClick)="inviteCandidate()" [disabled]="selectedCandidates.length<1"></p-button>
+          <p-button
+            label="Send"
+            (onClick)="inviteCandidate()"
+            [disabled]="selectedCandidates.length < 1"
+          ></p-button>
         </div>
       </div>
     </div>
@@ -455,6 +475,7 @@
             placeholder="--Select Manager--"
             formControlName="managerName"
             appendTo="body"
+            optionLabel="managerName"
           ></p-dropdown>
 
           <div
