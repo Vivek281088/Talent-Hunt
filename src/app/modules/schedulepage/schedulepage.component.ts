@@ -209,7 +209,7 @@ export class SchedulepageComponent implements OnInit {
   }
 
   closeSidebar() {
-    this, (this.viewQuestionSidebar = false);
+    this.viewQuestionSidebar = false;
   }
   onViewClick(data: any) {
     this.viewQuestionSidebar = true;

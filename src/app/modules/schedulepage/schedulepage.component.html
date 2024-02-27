@@ -305,7 +305,10 @@
 </div>
 
 <div class="questionsidebar">
-  <p-sidebar [(visible)]="viewQuestionSidebar" position="right" [modal]="false">
+  <p-sidebar 
+  [(visible)]="viewQuestionSidebar" 
+  position="right" 
+  >
     <ng-template class="header_design" pTemplate="header"
       >Quiz Preview
     </ng-template>
@@ -356,6 +359,17 @@
       </div>
     </ng-template>
   </p-sidebar>
+
+  <!-- <div class="card flex justify-content-center">
+    <p-sidebar [(visible)]="viewQuestionSidebar" [baseZIndex]=0>
+        <h3>Sidebar</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+    </p-sidebar>
+    <p-button (click)="viewQuestionSidebar = true" icon="pi pi-arrow-right"></p-button>
+  </div> -->
 </div>
 
 <p-toast></p-toast>
