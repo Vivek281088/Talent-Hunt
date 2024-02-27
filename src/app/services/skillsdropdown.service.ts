@@ -16,6 +16,7 @@ export class SkillsdropdownService {
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/skills'
     );
   }
+  
 
   postSkill(Skill: string): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
@@ -97,7 +98,40 @@ export class SkillsdropdownService {
       { headers }
     );
   }
+  editSchedule(
+    id: any,
+    managerName: string,
+    JobDescription: string,
+    questions: any[],
+    cutOff: number,
+    duration: number
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
+    const body = {
+      id: id,
+
+      Managername: managerName,
+
+      JobDescription: JobDescription,
+
+      questions: questions,
+
+      cutoff: cutOff,
+
+      durations: duration,
+    };
+
+    console.log('data', body);
+
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/edit_question',
+
+      body,
+
+      { headers }
+    );
+  }
   //post questions by manager
   postquestions_by_Manager(dataToSave: any): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
@@ -109,11 +143,6 @@ export class SkillsdropdownService {
       body,
       { headers }
     );
-    // return this.http.post<any>(
-    //   this.skillsUrl + '/questions_upload_manager',
-    //   { ques: dataToSave },
-    //   { headers }
-    // );
   }
 
   updatequestions(
@@ -121,7 +150,7 @@ export class SkillsdropdownService {
 
     fileName: string,
 
-    questions: any[], // Replace 'any[]' with the actual type of your questions
+    questions: any[],
 
     duration: number,
 

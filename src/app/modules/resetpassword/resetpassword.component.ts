@@ -9,6 +9,9 @@ import {
 } from '@angular/forms';
 import { LoginService } from 'src/app/services/login.service';
 import { MessageService } from 'primeng/api';
+import { PasswordValidator } from '../signup/password-validator';
+import { Subscription } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-resetpassword',
@@ -19,6 +22,11 @@ import { MessageService } from 'primeng/api';
 export class ResetpasswordComponent {
   resetForm!: FormGroup;
   formSubmitted: boolean = false;
+  isPasswordInvalid: boolean = false;
+  isPhonenoInvalid: boolean = false;
+  isMailIdInvalid: boolean = false;
+  passwordNotMatching: boolean = true;
+  private subscription: Subscription = new Subscription();
 
   constructor(
     private router: Router,
@@ -26,27 +34,74 @@ export class ResetpasswordComponent {
     private loginservice: LoginService,
     private messageService: MessageService
   ) {
-    this.resetForm = this.fb.group({
-      emailId: [
-        '',
-        [
-          Validators.required,
-          Validators.email,
-          Validators.pattern('^[a-zA-Z0-9._%+-]+@gmail.com$'),
+    this.resetForm = this.fb.group(
+      {
+        emailId: [
+          '',
+          [
+            Validators.required,
+            Validators.email,
+            Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$'),
+          ],
         ],
-      ],
 
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, this.passwordMatchValidator]],
-    });
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.minLength(8),
+            Validators.pattern(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+            ),
+          ],
+        ],
+        confirmPassword: ['', [Validators.required]],
+      },
+      { validator: PasswordValidator.match }
+    );
+    this.subscription.add(
+      this.resetForm
+        .get('password')!
+        .valueChanges.pipe(debounceTime(2000))
+        .subscribe(() => {
+          this.isPasswordInvalid = this.resetForm.get('password')!.invalid;
+        })
+    );
+
+    this.subscription.add(
+      this.resetForm
+        .get('emailId')!
+        .valueChanges.pipe(debounceTime(2000))
+        .subscribe(() => {
+          this.isMailIdInvalid = this.resetForm.get('emailId')!.invalid;
+        })
+    );
+
+    this.subscription.add(
+      this.resetForm
+        .get('confirmPassword')!
+        .valueChanges.pipe(debounceTime(2000))
+        .subscribe(() => {
+          console.log(
+            this.resetForm.get('password')?.value,
+            this.resetForm.get('confirmPassword')?.value
+          );
+          console.log('Fomrs ', this.resetForm);
+          if (
+            this.resetForm.get('password')?.value !==
+            this.resetForm.get('confirmPassword')?.value
+          ) {
+            this.passwordNotMatching = true;
+            console.log('from confirm password', this.passwordNotMatching);
+          } else {
+            this.passwordNotMatching = false;
+          }
+        })
+    );
   }
 
   ngOnInit() {}
-  private passwordMatchValidator(control: AbstractControl) {
-    const password: string = control.get('password')?.value;
-    const confirmPassword: string = control.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { passwordMismatch: true };
-  }
+  
 
   reset() {
     this.formSubmitted = true;

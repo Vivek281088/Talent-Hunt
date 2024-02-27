@@ -78,10 +78,13 @@
                       (onChange)="filter($event.value)"
                       [maxSelectedLabels]="1"
                       [selectedItemsLabel]="'{0} items'"
+                      [filter]="true"
+                      optionLabel="managerName"
+                      optionValue="managerName"
                     >
                       <ng-template let-option pTemplate="item">
                         <div class="inline-block vertical-align-middle">
-                          <span class="ml-1 mt-1">{{ option }}</span>
+                          <span class="ml-1 mt-1">{{ option.managerName }}</span>
                         </div>
                       </ng-template>
                     </p-multiSelect>
@@ -107,6 +110,7 @@
                       placeholder="Candidate(s)"
                       (onChange)="filter($event.value)"
                       [maxSelectedLabels]="1"
+                      [filter]="true"
                       [selectedItemsLabel]="'{0} items'"
                     >
                       <ng-template let-option pTemplate="item">
@@ -164,6 +168,7 @@
                       placeholder="Skills"
                       (onChange)="filter($event.value)"
                       [maxSelectedLabels]="1"
+                      [filter]="true"
                       [selectedItemsLabel]="'{0} items'"
                     >
                       <ng-template let-option pTemplate="item">
@@ -234,7 +239,8 @@
               </p-overlayPanel>
               <p-badge
                 class="cursor-design"
-                (click)="op.toggle($event)"
+                (mouseenter)="op.toggle($event)"
+                (mouseleave)="op.toggle($event)"
                 [value]="
                   getFormattedSkills(rowData.Skill).remainingCount.toString()
                 "

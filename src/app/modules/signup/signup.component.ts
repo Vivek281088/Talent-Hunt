@@ -10,7 +10,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { PasswordValidator } from './password-validator';
 
@@ -31,10 +31,8 @@ export class SignupComponent {
 
   constructor(
     private loginservice: LoginService,
-    private toastr: ToastrService,
     private messageService: MessageService,
     private router: Router,
-    private authService: AuthService,
     private fb: FormBuilder
   ) {
     this.signupForm = this.fb.group(
