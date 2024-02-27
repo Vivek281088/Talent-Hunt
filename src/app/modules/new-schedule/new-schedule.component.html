@@ -16,10 +16,14 @@
       <div class="cancelBtn">
         <p-button label="Cancel" (click)="cancelButton()"> </p-button>
       </div>
-      <div class="saveBtn" (click)="saveSelected()">
+      <div class="saveBtn" >
         <p-button
+        (click)="saveSelected() "
+        
           label="Save Changes"
-          [disabled]="selectedquestions.length == 0"
+          [disabled]=" selectedquestions.length == 0"
+
+          
         >
           <svg
             width="24"
@@ -660,3 +664,4 @@
     </ng-template>
   </p-dialog>
 </div>
+

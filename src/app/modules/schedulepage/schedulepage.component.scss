@@ -648,3 +648,22 @@
 
   border: 1px solid #00000061;
 }
+.button_design{
+::ng-deep {
+  .p-dialog .p-dialog-footer button {
+    background-color: #652d90;
+          color: #ffffff;
+          border: 1px solid #652d90;
+          outline: none;
+          width: 88px;
+    height: 30px;
+  }
+  .p-button:focus {
+    box-shadow: none;
+  }
+  .p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
+    font-size: 20px;
+}
+
+}
+}
