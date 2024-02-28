@@ -85,7 +85,10 @@ export class SchedulepageComponent implements OnInit {
         null,
         [Validators.required, Validators.max(100), Validators.min(1)],
       ],
-      duration: [null, [Validators.required]],
+      duration: [
+        null,
+        [Validators.required, Validators.max(180), Validators.min(30)],
+      ],
     });
   }
   ngOnInit() {
