@@ -13,6 +13,7 @@ import {
 import { Subscription, Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { PasswordValidator } from './password-validator';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-signup',

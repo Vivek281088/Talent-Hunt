@@ -16,6 +16,7 @@
             <div class="fullname">
               <div class="firstname">
                 <input
+                [value]="signupForm.get('firstName')?.value | titlecase"
                   formControlName="firstName"
                   class="signup-firstname"
                   type="text"
@@ -32,6 +33,7 @@
               <div class="lastname">
                 <input
                   formControlName="lastName"
+                  [value]="signupForm.get('lastName')?.value | titlecase"
                   class="signup-lastname"
                   type="text"
                   pInputText
@@ -80,6 +82,7 @@
                 <i class="pi pi-user"></i>
                 <input
                   formControlName="emailId"
+                  [value]="signupForm.get('emailId')?.value | lowercase"
                   class="email-signup"
                   type="text"
                   pInputText
