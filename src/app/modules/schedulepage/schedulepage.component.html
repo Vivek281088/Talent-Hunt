@@ -79,7 +79,9 @@
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
-                            <span class="ml-1 mt-1">{{ option.managerName }}</span>
+                            <span class="ml-1 mt-1">{{
+                              option.managerName
+                            }}</span>
                           </div>
                         </ng-template>
                       </p-multiSelect>
@@ -461,6 +463,7 @@
             formControlName="managerName"
             appendTo="body"
             optionLabel="managerName"
+            optionValue="managerName"
           ></p-dropdown>
 
           <div
@@ -580,6 +583,19 @@
                 *ngIf="addnewScheduleForm.get('duration')?.hasError('required')"
               >
                 duration is required !
+              </div>
+              <div
+                class="error-message"
+                *ngIf="addnewScheduleForm.get('duration')?.hasError('max')"
+              >
+                Duration should not exceed 180 mins (3hr)!
+              </div>
+
+              <div
+                class="error-message"
+                *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
+              >
+                Duration value must be greater than 30mins !
               </div>
             </div>
           </div>
