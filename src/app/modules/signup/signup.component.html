@@ -98,6 +98,12 @@
               >
                 Please Enter valid Email
               </div>
+              <div
+              class="error-message"
+              *ngIf="mailidExist"
+            >
+              Email Already Exists..!
+            </div>
             </div>
             <div class="email-caption">
               <span>Please provide the email from your Resume</span>
