@@ -490,6 +490,7 @@
   ::ng-deep .p-breadcrumb {
     overflow-x: auto;
     background: transparent;
+    padding-left: 0;
   }
   ::ng-deep {
     .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
@@ -510,8 +511,6 @@
   .p-menuitem-link
   .p-menuitem-icon {
   color: #6c757d;
-  margin-right: 0px;
-  margin-left: -14px;
 }
 
 .assesment-header {

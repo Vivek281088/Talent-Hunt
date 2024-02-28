@@ -182,7 +182,7 @@ export class AssessmentTableComponent {
   }
 
   loadManagerNames() {
-    this.managernameService.getclientManagerName().subscribe((data) => {
+    this.managernameService.getclientManagerData().subscribe((data) => {
       this.managerOption = data;
       console.log('Manager Data', data);
     });
