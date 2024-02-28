@@ -96,7 +96,7 @@ export class SchedulepageComponent implements OnInit {
         null,
         [Validators.required, Validators.max(100), Validators.min(1)],
       ],
-      duration: [null, [Validators.required,Validators.max(100), Validators.min(1),Validators.pattern(nonWhitespaceRegExp)]],
+      duration: [null, [Validators.required,Validators.max(300), Validators.min(1),Validators.pattern(nonWhitespaceRegExp)]],
     });
   }
   ngOnInit() {

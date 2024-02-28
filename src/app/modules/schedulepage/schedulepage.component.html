@@ -555,27 +555,8 @@
               formControlName="duration"
               mode="decimal"
             />
-            <div
-            class="error-message"
-            *ngIf="
-              addnewScheduleForm.get('duration')?.hasError('pattern')
-            "
-          >
-            Enter a valid Schedule name!
-          </div>
-          <div
-          class="error-message"
-          *ngIf="addnewScheduleForm.get('duration')?.hasError('max')"
-        >
-          duration must be less than 100!
-        </div>
-
-        <div
-          class="error-message"
-          *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
-        >
-          duration value must be greater than 0 !
-        </div>
+            
+         
       
             <div
               *ngIf="
@@ -589,6 +570,19 @@
               >
                 duration is required !
               </div>
+              <div
+              class="error-message"
+              *ngIf="addnewScheduleForm.get('duration')?.hasError('max')"
+            >
+              duration must be less than 300!
+            </div>
+    
+            <div
+              class="error-message"
+              *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
+            >
+              duration value must be greater than 0 !
+            </div>
             </div>
 
            
