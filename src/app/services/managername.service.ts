@@ -77,17 +77,17 @@ export class ManagernameService {
         catchError((error) => {
           console.log('Inside Catch Error');
           if (error.status == 400) {
-            console.log(error.error,"error 1");
-          return throwError(() => new Error(error.status));
+            console.log(error.status,"error 1");
+          return throwError(() => error);
 
           }
           if (error.status == 401) {
-            console.log(error.error, 'error 2');
-          return throwError(() => new Error(error.status));
+            console.log(error.status, 'error 2');
+          return throwError(() => error);
 
           }
 
-           return throwError(() => new Error(error.error));
+           return throwError(() => error);
         })
       );
   }

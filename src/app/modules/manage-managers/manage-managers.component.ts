@@ -201,17 +201,17 @@ export class ManageManagersComponent {
               }, 1000);
             },
             error: (err) => {
+              console.log("error---",err)
               if (err.status == 400) {
                 setTimeout(() => {
-                  this.mailExistError();
-                  console.warn('Emp Id already exists');
+                  this.IdExistError();
+                  console.log('Mail already exists');
                   this.cancelButton();
                 }, 1000);
               } else if (err.status == 401) {
-                
                 setTimeout(() => {
-                  this.IdExistError();
-                  console.warn('Emp Id already exists');
+                  this.mailExistError();
+                  console.log('Emp Id already exists');
                   this.cancelButton();
                 }, 1000);
               }
