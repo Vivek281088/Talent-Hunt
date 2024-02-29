@@ -217,7 +217,8 @@
               </p-overlayPanel>
               <p-badge
                 class="cursor-design"
-                (click)="op.toggle($event)"
+                (mouseenter)="op.toggle($event)"
+                (mouseleave)="op.toggle($event)"
                 [value]="
                   getFormattedSkills(rowData.Skill).remainingCount.toString()
                 "
