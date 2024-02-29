@@ -238,7 +238,6 @@ export class SchedulepageComponent implements OnInit {
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;
-
     this.selectedQuestions = data.questions;
     this.cutoff = data.cutoff;
     this.durations = data.durations;

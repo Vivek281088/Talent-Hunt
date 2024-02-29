@@ -86,15 +86,12 @@ export class ManageManagersComponent {
     const day: number = date.getDate();
     const year: number = date.getFullYear();
     const formatDate: string = `${month} ${day}, ${year}`;
-
     return formatDate;
   }
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
   }
-
- 
 
   addManager() {
     this.visible = true;
