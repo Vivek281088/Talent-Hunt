@@ -41,12 +41,12 @@ export class ManageCandidatesComponent {
     private router: Router
   ) {
     this.addCandidateForm = this.fb.group({
-      empid: [null, [Validators.required]],
-      candidateName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: [null, [Validators.required]],
+      empid: [null, [Validators.required,Validators.minLength(6)]],
+      candidateName: ['', [Validators.required,Validators.minLength(3)]],
+      email: ['', [Validators.required,  Validators.email, Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$')]],
+      phone: [null, [Validators.required,Validators.minLength(10)]],
       location: [''],
-      department: [''],
+      department: ['',[Validators.required,Validators.minLength(3)]],
     });
   }
   ngOnInit() {

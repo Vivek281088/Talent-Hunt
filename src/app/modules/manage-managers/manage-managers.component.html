@@ -87,7 +87,7 @@
                 <div class="ml-3">
                   <button
                     pButton
-                    label="Clear filter"
+                    label="Clear Search"
                     class="clear-button cursor-pointer"
                     (click)="clear(dt2)"
                   ></button>
@@ -214,13 +214,13 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <p-inputNumber
+              <input
+              pInputText 
                 formControlName="employeeId"
-                mode="decimal"
-                inputId="withoutgrouping"
-                [useGrouping]="false"
+                appAllowDigits ="6"
+                
               >
-              </p-inputNumber>
+            
               <div
                 *ngIf="
                   addManagerForm.get('employeeId')?.invalid &&
@@ -241,7 +241,13 @@
                   </div>
                
                 </div>
-               </div>
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('employeeId')?.hasError('minlength')"
+                >
+                  Enter a valid Employee Id !
+                </div>
+              </div>
             </div>
           </div>
 
@@ -251,7 +257,7 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="text" formControlName="managerName" pInputText />
+              <input type="text" appNameInput formControlName="managerName" pInputText />
               <div
                 *ngIf="
                   addManagerForm.get('managerName')?.invalid &&
@@ -265,6 +271,22 @@
                   "
                 >
                   Manager Name is required !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    addManagerForm.get('managerName')?.hasError('pattern')
+                  "
+                >
+                  Enter a Valid Managername !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    addManagerForm.get('managerName')?.hasError('minlength')
+                  "
+                >
+                  Enter a Valid Managername !
                 </div>
               </div>
             </div>
@@ -289,6 +311,12 @@
                 >
                   Email is required !
                 </div>
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('email')?.hasError('pattern')"
+                >
+               Enter a valid Email !
+                </div>
               </div>
             </div>
           </div>
@@ -299,13 +327,12 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <p-inputNumber
+              <input
                 formControlName="phone"
-                mode="decimal"
-                inputId="withoutgrouping"
-                [useGrouping]="false"
+                appAllowDigits="10"
+                pInputText
               >
-              </p-inputNumber>
+              
               <div
                 *ngIf="
                   addManagerForm.get('phone')?.invalid &&
@@ -318,6 +345,12 @@
                 >
                   Phone no is required !
                 </div>
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('phone')?.hasError('minlength')"
+                >
+                  Enter a valid Phone Number !
+                </div>
               </div>
             </div>
           </div>
@@ -328,7 +361,7 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="text" formControlName="department" pInputText />
+              <input type="text" pKeyFilter="alpha" formControlName="department" pInputText />
               <div
                 *ngIf="
                   addManagerForm.get('department')?.invalid &&
@@ -340,6 +373,12 @@
                   *ngIf="addManagerForm.get('department')?.hasError('required')"
                 >
                   Department is required !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('department')?.hasError('minlength')"
+                >
+                  Enter a valid Department Name !
                 </div>
               </div>
             </div>

@@ -216,7 +216,8 @@
               </p-overlayPanel>
               <p-badge
                 class="cursor-design"
-                (click)="op.toggle($event)"
+                (mouseenter)="op.toggle($event)"
+                (mouseleave)="op.toggle($event)"
                 [value]="
                   getFormattedSkills(rowData.Skill).remainingCount.toString()
                 "
@@ -476,6 +477,7 @@
             formControlName="managerName"
             appendTo="body"
             optionLabel="managerName"
+            optionValue="managerName"
           ></p-dropdown>
 
           <div
@@ -595,6 +597,19 @@
                 *ngIf="addnewScheduleForm.get('duration')?.hasError('required')"
               >
                 duration is required !
+              </div>
+              <div
+                class="error-message"
+                *ngIf="addnewScheduleForm.get('duration')?.hasError('max')"
+              >
+                Duration should not exceed 180 mins (3hr)!
+              </div>
+
+              <div
+                class="error-message"
+                *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
+              >
+                Duration value must be greater than 30mins !
               </div>
             </div>
           </div>

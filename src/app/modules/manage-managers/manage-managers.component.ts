@@ -34,13 +34,14 @@ export class ManageManagersComponent {
     private router: Router,
     private newScheduleService: NewScheduleService
   ) {
+    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.addManagerForm = this.fb.group({
-      employeeId: [null, [Validators.required,Validators.maxLength(7),Validators.minLength(7)]],
-      managerName: ['', [Validators.required,Validators.maxLength(30)]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: [null, [Validators.required,Validators.maxLength(10)]],
-      department: ['', [Validators.required,Validators.maxLength(10)]],
-      location: ['', [Validators.required,Validators.maxLength(10)]],
+      employeeId: [null, [Validators.required,Validators.minLength(6)]],
+      managerName: ['', [Validators.required,Validators.pattern(nonWhitespaceRegExp),Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$')]],
+      phone: [null, [Validators.required,Validators.minLength(10)]],
+      department: ['', [Validators.required,Validators.minLength(3)]],
+      location: ['', [Validators.required]],
     });
   }
   ngOnInit() {
@@ -61,11 +62,11 @@ export class ManageManagersComponent {
       this.managerData = response;
 
       this.managerData.forEach((manager: { selection: boolean }) => {
-        manager.selection = manager.selection || false; 
+        manager.selection = manager.selection || false;
       });
     });
   }
-  
+
   formattedDate(date: Date) {
     const months: string[] = [
       'Jan',
@@ -94,6 +95,7 @@ export class ManageManagersComponent {
   }
 
   addManager() {
+    console.log(this.addManagerForm)
     this.visible = true;
     this.isAddManager = true;
     this.isEditManager = false;
@@ -139,6 +141,20 @@ export class ManageManagersComponent {
       detail: 'Manager saved successfully',
     });
   }
+  IdExistError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Duplicate Id',
+      detail: 'Id Already exist!',
+    });
+  }
+  mailExistError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Duplicate Mail',
+      detail: 'Mail id  Already exist!',
+    });
+  }
   updateSuccessMessage() {
     this.messageService.add({
       severity: 'success',
@@ -149,13 +165,12 @@ export class ManageManagersComponent {
   gotoManagerProfile(data: any) {
     console.log('Selected Manager Data', data);
     // this.newScheduleService.setManagerProfileData(data);
-    sessionStorage.setItem("ManagerProfileId", data.empid);
+    sessionStorage.setItem('ManagerProfileId', data.empid);
     sessionStorage.setItem('ManagerProfileName', data.managerName);
     sessionStorage.setItem('ManagerProfileEmail', data.email);
     sessionStorage.setItem('ManagerProfilePhone', data.phoneNo);
     sessionStorage.setItem('ManagerProfileLocation', data.managerLocation);
     sessionStorage.setItem('ManagerProfiledepartment', data.department);
-
 
     this.router.navigate(['/managerProfile']);
   }
@@ -167,23 +182,51 @@ export class ManageManagersComponent {
       const formData = this.addManagerForm.value;
       console.log('Form Data:', formData);
 
-      this.managerService
-        .postClientManager(
-          formData.employeeId,
-          formData.managerName,
-          formData.email,
-          formData.phone,
-          formData.department,
-          formData.location
-        )
-        .subscribe((response) => {
-          console.log('Manager Posted....');
-        });
-      setTimeout(() => {
-        this.saveSuccessMessage();
-        this.cancelButton();
-        this.loadManagerData();
-      }, 1000);
+      try {
+        this.managerService
+          .postClientManager(
+            formData.employeeId,
+            formData.managerName,
+            formData.email,
+            formData.phone,
+            formData.department,
+            formData.location
+          )
+          .subscribe({
+            next: (x) => {
+              
+              setTimeout(() => {
+                this.saveSuccessMessage();
+                this.cancelButton();
+                this.loadManagerData();
+              }, 1000);
+            },
+            error: (err) => {
+              console.log("error---",err)
+              if (err.status == 400) {
+                setTimeout(() => {
+                  this.IdExistError();
+                  console.log('Mail already exists');
+                  this.cancelButton();
+                }, 1000);
+              } else if (err.status == 401) {
+                setTimeout(() => {
+                  this.mailExistError();
+                  console.log('Emp Id already exists');
+                  this.cancelButton();
+                }, 1000);
+              }
+            },
+            complete: () => console.log('There are no more action happen.'),
+          });
+      } catch (error) {
+        console.log('this is the error Message', error);
+      }
+    } else {
+      console.error(
+        'Form is not valid. Validation errors:',
+        this.addManagerForm.errors
+      );
     }
   }
   uploadCsv(event: any) {
@@ -233,7 +276,7 @@ export class ManageManagersComponent {
               data.location
             )
             .subscribe((response) => {
-              console.log('Manager Saved....');
+              console.log('Manager Saved....', response);
             });
         }
 

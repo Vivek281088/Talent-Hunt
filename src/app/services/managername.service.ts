@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -64,11 +64,32 @@ export class ManagernameService {
       department: department,
       manager_location: location,
     };
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
-      body,
-      { headers }
-    );
+    return this.http
+      .post<any>(
+        'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
+        body,
+        { headers }
+      )
+      .pipe(
+        tap((responsedata) => {
+          console.log('Mail updated successfully', responsedata);
+        }),
+        catchError((error) => {
+          console.log('Inside Catch Error');
+          if (error.status == 400) {
+            console.log(error.status,"error 1");
+          return throwError(() => error);
+
+          }
+          if (error.status == 401) {
+            console.log(error.status, 'error 2');
+          return throwError(() => error);
+
+          }
+
+           return throwError(() => error);
+        })
+      );
   }
 
   addCandidate(
@@ -134,7 +155,7 @@ export class ManagernameService {
   deleteSchedule(id: string): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
-      id: id
+      id: id,
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteScheduleData',

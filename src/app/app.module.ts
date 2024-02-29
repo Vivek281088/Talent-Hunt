@@ -36,6 +36,8 @@ import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.com
 import { CandidateProfileComponent } from './modules/candidate-profile/candidate-profile.component';
 import { ManagerProfileComponent } from './modules/manager-profile/manager-profile.component';
 import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.component';
+import { NameInputDirective } from './modules/manage-managers/name-input.directive';
+import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.directive';
 import { CustomDirective } from './custom.directive';
 
 
@@ -69,6 +71,8 @@ import { CustomDirective } from './custom.directive';
       CandidateProfileComponent,
       ManagerProfileComponent,
       ResetpasswordComponent,
+      NameInputDirective,
+      AllowDigitsDirective,
       CustomDirective,
   ],
   imports: [
