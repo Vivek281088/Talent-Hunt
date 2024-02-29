@@ -105,7 +105,7 @@
                   pButton
                   [disabled]="!selectedDeleteManager||selectedDeleteManager.length==0"
                   label="Delete Manager"
-                  (click)="deleteManager()"
+                  (click)="confirmPosition('top')" 
                 ></button>
               </div>
             </div>
@@ -377,6 +377,7 @@
             </div>
             <div class="Createbutton" *ngIf="isEditManager">
               <p-button
+              [disabled]="addManagerForm.touched"
                 label="Update"
                 (onClick)="updateManager(addManagerForm.value)"
               >
@@ -609,6 +610,7 @@
         <div class="Createbutton" *ngIf="isEditManager">
           <p-button
             label="Update"
+            [disabled]= (addManagerForm.pristine)
             (onClick)="updateManager(addManagerForm.value)"
           >
           </p-button>
@@ -617,3 +619,9 @@
     </ng-template>
   </p-dialog>
 </div>
+<p-confirmDialog class="button_design"
+  [style]="{ width: '40vw' }"
+  key="positionDialog"
+  [position]="position"
+  rejectButtonStyleClass=""
+></p-confirmDialog>
