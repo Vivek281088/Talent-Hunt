@@ -110,9 +110,7 @@ export class ManageSkillsComponent {
       .postskillsList(this.skills)
       .subscribe((response) => {
         console.log('recieved response', response);
-        // this.ngzone.run(() => {
-        // Your code that triggers change
-        // this.tabs.push(...transformedData);
+        
         for (let i = 0; i < response.length; i++) {
           this.tabs.push({
             title: response[i].skills,
@@ -358,9 +356,7 @@ export class ManageSkillsComponent {
   cancelQuestionView() {
     this.QuestionView = false;
   }
-  closeButton() {
-    this.questionPreviewvisible = false;
-  }
+  
   sidebarClose() {
     this.previewSidebarVisible = false;
   }
