@@ -7,17 +7,24 @@ import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
-import { MessageService } from 'primeng/api';
+
 import { FormControl } from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DataService } from 'src/app/services/data.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { forkJoin } from 'rxjs';
+import { ThreeDigitDirective } from './directives/three-digit.directive';
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+} from 'primeng/api';
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
   styleUrls: ['./schedulepage.component.scss'],
+  providers: [ConfirmationService, MessageService],
 })
 export class SchedulepageComponent implements OnInit {
   items: MenuItem[] | undefined;
@@ -46,6 +53,7 @@ export class SchedulepageComponent implements OnInit {
   managerEmail!: string;
   question!: string;
   candidateSkill!: any;
+  position: string = 'center';
 
   candidateId!: Date | null;
 
@@ -65,11 +73,13 @@ export class SchedulepageComponent implements OnInit {
   globalSearchValue!: string;
   addnewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
+ 
 
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
     private skillsdropdownservice: SkillsdropdownService,
+    private confirmationService: ConfirmationService,
     private router: Router,
     private fb: FormBuilder,
     // reviewer
@@ -77,18 +87,16 @@ export class SchedulepageComponent implements OnInit {
     private dataService: DataService,
     private newScheduleService: NewScheduleService
   ) {
+    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.addnewScheduleForm = this.fb.group({
-      scheduleName: ['', [Validators.required]],
+      scheduleName: ['', [Validators.required,Validators.pattern(nonWhitespaceRegExp)]],
       managerName: ['', [Validators.required]],
       skills: ['', [Validators.required]],
       cutoff: [
         null,
         [Validators.required, Validators.max(100), Validators.min(1)],
       ],
-      duration: [
-        null,
-        [Validators.required, Validators.max(180), Validators.min(30)],
-      ],
+      duration: [null, [Validators.required,Validators.max(300), Validators.min(1),Validators.pattern(nonWhitespaceRegExp)]],
     });
   }
   ngOnInit() {
@@ -415,17 +423,57 @@ export class SchedulepageComponent implements OnInit {
     }
 
     setTimeout(() => {
-      this.deleteMessage();
+      // this.deleteMessage();
       this.existingData();
       this.selectedDeleteSchedule = [];
     }, 1500);
   }
 
-  deleteMessage() {
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Deleted',
-      detail: 'Schedule Deleted successfully',
+  // deleteMessage() {
+  //   this.messageService.add({
+  //     severity: 'success',
+  //     summary: 'Deleted',
+  //     detail: 'Schedule Deleted successfully',
+  //   });
+  // }
+
+  confirmPosition(position: string) {
+    this.position = position;
+ 
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the schedule?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Deleted',
+          detail: 'Schedule Deleted Successfully',
+        });
+     this.deleteSchedule();
+       
+      },
+      reject: (type: ConfirmEventType) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            console.log('Rejected');
+            break;
+          case ConfirmEventType.CANCEL:
+            console.log('Canceled');
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+      key: 'positionDialog',
     });
   }
 

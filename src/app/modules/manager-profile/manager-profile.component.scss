@@ -154,14 +154,14 @@
 
     }
     .p-inputtext {
-      width: 100%;
+      width: 38%;
     }
     p-inputnumber,.p-inputnumber.p-inputwrapper {
         span{
             width: 100%;
         }
       display: inline-flex;
-      width: 100%;
+      width: 38%;
     }
   }
   .profilecontent{
@@ -176,7 +176,7 @@
     color: #00000099;
 
     .label {
-      padding: 2% 0 2% 0;
+      padding: 1% 0 2% 0;
 
       span {
         color: #ee4555;
@@ -232,7 +232,27 @@
       }
     }
   }
-
+.box_design{
+  .photo{
+    width: 200px;
+    
+  }
+  .name{
+    display: flex;
+    flex-direction: column;
+    //padding:20px;
+    gap: 8px;
+    .name_design{
+      
+color:#652d90;
+    }
+  }
+  border:solid #dee2e6;
+  height:160px;
+  display:flex;
+  flex-direction: row;
+  padding-top: 4px;
+}
 
   //schedule design
   ::ng-deep .p-tabview .p-tabview-panels {
