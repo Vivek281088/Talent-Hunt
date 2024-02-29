@@ -37,6 +37,8 @@ import { CandidateProfileComponent } from './modules/candidate-profile/candidate
 import { ManagerProfileComponent } from './modules/manager-profile/manager-profile.component';
 import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.component';
 import { ThreeDigitDirective } from './modules/schedulepage/directives/three-digit.directive';
+import { NameInputDirective } from './modules/manage-managers/name-input.directive';
+import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.directive';
 
 
 
@@ -70,6 +72,8 @@ import { ThreeDigitDirective } from './modules/schedulepage/directives/three-dig
       ManagerProfileComponent,
       ResetpasswordComponent,
       ThreeDigitDirective,
+      NameInputDirective,
+      AllowDigitsDirective,
   ],
   imports: [
     BrowserModule,

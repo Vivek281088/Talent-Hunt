@@ -33,7 +33,8 @@
               [globalFilterFields]="[
                 'question',
                 'questionType',
-                'Difficulty_Level'
+                'Difficulty_Level',
+                'options'
               ]"
             >
               <ng-template pTemplate="header">
@@ -229,6 +230,12 @@
               Specify the Difficulty type field with values - Easy, Medium, or
               Hard.
             </li>
+            <li>
+              If it is Radio type question, Give the exact correct answer in any one of the answer field.
+            </li>
+            <li>
+              If it is Checkbox type question, Mention the correct answers in separate answer field.
+            </li>
           </ul>
         </div>
       </div>
@@ -375,7 +382,7 @@
           </p-button>
         </div>
         <div class="Createbutton">
-          <p-button (click)="updateQuestionView()">
+          <p-button (click)="updateQuestionView()" [disabled]="">
             <label class="Create-word"> Update </label>
           </p-button>
         </div>
@@ -391,6 +398,7 @@
     [modal]="true"
     [style]="{ width: '38.75rem', height: 'auto' }"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [draggable]="false"
   >
     <ng-template pTemplate="header">
       <div class="inline-flex align-items-center justify-content-center gap-2">
@@ -414,12 +422,6 @@
         <span class="option-content">{{ option }}</span>
       </div>
     </div>
-    <ng-template pTemplate="footer">
-      <p-button
-        (onClick)="closeButton()"
-        class="Closebutton"
-        label="Close"
-      ></p-button>
-    </ng-template>
+    
   </p-dialog>
 </div>

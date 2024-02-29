@@ -73,10 +73,15 @@
                         placeholder="Manager"
                         (onChange)="filter($event.value)"
                         appendTo="body"
+                        [filter]="true"
+                        optionLabel="managerName"
+                        optionValue="managerName"
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
-                            <span class="ml-1 mt-1">{{ option }}</span>
+                            <span class="ml-1 mt-1">{{
+                              option.managerName
+                            }}</span>
                           </div>
                         </ng-template>
                       </p-multiSelect>
@@ -102,6 +107,7 @@
                         placeholder="Skills"
                         (onChange)="filter($event.value)"
                         appendTo="body"
+                        [filter]="true"
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
@@ -212,7 +218,8 @@
               </p-overlayPanel>
               <p-badge
                 class="cursor-design"
-                (click)="op.toggle($event)"
+                (mouseenter)="op.toggle($event)"
+                (mouseleave)="op.toggle($event)"
                 [value]="
                   getFormattedSkills(rowData.Skill).remainingCount.toString()
                 "
@@ -301,7 +308,7 @@
 </div>
 
 <div class="questionsidebar">
-  <p-sidebar [(visible)]="viewQuestionSidebar" position="right" [modal]="false">
+  <p-sidebar [(visible)]="viewQuestionSidebar" position="right" [modal]="true">
     <ng-template class="header_design" pTemplate="header"
       >Quiz Preview
     </ng-template>
@@ -334,14 +341,30 @@
         <div class="quiz-instruction">
           <p class="instruction">Quiz Instructions</p>
           <ul class="points">
-            <li>Read each question carefully, and select the corresponding answer for each of the questions.</li>
             <li>
-              After responding to a question, click on the "Next" button at the bottom to go to the next questino.
+              Read each question carefully, and select the corresponding answer
+              for each of the questions.
             </li>
-            <li>Click on "Prev" button at the bottom of the page to go to the next question</li>
-            <li>After responding to all the question, click on "Submit" on the top of the window to exit the quiz.</li>
-            <li>The questions which you have skipped or unmarked will be considered as wrong</li>
-            <li>Complete the test within the given time limit. It will be automatically submitted once the duration is over</li>
+            <li>
+              After responding to a question, click on the "Next" button at the
+              bottom to go to the next questino.
+            </li>
+            <li>
+              Click on "Prev" button at the bottom of the page to go to the next
+              question
+            </li>
+            <li>
+              After responding to all the question, click on "Submit" on the top
+              of the window to exit the quiz.
+            </li>
+            <li>
+              The questions which you have skipped or unmarked will be
+              considered as wrong
+            </li>
+            <li>
+              Complete the test within the given time limit. It will be
+              automatically submitted once the duration is over
+            </li>
           </ul>
         </div>
         <div class="sidebarbuttons">
@@ -378,11 +401,15 @@
         ></p-multiSelect>
       </div>
       <div class="btnfooter">
-         <div class="custom_button">
+        <div class="custom_button">
           <p-button label="Cancel" (onClick)="closeInviteDialog()"></p-button>
         </div>
         <div class="custom_button_send">
-          <p-button label="Send" (onClick)="inviteCandidate()" [disabled]="selectedCandidates.length<1"></p-button>
+          <p-button
+            label="Send"
+            (onClick)="inviteCandidate()"
+            [disabled]="selectedCandidates.length < 1"
+          ></p-button>
         </div>
       </div>
     </div>
@@ -445,6 +472,8 @@
             placeholder="--Select Manager--"
             formControlName="managerName"
             appendTo="body"
+            optionLabel="managerName"
+            optionValue="managerName"
           ></p-dropdown>
 
           <div
@@ -571,10 +600,18 @@
                 duration is required !
               </div>
               <div
-              class="error-message"
-              *ngIf="addnewScheduleForm.get('duration')?.hasError('max')"
-            >
-              duration must be less than 300!
+                class="error-message"
+                *ngIf="addnewScheduleForm.get('duration')?.hasError('max')"
+              >
+                Duration should not exceed 180 mins (3hr)!
+              </div>
+
+              <div
+                class="error-message"
+                *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
+              >
+                Duration value must be greater than 30mins !
+              </div>
             </div>
     
             <div

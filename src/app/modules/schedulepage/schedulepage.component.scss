@@ -70,6 +70,7 @@
   ::ng-deep .p-breadcrumb {
     overflow-x: auto;
     background: transparent;
+    padding-left: 0;
   }
   ::ng-deep {
     .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
@@ -90,8 +91,6 @@
   .p-menuitem-link
   .p-menuitem-icon {
   color: #6c757d;
-  margin-right: 0px;
-  margin-left: -14px;
 }
 
 ::ng-deep .p-datatable .p-datatable-thead tr th {
@@ -132,8 +131,8 @@
       width: 14px;
       height: 8px;
     }
-    .p-multiselect .p-multiselect-label.p-placeholder {
-      margin-top: -6px;
+    .p-multiselect .p-multiselect-label {
+      padding: 5% 2% 2% 5%;
     }
   }
 }
@@ -153,9 +152,10 @@
       width: 14px;
       height: 8px;
     }
-    .p-multiselect .p-multiselect-label.p-placeholder {
-      margin-top: -6px;
+    .p-multiselect .p-multiselect-label {
+      padding: 5% 2% 2% 5%;
     }
+    
   }
 }
 

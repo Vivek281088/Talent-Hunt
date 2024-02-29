@@ -41,12 +41,12 @@ export class ManageCandidatesComponent {
     private router: Router
   ) {
     this.addCandidateForm = this.fb.group({
-      empid: [null, [Validators.required]],
-      candidateName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: [null, [Validators.required]],
+      empid: [null, [Validators.required,Validators.minLength(6)]],
+      candidateName: ['', [Validators.required,Validators.minLength(3)]],
+      email: ['', [Validators.required,  Validators.email, Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$')]],
+      phone: [null, [Validators.required,Validators.minLength(10)]],
       location: [''],
-      department: [''],
+      department: ['',[Validators.required,Validators.minLength(3)]],
     });
   }
   ngOnInit() {
@@ -247,7 +247,7 @@ export class ManageCandidatesComponent {
     this.messageService.add({
       severity: 'success',
       summary: 'Success',
-      detail: 'Candidate stored successfully',
+      detail: 'Candidate uploaded successfully',
     });
   }
   fileUploadErrorMessage() {
@@ -314,7 +314,14 @@ export class ManageCandidatesComponent {
 
   gotoCandidateProfile(data: any) {
     console.log('Candidate data', data);
-    this.newScheduleService.setCandidateProfileData(data);
+    // this.newScheduleService.setCandidateProfileData(data);
+    sessionStorage.setItem('CandiateProfileId', data.empid);
+    sessionStorage.setItem('CandiateProfileName', data.candidateName);
+    sessionStorage.setItem('CandiateProfileEmail', data.candidateEmail);
+    sessionStorage.setItem('CandiateProfilePhone', data.candidatePhone);
+    sessionStorage.setItem('CandiateProfileDepartment', data.department);
+    sessionStorage.setItem('CandiateProfileLocation', data.candidate_location);
+    this.router.navigate(['/candidateProfile']);
 
     this.router.navigate(['/candidateProfile']);
   }

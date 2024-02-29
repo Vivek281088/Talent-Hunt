@@ -10,9 +10,10 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { Subscription, Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { PasswordValidator } from './password-validator';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
@@ -27,14 +28,13 @@ export class SignupComponent {
   isPhonenoInvalid: boolean = false;
   isMailIdInvalid: boolean = false;
   passwordNotMatching: boolean = true;
+  mailidExist:boolean=false;
   private subscription: Subscription = new Subscription();
 
   constructor(
     private loginservice: LoginService,
-    private toastr: ToastrService,
     private messageService: MessageService,
     private router: Router,
-    private authService: AuthService,
     private fb: FormBuilder
   ) {
     this.signupForm = this.fb.group(
@@ -142,8 +142,8 @@ export class SignupComponent {
         return;
       }
 
-      this.successValidForm();
-      this.loginservice
+      try {
+        this.loginservice
         .postsignup(
           id,
           this.signupForm.value.firstName,
@@ -153,14 +153,24 @@ export class SignupComponent {
           this.signupForm.value.password,
           this.signupForm.value.confirmPassword
         )
-        .subscribe((data) => {
-          console.log('Sign Up successfully', data);
-        });
+        .subscribe({
+          next: x => {
 
-      setTimeout(() => {
-        this.signupForm.reset();
-        this.router.navigate(['login']);
-      }, 1500);
+            this.successValidForm();
+            setTimeout(() => {
+              this.signupForm.reset();
+              this.router.navigate(['login']);
+            }, 1500);
+            
+          },
+          error: err => console.warn('An error occurred :', err.message,`${this.mailidExist=true}`),  
+          complete: () => console.log('There are no more action happen.') 
+          
+        });
+      } catch (error) {
+        console.log("this is the error Message" ,  error);
+        
+      }
     } else {
       console.error(
         'Form is not valid. Validation errors:',
