@@ -56,7 +56,7 @@ export class CandidateProfileComponent {
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Candidate', routerLink: '/manage-candidates' },
       { label: 'Candidate Profile', routerLink: '/candidateProfile' },
     ];
@@ -132,19 +132,18 @@ remainaingSkills(skills: any, count: number): string[] {
 //Assessment
 getCandidateProfileData(){
 
-  //this.candidateData = this.newScheduleService.getCandidateProfileData();
- // console.log('Get Candidate Data', this.candidateData);
-//console.log("candiate data",data)
+  // this.candidateData = this.newScheduleService.getCandidateProfileData();
+  // console.log('Get Candidate Data', this.candidateData);
+
   // Set values for the form controls
-console.log("phone",sessionStorage.getItem('CandiateProfilePhone'),)
-  this.editCandidateForm.setValue({
-    employeeId: sessionStorage.getItem('CandiateProfileId'),
-    candidateName: sessionStorage.getItem('CandiateProfileName'),
-    email: sessionStorage.getItem('CandiateProfileEmail'),
-    phone: sessionStorage.getItem('CandiateProfilePhone'),
-    department: sessionStorage.getItem('CandiateProfileDepartment'),
-    location: sessionStorage.getItem('CandiateProfileLocation'),
-  });
+ this.editCandidateForm.setValue({
+   employeeId: sessionStorage.getItem('CandiateProfileId'),
+   candidateName: sessionStorage.getItem('CandiateProfileName'),
+   email: sessionStorage.getItem('CandiateProfileEmail'),
+   phone: sessionStorage.getItem('CandiateProfilePhone'),
+   department: sessionStorage.getItem('CandiateProfileDepartment'),
+   location: sessionStorage.getItem('CandiateProfileLocation'),
+ });
 
   console.log('Form Values', this.editCandidateForm.value);
   console.log('Candidate Email--', this.editCandidateForm.value.email);

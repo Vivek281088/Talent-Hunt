@@ -80,6 +80,7 @@ export class NewScheduleComponent {
     private managernameService: ManagernameService,
     private messageService: MessageService,
     private router: Router,
+    
     private fb: FormBuilder
   ) {
     this.updateNewScheduleForm = this.fb.group({
@@ -543,9 +544,7 @@ export class NewScheduleComponent {
     });
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log('Function Working');
     if (option.includes(selected_Option)) {
-      console.log('correct answer');
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';

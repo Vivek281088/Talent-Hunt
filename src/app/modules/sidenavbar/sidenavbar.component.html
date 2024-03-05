@@ -219,6 +219,7 @@
       viewBox="0 0 44 44"
       class="toggle-btn"
       (click)="toggleSideNav()"
+      [ngClass]="{'activatedToggle' : isSideNavCollapsed}"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
