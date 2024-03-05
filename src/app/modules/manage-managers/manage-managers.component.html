@@ -290,7 +290,7 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="email" formControlName="email" pInputText />
+              <input type="email"  formControlName="email" pInputText />
               <div
                 *ngIf="
                   addManagerForm.get('email')?.invalid &&
@@ -353,7 +353,7 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="text" pKeyFilter="alpha" formControlName="department" pInputText />
+              <input type="text" appNameInput formControlName="department" pInputText />
               <div
                 *ngIf="
                   addManagerForm.get('department')?.invalid &&
