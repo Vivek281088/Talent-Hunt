@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 
@@ -55,10 +55,15 @@ export class ManageSkillsComponent {
       questionTypeSelected: ['', [Validators.required]],
       Difficulty_Level: ['', [Validators.required]],
       choices: ['', [Validators.required]],
+      optionss : this.fb.array([]),
       answer: [[], [Validators.required]],
 
 
     });
+  }
+
+  get optionss() : FormArray{
+    return this.EditQuestionForm.get('optionss') as FormArray
   }
 
   ngOnInit() {
@@ -308,7 +313,8 @@ export class ManageSkillsComponent {
         questionTypeSelected: data.questionType,
         Difficulty_Level: this.getBackendDifficultyLevelViceVersa(data.Difficulty_Level),
         choices: data.options,
-        answer: data.answer
+        answer: data.answer,
+        optionss : data.options
       });
     }
     console.log('Edit Data', this.EditQuestionForm);

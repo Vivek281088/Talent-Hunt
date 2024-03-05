@@ -248,10 +248,13 @@
           <label>Option</label>
           <span class="important-symbol">&#42;</span>
         </div>
-        <div class="valueedit" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
-          <label for="answer{{ i }}" class="title">{{ letter }} </label>
-          <input type="text" pInputText formControlName="choices" />
+        <div formArrayName="optionss" class="valueedit" *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index">
+          <div *ngFor="let opt of optionss.controls;let j=index">
+          <label for="answerW{{ i }}" class="title">{{ letter }} </label>
+          <input type="text" name="opt{{j}}" pInputText [formControlName]="j"  />
+          </div>
         </div>
+    
       </div>
 
       <div class="labelvalue" *ngIf="
