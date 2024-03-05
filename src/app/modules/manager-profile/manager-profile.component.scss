@@ -27,10 +27,10 @@
     .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
       border-color: #652d90;
       color: #652d90;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-   box-shadow: none;
-}
+    }
+    .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+      box-shadow: none;
+    }
   }
 
   .managerDetails {
@@ -125,7 +125,7 @@
   justify-content: end;
   align-items: center;
   padding: 16px 16px 5px 16px;
-  
+
   .cancelBtn {
     padding-right: 2rem;
     ::ng-deep {
@@ -148,24 +148,27 @@
 
   ::ng-deep {
     .p-tabview .p-tabview-panels {
-        overflow-y: auto;
-        // max-height: 296px;
-        max-height: 418px;
+      overflow-y: auto;
+      // max-height: 296px;
+      max-height: 418px;
+    }
 
-    }
-    .p-inputtext {
-      width: 38%;
-    }
-    p-inputnumber,.p-inputnumber.p-inputwrapper {
-        span{
-            width: 100%;
-        }
+    p-inputnumber,
+    .p-inputnumber.p-inputwrapper {
+      span {
+        width: 100%;
+      }
       display: inline-flex;
       width: 38%;
     }
   }
-  .profilecontent{
+  .profilecontent {
     padding: 1rem;
+    ::ng-deep {
+      .p-inputtext {
+        width: 38%;
+      }
+    }
   }
 
   .labelvalue {
@@ -183,138 +186,131 @@
       }
     }
   }
-
-  
 }
 .Newschedule-button {
-    display: flex;
-    flex-direction: row;
-    border-radius: 4px;
-    border: 1px;
-    justify-content: space-between;
-    // justify-content: flex-end;
-    .Cancelbutton {
-      ::ng-deep {
-        .p-button {
-          height: 87%;
-          background: transparent;
-          border: 1px solid #652d90;
-          outline: none;
-          color: #652d90;
-        }
-        .p-button:focus {
-          box-shadow: none;
-        }
+  display: flex;
+  flex-direction: row;
+  border-radius: 4px;
+  border: 1px;
+  justify-content: space-between;
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
       }
-    }
-  
-    .Createbutton {
-      ::ng-deep {
-        .Create-word {
-          cursor: pointer;
-        }
-        .p-button {
-          height: 87%;
-          background: transparent;
-          border: 1px solid #652d90;
-          outline: none;
-        }
-        .p-button:focus {
-          box-shadow: none;
-        }
-        .p-ripple {
-          overflow: hidden;
-          position: relative;
-          background: #652d90;
-          color: #ffffff;
-          text-align: center;
-        }
+      .p-button:focus {
+        box-shadow: none;
       }
     }
   }
-.box_design{
-  .photo{
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
+    }
+  }
+}
+.box_design {
+  .photo {
     width: 200px;
-    
   }
-  .name{
+  .name {
     display: flex;
     flex-direction: column;
     //padding:20px;
     gap: 8px;
-    .name_design{
-      
-color:#652d90;
+    .name_design {
+      color: #652d90;
     }
   }
-  border:solid #dee2e6;
-  height:160px;
-  display:flex;
+  border: solid #dee2e6;
+  height: 160px;
+  display: flex;
   flex-direction: row;
   padding-top: 4px;
 }
 
-  //schedule design
-  ::ng-deep .p-tabview .p-tabview-panels {
-    padding: 0;
+//schedule design
+::ng-deep .p-tabview .p-tabview-panels {
+  padding: 0;
+}
+.scheduleTable {
+  ::ng-deep {
+    .p-datatable {
+      position: relative;
+      border: 1px solid #0000001f;
+      border-radius: 8px;
+    }
   }
-  .scheduleTable {
+  ::ng-deep .tableheaderdesign {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .filter-components {
+    display: flex;
+    justify-content: space-between;
+  }
+  .first-four {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .PreviewBtn {
     ::ng-deep {
-      .p-datatable {
-        position: relative;
-        border: 1px solid #0000001f;
-        border-radius: 8px;
+      .p-button {
+        color: #fafafa;
+        background: #652d90;
+        height: 36px;
+
+        border: 1px solid #652d90;
+      }
+      .pi {
+        font-size: 100%;
+      }
+
+      .p-button:focus {
+        box-shadow: none;
       }
     }
-    ::ng-deep .tableheaderdesign{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-
-    }
-
-    .filter-components {
-        display: flex;
-        justify-content: space-between;
-      }
-      .first-four {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-      }
-     
-      
-      .PreviewBtn {
-        ::ng-deep {
-          .p-button {
-            color: #fafafa;
-            background: #652d90;
-            height: 36px;
-    
-            border: 1px solid #652d90;
-          }
-          .pi {
-            font-size: 100%;
-          }
-    
-          .p-button:focus {
-            box-shadow: none;
-          }
-        }
-      }
-      .serialno {
-        width: 6%;
-      }
-      .schedulenameHeading {
-        width: 50%;
-      }
-      
-      .skillsHeading {
-        width: 40%;
-      }
   }
-  .custom-clear {
+  .serialno {
+    width: 6%;
+  }
+  .schedulenameHeading {
+    width: 50%;
+  }
+
+  .skillsHeading {
+    width: 40%;
+  }
+}
+.custom-clear {
   ::ng-deep {
     .p-button:enabled:hover {
       background: white;
@@ -326,271 +322,267 @@ color:#652d90;
     }
   }
 }
-  .clear-button {
-    height: 36px;
-    padding: 6px, 6px, 6px, 8px;
-    border-radius: 4px;
-    border: 1px;
-    color: #c81a78;
-    border: 1px solid #c81a78;
+.clear-button {
+  height: 36px;
+  padding: 6px, 6px, 6px, 8px;
+  border-radius: 4px;
+  border: 1px;
+  color: #c81a78;
+  border: 1px solid #c81a78;
+  background: white;
+
+  ::ng-deep .p-button:enabled:hover {
     background: white;
+    color: #c81a78;
+    border-color: #c81a78;
+  }
+}
 
-    ::ng-deep .p-button:enabled:hover {
-      background: white;
-      color: #c81a78;
-      border-color: #c81a78;
+.questionsidebar {
+  .question-design {
+    // height: 23px;
+    font-family: "Roboto";
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.150000006px;
+    text-align: left;
+    color: #652d90;
+    padding: 3% 0% 3% 0%;
+  }
+  .select-size input {
+    display: none;
+  }
+  .select-size {
+    padding-bottom: 2%;
+    border-bottom: 1px solid #0000001f;
   }
 
+  .option {
+    display: flex;
+    align-items: center;
+    color: #00000061;
   }
+  .option-content {
+    padding: 0.8% 1% 0.8% 1%;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 3px;
+    width: 100%;
+  }
+  .option {
+    font-weight: 450;
+    gap: 1%;
+    margin-bottom: 1%;
 
-  .questionsidebar {
-    .question-design {
-      // height: 23px;
-      font-family: "Roboto";
-      font-size: 20px;
-      font-weight: 500;
-      letter-spacing: 0.150000006px;
-      text-align: left;
+    .box-design {
+      border: 1px solid #c1abd3;
+      width: 5%;
+      border-radius: 4px;
+      text-align: center;
+      padding: 5px;
+    }
+    &:hover:not(.correctAnswer) {
+      .box-design,
+      .option-content {
+        background: #c1abd3;
+        color: white;
+      }
+    }
+  }
+  .correctAnswer {
+    .option-content {
+      background: #f9f5d1;
       color: #652d90;
-      padding: 3% 0% 3% 0%;
     }
-    .select-size input {
-      display: none;
+    .box-design {
+      background: #652d90;
+      color: white;
     }
-    .select-size {
-      padding-bottom: 2%;
+  }
+  .custom_button {
+    gap: 3%;
+    ::ng-deep .p-button {
+      color: #652d90;
+      background: #ffffff;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: #652d90;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .btnfooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .instruction {
+      font-size: 16px;
+      font-family: "Poppins";
+      font-weight: 400;
+      color: #00000099;
+      padding: 2% 0% 2% 0%;
+    }
+    .quiz-instruction {
+      padding-bottom: 5%;
       border-bottom: 1px solid #0000001f;
     }
-  
-    .option {
-      display: flex;
-      align-items: center;
-      color: #00000061;
-    }
-    .option-content {
-      padding: 0.8% 1% 0.8% 1%;
+    .points {
       font-family: "Roboto";
-      font-size: 16px;
-      font-weight: 500;
-      border-radius: 3px;
-      width: 100%;
-    }
-    .option {
-      font-weight: 450;
-      gap: 1%;
-      margin-bottom: 1%;
-  
-      .box-design {
-        border: 1px solid #c1abd3;
-        width: 5%;
-        border-radius: 4px;
-        text-align: center;
-        padding: 5px;
-      }
-      &:hover:not(.correctAnswer) {
-        .box-design,
-        .option-content {
-          background: #c1abd3;
-          color: white;
-        }
+      color: #00000099;
+      font-weight: 400;
+      padding-left: 4%;
+      li {
+        padding-bottom: 1%;
       }
     }
-    .correctAnswer {
-      .option-content {
-        background: #f9f5d1;
-        color: #652d90;
-      }
-      .box-design {
-        background: #652d90;
-        color: white;
-      }
-    }
-    .custom_button {
-      gap: 3%;
-      ::ng-deep .p-button {
-        color: #652d90;
-        background: #ffffff;
-        border: 1px solid #652d90;
-        height: 90%;
-        &:hover {
-          color: #652d90;
-        }
-        &:focus {
-          box-shadow: none;
-        }
-      }
-    }
-  
-    .btnfooter {
+
+    .sidebarbuttons {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-  
-      .instruction {
-        font-size: 16px;
-        font-family: "Poppins";
-        font-weight: 400;
-        color: #00000099;
-        padding: 2% 0% 2% 0%;
-      }
-      .quiz-instruction {
-        padding-bottom: 5%;
-        border-bottom: 1px solid #0000001f;
-      }
-      .points {
-        font-family: "Roboto";
-        color: #00000099;
-        font-weight: 400;
-        padding-left: 4%;
-        li {
-          padding-bottom: 1%;
-        }
-      }
-  
-      .sidebarbuttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: end;
-        padding-top: 5%;
-      }
+      flex-direction: row;
+      justify-content: end;
+      padding-top: 5%;
     }
-    .custom_button_send {
-      ::ng-deep .p-button {
+  }
+  .custom_button_send {
+    ::ng-deep .p-button {
+      color: white;
+      background: #652d90;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
         color: white;
-        background: #652d90;
-        border: 1px solid #652d90;
-        height: 90%;
-        &:hover {
-          color: white;
-        }
-        &:focus {
-          box-shadow: none;
-        }
       }
-    }
-  
-    ::ng-deep {
-      .p-sidebar .p-sidebar-header {
-        padding: 1.25rem;
-        border: 1px solid #0000001f;
-        color: #1e22aa;
-        font-family: "Poppins";
-        font-weight: 500;
-        font-size: 20px;
-      }
-      .p-sidebar {
-        width: 45%;
-      }
-      .p-sidebar .p-sidebar-footer {
-        padding: 0;
+      &:focus {
+        box-shadow: none;
       }
     }
   }
 
-  //Assessment design
-  .searchIcon {
-    border-radius: 4px;
-    border: 1px;
-    ::ng-deep {
-        i {
-    //   margin-top: -7px !important;
+  ::ng-deep {
+    .p-sidebar .p-sidebar-header {
+      padding: 1.25rem;
+      border: 1px solid #0000001f;
+      color: #1e22aa;
+      font-family: "Poppins";
+      font-weight: 500;
+      font-size: 20px;
     }
-    .p-inputtext{
-        padding: 5%;
+    .p-sidebar {
+      width: 45%;
     }
+    .p-sidebar .p-sidebar-footer {
+      padding: 0;
+    }
+  }
 }
-    
+
+//Assessment design
+.searchIcon {
+  border-radius: 4px;
+  border: 1px;
+  ::ng-deep {
+    i {
+      //   margin-top: -7px !important;
+    }
+    .p-inputtext {
+      padding: 5%;
+    }
   }
-  .candidate-table{
-    .filter-components {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
-      .Shortlisted {
-        width: 70px;
-        color: white;
-        background-color: green;
-        text-align: center;
-        height: 18px;
-        border-radius: 4px;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        padding-left: 4px;
-        padding-right: 4px;
-      }
-      
-      .Rejected {
-        background-color: red;
-        color: white;
-        text-align: center;
-        width: 58px;
-        height: 18px;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        padding-left: 4px;
-        padding-right: 4px;
-        border-radius: 4px;
-      }
-      
-      .Awaiting {
-        color: white;
-        background-color: blue;
-        text-align: center;
-        border-radius: 8px;
-        width: 84px;
-        height: 18px;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        padding-left: 4px;
-        padding-right: 4px;
-        border-radius: 4px;
-      }
-      
-      .Cancelled {
-        color: white;
-        background-color: pink;
-        height: 18px;
-        border-radius: 8px;
-        text-align: center;
-        width: 64px;
-        height: 18px;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        padding-left: 4px;
-        padding-right: 4px;
-        border-radius: 4px;
-      }
-      
-      .Scheduled {
-        color: white;
-        background-color: grey;
-        text-align: center;
-      
-        border-radius: 8px;
-        width: 68px;
-        height: 18px;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        padding-left: 4px;
-        padding-right: 4px;
-        border-radius: 4px;
-      }
-      
-      .resultDesign {
-        width: 84px;
-        height: 18px;
-        font-size: 12px;
-      
-        span {
-          font-size: 12px;
-          margin-top: 2px;
-        }
-      }
-      
-      .assessmentName {
-        color: #1e22aa !important;
-      }
-      
+}
+.candidate-table {
+  .filter-components {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
-  
+  .Shortlisted {
+    width: 70px;
+    color: white;
+    background-color: green;
+    text-align: center;
+    height: 18px;
+    border-radius: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .Rejected {
+    background-color: red;
+    color: white;
+    text-align: center;
+    width: 58px;
+    height: 18px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 4px;
+  }
+
+  .Awaiting {
+    color: white;
+    background-color: blue;
+    text-align: center;
+    border-radius: 8px;
+    width: 84px;
+    height: 18px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 4px;
+  }
+
+  .Cancelled {
+    color: white;
+    background-color: pink;
+    height: 18px;
+    border-radius: 8px;
+    text-align: center;
+    width: 64px;
+    height: 18px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 4px;
+  }
+
+  .Scheduled {
+    color: white;
+    background-color: grey;
+    text-align: center;
+
+    border-radius: 8px;
+    width: 68px;
+    height: 18px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 4px;
+  }
+
+  .resultDesign {
+    width: 84px;
+    height: 18px;
+    font-size: 12px;
+
+    span {
+      font-size: 12px;
+      margin-top: 2px;
+    }
+  }
+
+  .assessmentName {
+    color: #1e22aa !important;
+  }
+}
