@@ -135,7 +135,7 @@ export class ManageSkillsComponent {
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
-    if (option.includes(selected_Option)) {
+    if (selected_Option.includes(option)) {
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
