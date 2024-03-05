@@ -229,9 +229,7 @@ export class ManageSkillsComponent {
 
         setTimeout(() => {
           this.fileUploadMessage();
-          window.location.reload();
           this.cancelButton();
-
         }, 1000);
       },
       header: true,
