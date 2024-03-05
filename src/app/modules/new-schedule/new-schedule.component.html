@@ -340,7 +340,7 @@
               [(selection)]="selectedQuestion"
               dataKey="id"
               [scrollable]="true"
-              scrollHeight="270px"
+              scrollHeight="290px"
               [globalFilterFields]="[
                 'question',
                 'questionType',
@@ -466,6 +466,7 @@
     [modal]="true"
     [style]="{ width: '38.75rem', height: 'auto' }"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+   
   >
     <ng-template pTemplate="header">
       <div class="inline-flex align-items-center justify-content-center gap-2">
@@ -503,7 +504,7 @@
   <p-sidebar
     [(visible)]="previewSidebarVisible"
     position="right"
-    [modal]="true"
+    [dismissable]="true"
   >
     <ng-template class="header_design" pTemplate="header"
       >Questions Preview

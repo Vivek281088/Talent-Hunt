@@ -232,6 +232,14 @@
                   *ngIf="addManagerForm.get('employeeId')?.hasError('required')"
                 >
                   Employee Id is required !
+
+                  <div 
+                  class="error-message"
+                   *ngIf="addManagerForm.get('employeeId')?.hasError('minlength')
+                    || addManagerForm.get('employeeId')?.hasError('maxlength')">
+                    Employee ID must be 7 characters long.
+                  </div>
+               
                 </div>
                 <div
                   class="error-message"

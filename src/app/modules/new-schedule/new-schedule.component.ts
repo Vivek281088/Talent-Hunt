@@ -544,7 +544,9 @@ export class NewScheduleComponent {
     });
   }
   getSelectedOptions(selected_Option: any, option: any) {
+    console.log('Function Working');
     if (option.includes(selected_Option)) {
+      console.log('correct answer');
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
