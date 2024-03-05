@@ -29,6 +29,7 @@ export class ManageSkillsComponent {
   item: any[] = [];
   todayDate!: string;
   items: MenuItem[] | undefined;
+  formModified: boolean = false;
   visible: boolean = false;
   scheduleName!: string;
   tabs: { title: any; content: any }[] = [];
@@ -55,7 +56,7 @@ export class ManageSkillsComponent {
     this.todayDate = this.formattedDate(new Date());
     this.getSkillSet();
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Questions', routerLink: '/manage-skills' },
     ];
   }
@@ -110,9 +111,7 @@ export class ManageSkillsComponent {
       .postskillsList(this.skills)
       .subscribe((response) => {
         console.log('recieved response', response);
-        // this.ngzone.run(() => {
-        // Your code that triggers change
-        // this.tabs.push(...transformedData);
+        
         for (let i = 0; i < response.length; i++) {
           this.tabs.push({
             title: response[i].skills,
@@ -136,7 +135,7 @@ export class ManageSkillsComponent {
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
-    if (option.includes(selected_Option)) {
+    if (selected_Option.includes(option)) {
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -325,6 +324,7 @@ export class ManageSkillsComponent {
   }
 
   updateQuestionView() {
+    
     this.showUpdateMessage();
     console.log('dd=>>>>>>>>>>>>>>>>>>', this.difficultyLevel);
     this.difficultyLevel = this.getBackendDifficultyLevel(
@@ -345,6 +345,7 @@ export class ManageSkillsComponent {
         setTimeout(() => {
           this.QuestionView = false;
           window.location.reload();
+          this.formModified = false;
         }, 1000);
       });
   }
@@ -359,10 +360,9 @@ export class ManageSkillsComponent {
   }
   cancelQuestionView() {
     this.QuestionView = false;
+    this.formModified = false;
   }
-  closeButton() {
-    this.questionPreviewvisible = false;
-  }
+  
   sidebarClose() {
     this.previewSidebarVisible = false;
   }

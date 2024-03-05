@@ -24,6 +24,20 @@
     .p-datatable .p-datatable-thead > tr > th {
       background: white;
     }
+    .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+      border-color: #652d90;
+      color: #652d90;
+    }
+    .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+      font-family: "Roboto", sans-serif;
+      font-size: 14px;
+    }
+    .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+      box-shadow: none;
+    }
+    .p-datatable .p-datatable-thead > tr > th {
+      padding: 1rem 1rem 1rem 1rem;
+    }
   }
 }
 
@@ -416,22 +430,7 @@
     padding-bottom: 1%;
   }
 }
-::ng-deep {
-  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    border-color: #652d90;
-    color: #652d90;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    font-family: "Roboto", sans-serif;
-    font-size: 14px;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-    box-shadow: none;
-  }
-  .p-datatable .p-datatable-thead > tr > th {
-    padding: 1rem 1rem 1rem 1rem;
-  }
-}
+
 .custom-file-input {
   border: 1px solid #652d90;
   border-radius: 8px;

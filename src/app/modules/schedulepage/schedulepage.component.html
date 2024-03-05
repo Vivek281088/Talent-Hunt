@@ -146,7 +146,8 @@
                       selectedDeleteSchedule.length == 0
                     "
                     class="btn flex align-items-center justify-content-center cursor-pointer"
-                    (click)="deleteSchedule()"
+                   
+                     (click)="confirmPosition('top')" 
                     label="Delete"
                   ></button>
                 </div>
@@ -461,6 +462,14 @@
             >
               Schedule Name is required !
             </div>
+            <div
+            class="error-message"
+            *ngIf="
+              addnewScheduleForm.get('scheduleName')?.hasError('pattern')
+            "
+          >
+            Enter a valid Schedule name!
+          </div>
           </div>
         </div>
       </div>
@@ -538,6 +547,7 @@
           </div>
           <div class="value">
             <input
+            appThreeDigit
               type="number"
               pInputText
               formControlName="cutoff"
@@ -581,11 +591,15 @@
           </div>
           <div class="value">
             <input
+            appThreeDigit
               type="text"
               pInputText
               formControlName="duration"
               mode="decimal"
             />
+            
+         
+      
             <div
               *ngIf="
                 addnewScheduleForm.get('duration')?.invalid &&
@@ -612,10 +626,20 @@
                 Duration value must be greater than 30mins !
               </div>
             </div>
+    
+            <div
+              class="error-message"
+              *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
+            >
+              duration value must be greater than 0 !
+            </div>
+            </div>
+
+           
           </div>
         </div>
       </div>
-    </div>
+    
 
     <ng-template pTemplate="footer">
       <div class="Newschedule-button">
@@ -630,3 +654,9 @@
     </ng-template>
   </p-dialog>
 </div>
+<p-confirmDialog class="button_design"
+  [style]="{ width: '40vw' }"
+  key="positionDialog"
+  [position]="position"
+  rejectButtonStyleClass=""
+></p-confirmDialog>

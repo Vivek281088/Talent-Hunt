@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -7,11 +7,16 @@ import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { Router } from '@angular/router';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+} from 'primeng/api';
 @Component({
   selector: 'app-manage-managers',
   templateUrl: './manage-managers.component.html',
   styleUrls: ['./manage-managers.component.scss'],
-  providers: [MessageService],
+  providers: [ConfirmationService, MessageService],
 })
 export class ManageManagersComponent {
   items: MenuItem[] | undefined;
@@ -26,12 +31,14 @@ export class ManageManagersComponent {
   isEditManager: boolean = false;
   addManagerForm!: FormGroup;
   formSubmitted: boolean = false;
+  position: string = 'center';
 
   constructor(
     private managerService: ManagernameService,
     private fb: FormBuilder,
     private messageService: MessageService,
     private router: Router,
+    private confirmationService: ConfirmationService,
     private newScheduleService: NewScheduleService
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
@@ -52,7 +59,7 @@ export class ManageManagersComponent {
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Managers', routerLink: '/manage-managers' },
     ];
   }
@@ -123,7 +130,8 @@ export class ManageManagersComponent {
         location: this.selectedRowData.managerLocation,
       });
     }
-    console.log('Edit Data', this.addManagerForm);
+    //console.log('Edit Data', this.addManagerForm);
+    console.log("touched",this.addManagerForm)
   }
 
   cancelButton() {
@@ -333,7 +341,45 @@ export class ManageManagersComponent {
       this.loadManagerData();
     }, 1000);
   }
-
+  confirmPosition(position: string) {
+    this.position = position;
+ 
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the schedule?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Deleted',
+          detail: 'Schedule Deleted Successfully',
+        });
+     this.deleteManager();
+       
+      },
+      reject: (type: ConfirmEventType) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            console.log('Rejected');
+            break;
+          case ConfirmEventType.CANCEL:
+            console.log('Canceled');
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+      key: 'positionDialog',
+    });
+  }
   selectedDeleteManager: any;
   deleteManager() {
     console.log('Deleteting Manager.....', this.selectedDeleteManager);
@@ -346,7 +392,7 @@ export class ManageManagersComponent {
     }
 
     setTimeout(() => {
-      this.deleteMessage();
+      //this.deleteMessage();
       this.selectedDeleteManager = [];
       this.loadManagerData();
     }, 1500);

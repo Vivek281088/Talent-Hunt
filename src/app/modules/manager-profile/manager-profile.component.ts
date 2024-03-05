@@ -54,7 +54,7 @@ export class ManagerProfileComponent {
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Manager', routerLink: '/manage-managers' },
       { label: 'Manager Profile', routerLink: '/managerProfile' },
     ];

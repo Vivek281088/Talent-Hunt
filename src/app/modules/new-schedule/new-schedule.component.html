@@ -18,6 +18,8 @@
       </div>
       <div class="saveBtn" (click)="saveSelected()"*ngIf="saveOrEditButton == 'Save'">
         <p-button
+        (click)="saveSelected() "
+        
           label="Save Changes"
           [disabled]="selectedquestions?.length == 0"
         >
@@ -680,3 +682,4 @@
     </ng-template>
   </p-dialog>
 </div>
+
