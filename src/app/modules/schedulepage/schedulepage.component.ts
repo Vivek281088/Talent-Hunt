@@ -104,7 +104,7 @@ export class SchedulepageComponent implements OnInit {
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
     this.todayDate = this.formattedDate(new Date());
-    console.log('Date--------', this.todayDate);
+   // console.log('Date--------', this.todayDate);
 
     this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
 
@@ -170,9 +170,11 @@ export class SchedulepageComponent implements OnInit {
 
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((response) => {
-      this.managerData = response;
-
-      console.log('Client Manager Details', this.managerData);
+      this.managerData = response
+      // .map(
+      //   (manager: { managerName: string }) => manager.managerName
+      // );
+      console.log('Client Manager Details', response);
     });
   }
 
@@ -214,7 +216,7 @@ export class SchedulepageComponent implements OnInit {
   }
 
   closeSidebar() {
-    this, (this.viewQuestionSidebar = false);
+    this.viewQuestionSidebar = false;
   }
   onViewClick(data: any) {
     this.viewQuestionSidebar = true;
@@ -245,7 +247,6 @@ export class SchedulepageComponent implements OnInit {
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;
-
     this.selectedQuestions = data.questions;
     this.cutoff = data.cutoff;
     this.durations = data.durations;
@@ -495,4 +496,9 @@ export class SchedulepageComponent implements OnInit {
   selectAll() {
     console.log('Selected all Schedule:', this.selectedDeleteSchedule);
   }
+
+ 
+  
+  
+
 }
