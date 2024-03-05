@@ -369,10 +369,10 @@
               </p-button>
             </div>
             <div class="Createbutton" *ngIf="isAddCandidate">
-              <p-button label="Save" (onClick)="saveCandidate()"> </p-button>
+              <p-button label="Save" (onClick)="saveCandidate()" > </p-button>
             </div>
             <div class="Createbutton" *ngIf="isEditCandidate">
-              <p-button label="Update" (onClick)="updateCandidate()">
+              <p-button label="Update" (onClick)="updateCandidate()" >
               </p-button>
             </div>
           </div>
@@ -570,7 +570,7 @@
               <p-button label="Save" (onClick)="saveCandidate()"> </p-button>
             </div>
             <div class="Createbutton" *ngIf="isEditCandidate">
-              <p-button label="Update" (onClick)="updateCandidate()">
+              <p-button label="Update" (onClick)="updateCandidate()" [disabled]=(addCandidateForm.pristine)>
               </p-button>
             </div>
           </div>

@@ -39,15 +39,26 @@ export class ManageSkillsComponent {
   singleQuestionOption: any;
   singleQuestionAnswer: any;
   selectedquestions: any[] = [];
+  EditQuestionForm!: FormGroup;
 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
     private router: Router,
+    private fb: FormBuilder,
     private managerService: ManagernameService,
     private messageService: MessageService,
     private cdr: ChangeDetectorRef
   ) {
     // this.data=this.dataservice.sharedData;
+    this.EditQuestionForm = this.fb.group({
+      question: ['', [Validators.required]],
+      questionTypeSelected: ['', [Validators.required]],
+      Difficulty_Level: ['', [Validators.required]],
+      choices: ['', [Validators.required]],
+      answer: [[], [Validators.required]],
+
+
+    });
   }
 
   ngOnInit() {
@@ -270,35 +281,37 @@ export class ManageSkillsComponent {
   question!: string;
   isViewingQuestion: boolean = false;
   QuestionView: boolean = false;
-  individualQuestionView(
-    id: any,
-    question: any,
-    questionTypeSelected: any,
-    choices: any,
-    skills: any,
-    Difficulty_Level: any,
-    answer: any
-  ) {
+  individualQuestionView(data: any) {
     this.QuestionView = true;
-    this.id = id;
-    this.question = question;
-    this.questionTypeSelected = questionTypeSelected;
+    this.id = data.id;
+    this.question = data.question;
+    this.questionTypeSelected = data.questionType;
     // this.options=choices;
-    this.choices = choices;
+    this.choices = data.options;
 
     this.Difficulty_Level =
-      this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
-    this.skills = skills;
-    this.answer = answer;
+      this.getBackendDifficultyLevelViceVersa(data.Difficulty_Level);
+    this.skills = data.skills;
+    this.answer = data.answer;
 
     console.log(
-      'id------------->',
-      id,
-      skills,
-      answer,
-      this.Difficulty_Level,
-      choices
+      'Editable data------------->', data
     );
+    this.populateFormControls(data)
+
+  }
+
+  populateFormControls(data: any) {
+    if (data) {
+      this.EditQuestionForm.patchValue({
+        question: data.question,
+        questionTypeSelected: data.questionType,
+        Difficulty_Level: this.getBackendDifficultyLevelViceVersa(data.Difficulty_Level),
+        choices: data.options,
+        answer: data.answer
+      });
+    }
+    console.log('Edit Data', this.EditQuestionForm);
   }
   getBackendDifficultyLevelViceVersa(frontendValue: string): string {
     if (frontendValue === 'E') {
