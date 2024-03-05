@@ -61,11 +61,11 @@ export class ManageManagersComponent {
       this.managerData = response;
 
       this.managerData.forEach((manager: { selection: boolean }) => {
-        manager.selection = manager.selection || false; 
+        manager.selection = manager.selection || false;
       });
     });
   }
-  
+
   formattedDate(date: Date) {
     const months: string[] = [
       'Jan',
@@ -94,7 +94,7 @@ export class ManageManagersComponent {
     this.globalSearchValue = '';
   }
 
- 
+
 
   addManager() {
     this.visible = true;

@@ -21,7 +21,7 @@
         <p-tabView>
           <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
             <!-- <ng-template pTemplate="header">
-             
+
             </ng-template> -->
             <p-table
               #dt2
@@ -240,7 +240,7 @@
           </p-button>
         </div>
 
-        
+
 
         <div class="Createbutton">
           <p-button label="Download" (onClick)="downloadQuestionsCsvTemplate()">
@@ -261,6 +261,7 @@
 </div>
 
 <p-toast></p-toast>
+
 <div class="newSchedule-Dialog">
   <p-dialog
     header="New Schedule"
@@ -277,7 +278,7 @@
           <span class="important-symbol">&#42;</span>
         </div>
         <div class="value">
-          <input type="text" pInputText [(ngModel)]="question" />
+          <input type="text" pInputText [(ngModel)]="question" (ngModelChange)="formModified = true"/>
         </div>
       </div>
 
@@ -293,6 +294,7 @@
             placeholder="--Select--"
             [options]="questionType"
             [(ngModel)]="questionTypeSelected"
+            (ngModelChange)="formModified = true"
           >
           </p-dropdown>
         </div>
@@ -310,6 +312,7 @@
             placeholder="--Select--"
             [options]="difficultyLevel"
             [(ngModel)]="Difficulty_Level"
+            (ngModelChange)="formModified = true"
           >
           </p-dropdown>
         </div>
@@ -331,7 +334,7 @@
           *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index"
         >
           <label for="answer{{ i }}" class="title">{{ letter }} </label>
-          <input type="text" pInputText [(ngModel)]="choices[i]" />
+          <input type="text" pInputText [(ngModel)]="choices[i]" (ngModelChange)="formModified = true" />
         </div>
       </div>
 
@@ -356,6 +359,7 @@
             <p-radioButton
               [(ngModel)]="answer"
               [value]="choices[i]"
+              (ngModelChange)="formModified = true"
               required
             ></p-radioButton>
           </ng-container>
@@ -376,7 +380,7 @@
           </p-button>
         </div>
         <div class="Createbutton">
-          <p-button (click)="updateQuestionView()">
+          <p-button (click)="updateQuestionView()" [disabled]="!formModified">
             <label class="Create-word"> Update </label>
           </p-button>
         </div>
@@ -416,11 +420,11 @@
       </div>
     </div>
     <ng-template pTemplate="footer">
-      <p-button
+      <!-- <p-button
         (onClick)="closeButton()"
         class="Closebutton"
         label="Close"
-      ></p-button>
-    </ng-template>
+      ></p-button> -->
+     </ng-template>
   </p-dialog>
 </div>

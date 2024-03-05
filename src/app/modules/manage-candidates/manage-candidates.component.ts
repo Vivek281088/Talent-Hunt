@@ -155,7 +155,7 @@ export class ManageCandidatesComponent {
     this.isEditCandidate = false;
     this.addCandidatevisible = true;
   }
-  
+
   cancelButton() {
     this.addCandidatevisible = false;
     this.editCandidatevisible = false;
@@ -314,8 +314,13 @@ export class ManageCandidatesComponent {
 
   gotoCandidateProfile(data: any) {
     console.log('Candidate data', data);
-    this.newScheduleService.setCandidateProfileData(data);
-
+   // this.newScheduleService.setCandidateProfileData(data);
+   sessionStorage.setItem("CandiateProfileId", data.empid);
+   sessionStorage.setItem("CandiateProfileName", data.candidateName);
+   sessionStorage.setItem("CandiateProfileEmail", data.candidateEmail);
+   sessionStorage.setItem("CandiateProfilePhone", data.candidatePhone);
+   sessionStorage.setItem("CandiateProfileDepartment", data.department);
+   sessionStorage.setItem("CandiateProfileLocation", data.candidate_location);
     this.router.navigate(['/candidateProfile']);
   }
 

@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
@@ -27,6 +27,7 @@ import { Router } from '@angular/router';
 })
 export class ManageSkillsComponent {
   item: any[] = [];
+  formModified: boolean = false;
   todayDate!: string;
   items: MenuItem[] | undefined;
   visible: boolean = false;
@@ -270,6 +271,7 @@ export class ManageSkillsComponent {
   question!: string;
   isViewingQuestion: boolean = false;
   QuestionView: boolean = false;
+  loading = false;
   individualQuestionView(
     id: any,
     question: any,
@@ -323,6 +325,7 @@ export class ManageSkillsComponent {
   }
 
   updateQuestionView() {
+
     this.showUpdateMessage();
     console.log('dd=>>>>>>>>>>>>>>>>>>', this.difficultyLevel);
     this.difficultyLevel = this.getBackendDifficultyLevel(
@@ -345,6 +348,8 @@ export class ManageSkillsComponent {
           window.location.reload();
         }, 1000);
       });
+
+
   }
   showUpdateMessage() {
     this.messageService.add({

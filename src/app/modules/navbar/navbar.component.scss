@@ -13,19 +13,19 @@
   background: var(--01-primary-500, #652D90);
 box-shadow: 0px 1px 5px 0px rgba(179, 171, 186, 0.20), 0px 3px 1px 0px rgba(179, 171, 186, 0.12), 0px 2px 2px 0px rgba(179, 171, 186, 0.14);
 }
- 
+
 .logo-container{
   width: 89.268px;
 height: 30px;
 display: flex;
 flex-direction: row;
- 
+
 img{
   width: 89.27px;
 height: 30px;
  }
 }
- 
+
  .vrline{
   border-left: 1px solid #FFFFFF61;
   height: 30px;
@@ -35,22 +35,22 @@ height: 30px;
   // margin-left:10px ;
   margin: 0px 10px;
 }
- 
+
 .vrline1{
   // rotate: -90;
   height: 36px;
   border: 1px;
   background: #FFFFFF61;
-  border: 1px solid #FFFFFF61  
- 
+  border: 1px solid #FFFFFF61
+
 }
- 
+
 .logo-slogan{
- 
+
   margin: 5px 10px;
 }
- 
- 
+
+
 .icon-container{
    display: flex;
   flex-direction: row;
@@ -59,17 +59,17 @@ height: 30px;
   width: 302px;
 height: 36px;
 gap: 16px;
- 
+
 }
- 
- 
+
+
 .ic{
   width: 36px;
 height: 36px;
 padding: 6px;
 border-radius: 36px;
 }
- 
+
 .user-info{
   width: 130px;
 height: 36px;
@@ -78,7 +78,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 }
- 
+
 .user-name{
 width: 100px;
 height: 16px ;
@@ -93,9 +93,9 @@ color: #FFFFFF;
 white-space: nowrap;
 overflow: hidden;
 text-overflow: ellipsis;
- 
+
 }
- 
+
 .user-role{
   width: 37px;
   height: 14px;
@@ -107,19 +107,19 @@ line-height: 14px;
 letter-spacing: 0.4000000059604645px;
 text-align: left;
 color: #FFFFFFBD;
- 
- 
+
+
 }
- 
+
 .avatar-name{
   width: 130px;
 height: 32px;
 gap: 6px;
 display: flex;
 flex-direction: row;
- 
+
 }
- 
+
 .avatar-image{
   width: 32px;
 height: 32px;
@@ -129,7 +129,7 @@ background: #C81A78;
 
 .overlay-whole{
     display: flex;
-    width: 226px;
+    width: 220px;
     padding: 9px 8px;
     flex-direction: column;
     align-items: flex-start;
@@ -137,6 +137,7 @@ background: #C81A78;
     background: #FFF;
     box-shadow: 0px 11px 15px 0px rgba(179, 171, 186, 0.2), 0px 9px 46px 0px rgba(179, 171, 186, 0.12), 0px 24px 38px 0px rgba(179, 171, 186, 0.14);
     margin-top: 11px;
+    margin-right: 25px;
 }
 
 .overlay-content1{
@@ -284,5 +285,5 @@ line-height: normal;
     height: 200px;
     /*width: 100% */
   }
-  
+
 }

@@ -7,6 +7,7 @@ import { TableService } from 'src/app/services/table.service';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-candidate-profile',
@@ -53,7 +54,7 @@ export class CandidateProfileComponent {
     this.getCandidateProfileData();
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
-  
+
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Candidate', routerLink: '/manage-candidates' },
@@ -131,17 +132,18 @@ remainaingSkills(skills: any, count: number): string[] {
 //Assessment
 getCandidateProfileData(){
 
-  this.candidateData = this.newScheduleService.getCandidateProfileData();
-  console.log('Get Candidate Data', this.candidateData);
- 
+  //this.candidateData = this.newScheduleService.getCandidateProfileData();
+ // console.log('Get Candidate Data', this.candidateData);
+//console.log("candiate data",data)
   // Set values for the form controls
+console.log("phone",sessionStorage.getItem('CandiateProfilePhone'),)
   this.editCandidateForm.setValue({
-    employeeId: this.candidateData.empid,
-    candidateName: this.candidateData.candidateName,
-    email: this.candidateData.candidateEmail,
-    phone: this.candidateData.candidatePhone,
-    department: this.candidateData.department,
-    location: this.candidateData.candidate_location,
+    employeeId: sessionStorage.getItem('CandiateProfileId'),
+    candidateName: sessionStorage.getItem('CandiateProfileName'),
+    email: sessionStorage.getItem('CandiateProfileEmail'),
+    phone: sessionStorage.getItem('CandiateProfilePhone'),
+    department: sessionStorage.getItem('CandiateProfileDepartment'),
+    location: sessionStorage.getItem('CandiateProfileLocation'),
   });
 
   console.log('Form Values', this.editCandidateForm.value);
