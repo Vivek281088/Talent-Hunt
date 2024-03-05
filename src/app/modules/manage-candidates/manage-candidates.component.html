@@ -119,7 +119,7 @@
                 <div class="ml-3">
                   <button
                     pButton
-                    label="Clear filter"
+                    label="Clear Search"
                     class="clear-button cursor-pointer"
                     (click)="clear(dt2)"
                   ></button>
@@ -219,11 +219,11 @@
           </td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="emptymessage">
+      <!-- <ng-template pTemplate="emptymessage">
         <tr>
           <td colspan="8">No Data found.</td>
         </tr>
-      </ng-template>
+      </ng-template> -->
     </p-table>
   </div>
 </div>
@@ -251,13 +251,31 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <p-inputNumber
+              <input
+              pInputText 
                 formControlName="empid"
-                mode="decimal"
-                inputId="withoutgrouping"
-                [useGrouping]="false"
+                appAllowDigits ="6"
+                
               >
-              </p-inputNumber>
+              <div
+                *ngIf="
+                  addCandidateForm.get('empid')?.invalid &&
+                  (addCandidateForm.get('empid')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addCandidateForm.get('empid')?.hasError('required')"
+                >
+                  Employee Id is required !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="addCandidateForm.get('empid')?.hasError('minlength')"
+                >
+                  Enter a valid Employee Id !
+                </div>
+              </div>
             </div>
           </div>
 
@@ -267,7 +285,7 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="text" formControlName="candidateName" pInputText />
+              <input type="text" appNameInput formControlName="candidateName" pInputText />
               <div
                 *ngIf="
                   addCandidateForm.get('candidateName')?.invalid &&
@@ -282,6 +300,14 @@
                   "
                 >
                   Candidate Name is required !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    addCandidateForm.get('candidateName')?.hasError('minlength')
+                  "
+                >
+                  Enter a valid Candidate Name !
                 </div>
               </div>
             </div>
@@ -300,12 +326,18 @@
                   (addCandidateForm.get('email')?.touched || formSubmitted)
                 "
               >
-                <div
-                  class="error-message"
-                  *ngIf="addCandidateForm.get('email')?.hasError('required')"
-                >
-                  Email is required !
-                </div>
+              <div
+              class="error-message"
+              *ngIf="addCandidateForm.get('email')?.hasError('required')"
+            >
+              Email is required !
+            </div>
+            <div
+              class="error-message"
+              *ngIf="addCandidateForm.get('email')?.hasError('pattern')"
+            >
+           Enter a valid Email !
+            </div>
               </div>
             </div>
           </div>
@@ -316,13 +348,11 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <p-inputNumber
-                formControlName="phone"
-                mode="decimal"
-                inputId="withoutgrouping"
-                [useGrouping]="false"
-              >
-              </p-inputNumber>
+              <input
+              formControlName="phone"
+              appAllowDigits="10"
+              pInputText
+            >
               <div
                 *ngIf="
                   addCandidateForm.get('phone')?.invalid &&
@@ -354,6 +384,7 @@
             </div>
             <div class="value">
               <input type="text" formControlName="department" pInputText />
+              
             </div>
           </div>
         </div>

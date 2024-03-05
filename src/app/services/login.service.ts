@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
  
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
+  message!:string
   static islogin() {
     throw new Error('Method not implemented.');
   }
@@ -26,7 +27,18 @@ export class LoginService {
       {
         headers,
       }
-    );
+    ).pipe(
+      tap((responsedata)=>{
+        this.message="Mail updated successfully"
+      }),
+      catchError((error)=>{
+        console.log("Inside Catch Error")
+        console.error(error)
+
+        return throwError(()=> new Error(error.error))
+
+      })
+    )
     // return this.http.post<any>(this.skillsUrl + '/authenticate', body, {
     //   headers,
     // });

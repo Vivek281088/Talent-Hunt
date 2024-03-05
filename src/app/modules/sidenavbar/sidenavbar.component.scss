@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 
-.wholebar{
+.wholebar {
   display: flex;
-
 }
 .side-nav {
   display: flex;
@@ -133,15 +132,15 @@ ul li a {
     text-align: left;
   }
 }
-.toggleBtn{
+.toggleBtn {
   position: absolute;
   right: -23px;
   z-index: 1;
-  top: 13px;
-
+  top: 9px;
+  transform: rotate(180deg);
 }
-.toggle-btn.rotated {
-  transform: rotateX(180deg); /* Rotate horizontally by 180 degrees */
+.activatedToggle {
+  transform: rotate(180deg); /* Rotate horizontally by 180 degrees */
 }
 .toggle-btn {
   cursor: pointer;
@@ -188,7 +187,7 @@ ul li a {
   .toggle-btn {
     transform: rotate(-180deg);
   }
-  
+
   .ul1 {
     width: 40px;
     height: 220px;
@@ -221,13 +220,12 @@ ul li a {
     }
   }
 }
-.side-nav.collapsed .ul1 li.active{  
-    color: #00000099;
-    &:hover {
-      background: #c81a78;
-      color: #f2f2f2;
-    }
-  
+.side-nav.collapsed .ul1 li.active {
+  color: #00000099;
+  &:hover {
+    background: #c81a78;
+    color: #f2f2f2;
+  }
 }
 .side-nav.collapsed {
   .ul1 a,

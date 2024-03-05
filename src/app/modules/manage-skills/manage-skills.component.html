@@ -140,8 +140,15 @@
 
 <div class="card flex justify-content-centre">
   <div class="newSchedule-Dialog">
-    <p-dialog header="Upload Questions" [(visible)]="visible" [modal]="true" [style]="{ width: '47VW' }"
-      [draggable]="false" [resizable]="false">
+    <p-dialog
+      header="Upload Questions"
+      [(visible)]="visible"
+      [modal]="true"
+      [style]="{ width: '47VW' }"
+      [draggable]="false"
+      [resizable]="false"
+      [closable]="false"
+    >
       <div class="NewSchedule-content">
         <div class="quiz-instruction">
           <p class="instruction">Upload Question Instructions</p>
@@ -157,6 +164,14 @@
               Specify the Difficulty type field with values - Easy, Medium, or
               Hard.
             </li>
+            <li>
+              If it is Radio type question, Give the exact correct answer in any
+              one of the answer field.
+            </li>
+            <li>
+              If it is Checkbox type question, Mention the correct answers in
+              separate answer field.
+            </li>
           </ul>
         </div>
       </div>
@@ -166,8 +181,6 @@
           <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
           </p-button>
         </div>
-
-
 
         <div class="Createbutton">
           <p-button label="Download" (onClick)="downloadQuestionsCsvTemplate()">
@@ -289,7 +302,7 @@
           </p-button>
         </div>
         <div class="Createbutton">
-          <p-button (click)="updateQuestionView()">
+          <p-button (click)="updateQuestionView()" [disabled]="!formModified">
             <label class="Create-word"> Update </label>
           </p-button>
         </div>

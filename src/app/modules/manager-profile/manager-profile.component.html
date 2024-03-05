@@ -18,7 +18,26 @@
       </div>
     </div>
   </div>
+<div class="box_design">
+  <div class="photo">
 
+  </div>
+<div class="name">
+
+  <h2 class="name_design">{{editManagerForm.get('managerName')?.value}}</h2>
+  <div>
+  <p>{{editManagerForm.get('department')?.value}}</p>
+  </div>
+  <p>{{editManagerForm.get('email')?.value}} | {{editManagerForm.get('phone')?.value}}</p>
+  <p>{{editManagerForm.get('location')?.value}}</p>
+
+
+
+
+</div>
+  
+
+</div>
   <!-- <div class="managerDetails">
     <p class="name">Suresh</p>
     <p class="department">Delta</p>
@@ -66,6 +85,37 @@
                     "
                   >
                     Employee Id is required !
+                  </div>
+                </div> -->
+              </div>
+            </div>
+
+            <div class="labelvalue">
+              <div class="label">
+                <label>First Name</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <input
+                  type="text"
+                  formControlName="managerName"
+                  pInputText
+                  [disabled]="true"
+                />
+                <!-- <div
+                  *ngIf="
+                    editManagerForm.get('managerName')?.invalid &&
+                    (editManagerForm.get('managerName')?.touched ||
+                      formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      editManagerForm.get('managerName')?.hasError('required')
+                    "
+                  >
+                    Manager Name is required !
                   </div>
                 </div> -->
               </div>
@@ -313,6 +363,7 @@
                     +
                     <p-overlayPanel #op>
                       <ul
+                      style="list-style-type: none"
                         *ngFor="
                           let skill of remainaingSkills(
                             rowData.Skill,
@@ -321,13 +372,14 @@
                         "
                       >
                         <li>
-                          {{ skill }}
+                          <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
                         </li>
                       </ul>
                     </p-overlayPanel>
                     <p-badge
                       class="cursor-design"
-                      (click)="op.toggle($event)"
+                      (mouseenter)="op.toggle($event)"
+                (mouseleave)="op.toggle($event)"
                       [value]="
                         getFormattedSkills(
                           rowData.Skill
