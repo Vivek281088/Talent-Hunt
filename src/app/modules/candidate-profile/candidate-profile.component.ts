@@ -39,12 +39,12 @@ export class CandidateProfileComponent {
     private newScheduleService: NewScheduleService
   ) {
     this.editCandidateForm = this.fb.group({
-      employeeId: [null],
-      candidateName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      phone: [null, [Validators.required]],
-      department: [''],
-      location: [''],
+      employeeId: [{value:'',disabled:true} ,[Validators.required]],
+      candidateName: [{value:'',disabled:true} ,[Validators.required]],
+      email: [{value:null,disabled:true}, [Validators.required, Validators.email]],
+      phone: [{value:null,disabled:true} ,[Validators.required]],
+      department: [{value:'',disabled:true} ],
+      location: [{value:'',disabled:true}]
     });
   }
 

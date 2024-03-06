@@ -194,7 +194,7 @@ export class ManageManagersComponent {
       try {
         this.managerService
           .postClientManager(
-            formData.employeeId,
+            parseInt(formData.employeeId, 10),
             formData.managerName,
             formData.email,
             formData.phone,

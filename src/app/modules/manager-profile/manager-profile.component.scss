@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-
+@import '../resetpassword/resetpassword.component.scss';
 .manageManagers {
   display: flex;
   flex-direction: column;
@@ -161,13 +161,28 @@
             width: 100%;
         }
       display: inline-flex;
-      width: 38%;
+     
     }
   }
   .profilecontent{
     padding: 1rem;
   }
 
+  .value{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .customDelete{
+      padding: 2% 2% 2% 0%;
+      ::ng-deep .p-button{
+        background: green;
+        border: 1px solid green;
+      }
+      ::ng-deep .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
   .labelvalue {
     display: flex;
     flex-direction: column;
@@ -233,14 +248,16 @@
     }
   }
 .box_design{
+  //padding: 12px;
   .photo{
-    width: 200px;
+    width: 20%;
     
   }
   .name{
     display: flex;
     flex-direction: column;
     //padding:20px;
+    padding-top: 25px;
     gap: 8px;
     .name_design{
       
@@ -593,4 +610,78 @@ color:#652d90;
       }
       
   }
+ .reset-password{
+  display: flex;
+  flex-direction: column;
   
+ 
+ 
+
+ }
+
+ .signup-newpassword {
+  width: 352px;
+  height: 40px;
+  padding: 0px, 1px, 0px, 1px;
+  border-radius: 8px;
+  border: 1px;
+  gap: 10px;
+  margin: 0px;
+  background: linear-gradient(0deg, #fafafa, #fafafa),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+  border: 1px solid #0000001f;
+  font-size: 14px;
+}
+
+.confirmpassword-signup {
+  width: 352px;
+  margin: 0px;
+  height: 40px;
+  padding: 0px, 1px, 0px, 1px;
+  border-radius: 8px;
+  border: 1px;
+  gap: 10px;
+  font-size: 14px;
+  background: linear-gradient(0deg, #fafafa, #fafafa),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+  border: 1px solid #0000001f;
+}
+
+.formpassword, .confirmpassword{
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 4%;
+}
+
+.input-with-icon i {
+  position: absolute;
+  top: 38%;
+  transform: translateY(-30%);
+  left: 10px;
+  color: #00000099;
+  margin-left: 6px;
+  // margin-bottom: 20px;
+}
+
+.input-with-icon input {
+  padding-left: 45px;
+  width: 352px;
+  height: 56px;
+  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+// .p-inputgroup {
+//   input {
+//     width: 100%;
+//   }
+// }
+.input-with-icon1 {
+  display: flex;
+  position: relative;
+  border-radius: 8px;
+  // padding-bottom: 16px;
+  // margin-left: 24px;
+  border: 1px;
+  gap: 12px;
+}

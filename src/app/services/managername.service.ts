@@ -357,4 +357,20 @@ export class ManagernameService {
       { headers }
     );
   }
+
+  postResetPassword(password:string,email:string): Observable<any> {
+    console.log("at service" , password , email)
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      email:email,
+      password: password
+      
+    };
+return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resetpassword',
+body,
+{headers}
+);
+  }
+
+
 }
