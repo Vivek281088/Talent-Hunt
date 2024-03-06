@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   overlayVisible: boolean = false;
+  notificationOverlayVisible: boolean = false;
   candidateName: string = '';
   candidateList: any[] = [];
   showCandidateEmail!: string;
@@ -134,6 +135,9 @@ export class NavbarComponent {
 
   toggle() {
     this.overlayVisible = !this.overlayVisible;
+  }
+  notificationToggle(){
+    this.notificationOverlayVisible = !this.notificationOverlayVisible;
   }
 
   logout() {
