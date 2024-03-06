@@ -92,7 +92,7 @@
                 <div class="skillMultiselect">
                   <p-columnFilter
                     field="Skill"
-                    matchMode="in"
+                    matchMode="contains"
                     [showMenu]="false"
                     [showClearButton]="false"
                   >
@@ -110,6 +110,7 @@
                         [filter]="true"
                         optionLabel="skill"
                         optionValue="skill"
+                       
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
@@ -519,6 +520,8 @@
             appendTo="body"
             display="chip"
             [showClear]="false"
+            optionLabel="skill"
+            optionValue="skill"
           ></p-multiSelect>
 
           <div
