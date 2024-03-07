@@ -20,6 +20,32 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+
+export class dateClass {
+  static formattedDate(date: Date) {
+    const months: string[] = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    const month: string = months[date.getMonth()];
+    const day: number = date.getDate();
+    const year: number = date.getFullYear();
+    const formatDate: string = `${month} ${day}, ${year}`;
+
+    return formatDate;
+  }
+}
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -103,8 +129,8 @@ export class SchedulepageComponent implements OnInit {
     this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
-    this.todayDate = this.formattedDate(new Date());
-    console.log('Date--------', this.todayDate);
+    this.todayDate = dateClass.formattedDate(new Date());
+   // console.log('Date--------', this.todayDate);
 
     this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
 
@@ -170,9 +196,11 @@ export class SchedulepageComponent implements OnInit {
 
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((response) => {
-      this.managerData = response;
-
-      console.log('Client Manager Details', this.managerData);
+      this.managerData = response
+      // .map(
+      //   (manager: { managerName: string }) => manager.managerName
+      // );
+      console.log('Client Manager Details', response);
     });
   }
 
@@ -214,7 +242,7 @@ export class SchedulepageComponent implements OnInit {
   }
 
   closeSidebar() {
-    this, (this.viewQuestionSidebar = false);
+    this.viewQuestionSidebar = false;
   }
   onViewClick(data: any) {
     this.viewQuestionSidebar = true;
@@ -245,7 +273,6 @@ export class SchedulepageComponent implements OnInit {
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;
-
     this.selectedQuestions = data.questions;
     this.cutoff = data.cutoff;
     this.durations = data.durations;
@@ -290,7 +317,9 @@ export class SchedulepageComponent implements OnInit {
   // Loading skills for dropdown in add question
   loadSkills() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
-      this.skillSet = data;
+     data.forEach((element: any) => {
+         this.skillSet.push({ skill: element }); 
+      });;
       console.log('Skill Set', data);
     });
   }
@@ -323,7 +352,7 @@ export class SchedulepageComponent implements OnInit {
 
       //rest data
       this.score = null;
-      this.result = 'Awaiting Eval';
+      this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
 
@@ -384,29 +413,7 @@ export class SchedulepageComponent implements OnInit {
     this.addnewScheduleForm.reset();
     sessionStorage.setItem('SaveOrEdit', 'Save');
   }
-  formattedDate(date: Date) {
-    const months: string[] = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const month: string = months[date.getMonth()];
-    const day: number = date.getDate();
-    const year: number = date.getFullYear();
-    const formatDate: string = `${month} ${day}, ${year}`;
-
-    return formatDate;
-  }
+ 
 
   selectingCandidate() {
     console.log('Selected', this.selectedCandidates);
@@ -495,4 +502,9 @@ export class SchedulepageComponent implements OnInit {
   selectAll() {
     console.log('Selected all Schedule:', this.selectedDeleteSchedule);
   }
+
+ 
+  
+  
+
 }

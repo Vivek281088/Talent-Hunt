@@ -7,6 +7,7 @@ import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { Router } from '@angular/router';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
+
 import {
   ConfirmationService,
   MessageService,
@@ -59,7 +60,7 @@ export class ManageManagersComponent {
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Managers', routerLink: '/manage-managers' },
     ];
   }
@@ -94,7 +95,6 @@ export class ManageManagersComponent {
     const day: number = date.getDate();
     const year: number = date.getFullYear();
     const formatDate: string = `${month} ${day}, ${year}`;
-
     return formatDate;
   }
   clear(table: Table) {

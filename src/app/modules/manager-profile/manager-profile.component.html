@@ -415,11 +415,18 @@
                           )
                         ">
                         <li>
-                          {{ skill }}
+                          <p-chip
+                          class="scheduleChip"
+                          label="{{ skill }}"
+                        ></p-chip>
                         </li>
                       </ul>
                     </p-overlayPanel>
-                    <p-badge class="cursor-design" (click)="op.toggle($event)" [value]="
+                    <p-badge
+                      class="cursor-design"
+                      (mouseenter)="op.toggle($event)"
+                      (mouseleave)="op.toggle($event)"
+                      [value]="
                         getFormattedSkills(
                           rowData.Skill
                         ).remainingCount.toString()

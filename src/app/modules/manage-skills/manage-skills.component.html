@@ -214,6 +214,7 @@
       [style]="{ width: '47VW' }"
       [draggable]="false"
       [resizable]="false"
+      [closable]="false"
     >
       <div class="NewSchedule-content">
         <div class="quiz-instruction">
@@ -231,10 +232,12 @@
               Hard.
             </li>
             <li>
-              If it is Radio type question, Give the exact correct answer in any one of the answer field.
+              If it is Radio type question, Give the exact correct answer in any
+              one of the answer field.
             </li>
             <li>
-              If it is Checkbox type question, Mention the correct answers in separate answer field.
+              If it is Checkbox type question, Mention the correct answers in
+              separate answer field.
             </li>
           </ul>
         </div>
@@ -245,8 +248,6 @@
           <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
           </p-button>
         </div>
-
-        
 
         <div class="Createbutton">
           <p-button label="Download" (onClick)="downloadQuestionsCsvTemplate()">
@@ -274,6 +275,7 @@
     [modal]="true"
     [style]="{ width: '47VW' }"
     [draggable]="false"
+    [closable]="false"
     [resizable]="false"
   >
     <div class="NewSchedule-content">
@@ -283,7 +285,12 @@
           <span class="important-symbol">&#42;</span>
         </div>
         <div class="value">
-          <input type="text" pInputText [(ngModel)]="question" />
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="question"
+            (ngModelChange)="formModified = true"
+          />
         </div>
       </div>
 
@@ -299,6 +306,7 @@
             placeholder="--Select--"
             [options]="questionType"
             [(ngModel)]="questionTypeSelected"
+            (ngModelChange)="formModified = true"
           >
           </p-dropdown>
         </div>
@@ -316,6 +324,7 @@
             placeholder="--Select--"
             [options]="difficultyLevel"
             [(ngModel)]="Difficulty_Level"
+            (ngModelChange)="formModified = true"
           >
           </p-dropdown>
         </div>
@@ -337,7 +346,12 @@
           *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index"
         >
           <label for="answer{{ i }}" class="title">{{ letter }} </label>
-          <input type="text" pInputText [(ngModel)]="choices[i]" />
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="choices[i]"
+            (ngModelChange)="formModified = true"
+          />
         </div>
       </div>
 
@@ -361,6 +375,7 @@
           >
             <p-radioButton
               [(ngModel)]="answer"
+              (ngModelChange)="formModified = true"
               [value]="choices[i]"
               required
             ></p-radioButton>
@@ -382,7 +397,7 @@
           </p-button>
         </div>
         <div class="Createbutton">
-          <p-button (click)="updateQuestionView()" [disabled]="">
+          <p-button (click)="updateQuestionView()" [disabled]="!formModified">
             <label class="Create-word"> Update </label>
           </p-button>
         </div>
@@ -422,6 +437,5 @@
         <span class="option-content">{{ option }}</span>
       </div>
     </div>
-    
   </p-dialog>
 </div>
