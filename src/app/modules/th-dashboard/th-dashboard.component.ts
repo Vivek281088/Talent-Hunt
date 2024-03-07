@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ManagernameService } from 'src/app/services/managername.service';
 
 @Component({
   selector: 'app-th-dashboard',
@@ -10,8 +11,10 @@ export class THDashboardComponent {
   items: MenuItem[] | undefined;
   home: MenuItem | undefined;
   todayDate!: Date;
+  ManagerEmail!: any;
   managerName!: string | null;
-
+  assessmentCount: number = 25;
+  constructor(private managernameService: ManagernameService) {}
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'home');
     this.todayDate = new Date();
@@ -21,7 +24,13 @@ export class THDashboardComponent {
       routerLink: '/thdashboard',
       label: 'Home',
     };
-    this.managerName = localStorage.getItem('managerName');
+    this.ManagerEmail = localStorage.getItem('managerEmail');
+    this.managernameService
+      .getManagerdata_by_Email(this.ManagerEmail)
+      .subscribe((response) => {
+        console.log('Navbar-res', response);
+        this.managerName= response[0].Firstname + ' ' + response[0].Lastname;
+      });
   }
   getInitials(name: string | null): string {
     if (!name) {

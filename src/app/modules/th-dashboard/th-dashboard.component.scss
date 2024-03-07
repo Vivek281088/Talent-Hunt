@@ -1,4 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 .customdashboard {
   display: flex;
   flex-direction: column;
@@ -10,6 +12,11 @@
       background-color: #652d90;
       color: #ffffff;
     }
+  }
+  .countSvg {
+    display: flex;
+    flex-direction: row;
+    padding-right: 6%;
   }
   .customcards {
     display: flex;
@@ -58,8 +65,25 @@
       width: 24%;
       padding: 1% 2% 2% 1%;
       border-radius: 8px;
+      .countSvg {
+        display: flex;
+        flex-direction: row;
+      }
       .schedulesvg {
         padding-right: 5%;
+      }
+      .schedulecount {
+        display: flex;
+        flex-direction: column;
+        p {
+          padding-bottom: 10%;
+        }
+        .count {
+          font-family: "Poppins", sans-serif;
+          font-size: 24px;
+          font-weight: 400;
+          color: #652d90;
+        }
       }
       p {
         font-family: "Roboto";
@@ -69,6 +93,7 @@
         color: #00000061;
       }
     }
+
     .assessmentcard {
       border: 1px solid #0000001f;
       width: 24%;
@@ -76,8 +101,33 @@
       display: flex;
       flex-direction: row;
       padding: 1% 2% 2% 1%;
+      ::ng-deep {
+        .knob {
+          transform: translateY(45%);
+          svg {
+            height: 80%;
+            width: 80%;
+            --primary-color: #b6a615;
+          }
+        }
+      }
+
       .assessmentsvg {
         padding-right: 5%;
+      }
+
+      .assessmentcount {
+        display: flex;
+        flex-direction: column;
+        p {
+          padding-bottom: 10%;
+        }
+        .count {
+          font-family: "Poppins", sans-serif;
+          font-size: 24px;
+          font-weight: 400;
+          color: #b6a615;
+        }
       }
       p {
         font-family: "Roboto";
@@ -94,8 +144,32 @@
       display: flex;
       flex-direction: row;
       padding: 1% 2% 2% 1%;
+
+      ::ng-deep {
+        .knob {
+          transform: translateY(45%);
+          svg {
+            height: 80%;
+            width: 80%;
+            --primary-color: #c81a78;
+          }
+        }
+      }
       .shortlistsvg {
         padding-right: 5%;
+      }
+      .shortlistedcount {
+        display: flex;
+        flex-direction: column;
+        p {
+          padding-bottom: 10%;
+        }
+        .count {
+          font-family: "Poppins", sans-serif;
+          font-size: 24px;
+          font-weight: 400;
+          color: #c81a78;
+        }
       }
       p {
         font-family: "Roboto";
@@ -156,4 +230,32 @@
   .p-menuitem-link
   .p-menuitem-icon {
   color: #6c757d;
+}
+.assessmentSchedule {
+  display: flex;
+  flex-direction: row;
+
+  .assessmentTable {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.customAssessmentTable {
+  ::ng-deep {
+    .p-datatable-table {
+      border: 1px solid #0000001f;
+      border-radius: 8px;
+    }
+  }
+  .title {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .subTitle {
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    color: #00000061;
+  }
 }

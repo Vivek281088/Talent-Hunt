@@ -33,7 +33,7 @@ export class NewScheduleComponent {
   items: MenuItem[] | undefined;
   tabs: { title: any; content: any }[] = [];
   Tdata!: any;
-  selectedQuestion!: any;
+  // selectedQuestion!: any;
   selected: boolean = false;
   data: any;
   scheduleName!: string | null;
@@ -43,7 +43,7 @@ export class NewScheduleComponent {
   duration!: string | number | null;
   skill!: string | null;
   questions = [];
-  selectedquestions: any[] | string[] | undefined;
+  selectedquestions: any[] | string[]  = [] ;
   FinalizedQuestions: any;
   selectedQuestionCount!: number;
   visible: boolean = false;
@@ -182,7 +182,7 @@ export class NewScheduleComponent {
 
       this.selectedSkills = sessionStorage.getItem('SelectedSkill')?.split(',');
       this.selectedquestions = sessionStorage
-        .getItem('FinalizedQuestion')
+        .getItem('FinalizedQuestion')!
         ?.split(',');
       console.log('selected edit question', this.selectedquestions);
 
@@ -239,14 +239,14 @@ export class NewScheduleComponent {
 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
-    console.log('loop entered');
+    console.log('loop entered',question.id);
 
     if (question.selection) {
-      this.selectedquestions?.push(question.id);
+      this.selectedquestions?.unshift(question.id)
       console.log('Selected Questions:', this.selectedquestions);
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
-        (selected) => selected !== question.id
+        (selected: any) => selected !== question.id
       );
       console.log('Selected Questions:', this.selectedquestions);
     }
@@ -310,6 +310,7 @@ export class NewScheduleComponent {
   }
 
   selectQuestions(tabs: any) {
+    console.log("Selected",tabs)
     tabs.forEach((question: any) => {
       if (!question.selection) {
         question.selection = true;
@@ -328,7 +329,7 @@ export class NewScheduleComponent {
     }
     const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions?.filter(
-      (question) => !questionIds.includes(question)
+      (question: any) => !questionIds.includes(question)
     );
     console.log('un select all ', this.selectedquestions);
   }
