@@ -20,6 +20,32 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+
+export class dateClass {
+  static formattedDate(date: Date) {
+    const months: string[] = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    const month: string = months[date.getMonth()];
+    const day: number = date.getDate();
+    const year: number = date.getFullYear();
+    const formatDate: string = `${month} ${day}, ${year}`;
+
+    return formatDate;
+  }
+}
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -103,7 +129,7 @@ export class SchedulepageComponent implements OnInit {
     this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
-    this.todayDate = this.formattedDate(new Date());
+    this.todayDate = dateClass.formattedDate(new Date());
    // console.log('Date--------', this.todayDate);
 
     this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
@@ -326,7 +352,7 @@ export class SchedulepageComponent implements OnInit {
 
       //rest data
       this.score = null;
-      this.result = 'Awaiting Eval';
+      this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
 
@@ -387,29 +413,7 @@ export class SchedulepageComponent implements OnInit {
     this.addnewScheduleForm.reset();
     sessionStorage.setItem('SaveOrEdit', 'Save');
   }
-  formattedDate(date: Date) {
-    const months: string[] = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const month: string = months[date.getMonth()];
-    const day: number = date.getDate();
-    const year: number = date.getFullYear();
-    const formatDate: string = `${month} ${day}, ${year}`;
-
-    return formatDate;
-  }
+ 
 
   selectingCandidate() {
     console.log('Selected', this.selectedCandidates);
