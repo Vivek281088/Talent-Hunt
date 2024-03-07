@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   overlayVisible: boolean = false;
+  notificationOverlayVisible: boolean = false;
   candidateName: string = '';
   candidateList: any[] = [];
   showCandidateEmail!: string;
@@ -29,6 +30,7 @@ export class NavbarComponent {
   visible: boolean = false;
   tempUserName!: string | null;
   id!: number;
+  notification:any;
 
   constructor(
     private authservice: AuthService,
@@ -38,11 +40,16 @@ export class NavbarComponent {
   ) {}
   ngOnInit(): void {
     this.authUserOrManager();
+    this.notifydata()
+
+  }
+  notifydata(){
+    this.notification= sessionStorage.getItem("notification")
+    console.log('notification display', this.notification.message)
   }
   authUserOrManager() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
-
     const a = localStorage.getItem('userrole');
 
     if (a == 'manager') {
@@ -135,6 +142,9 @@ export class NavbarComponent {
 
   toggle() {
     this.overlayVisible = !this.overlayVisible;
+  }
+  notificationToggle(){
+    this.notificationOverlayVisible = !this.notificationOverlayVisible;
   }
 
   logout() {

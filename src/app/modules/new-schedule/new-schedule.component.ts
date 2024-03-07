@@ -22,6 +22,16 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { NotificationService } from 'src/app/services/notification.service';
+export class CNotification{
+  sender !: string
+  receiver !: string[]
+  content !:string
+
+}
+export class receiver{
+  receiver !: string
+}
 
 @Component({
   selector: 'app-new-schedule',
@@ -67,6 +77,7 @@ export class NewScheduleComponent {
   isScheduleInvalid: boolean = false;
   saveOrEditButton!: any;
   scheduleId!: any;
+  notificationResponse:any;
 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
@@ -80,7 +91,7 @@ export class NewScheduleComponent {
     private managernameService: ManagernameService,
     private messageService: MessageService,
     private router: Router,
-    
+    private notificationService : NotificationService,
     private fb: FormBuilder
   ) {
     this.updateNewScheduleForm = this.fb.group({
@@ -261,33 +272,49 @@ export class NewScheduleComponent {
 
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
 
-    try {
-      const selectedSkillName = this.selectedSkills.sort();
-      const dataToSave = {
-        Questions: this.FinalizedQuestions,
-        durations: this.updateNewScheduleForm.get('duration')?.value,
+    // try {
+    //   const selectedSkillName = this.selectedSkills.sort();
+    //   const dataToSave = {
+    //     Questions: this.FinalizedQuestions,
+    //     durations: this.updateNewScheduleForm.get('duration')?.value,
 
-        JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
+    //     JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
 
-        cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
+    //     cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
 
-        Managername: this.updateNewScheduleForm.get('managerName')?.value,
-        // id:date,
-        Skill: selectedSkillName,
-      };
-      console.log('response', dataToSave);
+    //     Managername: this.updateNewScheduleForm.get('managerName')?.value,
+    //     // id:date,
+    //     Skill: selectedSkillName,
+    //   };
+    //   console.log('response', dataToSave);
 
-      this.skillsdropdownservice
-        .postNewSchedule(dataToSave)
-        .subscribe((response) => {
-          console.log('Questions', response);
-          setTimeout(() => {
-            this.router.navigate(['/dashboard']);
-          }, 1500);
-        });
-    } catch (error) {
-      console.error(error);
+    //   this.skillsdropdownservice
+    //     .postNewSchedule(dataToSave)
+    //     .subscribe((response) => {
+    //       console.log('Questions', response);
+    //       setTimeout(() => {
+    //         this.router.navigate(['/dashboard']);
+    //       }, 1500);
+    //     });
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    
+    // Notification
+
+    this.router.navigate(['/dashboard']);
+    const notification : CNotification = {
+      sender: '2023-12-08T05:43:35.951Z',  //Suresh
+      receiver: ["2023-12-08T05:43:04.936Z"], //Sen
+      content: 'Suresh has scheduled an assessment named JAVA FSD DRIVE'
     }
+    this.notificationService.postNotification(notification).subscribe((response)=>{
+      this.notificationResponse=response
+      // console.log("notificaton service called",this.response)
+      console.log("notificaton service called",this.notificationResponse)
+      sessionStorage.setItem("notification",`${notification.sender}has sended message`)
+    })
+   
   }
   editSelected() {
     this.editScheduleMessage();
