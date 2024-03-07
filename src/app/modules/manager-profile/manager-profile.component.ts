@@ -24,6 +24,8 @@ export class ManagerProfileComponent {
   todayDate!: string;
   editManagerForm!: FormGroup;
   formSubmitted: boolean = false;
+  
+  
   visible: boolean = false;
   resetPasswordForm!: FormGroup;
   isPasswordInvalid: boolean = false;
@@ -34,6 +36,8 @@ export class ManagerProfileComponent {
   passwordNotMatching: boolean = true;
   FinalizedQuestions!: any;
   scheduleData: any;
+  scheduleLength:number=0
+  assesmentLength:number=0
 
   //assessment
   candidateList: any[] = [];
@@ -133,7 +137,9 @@ export class ManagerProfileComponent {
       .subscribe((response) => {
         console.log('ManagerData---->', response);
         this.scheduleData = response.result1;
+        this.scheduleLength=this.scheduleData.length
         this.candidateList = response.result2;
+        this.assesmentLength=this.candidateList.length
         console.log('ManagerScheduleData---->', this.scheduleData);
         console.log('Manager Assessment Data---->', this.candidateList);
       });

@@ -27,6 +27,7 @@
     .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
       border-color: #652d90;
       color: #652d90;
+      height: 103%;
   }
   .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
    box-shadow: none;
@@ -153,8 +154,11 @@
         max-height: 418px;
 
     }
+    .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+      height: 103%;
+  }
     .p-inputtext {
-      width: 38%;
+      width: 100%;
     }
     p-inputnumber,.p-inputnumber.p-inputwrapper {
         span{
@@ -200,6 +204,9 @@
   }
 
   
+}
+.hidebadge{
+  display: none;
 }
 .Newschedule-button {
     display: flex;
@@ -330,6 +337,18 @@ color:#652d90;
       .skillsHeading {
         width: 40%;
       }
+  }
+  .skills{
+    ::ng-deep{
+      span{
+        .p-badge{
+          background: none;
+          color:#495057
+        }
+
+      }
+     
+    }
   }
   .custom-clear {
   ::ng-deep {
@@ -685,3 +704,31 @@ color:#652d90;
   border: 1px;
   gap: 12px;
 }
+
+/* CSS */
+// .tab-badge {
+  // .tab-badge {
+
+//    .p-badge {
+    
+   
+//   }
+// }
+.header-content{
+  ::ng-deep .p-badge{
+    background: #652d90;
+    display: inline-block;
+    border-radius: 50px;
+    text-align: center;
+    padding: 0 .5rem;
+
+  }
+
+}
+ 
+.tab-header-text{
+  padding-right: 5px;
+}
+
+
+// }
