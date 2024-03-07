@@ -60,6 +60,7 @@ export class NavbarComponent {
           this.userPhone = response[0].phoneNumber;
 
           this.managernameService.setManagerName_Email(this.userEmail);
+          localStorage.setItem('managerName', this.userName);
           this.name = true;
         });
     } else {

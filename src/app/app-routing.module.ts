@@ -41,11 +41,10 @@ import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.com
 import { ManagerProfileComponent } from './modules/manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from './modules/candidate-profile/candidate-profile.component';
 import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.component';
-
+import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
 
 const routes: Routes = [
-
-  {path:'candidatequestion',component:CandidatequestionComponent},
+  { path: 'candidatequestion', component: CandidatequestionComponent },
   { path: 'create', component: Dash1Component },
 
   // { path: 'dashboard', component: SchedulepageComponent },
@@ -83,12 +82,13 @@ const routes: Routes = [
   { path: 'questiondb', component: QuestiondbComponent },
 
   { path: 'profile', component: ProfileDialogComponent },
-  {path: 'manage-managers', component: ManageManagersComponent},
-  {path: 'manage-candidates', component: ManageCandidatesComponent},
-{path: 'manage-skills', component: ManageSkillsComponent},
-{path: 'managerProfile', component: ManagerProfileComponent},
-{path: 'candidateProfile', component: CandidateProfileComponent},
-{path: 'resetpassword', component: ResetpasswordComponent},
+  { path: 'manage-managers', component: ManageManagersComponent },
+  { path: 'manage-candidates', component: ManageCandidatesComponent },
+  { path: 'manage-skills', component: ManageSkillsComponent },
+  { path: 'managerProfile', component: ManagerProfileComponent },
+  { path: 'candidateProfile', component: CandidateProfileComponent },
+  { path: 'resetpassword', component: ResetpasswordComponent },
+  { path: 'thdashboard', component: THDashboardComponent },
   { path: '**', redirectTo: '/login' },
 
   // { path: '**', redirectTo:'login' }

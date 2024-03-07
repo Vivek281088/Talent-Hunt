@@ -40,6 +40,7 @@ import { ThreeDigitDirective } from './modules/schedulepage/directives/three-dig
 import { NameInputDirective } from './modules/manage-managers/name-input.directive';
 import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.directive';
 import { CustomDirective } from './custom.directive';
+import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
 
 
 
@@ -76,6 +77,7 @@ import { CustomDirective } from './custom.directive';
       NameInputDirective,
       AllowDigitsDirective,
       CustomDirective,
+      THDashboardComponent,
   ],
   imports: [
     BrowserModule,
