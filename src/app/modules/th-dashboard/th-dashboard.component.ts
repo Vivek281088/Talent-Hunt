@@ -14,6 +14,8 @@ export class THDashboardComponent {
   ManagerEmail!: any;
   managerName!: string | null;
   assessmentCount: number = 25;
+  assessmentData!: any;
+
   constructor(private managernameService: ManagernameService) {}
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'home');
@@ -24,12 +26,29 @@ export class THDashboardComponent {
       routerLink: '/thdashboard',
       label: 'Home',
     };
+    this.assessmentData = [
+      {
+        name: 'Anand',
+        assessment: ' AWS Junior Developer',
+        result: 'Scheduled',
+      },
+      {
+        name: 'Aishu',
+        assessment: ' AWS Junior Developer',
+        result: 'Scheduled',
+      },
+      {
+        name: 'Barani',
+        assessment: ' JAVA Junior Developer',
+        result: 'Scheduled',
+      },
+    ];
     this.ManagerEmail = localStorage.getItem('managerEmail');
     this.managernameService
       .getManagerdata_by_Email(this.ManagerEmail)
       .subscribe((response) => {
         console.log('Navbar-res', response);
-        this.managerName= response[0].Firstname + ' ' + response[0].Lastname;
+        this.managerName = response[0].Firstname + ' ' + response[0].Lastname;
       });
   }
   getInitials(name: string | null): string {
@@ -39,5 +58,18 @@ export class THDashboardComponent {
     const names = name.split(' ');
     const initials = names.map((n) => n.charAt(0)).join('');
     return initials.toUpperCase();
+  }
+  getResultClass(result: string): string {
+    if (result == 'Shortlisted') {
+      return 'Shortlisted';
+    } else if (result == 'Rejected') {
+      return 'Rejected';
+    } else if (result == 'Awaiting Eval') {
+      return 'Awaiting ';
+    } else if (result == 'Cancelled') {
+      return 'Cancelled';
+    } else {
+      return 'Scheduled';
+    }
   }
 }

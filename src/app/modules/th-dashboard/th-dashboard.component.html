@@ -128,7 +128,7 @@
       <p-table
         class="customAssessmentTable"
         [resizableColumns]="true"
-        #tabledata
+        [value]="assessmentData"
       >
         <ng-template pTemplate="header">
           <tr>
@@ -139,16 +139,28 @@
             <th class="subTitle">Candidate Name</th>
             <th class="subTitle">Assessment</th>
             <th class="subTitle">Result</th>
-            <th class="subTitle">Score(%)</th>
+            <th class="subTitle"></th>
           </tr>
         </ng-template>
 
         <ng-template pTemplate="body" let-rowData let-i="rowIndex">
           <tr>
-            <td>{{ i + 1 }}</td>
-            <td>{{ rowData.candidateName }}</td>
-            <td>{{ rowData.email_Managername }}</td>
-            <td class="assessmentName">{{ rowData.email_Filename }}</td>
+            <td class="name">
+              <span>{{ rowData.name }}</span>
+            </td>
+            <td class="ass-name">
+              <span>{{ rowData.assessment }}</span>
+            </td>
+            <td>
+            <div class="result">
+              <p [ngClass]="getResultClass(rowData.results)">
+                <span>{{ rowData.result }}</span>
+              </p>
+            </div>
+          </td>
+          <td class="timing">
+              <span>25min</span>
+            </td>
           </tr>
         </ng-template>
       </p-table>
