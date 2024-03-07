@@ -301,6 +301,7 @@ line-height: normal;
   font-size: 16px;
   line-height: 24px;
      border-bottom: 1px solid #B3ABBA33;
+     padding-bottom: 15px;
   // border: 1px solid transparent;
   z-index: 900;
 }
@@ -310,6 +311,11 @@ line-height: normal;
   max-height: calc(552px);
     overflow-x: auto;
 }
+
+.notification-item-container{
+  border-bottom: 1px solid #B3ABBA33;
+}
+
 
 @media screen and (max-width:759px) {
   .top-menu{
