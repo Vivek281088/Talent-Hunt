@@ -28,7 +28,8 @@ export class NotificationService {
     }
 
     getNotification(receiver : any){
-      const url1 = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/receiverNotifications`;
+      console.log(receiver)
+      const url1 ='https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/receivenotifi';
       const headers = new HttpHeaders()
       headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');

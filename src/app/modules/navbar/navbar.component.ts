@@ -34,6 +34,7 @@ export class NavbarComponent {
   id!: string;
   notification:any;
   receiver!:string;
+  notifications !:any;
 
   constructor(
     private authservice: AuthService,
@@ -44,17 +45,19 @@ export class NavbarComponent {
   ) {}
   ngOnInit(): void {
     this.authUserOrManager();
-    this.notifydata()
+   
 
   }
   notifydata(){
-  
-    this.notificationService.getNotification(this.receiver).subscribe((response)=>{
-    
-      console.log("notificaton service called",response)
-     
-    });
+    const body = {
+      receiver : this.receiver
+    }
+      this.notificationService.getNotification(body).subscribe((response)=>{
+        console.log("notificaton service called",response)
+        this.notifications = response;
+      });
   }
+ 
   authUserOrManager() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
@@ -71,6 +74,7 @@ export class NavbarComponent {
             response[0].Firstname + ' ' + response[0].Lastname;
           this.userName = response[0].Firstname + ' ' + response[0].Lastname;
           this.receiver=response[0].id.toString();
+          this.notifydata()
           console.log(this.receiver)
           this.id = response[0].id;
           this.userEmail = response[0].candidateEmail;

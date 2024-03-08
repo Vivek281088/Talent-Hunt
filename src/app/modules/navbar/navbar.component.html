@@ -185,9 +185,9 @@
           <div class="vrline"></div>
           <div class="notification-list">
             <div class="notification-list-inner">
-              <div class="notification-item-container">
+              <div class="notification-item-container" *ngFor="let noti of notifications">
                 <!-- <span>Sengamalam Kannan has scheduled an Assessment</span> -->
-                <span>{{notification}}</span>
+                <span>{{noti.content}}</span>
 
               </div>
             </div>

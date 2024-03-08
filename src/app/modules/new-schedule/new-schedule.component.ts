@@ -306,7 +306,7 @@ export class NewScheduleComponent {
     const notification : CNotification = {
       sender: '2023-12-08T05:43:35.951Z',  //Suresh
       receiver: ["2023-12-08T05:43:04.936Z"], //Sen
-      content: 'Suresh has scheduled an assessment named JAVA FSD DRIVE'
+      content: 'chandrasekar has scheduled an assessment named JAVA FSD DRIVE'
     }
     this.notificationService.postNotification(notification).subscribe((response)=>{
       this.notificationResponse=response
