@@ -129,6 +129,10 @@
         class="customAssessmentTable"
         [resizableColumns]="true"
         [value]="assessmentData"
+        [tableStyle]="{ 'min-width': '30rem', 'min-height': '1rem' }"
+        [scrollable]="true"
+        scrollHeight="300px"
+        styleClass=""
       >
         <ng-template pTemplate="header">
           <tr>
@@ -152,13 +156,13 @@
               <span>{{ rowData.assessment }}</span>
             </td>
             <td>
-            <div class="result">
-              <p [ngClass]="getResultClass(rowData.results)">
-                <span>{{ rowData.result }}</span>
-              </p>
-            </div>
-          </td>
-          <td class="timing">
+              <div class="result">
+                <p [ngClass]="getResultClass(rowData.results)">
+                  <span>{{ rowData.result }}</span>
+                </p>
+              </div>
+            </td>
+            <td class="ass-name">
               <span>25min</span>
             </td>
           </tr>

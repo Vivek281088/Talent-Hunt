@@ -42,6 +42,21 @@ export class THDashboardComponent {
         assessment: ' JAVA Junior Developer',
         result: 'Scheduled',
       },
+      {
+        name: 'Barani',
+        assessment: ' JAVA Junior Developer',
+        result: 'Scheduled',
+      },
+      {
+        name: 'Barani',
+        assessment: ' JAVA Junior Developer',
+        result: 'Scheduled',
+      },
+      {
+        name: 'Barani',
+        assessment: ' JAVA Junior Developer',
+        result: 'Scheduled',
+      },
     ];
     this.ManagerEmail = localStorage.getItem('managerEmail');
     this.managernameService
