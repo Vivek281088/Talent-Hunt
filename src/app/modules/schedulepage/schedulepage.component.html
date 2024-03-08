@@ -79,9 +79,9 @@
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
-                            <span class="ml-1 mt-1">
-                              {{ option.managerName }}</span
-                            >
+                            <span class="ml-1 mt-1">{{
+                              option.managerName
+                            }}</span>
                           </div>
                         </ng-template>
                       </p-multiSelect>
@@ -92,7 +92,7 @@
                 <div class="skillMultiselect">
                   <p-columnFilter
                     field="Skill"
-                    matchMode="in"
+                    matchMode="contains"
                     [showMenu]="false"
                     [showClearButton]="false"
                   >
@@ -108,12 +108,10 @@
                         (onChange)="filter($event.value)"
                         appendTo="body"
                         [filter]="true"
-                        optionLabel="skill"
-                        optionValue="skill"
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
-                            <span class="ml-1 mt-1">{{ option.skill }}</span>
+                            <span class="ml-1 mt-1">{{ option }}</span>
                           </div>
                         </ng-template>
                       </p-multiSelect>
@@ -130,6 +128,7 @@
                   ></button>
                 </div>
               </div>
+
               <div class="addDeletebutton">
                 <div class="card flex justify-content-centre newscheduleButton">
                   <button
@@ -148,7 +147,8 @@
                       selectedDeleteSchedule.length == 0
                     "
                     class="btn flex align-items-center justify-content-center cursor-pointer"
-                    (click)="confirmPosition('top')"
+                   
+                     (click)="confirmPosition('top')" 
                     label="Delete"
                   ></button>
                 </div>
@@ -308,7 +308,7 @@
 </div>
 
 <div class="questionsidebar">
-  <p-sidebar [(visible)]="viewQuestionSidebar" position="right">
+  <p-sidebar [(visible)]="viewQuestionSidebar" position="right" [modal]="true">
     <ng-template class="header_design" pTemplate="header"
       >Quiz Preview
     </ng-template>
@@ -375,17 +375,6 @@
       </div>
     </ng-template>
   </p-sidebar>
-
-  <!-- <div class="card flex justify-content-center">
-    <p-sidebar [(visible)]="viewQuestionSidebar" [baseZIndex]=0>
-        <h3>Sidebar</h3>
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-    </p-sidebar>
-    <p-button (click)="viewQuestionSidebar = true" icon="pi pi-arrow-right"></p-button>
-  </div> -->
 </div>
 
 <p-toast></p-toast>
@@ -461,13 +450,13 @@
               Schedule Name is required !
             </div>
             <div
-              class="error-message"
-              *ngIf="
-                addnewScheduleForm.get('scheduleName')?.hasError('pattern')
-              "
-            >
-              Enter a valid Schedule name!
-            </div>
+            class="error-message"
+            *ngIf="
+              addnewScheduleForm.get('scheduleName')?.hasError('pattern')
+            "
+          >
+            Enter a valid Schedule name!
+          </div>
           </div>
         </div>
       </div>
@@ -519,8 +508,6 @@
             appendTo="body"
             display="chip"
             [showClear]="false"
-            optionLabel="skill"
-            optionValue="skill"
           ></p-multiSelect>
 
           <div
@@ -547,7 +534,7 @@
           </div>
           <div class="value">
             <input
-              appThreeDigit
+            appThreeDigit
               type="number"
               pInputText
               formControlName="cutoff"
@@ -591,13 +578,15 @@
           </div>
           <div class="value">
             <input
-              appThreeDigit
+            appThreeDigit
               type="text"
               pInputText
               formControlName="duration"
               mode="decimal"
             />
-
+            
+         
+      
             <div
               *ngIf="
                 addnewScheduleForm.get('duration')?.invalid &&
@@ -624,13 +613,16 @@
                 Duration value must be greater than 30mins !
               </div>
             </div>
-
+    
             <div
               class="error-message"
               *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
             >
               duration value must be greater than 0 !
             </div>
+            </div>
+
+           
           </div>
         </div>
       </div>
@@ -649,8 +641,7 @@
     </ng-template>
   </p-dialog>
 </div>
-<p-confirmDialog
-  class="button_design"
+<p-confirmDialog class="button_design"
   [style]="{ width: '40vw' }"
   key="positionDialog"
   [position]="position"

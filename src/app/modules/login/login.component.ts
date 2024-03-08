@@ -101,7 +101,7 @@ console.log("inside sign in")
                 ? this.authService.redirectUrl
                 : '/dashboard';  //not in use
  
-              this.router.navigate(['thdashboard']);
+              this.router.navigate(['dashboard']);
             }
           } else if (data.role == 'user') {
             console.log("inside else if")

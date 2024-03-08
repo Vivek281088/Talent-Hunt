@@ -91,7 +91,7 @@ export class AssessmentTableComponent {
     this.getCandidatename();
 
     this.items = [
-      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Assessment', routerLink: 'dashboard' },
     ];
   }

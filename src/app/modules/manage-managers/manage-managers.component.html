@@ -184,11 +184,11 @@
           </td>
         </tr>
       </ng-template>
-      <!-- <ng-template pTemplate="emptymessage">
+      <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="7">loading........</td>
+          <td colspan="7">No Data found.</td>
         </tr>
-      </ng-template> -->
+      </ng-template>
     </p-table>
   </div>
 </div>
@@ -233,14 +233,6 @@
                   *ngIf="addManagerForm.get('employeeId')?.hasError('required')"
                 >
                   Employee Id is required !
-
-                  <div 
-                  class="error-message"
-                   *ngIf="addManagerForm.get('employeeId')?.hasError('minlength')
-                    || addManagerForm.get('employeeId')?.hasError('maxlength')">
-                    Employee ID must be 7 characters long.
-                  </div>
-               
                 </div>
                 <div
                   class="error-message"
@@ -299,7 +291,7 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="email"  formControlName="email" pInputText />
+              <input type="email" formControlName="email" pInputText />
               <div
                 *ngIf="
                   addManagerForm.get('email')?.invalid &&
@@ -362,7 +354,7 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="text" appNameInput formControlName="department" pInputText />
+              <input type="text" pKeyFilter="alpha" formControlName="department" pInputText />
               <div
                 *ngIf="
                   addManagerForm.get('department')?.invalid &&
