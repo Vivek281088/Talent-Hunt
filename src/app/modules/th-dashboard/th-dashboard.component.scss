@@ -247,7 +247,7 @@
       border-radius: 8px;
     }
     .p-datatable .p-datatable-tbody > tr {
-    background: none;
+      background: none;
     }
   }
   .title {
@@ -262,43 +262,42 @@
     color: #00000061;
   }
   .Shortlisted {
-  width: 70px;
-  color: white;
-  background-color: green;
-  text-align: center;
-  height: 18px;
-  border-radius: 4px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-}
+    width: 70px;
+    color: white;
+    background-color: green;
+    text-align: center;
+    height: 18px;
+    border-radius: 4px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
 
-.Rejected {
-  background-color: red;
-  color: white;
-  text-align: center;
-  width: 58px;
-  height: 18px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  border-radius: 4px;
-}
+  .Rejected {
+    background-color: red;
+    color: white;
+    text-align: center;
+    width: 58px;
+    height: 18px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 4px;
+  }
 
-.Awaiting {
-  color: white;
-  background-color: blue;
-  text-align: center;
-  border-radius: 8px;
-  border-radius: 4px;
-}
+  .Awaiting {
+    color: white;
+    background-color: blue;
+    text-align: center;
+    border-radius: 8px;
+    border-radius: 4px;
+  }
 
-
-.Scheduled {
-  color: white;
-  font-family: "Roboto";
+  .Scheduled {
+    color: white;
+    font-family: "Roboto";
     background-color: grey;
     text-align: center;
     font-size: 12px;
@@ -308,6 +307,18 @@
     height: 100%;
     border-radius: 4px;
     padding: 2% 2% 2% 2%;
+  }
+  .name {
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    color: #1666dc;
+  }
+  .ass-name {
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000DE;
+    
+  }
 }
-}
-
