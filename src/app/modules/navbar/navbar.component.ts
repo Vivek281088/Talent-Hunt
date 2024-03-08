@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/Guard/auth.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
+import { Receiver } from '../new-schedule/new-schedule.component';
  
  
 @Component({
@@ -29,14 +31,16 @@ export class NavbarComponent {
   finalizedManagerEmail!: string;
   visible: boolean = false;
   tempUserName!: string | null;
-  id!: number;
+  id!: string;
   notification:any;
+  receiver!:string;
 
   constructor(
     private authservice: AuthService,
     private managernameService: ManagernameService,
     private candidateService: CandidateAssessmentService,
-    private router : Router
+    private router : Router,
+    private notificationService : NotificationService
   ) {}
   ngOnInit(): void {
     this.authUserOrManager();
@@ -44,8 +48,12 @@ export class NavbarComponent {
 
   }
   notifydata(){
-    this.notification= sessionStorage.getItem("notification")
-    console.log('notification display', this.notification.message)
+  
+    this.notificationService.getNotification(this.receiver).subscribe((response)=>{
+    
+      console.log("notificaton service called",response)
+     
+    });
   }
   authUserOrManager() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
@@ -58,9 +66,12 @@ export class NavbarComponent {
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('Navbar-res', response);
+          
           this.tempUserName =
             response[0].Firstname + ' ' + response[0].Lastname;
           this.userName = response[0].Firstname + ' ' + response[0].Lastname;
+          this.receiver=response[0].id.toString();
+          console.log(this.receiver)
           this.id = response[0].id;
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].phoneNumber;

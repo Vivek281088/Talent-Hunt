@@ -29,7 +29,7 @@ export class CNotification{
   content !:string
 
 }
-export class receiver{
+export class Receiver{
   receiver !: string
 }
 

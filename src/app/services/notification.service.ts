@@ -28,7 +28,22 @@ export class NotificationService {
     }
 
     getNotification(receiver : any){
-      return this.http.post('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/receiverNotification' ,receiver )
+      const url1 = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/receiverNotifications`;
+      const headers = new HttpHeaders()
+      headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Content-Type', 'application/json');
+    headers.append(
+      'Access-Control-Allow-Methods',
+      'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+    );
+    headers.append(
+      'Access-Control-Allow-Headers',
+      'Content-Type,X-Amz-Date,X-Api-Key'
+    );
+    return this.http.post(url1, receiver, { headers: headers }).pipe();
+      
+      
+      
     }
 }
 
