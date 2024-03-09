@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
+import { NO_ERRORS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -41,6 +41,10 @@ import { NameInputDirective } from './modules/manage-managers/name-input.directi
 import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.directive';
 import { CustomDirective } from './custom.directive';
 import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 
 
 
@@ -90,6 +94,12 @@ import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.compon
     ReactiveFormsModule,
     
     ToastrModule.forRoot(),
+    
+    StoreModule.forRoot({}),
+    
+    EffectsModule.forRoot([]),
+    
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [MessageService,DatePipe],
