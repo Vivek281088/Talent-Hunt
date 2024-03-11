@@ -179,19 +179,20 @@
       </p-overlay>
 
       <!-- Notification Overlay -->
-      <p-overlay [(visible)]="notificationOverlayVisible" [modal]="true">
-        <div class="notification-content">
-          <div class="notification-header">Notifications</div>
-          <i class="pi-pi-times"></i>
-          <div class="vrline"></div>
+      <p-overlay [(visible)]="notificationOverlayVisible" [modal]="true" appendTo="body">
+        <div class="notification-content flex flex-column">
+          <div class="notification-header">
+            Notifications 
+            <!-- <i class="pi pi-times"></i> -->
+          </div>
           <div class="notification-list">
-            <div class="notification-list-inner">
+            <!-- <div class="notification-list-inner"> -->
               <div class="notification-item-container" *ngFor="let noti of notifications">
                 <!-- <span>Sengamalam Kannan has scheduled an Assessment</span> -->
-                <span>{{noti.content}}</span>
-
+                <p>{{noti.content}}</p>
+                 <i class="pi pi-times"></i>
               </div>
-            </div>
+            <!-- </div> -->
           </div>
         </div>
       </p-overlay>
