@@ -79,7 +79,8 @@ export class NavbarComponent {
           this.id = response[0].id;
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].phoneNumber;
-
+          console.log("iddd",this.id,response[0].id)
+          sessionStorage.setItem('loginManagerId', this.id);
           this.managernameService.setManagerName_Email(this.userEmail);
           localStorage.setItem('managerName', this.userName);
           this.name = true;
@@ -93,6 +94,9 @@ export class NavbarComponent {
           this.tempUserName = response[0].candidateName;
           this.userName = response[0].candidateName;
           this.id = response[0].id;
+          console.log("iddd",this.id,response[0].id)
+          sessionStorage.setItem('loginManagerId', this.id);
+
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].candidatePhone;
           console.log('candidateName', this.candidateName);
@@ -115,6 +119,8 @@ export class NavbarComponent {
             response[0].Firstname + ' ' + response[0].Lastname;
           this.userName = response[0].Firstname + ' ' + response[0].Lastname;
           this.id = response[0].id;
+         
+
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].phoneNumber;
 
