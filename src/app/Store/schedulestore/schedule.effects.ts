@@ -25,9 +25,9 @@ export class ScheduleEffects {
           
          ));
 
-    updateSchedule$ = createEffect( ()=> 
+    addSchedule$ = createEffect( ()=> 
         this.actions$.pipe( 
-          ofType(ScheduleActions.updateScheduleData),
+          ofType(ScheduleActions.addScheduleData),
           mergeMap( (action) => 
             this.newScheduleService.postNewSchedule(action.schedule).pipe(
               

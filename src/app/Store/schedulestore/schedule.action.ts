@@ -19,9 +19,9 @@ export interface Schedule {
             'Get Schedule Data' : emptyProps,
             'Schedule Success' : props<{schedule : Schedule[]}>(),
             'Schedule Failure' : props<{error : string}>(),
-            'Update Schedule Data' : props<{schedule : Schedule}>(),
-            'Update Success' : props<{schedule :Schedule[] }>(),
-            'Update Failure' : props<{error : string}>()
+            'Add Schedule Data' : props<{schedule : Schedule}>(),
+            'Add Success' : props<{schedule :Schedule[] }>(),
+            'Add Failure' : props<{error : string}>()
         }
     }
   )
