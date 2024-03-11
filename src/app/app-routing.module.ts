@@ -41,6 +41,8 @@ import { ManageSkillsComponent } from './modules/manage-skills/manage-skills.com
 import { ManagerProfileComponent } from './modules/manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from './modules/candidate-profile/candidate-profile.component';
 import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.component';
+import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
+// import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
 
 
 const routes: Routes = [
@@ -55,6 +57,8 @@ const routes: Routes = [
     component: SchedulepageComponent,
   },
   { path: 'new-schedule', component: NewScheduleComponent },
+  // { path: 'thdashboard', component: THDashboardComponent },
+  
 
   { path: 'questiondisplay', component: QuestiondisplayComponent },
 
@@ -89,6 +93,7 @@ const routes: Routes = [
 {path: 'managerProfile', component: ManagerProfileComponent},
 {path: 'candidateProfile', component: CandidateProfileComponent},
 {path: 'resetpassword', component: ResetpasswordComponent},
+{path: 'thdashboard', component: THDashboardComponent },
   { path: '**', redirectTo: '/login' },
 
   // { path: '**', redirectTo:'login' }
