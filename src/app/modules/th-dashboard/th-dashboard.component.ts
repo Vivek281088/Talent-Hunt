@@ -15,6 +15,7 @@ export class THDashboardComponent {
   managerName!: string | null;
   assessmentCount: number = 25;
   assessmentData!: any;
+  recentData!: any;
 
   constructor(private managernameService: ManagernameService) {}
   ngOnInit() {
@@ -42,6 +43,39 @@ export class THDashboardComponent {
         assessment: ' JAVA Junior Developer',
         result: 'Scheduled',
       },
+      {
+        name: 'Barani',
+        assessment: ' JAVA Junior Developer',
+        result: 'Scheduled',
+      },
+      {
+        name: 'Barani',
+        assessment: ' JAVA Junior Developer',
+        result: 'Scheduled',
+      },
+      {
+        name: 'Barani',
+        assessment: ' JAVA Junior Developer',
+        result: 'Scheduled',
+      },
+    ];
+    this.recentData = [
+      {
+        title: 'New Schedule Created',
+        content: 'Mathanrajprabhu created new schedule Junior AWS Dev',
+      },
+      {
+        title: 'Assessment Completed',
+        content: 'Anand has completed the assessment',
+      },
+      {
+        title: 'Assessment invites sent to Candidates',
+        content: 'Invite for Junior AWS Dev has been sent to',
+      },
+      {
+        title: 'Changed User Password',
+        content: 'Mathanrajprabhu created new schedule Junior AWS Dev',
+      },
     ];
     this.ManagerEmail = localStorage.getItem('managerEmail');
     this.managernameService
@@ -50,6 +84,10 @@ export class THDashboardComponent {
         console.log('Navbar-res', response);
         this.managerName = response[0].Firstname + ' ' + response[0].Lastname;
       });
+  }
+
+  ngOnDestroy() {
+    this.managernameService.unsubscribe();
   }
   getInitials(name: string | null): string {
     if (!name) {
@@ -73,3 +111,4 @@ export class THDashboardComponent {
     }
   }
 }
+
