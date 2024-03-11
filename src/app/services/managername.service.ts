@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -91,6 +91,12 @@ export class ManagernameService {
         })
       );
   }
+  private subscriptions: Subscription[] = [];
+
+  unsubscribe(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
 
   addCandidate(
     candidateName: string,

@@ -83,6 +83,7 @@ export class NewScheduleComponent {
     
     private fb: FormBuilder
   ) {
+    const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
@@ -90,6 +91,7 @@ export class NewScheduleComponent {
           Validators.required,
           this.maxLengthValidator(30),
           this.minLengthValidator(6),
+          Validators.pattern(nonWhitespaceRegExp),
         ],
       ],
       managerName: [
@@ -107,7 +109,12 @@ export class NewScheduleComponent {
       ],
       duration: [
         null,
-        [Validators.required, Validators.max(180), Validators.min(30)],
+        [
+          Validators.required,
+          Validators.max(180),
+          Validators.min(30),
+          Validators.pattern(nonWhitespaceRegExp),
+        ],
       ],
     });
     this.updateNewScheduleForm
@@ -288,6 +295,15 @@ export class NewScheduleComponent {
     } catch (error) {
       console.error(error);
     }
+    
+    // Notification
+
+    this.router.navigate(['/dashboard']);
+    // const notification : CNotification = {
+    //   sender: '2023-12-08T05:43:35.951Z',  //Suresh
+    //   receiver: ["2023-12-08T05:43:04.936Z"], //Sen
+    //   content: 'Suresh has scheduled an assessment named JAVA FSD DRIVE'
+    // }
   }
   editSelected() {
     this.editScheduleMessage();
@@ -531,7 +547,8 @@ export class NewScheduleComponent {
   }
 
   totalSelectedQuestion: any;
-  observables : any | undefined
+  observables: any | undefined;
+  
   onPreviewClick() {
     this.previewSidebarVisible = true;
 
@@ -562,7 +579,7 @@ export class NewScheduleComponent {
     };
   }
   minLengthValidator(minLength: number) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: FormControl): { [key: string]: any } | null => {
       if (control.value && control.value.length < minLength) {
         return { minLength: true };
       }

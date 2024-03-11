@@ -38,7 +38,7 @@ export class CandidateAssessmentComponent implements AfterViewInit {
   ) {}
   ngAfterViewInit(): void {
     this.show();
-    this.candidateEmail = sessionStorage.getItem('Candidateemail');
+    this.candidateEmail = localStorage.getItem('Candidateemail');
     console.log('Mail Id', this.candidateEmail);
     this.getAssessmentdatabyEmail();
   }

@@ -106,7 +106,7 @@ console.log("inside sign in")
           } else if (data.role == 'user') {
             console.log("inside else if")
             console.log("Entered USer role")
-            sessionStorage.setItem("candidateEmail",  formData.userName)
+            localStorage.setItem('candidateEmail', formData.userName);
             this.managernameService.setCandidateAssessment_Email(
               formData.userName
             );

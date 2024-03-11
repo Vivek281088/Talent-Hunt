@@ -238,22 +238,31 @@
   .assessmentTable {
     display: flex;
     flex-direction: column;
+
+    ::ng-deep {
+      .p-datatable-table {
+        border: 1px solid #0000001f;
+        border-radius: 8px;
+      }
+    }
+    .topTable {
+      padding-bottom: 2%;
+    }
   }
 }
 .customAssessmentTable {
   ::ng-deep {
-    .p-datatable-table {
-      border: 1px solid #0000001f;
-      border-radius: 8px;
-    }
     .p-datatable .p-datatable-tbody > tr {
       background: none;
+    }
+    .p-datatable-scrollable > .p-datatable-wrapper {
     }
   }
   .title {
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     font-weight: 400;
+    border-top: 1px solid #0000001f;
   }
   .subTitle {
     font-family: "Roboto";
@@ -313,12 +322,15 @@
     font-size: 14px;
     font-weight: 400;
     color: #1666dc;
+    max-width: 9rem;
+    text-overflow: ellipsis;
   }
   .ass-name {
     font-family: "Roboto";
     font-size: 14px;
     font-weight: 400;
-    color: #000000DE;
-    
+    color: #000000de;
+    max-width: 9rem;
+    text-overflow: ellipsis;
   }
 }
