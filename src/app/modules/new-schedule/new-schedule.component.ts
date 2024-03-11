@@ -94,6 +94,7 @@ export class NewScheduleComponent {
     private notificationService : NotificationService,
     private fb: FormBuilder
   ) {
+    const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
@@ -101,6 +102,7 @@ export class NewScheduleComponent {
           Validators.required,
           this.maxLengthValidator(30),
           this.minLengthValidator(6),
+          Validators.pattern(nonWhitespaceRegExp),
         ],
       ],
       managerName: [
@@ -118,7 +120,12 @@ export class NewScheduleComponent {
       ],
       duration: [
         null,
-        [Validators.required, Validators.max(180), Validators.min(30)],
+        [
+          Validators.required,
+          Validators.max(180),
+          Validators.min(30),
+          Validators.pattern(nonWhitespaceRegExp),
+        ],
       ],
     });
     this.updateNewScheduleForm
@@ -272,33 +279,33 @@ export class NewScheduleComponent {
 
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
 
-    // try {
-    //   const selectedSkillName = this.selectedSkills.sort();
-    //   const dataToSave = {
-    //     Questions: this.FinalizedQuestions,
-    //     durations: this.updateNewScheduleForm.get('duration')?.value,
+    try {
+      const selectedSkillName = this.selectedSkills.sort();
+      const dataToSave = {
+        Questions: this.FinalizedQuestions,
+        durations: this.updateNewScheduleForm.get('duration')?.value,
 
-    //     JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
+        JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
 
-    //     cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
+        cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
 
-    //     Managername: this.updateNewScheduleForm.get('managerName')?.value,
-    //     // id:date,
-    //     Skill: selectedSkillName,
-    //   };
-    //   console.log('response', dataToSave);
+        Managername: this.updateNewScheduleForm.get('managerName')?.value,
+        // id:date,
+        Skill: selectedSkillName,
+      };
+      console.log('response', dataToSave);
 
-    //   this.skillsdropdownservice
-    //     .postNewSchedule(dataToSave)
-    //     .subscribe((response) => {
-    //       console.log('Questions', response);
-    //       setTimeout(() => {
-    //         this.router.navigate(['/dashboard']);
-    //       }, 1500);
-    //     });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+      this.skillsdropdownservice
+        .postNewSchedule(dataToSave)
+        .subscribe((response) => {
+          console.log('Questions', response);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1500);
+        });
+    } catch (error) {
+      console.error(error);
+    }
     
     // Notification
 
@@ -559,7 +566,8 @@ export class NewScheduleComponent {
   }
 
   totalSelectedQuestion: any;
-  observables : any | undefined
+  observables: any | undefined;
+  
   onPreviewClick() {
     this.previewSidebarVisible = true;
 
@@ -592,7 +600,7 @@ export class NewScheduleComponent {
     };
   }
   minLengthValidator(minLength: number) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: FormControl): { [key: string]: any } | null => {
       if (control.value && control.value.length < minLength) {
         return { minLength: true };
       }
