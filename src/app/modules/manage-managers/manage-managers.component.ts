@@ -45,7 +45,7 @@ export class ManageManagersComponent {
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.addManagerForm = this.fb.group({
       employeeId: [null, [Validators.required,Validators.minLength(6)]],
-      managerName: ['', [Validators.required,Validators.pattern(nonWhitespaceRegExp),Validators.minLength(3)]],
+      managerName: ['', [Validators.required,Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$')]],
       phone: [null, [Validators.required,Validators.minLength(10)]],
       department: ['', [Validators.required,Validators.minLength(3)]],
