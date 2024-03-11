@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
+import { Schedule } from '../Store/schedulestore/schedule.action';
 
 @Injectable({
   providedIn: 'root',
@@ -32,10 +33,15 @@ export class TableService {
     });
   }
 
-  getExistingData(): Observable<any> {
+  getExistingData() {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/question`;
 
-    return this.http.get<any[]>(endpoint);
+    return this.http.get<Schedule[]>(endpoint).pipe(
+      catchError((err)=> {
+        console.log("Error While Getting Schedule data")
+        return of([])
+      })
+    );
   }
 
   getskillsList(): Observable<any> {

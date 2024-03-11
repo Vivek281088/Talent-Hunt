@@ -20,6 +20,9 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+import { Store } from '@ngrx/store';
+import { ScheduleActions } from 'src/app/Store/schedulestore/schedule.action';
+import { getScheduleData } from 'src/app/Store/schedulestore/schedule.selector';
 
 export class dateClass {
   static formattedDate(date: Date) {
@@ -111,7 +114,8 @@ export class SchedulepageComponent implements OnInit {
     // reviewer
     private messageService: MessageService,
     private dataService: DataService,
-    private newScheduleService: NewScheduleService
+    private newScheduleService: NewScheduleService,
+    private store : Store
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.addnewScheduleForm = this.fb.group({
@@ -126,6 +130,7 @@ export class SchedulepageComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.store.dispatch(ScheduleActions.getScheduleData())
     this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
@@ -199,6 +204,7 @@ export class SchedulepageComponent implements OnInit {
       console.log('table data ----------------', data);
       this.Tdata = data;
     });
+    console.log(this.store.select(getScheduleData))
   }
 
   loadManagerNames() {

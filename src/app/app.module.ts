@@ -44,6 +44,8 @@ import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.compon
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ScheduleEffects } from './Store/schedulestore/schedule.effects';
+import { scheduleReducer } from './Store/schedulestore/schedule.reducer';
 
 
 
@@ -95,9 +97,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     
     ToastrModule.forRoot(),
     
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({schedule:scheduleReducer}),
     
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([ScheduleEffects]),
     
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],

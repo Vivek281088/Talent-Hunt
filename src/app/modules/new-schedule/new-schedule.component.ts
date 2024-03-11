@@ -272,33 +272,33 @@ export class NewScheduleComponent {
 
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
 
-    // try {
-    //   const selectedSkillName = this.selectedSkills.sort();
-    //   const dataToSave = {
-    //     Questions: this.FinalizedQuestions,
-    //     durations: this.updateNewScheduleForm.get('duration')?.value,
+    try {
+      const selectedSkillName = this.selectedSkills.sort();
+      const dataToSave = {
+        Questions: this.FinalizedQuestions,
+        durations: this.updateNewScheduleForm.get('duration')?.value,
 
-    //     JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
+        JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
 
-    //     cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
+        cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
 
-    //     Managername: this.updateNewScheduleForm.get('managerName')?.value,
-    //     // id:date,
-    //     Skill: selectedSkillName,
-    //   };
-    //   console.log('response', dataToSave);
+        Managername: this.updateNewScheduleForm.get('managerName')?.value,
+        // id:date,
+        Skill: selectedSkillName,
+      };
+      console.log('response', dataToSave);
 
-    //   this.skillsdropdownservice
-    //     .postNewSchedule(dataToSave)
-    //     .subscribe((response) => {
-    //       console.log('Questions', response);
-    //       setTimeout(() => {
-    //         this.router.navigate(['/dashboard']);
-    //       }, 1500);
-    //     });
-    // } catch (error) {
-    //   console.error(error);
-    // }
+      this.skillsdropdownservice
+        .postNewSchedule(dataToSave)
+        .subscribe((response) => {
+          console.log('Questions', response);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1500);
+        });
+    } catch (error) {
+      console.error(error);
+    }
     
     // Notification
 
