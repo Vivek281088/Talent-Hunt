@@ -118,6 +118,18 @@ export class ManagernameService {
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
       body,
       { headers }
+    ).pipe(
+      tap((responsedata) => {
+        console.log('Mail updated successfully', responsedata);
+      }),
+      catchError((error) => {
+        console.log('Inside Catch Error');
+        if (error.status == 401) {
+          console.log(error.status, "error 1");
+          return throwError(() => error);
+        }
+        return throwError(() => error);
+      })
     );
   }
 
