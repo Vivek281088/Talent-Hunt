@@ -238,6 +238,7 @@
   .assessmentTable {
     display: flex;
     flex-direction: column;
+    padding-right: 1%;
 
     ::ng-deep {
       .p-datatable-table {
@@ -247,7 +248,12 @@
     }
     .topTable {
       padding-bottom: 2%;
+      max-width: 509px;
     }
+    .bottomTable{
+      max-width: 509px;
+    }
+    
   }
 }
 .customAssessmentTable {
@@ -255,7 +261,8 @@
     .p-datatable .p-datatable-tbody > tr {
       background: none;
     }
-    .p-datatable-scrollable > .p-datatable-wrapper {
+    ::-webkit-scrollbar {
+      display: none;
     }
   }
   .title {
@@ -332,5 +339,12 @@
     color: #000000de;
     max-width: 9rem;
     text-overflow: ellipsis;
+  }
+}
+.recentTable{
+  ::ng-deep {
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 }

@@ -130,7 +130,7 @@
           class="customAssessmentTable"
           [resizableColumns]="true"
           [value]="assessmentData"
-          [tableStyle]="{ 'min-width': '30rem', 'min-height': '1rem' }"
+          [tableStyle]="{ 'min-height': '1rem' }"
           [scrollable]="true"
           scrollHeight="300px"
         >
@@ -170,11 +170,12 @@
         </p-table>
       </div>
 
-      <div>
+      <div class="bottomTable">
         <p-table
+          class="recentTable"
           [resizableColumns]="true"
           [value]="recentData"
-          [tableStyle]="{ 'min-width': '30rem', 'min-height': '1rem' }"
+          [tableStyle]="{ 'min-height': '1rem' }"
           [scrollable]="true"
           scrollHeight="300px"
         >
@@ -250,7 +251,7 @@
                   <p>{{ rowData.content }}</p>
                 </span>
               </td>
-              <td></td>
+
               <td class="ass-name">
                 <span>25min</span>
               </td>
@@ -259,6 +260,48 @@
         </p-table>
       </div>
     </div>
-    <div class="scheduleTable"></div>
+    <div class="scheduleTable">
+      <p-table
+        class="customScheduleTable"
+        [resizableColumns]="true"
+        [value]="assessmentData"
+        [tableStyle]="{ 'min-height': '1rem' }"
+        [scrollable]="true"
+        scrollHeight="300px"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th colspan="4" class="title">Schedule Name</th>
+          </tr>
+
+          <tr>
+            <th class="subTitle">Schedule</th>
+            <th class="subTitle">Manager</th>
+            <th class="subTitle">Candidates</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+          <tr>
+            <td class="name">
+              <span>{{ rowData.name }}</span>
+            </td>
+            <td class="ass-name">
+              <span>{{ rowData.assessment }}</span>
+            </td>
+            <td>
+              <div class="result">
+                <p [ngClass]="getResultClass(rowData.results)">
+                  <span>{{ rowData.result }}</span>
+                </p>
+              </div>
+            </td>
+            <td class="ass-name">
+              <span>25min</span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
 </div>
