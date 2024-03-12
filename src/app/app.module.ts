@@ -39,6 +39,8 @@ import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.co
 import { ThreeDigitDirective } from './modules/schedulepage/directives/three-digit.directive';
 import { NameInputDirective } from './modules/manage-managers/name-input.directive';
 import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.directive';
+import { CustomDirective } from './custom.directive';
+import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
 
 
 
@@ -74,6 +76,8 @@ import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.dir
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
+      CustomDirective,
+      THDashboardComponent,
   ],
   imports: [
     BrowserModule,

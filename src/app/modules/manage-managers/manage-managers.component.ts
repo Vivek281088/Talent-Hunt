@@ -7,6 +7,7 @@ import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { Router } from '@angular/router';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
+
 import {
   ConfirmationService,
   MessageService,
@@ -94,7 +95,6 @@ export class ManageManagersComponent {
     const day: number = date.getDate();
     const year: number = date.getFullYear();
     const formatDate: string = `${month} ${day}, ${year}`;
-
     return formatDate;
   }
   clear(table: Table) {

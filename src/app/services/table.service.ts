@@ -180,6 +180,7 @@ export class TableService {
       department: department !== undefined ? department : '--',
       candidate_location:
         candidate_location !== undefined ? candidate_location : '--',
+      deleted : "false",
     };
 
     console.log('Send Existing email Data', body);

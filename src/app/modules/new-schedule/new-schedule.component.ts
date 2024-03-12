@@ -22,6 +22,16 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { NotificationService } from 'src/app/services/notification.service';
+export class CNotification{
+  sender !: string
+  receiver !: string[]
+  content !:string
+
+}
+export class receiver{
+  receiver !: string
+}
 
 @Component({
   selector: 'app-new-schedule',
@@ -33,7 +43,7 @@ export class NewScheduleComponent {
   items: MenuItem[] | undefined;
   tabs: { title: any; content: any }[] = [];
   Tdata!: any;
-  selectedQuestion!: any;
+  // selectedQuestion!: any;
   selected: boolean = false;
   data: any;
   scheduleName!: string | null;
@@ -43,7 +53,7 @@ export class NewScheduleComponent {
   duration!: string | number | null;
   skill!: string | null;
   questions = [];
-  selectedquestions: any[] | string[] | undefined;
+  selectedquestions: any[] | string[]  = [] ;
   FinalizedQuestions: any;
   selectedQuestionCount!: number;
   visible: boolean = false;
@@ -67,6 +77,7 @@ export class NewScheduleComponent {
   isScheduleInvalid: boolean = false;
   saveOrEditButton!: any;
   scheduleId!: any;
+  notificationResponse:any;
 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
@@ -80,9 +91,10 @@ export class NewScheduleComponent {
     private managernameService: ManagernameService,
     private messageService: MessageService,
     private router: Router,
-    
+    private notificationService : NotificationService,
     private fb: FormBuilder
   ) {
+    const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
@@ -90,6 +102,7 @@ export class NewScheduleComponent {
           Validators.required,
           this.maxLengthValidator(30),
           this.minLengthValidator(6),
+          Validators.pattern(nonWhitespaceRegExp),
         ],
       ],
       managerName: [
@@ -107,7 +120,12 @@ export class NewScheduleComponent {
       ],
       duration: [
         null,
-        [Validators.required, Validators.max(180), Validators.min(30)],
+        [
+          Validators.required,
+          Validators.max(180),
+          Validators.min(30),
+          Validators.pattern(nonWhitespaceRegExp),
+        ],
       ],
     });
     this.updateNewScheduleForm
@@ -182,7 +200,7 @@ export class NewScheduleComponent {
 
       this.selectedSkills = sessionStorage.getItem('SelectedSkill')?.split(',');
       this.selectedquestions = sessionStorage
-        .getItem('FinalizedQuestion')
+        .getItem('FinalizedQuestion')!
         ?.split(',');
       console.log('selected edit question', this.selectedquestions);
 
@@ -239,14 +257,14 @@ export class NewScheduleComponent {
 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
-    console.log('loop entered');
+    console.log('loop entered',question.id);
 
     if (question.selection) {
-      this.selectedquestions?.push(question.id);
+      this.selectedquestions?.unshift(question.id)
       console.log('Selected Questions:', this.selectedquestions);
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
-        (selected) => selected !== question.id
+        (selected: any) => selected !== question.id
       );
       console.log('Selected Questions:', this.selectedquestions);
     }
@@ -288,6 +306,22 @@ export class NewScheduleComponent {
     } catch (error) {
       console.error(error);
     }
+    
+    // Notification
+
+    this.router.navigate(['/dashboard']);
+    const notification : CNotification = {
+      sender: '2023-12-08T05:43:35.951Z',  //Suresh
+      receiver: ["2023-12-08T05:43:04.936Z"], //Sen
+      content: 'Suresh has scheduled an assessment named JAVA FSD DRIVE'
+    }
+    this.notificationService.postNotification(notification).subscribe((response)=>{
+      this.notificationResponse=response
+      // console.log("notificaton service called",this.response)
+      console.log("notificaton service called",this.notificationResponse)
+      sessionStorage.setItem("notification",`${notification.sender}has sended message`)
+    })
+   
   }
   editSelected() {
     this.editScheduleMessage();
@@ -310,6 +344,7 @@ export class NewScheduleComponent {
   }
 
   selectQuestions(tabs: any) {
+    console.log("Selected",tabs)
     tabs.forEach((question: any) => {
       if (!question.selection) {
         question.selection = true;
@@ -328,7 +363,7 @@ export class NewScheduleComponent {
     }
     const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions?.filter(
-      (question) => !questionIds.includes(question)
+      (question: any) => !questionIds.includes(question)
     );
     console.log('un select all ', this.selectedquestions);
   }
@@ -531,7 +566,8 @@ export class NewScheduleComponent {
   }
 
   totalSelectedQuestion: any;
-  observables : any | undefined
+  observables: any | undefined;
+  
   onPreviewClick() {
     this.previewSidebarVisible = true;
 
@@ -544,7 +580,9 @@ export class NewScheduleComponent {
     });
   }
   getSelectedOptions(selected_Option: any, option: any) {
+    console.log('Function Working');
     if (option.includes(selected_Option)) {
+      console.log('correct answer');
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -562,7 +600,7 @@ export class NewScheduleComponent {
     };
   }
   minLengthValidator(minLength: number) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: FormControl): { [key: string]: any } | null => {
       if (control.value && control.value.length < minLength) {
         return { minLength: true };
       }

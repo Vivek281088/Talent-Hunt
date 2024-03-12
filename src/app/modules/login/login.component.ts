@@ -101,12 +101,12 @@ console.log("inside sign in")
                 ? this.authService.redirectUrl
                 : '/dashboard';  //not in use
  
-              this.router.navigate(['dashboard']);
+              this.router.navigate(['thdashboard']);
             }
           } else if (data.role == 'user') {
             console.log("inside else if")
             console.log("Entered USer role")
-            sessionStorage.setItem("candidateEmail",  formData.userName)
+            localStorage.setItem('candidateEmail', formData.userName);
             this.managernameService.setCandidateAssessment_Email(
               formData.userName
             );

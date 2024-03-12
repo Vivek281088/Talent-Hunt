@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
@@ -13,13 +13,39 @@ import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DataService } from 'src/app/services/data.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
-import { forkJoin } from 'rxjs';
+import { debounceTime, forkJoin } from 'rxjs';
 import { ThreeDigitDirective } from './directives/three-digit.directive';
 import {
   ConfirmationService,
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+
+export class dateClass {
+  static formattedDate(date: Date) {
+    const months: string[] = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+
+    const month: string = months[date.getMonth()];
+    const day: number = date.getDate();
+    const year: number = date.getFullYear();
+    const formatDate: string = `${month} ${day}, ${year}`;
+
+    return formatDate;
+  }
+}
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -73,7 +99,7 @@ export class SchedulepageComponent implements OnInit {
   globalSearchValue!: string;
   addnewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
- 
+  isScheduleInvalid: boolean = false;
 
   constructor(
     private tableService: TableService,
@@ -87,24 +113,54 @@ export class SchedulepageComponent implements OnInit {
     private dataService: DataService,
     private newScheduleService: NewScheduleService
   ) {
-    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
+    const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     this.addnewScheduleForm = this.fb.group({
-      scheduleName: ['', [Validators.required,Validators.pattern(nonWhitespaceRegExp)]],
-      managerName: ['', [Validators.required]],
+      scheduleName: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(nonWhitespaceRegExp),
+          this.maxLengthValidator(30),
+          this.minLengthValidator(6),
+        ],
+      ],
+      managerName: [
+        '',
+        [
+          Validators.required,
+          this.maxLengthValidator(30),
+          this.minLengthValidator(6),
+        ],
+      ],
       skills: ['', [Validators.required]],
       cutoff: [
         null,
         [Validators.required, Validators.max(100), Validators.min(1)],
       ],
-      duration: [null, [Validators.required,Validators.max(300), Validators.min(1),Validators.pattern(nonWhitespaceRegExp)]],
+      duration: [
+        null,
+        [
+          Validators.required,
+          Validators.max(180),
+          Validators.min(30),
+          Validators.pattern(nonWhitespaceRegExp),
+        ],
+      ],
     });
+    this.addnewScheduleForm
+      .get('scheduleName')!
+      .valueChanges.pipe(debounceTime(1500))
+      .subscribe(() => {
+        this.isScheduleInvalid =
+          this.addnewScheduleForm.get('scheduleName')!.invalid;
+      });
   }
   ngOnInit() {
     this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
-    this.todayDate = this.formattedDate(new Date());
-    console.log('Date--------', this.todayDate);
+    this.todayDate = dateClass.formattedDate(new Date());
+    // console.log('Date--------', this.todayDate);
 
     this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
 
@@ -113,6 +169,22 @@ export class SchedulepageComponent implements OnInit {
     this.existingData();
     this.getUniqueCandidatedata();
     this.getCandidatename();
+  }
+  maxLengthValidator(maxLength: number) {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value && control.value.length > maxLength) {
+        return { maxLengthExceeded: true };
+      }
+      return null;
+    };
+  }
+  minLengthValidator(minLength: number) {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value && control.value.length < minLength) {
+        return { minLength: true };
+      }
+      return null;
+    };
   }
   getFormattedSkills(skills: any): {
     skills: string[];
@@ -171,8 +243,10 @@ export class SchedulepageComponent implements OnInit {
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((response) => {
       this.managerData = response;
-
-      console.log('Client Manager Details', this.managerData);
+      // .map(
+      //   (manager: { managerName: string }) => manager.managerName
+      // );
+      console.log('Client Manager Details', response);
     });
   }
 
@@ -214,7 +288,7 @@ export class SchedulepageComponent implements OnInit {
   }
 
   closeSidebar() {
-    this, (this.viewQuestionSidebar = false);
+    this.viewQuestionSidebar = false;
   }
   onViewClick(data: any) {
     this.viewQuestionSidebar = true;
@@ -245,15 +319,14 @@ export class SchedulepageComponent implements OnInit {
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;
-
     this.selectedQuestions = data.questions;
     this.cutoff = data.cutoff;
     this.durations = data.durations;
     this.editManagername = data.Managername;
     this.editFilename = data.JobDescription;
-     sessionStorage.setItem('scheduleName', data.JobDescription),
-       sessionStorage.setItem('manager', data.Managername),
-       sessionStorage.setItem('cutoff', data.cutoff),
+    sessionStorage.setItem('scheduleName', data.JobDescription),
+      sessionStorage.setItem('manager', data.Managername),
+      sessionStorage.setItem('cutoff', data.cutoff),
       sessionStorage.setItem('duration', data.durations);
     sessionStorage.setItem('FinalizedQuestion', data.questions);
     sessionStorage.setItem('SelectedSkill', data.Skill);
@@ -290,11 +363,12 @@ export class SchedulepageComponent implements OnInit {
   // Loading skills for dropdown in add question
   loadSkills() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
-      this.skillSet = data;
+      data.forEach((element: any) => {
+        this.skillSet.push({ skill: element });
+      });
       console.log('Skill Set', data);
     });
   }
- 
 
   onSendQuestionClick(data: any) {
     this.sendQuestionCardVisible = true;
@@ -323,7 +397,7 @@ export class SchedulepageComponent implements OnInit {
 
       //rest data
       this.score = null;
-      this.result = 'Awaiting Eval';
+      this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
 
@@ -384,29 +458,6 @@ export class SchedulepageComponent implements OnInit {
     this.addnewScheduleForm.reset();
     sessionStorage.setItem('SaveOrEdit', 'Save');
   }
-  formattedDate(date: Date) {
-    const months: string[] = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const month: string = months[date.getMonth()];
-    const day: number = date.getDate();
-    const year: number = date.getFullYear();
-    const formatDate: string = `${month} ${day}, ${year}`;
-
-    return formatDate;
-  }
 
   selectingCandidate() {
     console.log('Selected', this.selectedCandidates);
@@ -439,7 +490,7 @@ export class SchedulepageComponent implements OnInit {
 
   confirmPosition(position: string) {
     this.position = position;
- 
+
     this.confirmationService.confirm({
       message: 'Do you want to delete the schedule?',
       header: 'Delete Confirmation',
@@ -450,28 +501,7 @@ export class SchedulepageComponent implements OnInit {
           summary: 'Deleted',
           detail: 'Schedule Deleted Successfully',
         });
-     this.deleteSchedule();
-       
-      },
-      reject: (type: ConfirmEventType) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Rejected',
-              detail: 'You have rejected',
-            });
-            console.log('Rejected');
-            break;
-          case ConfirmEventType.CANCEL:
-            console.log('Canceled');
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled',
-            });
-            break;
-        }
+        this.deleteSchedule();
       },
       key: 'positionDialog',
     });
