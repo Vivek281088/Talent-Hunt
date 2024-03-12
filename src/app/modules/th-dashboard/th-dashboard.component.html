@@ -57,7 +57,7 @@
         </div>
         <div class="schedulecount">
           <div><p>Schedules</p></div>
-          <div class="count">25</div>
+          <div class="count">{{dashboardCount.schedules}}</div>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@
         </div>
         <div class="assessmentcount">
           <div><p>Assessment</p></div>
-          <div class="count">25/100</div>
+          <div class="count">{{dashboardCount.assessment}}</div>
         </div>
       </div>
       <div class="knob">
@@ -110,7 +110,7 @@
         </div>
         <div class="shortlistedcount">
           <div><p>Shortlisted</p></div>
-          <div class="count">25/100</div>
+          <div class="count">{{dashboardCount.assessment}}</div>
         </div>
       </div>
 
@@ -157,7 +157,10 @@
               </td>
               <td>
                 <div class="result">
-                  <p [ngClass]="getResultClass(rowData.results)">
+                  <p
+                    [ngClass]="getResultClass(rowData.result)"
+                    class="statusbox"
+                  >
                     <span>{{ rowData.result }}</span>
                   </p>
                 </div>
@@ -253,7 +256,7 @@
               </td>
 
               <td class="ass-name">
-                <span>25min</span>
+                <span>{{ rowData.time }}</span>
               </td>
             </tr>
           </ng-template>
@@ -264,14 +267,14 @@
       <p-table
         class="customScheduleTable"
         [resizableColumns]="true"
-        [value]="assessmentData"
+        [value]="scheduleData"
         [tableStyle]="{ 'min-height': '1rem' }"
         [scrollable]="true"
-        scrollHeight="300px"
+        scrollHeight="720px"
       >
         <ng-template pTemplate="header">
           <tr>
-            <th colspan="4" class="title">Schedule Name</th>
+            <th colspan="3" class="title">Schedule Name</th>
           </tr>
 
           <tr>
@@ -283,21 +286,24 @@
 
         <ng-template pTemplate="body" let-rowData let-i="rowIndex">
           <tr>
-            <td class="name">
-              <span>{{ rowData.name }}</span>
-            </td>
             <td class="ass-name">
               <span>{{ rowData.assessment }}</span>
             </td>
+            <td class="manager-name">
+              <span>{{ rowData.managerName }}</span>
+            </td>
             <td>
-              <div class="result">
-                <p [ngClass]="getResultClass(rowData.results)">
-                  <span>{{ rowData.result }}</span>
+              <div class="candidate-count">
+                <p class="count scheduled-color">
+                  {{ rowData.scheduled }}
+                </p>
+                <p class="count shortlisted-color">
+                  <span>{{ rowData.shortlisted }}</span>
+                </p>
+                <p class="count rejected-color">
+                  <span>{{ rowData.rejected }}</span>
                 </p>
               </div>
-            </td>
-            <td class="ass-name">
-              <span>25min</span>
             </td>
           </tr>
         </ng-template>
