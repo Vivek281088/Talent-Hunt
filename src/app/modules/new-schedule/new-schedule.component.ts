@@ -9,12 +9,12 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
-import { NgZone } from '@angular/core';
-import { Observable, debounceTime, map } from 'rxjs';
+import { debounceTime } from 'rxjs';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import * as moment from 'moment-timezone';
 import {
   AbstractControl,
   FormBuilder,
@@ -53,7 +53,7 @@ export class NewScheduleComponent {
   duration!: string | number | null;
   skill!: string | null;
   questions = [];
-  selectedquestions: any[] | string[]  = [] ;
+  selectedquestions: any[] | string[] = [];
   FinalizedQuestions: any;
   selectedQuestionCount!: number;
   visible: boolean = false;
@@ -70,14 +70,14 @@ export class NewScheduleComponent {
   QuestionView: boolean = false;
   question!: string;
   isEditSchedule: boolean = false;
-
+  isTime!: string;
   updateNewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
   formData: any;
   isScheduleInvalid: boolean = false;
   saveOrEditButton!: any;
   scheduleId!: any;
-  notificationResponse:any;
+  notificationResponse: any;
 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
@@ -91,10 +91,14 @@ export class NewScheduleComponent {
     private managernameService: ManagernameService,
     private messageService: MessageService,
     private router: Router,
-    private notificationService : NotificationService,
+    private notificationService: NotificationService,
     private fb: FormBuilder
+    
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
+    const currentutcdate = new Date();
+    const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
+    this.isTime = istMoment.format('YYYY-MM-DD HH:mm:ss');
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
@@ -257,10 +261,10 @@ export class NewScheduleComponent {
 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
-    console.log('loop entered',question.id);
+    console.log('loop entered', question.id);
 
     if (question.selection) {
-      this.selectedquestions?.unshift(question.id)
+      this.selectedquestions?.unshift(question.id);
       console.log('Selected Questions:', this.selectedquestions);
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
@@ -282,6 +286,7 @@ export class NewScheduleComponent {
     try {
       const selectedSkillName = this.selectedSkills.sort();
       const dataToSave = {
+        id : this.isTime,
         Questions: this.FinalizedQuestions,
         durations: this.updateNewScheduleForm.get('duration')?.value,
 
@@ -306,22 +311,26 @@ export class NewScheduleComponent {
     } catch (error) {
       console.error(error);
     }
-    
+
     // Notification
 
     this.router.navigate(['/dashboard']);
-    const notification : CNotification = {
-      sender: '2023-12-08T05:43:35.951Z',  //Suresh
-      receiver: ["2023-12-08T05:43:04.936Z"], //Sen
-      content: 'Suresh has scheduled an assessment named JAVA FSD DRIVE'
-    }
-    this.notificationService.postNotification(notification).subscribe((response)=>{
-      this.notificationResponse=response
-      // console.log("notificaton service called",this.response)
-      console.log("notificaton service called",this.notificationResponse)
-      sessionStorage.setItem("notification",`${notification.sender}has sended message`)
-    })
-   
+    const notification: CNotification = {
+      sender: '2023-12-08T05:43:35.951Z', //Suresh
+      receiver: ['2023-12-08T05:43:04.936Z'], //Sen
+      content: 'Suresh has scheduled an assessment named JAVA FSD DRIVE',
+    };
+    this.notificationService
+      .postNotification(notification)
+      .subscribe((response) => {
+        this.notificationResponse = response;
+        // console.log("notificaton service called",this.response)
+        console.log('notificaton service called', this.notificationResponse);
+        sessionStorage.setItem(
+          'notification',
+          `${notification.sender}has sended message`
+        );
+      });
   }
   editSelected() {
     this.editScheduleMessage();
@@ -344,7 +353,7 @@ export class NewScheduleComponent {
   }
 
   selectQuestions(tabs: any) {
-    console.log("Selected",tabs)
+    console.log('Selected', tabs);
     tabs.forEach((question: any) => {
       if (!question.selection) {
         question.selection = true;
@@ -567,7 +576,7 @@ export class NewScheduleComponent {
 
   totalSelectedQuestion: any;
   observables: any | undefined;
-  
+
   onPreviewClick() {
     this.previewSidebarVisible = true;
 
