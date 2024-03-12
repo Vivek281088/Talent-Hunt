@@ -46,5 +46,32 @@ export class NotificationService {
       
       
     }
+
+// Update Notification
+
+updateNotification(
+        notificationId: string,
+        receiverId: string
+
+    
+  ): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+
+    const body = {
+      notificationId:notificationId,
+      receiverId: receiverId
+    };
+
+    console.log('Notification test', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/updatenotification',
+      body,
+      {
+        headers,
+      }
+    );
+  }
+
+
 }
 

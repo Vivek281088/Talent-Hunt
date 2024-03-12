@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto:wght@100;300&display=swap');
 // @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto:wght@100;300&display=swap');
-
+ 
 .top-menu {
   display: flex;
   flex-direction: row;
@@ -13,19 +13,19 @@
   background: var(--01-primary-500, #652D90);
   box-shadow: 0px 1px 5px 0px rgba(179, 171, 186, 0.20), 0px 3px 1px 0px rgba(179, 171, 186, 0.12), 0px 2px 2px 0px rgba(179, 171, 186, 0.14);
 }
-
+ 
 .logo-container {
   width: 89.268px;
   height: 30px;
   display: flex;
   flex-direction: row;
-
+ 
   img {
     width: 89.27px;
     height: 30px;
   }
 }
-
+ 
 .vrline {
   border-left: 1px solid #FFFFFF61;
   height: 30px;
@@ -35,7 +35,7 @@
   // margin-left:10px ;
   margin: 0px 10px;
 }
-
+ 
 .vrline1 {
   // rotate: -90;
   height: 36px;
@@ -43,14 +43,14 @@
   background: #FFFFFF61;
   border: 1px solid #FFFFFF61
 }
-
-
+ 
+ 
 .logo-slogan {
-
+ 
   margin: 5px 10px;
 }
-
-
+ 
+ 
 .icon-container {
   display: flex;
   flex-direction: row;
@@ -59,17 +59,17 @@
   width: 302px;
   height: 36px;
   gap: 16px;
-
+ 
 }
-
-
+ 
+ 
 .ic {
   width: 36px;
   height: 36px;
   padding: 6px;
   border-radius: 36px;
 }
-
+ 
 .user-info {
   width: 130px;
   height: 36px;
@@ -78,7 +78,7 @@
   flex-direction: column;
   justify-content: center;
 }
-
+ 
 .user-name {
   width: 100px;
   height: 16px;
@@ -93,9 +93,9 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
+ 
 }
-
+ 
 .user-role {
   width: 37px;
   height: 14px;
@@ -107,26 +107,26 @@
   letter-spacing: 0.4000000059604645px;
   text-align: left;
   color: #FFFFFFBD;
-
-
+ 
+ 
 }
-
+ 
 .avatar-name {
   width: 130px;
   height: 32px;
   gap: 6px;
   display: flex;
   flex-direction: row;
-
+ 
 }
-
+ 
 .avatar-image {
   width: 32px;
   height: 32px;
   border-radius: 18px;
   background: #C81A78;
 }
-
+ 
 .overlay-whole {
   display: flex;
   width: 226px;
@@ -138,7 +138,7 @@
   box-shadow: 0px 11px 15px 0px rgba(179, 171, 186, 0.2), 0px 9px 46px 0px rgba(179, 171, 186, 0.12), 0px 24px 38px 0px rgba(179, 171, 186, 0.14);
   margin-top: 11px;
 }
-
+ 
 .overlay-content1 {
   display: flex;
   padding: 0px 8px 8px 8px;
@@ -149,7 +149,7 @@
   height: 56px;
   border-bottom: 1px solid #B3ABBA33;
 }
-
+ 
 .overlay-user-info {
   display: flex;
   flex-direction: column;
@@ -158,7 +158,7 @@
   gap: 2px;
   flex: 1 0 0;
 }
-
+ 
 .overlay-user-name {
   color: var(--On-Surface-High-Emphasis, rgba(0, 0, 0, 0.87));
   font-family: 'Merriweather', serif;
@@ -169,7 +169,7 @@
   line-height: normal;
   letter-spacing: 0.25px;
 }
-
+ 
 .overlay-user-role {
   overflow: hidden;
   color: var(--On-Surface-Disabled, rgba(0, 0, 0, 0.38));
@@ -183,7 +183,7 @@
   line-height: normal;
   letter-spacing: 0.4px;
 }
-
+ 
 .overlay-content2 {
   width: 234px;
   height: 40px;
@@ -194,7 +194,7 @@
   align-items: center;
   align-self: stretch;
 }
-
+ 
 .overlay-content3 {
   display: flex;
   padding: 12px 8px;
@@ -205,7 +205,7 @@
   padding: 12px, 8px, 12px, 8px;
   border-radius: 4px;
 }
-
+ 
 .text2 {
   width: 218px;
   height: 16px;
@@ -219,7 +219,7 @@
   line-height: normal;
   letter-spacing: 0.25px;
 }
-
+ 
 .text3 {
   width: 218px;
   height: 16px;
@@ -234,7 +234,7 @@
   color: var(--On-Surface-Medium-Emphasis, rgba(0, 0, 0, 0.60));
   font-style: normal;
 }
-
+ 
 .overlay-content4 {
   display: flex;
   padding: 12px 8px;
@@ -245,7 +245,7 @@
   padding: 12px, 8px, 12px, 8px;
   border-radius: 4px;
 }
-
+ 
 .text4 {
   width: 218px;
   height: 16px;
@@ -260,7 +260,7 @@
   color: var(--On-Surface-Medium-Emphasis, rgba(0, 0, 0, 0.60));
   font-style: normal;
 }
-
+ 
 .overlay-content5 {
   display: flex;
   padding: 12px 8px;
@@ -272,7 +272,7 @@
   border-radius: 4px;
   border-top: 1px solid #B3ABBA33;
 }
-
+ 
 .text5 {
   width: 218px;
   height: 16px;
@@ -288,7 +288,7 @@
   font-style: normal;
   line-height: normal;
 }
-
+ 
 // notification overlay
 .notification-content {
   // display: flex;
@@ -301,9 +301,11 @@
   box-shadow: 0px 11px 15px 0px rgba(179, 171, 186, 0.2), 0px 9px 46px 0px rgba(179, 171, 186, 0.12), 0px 24px 38px 0px rgba(179, 171, 186, 0.14);
   margin-top: 11px;
   // margin-right: 200px;
-  height: 500px;
+  // height: 500px;
+  height: auto;
+  max-height: 500px;
 }
-
+ 
 .notification-header {
   // width: 300px;
   font-weight: 600;
@@ -314,32 +316,39 @@
   // border: 1px solid transparent;
   z-index: 900;
 }
-
-
+ 
+ 
 .notification-list {
   max-height: calc(552px);
   overflow-x: auto;
 }
-
+ 
 .notification-item-container {
   border-bottom: 1px solid #B3ABBA33;
   padding: 10px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
-
+ 
+.notification-item-container i {
+  cursor: pointer;
+  font-size: 10px;
+}
+ 
 @media screen and (max-width:759px) {
   .top-menu {
     background-color: #000;
     height: 200px;
     /*width: 100% */
   }
-
+ 
 }
-
+ 
 .notification-content {
   display: flex;
 }
-
+ 
 .notification-header {
   display: flex;
   justify-content: space-between;

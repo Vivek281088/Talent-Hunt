@@ -1,5 +1,3 @@
-
- 
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { ManagernameService } from 'src/app/services/managername.service';
@@ -27,7 +25,7 @@ export class NavbarComponent {
   name: boolean = false;
   modalVisible: boolean = false;
   isAdmin: boolean = false;
-
+ 
   finalizedManagerEmail!: string;
   visible: boolean = false;
   tempUserName!: string | null;
@@ -35,7 +33,7 @@ export class NavbarComponent {
   notification:any;
   receiver!:string;
   notifications !:any;
-
+ 
   constructor(
     private authservice: AuthService,
     private managernameService: ManagernameService,
@@ -45,8 +43,11 @@ export class NavbarComponent {
   ) {}
   ngOnInit(): void {
     this.authUserOrManager();
-   
-
+    const storedNotifications = localStorage.getItem('notifications');
+  if (storedNotifications) {
+    this.notifications = JSON.parse(storedNotifications);
+  }
+ 
   }
   notifydata(){
     const body = {
@@ -62,14 +63,14 @@ export class NavbarComponent {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
     const a = localStorage.getItem('userrole');
-
+ 
     if (a == 'manager') {
       this.isAdmin = true;
       this.managernameService
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('Navbar-res', response);
-          
+         
           this.tempUserName =
             response[0].Firstname + ' ' + response[0].Lastname;
           this.userName = response[0].Firstname + ' ' + response[0].Lastname;
@@ -96,20 +97,20 @@ export class NavbarComponent {
           this.id = response[0].id;
           console.log("iddd",this.id,response[0].id)
           sessionStorage.setItem('loginManagerId', this.id);
-
+ 
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].candidatePhone;
           console.log('candidateName', this.candidateName);
         });
     }
   }
-
+ 
   authUserOrManager1() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
-
+ 
     const a = localStorage.getItem('userrole');
-
+ 
     if (a == 'manager') {
       this.managernameService
         .getManagerdata_by_Email(this.finalizedManagerEmail)
@@ -120,10 +121,10 @@ export class NavbarComponent {
           this.userName = response[0].Firstname + ' ' + response[0].Lastname;
           this.id = response[0].id;
          
-
+ 
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].phoneNumber;
-
+ 
           this.managernameService.setManagerName_Email(this.userEmail);
           this.name = true;
         });
@@ -143,34 +144,65 @@ export class NavbarComponent {
     }
     this.refreshPage();
   }
-
+ 
   refreshPage() {
     window.location.reload();
   }
   changePassword() {
     this.router.navigate(['/resetpassword']);
   }
-
+ 
   getInitials(name: string | null): string {
     if (!name) {
       return '';
     }
-
+ 
     const names = name.split(' ');
     const initials = names.map((n) => n.charAt(0)).join('');
     return initials.toUpperCase();
   }
-
+ 
   toggle() {
     this.overlayVisible = !this.overlayVisible;
   }
   notificationToggle(){
     this.notificationOverlayVisible = !this.notificationOverlayVisible;
   }
-
+ 
   logout() {
     this.authservice.logout();
   }
+
+  clearNotification(notification: any) {
+    // const index = this.notifications.indexOf(notification);
+    // if (index !== -1) {
+    //   this.notifications.splice(index, 1);
+    //   this.notificationService.updateNotification(notification.notificationId, 
+    //     notification.receiverId).subscribe(() => {
+    //     console.log('Notification cleared successfully');
+    //   }, (error) => {
+    //     console.error('Error clearing notification:', error);
+    //   });
+    // this.notificationService.updateNotification(notification.notificationId, 
+          // notification.receiverId)
+console.log('Notifcation here', notification);
+const managerId = sessionStorage.getItem('loginManagerId') ;
+if(managerId){
+  this.notificationService.updateNotification(notification.id, 
+    managerId).subscribe(response=>{
+      console.log(response);
+    })
 }
- 
- 
+
+
+    }
+
+  }
+  
+
+  //  clearNotification(noti: any) {
+
+  //     this.notifications.splice(noti, 1);
+  //     // localStorage.setItem('notifications', JSON.stringify(this.notifications));
+  // }
+   
