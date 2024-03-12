@@ -200,11 +200,13 @@ export class SchedulepageComponent implements OnInit {
     dt2.clear();
   }
   existingData() {
-    this.tableService.getExistingData().subscribe((data) => {
-      console.log('table data ----------------', data);
-      this.Tdata = data;
-    });
-    console.log(this.store.select(getScheduleData))
+    // this.tableService.getExistingData().subscribe((data) => {
+    //   console.log('table data ----------------', data);
+    //   this.Tdata = data;
+    // });
+    this.store.select(getScheduleData).subscribe( response => this.Tdata = response)
+    // console.log("inside exsting data");
+    // console.log(this.store.select(getScheduleData))
   }
 
   loadManagerNames() {
