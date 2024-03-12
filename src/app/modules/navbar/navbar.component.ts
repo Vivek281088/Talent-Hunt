@@ -31,6 +31,12 @@ export class NavbarComponent {
   tempUserName!: string | null;
   id!: number;
   notification:any;
+  notifications : string[] = [
+    "Praveena M has Scheduled a new test called Java Full Stack Developer",
+    "Suresh Krishnaraju has Schedule a new test called Senior Angular Developer",
+    "Suresh Krishnaraju has Schedule a new test called Senior Angular Developer",
+    "Suresh Krishnaraju has Schedule a new test called Senior Angular Developer",
+  ]
 
   constructor(
     private authservice: AuthService,

@@ -181,13 +181,14 @@
       <!-- Notification Overlay -->
       <p-overlay [(visible)]="notificationOverlayVisible" [modal]="true">
         <div class="notification-content">
-          <div class="notification-header">Notifications</div>
-          <div class="vrline"></div>
-          <div class="notification-list">
+          <div class="notification-header"  > <h3>Notifications</h3> <i style="color:lightskyblue;">clear all</i></div>
+          <!-- <div class="vrline"></div> -->
+          <div class="notification-list" *ngFor="let noti of notifications">
             <div class="notification-list-inner">
               <div class="notification-item-container">
                 <!-- <span>Sengamalam Kannan has scheduled an Assessment</span> -->
-                <span>{{notification}}</span>
+                <span>{{noti}}</span>
+                <i class="pi pi-times"></i>
 
               </div>
             </div>

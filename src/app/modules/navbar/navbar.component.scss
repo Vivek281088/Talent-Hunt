@@ -291,11 +291,13 @@ line-height: normal;
   box-shadow: 0px 11px 15px 0px rgba(179, 171, 186, 0.2), 0px 9px 46px 0px rgba(179, 171, 186, 0.12), 0px 24px 38px 0px rgba(179, 171, 186, 0.14);
   margin-top: 11px; 
   margin-right: 200px;
-  height: 300px;
+  min-height: 300px;
 
 
 }
 .notification-header{
+  display: flex;
+  justify-content: space-between;
   width: 300px;
   font-weight: 600;
   font-size: 16px;
@@ -304,16 +306,33 @@ line-height: normal;
      padding-bottom: 15px;
   // border: 1px solid transparent;
   z-index: 900;
+  .pi{
+    padding-top: 6px;
+  }
 }
 
 
 .notification-list{
   max-height: calc(552px);
     overflow-x: auto;
+  padding-top: 12px;
+ 
 }
 
 .notification-item-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   border-bottom: 1px solid #B3ABBA33;
+  .pi{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    padding-right: 20px;
+  }
 }
 
 
