@@ -13,7 +13,9 @@ import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import * as moment from 'moment-timezone';
+
+// import * as moment from 'moment-timezone';
+// import * as moment from 'moment-timezone'; 
 import {
   AbstractControl,
   FormBuilder,
@@ -96,8 +98,8 @@ export class NewScheduleComponent {
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     const currentutcdate = new Date();
-    const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
-    this.isTime = istMoment.format('YYYY-MM-DD HH:mm:ss');
+    // const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
+    // this.isTime = istMoment.format('YYYY-MM-DD HH:mm:ss');
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
