@@ -57,7 +57,7 @@
         </div>
         <div class="schedulecount">
           <div><p>Schedules</p></div>
-          <div class="count">25</div>
+          <div class="count">{{dashboardCount.schedules}}</div>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@
         </div>
         <div class="assessmentcount">
           <div><p>Assessment</p></div>
-          <div class="count">25/100</div>
+          <div class="count">{{dashboardCount.assessment}}</div>
         </div>
       </div>
       <div class="knob">
@@ -110,7 +110,7 @@
         </div>
         <div class="shortlistedcount">
           <div><p>Shortlisted</p></div>
-          <div class="count">25/100</div>
+          <div class="count">{{dashboardCount.assessment}}</div>
         </div>
       </div>
 
@@ -130,7 +130,7 @@
           class="customAssessmentTable"
           [resizableColumns]="true"
           [value]="assessmentData"
-          [tableStyle]="{ 'min-width': '30rem', 'min-height': '1rem' }"
+          [tableStyle]="{ 'min-height': '1rem' }"
           [scrollable]="true"
           scrollHeight="300px"
         >
@@ -157,7 +157,10 @@
               </td>
               <td>
                 <div class="result">
-                  <p [ngClass]="getResultClass(rowData.results)">
+                  <p
+                    [ngClass]="getResultClass(rowData.result)"
+                    class="statusbox"
+                  >
                     <span>{{ rowData.result }}</span>
                   </p>
                 </div>
@@ -170,11 +173,12 @@
         </p-table>
       </div>
 
-      <div>
+      <div class="bottomTable">
         <p-table
+          class="recentTable"
           [resizableColumns]="true"
           [value]="recentData"
-          [tableStyle]="{ 'min-width': '30rem', 'min-height': '1rem' }"
+          [tableStyle]="{ 'min-height': '1rem' }"
           [scrollable]="true"
           scrollHeight="300px"
         >
@@ -250,15 +254,60 @@
                   <p>{{ rowData.content }}</p>
                 </span>
               </td>
-              <td></td>
+
               <td class="ass-name">
-                <span>25min</span>
+                <span>{{ rowData.time }}</span>
               </td>
             </tr>
           </ng-template>
         </p-table>
       </div>
     </div>
-    <div class="scheduleTable"></div>
+    <div class="scheduleTable">
+      <p-table
+        class="customScheduleTable"
+        [resizableColumns]="true"
+        [value]="scheduleData"
+        [tableStyle]="{ 'min-height': '1rem' }"
+        [scrollable]="true"
+        scrollHeight="720px"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th colspan="3" class="title">Schedule Name</th>
+          </tr>
+
+          <tr>
+            <th class="subTitle">Schedule</th>
+            <th class="subTitle">Manager</th>
+            <th class="subTitle">Candidates</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-i="rowIndex">
+          <tr>
+            <td class="ass-name">
+              <span>{{ rowData.assessment }}</span>
+            </td>
+            <td class="manager-name">
+              <span>{{ rowData.managerName }}</span>
+            </td>
+            <td>
+              <div class="candidate-count">
+                <p class="count scheduled-color">
+                  {{ rowData.scheduled }}
+                </p>
+                <p class="count shortlisted-color">
+                  <span>{{ rowData.shortlisted }}</span>
+                </p>
+                <p class="count rejected-color">
+                  <span>{{ rowData.rejected }}</span>
+                </p>
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
   </div>
 </div>

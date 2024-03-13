@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { DataService } from 'src/app/services/data.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 
 @Component({
@@ -16,10 +17,16 @@ export class THDashboardComponent {
   assessmentCount: number = 25;
   assessmentData!: any;
   recentData!: any;
-
-  constructor(private managernameService: ManagernameService) {}
+  scheduleData!: any;
+  recentAssessmentDataContext: any;
+dashboardCount: any;
+  constructor(
+    private managernameService: ManagernameService,
+    private dataService: DataService
+  ) {}
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'home');
+    this.getDashboardCount();
     this.todayDate = new Date();
     this.items = [{ label: 'Dashboard', routerLink: '/thdashboard' }];
     this.home = {
@@ -31,7 +38,7 @@ export class THDashboardComponent {
       {
         name: 'Anand',
         assessment: ' AWS Junior Developer',
-        result: 'Scheduled',
+        result: 'Shortlisted',
       },
       {
         name: 'Aishu',
@@ -41,40 +48,171 @@ export class THDashboardComponent {
       {
         name: 'Barani',
         assessment: ' JAVA Junior Developer',
-        result: 'Scheduled',
+        result: 'Rejected',
       },
       {
-        name: 'Barani',
+        name: 'Kannan',
         assessment: ' JAVA Junior Developer',
         result: 'Scheduled',
       },
       {
         name: 'Barani',
         assessment: ' JAVA Junior Developer',
-        result: 'Scheduled',
+        result: 'Shortlisted',
       },
       {
         name: 'Barani',
         assessment: ' JAVA Junior Developer',
-        result: 'Scheduled',
+        result: 'Rejected',
       },
     ];
-    this.recentData = [
+    this.dataService.getRecentAssessmentData().subscribe((response) => {
+      this.recentAssessmentDataContext = response.context[0];
+      console.log('recentAssessmentData', this.recentAssessmentDataContext);
+      this.recentData = [
+        {
+          title: 'New Schedule Created',
+          content: this.recentAssessmentDataContext,
+          time: response.Time,
+        },
+        {
+          title: 'Assessment Completed',
+          content: 'Anand has completed the assessment',
+          time: '25 min',
+        },
+        {
+          title: 'Assessment invites sent to Candidates',
+          content: 'Invite for Junior AWS Dev has been sent to',
+          time: '25 min',
+        },
+        {
+          title: 'Changed User Password',
+          content: 'Mathanrajprabhu created new schedule Junior AWS Dev',
+          time: '25 min',
+        },
+      ];
+    });
+
+    
+    this.scheduleData = [
       {
-        title: 'New Schedule Created',
-        content: 'Mathanrajprabhu created new schedule Junior AWS Dev',
+        assessment: ' AWS Junior Developer',
+        managerName: 'Chandrasekar',
+        scheduled: 5,
+        shortlisted: 2,
+        rejected: 1,
       },
       {
-        title: 'Assessment Completed',
-        content: 'Anand has completed the assessment',
+        assessment: 'Junior Frontend Developer',
+        managerName: 'Chandrasekar',
+        scheduled: 15,
+        shortlisted: 8,
+        rejected: 3,
       },
       {
-        title: 'Assessment invites sent to Candidates',
-        content: 'Invite for Junior AWS Dev has been sent to',
+        assessment: ' Github Junior Developer',
+        managerName: 'Madhanrajprabhu',
+        scheduled: 10,
+        shortlisted: 4,
+        rejected: 1,
       },
       {
-        title: 'Changed User Password',
-        content: 'Mathanrajprabhu created new schedule Junior AWS Dev',
+        assessment: ' Node.Js Expert',
+        managerName: 'Deborah Wheeler',
+        scheduled: 5,
+        shortlisted: 2,
+        rejected: 1,
+      },
+      {
+        assessment: 'Senior Software Engineer',
+        managerName: 'Krishnakumar K',
+        scheduled: 8,
+        shortlisted: 2,
+        rejected: 1,
+      },
+      {
+        assessment: ' Senior Testing Engineer',
+        managerName: 'Krishnakumar K',
+        scheduled: 9,
+        shortlisted: 5,
+        rejected: 2,
+      },
+      {
+        assessment: ' Full Stack Developer',
+        managerName: 'Indu Nair',
+        scheduled: 5,
+        shortlisted: 2,
+        rejected: 1,
+      },
+      {
+        assessment: 'Senior AWS Developer',
+        managerName: 'Chandrasekar',
+        scheduled: 5,
+        shortlisted: 2,
+        rejected: 1,
+      },
+      {
+        assessment: ' AWS Junior Developer',
+        managerName: 'Chandrasekar',
+        scheduled: 5,
+        shortlisted: 2,
+        rejected: 1,
+      },
+      {
+        assessment: 'Junior Frontend Developer',
+        managerName: 'Chandrasekar',
+        scheduled: 15,
+        shortlisted: 8,
+        rejected: 3,
+      },
+      {
+        assessment: ' Github Junior Developer',
+        managerName: 'Madhanrajprabhu',
+        scheduled: 10,
+        shortlisted: 4,
+        rejected: 1,
+      },
+      {
+        assessment: ' Node.Js Expert',
+        managerName: 'Deborah Wheeler',
+        scheduled: 5,
+        shortlisted: 2,
+        rejected: 1,
+      },
+      {
+        assessment: 'Senior Software Engineer',
+        managerName: 'Krishnakumar K',
+        scheduled: 8,
+        shortlisted: 2,
+        rejected: 1,
+      },
+      {
+        assessment: ' Senior Testing Engineer',
+        managerName: 'Krishnakumar K',
+        scheduled: 9,
+        shortlisted: 5,
+        rejected: 2,
+      },
+      {
+        assessment: ' Node.Js Expert',
+        managerName: 'Deborah Wheeler',
+        scheduled: 5,
+        shortlisted: 2,
+        rejected: 1,
+      },
+      {
+        assessment: 'Senior Software Engineer',
+        managerName: 'Krishnakumar K',
+        scheduled: 8,
+        shortlisted: 2,
+        rejected: 1,
+      },
+      {
+        assessment: ' Senior Testing Engineer',
+        managerName: 'Krishnakumar K',
+        scheduled: 9,
+        shortlisted: 5,
+        rejected: 2,
       },
     ];
     this.ManagerEmail = localStorage.getItem('managerEmail');
@@ -86,8 +224,18 @@ export class THDashboardComponent {
       });
   }
 
+  getDashboardCount() {
+    this.dataService.getDashboardCount().subscribe((response) => {
+      console.log('Dashboard Count', response);
+      this.dashboardCount = response;
+      
+    });
+  
+  }
+ 
   ngOnDestroy() {
     this.managernameService.unsubscribe();
+    this.dataService.unsubscribe();
   }
   getInitials(name: string | null): string {
     if (!name) {
@@ -111,4 +259,3 @@ export class THDashboardComponent {
     }
   }
 }
-

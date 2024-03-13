@@ -195,6 +195,17 @@
                   >
                     Manager Name cannot exceed 30 characters !
                   </div>
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      updateNewScheduleForm
+                        .get('managerName')
+                        ?.hasError('minLength')
+                    "
+                  >
+                    Manager Name should be greater than 6 character !
+                  </div>
+                  
                 </div>
               </div>
             </div>
