@@ -42,6 +42,7 @@ import { ManagerProfileComponent } from './modules/manager-profile/manager-profi
 import { CandidateProfileComponent } from './modules/candidate-profile/candidate-profile.component';
 import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.component';
 import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 const routes: Routes = [
   { path: 'candidatequestion', component: CandidatequestionComponent },
@@ -89,6 +90,7 @@ const routes: Routes = [
   { path: 'candidateProfile', component: CandidateProfileComponent },
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'thdashboard', component: THDashboardComponent },
+  {path:'errorpage' , component : ErrorPageComponent},
   { path: '**', redirectTo: '/login' },
 
   // { path: '**', redirectTo:'login' }

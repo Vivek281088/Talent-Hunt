@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { Observable, catchError, of} from 'rxjs';
 import { CNotification } from '../modules/new-schedule/new-schedule.component';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  constructor( private http: HttpClient) {
+  constructor( private http: HttpClient,private router : Router) {
 
    }
 
@@ -24,7 +25,13 @@ export class NotificationService {
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification',
       body,
       { headers }
-    );
+    ).pipe(
+      catchError((err : any) =>{
+        console.log('err' , err)
+        this.router.navigate(['/errorpage'], { queryParams: { message: err.message } });
+        return of(null)
+      })
+    )
     }
 
     getNotification(receiver : any){
@@ -41,7 +48,13 @@ export class NotificationService {
       'Access-Control-Allow-Headers',
       'Content-Type,X-Amz-Date,X-Api-Key'
     );
-    return this.http.post(url1, receiver, { headers: headers }).pipe();
+    return this.http.post(url1, receiver, { headers: headers }).pipe(
+      catchError((err : any) =>{
+        console.log('err' , err)
+        this.router.navigate(['/errorpage'], { queryParams: { message: err.message } });
+        return of(null)
+      })
+    );
       
       
       
