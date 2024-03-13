@@ -61,8 +61,7 @@ export class NavbarComponent {
  
   authUserOrManager() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
-    this.finalizedEmail = localStorage.getItem('candidateEmail')!;
-    console.log('finalized Candidate---', this.finalizedEmail);
+    this.finalizedEmail = localStorage.getItem('Candidateemail')!;
     const a = localStorage.getItem('userrole');
  
     if (a == 'manager') {
@@ -91,7 +90,6 @@ export class NavbarComponent {
       this.candidateService
         .getCandidatedata_by_Email(this.finalizedEmail)
         .subscribe((response) => {
-          console.log("Nav response",response)
           this.name = false;
           this.candidateList = response;
           this.tempUserName = response[0].candidateName;
@@ -102,7 +100,7 @@ export class NavbarComponent {
  
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].candidatePhone;
-          console.log('candidateName', this.tempUserName);
+          console.log('candidateName', this.candidateName);
         });
     }
   }
@@ -167,7 +165,7 @@ export class NavbarComponent {
   toggle() {
     this.overlayVisible = !this.overlayVisible;
   }
-  notificationToggle() {
+  notificationToggle(){
     this.notificationOverlayVisible = !this.notificationOverlayVisible;
   }
  

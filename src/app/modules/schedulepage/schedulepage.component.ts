@@ -400,7 +400,8 @@ export class SchedulepageComponent implements OnInit {
       this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
-
+const loginManagerid = sessionStorage.getItem('loginManagerId')
+console.log('Login Manager id', loginManagerid)
       if (existingCandidate) {
         this.tableService
           .postExistingCandidateDetails(
@@ -422,7 +423,8 @@ export class SchedulepageComponent implements OnInit {
             this.roles,
             this.Skill,
             existingCandidate.department,
-            existingCandidate.candidate_location
+            existingCandidate.candidate_location,
+            loginManagerid
           )
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);
