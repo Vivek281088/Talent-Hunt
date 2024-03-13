@@ -1,12 +1,9 @@
-
- 
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { Router } from '@angular/router';
- 
- 
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -14,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   overlayVisible: boolean = false;
+  notificationOverlayVisible: boolean = false;
   candidateName: string = '';
   candidateList: any[] = [];
   showCandidateEmail!: string;
@@ -29,20 +27,26 @@ export class NavbarComponent {
   visible: boolean = false;
   tempUserName!: string | null;
   id!: number;
+  notification: any;
 
   constructor(
     private authservice: AuthService,
     private managernameService: ManagernameService,
     private candidateService: CandidateAssessmentService,
-    private router : Router
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.authUserOrManager();
+    this.notifydata();
+  }
+  notifydata() {
+    this.notification = sessionStorage.getItem('notification');
+    console.log('notification display', this.notification.message);
   }
   authUserOrManager() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
-    this.finalizedEmail = localStorage.getItem('Candidateemail')!;
-
+    this.finalizedEmail = localStorage.getItem('candidateEmail')!;
+    console.log('finalized Candidate---', this.finalizedEmail);
     const a = localStorage.getItem('userrole');
 
     if (a == 'manager') {
@@ -65,6 +69,7 @@ export class NavbarComponent {
       this.candidateService
         .getCandidatedata_by_Email(this.finalizedEmail)
         .subscribe((response) => {
+          console.log("Nav response",response)
           this.name = false;
           this.candidateList = response;
           this.tempUserName = response[0].candidateName;
@@ -72,7 +77,7 @@ export class NavbarComponent {
           this.id = response[0].id;
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].candidatePhone;
-          console.log('candidateName', this.candidateName);
+          console.log('candidateName', this.tempUserName);
         });
     }
   }
@@ -135,10 +140,11 @@ export class NavbarComponent {
   toggle() {
     this.overlayVisible = !this.overlayVisible;
   }
+  notificationToggle() {
+    this.notificationOverlayVisible = !this.notificationOverlayVisible;
+  }
 
   logout() {
     this.authservice.logout();
   }
 }
- 
- 

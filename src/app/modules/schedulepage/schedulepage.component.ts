@@ -20,6 +20,7 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -57,7 +58,7 @@ export class SchedulepageComponent implements OnInit {
 
   candidateId!: Date | null;
 
-  todayDate!: string;
+  todayDate!: Date;
   scheduleName!: string;
   manager!: string;
   selectedSkills!: any[];
@@ -133,8 +134,8 @@ export class SchedulepageComponent implements OnInit {
     this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
-    this.todayDate = this.formattedDate(new Date());
-    console.log('Date--------', this.todayDate);
+    this.todayDate = new Date();
+    // console.log('Date--------', this.todayDate);
 
     this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
 

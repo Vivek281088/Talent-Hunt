@@ -63,26 +63,21 @@ export class AssessmentTableComponent {
     this.overlayVisible = !this.overlayVisible;
   }
 
-  todayDate!: string;
+  todayDate!: Date;
 
   // candidateForm !: FormGroup;
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
     private skillsdropdownservice: SkillsdropdownService,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private auth: AuthService,
-    private candidateService: CandidateAssessmentService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
+  
   ) {
   }
 
   ngOnInit() {
     
     sessionStorage.setItem('Component-Name', 'assessment');
-    this.todayDate = this.formattedDate(new Date());
+    this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
     this.loadManagerNames();
     this.getSkillSet();
@@ -187,29 +182,7 @@ export class AssessmentTableComponent {
       console.log('Manager Data', data);
     });
   }
-  formattedDate(date: Date) {
-    const months: string[] = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const month: string = months[date.getMonth()];
-    const day: number = date.getDate();
-    const year: number = date.getFullYear();
-    const formatDate: string = `${month} ${day}, ${year}`;
-
-    return formatDate;
-  }
+ 
   
 
  
