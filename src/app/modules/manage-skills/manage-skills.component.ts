@@ -40,15 +40,29 @@ export class ManageSkillsComponent {
   singleQuestionOption: any;
   singleQuestionAnswer: any;
   selectedquestions: any[] = [];
+  updateQuestionForm:FormGroup
+
 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
     private router: Router,
     private managerService: ManagernameService,
     private messageService: MessageService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private fb:FormBuilder
   ) {
     // this.data=this.dataservice.sharedData;
+    this.updateQuestionForm = this.fb.group({
+      question: ['', [Validators.required]],
+      questionType: ['', [Validators.required,]],
+      difficulty: ['',[Validators.required,]],
+      choices0: ['', Validators.required], 
+      choices1: ['', Validators.required],       
+      choices2: ['', Validators.required],     
+        choices3: ['', Validators.required],
+      answer: [null,[Validators.required]],
+ 
+    });
   }
 
   ngOnInit() {
@@ -298,6 +312,16 @@ export class ManageSkillsComponent {
       this.Difficulty_Level,
       choices
     );
+    this.updateQuestionForm.patchValue({
+      question: question,
+      questionType : questionTypeSelected,
+      difficulty :this.getBackendDifficultyLevelViceVersa(Difficulty_Level),
+      choices0 :choices[0],
+      choices1:choices[1],
+      choices2:choices[2],
+      choices3:choices[3],
+      answer:answer
+     })
   }
   getBackendDifficultyLevelViceVersa(frontendValue: string): string {
     if (frontendValue === 'E') {
@@ -322,6 +346,7 @@ export class ManageSkillsComponent {
   }
 
   updateQuestionView() {
+   
     
     this.showUpdateMessage();
     console.log('dd=>>>>>>>>>>>>>>>>>>', this.difficultyLevel);
@@ -331,18 +356,23 @@ export class ManageSkillsComponent {
     this.skillsdropdownservice
       .updateQuestion(
         this.id,
-        this.question,
-        this.questionTypeSelected,
-        this.choices,
+        this.updateQuestionForm.get('question')?.value,
+        this.updateQuestionForm.get('questionType')?.value,
+       [ this.updateQuestionForm.get('choices0')?.value,
+        this.updateQuestionForm.get('choices1')?.value,
+        this.updateQuestionForm.get('choices2')?.value,
+        this.updateQuestionForm.get('choices3')?.value,],
         this.skills,
-        this.difficultyLevel,
-        this.answer
+        this.getBackendDifficultyLevel(
+          this.updateQuestionForm.get('difficulty')?.value,
+        ),
+        this.updateQuestionForm.get('answer')?.value,
       )
       .subscribe((response) => {
         console.log('updateQuestionView response', response);
         setTimeout(() => {
           this.QuestionView = false;
-          window.location.reload();
+         // window.location.reload();
           this.formModified = false;
         }, 1000);
       });
@@ -357,6 +387,7 @@ export class ManageSkillsComponent {
     });
   }
   cancelQuestionView() {
+    console.log("updateform",this.updateQuestionForm);
     this.QuestionView = false;
     this.formModified = false;
   }
