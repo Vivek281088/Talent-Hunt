@@ -173,29 +173,48 @@ export class NavbarComponent {
     this.authservice.logout();
   }
 
-  clearNotification(notification: any) {
-    // const index = this.notifications.indexOf(notification);
-    // if (index !== -1) {
-    //   this.notifications.splice(index, 1);
-    //   this.notificationService.updateNotification(notification.notificationId, 
-    //     notification.receiverId).subscribe(() => {
-    //     console.log('Notification cleared successfully');
-    //   }, (error) => {
-    //     console.error('Error clearing notification:', error);
-    //   });
-    // this.notificationService.updateNotification(notification.notificationId, 
-          // notification.receiverId)
-console.log('Notifcation here', notification);
-const managerId = sessionStorage.getItem('loginManagerId') ;
-if(managerId){
-  this.notificationService.updateNotification(notification.id, 
-    managerId).subscribe(response=>{
-      console.log(response);
-    })
-}
+//   clearNotification(notification: any) {
+//     // const index = this.notifications.indexOf(notification);
+//     // if (index !== -1) {
+//     //   this.notifications.splice(index, 1);
+//     //   this.notificationService.updateNotification(notification.notificationId, 
+//     //     notification.receiverId).subscribe(() => {
+//     //     console.log('Notification cleared successfully');
+//     //   }, (error) => {
+//     //     console.error('Error clearing notification:', error);
+//     //   });
+//     // this.notificationService.updateNotification(notification.notificationId, 
+//           // notification.receiverId)
+// console.log('Notifcation here', notification);
+// const managerId = sessionStorage.getItem('loginManagerId') ;
+// if(managerId){
+//   this.notificationService.updateNotification(notification.id, 
+//     managerId).subscribe(response=>{
+//       console.log(response);
+//     })
+// }
 
 
-    }
+//     }
+clearNotification(notification: any) {
+  console.log('Notifcation here', notification);
+  const managerId = sessionStorage.getItem('loginManagerId');
+  if(managerId){
+    this.notificationService.updateNotification(notification.id, 
+      managerId).subscribe(response=>{
+        console.log(response);
+        // Remove cleared notification from the array
+        const index = this.notifications.indexOf(notification);
+        if (index !== -1) {
+          this.notifications.splice(index, 1);
+        }
+        // Check if all notifications are cleared
+        if (this.notifications.length === 0) {
+          // If all notifications are cleared, show "No Notifications to display"
+          this.notifications = [];
+        }
+      });
+  }
 
   }
   
@@ -205,4 +224,4 @@ if(managerId){
   //     this.notifications.splice(noti, 1);
   //     // localStorage.setItem('notifications', JSON.stringify(this.notifications));
   // }
-   
+}

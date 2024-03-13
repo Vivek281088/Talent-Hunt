@@ -288,13 +288,20 @@
           </div>
           <div class="notification-list">
             <!-- <div class="notification-list-inner"> -->
+              <div *ngIf="notifications.length > 0">
             <div
               class="notification-item-container"
+
               *ngFor="let noti of notifications; let i = index"
             >
               <p>{{ noti.content }}</p>
               <i class="pi pi-times" (click)="clearNotification(noti)"></i>
             </div>
+          </div>
+          <div *ngIf="notifications.length === 0">
+            <!-- No Notifications to display -->
+            No Notifications to display
+          </div>
             <!-- </div> -->
           </div>
         </div>
