@@ -9,12 +9,12 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
-import { NgZone } from '@angular/core';
-import { Observable, debounceTime, map } from 'rxjs';
+import { debounceTime } from 'rxjs';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import * as moment from 'moment-timezone';
 import {
   AbstractControl,
   FormBuilder,
@@ -53,7 +53,7 @@ export class NewScheduleComponent {
   duration!: string | number | null;
   skill!: string | null;
   questions = [];
-  selectedquestions: any[] | string[]  = [] ;
+  selectedquestions: any[] | string[] = [];
   FinalizedQuestions: any;
   selectedQuestionCount!: number;
   visible: boolean = false;
@@ -70,7 +70,7 @@ export class NewScheduleComponent {
   QuestionView: boolean = false;
   question!: string;
   isEditSchedule: boolean = false;
-
+  isTime!: string;
   updateNewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
   formData: any;
@@ -93,9 +93,14 @@ export class NewScheduleComponent {
     private managernameService: ManagernameService,
     private messageService: MessageService,
     private router: Router,
-    private notificationService : NotificationService,
+    private notificationService: NotificationService,
     private fb: FormBuilder
+    
   ) {
+    const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
+    const currentutcdate = new Date();
+    const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
+    this.isTime = istMoment.format('YYYY-MM-DD HH:mm:ss');
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
@@ -103,6 +108,7 @@ export class NewScheduleComponent {
           Validators.required,
           this.maxLengthValidator(30),
           this.minLengthValidator(6),
+          Validators.pattern(nonWhitespaceRegExp),
         ],
       ],
       managerName: [
@@ -120,7 +126,12 @@ export class NewScheduleComponent {
       ],
       duration: [
         null,
-        [Validators.required, Validators.max(180), Validators.min(30)],
+        [
+          Validators.required,
+          Validators.max(180),
+          Validators.min(30),
+          Validators.pattern(nonWhitespaceRegExp),
+        ],
       ],
     });
     this.updateNewScheduleForm
@@ -203,7 +214,7 @@ export class NewScheduleComponent {
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
-          console.log('recieved response', response);
+          console.log('received response', response);
           for (let i = 0; i < response.length; i++) {
             for (let j = 0; j < response[i].data.length; j++)
               this.TotalQuestions.push(response[i].data[j]);
@@ -253,10 +264,10 @@ export class NewScheduleComponent {
 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
-    console.log('loop entered',question.id);
+    console.log('loop entered', question.id);
 
     if (question.selection) {
-      this.selectedquestions?.unshift(question.id)
+      this.selectedquestions?.unshift(question.id);
       console.log('Selected Questions:', this.selectedquestions);
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
@@ -276,34 +287,35 @@ export class NewScheduleComponent {
 
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
 
-    // try {
-    //   const selectedSkillName = this.selectedSkills.sort();
-    //   const dataToSave = {
-    //     Questions: this.FinalizedQuestions,
-    //     durations: this.updateNewScheduleForm.get('duration')?.value,
+    try {
+      const selectedSkillName = this.selectedSkills.sort();
+      const dataToSave = {
+        id : this.isTime,
+        Questions: this.FinalizedQuestions,
+        durations: this.updateNewScheduleForm.get('duration')?.value,
 
-    //     JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
+        JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
 
-    //     cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
+        cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
 
-    //     Managername: this.updateNewScheduleForm.get('managerName')?.value,
-    //     // id:date,
-    //     Skill: selectedSkillName,
-    //   };
-    //   console.log('response', dataToSave);
+        Managername: this.updateNewScheduleForm.get('managerName')?.value,
+        // id:date,
+        Skill: selectedSkillName,
+      };
+      console.log('response', dataToSave);
 
-    //   this.skillsdropdownservice
-    //     .postNewSchedule(dataToSave)
-    //     .subscribe((response) => {
-    //       console.log('Questions', response);
-    //       setTimeout(() => {
-    //         this.router.navigate(['/dashboard']);
-    //       }, 1500);
-    //     });
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    
+      this.skillsdropdownservice
+        .postNewSchedule(dataToSave)
+        .subscribe((response) => {
+          console.log('Questions', response);
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1500);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+
     // Notification
 
     this.router.navigate(['/dashboard']);
@@ -350,7 +362,7 @@ export class NewScheduleComponent {
   }
 
   selectQuestions(tabs: any) {
-    console.log("Selected",tabs)
+    console.log('Selected', tabs);
     tabs.forEach((question: any) => {
       if (!question.selection) {
         question.selection = true;
@@ -584,7 +596,8 @@ export class NewScheduleComponent {
   }
 
   totalSelectedQuestion: any;
-  observables : any | undefined
+  observables: any | undefined;
+
   onPreviewClick() {
     this.previewSidebarVisible = true;
 
@@ -617,7 +630,7 @@ export class NewScheduleComponent {
     };
   }
   minLengthValidator(minLength: number) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: FormControl): { [key: string]: any } | null => {
       if (control.value && control.value.length < minLength) {
         return { minLength: true };
       }

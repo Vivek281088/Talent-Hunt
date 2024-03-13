@@ -45,9 +45,13 @@ export class CandidateAssessmentService {
     const body = {
       candidateEmail: candidateEmail,
     };
-    return this.http.post<any>('https://1irh5xv630.execute-api.ap-south-1.amazonaws.com/dev/fetch_candidatedetails', body, {
-      headers,
-    });
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetch_candidatedetails',
+      body,
+      {
+        headers,
+      }
+    );
   }
 
   setAssessmentData(data: any): void {

@@ -3,16 +3,14 @@
     <p>Assessments</p>
   </div>
 
-  <!-- <div class="flex justify-content-start bread">
-    <p-breadcrumb class="max-w-full breadclass" [model]="items"></p-breadcrumb>
-  </div> -->
+
   <div class=" flex  breadDate">
     <div>
       <p-breadcrumb class=" BreadCrumb" [model]="items"
       [style]="{ border: 'none' }"></p-breadcrumb>
     </div>
     <div class="date">
-      {{todayDate}}
+      {{todayDate | date}}
     </div>
       
   </div>
@@ -26,10 +24,10 @@
       #dt1
       [paginator]="true"
       [tableStyle]="{ height: 'max-content' }"
-      [rows]="4"
+      [rows]="5"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [rowsPerPageOptions]="[4, 8, 12]"
+      [rowsPerPageOptions]="[5, 8, 12]"
       [globalFilterFields]="[
         'candidateName',
         'email_Managername',

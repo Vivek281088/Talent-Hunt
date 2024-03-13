@@ -238,22 +238,43 @@
   .assessmentTable {
     display: flex;
     flex-direction: column;
+    padding-right: 1%;
+
+    ::ng-deep {
+      .p-datatable-table {
+        border: 1px solid #0000001f;
+        border-radius: 8px;
+      }
+    }
+    .topTable {
+      padding-bottom: 2%;
+      max-width: 509px;
+    }
+    .bottomTable {
+      max-width: 509px;
+      .title {
+        font-family: "Poppins", sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        border-top: 1px solid #0000001f;
+      }
+    }
   }
 }
 .customAssessmentTable {
   ::ng-deep {
-    .p-datatable-table {
-      border: 1px solid #0000001f;
-      border-radius: 8px;
-    }
     .p-datatable .p-datatable-tbody > tr {
-    background: none;
+      background: none;
+    }
+    ::-webkit-scrollbar {
+      display: none;
     }
   }
   .title {
     font-family: "Poppins", sans-serif;
     font-size: 16px;
     font-weight: 400;
+    border-top: 1px solid #0000001f;
   }
   .subTitle {
     font-family: "Roboto";
@@ -262,44 +283,22 @@
     color: #00000061;
   }
   .Shortlisted {
-  width: 70px;
-  color: white;
-  background-color: green;
-  text-align: center;
-  height: 18px;
-  border-radius: 4px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-}
+    background-color: #1cb046;
+  }
 
-.Rejected {
-  background-color: red;
-  color: white;
-  text-align: center;
-  width: 58px;
-  height: 18px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  padding-right: 4px;
-  border-radius: 4px;
-}
+  .Rejected {
+    background-color: #ea172b;
+  }
+  .Scheduled {
+    background-color: #00000061;
+  }
 
-.Awaiting {
-  color: white;
-  background-color: blue;
-  text-align: center;
-  border-radius: 8px;
-  border-radius: 4px;
-}
-
-
-.Scheduled {
-  color: white;
-  font-family: "Roboto";
-    background-color: grey;
+  .Awaiting {
+    background-color: blue;
+  }
+  .statusbox {
+    color: white;
+    font-family: "Roboto";
     text-align: center;
     font-size: 12px;
     border-radius: 8px;
@@ -308,6 +307,93 @@
     height: 100%;
     border-radius: 4px;
     padding: 2% 2% 2% 2%;
+  }
+  .name {
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    color: #1666dc;
+    max-width: 9rem;
+    text-overflow: ellipsis;
+  }
+  .ass-name {
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000de;
+    max-width: 9rem;
+    text-overflow: ellipsis;
+  }
 }
+.recentTable {
+  ::ng-deep {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
+.scheduleTable {
+  border: 1px solid rgba(0, 0, 0, 0.1215686275);
+  border-radius: 8px;
+  width: 50%;
+}
+.customScheduleTable {
+  ::ng-deep {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
+  .title {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    border-top: 1px solid #0000001f;
+  }
+  .subTitle {
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    color: #00000061;
+  }
+  .ass-name {
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    color: #1e22aa;
+  }
+  .manager-name {
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000de;
+  }
+  .candidate-count {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .count {
+      width: 31%;
+      height: 22px;
+      border-radius: 21px;
+      color: #ffffff;
+      font-family: "Roboto";
+      font-weight: 400;
+      font-size: 11px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+    .scheduled-color {
+      background-color: #00000061;
+    }
+    .shortlisted-color {
+      background-color: #1cb046;
+    }
+    .rejected-color {
+      background-color: #ea172b;
+    }
+  }
+}

@@ -14,7 +14,7 @@
         ></p-breadcrumb>
       </div>
       <div class="date">
-        {{ todayDate }}
+        {{ todayDate | date }}
       </div>
     </div>
   </div>
@@ -461,6 +461,26 @@
               Schedule Name is required !
             </div>
             <div
+                    class="error-message"
+                    *ngIf="
+                      addnewScheduleForm
+                        .get('scheduleName')
+                        ?.hasError('maxLengthExceeded')
+                    "
+                  >
+                    Schedule Name cannot exceed 30 characters !
+                  </div>
+                  <div
+                    class="error-message"
+                    *ngIf="isScheduleInvalid &&
+                      addnewScheduleForm
+                        .get('scheduleName')
+                        ?.hasError('minLength')
+                    "
+                  >
+                    Schedule Name should be greater than 6 !
+                  </div>
+            <div
               class="error-message"
               *ngIf="
                 addnewScheduleForm.get('scheduleName')?.hasError('pattern')
@@ -501,6 +521,26 @@
             >
               Manager Name is required !
             </div>
+            <div
+                    class="error-message"
+                    *ngIf="
+                      addnewScheduleForm
+                        .get('managerName')
+                        ?.hasError('maxLengthExceeded')
+                    "
+                  >
+                    Manager Name cannot exceed 30 characters !
+                  </div>
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      addnewScheduleForm
+                        .get('managerName')
+                        ?.hasError('minLength')
+                    "
+                  >
+                    Manager Name should be greater than 6 character !
+                  </div>
           </div>
         </div>
       </div>
@@ -625,12 +665,6 @@
               </div>
             </div>
 
-            <div
-              class="error-message"
-              *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
-            >
-              duration value must be greater than 0 !
-            </div>
           </div>
         </div>
       </div>
