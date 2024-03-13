@@ -30,7 +30,7 @@ export class CNotification{
   content !:string
  
 }
-export class receiver{
+export class Receiver{
   receiver !: string
 }
  
@@ -78,8 +78,10 @@ export class NewScheduleComponent {
   isScheduleInvalid: boolean = false;
   saveOrEditButton!: any;
   scheduleId!: any;
-  notificationResponse: any;
- 
+  notificationResponse:any;
+  managerSet: any[] = [];
+  receiverManagers :string[]=[]
+
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
  
@@ -142,6 +144,7 @@ export class NewScheduleComponent {
       });
   }
   ngOnInit() {
+    this.loginManagerNames();
     this.saveOrEditButton = sessionStorage.getItem('SaveOrEdit');
     this.scheduleId = sessionStorage.getItem('scheduleId');
     console.log(
@@ -212,7 +215,7 @@ export class NewScheduleComponent {
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
-          console.log('recieved response', response);
+          console.log('received response', response);
           for (let i = 0; i < response.length; i++) {
             for (let j = 0; j < response[i].data.length; j++)
               this.TotalQuestions.push(response[i].data[j]);
@@ -277,6 +280,7 @@ export class NewScheduleComponent {
   count!: number | undefined;
  
   async saveSelected() {
+    
     this.scheduleMessage();
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
@@ -316,22 +320,27 @@ export class NewScheduleComponent {
     // Notification
  
     this.router.navigate(['/dashboard']);
-    const notification: CNotification = {
-      sender: '2023-12-08T05:43:35.951Z', //Suresh
-      receiver: ['2023-12-08T05:43:04.936Z'], //Sen
-      content: 'Suresh has scheduled an assessment named JAVA FSD DRIVE',
-    };
-    this.notificationService
-      .postNotification(notification)
-      .subscribe((response: any) => {
-        this.notificationResponse = response;
-        // console.log("notificaton service called",this.response)
-        console.log('notificaton service called', this.notificationResponse);
-        sessionStorage.setItem(
-          'notification',
-          `${notification.sender}has sended message`
-        );
-      });
+    const managerId = sessionStorage.getItem('loginManagerId') 
+
+    console.log("managerid",managerId)
+    this.receiverManagers=this.receiverManagers.filter((data)=> data !== managerId)
+    console.log("receivermanager except the login one",this.receiverManagers)
+    if(managerId){
+      const managerName=localStorage.getItem('managerName')
+    const notification : CNotification = {
+      sender:  managerId,  //Suresh
+      receiver: this.receiverManagers, 
+      content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
+      
+    }
+    this.notificationService.postNotification(notification).subscribe((response)=>{
+      this.notificationResponse=response
+      // console.log("notificaton service called",this.response)
+     
+      console.log("notificaton service called",this.notificationResponse)
+      sessionStorage.setItem("notification",`${notification.sender}has sended message`)
+    })
+  }
   }
   editSelected() {
     this.editScheduleMessage();
@@ -363,7 +372,19 @@ export class NewScheduleComponent {
     });
     console.log('select all Questions', this.selectedquestions);
   }
- 
+
+  loginManagerNames() {
+    this.managernameService.getManagerNames().subscribe((data) => {
+      this.managerSet = data;
+      console.log("loginmanager",this.managerSet)
+      // for(let i=0;i<this.managerSet.length;i++){
+      // console.log("id_manager",this.managerSet[i].id)
+      // }
+      this.receiverManagers = data.map( (manager : any) => manager.id);
+      console.log("manager RECEIVER" , this.receiverManagers)
+    });
+  }
+
   unselectAllQuestions(questions: any) {
     const duplicateQuestions = this.selectedquestions;
     for (let i = 0; i < questions.length; i++) {
