@@ -155,7 +155,8 @@ export class TableService {
     Skill: any,
     department : string,
     candidate_location: string,
-    loginManagerid: string | null
+    loginManagerid: string | null,
+    submitTime : string,
     
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
@@ -182,7 +183,9 @@ export class TableService {
       candidate_location:
         candidate_location !== undefined ? candidate_location : '--',
       deleted : "false",
-      loginManagerid:loginManagerid
+      loginManagerid:loginManagerid,
+      
+      submitTime: submitTime,
     };
 
     console.log('Send Existing email Data', body);

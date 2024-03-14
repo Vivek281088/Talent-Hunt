@@ -53,6 +53,7 @@ export class NavbarComponent {
     const body = {
       receiver : this.receiver
     }
+    console.log('Notification Body', body);
       this.notificationService.getNotification(body).subscribe((response)=>{
         console.log("notificaton service called",response)
         this.notifications = response;

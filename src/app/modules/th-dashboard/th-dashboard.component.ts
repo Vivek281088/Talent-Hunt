@@ -14,12 +14,12 @@ export class THDashboardComponent {
   todayDate!: Date;
   ManagerEmail!: any;
   managerName!: string | null;
-  assessmentCount: number = 25;
+  assessmentCount!: number;
   assessmentData!: any;
   recentData!: any;
   scheduleData!: any;
   recentAssessmentDataContext: any;
-dashboardCount: any;
+  dashboardCount: any;
   constructor(
     private managernameService: ManagernameService,
     private dataService: DataService
@@ -66,19 +66,19 @@ dashboardCount: any;
         result: 'Rejected',
       },
     ];
-    this.dataService.getRecentAssessmentData().subscribe((response) => {
-      this.recentAssessmentDataContext = response.context[0];
-      console.log('recentAssessmentData', this.recentAssessmentDataContext);
+    this.dataService.getDashboardData().subscribe((response) => {
+      // this.recentAssessmentDataContext = response;
+      // console.log('recentAssessmentData', this.recentAssessmentDataContext);
       this.recentData = [
         {
           title: 'New Schedule Created',
-          content: this.recentAssessmentDataContext,
-          time: response.Time,
+          content: response[0].context[0],
+          time: response[0].Time,
         },
         {
           title: 'Assessment Completed',
-          content: 'Anand has completed the assessment',
-          time: '25 min',
+          content: response[1].context[0],
+          time: response[1  ].Time,
         },
         {
           title: 'Assessment invites sent to Candidates',
@@ -93,7 +93,6 @@ dashboardCount: any;
       ];
     });
 
-    
     this.scheduleData = [
       {
         assessment: ' AWS Junior Developer',
@@ -226,13 +225,14 @@ dashboardCount: any;
 
   getDashboardCount() {
     this.dataService.getDashboardCount().subscribe((response) => {
-      console.log('Dashboard Count', response);
       this.dashboardCount = response;
-      
+      this.assessmentCount = Math.round(
+        (this.dashboardCount.shortlisted / this.dashboardCount.assessment) * 100
+      );
+      console.log('Dashboard Count', Math.round(this.assessmentCount));
     });
-  
   }
- 
+
   ngOnDestroy() {
     this.managernameService.unsubscribe();
     this.dataService.unsubscribe();
