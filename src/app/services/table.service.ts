@@ -155,6 +155,7 @@ export class TableService {
     Skill: any,
     department : string,
     candidate_location: string,
+    submitTime : string,
     
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
@@ -180,7 +181,8 @@ export class TableService {
       department: department !== undefined ? department : '--',
       candidate_location:
         candidate_location !== undefined ? candidate_location : '--',
-      deleted : "false",
+      deleted: "false",
+      submitTime: submitTime,
     };
 
     console.log('Send Existing email Data', body);
