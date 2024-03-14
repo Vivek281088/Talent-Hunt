@@ -15,37 +15,14 @@ import { DataService } from 'src/app/services/data.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { debounceTime, forkJoin } from 'rxjs';
 import { ThreeDigitDirective } from './directives/three-digit.directive';
+import * as moment from 'moment-timezone';
 import {
   ConfirmationService,
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
 
-// export class dateClass {
-//   static formattedDate(date: Date) {
-//     const months: string[] = [
-//       'Jan',
-//       'Feb',
-//       'Mar',
-//       'Apr',
-//       'May',
-//       'Jun',
-//       'Jul',
-//       'Aug',
-//       'Sep',
-//       'Oct',
-//       'Nov',
-//       'Dec',
-//     ];
 
-//     const month: string = months[date.getMonth()];
-//     const day: number = date.getDate();
-//     const year: number = date.getFullYear();
-//     const formatDate: string = `${month} ${day}, ${year}`;
-
-//     return formatDate;
-//   }
-// }
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -392,6 +369,7 @@ export class SchedulepageComponent implements OnInit {
     this.email_Status = 'Not Started';
   }
 
+  endTime!: string;
   inviteCandidate() {
     console.log('Selected Candidates', this.selectedCandidates);
 
@@ -409,6 +387,9 @@ export class SchedulepageComponent implements OnInit {
       this.candidateId = new Date(date);
 
       if (existingCandidate) {
+        const currentutcdate = new Date();
+        const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
+        this.endTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
         this.tableService
           .postExistingCandidateDetails(
             this.candidateId,
@@ -429,7 +410,8 @@ export class SchedulepageComponent implements OnInit {
             this.roles,
             this.Skill,
             existingCandidate.department,
-            existingCandidate.candidate_location
+            existingCandidate.candidate_location,
+            this.endTime
           )
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);

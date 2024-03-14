@@ -16,7 +16,6 @@ import { forkJoin } from 'rxjs';
 })
 export class ManagerProfileComponent {
   items: MenuItem[] | undefined;
-  todayDate!: string;
   editManagerForm!: FormGroup;
   formSubmitted: boolean = false;
 
@@ -49,9 +48,6 @@ export class ManagerProfileComponent {
 
   ngOnInit() {
     this.getManagerData();
-    // this.getCandidateData();
-    this.todayDate = this.formattedDate(new Date());
-    console.log('Date--------', this.todayDate);
 
     this.items = [
       { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
@@ -60,7 +56,6 @@ export class ManagerProfileComponent {
     ];
   }
   getManagerData() {
-    
     this.editManagerForm.setValue({
       employeeId: sessionStorage.getItem('ManagerProfileId'),
       managerName: sessionStorage.getItem('ManagerProfileName'),
@@ -83,29 +78,6 @@ export class ManagerProfileComponent {
       });
   }
 
-  formattedDate(date: Date) {
-    const months: string[] = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const month: string = months[date.getMonth()];
-    const day: number = date.getDate();
-    const year: number = date.getFullYear();
-    const formatDate: string = `${month} ${day}, ${year}`;
-
-    return formatDate;
-  }
   cancelButton() {
     this.editManagerForm.reset();
     this.editManagerForm.markAsPristine();
