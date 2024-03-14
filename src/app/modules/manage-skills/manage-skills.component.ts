@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 
@@ -40,7 +40,9 @@ export class ManageSkillsComponent {
   singleQuestionOption: any;
   singleQuestionAnswer: any;
   selectedquestions: any[] = [];
-  updateQuestionForm:FormGroup
+  updateQuestionForm:FormGroup;
+  checkboxControl!: FormControl;
+  radioAnswer !: FormControl;
 
 
   constructor(
@@ -59,10 +61,11 @@ export class ManageSkillsComponent {
       choices0: ['', Validators.required], 
       choices1: ['', Validators.required],       
       choices2: ['', Validators.required],     
-        choices3: ['', Validators.required],
-      answer: [null,[Validators.required]],
+      choices3: ['', Validators.required],
+   
  
     });
+   
   }
 
   ngOnInit() {
@@ -299,8 +302,9 @@ export class ManageSkillsComponent {
     // this.options=choices;
     this.choices = choices;
 
-    this.Difficulty_Level =
-      this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
+    this.Difficulty_Level = this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
+    console.log("difficulty level",Difficulty_Level, this.Difficulty_Level);
+    
     this.skills = skills;
     this.answer = answer;
 
@@ -315,13 +319,23 @@ export class ManageSkillsComponent {
     this.updateQuestionForm.patchValue({
       question: question,
       questionType : questionTypeSelected,
-      difficulty :this.getBackendDifficultyLevelViceVersa(Difficulty_Level),
+      difficulty :this.Difficulty_Level,
       choices0 :choices[0],
       choices1:choices[1],
       choices2:choices[2],
       choices3:choices[3],
-      answer:answer
      })
+  }
+  resetAnswers(value : any){
+    console.log("inside rest values",value)
+    if(value == "Checkbox"){
+      this.checkboxControl = this.fb.control([]);
+    }else{
+      
+    }
+    
+   
+  // this.updateQuestionForm.get('answer')?.patchValue(null);
   }
   getBackendDifficultyLevelViceVersa(frontendValue: string): string {
     if (frontendValue === 'E') {
@@ -380,13 +394,12 @@ export class ManageSkillsComponent {
   showUpdateMessage() {
     this.messageService.add({
       severity: 'success',
-
       summary: 'Success',
-
       detail: 'Question Updated Successfully',
     });
   }
   cancelQuestionView() {
+    console.log(" check box from" , this.checkboxControl)
     console.log("updateform",this.updateQuestionForm);
     this.QuestionView = false;
     this.formModified = false;
