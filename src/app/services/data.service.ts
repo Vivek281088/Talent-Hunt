@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,21 @@ export class DataService {
     return this.http.get<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentassessmentcard'
     );
+  }
+  getRecentAssessmentCompleted(): Observable<any> {
+    return this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/RecentAssessmentCompleted'
+    );
+  }
+  getDashboardData(): Observable<any[]> {
+    const recentAssessmentData$ = this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentassessmentcard'
+    );
+    const recentAssessmentCompleted$ = this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/RecentAssessmentCompleted'
+    );
+
+    return forkJoin([recentAssessmentData$, recentAssessmentCompleted$]);
   }
   getDashboardCount(): Observable<any> {
     return this.http.get<any>(

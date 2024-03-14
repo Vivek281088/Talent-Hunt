@@ -57,7 +57,7 @@
         </div>
         <div class="schedulecount">
           <div><p>Schedules</p></div>
-          <div class="count">{{dashboardCount.schedules}}</div>
+          <div class="count">{{ dashboardCount?.schedules }}</div>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@
         </div>
         <div class="assessmentcount">
           <div><p>Assessment</p></div>
-          <div class="count">{{dashboardCount.assessment}}</div>
+          <div class="count">{{ dashboardCount?.assessment }}</div>
         </div>
       </div>
       <div class="knob">
@@ -110,7 +110,9 @@
         </div>
         <div class="shortlistedcount">
           <div><p>Shortlisted</p></div>
-          <div class="count">{{dashboardCount.assessment}}</div>
+          <div class="count">
+            {{ dashboardCount?.shortlisted }}/{{ dashboardCount?.assessment }}
+          </div>
         </div>
       </div>
 
