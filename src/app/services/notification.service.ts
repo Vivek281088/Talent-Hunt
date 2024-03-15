@@ -7,7 +7,7 @@ import { CNotification } from '../modules/new-schedule/new-schedule.component';
   providedIn: 'root'
 })
 export class NotificationService {
-
+ 
   constructor( private http: HttpClient) {
 
    }
@@ -70,6 +70,10 @@ updateNotification(
         headers,
       }
     );
+  }
+
+  clearAllNotifications(managerId: string): Observable<void> {
+    return this.http.post<void>(`/api/clear-notifications/${managerId}`, {});
   }
 
 

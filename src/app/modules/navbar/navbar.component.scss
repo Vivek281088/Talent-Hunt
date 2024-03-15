@@ -411,3 +411,22 @@
 }
 
 
+
+  .clear-button {
+    background: linear-gradient(91.47deg, #652d90 14.44%, #d61360 158.5%);
+    // color: #fff; /* White text color */
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    -webkit-background-clip: text; 
+  background-clip: text;
+  font-family: "Poppins", sans-serif;
+  }
+  
+  .clear-button:hover {
+    background-color: #ff473d; /* Darker red color on hover */
+  }
+  
+
