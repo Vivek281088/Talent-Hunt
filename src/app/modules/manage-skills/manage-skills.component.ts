@@ -42,7 +42,7 @@ export class ManageSkillsComponent {
   selectedquestions: any[] = [];
   updateQuestionForm:FormGroup;
   checkboxControl!: FormControl;
-  radioAnswer !: FormControl;
+ 
 
 
   constructor(
@@ -62,10 +62,9 @@ export class ManageSkillsComponent {
       choices1: ['', Validators.required],       
       choices2: ['', Validators.required],     
       choices3: ['', Validators.required],
-   
- 
+      answer:['',Validators.required]
     });
-   
+    this.checkboxControl = this.fb.control([]);
   }
 
   ngOnInit() {
@@ -110,7 +109,7 @@ export class ManageSkillsComponent {
   }
 
   resetData() {
-    this.scheduleName = '';
+    //this.scheduleName = '';
   }
 
   getSkillSet() {
@@ -324,15 +323,22 @@ export class ManageSkillsComponent {
       choices1:choices[1],
       choices2:choices[2],
       choices3:choices[3],
+      answer : this.answer
      })
+     if(questionTypeSelected == "Checkbox"){
+      console.log(" selected question", questionTypeSelected)
+      this.checkboxControl.patchValue(answer)
+     }
   }
   resetAnswers(value : any){
     console.log("inside rest values",value)
-    if(value == "Checkbox"){
-      this.checkboxControl = this.fb.control([]);
-    }else{
-      
-    }
+    // if(value == "Checkbox"){
+    //   console.log("Checkbox",this.updateQuestionForm.get('answer'))
+    //   this.checkboxControl = this.fb.control([]);
+    // }else{
+    //   console.log("answer",this.updateQuestionForm.get('answer'))
+    //   this.updateQuestionForm.get('answer')?.reset();
+    // }
     
    
   // this.updateQuestionForm.get('answer')?.patchValue(null);
@@ -361,7 +367,13 @@ export class ManageSkillsComponent {
 
   updateQuestionView() {
    
-    
+    const qType =  this.updateQuestionForm.get('questionType')?.value;
+    let answer;
+    if(qType === "Checkbox"){
+      answer = this.checkboxControl.value;
+    }else {
+      answer = this.updateQuestionForm.get('answer')?.value
+    }
     this.showUpdateMessage();
     console.log('dd=>>>>>>>>>>>>>>>>>>', this.difficultyLevel);
     this.difficultyLevel = this.getBackendDifficultyLevel(
@@ -380,13 +392,13 @@ export class ManageSkillsComponent {
         this.getBackendDifficultyLevel(
           this.updateQuestionForm.get('difficulty')?.value,
         ),
-        this.updateQuestionForm.get('answer')?.value,
+       answer
       )
       .subscribe((response) => {
         console.log('updateQuestionView response', response);
         setTimeout(() => {
           this.QuestionView = false;
-         // window.location.reload();
+          window.location.reload();
           this.formModified = false;
         }, 1000);
       });
@@ -399,8 +411,12 @@ export class ManageSkillsComponent {
     });
   }
   cancelQuestionView() {
+    console.log("value", this.checkboxControl.value)
     console.log(" check box from" , this.checkboxControl)
     console.log("updateform",this.updateQuestionForm);
+    //this.checkboxControl.reset();
+    // this.updateQuestionForm.reset();
+    // this.checkboxControl.reset()
     this.QuestionView = false;
     this.formModified = false;
   }

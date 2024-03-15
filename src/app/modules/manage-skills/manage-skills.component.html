@@ -383,7 +383,7 @@
          {{updateQuestionForm.get('questionType')?.value}}
             <p-radioButton
               [value]="choices[i]"
-              [formControl] ="radioAnswer"
+              formControlName="answer"
               required
             ></p-radioButton>
           </ng-container>
