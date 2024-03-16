@@ -11,6 +11,8 @@ import { ReviewerService } from 'src/app/services/reviewer.service';
 import { Table } from 'primeng/table';
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
+import { Observable } from 'rxjs';
+
 import {
   ConfirmationService,
   MessageService,
@@ -18,6 +20,7 @@ import {
   MenuItem,
 } from 'primeng/api';
 import { Router } from '@angular/router';
+import { optionValodator } from './optionvalidator';
 
 @Component({
   selector: 'app-manage-skills',
@@ -42,7 +45,11 @@ export class ManageSkillsComponent {
   selectedquestions: any[] = [];
   updateQuestionForm:FormGroup;
   checkboxControl!: FormControl;
- 
+  headers = ['question', 'questionType', 'difficulty', 'option1', 'option2', 'option3', 'option4', 'answer1', 'answer2', 'answer3', 'answer4', 'skill'];
+  exampleData = [
+    ['How many types of cloud computing are there?', 'Radio', 'E', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer 1', '', '', '', 'AWS'],
+    ['What is Angular?', 'Checkbox', 'M', 'Option A', 'Option B', 'Option C', 'Option D', '', '', '', '', 'Web Development']
+  ];
 
 
   constructor(
@@ -55,13 +62,13 @@ export class ManageSkillsComponent {
   ) {
     // this.data=this.dataservice.sharedData;
     this.updateQuestionForm = this.fb.group({
-      question: ['', [Validators.required]],
+      question: ['', [Validators.required,Validators.minLength(7)]],
       questionType: ['', [Validators.required,]],
       difficulty: ['',[Validators.required,]],
-      choices0: ['', Validators.required], 
-      choices1: ['', Validators.required],       
-      choices2: ['', Validators.required],     
-      choices3: ['', Validators.required],
+      choices0: ['', Validators.required,optionValodator()], 
+      choices1: ['', Validators.required,optionValodator()],       
+      choices2: ['', Validators.required,optionValodator()],     
+      choices3: ['', Validators.required,optionValodator()],
       answer:['',Validators.required]
     });
     this.checkboxControl = this.fb.control([]);
@@ -189,16 +196,127 @@ export class ManageSkillsComponent {
   }
   uploadCsv(event: any) {
     const file: File = event.target.files[0];
+    const value = this.processCsv(file);
+    value.subscribe((data)=> {
+      console.log(data)
+    })
 
-    if (file) {
-      const reader: FileReader = new FileReader();
+    // if (file) {
+    //   const reader: FileReader = new FileReader();
+    //   reader.onload = () => {
+    //      const csvData: string = reader.result as string;
+    //     // this.processCsvData(csvData);
+    //     const results: any[] = [];
+
+
+    // // const lines = csvData.split('\n');
+    // // lines.forEach((line:any) => {
+    // //   const data = line.split(',');
+    // //   const question = data[0]?.trim() || '';
+    // //   const questionType = data[1]?.trim() || ''; 
+    // //   const difficulty = data[2]?.trim() || ''; 
+    // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || '']; 
+
+    // //   let answers: any[] = [];
+    // //   if (questionType === 'Radio') {
+    // //     const answer = data[7]?.trim() || ''; 
+    // //     if (answer !== '') {
+    // //       answers = answer;
+    // //     }
+    // //   } else {
+    // //     answers = [
+    // //       data[7]?.trim() || '', 
+    // //       data[8]?.trim() || '', 
+    // //       data[9]?.trim() || '', 
+    // //       data[10]?.trim() || ''
+    // //     ]; 
+    // //     answers = answers.filter(answer => answer !== '');
+    // //   }
+
+    // //   const skill = data[11]?.trim() || ''; 
+
+    // //   if (question !== '' && questionType !== '') {
+    // //     results.push({
+    // //       question,
+    // //       questionType,
+    // //       difficulty,
+    // //       options,
+    // //       answers,
+    // //       skill: skill.replace(/\r$/, '') 
+    // //     });
+    // //   }
+    // // });
+
+    // results.shift();
+    // console.log(results);
+    //   };
+
+    //   reader.readAsText(file);
+    // }
+  }
+  downloadTemplate() {
+    const csvContent = Papa.unparse({
+      fields: this.headers,
+      data: this.exampleData
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'template.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+  processCsv(file: File): Observable<any[]>{
+    return new Observable<any[]>(observer => {
+      const results: any[] = [];
+
+      const reader = new FileReader();
       reader.onload = () => {
-        const csvData: string = reader.result as string;
-        this.processCsvData(csvData);
+        const fileContent = reader.result as string;
+        Papa.parse(fileContent, {
+          header: false,
+          skipEmptyLines: true,
+          complete: (result) => {
+            result.data.forEach((row:any) => {
+              const questionType = row[1]?.trim() || '';
+              let answers: any;
+              if (questionType === 'Radio') {
+                const answer = row[7]?.trim() || '';
+                if (answer !== '') {
+                  answers = answer;
+                }
+              } else {
+                answers = row.slice(7, 11).filter((answer: string) => answer.trim() !== '');
+              }
+              console.log( "Row" , row)
+              results.push({
+                question: row[0]?.trim() || '',
+                questionType,
+                difficulty: row[2]?.trim() || '',
+                options: [row[3]?.trim() || '', row[4]?.trim() || '', row[5]?.trim() || '', row[6]?.trim() || ''],
+                answers,
+                skill: row[11]?.trim().replace(/\r$/, '') || ''
+              });
+            });
+
+            // When parsing is finished, emit the results array
+            observer.next(results);
+            observer.complete();
+          },
+          error: (error : any) => {
+            // If an error occurs during parsing, emit the error
+            observer.error(error);
+          }
+        });
       };
 
       reader.readAsText(file);
-    }
+    });
   }
   processCsvData(csvData: string) {
     Papa.parse(csvData, {
