@@ -71,6 +71,10 @@ updateNotification(
     );
   }
 
+  clearAllNotifications(managerId: string): Observable<void> {
+    return this.http.post<void>(`/api/clear-notifications/${managerId}`, {});
+  }
+
 
 }
  

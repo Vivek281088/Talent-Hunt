@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Receiver } from '../new-schedule/new-schedule.component';
  
- 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -25,8 +24,7 @@ export class NavbarComponent {
   name: boolean = false;
   modalVisible: boolean = false;
   isAdmin: boolean = false;
- 
-  finalizedManagerEmail!: string;
+   finalizedManagerEmail!: string;
   visible: boolean = false;
   tempUserName!: string | null;
   id!: string;
@@ -62,8 +60,7 @@ export class NavbarComponent {
  
   authUserOrManager() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
-    this.finalizedEmail = localStorage.getItem('candidateEmail')!;
-    console.log('finalized Candidate---', this.finalizedEmail);
+    this.finalizedEmail = localStorage.getItem('Candidateemail')!;
     const a = localStorage.getItem('userrole');
  
     if (a == 'manager') {
@@ -72,9 +69,8 @@ export class NavbarComponent {
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('Navbar-res', response);
-         
           this.tempUserName =
-            response[0].Firstname + ' ' + response[0].Lastname;
+          response[0].Firstname + ' ' + response[0].Lastname;
           this.userName = response[0].Firstname + ' ' + response[0].Lastname;
           this.receiver=response[0].id.toString();
           this.notifydata()
@@ -91,7 +87,6 @@ export class NavbarComponent {
       this.candidateService
         .getCandidatedata_by_Email(this.finalizedEmail)
         .subscribe((response) => {
-          console.log("Nav response",response)
           this.name = false;
           this.candidateList = response;
           this.tempUserName = response[0].candidateName;
@@ -99,15 +94,13 @@ export class NavbarComponent {
           this.id = response[0].id;
           console.log("iddd",this.id,response[0].id)
           sessionStorage.setItem('loginManagerId', this.id);
- 
-          this.userEmail = response[0].candidateEmail;
+           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].candidatePhone;
-          console.log('candidateName', this.tempUserName);
+          console.log('candidateName', this.candidateName);
         });
     }
   }
- 
-  authUserOrManager1() {
+   authUserOrManager1() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
  
@@ -167,7 +160,7 @@ export class NavbarComponent {
   toggle() {
     this.overlayVisible = !this.overlayVisible;
   }
-  notificationToggle() {
+  notificationToggle(){
     this.notificationOverlayVisible = !this.notificationOverlayVisible;
   }
  
@@ -195,8 +188,6 @@ export class NavbarComponent {
 //       console.log(response);
 //     })
 // }
-
-
 //     }
 clearNotification(notification: any) {
   console.log('Notifcation here', notification);
@@ -217,13 +208,5 @@ clearNotification(notification: any) {
         }
       });
   }
-
   }
-  
-
-  //  clearNotification(noti: any) {
-
-  //     this.notifications.splice(noti, 1);
-  //     // localStorage.setItem('notifications', JSON.stringify(this.notifications));
-  // }
 }
