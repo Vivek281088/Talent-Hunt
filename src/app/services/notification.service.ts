@@ -18,6 +18,7 @@ export class NotificationService {
     const body = {
       sender : notification.sender,
       receiver : notification.receiver,
+      title: notification.title,
       content : notification.content
     };
     return this.http.post<any>(
@@ -52,9 +53,7 @@ export class NotificationService {
 updateNotification(
         notificationId: string,
         receiverId: string
-
-    
-  ): Observable<any> {
+    ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
@@ -72,10 +71,25 @@ updateNotification(
     );
   }
 
-  clearAllNotifications(managerId: string): Observable<void> {
-    return this.http.post<void>(`/api/clear-notifications/${managerId}`, {});
-  }
+clearNotification(
+  receiverId:  string | null,
+  notificationId: string[]
+): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
+    const body = {
+      receiverId: receiverId,
+      notificationId:notificationId
+         };
+
+         console.log('Notification test', body);
+         return this.http.post<any>(
+           'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/clearNotification',
+           body,
+           {
+             headers,
+           }
+         );
 
 }
-
+}
