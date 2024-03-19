@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { Observable, Subject} from 'rxjs';
 import { CNotification } from '../modules/new-schedule/new-schedule.component';
 
 @Injectable({
@@ -8,9 +8,18 @@ import { CNotification } from '../modules/new-schedule/new-schedule.component';
 })
 export class NotificationService {
  
+  private newNotificationSubject = new Subject<void>();
   constructor( private http: HttpClient) {
 
    }
+
+   notifyNewNotification() {
+    this.newNotificationSubject.next();
+  }
+
+  get newNotificationReceived() {
+    return this.newNotificationSubject.asObservable();
+  }
 
    postNotification(notification : CNotification): Observable<any> {
     console.log("notification service" , notification)

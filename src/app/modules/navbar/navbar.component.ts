@@ -31,7 +31,7 @@ export class NavbarComponent {
   notification:any;
   receiver!:string;
   notifications !:any;
- 
+  hasNewNotifications: boolean = false;
   constructor(
     private authservice: AuthService,
     private managernameService: ManagernameService,
@@ -41,13 +41,15 @@ export class NavbarComponent {
   ) {}
   ngOnInit(): void {
     this.authUserOrManager();
-    // this.clearAllNotification();
-    const storedNotifications = localStorage.getItem('notifications');
+      const storedNotifications = localStorage.getItem('notifications');
   if (storedNotifications) {
     this.notifications = JSON.parse(storedNotifications);
   }
- 
-  }
+// Handling new notifications
+this.notificationService.newNotificationReceived.subscribe(() => {
+  this.hasNewNotifications = true; 
+   });
+   }
   notifydata(){
     const body = {
       receiver : this.receiver
@@ -217,15 +219,31 @@ clearNotification(notification: any) {
   }
 
 // Clear All Notification
-clearAllNotification(){
-  const receiverId = sessionStorage.getItem('loginManagerId')
+// clearAllNotification(){
+//   const receiverId = sessionStorage.getItem('loginManagerId')
+//   const notificationId = this.notifications.map((item: { id: any })=>item.id);
+//   console.log("receiver notificationid",receiverId,notificationId);
+//      this.notificationService.clearNotification(
+//     receiverId,
+//     notificationId
+//        ).subscribe(response=>{
+//       console.log('Clear All Notifications', response);
+// });
+// this.hasNewNotifications = false;
+// console.log('Has New', this.hasNewNotifications)
+// }
+
+clearAllNotification() {
+  const receiverId = sessionStorage.getItem('loginManagerId');
   const notificationId = this.notifications.map((item: { id: any })=>item.id);
-  console.log("receiver notificationid",receiverId,notificationId);
-     this.notificationService.clearNotification(
-    receiverId,
-    notificationId
-       ).subscribe(response=>{
-      console.log('Clear All Notifications', response);
-});
+
+  this.notificationService.clearNotification(receiverId, notificationId).subscribe(response => {
+    console.log('Clear All Notifications', response);
+    // Clear notifications in UI immediately
+    this.notifications = [];
+    this.hasNewNotifications = false;
+  });
 }
+
+
 }
