@@ -68,7 +68,7 @@ export class THDashboardComponent {
     ];
     this.dataService.getDashboardData().subscribe((response) => {
       // this.recentAssessmentDataContext = response;
-      // console.log('recentAssessmentData', this.recentAssessmentDataContext);
+      console.log('Dashboard Data', response);
       this.recentData = [
         {
           title: 'New Schedule Created',
