@@ -32,9 +32,14 @@ export class DataService {
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/schedulenamecard'
     );
 
+    const recentAssessmentInvites$ = this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentAssessmentInvite'
+    );
     return forkJoin([
       recentAssessmentData$,
-      recentAssessmentCompleted$
+      recentAssessmentCompleted$,
+      recentScheduleData$,
+      recentAssessmentInvites$,
     ]);
   }
   getDashboardCount(): Observable<any> {

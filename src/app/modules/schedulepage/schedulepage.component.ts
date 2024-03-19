@@ -362,7 +362,7 @@ export class SchedulepageComponent implements OnInit {
     this.email_Status = 'Not Started';
   }
 
-  endTime!: string;
+  scheduledTime!: string;
   inviteCandidate() {
     console.log('Selected Candidates', this.selectedCandidates);
 
@@ -381,9 +381,9 @@ export class SchedulepageComponent implements OnInit {
 const loginManagerid = sessionStorage.getItem('loginManagerId')
 console.log('Login Manager id', loginManagerid)
       if (existingCandidate) {
-        const currentutcdate = new Date();
-        const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
-        this.endTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
+        const currentdate = new Date();
+        const istMoment = moment.utc(currentdate).tz('Asia/Kolkata');
+        this.scheduledTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
         this.tableService
           .postExistingCandidateDetails(
             this.candidateId,
@@ -406,7 +406,7 @@ console.log('Login Manager id', loginManagerid)
             existingCandidate.department,
             existingCandidate.candidate_location,
             loginManagerid,
-            this.endTime
+            this.scheduledTime
           )
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);

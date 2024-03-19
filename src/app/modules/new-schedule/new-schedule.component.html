@@ -16,7 +16,7 @@
       <div class="cancelBtn">
         <p-button label="Cancel" (click)="cancelButton()"> </p-button>
       </div>
-      <div class="saveBtn" (click)="saveSelected()"*ngIf="saveOrEditButton == 'Save'">
+      <div class="saveBtn" *ngIf="saveOrEditButton == 'Save'">
         <p-button
         (click)="saveSelected() "
         
