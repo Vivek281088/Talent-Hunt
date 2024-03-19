@@ -378,7 +378,8 @@ export class SchedulepageComponent implements OnInit {
       this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
-
+const loginManagerid = sessionStorage.getItem('loginManagerId')
+console.log('Login Manager id', loginManagerid)
       if (existingCandidate) {
         const currentutcdate = new Date();
         const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
@@ -404,6 +405,7 @@ export class SchedulepageComponent implements OnInit {
             this.Skill,
             existingCandidate.department,
             existingCandidate.candidate_location,
+            loginManagerid,
             this.endTime
           )
           .subscribe((data) => {

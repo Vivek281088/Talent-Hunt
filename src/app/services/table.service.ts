@@ -155,6 +155,7 @@ export class TableService {
     Skill: any,
     department : string,
     candidate_location: string,
+    loginManagerid: string | null,
     submitTime : string,
     
   ): Observable<any> {
@@ -181,7 +182,9 @@ export class TableService {
       department: department !== undefined ? department : '--',
       candidate_location:
         candidate_location !== undefined ? candidate_location : '--',
-      deleted: "false",
+      deleted : "false",
+      loginManagerid:loginManagerid,
+      
       submitTime: submitTime,
     };
 

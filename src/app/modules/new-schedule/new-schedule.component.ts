@@ -14,6 +14,7 @@ import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { EventEmitter } from '@angular/core';
 import * as moment from 'moment-timezone';
 import {
   AbstractControl,
@@ -26,8 +27,8 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class CNotification{
   sender !: string
   receiver !: string[]
+  title !: string
   content !:string
-
 }
 export class Receiver{
   receiver !: string
@@ -39,6 +40,7 @@ export class Receiver{
   styleUrls: ['./new-schedule.component.scss'],
 })
 export class NewScheduleComponent {
+  saveSelectedEvent: EventEmitter<void> = new EventEmitter<void>();
   [x: string]: any;
   items: MenuItem[] | undefined;
   tabs: { title: any; content: any }[] = [];
@@ -329,17 +331,17 @@ export class NewScheduleComponent {
     const notification : CNotification = {
       sender:  managerId,  //Suresh
       receiver: this.receiverManagers, 
+      title: "Created",
       content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
-      
     }
     this.notificationService.postNotification(notification).subscribe((response)=>{
       this.notificationResponse=response
       // console.log("notificaton service called",this.response)
-     
-      console.log("notificaton service called",this.notificationResponse)
+           console.log("notificaton service called",this.notificationResponse)
       sessionStorage.setItem("notification",`${notification.sender}has sended message`)
     })
   }
+  this.saveSelectedEvent.emit();
   }
   editSelected() {
     this.editScheduleMessage();

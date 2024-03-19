@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable} from 'rxjs';
+import { Observable, Subject} from 'rxjs';
 import { CNotification } from '../modules/new-schedule/new-schedule.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-
+ 
+  private newNotificationSubject = new Subject<void>();
   constructor( private http: HttpClient) {
 
    }
+
+   notifyNewNotification() {
+    this.newNotificationSubject.next();
+  }
+
+  get newNotificationReceived() {
+    return this.newNotificationSubject.asObservable();
+  }
 
    postNotification(notification : CNotification): Observable<any> {
     console.log("notification service" , notification)
@@ -18,6 +27,7 @@ export class NotificationService {
     const body = {
       sender : notification.sender,
       receiver : notification.receiver,
+      title: notification.title,
       content : notification.content
     };
     return this.http.post<any>(
@@ -52,9 +62,7 @@ export class NotificationService {
 updateNotification(
         notificationId: string,
         receiverId: string
-
-    
-  ): Observable<any> {
+    ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
@@ -72,6 +80,25 @@ updateNotification(
     );
   }
 
+clearNotification(
+  receiverId:  string | null,
+  notificationId: string[]
+): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+
+    const body = {
+      receiverId: receiverId,
+      notificationId:notificationId
+         };
+
+         console.log('Notification test', body);
+         return this.http.post<any>(
+           'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/clearNotification',
+           body,
+           {
+             headers,
+           }
+         );
 
 }
-
+}
