@@ -5,6 +5,7 @@ import {
   QueryList,
   ChangeDetectorRef,
 } from '@angular/core';
+import * as moment from 'moment-timezone';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
@@ -29,6 +30,7 @@ import {
   styleUrls: ['./new-schedule.component.scss'],
 })
 export class NewScheduleComponent {
+  isTime!:string;
   [x: string]: any;
   items: MenuItem[] | undefined;
   tabs: { title: any; content: any }[] = [];
@@ -83,6 +85,9 @@ export class NewScheduleComponent {
     
     private fb: FormBuilder
   ) {
+    const currentutcdate=new Date();
+    const istMoment=moment.utc(currentutcdate).tz('Asia/Kolkata');
+    this.isTime=istMoment.format('YYYY-MM-DD HH:mm:ss')
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
@@ -264,6 +269,7 @@ export class NewScheduleComponent {
     try {
       const selectedSkillName = this.selectedSkills.sort();
       const dataToSave = {
+        id:this.isTime,
         Questions: this.FinalizedQuestions,
         durations: this.updateNewScheduleForm.get('duration')?.value,
 
