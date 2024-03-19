@@ -1,29 +1,50 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-
+import { Observable, Subscription } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-  sharedData:any;
+  sharedData: any;
 
-  constructor() { }
-  // private dataSubject=new Subject<any>();
-  // data$=this.dataSubject.asObservable();
-  // sendData(data:any){
-  //   this.dataSubject.next(data);
+  constructor(private http: HttpClient) {}
 
-  // }
-  private localstoragekey='sampledata'
-  savedata(data:string[]):void{
-    console.log("saved data-----------------",data)
-    localStorage.setItem(this.localstoragekey,JSON.stringify(data));
+  private localstoragekey = 'sampledata';
+  savedata(data: string[]): void {
+    console.log('saved data-----------------', data);
+    localStorage.setItem(this.localstoragekey, JSON.stringify(data));
   }
-  getData():string[]{
-    console.log("get data-----------------",this.localstoragekey)
-    const storedData=localStorage.getItem(this.localstoragekey);
-    return storedData? JSON.parse(storedData) : [];
+  getData(): string[] {
+    console.log('get data-----------------', this.localstoragekey);
+    const storedData = localStorage.getItem(this.localstoragekey);
+    return storedData ? JSON.parse(storedData) : [];
   }
-  
+  getDashboardData(): Observable<any[]> {
+    const recentAssessmentData$ = this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentassessmentcard'
+    );
+    const recentAssessmentCompleted$ = this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/RecentAssessmentCompleted'
+    );
+    const recentScheduleData$ = this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/schedulenamecard'
+    );
+
+    return forkJoin([
+      recentAssessmentData$,
+      recentAssessmentCompleted$
+    ]);
+  }
+  getDashboardCount(): Observable<any> {
+    return this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/customcards'
+    );
+  }
+  private subscriptions: Subscription[] = [];
+
+  unsubscribe(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
 }

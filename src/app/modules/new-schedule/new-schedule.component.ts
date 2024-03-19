@@ -5,17 +5,18 @@ import {
   QueryList,
   ChangeDetectorRef,
 } from '@angular/core';
-import * as moment from 'moment-timezone';
+// import * as moment from 'moment-timezone';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
-import { NgZone } from '@angular/core';
-import { Observable, debounceTime, map } from 'rxjs';
+import { debounceTime } from 'rxjs';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { EventEmitter } from '@angular/core';
+import * as moment from 'moment-timezone';
 import {
   AbstractControl,
   FormBuilder,
@@ -23,6 +24,16 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { NotificationService } from 'src/app/services/notification.service';
+export class CNotification{
+  sender !: string
+  receiver !: string[]
+  title !: string
+  content !:string
+}
+export class Receiver{
+  receiver !: string
+}
 
 @Component({
   selector: 'app-new-schedule',
@@ -30,12 +41,12 @@ import {
   styleUrls: ['./new-schedule.component.scss'],
 })
 export class NewScheduleComponent {
-  isTime!:string;
+  saveSelectedEvent: EventEmitter<void> = new EventEmitter<void>();
   [x: string]: any;
   items: MenuItem[] | undefined;
   tabs: { title: any; content: any }[] = [];
   Tdata!: any;
-  selectedQuestion!: any;
+  // selectedQuestion!: any;
   selected: boolean = false;
   data: any;
   scheduleName!: string | null;
@@ -45,7 +56,7 @@ export class NewScheduleComponent {
   duration!: string | number | null;
   skill!: string | null;
   questions = [];
-  selectedquestions: any[] | string[] | undefined;
+  selectedquestions: any[] | string[] = [];
   FinalizedQuestions: any;
   selectedQuestionCount!: number;
   visible: boolean = false;
@@ -62,13 +73,16 @@ export class NewScheduleComponent {
   QuestionView: boolean = false;
   question!: string;
   isEditSchedule: boolean = false;
-
+  isTime!: string;
   updateNewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
   formData: any;
   isScheduleInvalid: boolean = false;
   saveOrEditButton!: any;
   scheduleId!: any;
+  notificationResponse:any;
+  managerSet: any[] = [];
+  receiverManagers :string[]=[]
 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
@@ -82,12 +96,14 @@ export class NewScheduleComponent {
     private managernameService: ManagernameService,
     private messageService: MessageService,
     private router: Router,
-    
+    private notificationService: NotificationService,
     private fb: FormBuilder
+    
   ) {
-    const currentutcdate=new Date();
-    const istMoment=moment.utc(currentutcdate).tz('Asia/Kolkata');
-    this.isTime=istMoment.format('YYYY-MM-DD HH:mm:ss')
+    const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
+    const currentutcdate = new Date();
+    const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
+    this.isTime = istMoment.format('YYYY-MM-DD HH:mm:ss');
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
@@ -95,6 +111,7 @@ export class NewScheduleComponent {
           Validators.required,
           this.maxLengthValidator(30),
           this.minLengthValidator(6),
+          Validators.pattern(nonWhitespaceRegExp),
         ],
       ],
       managerName: [
@@ -112,7 +129,12 @@ export class NewScheduleComponent {
       ],
       duration: [
         null,
-        [Validators.required, Validators.max(180), Validators.min(30)],
+        [
+          Validators.required,
+          Validators.max(180),
+          Validators.min(30),
+          Validators.pattern(nonWhitespaceRegExp),
+        ],
       ],
     });
     this.updateNewScheduleForm
@@ -124,6 +146,7 @@ export class NewScheduleComponent {
       });
   }
   ngOnInit() {
+    this.loginManagerNames();
     this.saveOrEditButton = sessionStorage.getItem('SaveOrEdit');
     this.scheduleId = sessionStorage.getItem('scheduleId');
     console.log(
@@ -187,14 +210,14 @@ export class NewScheduleComponent {
 
       this.selectedSkills = sessionStorage.getItem('SelectedSkill')?.split(',');
       this.selectedquestions = sessionStorage
-        .getItem('FinalizedQuestion')
+        .getItem('FinalizedQuestion')!
         ?.split(',');
       console.log('selected edit question', this.selectedquestions);
 
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
-          console.log('recieved response', response);
+          console.log('received response', response);
           for (let i = 0; i < response.length; i++) {
             for (let j = 0; j < response[i].data.length; j++)
               this.TotalQuestions.push(response[i].data[j]);
@@ -244,14 +267,14 @@ export class NewScheduleComponent {
 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
-    console.log('loop entered');
+    console.log('loop entered', question.id);
 
     if (question.selection) {
-      this.selectedquestions?.push(question.id);
+      this.selectedquestions?.unshift(question.id);
       console.log('Selected Questions:', this.selectedquestions);
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
-        (selected) => selected !== question.id
+        (selected: any) => selected !== question.id
       );
       console.log('Selected Questions:', this.selectedquestions);
     }
@@ -259,6 +282,7 @@ export class NewScheduleComponent {
   count!: number | undefined;
 
   async saveSelected() {
+    
     this.scheduleMessage();
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
@@ -269,7 +293,7 @@ export class NewScheduleComponent {
     try {
       const selectedSkillName = this.selectedSkills.sort();
       const dataToSave = {
-        id:this.isTime,
+        id : this.isTime,
         Questions: this.FinalizedQuestions,
         durations: this.updateNewScheduleForm.get('duration')?.value,
 
@@ -294,6 +318,31 @@ export class NewScheduleComponent {
     } catch (error) {
       console.error(error);
     }
+
+    // Notification
+
+    this.router.navigate(['/dashboard']);
+    const managerId = sessionStorage.getItem('loginManagerId') 
+
+    console.log("managerid",managerId)
+    this.receiverManagers=this.receiverManagers.filter((data)=> data !== managerId)
+    console.log("receivermanager except the login one",this.receiverManagers)
+    if(managerId){
+      const managerName=localStorage.getItem('managerName')
+    const notification : CNotification = {
+      sender:  managerId,  //Suresh
+      receiver: this.receiverManagers, 
+      title: "Created",
+      content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
+    }
+    this.notificationService.postNotification(notification).subscribe((response)=>{
+      this.notificationResponse=response
+      // console.log("notificaton service called",this.response)
+           console.log("notificaton service called",this.notificationResponse)
+      sessionStorage.setItem("notification",`${notification.sender}has sended message`)
+    })
+  }
+  this.saveSelectedEvent.emit();
   }
   editSelected() {
     this.editScheduleMessage();
@@ -316,6 +365,7 @@ export class NewScheduleComponent {
   }
 
   selectQuestions(tabs: any) {
+    console.log('Selected', tabs);
     tabs.forEach((question: any) => {
       if (!question.selection) {
         question.selection = true;
@@ -323,6 +373,18 @@ export class NewScheduleComponent {
       }
     });
     console.log('select all Questions', this.selectedquestions);
+  }
+
+  loginManagerNames() {
+    this.managernameService.getManagerNames().subscribe((data) => {
+      this.managerSet = data;
+      console.log("loginmanager",this.managerSet)
+      // for(let i=0;i<this.managerSet.length;i++){
+      // console.log("id_manager",this.managerSet[i].id)
+      // }
+      this.receiverManagers = data.map( (manager : any) => manager.id);
+      console.log("manager RECEIVER" , this.receiverManagers)
+    });
   }
 
   unselectAllQuestions(questions: any) {
@@ -334,7 +396,7 @@ export class NewScheduleComponent {
     }
     const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions?.filter(
-      (question) => !questionIds.includes(question)
+      (question: any) => !questionIds.includes(question)
     );
     console.log('un select all ', this.selectedquestions);
   }
@@ -537,7 +599,8 @@ export class NewScheduleComponent {
   }
 
   totalSelectedQuestion: any;
-  observables : any | undefined
+  observables: any | undefined;
+
   onPreviewClick() {
     this.previewSidebarVisible = true;
 
@@ -570,7 +633,7 @@ export class NewScheduleComponent {
     };
   }
   minLengthValidator(minLength: number) {
-    return (control: AbstractControl): { [key: string]: any } | null => {
+    return (control: FormControl): { [key: string]: any } | null => {
       if (control.value && control.value.length < minLength) {
         return { minLength: true };
       }

@@ -195,6 +195,17 @@
                   >
                     Manager Name cannot exceed 30 characters !
                   </div>
+                  <div
+                    class="error-message"
+                    *ngIf="
+                      updateNewScheduleForm
+                        .get('managerName')
+                        ?.hasError('minLength')
+                    "
+                  >
+                    Manager Name should be greater than 6 character !
+                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -337,7 +348,7 @@
               #dt2
               class="newscheduleTable"
               [value]="tab.content"
-              [(selection)]="selectedQuestion"
+              [(selection)]="selectedquestions"
               dataKey="id"
               [scrollable]="true"
               scrollHeight="290px"

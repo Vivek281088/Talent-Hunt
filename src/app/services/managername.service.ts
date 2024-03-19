@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, catchError, tap, throwError } from 'rxjs';
+import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ManagernameService {
   private managerNameUrl = 'http://localhost:9000/skill';
-  // Update the URL to match your backend API URL
 
   private finalizedQuestions: any[] = [];
 
@@ -29,7 +28,7 @@ export class ManagernameService {
 
   userEmail!: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getManagerNames(): Observable<any> {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/managernames`;
@@ -77,20 +76,26 @@ export class ManagernameService {
         catchError((error) => {
           console.log('Inside Catch Error');
           if (error.status == 400) {
-            console.log(error.status,"error 1");
-          return throwError(() => error);
+            console.log(error.status, "error 1");
+            return throwError(() => error);
 
           }
           if (error.status == 401) {
             console.log(error.status, 'error 2');
-          return throwError(() => error);
+            return throwError(() => error);
 
           }
 
-           return throwError(() => error);
+          return throwError(() => error);
         })
       );
   }
+  private subscriptions: Subscription[] = [];
+
+  unsubscribe(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
 
   addCandidate(
     candidateName: string,

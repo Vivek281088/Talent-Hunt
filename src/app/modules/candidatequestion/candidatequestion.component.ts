@@ -2,6 +2,7 @@ import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 
 import { ManagernameService } from 'src/app/services/managername.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 import { TableService } from 'src/app/services/table.service';
 import {
@@ -17,6 +18,8 @@ import { Toast } from 'ngx-toastr';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { forkJoin } from 'rxjs';
 import Swal from 'sweetalert2';
+import { CNotification } from '../new-schedule/new-schedule.component';
+import * as moment from 'moment-timezone';
 @Component({
   selector: 'app-candidatequestion',
   templateUrl: './candidatequestion.component.html',
@@ -43,6 +46,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   first: number = 0;
 
   rows: number = 1;
+  notificationResponse: any;
 
   page: number = 0;
   pageCount: number = 0;
@@ -63,11 +67,12 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   totalQuestions!: number;
   assessmentQuestions: any;
   previewOptions: any;
-  endTime!: Date;
+  endTime!: string;
   countCorrectQues!: number;
   CountTotalQuestions!: number;
   score!: number;
   result: string = '';
+  loginManagerId!: string;
   cutoff!: number;
   fileName!: string;
   id: any = '2024-01-04T06:04:10.746Z';
@@ -84,10 +89,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     private reviewerService: ReviewerService,
     private candidateService: CandidateAssessmentService,
     private cdr: ChangeDetectorRef,
+    private notificationService: NotificationService,
 
     private router: Router,
-    private newScheduleService : NewScheduleService,
-  ) {}
+    private newScheduleService: NewScheduleService,
+  ) { }
   ngAfterViewInit(): void {
     this.totalQuestions = this.previewOptions.length;
 
@@ -105,108 +111,16 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
     this.startTime = new Date();
 
+
     this.updateTimer();
 
     //get the assessment data
     this.assessmentData = this.candidateAssessmentService.getAssessmentData();
-    // this.assessmentData = {
-    //   Skill: ['GraphQL', 'Nodejs'],
-    //   candidateEmail: 'kabilan@gmail.com',
-    //   candidateName: 'Kabilan',
-    //   candidatePhone: 9090909090,
-    //   confirmPassword: 'abc123',
-    //   cutoff: '45',
-    //   durations: '200',
-    //   email_Filename: 'Angular Training',
-    //   email_Managername: 'Mathanraj',
-    //   email_Status: 'Not Started',
-    //   id: '2024-01-04T13:41:35.740Y',
-    //   password: 'abc123',
-    //   questions: [
-    //     {
-    //       Difficulty_Level: 'H',
-    //       Selected: true,
-    //       answer: 'Answer',
-    //       id: '1699593363385',
-    //       options: ['word', 'Para', 'Line', 'Text'],
-    //       question:
-    //         'This tab lists all connected branches, select a branch to view build details.',
-    //       questionType: 'Radio',
-    //       skills: 'GraphQL',
-    //     },
-    //     {
-    //       Difficulty_Level: 'M',
-    //       Selected: true,
-    //       answer: ['useMutation'],
-    //       id: '2',
-    //       options: [
-    //         'useMutation',
-    //         'useSubscription',
-    //         'useQuery',
-    //         'none of the options',
-    //       ],
-    //       question:
-    //         'Which of the following GraphQL’s hooks should be used to update data on server?',
-    //       questionType: 'Radio',
-    //       skills: 'GraphQL',
-    //     },
-    //     {
-    //       Difficulty_Level: 'H',
-    //       answer: ['Use gzip compression'],
-    //       id: '246789012345',
-    //       options: [
-    //         'Do logging correctly',
-    //         "Don't use synchronous functions",
-    //         'Handle exceptions properly',
-    //         'Use gzip compression',
-    //       ],
-    //       question:
-    //         "What should you do in your code to improve your application's performance?",
-    //       questionType: 'Radio',
-    //       selection: true,
-    //       skills: 'Nodejs',
-    //     },
-
-    //     {
-    //       Difficulty_Level: 'M',
-    //       answer: ['fsread'],
-    //       id: '1',
-    //       options: ['HTTPS', 'dgram', 'fsread', 'zlib'],
-    //       question:
-    //         'Which of the below modules is not a built-in module in Node.js',
-    //       questionType: 'Radio',
-    //       selection: true,
-    //       skills: 'Nodejs',
-    //     },
-    //     {
-    //       Difficulty_Level: 'H',
-    //       answer: ['GruntJs'],
-    //       id: '2467890123',
-    //       options: ['Express.js', 'GruntJs', 'NPM', 'None of the above'],
-    //       question:
-    //         'Which of the following tool is used to automate various tasks in a Node.js application?',
-    //       questionType: 'Radio',
-    //       selection: true,
-    //       skills: 'Nodejs',
-    //     },
-    //     {
-    //       Difficulty_Level: 'E',
-    //       answer: ['Third Party'],
-    //       id: '2467890',
-    //       options: ['Global', 'Third Party', 'core', 'local'],
-    //       question: 'Http module falls under which type of module?',
-    //       questionType: 'Radio',
-    //       selection: true,
-    //       skills: 'Nodejs',
-    //     },
-    //   ],
-    //   results: 'Awaiting Eval',
-    //   roles: 'user',
-    //   score: null,
-    // };
+    
 
     console.log('Assessment Data', this.assessmentData);
     this.previewOptions = this.assessmentData.questions;
+    this.loginManagerId = this.assessmentData.loginManagerId
     this.duration = this.assessmentData.durations;
     this.fileName = this.assessmentData.email_Filename;
 
@@ -217,7 +131,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.candidateEmail = this.assessmentData.candidateEmail;
     console.log('Email-->', this.candidateEmail);
 
-     this.getQuestionsById(this.previewOptions);
+    this.getQuestionsById(this.previewOptions);
     this.remainingTime = this.duration * 60;
     console.log('Assessment Questions', this.previewOptions);
     this.selectedOptions1 = this.previewOptions.map(() => []);
@@ -225,7 +139,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     console.log('Count Total Quest-', this.totalQuestions);
     this.updateSessionStorage();
   }
-  
+
   getQuestionsById(previewOptions: any) {
     console.log('get id', previewOptions);
     const observables = previewOptions.map((questionId: string) =>
@@ -291,9 +205,8 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           const minutes = Math.floor((this.remainingTime % 3600) / 60);
           this.remainingTimeString = `${hours}h ${minutes}m`;
         } else {
-          this.remainingTimeString = `${Math.floor(this.remainingTime / 60)}m ${
-            this.remainingTime % 60
-          }s`;
+          this.remainingTimeString = `${Math.floor(this.remainingTime / 60)}m ${this.remainingTime % 60
+            }s`;
         }
         this.cdr.detectChanges();
       } else {
@@ -327,7 +240,10 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   submitAnswers() {
     console.log('submit function');
 
-    this.endTime = new Date();
+    // this.endTime = new Date();
+     const currentutcdate = new Date();
+     const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
+     this.endTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
     this.reviewQuestion();
     this.router.navigate(['/login']);
   }
@@ -378,6 +294,8 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     //Auto review update for reviewer
 
     const reviewData = {
+
+
       id: this.id,
 
       questions: this.previewOptions,
@@ -389,9 +307,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       email_Status: 'Completed',
 
       candidateEmail: this.candidateEmail,
+
+      submitTime : this.endTime
     };
 
-    console.log(reviewData);
+    console.log("Submitted Data",reviewData);
 
     this.reviewerService
       .updateScoreAndResult(reviewData)
@@ -425,7 +345,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           detail: 'Submitted',
         });
         this.submitAnswers();
-        
+        this.notificationSend();
+
+
         Swal.fire({
           title: 'Submitted Successfully!',
           text: 'You have submitted the test succesfully!',
@@ -433,10 +355,10 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           allowOutsideClick: false,
         }).then((result: { isConfirmed: any; }) => {
           if (result.isConfirmed) {
+            
             this.router.navigate(['/login']);
           }
         });
-
         console.log('Submitted');
       },
       reject: (type: ConfirmEventType) => {
@@ -493,4 +415,23 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       return 'wrongAnswer';
     }
   }
+
+  notificationSend() {
+    const notification: CNotification = {
+      sender: this.assessmentData.id,  //Suresh
+      receiver: [this.assessmentData.loginManagerid],
+      title: "Submitted",
+      content: `${this.assessmentData.candidateName} has Submitted an assessment named ${sessionStorage.getItem('scheduleName')}`
+    }
+    console.log("noti body", notification);
+
+    this.notificationService.postNotification(notification).subscribe((response) => {
+      this.notificationResponse = response
+      // console.log("notificaton service called",this.response)
+      console.log("notificaton service called", this.notificationResponse)
+      sessionStorage.setItem("notification", `${notification.sender}has sended message`)
+    })
+  }
+
 }
+
