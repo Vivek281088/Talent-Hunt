@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 
@@ -11,6 +11,8 @@ import { ReviewerService } from 'src/app/services/reviewer.service';
 import { Table } from 'primeng/table';
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
+import { Observable } from 'rxjs';
+
 import {
   ConfirmationService,
   MessageService,
@@ -18,6 +20,7 @@ import {
   MenuItem,
 } from 'primeng/api';
 import { Router } from '@angular/router';
+import { optionValodator } from './optionvalidator';
 
 @Component({
   selector: 'app-manage-skills',
@@ -40,15 +43,35 @@ export class ManageSkillsComponent {
   singleQuestionOption: any;
   singleQuestionAnswer: any;
   selectedquestions: any[] = [];
+  updateQuestionForm:FormGroup;
+  checkboxControl!: FormControl;
+  headers = ['question', 'questionType', 'difficulty', 'option1', 'option2', 'option3', 'option4', 'answer1', 'answer2', 'answer3', 'answer4', 'skill'];
+  exampleData = [
+    ['How many types of cloud computing are there?', 'Radio', 'E', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer 1', '', '', '', 'AWS'],
+    ['What is Angular?', 'Checkbox', 'M', 'Option A', 'Option B', 'Option C', 'Option D', '', '', '', '', 'Web Development']
+  ];
+
 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
     private router: Router,
     private managerService: ManagernameService,
     private messageService: MessageService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private fb:FormBuilder
   ) {
     // this.data=this.dataservice.sharedData;
+    this.updateQuestionForm = this.fb.group({
+      question: ['', [Validators.required,Validators.minLength(7)]],
+      questionType: ['', [Validators.required,]],
+      difficulty: ['',[Validators.required,]],
+      choices0: ['', Validators.required,optionValodator()], 
+      choices1: ['', Validators.required,optionValodator()],       
+      choices2: ['', Validators.required,optionValodator()],     
+      choices3: ['', Validators.required,optionValodator()],
+      answer:['',Validators.required]
+    });
+    this.checkboxControl = this.fb.control([]);
   }
 
   ngOnInit() {
@@ -93,7 +116,7 @@ export class ManageSkillsComponent {
   }
 
   resetData() {
-    this.scheduleName = '';
+    //this.scheduleName = '';
   }
 
   getSkillSet() {
@@ -173,16 +196,127 @@ export class ManageSkillsComponent {
   }
   uploadCsv(event: any) {
     const file: File = event.target.files[0];
+    const value = this.processCsv(file);
+    value.subscribe((data)=> {
+      console.log(data)
+    })
 
-    if (file) {
-      const reader: FileReader = new FileReader();
+    // if (file) {
+    //   const reader: FileReader = new FileReader();
+    //   reader.onload = () => {
+    //      const csvData: string = reader.result as string;
+    //     // this.processCsvData(csvData);
+    //     const results: any[] = [];
+
+
+    // // const lines = csvData.split('\n');
+    // // lines.forEach((line:any) => {
+    // //   const data = line.split(',');
+    // //   const question = data[0]?.trim() || '';
+    // //   const questionType = data[1]?.trim() || ''; 
+    // //   const difficulty = data[2]?.trim() || ''; 
+    // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || '']; 
+
+    // //   let answers: any[] = [];
+    // //   if (questionType === 'Radio') {
+    // //     const answer = data[7]?.trim() || ''; 
+    // //     if (answer !== '') {
+    // //       answers = answer;
+    // //     }
+    // //   } else {
+    // //     answers = [
+    // //       data[7]?.trim() || '', 
+    // //       data[8]?.trim() || '', 
+    // //       data[9]?.trim() || '', 
+    // //       data[10]?.trim() || ''
+    // //     ]; 
+    // //     answers = answers.filter(answer => answer !== '');
+    // //   }
+
+    // //   const skill = data[11]?.trim() || ''; 
+
+    // //   if (question !== '' && questionType !== '') {
+    // //     results.push({
+    // //       question,
+    // //       questionType,
+    // //       difficulty,
+    // //       options,
+    // //       answers,
+    // //       skill: skill.replace(/\r$/, '') 
+    // //     });
+    // //   }
+    // // });
+
+    // results.shift();
+    // console.log(results);
+    //   };
+
+    //   reader.readAsText(file);
+    // }
+  }
+  downloadTemplate() {
+    const csvContent = Papa.unparse({
+      fields: this.headers,
+      data: this.exampleData
+    });
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'template.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }
+  processCsv(file: File): Observable<any[]>{
+    return new Observable<any[]>(observer => {
+      const results: any[] = [];
+
+      const reader = new FileReader();
       reader.onload = () => {
-        const csvData: string = reader.result as string;
-        this.processCsvData(csvData);
+        const fileContent = reader.result as string;
+        Papa.parse(fileContent, {
+          header: false,
+          skipEmptyLines: true,
+          complete: (result) => {
+            result.data.forEach((row:any) => {
+              const questionType = row[1]?.trim() || '';
+              let answers: any;
+              if (questionType === 'Radio') {
+                const answer = row[7]?.trim() || '';
+                if (answer !== '') {
+                  answers = answer;
+                }
+              } else {
+                answers = row.slice(7, 11).filter((answer: string) => answer.trim() !== '');
+              }
+              console.log( "Row" , row)
+              results.push({
+                question: row[0]?.trim() || '',
+                questionType,
+                difficulty: row[2]?.trim() || '',
+                options: [row[3]?.trim() || '', row[4]?.trim() || '', row[5]?.trim() || '', row[6]?.trim() || ''],
+                answers,
+                skill: row[11]?.trim().replace(/\r$/, '') || ''
+              });
+            });
+
+            // When parsing is finished, emit the results array
+            observer.next(results);
+            observer.complete();
+          },
+          error: (error : any) => {
+            // If an error occurs during parsing, emit the error
+            observer.error(error);
+          }
+        });
       };
 
       reader.readAsText(file);
-    }
+    });
   }
   processCsvData(csvData: string) {
     Papa.parse(csvData, {
@@ -229,9 +363,7 @@ export class ManageSkillsComponent {
 
         setTimeout(() => {
           this.fileUploadMessage();
-          window.location.reload();
           this.cancelButton();
-
         }, 1000);
       },
       header: true,
@@ -287,8 +419,9 @@ export class ManageSkillsComponent {
     // this.options=choices;
     this.choices = choices;
 
-    this.Difficulty_Level =
-      this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
+    this.Difficulty_Level = this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
+    console.log("difficulty level",Difficulty_Level, this.Difficulty_Level);
+    
     this.skills = skills;
     this.answer = answer;
 
@@ -300,6 +433,33 @@ export class ManageSkillsComponent {
       this.Difficulty_Level,
       choices
     );
+    this.updateQuestionForm.patchValue({
+      question: question,
+      questionType : questionTypeSelected,
+      difficulty :this.Difficulty_Level,
+      choices0 :choices[0],
+      choices1:choices[1],
+      choices2:choices[2],
+      choices3:choices[3],
+      answer : this.answer
+     })
+     if(questionTypeSelected == "Checkbox"){
+      console.log(" selected question", questionTypeSelected)
+      this.checkboxControl.patchValue(answer)
+     }
+  }
+  resetAnswers(value : any){
+    console.log("inside rest values",value)
+    // if(value == "Checkbox"){
+    //   console.log("Checkbox",this.updateQuestionForm.get('answer'))
+    //   this.checkboxControl = this.fb.control([]);
+    // }else{
+    //   console.log("answer",this.updateQuestionForm.get('answer'))
+    //   this.updateQuestionForm.get('answer')?.reset();
+    // }
+    
+   
+  // this.updateQuestionForm.get('answer')?.patchValue(null);
   }
   getBackendDifficultyLevelViceVersa(frontendValue: string): string {
     if (frontendValue === 'E') {
@@ -324,7 +484,14 @@ export class ManageSkillsComponent {
   }
 
   updateQuestionView() {
-    
+   
+    const qType =  this.updateQuestionForm.get('questionType')?.value;
+    let answer;
+    if(qType === "Checkbox"){
+      answer = this.checkboxControl.value;
+    }else {
+      answer = this.updateQuestionForm.get('answer')?.value
+    }
     this.showUpdateMessage();
     console.log('dd=>>>>>>>>>>>>>>>>>>', this.difficultyLevel);
     this.difficultyLevel = this.getBackendDifficultyLevel(
@@ -333,12 +500,17 @@ export class ManageSkillsComponent {
     this.skillsdropdownservice
       .updateQuestion(
         this.id,
-        this.question,
-        this.questionTypeSelected,
-        this.choices,
+        this.updateQuestionForm.get('question')?.value,
+        this.updateQuestionForm.get('questionType')?.value,
+       [ this.updateQuestionForm.get('choices0')?.value,
+        this.updateQuestionForm.get('choices1')?.value,
+        this.updateQuestionForm.get('choices2')?.value,
+        this.updateQuestionForm.get('choices3')?.value,],
         this.skills,
-        this.difficultyLevel,
-        this.answer
+        this.getBackendDifficultyLevel(
+          this.updateQuestionForm.get('difficulty')?.value,
+        ),
+       answer
       )
       .subscribe((response) => {
         console.log('updateQuestionView response', response);
@@ -352,13 +524,17 @@ export class ManageSkillsComponent {
   showUpdateMessage() {
     this.messageService.add({
       severity: 'success',
-
       summary: 'Success',
-
       detail: 'Question Updated Successfully',
     });
   }
   cancelQuestionView() {
+    console.log("value", this.checkboxControl.value)
+    console.log(" check box from" , this.checkboxControl)
+    console.log("updateform",this.updateQuestionForm);
+    //this.checkboxControl.reset();
+    // this.updateQuestionForm.reset();
+    // this.checkboxControl.reset()
     this.QuestionView = false;
     this.formModified = false;
   }

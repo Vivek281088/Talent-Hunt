@@ -9,7 +9,7 @@ import { CandidateAssessmentService } from 'src/app/services/candidate-assessmen
 import { ReviewerService } from 'src/app/services/reviewer.service';
  
 import { FormControl } from '@angular/forms';
-import { MenuItem } from 'primeng/api';
+import { FilterMetadata, MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { DataService } from 'src/app/services/data.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
@@ -147,6 +147,13 @@ export class SchedulepageComponent implements OnInit {
     this.getUniqueCandidatedata();
     this.getCandidatename();
   }
+  customFilter(value: any, filter: FilterMetadata): boolean {
+    const selectedSkills: string[] = filter ? filter.value : null;
+    if (selectedSkills && selectedSkills.length > 0) {
+        return selectedSkills.some(skill => value.Skill.includes(skill)); 
+    }
+    return true;
+}
   maxLengthValidator(maxLength: number) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value && control.value.length > maxLength) {
