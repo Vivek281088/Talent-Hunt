@@ -30,6 +30,7 @@ export class CNotification{
   title!:string
   content !:string
  
+ 
 }
 export class Receiver{
   receiver !: string
@@ -267,6 +268,8 @@ export class NewScheduleComponent {
   }
  
 timeInterval:number=0;
+cutOff:number=0;
+totalCutoff:number=0;
  
   toggleSelection(question: any): void {
     question.selection = !question.selection;
@@ -276,18 +279,21 @@ timeInterval:number=0;
       this.selectedquestions?.unshift(question.id);
       console.log('Selected Questions:', this.selectedquestions);
       this.timeIntervalAddition(question);
+      this.totalCutoff=this.cutOff/this.selectedquestions.length;
  
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
         (selected: any) => selected !== question.id
       );
-      this.timeIntervalSubtraction(question)
+      this.timeIntervalSubtraction(question);
+      this.totalCutoff=this.cutOff/this.selectedquestions.length;
+
+
    
       console.log('Selected Questions:', this.selectedquestions);
     }
   }
   count!: number | undefined;
-  cutoff : number=40;
   async saveSelected() {
    
     this.scheduleMessage();
@@ -306,7 +312,7 @@ timeInterval:number=0;
  
         JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
  
-       cutoff: this.cutoff,
+       cutoff: this.cutOff,
  
         Managername: this.updateNewScheduleForm.get('managerName')?.value,
         // id:date,
@@ -341,14 +347,14 @@ timeInterval:number=0;
       receiver: this.receiverManagers,
       title:"Created",
       content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
-     
-    }
+         }
     this.notificationService.postNotification(notification).subscribe((response)=>{
       this.notificationResponse=response
       // console.log("notificaton service called",this.response)
      
       console.log("notificaton service called",this.notificationResponse)
       sessionStorage.setItem("notification",`${notification.sender}has sended message`)
+
     })
   }
   }
@@ -379,6 +385,8 @@ timeInterval:number=0;
         question.selection = true;
         this.selectedquestions?.push(question.id);
         this.timeIntervalAddition(question);
+        this.totalCutoff=this.cutOff/this.selectedquestions.length;
+
       }
     });
     console.log('select all Questions', this.selectedquestions);
@@ -402,14 +410,21 @@ timeInterval:number=0;
       if (questions[i].selection) {
         questions[i].selection = false;
     this.timeIntervalSubtraction(questions[i]);
+    
       }
     }
+   
     const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions?.filter(
       (question: any) => !questionIds.includes(question)
     );
    
     console.log('un select all ', this.selectedquestions);
+     this.totalCutoff=this.cutOff/this.selectedquestions.length;
+    console.log('Cutoff',this.cutOff)
+    console.log('TotalCutoff',this.totalCutoff)
+    console.log('Question Length',this.selectedquestions.length)
+
   }
   scheduleMessage() {
     this.messageService.add({
@@ -654,12 +669,15 @@ timeIntervalAddition(question: any){
  
   if(question.Difficulty_Level=='E'){
     this.timeInterval= this.timeInterval + 1;
+    this.cutOff=this.cutOff+80;
           }
           if(question.Difficulty_Level=='M'){
             this.timeInterval= this.timeInterval +2;
+            this.cutOff=this.cutOff+60;
                   }
                   if(question.Difficulty_Level=='H'){
                     this.timeInterval=this.timeInterval +3;
+                    this.cutOff=this.cutOff+50;
                           }
 }
  
@@ -667,12 +685,15 @@ timeIntervalAddition(question: any){
 timeIntervalSubtraction(question:any){
   if(question.Difficulty_Level=='E'){
     this.timeInterval= this.timeInterval -1;
+    this.cutOff=this.cutOff-80;
           }
           if(question.Difficulty_Level=='M'){
             this.timeInterval= this.timeInterval -2;
+            this.cutOff=this.cutOff-60;
                   }
                   if(question.Difficulty_Level=='H'){
                     this.timeInterval=this.timeInterval -3;
+                    this.cutOff=this.cutOff-50;
                           }
 }
  
