@@ -237,7 +237,6 @@
         <p class="user-name">{{ userName }}</p>
         <p class="user-role" *ngIf="isAdmin">Admin</p>
       </div>
-
       <!-- Profile Overlay -->
       <p-overlay [(visible)]="overlayVisible" [modal]="true" appendTo="body">
         <div class="overlay-whole">
@@ -299,11 +298,12 @@
                 *ngFor="let noti of notifications; let i = index"
               >
                 <div class="notification-content-header">
-                  <p>{{ noti.title }}</p>
+                  <div><p>{{ noti.title }}</p></div>
+                  <div><i class="pi pi-times" (click)="clearNotification(noti)"></i></div>
                 </div>
                 <div class="notification-content-body">
                   <p>{{ noti.content }}</p>
-                  <i class="pi pi-times" (click)="clearNotification(noti)"></i>
+              
                 </div>
               </div>
             </div>

@@ -1,6 +1,5 @@
 import {
   Component,
-  ViewChild,
   ViewChildren,
   QueryList,
   ChangeDetectorRef,
@@ -14,7 +13,8 @@ import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-import { EventEmitter } from '@angular/core';
+ 
+// import * as moment from 'moment-timezone';
 import * as moment from 'moment-timezone';
 import {
   AbstractControl,
@@ -27,20 +27,21 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class CNotification{
   sender !: string
   receiver !: string[]
-  title !: string
+  title!:string
   content !:string
+ 
+ 
 }
 export class Receiver{
   receiver !: string
 }
-
+ 
 @Component({
   selector: 'app-new-schedule',
   templateUrl: './new-schedule.component.html',
   styleUrls: ['./new-schedule.component.scss'],
 })
 export class NewScheduleComponent {
-  saveSelectedEvent: EventEmitter<void> = new EventEmitter<void>();
   [x: string]: any;
   items: MenuItem[] | undefined;
   tabs: { title: any; content: any }[] = [];
@@ -51,8 +52,9 @@ export class NewScheduleComponent {
   scheduleName!: string | null;
   manager!: String | null;
   selectedSkills!: any | null;
-  cutOff!: string | number | null;
-  duration!: string | number | null;
+  // cutOff!: string | number | null;
+ 
+ 
   skill!: string | null;
   questions = [];
   selectedquestions: any[] | string[] = [];
@@ -80,12 +82,13 @@ export class NewScheduleComponent {
   saveOrEditButton!: any;
   scheduleId!: any;
   notificationResponse:any;
+  // title:string="";
   managerSet: any[] = [];
   receiverManagers :string[]=[]
-
+ 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
-
+ 
   constructor(
     private route: ActivatedRoute,
     private dataservice: DataService,
@@ -97,7 +100,7 @@ export class NewScheduleComponent {
     private router: Router,
     private notificationService: NotificationService,
     private fb: FormBuilder
-    
+   
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     const currentutcdate = new Date();
@@ -121,11 +124,11 @@ export class NewScheduleComponent {
           this.minLengthValidator(6),
         ],
       ],
-
-      cutoff: [
-        null,
-        [Validators.required, Validators.max(100), Validators.min(1)],
-      ],
+ 
+      // cutoff: [
+      //   null,
+      //   [Validators.required, Validators.max(100), Validators.min(1)],
+      // ],
       duration: [
         null,
         [
@@ -152,67 +155,67 @@ export class NewScheduleComponent {
       'Now the functionality of the button is ',
       this.saveOrEditButton
     );
-
+ 
     this.loadManagerNames();
-
+ 
     this.items = [
       { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Schedule', routerLink: '/dashboard' },
       { label: 'New Schedule', routerLink: '/new-schedule' },
     ];
-
+ 
     const a = sessionStorage.getItem('boolean');
     if (a == null) {
       this.updateNewScheduleForm.patchValue({
         scheduleName: sessionStorage.getItem('scheduleName'),
         managerName: sessionStorage.getItem('manager'),
-
-        cutoff: sessionStorage.getItem('cutoff'),
-        duration: sessionStorage.getItem('duration'),
+ 
+        // cutoff: sessionStorage.getItem('cutoff'),
+        // duration: sessionStorage.getItem('duration'),
       });
-
+ 
       this.selectedSkills = this.dataservice.getData();
-
+ 
       console.log('ss', this.selectedSkills);
-
+ 
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
           console.log('recieved response', response);
-
+ 
           for (let i = 0; i < response.length; i++) {
             this.tabs.push({
               title: response[i].skills,
               content: response[i].data,
             });
           }
-
+ 
           this.cdr.detectChanges();
         });
     } else {
       this.updateNewScheduleForm.patchValue({
         scheduleName: sessionStorage.getItem('scheduleName'),
         managerName: sessionStorage.getItem('manager'),
-
-        cutoff: sessionStorage.getItem('cutoff'),
-        duration: sessionStorage.getItem('duration'),
+ 
+        // cutoff: sessionStorage.getItem('cutoff'),
+        // duration: sessionStorage.getItem('duration'),
       });
       console.log('Edit Data------', this.updateNewScheduleForm.value);
-
+ 
       this.formData = this.updateNewScheduleForm.value;
-
+ 
       this.formData.scheduleName = sessionStorage.getItem('scheduleName');
-
+ 
       this.formData.managerName = this.managernameService.getManagerName();
-      this.formData.cutoff = this.managernameService.getCutoff();
-      this.formData.duration = this.managernameService.getDuration();
-
+      // this.formData.cutoff = this.managernameService.getCutoff();
+      // this.formData.duration = this.managernameService.getDuration();
+ 
       this.selectedSkills = sessionStorage.getItem('SelectedSkill')?.split(',');
       this.selectedquestions = sessionStorage
         .getItem('FinalizedQuestion')!
         ?.split(',');
       console.log('selected edit question', this.selectedquestions);
-
+ 
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
@@ -220,7 +223,7 @@ export class NewScheduleComponent {
           for (let i = 0; i < response.length; i++) {
             for (let j = 0; j < response[i].data.length; j++)
               this.TotalQuestions.push(response[i].data[j]);
-
+ 
             this.tabs.push({
               title: response[i].skills,
               content: response[i].data,
@@ -235,7 +238,7 @@ export class NewScheduleComponent {
             this.selectedquestions
           );
           this.checkEditQuestions(this.TotalQuestions, this.selectedquestions);
-
+ 
           this.cdr.detectChanges();
           this.processTotalQuestions();
         });
@@ -254,7 +257,7 @@ export class NewScheduleComponent {
   trackByFn(_index: any, item: { id: any }) {
     return item.id;
   }
-
+ 
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((response) => {
       this.managerOption = response.map(
@@ -263,49 +266,60 @@ export class NewScheduleComponent {
       console.log('Client Manager Details', response);
     });
   }
-
+ 
+timeInterval:number=0;
+cutOff:number=0;
+totalCutoff:number=0;
+ 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
     console.log('loop entered', question.id);
-
+    console.log('Difficulty level', question.Difficulty_Level);
     if (question.selection) {
       this.selectedquestions?.unshift(question.id);
       console.log('Selected Questions:', this.selectedquestions);
+      this.timeIntervalAddition(question);
+      this.totalCutoff=this.cutOff/this.selectedquestions.length;
+ 
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
         (selected: any) => selected !== question.id
       );
+      this.timeIntervalSubtraction(question);
+      this.totalCutoff=this.cutOff/this.selectedquestions.length;
+
+
+   
       console.log('Selected Questions:', this.selectedquestions);
     }
   }
   count!: number | undefined;
-
   async saveSelected() {
-    
+   
     this.scheduleMessage();
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
     console.log('Final', this.FinalizedQuestions);
-
+ 
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
-
+ 
     try {
       const selectedSkillName = this.selectedSkills.sort();
       const dataToSave = {
         id : this.isTime,
         Questions: this.FinalizedQuestions,
-        durations: this.updateNewScheduleForm.get('duration')?.value,
-
+        durations: this.timeInterval,
+ 
         JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
-
-        cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
-
+ 
+       cutoff: this.cutOff,
+ 
         Managername: this.updateNewScheduleForm.get('managerName')?.value,
         // id:date,
         Skill: selectedSkillName,
       };
       console.log('response', dataToSave);
-
+ 
       this.skillsdropdownservice
         .postNewSchedule(dataToSave)
         .subscribe((response) => {
@@ -317,12 +331,12 @@ export class NewScheduleComponent {
     } catch (error) {
       console.error(error);
     }
-
+ 
     // Notification
-
+ 
     this.router.navigate(['/dashboard']);
-    const managerId = sessionStorage.getItem('loginManagerId') 
-
+    const managerId = sessionStorage.getItem('loginManagerId')
+ 
     console.log("managerid",managerId)
     this.receiverManagers=this.receiverManagers.filter((data)=> data !== managerId)
     console.log("receivermanager except the login one",this.receiverManagers)
@@ -330,18 +344,19 @@ export class NewScheduleComponent {
       const managerName=localStorage.getItem('managerName')
     const notification : CNotification = {
       sender:  managerId,  //Suresh
-      receiver: this.receiverManagers, 
-      title: "Created",
+      receiver: this.receiverManagers,
+      title:"Created",
       content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
-    }
+         }
     this.notificationService.postNotification(notification).subscribe((response)=>{
       this.notificationResponse=response
       // console.log("notificaton service called",this.response)
-           console.log("notificaton service called",this.notificationResponse)
+     
+      console.log("notificaton service called",this.notificationResponse)
       sessionStorage.setItem("notification",`${notification.sender}has sended message`)
+
     })
   }
-  this.saveSelectedEvent.emit();
   }
   editSelected() {
     this.editScheduleMessage();
@@ -362,18 +377,21 @@ export class NewScheduleComponent {
         }, 1500);
       });
   }
-
+ 
   selectQuestions(tabs: any) {
     console.log('Selected', tabs);
     tabs.forEach((question: any) => {
       if (!question.selection) {
         question.selection = true;
         this.selectedquestions?.push(question.id);
+        this.timeIntervalAddition(question);
+        this.totalCutoff=this.cutOff/this.selectedquestions.length;
+
       }
     });
     console.log('select all Questions', this.selectedquestions);
   }
-
+ 
   loginManagerNames() {
     this.managernameService.getManagerNames().subscribe((data) => {
       this.managerSet = data;
@@ -385,44 +403,53 @@ export class NewScheduleComponent {
       console.log("manager RECEIVER" , this.receiverManagers)
     });
   }
-
+ 
   unselectAllQuestions(questions: any) {
     const duplicateQuestions = this.selectedquestions;
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].selection) {
         questions[i].selection = false;
+    this.timeIntervalSubtraction(questions[i]);
+    
       }
     }
+   
     const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions?.filter(
       (question: any) => !questionIds.includes(question)
     );
+   
     console.log('un select all ', this.selectedquestions);
+     this.totalCutoff=this.cutOff/this.selectedquestions.length;
+    console.log('Cutoff',this.cutOff)
+    console.log('TotalCutoff',this.totalCutoff)
+    console.log('Question Length',this.selectedquestions.length)
+
   }
   scheduleMessage() {
     this.messageService.add({
       severity: 'success',
-
+ 
       summary: 'Success',
-
+ 
       detail: 'Schedule saved Successfully',
     });
   }
   editScheduleMessage() {
     this.messageService.add({
       severity: 'success',
-
+ 
       summary: 'Success',
-
+ 
       detail: 'Schedule Edited Successfully',
     });
   }
   showUpdateMessage() {
     this.messageService.add({
       severity: 'success',
-
+ 
       summary: 'Success',
-
+ 
       detail: 'Question Updated Successfully',
     });
   }
@@ -431,7 +458,7 @@ export class NewScheduleComponent {
     // console.log("vara edit",this.slectedquestionforedit)
     this.count = this.selectedquestions?.length;
     console.log('count----------------------->', this.count);
-
+ 
     if (!this.selectedquestions) {
       this.selectedquestions = [];
     }
@@ -458,11 +485,11 @@ export class NewScheduleComponent {
   answer!: any;
   skills!: any;
   difficultyLevel: any = ['Easy', 'Medium', 'Hard'];
-
+ 
   questionType: any = ['Radio', 'Checkbox', 'Text'];
   questionTypeSelected!: any;
   isViewingQuestion: boolean = false;
-
+ 
   individualQuestionView(
     id: any,
     question: any,
@@ -478,12 +505,12 @@ export class NewScheduleComponent {
     this.questionTypeSelected = questionTypeSelected;
     // this.options=choices;
     this.choices = choices;
-
+ 
     this.Difficulty_Level =
       this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
     this.skills = skills;
     this.answer = answer;
-
+ 
     console.log(
       'id------------->',
       id,
@@ -559,17 +586,16 @@ export class NewScheduleComponent {
     this.updateNewScheduleForm.reset();
     this.router.navigate(['/dashboard']);
   }
-
+ 
   editicon() {
     this.visible = true;
     this.isEditSchedule = true;
   }
-
+ 
   update(
     scheduleName: string | null,
-    manager: String | null,
-    cutOff: string | number | null,
-    duration: string | number | null
+    manager: String | null
+   
   ) {
     this.formSubmitted = true;
     if (this.updateNewScheduleForm.valid) {
@@ -577,32 +603,31 @@ export class NewScheduleComponent {
       console.log('Form Data:', formData);
       formData.scheduleName = scheduleName;
       formData.managerName = manager;
-      formData.cutOff = cutOff;
-      formData.duration = duration;
+     
       this.router.navigate(['new-schedule']);
       this.visible = false;
       console.log('hi');
     }
   }
-
+ 
   questionPreview(questions: any) {
     this.questionPreviewvisible = true;
     this.singleQuestion = questions.question;
     this.singleQuestionOption = questions.options;
     this.singleQuestionAnswer = questions.answer;
   }
-
+ 
   closeButton() {
     this.questionPreviewvisible = false;
     this.previewSidebarVisible = false;
   }
-
+ 
   totalSelectedQuestion: any;
   observables: any | undefined;
-
+ 
   onPreviewClick() {
     this.previewSidebarVisible = true;
-
+ 
     this.observables = this.selectedquestions?.map((questionId: string) =>
       this.newScheduleService.getIndividualQuestion(questionId)
     );
@@ -639,4 +664,37 @@ export class NewScheduleComponent {
       return null;
     };
   }
+ 
+timeIntervalAddition(question: any){
+ 
+  if(question.Difficulty_Level=='E'){
+    this.timeInterval= this.timeInterval + 1;
+    this.cutOff=this.cutOff+80;
+          }
+          if(question.Difficulty_Level=='M'){
+            this.timeInterval= this.timeInterval +2;
+            this.cutOff=this.cutOff+60;
+                  }
+                  if(question.Difficulty_Level=='H'){
+                    this.timeInterval=this.timeInterval +3;
+                    this.cutOff=this.cutOff+50;
+                          }
+}
+ 
+ 
+timeIntervalSubtraction(question:any){
+  if(question.Difficulty_Level=='E'){
+    this.timeInterval= this.timeInterval -1;
+    this.cutOff=this.cutOff-80;
+          }
+          if(question.Difficulty_Level=='M'){
+            this.timeInterval= this.timeInterval -2;
+            this.cutOff=this.cutOff-60;
+                  }
+                  if(question.Difficulty_Level=='H'){
+                    this.timeInterval=this.timeInterval -3;
+                    this.cutOff=this.cutOff-50;
+                          }
+}
+ 
 }

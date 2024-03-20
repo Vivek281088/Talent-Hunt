@@ -236,7 +236,6 @@ clearNotification(notification: any) {
 clearAllNotification() {
   const receiverId = sessionStorage.getItem('loginManagerId');
   const notificationId = this.notifications.map((item: { id: any })=>item.id);
-
   this.notificationService.clearNotification(receiverId, notificationId).subscribe(response => {
     console.log('Clear All Notifications', response);
     // Clear notifications in UI immediately
@@ -244,6 +243,4 @@ clearAllNotification() {
     this.hasNewNotifications = false;
   });
 }
-
-
 }

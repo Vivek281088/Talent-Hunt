@@ -28,7 +28,8 @@ export class NotificationService {
       sender : notification.sender,
       receiver : notification.receiver,
       title: notification.title,
-      content : notification.content
+      content : notification.content,
+     
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification',

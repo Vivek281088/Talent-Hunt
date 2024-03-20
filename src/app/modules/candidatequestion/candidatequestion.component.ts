@@ -421,13 +421,12 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       sender: this.assessmentData.id,  //Suresh
       receiver: [this.assessmentData.loginManagerid],
       title: "Submitted",
-      content: `${this.assessmentData.candidateName} has Submitted an assessment named ${sessionStorage.getItem('scheduleName')}`
-    }
+      content: `${this.assessmentData.candidateName} has Submitted an assessment named ${sessionStorage.getItem('scheduleName')}`,
+        }
     console.log("noti body", notification);
 
     this.notificationService.postNotification(notification).subscribe((response) => {
       this.notificationResponse = response
-      // console.log("notificaton service called",this.response)
       console.log("notificaton service called", this.notificationResponse)
       sessionStorage.setItem("notification", `${notification.sender}has sended message`)
     })
