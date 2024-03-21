@@ -32,7 +32,6 @@ export class ManageSkillsComponent {
   item: any[] = [];
   todayDate!: string;
   items: MenuItem[] | undefined;
-  formModified: boolean = false;
   visible: boolean = false;
   scheduleName!: string;
   tabs: { title: any; content: any }[] = [];
@@ -79,7 +78,7 @@ export class ManageSkillsComponent {
     this.todayDate = this.formattedDate(new Date());
     this.getSkillSet();
     this.items = [
-      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Questions', routerLink: '/manage-skills' },
     ];
   }
@@ -158,7 +157,7 @@ export class ManageSkillsComponent {
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
-    if (selected_Option.includes(option)) {
+    if (option.includes(selected_Option)) {
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -517,7 +516,6 @@ export class ManageSkillsComponent {
         setTimeout(() => {
           this.QuestionView = false;
           window.location.reload();
-          this.formModified = false;
         }, 1000);
       });
   }
@@ -536,7 +534,6 @@ export class ManageSkillsComponent {
     // this.updateQuestionForm.reset();
     // this.checkboxControl.reset()
     this.QuestionView = false;
-    this.formModified = false;
   }
   
   sidebarClose() {

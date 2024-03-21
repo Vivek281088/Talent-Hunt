@@ -86,7 +86,6 @@ this.notificationService.newNotificationReceived.subscribe(() => {
           console.log("iddd",this.id,response[0].id)
           sessionStorage.setItem('loginManagerId', this.id);
           this.managernameService.setManagerName_Email(this.userEmail);
-          localStorage.setItem('managerName', this.userName);
           this.name = true;
         });
     } else {

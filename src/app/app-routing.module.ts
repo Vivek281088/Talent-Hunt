@@ -45,7 +45,8 @@ import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.compon
 import { ErrorPageComponent } from './error-page/error-page.component';
 
 const routes: Routes = [
-  { path: 'candidatequestion', component: CandidatequestionComponent },
+
+  {path:'candidatequestion',component:CandidatequestionComponent},
   { path: 'create', component: Dash1Component },
 
   // { path: 'dashboard', component: SchedulepageComponent },
@@ -55,6 +56,8 @@ const routes: Routes = [
     component: SchedulepageComponent,
   },
   { path: 'new-schedule', component: NewScheduleComponent },
+  // { path: 'thdashboard', component: THDashboardComponent },
+  
 
   { path: 'questiondisplay', component: QuestiondisplayComponent },
 
