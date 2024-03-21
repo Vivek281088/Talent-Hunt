@@ -92,127 +92,7 @@ export class THDashboardComponent {
         // },
       ];
       this.scheduleData = response[2];
-      //  this.scheduleData = [
-      //    {
-      //      assessment: ' AWS Junior Developer',
-      //      managerName: 'Chandrasekar',
-      //      scheduled: 5,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: 'Junior Frontend Developer',
-      //      managerName: 'Chandrasekar',
-      //      scheduled: 15,
-      //      shortlisted: 8,
-      //      rejected: 3,
-      //    },
-      //    {
-      //      assessment: ' Github Junior Developer',
-      //      managerName: 'Madhanrajprabhu',
-      //      scheduled: 10,
-      //      shortlisted: 4,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: ' Node.Js Expert',
-      //      managerName: 'Deborah Wheeler',
-      //      scheduled: 5,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: 'Senior Software Engineer',
-      //      managerName: 'Krishnakumar K',
-      //      scheduled: 8,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: ' Senior Testing Engineer',
-      //      managerName: 'Krishnakumar K',
-      //      scheduled: 9,
-      //      shortlisted: 5,
-      //      rejected: 2,
-      //    },
-      //    {
-      //      assessment: ' Full Stack Developer',
-      //      managerName: 'Indu Nair',
-      //      scheduled: 5,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: 'Senior AWS Developer',
-      //      managerName: 'Chandrasekar',
-      //      scheduled: 5,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: ' AWS Junior Developer',
-      //      managerName: 'Chandrasekar',
-      //      scheduled: 5,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: 'Junior Frontend Developer',
-      //      managerName: 'Chandrasekar',
-      //      scheduled: 15,
-      //      shortlisted: 8,
-      //      rejected: 3,
-      //    },
-      //    {
-      //      assessment: ' Github Junior Developer',
-      //      managerName: 'Madhanrajprabhu',
-      //      scheduled: 10,
-      //      shortlisted: 4,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: ' Node.Js Expert',
-      //      managerName: 'Deborah Wheeler',
-      //      scheduled: 5,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: 'Senior Software Engineer',
-      //      managerName: 'Krishnakumar K',
-      //      scheduled: 8,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: ' Senior Testing Engineer',
-      //      managerName: 'Krishnakumar K',
-      //      scheduled: 9,
-      //      shortlisted: 5,
-      //      rejected: 2,
-      //    },
-      //    {
-      //      assessment: ' Node.Js Expert',
-      //      managerName: 'Deborah Wheeler',
-      //      scheduled: 5,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: 'Senior Software Engineer',
-      //      managerName: 'Krishnakumar K',
-      //      scheduled: 8,
-      //      shortlisted: 2,
-      //      rejected: 1,
-      //    },
-      //    {
-      //      assessment: ' Senior Testing Engineer',
-      //      managerName: 'Krishnakumar K',
-      //      scheduled: 9,
-      //      shortlisted: 5,
-      //      rejected: 2,
-      //    },
-      //  ];
+  
     });
 
     this.scheduleData = [
@@ -232,7 +112,7 @@ export class THDashboardComponent {
       },
       {
         assessment: ' Github Junior Developer',
-        managerName: 'Madhanrajprabhu',
+        managerName: 'Mathanrajprabhu',
         scheduled: 10,
         shortlisted: 4,
         rejected: 1,
@@ -288,7 +168,7 @@ export class THDashboardComponent {
       },
       {
         assessment: ' Github Junior Developer',
-        managerName: 'Madhanrajprabhu',
+        managerName: 'Mathanrajprabhu',
         scheduled: 10,
         shortlisted: 4,
         rejected: 1,
