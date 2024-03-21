@@ -165,16 +165,30 @@ export class NewScheduleComponent {
     ];
  
     const a = sessionStorage.getItem('boolean');
+    const timeInv = sessionStorage?.getItem('duration');
+    const cutoff = sessionStorage?.getItem('cutoff');
+    console.log("the value of a",a)
     //new schedule
     if (a == null) {
       this.updateNewScheduleForm.patchValue({
         scheduleName: sessionStorage.getItem('scheduleName'),
         managerName: sessionStorage.getItem('manager'),
+      //   this.totalCutoff= cutoff?parseInt(cutoff,10) : 0,
+      // console.log("this is the cutoff from the schedulepage",this.totalCutoff),
+      
+      // this.timeInterval= timeInv?parseInt(timeInv,10) : 0;
+      // console.log("Time interval from schedulepage",this.timeInterval)
  
         // cutoff: sessionStorage.getItem('cutoff'),
         // duration: sessionStorage.getItem('duration'),
       });
- 
+     
+      
+      console.log("this is the cutoff from the schedulepage",this.totalCutoff)
+      this.totalCutoff= cutoff?parseInt(cutoff,10) : 0;
+
+      
+      this.timeInterval= timeInv?parseInt(timeInv,10) : 0;
       this.selectedSkills = this.dataservice.getData();
  
       console.log('ss', this.selectedSkills);
@@ -200,11 +214,13 @@ export class NewScheduleComponent {
         // cutoff: sessionStorage.getItem('cutoff'),
         // duration: sessionStorage.getItem('duration'),
       });
-      const cutoff = sessionStorage?.getItem('cutoff');
+      
       
       this.totalCutoff= cutoff?parseInt(cutoff,10) : 0;
-      const timeInv = sessionStorage?.getItem('duration');
+      console.log("this is the cutoff from the schedulepage",this.totalCutoff)
+      
       this.timeInterval= timeInv?parseInt(timeInv,10) : 0;
+      console.log("Time interval from schedulepage",this.timeInterval)
       console.log('Edit Data------', this.updateNewScheduleForm.value);
  
       this.formData = this.updateNewScheduleForm.value;
@@ -275,6 +291,7 @@ export class NewScheduleComponent {
 timeInterval:number=0;
 cutOff:number=0;
 totalCutoff:number=0;
+
  
   toggleSelection(question: any): void {
     question.selection = !question.selection;
@@ -285,6 +302,8 @@ totalCutoff:number=0;
       console.log('Selected Questions:', this.selectedquestions);
       this.timeIntervalAddition(question);
       this.totalCutoff=this.cutOff/this.selectedquestions.length;
+      console.log("this is the duration",this.timeInterval)
+      
  
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
@@ -292,6 +311,7 @@ totalCutoff:number=0;
       );
       this.timeIntervalSubtraction(question);
       this.totalCutoff=this.cutOff/this.selectedquestions.length;
+   
 
       console.log('Selected Questions:', this.selectedquestions);
     }
@@ -387,6 +407,7 @@ totalCutoff:number=0;
         this.selectedquestions?.push(question.id);
         this.timeIntervalAddition(question);
         this.totalCutoff=this.cutOff/this.selectedquestions.length;
+        
 
       }
     });
