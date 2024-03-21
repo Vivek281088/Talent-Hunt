@@ -16,7 +16,7 @@
       <div class="cancelBtn">
         <p-button label="Cancel" (click)="cancelButton()"> </p-button>
       </div>
-      <div class="saveBtn" (click)="saveSelected()"*ngIf="saveOrEditButton == 'Save'">
+      <div class="saveBtn" *ngIf="saveOrEditButton == 'Save'">
         <p-button
         (click)="saveSelected() "
        
@@ -71,11 +71,12 @@
       </div>
       <div class="edit-cutoff">
         <label>Cutoff</label>
-        <p>{{ updateNewScheduleForm.get("cutoff")?.value }}</p>
+        <!-- <p>{{ updateNewScheduleForm.get("cutoff")?.value }}</p> -->
+        <p>{{totalCutoff}}</p>
       </div>
       <div class="edit-duration">
         <label>Duration</label>
-        <p>{{ updateNewScheduleForm.get("duration")?.value }}</p>
+        <p>{{ timeInterval }}</p>
       </div>
     </div>
     <div class="edit-end">
@@ -317,7 +318,7 @@
  
               <div class="Createbutton">
                 <p-button
-                  (click)="update(scheduleName, manager, cutOff, duration)"
+                  (click)="update(scheduleName, manager)"
                 >
                   <label class="Create-word"> Update </label>
                 </p-button>

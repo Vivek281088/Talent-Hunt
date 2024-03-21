@@ -110,19 +110,19 @@ export class SchedulepageComponent implements OnInit {
         ],
       ],
       skills: ['', [Validators.required]],
-      cutoff: [
-        null,
-        [Validators.required, Validators.max(100), Validators.min(1)],
-      ],
-      duration: [
-        null,
-        [
-          Validators.required,
-          Validators.max(180),
-          Validators.min(30),
-          Validators.pattern(nonWhitespaceRegExp),
-        ],
-      ],
+      // cutoff: [
+      //   null,
+      //   [Validators.required, Validators.max(100), Validators.min(1)],
+      // ],
+      // duration: [
+      //   null,
+      //   [
+      //     Validators.required,
+      //     Validators.max(180),
+      //     Validators.min(30),
+      //     Validators.pattern(nonWhitespaceRegExp),
+      //   ],
+      // ],
     });
     this.addnewScheduleForm
       .get('scheduleName')!
@@ -250,15 +250,15 @@ export class SchedulepageComponent implements OnInit {
         scheduleName: formData.scheduleName,
         manager: formData.managerName,
         selectedSkills: formData.skills,
-        cutOff: formData.cutoff,
-        duration: formData.duration,
+       // cutOff: formData.cutoff,
+        //duration: formData.duration,
       };
       this.newScheduleService.setNewScheduleData(dataToSend);
       sessionStorage.setItem('scheduleName', formData.scheduleName);
       sessionStorage.setItem('manager', formData.managerName);
       this.dataService.savedata(formData.skills);
-      sessionStorage.setItem('cutoff', formData.cutoff);
-      sessionStorage.setItem('duration', formData.duration);
+      //sessionStorage.setItem('cutoff', formData.cutoff);
+      //sessionStorage.setItem('duration', formData.duration);
       // const dataToSend={
       this.router.navigate(['/new-schedule']);
     }

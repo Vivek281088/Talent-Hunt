@@ -420,6 +420,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     const notification: CNotification = {
       sender: this.assessmentData.id,  //Suresh
       receiver: [this.assessmentData.loginManagerid],
+      title:"Submitted",
       content: `${this.assessmentData.candidateName} has Submitted an assessment named ${sessionStorage.getItem('scheduleName')}`
     }
     console.log("noti body", notification);

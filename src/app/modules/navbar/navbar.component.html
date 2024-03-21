@@ -181,12 +181,13 @@
             Notifications
             <!-- <a (click)="clearAllNotifications()">Clear All</a> -->
             <!-- Add this button or link wherever you want to trigger clearing all notifications -->
-<link  class="clear-button" >Clear All 
+<!-- <link  class="clear-button" >Clear All  -->
             <!-- <i class="pi pi-times"></i> -->
           </div>
           <div class="notification-list">
             <div *ngIf="notifications.length > 0">
               <div class="notification-item-container" *ngFor="let noti of notifications; let i = index">
+                <h2>{{noti.title}}</h2>
                 <p>{{ noti.content }}</p>
                 <i class="pi pi-times" (click)="clearNotification(noti)"></i>
               </div>

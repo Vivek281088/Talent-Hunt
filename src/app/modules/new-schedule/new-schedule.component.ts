@@ -27,6 +27,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class CNotification{
   sender !: string
   receiver !: string[]
+  title!:string
   content !:string
  
 }
@@ -50,8 +51,9 @@ export class NewScheduleComponent {
   scheduleName!: string | null;
   manager!: String | null;
   selectedSkills!: any | null;
-  cutOff!: string | number | null;
-  duration!: string | number | null;
+  // cutOff!: string | number | null;
+ 
+  
   skill!: string | null;
   questions = [];
   selectedquestions: any[] | string[] = [];
@@ -79,6 +81,7 @@ export class NewScheduleComponent {
   saveOrEditButton!: any;
   scheduleId!: any;
   notificationResponse:any;
+  // title:string="";
   managerSet: any[] = [];
   receiverManagers :string[]=[]
 
@@ -121,10 +124,10 @@ export class NewScheduleComponent {
         ],
       ],
  
-      cutoff: [
-        null,
-        [Validators.required, Validators.max(100), Validators.min(1)],
-      ],
+      // cutoff: [
+      //   null,
+      //   [Validators.required, Validators.max(100), Validators.min(1)],
+      // ],
       duration: [
         null,
         [
@@ -166,8 +169,8 @@ export class NewScheduleComponent {
         scheduleName: sessionStorage.getItem('scheduleName'),
         managerName: sessionStorage.getItem('manager'),
  
-        cutoff: sessionStorage.getItem('cutoff'),
-        duration: sessionStorage.getItem('duration'),
+        // cutoff: sessionStorage.getItem('cutoff'),
+        // duration: sessionStorage.getItem('duration'),
       });
  
       this.selectedSkills = this.dataservice.getData();
@@ -193,8 +196,8 @@ export class NewScheduleComponent {
         scheduleName: sessionStorage.getItem('scheduleName'),
         managerName: sessionStorage.getItem('manager'),
  
-        cutoff: sessionStorage.getItem('cutoff'),
-        duration: sessionStorage.getItem('duration'),
+        // cutoff: sessionStorage.getItem('cutoff'),
+        // duration: sessionStorage.getItem('duration'),
       });
       console.log('Edit Data------', this.updateNewScheduleForm.value);
  
@@ -203,8 +206,8 @@ export class NewScheduleComponent {
       this.formData.scheduleName = sessionStorage.getItem('scheduleName');
  
       this.formData.managerName = this.managernameService.getManagerName();
-      this.formData.cutoff = this.managernameService.getCutoff();
-      this.formData.duration = this.managernameService.getDuration();
+      // this.formData.cutoff = this.managernameService.getCutoff();
+      // this.formData.duration = this.managernameService.getDuration();
  
       this.selectedSkills = sessionStorage.getItem('SelectedSkill')?.split(',');
       this.selectedquestions = sessionStorage
@@ -262,23 +265,34 @@ export class NewScheduleComponent {
       console.log('Client Manager Details', response);
     });
   }
+
+timeInterval:number=0;
+cutOff:number=0;
+totalCutoff:number=0;
  
   toggleSelection(question: any): void {
     question.selection = !question.selection;
     console.log('loop entered', question.id);
- 
+    console.log('Difficulty level', question.Difficulty_Level);
     if (question.selection) {
       this.selectedquestions?.unshift(question.id);
       console.log('Selected Questions:', this.selectedquestions);
+      this.timeIntervalAddition(question);
+      console.log("Total cutoff",this.cutOff)
+      this.totalCutoff=this.cutOff/this.selectedquestions.length;
+      
+ 
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
         (selected: any) => selected !== question.id
       );
+      this.timeIntervalSubtraction(question)
+   
       console.log('Selected Questions:', this.selectedquestions);
     }
   }
   count!: number | undefined;
- 
+  
   async saveSelected() {
     
     this.scheduleMessage();
@@ -293,11 +307,11 @@ export class NewScheduleComponent {
       const dataToSave = {
         id : this.isTime,
         Questions: this.FinalizedQuestions,
-        durations: this.updateNewScheduleForm.get('duration')?.value,
+        durations: this.timeInterval,
  
         JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
  
-        cutoff: this.updateNewScheduleForm.get('cutoff')?.value,
+       cutOff: this.cutOff, 
  
         Managername: this.updateNewScheduleForm.get('managerName')?.value,
         // id:date,
@@ -330,6 +344,7 @@ export class NewScheduleComponent {
     const notification : CNotification = {
       sender:  managerId,  //Suresh
       receiver: this.receiverManagers, 
+      title:"Created",
       content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
       
     }
@@ -368,6 +383,7 @@ export class NewScheduleComponent {
       if (!question.selection) {
         question.selection = true;
         this.selectedquestions?.push(question.id);
+        this.timeIntervalAddition(question);
       }
     });
     console.log('select all Questions', this.selectedquestions);
@@ -390,12 +406,14 @@ export class NewScheduleComponent {
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].selection) {
         questions[i].selection = false;
+    this.timeIntervalSubtraction(questions[i]);
       }
     }
     const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions?.filter(
       (question: any) => !questionIds.includes(question)
     );
+   
     console.log('un select all ', this.selectedquestions);
   }
   scheduleMessage() {
@@ -566,9 +584,8 @@ export class NewScheduleComponent {
  
   update(
     scheduleName: string | null,
-    manager: String | null,
-    cutOff: string | number | null,
-    duration: string | number | null
+    manager: String | null
+    
   ) {
     this.formSubmitted = true;
     if (this.updateNewScheduleForm.valid) {
@@ -576,8 +593,7 @@ export class NewScheduleComponent {
       console.log('Form Data:', formData);
       formData.scheduleName = scheduleName;
       formData.managerName = manager;
-      formData.cutOff = cutOff;
-      formData.duration = duration;
+     
       this.router.navigate(['new-schedule']);
       this.visible = false;
       console.log('hi');
@@ -638,4 +654,35 @@ export class NewScheduleComponent {
       return null;
     };
   }
+
+timeIntervalAddition(question: any){
+
+  if(question.Difficulty_Level=='E'){
+    this.timeInterval= this.timeInterval + 1;
+    this.cutOff=this.cutOff+80;
+          }
+          if(question.Difficulty_Level=='M'){
+            this.timeInterval= this.timeInterval +2;
+            this.cutOff=this.cutOff+60;
+                  }
+                  if(question.Difficulty_Level=='H'){
+                    this.timeInterval=this.timeInterval +3;
+                    this.cutOff=this.cutOff+50;
+                          }
+                       
+}
+
+
+timeIntervalSubtraction(question:any){
+  if(question.Difficulty_Level=='E'){
+    this.timeInterval= this.timeInterval -1;
+          }
+          if(question.Difficulty_Level=='M'){
+            this.timeInterval= this.timeInterval -2;
+                  }
+                  if(question.Difficulty_Level=='H'){
+                    this.timeInterval=this.timeInterval -3;
+                          }
+}
+
 }

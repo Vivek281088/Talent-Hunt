@@ -18,8 +18,10 @@ export class NotificationService {
     const body = {
       sender : notification.sender,
       receiver : notification.receiver,
+      title:notification.title,
       content : notification.content
     };
+    console.log("notification service",body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification',
       body,
