@@ -114,7 +114,7 @@
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
-                            <span class="ml-1 mt-1">{{ option }}</span>
+                            <span class="ml-1 mt-1">{{ option.skill }}</span>
                           </div>
                         </ng-template>
                       </p-multiSelect>
@@ -551,6 +551,8 @@
             appendTo="body"
             display="chip"
             [showClear]="false"
+            optionLabel="skill"
+            optionValue="skill"
           ></p-multiSelect>
  
           <div
