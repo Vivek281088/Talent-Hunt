@@ -31,7 +31,7 @@ export class NavbarComponent {
   notification:any;
   receiver!:string;
   notifications !:any;
- 
+  hasNewNotifications: boolean = false;
   constructor(
     private authservice: AuthService,
     private managernameService: ManagernameService,
@@ -41,12 +41,15 @@ export class NavbarComponent {
   ) {}
   ngOnInit(): void {
     this.authUserOrManager();
-    const storedNotifications = localStorage.getItem('notifications');
+      const storedNotifications = localStorage.getItem('notifications');
   if (storedNotifications) {
     this.notifications = JSON.parse(storedNotifications);
   }
- 
-  }
+// Handling new notifications
+this.notificationService.newNotificationReceived.subscribe(() => {
+  this.hasNewNotifications = true; 
+   });
+   }
   notifydata(){
     const body = {
       receiver : this.receiver
@@ -55,12 +58,14 @@ export class NavbarComponent {
       this.notificationService.getNotification(body).subscribe((response)=>{
         console.log("notificaton service called",response)
         this.notifications = response;
+
       });
   }
  
   authUserOrManager() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
-    this.finalizedEmail = localStorage.getItem('Candidateemail')!;
+    this.finalizedEmail = localStorage.getItem('candidateEmail')!;
+    console.log('finalized Candidate---', this.finalizedEmail);
     const a = localStorage.getItem('userrole');
  
     if (a == 'manager') {
@@ -69,8 +74,8 @@ export class NavbarComponent {
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('Navbar-res', response);
-          this.tempUserName =
-          response[0].Firstname + ' ' + response[0].Lastname;
+                   this.tempUserName =
+            response[0].Firstname + ' ' + response[0].Lastname;
           this.userName = response[0].Firstname + ' ' + response[0].Lastname;
           this.receiver=response[0].id.toString();
           this.notifydata()
@@ -87,6 +92,7 @@ export class NavbarComponent {
       this.candidateService
         .getCandidatedata_by_Email(this.finalizedEmail)
         .subscribe((response) => {
+          console.log("Nav response",response)
           this.name = false;
           this.candidateList = response;
           this.tempUserName = response[0].candidateName;
@@ -94,9 +100,10 @@ export class NavbarComponent {
           this.id = response[0].id;
           console.log("iddd",this.id,response[0].id)
           sessionStorage.setItem('loginManagerId', this.id);
-           this.userEmail = response[0].candidateEmail;
+ 
+          this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].candidatePhone;
-          console.log('candidateName', this.candidateName);
+          console.log('candidateName', this.tempUserName);
         });
     }
   }
@@ -210,6 +217,29 @@ clearNotification(notification: any) {
   }
   }
 
+// Clear All Notification
+// clearAllNotification(){
+//   const receiverId = sessionStorage.getItem('loginManagerId')
+//   const notificationId = this.notifications.map((item: { id: any })=>item.id);
+//   console.log("receiver notificationid",receiverId,notificationId);
+//      this.notificationService.clearNotification(
+//     receiverId,
+//     notificationId
+//        ).subscribe(response=>{
+//       console.log('Clear All Notifications', response);
+// });
+// this.hasNewNotifications = false;
+// console.log('Has New', this.hasNewNotifications)
+// }
 
-
+clearAllNotification() {
+  const receiverId = sessionStorage.getItem('loginManagerId');
+  const notificationId = this.notifications.map((item: { id: any })=>item.id);
+  this.notificationService.clearNotification(receiverId, notificationId).subscribe(response => {
+    console.log('Clear All Notifications', response);
+    // Clear notifications in UI immediately
+    this.notifications = [];
+    this.hasNewNotifications = false;
+  });
+}
 }

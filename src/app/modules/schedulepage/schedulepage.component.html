@@ -3,7 +3,7 @@
     <div class="assesment-header">
       <p class="assessment-text">Schedules</p>
     </div>
-
+ 
     <div class="flex breadDate">
       <div>
         <p-breadcrumb
@@ -18,7 +18,7 @@
       </div>
     </div>
   </div>
-
+ 
   <div class="scheduleTable">
     <!-- <div style="margin-top: 50px"> -->
     <!-- <div > -->
@@ -52,7 +52,7 @@
                       dt2.filterGlobal($any($event.target).value, 'contains')
                     "
                   />
-
+ 
                   <i class="pi pi-search"></i>
                 </span>
                 <div class="managerMultiselect">
@@ -88,7 +88,7 @@
                     </ng-template>
                   </p-columnFilter>
                 </div>
-
+ 
                 <div class="skillMultiselect">
                   <p-columnFilter
                     field="Skill"
@@ -108,6 +108,9 @@
                         (onChange)="filter($event.value)"
                         appendTo="body"
                         [filter]="true"
+                        optionLabel="skill"
+                        optionValue="skill"
+                       
                       >
                         <ng-template let-option pTemplate="item">
                           <div class="inline-block vertical-align-middle">
@@ -128,7 +131,7 @@
                   ></button>
                 </div>
               </div>
-
+ 
               <div class="addDeletebutton">
                 <div class="card flex justify-content-centre newscheduleButton">
                   <button
@@ -138,7 +141,7 @@
                     label="New Schedule"
                   ></button>
                 </div>
-
+ 
                 <div class="card flex justify-content-centre newscheduleButton">
                   <button
                     pButton
@@ -148,7 +151,7 @@
                     "
                     class="btn flex align-items-center justify-content-center cursor-pointer"
                    
-                     (click)="confirmPosition('top')" 
+                     (click)="confirmPosition('top')"
                     label="Delete"
                   ></button>
                 </div>
@@ -156,7 +159,7 @@
             </div>
           </th>
         </tr>
-
+ 
         <tr>
           <th style="width: 4rem">
             <p-tableHeaderCheckbox
@@ -179,7 +182,7 @@
               (click)="toggleSelection(rowData)"
             ></p-tableCheckbox>
           </td>
-
+ 
           <td class="jobDescription">
             <!-- <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" /> -->
             <span class="ml-1 vertical-align-middle">{{
@@ -227,7 +230,7 @@
             </span>
           </td>
           <!--skill end-->
-
+ 
           <td>
             <div
               class="icons-td flex align-items-center justify-content-between cursor-pointer"
@@ -254,7 +257,7 @@
                 </svg>
               </a>
               <!-- </div> -->
-
+ 
               <!--View Icon-->
               <!-- <div class="mr-3 cursor-pointer"> -->
               <a
@@ -276,7 +279,7 @@
                   />
                 </svg>
               </a>
-
+ 
               <!--add icon-->
               <a class="flex" title="Send Invite">
                 <svg
@@ -306,7 +309,7 @@
     </p-table>
   </div>
 </div>
-
+ 
 <div class="questionsidebar">
   <p-sidebar [(visible)]="viewQuestionSidebar" position="right" [modal]="true">
     <ng-template class="header_design" pTemplate="header"
@@ -315,7 +318,7 @@
     <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
       <span *ngFor="let question of FinalizedQuestions; let j = index">
         <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
-
+ 
         <div class="select-size">
           <div
             *ngFor="let option of question.options; let i = index"
@@ -331,12 +334,12 @@
             <label class="box-design" [for]="'option' + question + '-' + i">{{
               getLabel(i)
             }}</label>
-
+ 
             <span class="option-content">{{ option }}</span>
           </div>
         </div>
       </span>
-
+ 
       <div class="btnfooter">
         <div class="quiz-instruction">
           <p class="instruction">Quiz Instructions</p>
@@ -376,7 +379,7 @@
     </ng-template>
   </p-sidebar>
 </div>
-
+ 
 <p-toast></p-toast>
 <div class="sendinvite">
   <p-dialog
@@ -415,7 +418,7 @@
     </div>
   </p-dialog>
 </div>
-
+ 
 <div class="newSchedule-Dialog">
   <p-dialog
     header="New Schedule"
@@ -434,7 +437,7 @@
         </div>
         <div class="value">
           <input type="text" formControlName="scheduleName" pInputText />
-
+ 
           <div
             *ngIf="
               addnewScheduleForm.get('scheduleName')?.invalid &&
@@ -480,7 +483,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="labelvalue">
         <div class="label">
           <label>Manager</label>
@@ -495,7 +498,7 @@
             optionLabel="managerName"
             optionValue="managerName"
           ></p-dropdown>
-
+ 
           <div
             *ngIf="
               addnewScheduleForm.get('managerName')?.invalid &&
@@ -533,7 +536,7 @@
           </div>
         </div>
       </div>
-
+ 
       <div class="labelvalue">
         <div class="label">
           <label>Skills</label>
@@ -549,7 +552,7 @@
             display="chip"
             [showClear]="false"
           ></p-multiSelect>
-
+ 
           <div
             *ngIf="
               addnewScheduleForm.get('skills')?.invalid &&
@@ -565,7 +568,7 @@
           </div>
         </div>
       </div>
-
+ 
       <!-- <div class="cuttoffDuration">
         <div class="labelvalue">
           <div class="label">
@@ -580,7 +583,7 @@
               formControlName="cutoff"
               mode="decimal"
             />
-
+ 
             <div
               *ngIf="
                 addnewScheduleForm.get('cutoff')?.invalid &&
@@ -594,14 +597,14 @@
                 cutoff is required !
               </div>
             </div>
-
+ 
             <div
               class="error-message"
               *ngIf="addnewScheduleForm.get('cutoff')?.hasError('max')"
             >
               cutoff must be less than 100!
             </div>
-
+ 
             <div
               class="error-message"
               *ngIf="addnewScheduleForm.get('cutoff')?.hasError('min')"
@@ -610,7 +613,7 @@
             </div>
           </div>
         </div>
-
+ 
         <div class="labelvalue">
           <div class="label">
             <label>Duration(minutes)</label>
@@ -624,9 +627,9 @@
               formControlName="duration"
               mode="decimal"
             />
-            
+           
          
-      
+     
             <div
               *ngIf="
                 addnewScheduleForm.get('duration')?.invalid &&
@@ -645,7 +648,7 @@
               >
                 Duration should not exceed 180 mins (3hr)!
               </div>
-
+ 
               <div
                 class="error-message"
                 *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
@@ -653,7 +656,7 @@
                 Duration value must be greater than 30mins !
               </div>
             </div>
-    
+   
             <div
               class="error-message"
               *ngIf="addnewScheduleForm.get('duration')?.hasError('min')"
@@ -661,13 +664,13 @@
               duration value must be greater than 0 !
             </div>
             </div>
-
+ 
            
           </div>
         </div> -->
       </div>
-    
-
+   
+ 
     <ng-template pTemplate="footer">
       <div class="Newschedule-button">
         <div class="Cancelbutton">
@@ -687,3 +690,4 @@
   [position]="position"
   rejectButtonStyleClass=""
 ></p-confirmDialog>
+ 

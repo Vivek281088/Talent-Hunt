@@ -21,16 +21,6 @@ export class DataService {
     const storedData = localStorage.getItem(this.localstoragekey);
     return storedData ? JSON.parse(storedData) : [];
   }
-  getRecentAssessmentData(): Observable<any> {
-    return this.http.get<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentassessmentcard'
-    );
-  }
-  getRecentAssessmentCompleted(): Observable<any> {
-    return this.http.get<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/RecentAssessmentCompleted'
-    );
-  }
   getDashboardData(): Observable<any[]> {
     const recentAssessmentData$ = this.http.get<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentassessmentcard'
@@ -38,8 +28,19 @@ export class DataService {
     const recentAssessmentCompleted$ = this.http.get<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/RecentAssessmentCompleted'
     );
+    const recentScheduleData$ = this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/schedulenamecard'
+    );
 
-    return forkJoin([recentAssessmentData$, recentAssessmentCompleted$]);
+    const recentAssessmentInvites$ = this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentAssessmentInvite'
+    );
+    return forkJoin([
+      recentAssessmentData$,
+      recentAssessmentCompleted$,
+      recentScheduleData$,
+      recentAssessmentInvites$,
+    ]);
   }
   getDashboardCount(): Observable<any> {
     return this.http.get<any>(

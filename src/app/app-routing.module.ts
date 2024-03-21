@@ -42,8 +42,7 @@ import { ManagerProfileComponent } from './modules/manager-profile/manager-profi
 import { CandidateProfileComponent } from './modules/candidate-profile/candidate-profile.component';
 import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.component';
 import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
-// import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
-
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 const routes: Routes = [
 
@@ -87,13 +86,14 @@ const routes: Routes = [
   { path: 'questiondb', component: QuestiondbComponent },
 
   { path: 'profile', component: ProfileDialogComponent },
-  {path: 'manage-managers', component: ManageManagersComponent},
-  {path: 'manage-candidates', component: ManageCandidatesComponent},
-{path: 'manage-skills', component: ManageSkillsComponent},
-{path: 'managerProfile', component: ManagerProfileComponent},
-{path: 'candidateProfile', component: CandidateProfileComponent},
-{path: 'resetpassword', component: ResetpasswordComponent},
-{path: 'thdashboard', component: THDashboardComponent },
+  { path: 'manage-managers', component: ManageManagersComponent },
+  { path: 'manage-candidates', component: ManageCandidatesComponent },
+  { path: 'manage-skills', component: ManageSkillsComponent },
+  { path: 'managerProfile', component: ManagerProfileComponent },
+  { path: 'candidateProfile', component: CandidateProfileComponent },
+  { path: 'resetpassword', component: ResetpasswordComponent },
+  { path: 'thdashboard', component: THDashboardComponent },
+  {path:'errorpage' , component : ErrorPageComponent},
   { path: '**', redirectTo: '/login' },
 
   // { path: '**', redirectTo:'login' }

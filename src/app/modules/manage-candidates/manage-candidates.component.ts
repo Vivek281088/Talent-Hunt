@@ -172,6 +172,13 @@ export class ManageCandidatesComponent {
       detail: 'Candidate saved successfully',
     });
   }
+  IdExistError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Candidate Already Present',
+      detail: 'Check Employee ID or Email !',
+    });
+  }
 
   saveCandidate() {
     this.formSubmitted = true;
@@ -189,14 +196,24 @@ export class ManageCandidatesComponent {
           formData?.department,
           formData?.location
         )
-        .subscribe((response) => {
-          console.log('Candidate Saved....');
-        });
-      setTimeout(() => {
-        this.addSuccessMessage();
-        this.cancelButton();
-        this.getUniqueCandidatedata();
-      }, 1000);
+        .subscribe({
+          next: (x) => {
+            setTimeout(() => {
+              this.addSuccessMessage();
+              this.cancelButton();
+              this.getUniqueCandidatedata();
+            }, 1000);
+          },
+          error : (err) =>{
+            setTimeout(() => {
+              this.IdExistError();
+              console.log('Mail already exists');
+              this.cancelButton();
+            }, 500);
+          }
+        }
+        );
+      
     }
   }
 

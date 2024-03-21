@@ -30,6 +30,7 @@ export class CNotification{
   title!:string
   content !:string
  
+ 
 }
 export class Receiver{
   receiver !: string
@@ -53,7 +54,7 @@ export class NewScheduleComponent {
   selectedSkills!: any | null;
   // cutOff!: string | number | null;
  
-  
+ 
   skill!: string | null;
   questions = [];
   selectedquestions: any[] | string[] = [];
@@ -84,7 +85,7 @@ export class NewScheduleComponent {
   // title:string="";
   managerSet: any[] = [];
   receiverManagers :string[]=[]
-
+ 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
  
@@ -265,7 +266,7 @@ export class NewScheduleComponent {
       console.log('Client Manager Details', response);
     });
   }
-
+ 
 timeInterval:number=0;
 cutOff:number=0;
 totalCutoff:number=0;
@@ -278,23 +279,23 @@ totalCutoff:number=0;
       this.selectedquestions?.unshift(question.id);
       console.log('Selected Questions:', this.selectedquestions);
       this.timeIntervalAddition(question);
-      console.log("Total cutoff",this.cutOff)
       this.totalCutoff=this.cutOff/this.selectedquestions.length;
-      
  
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
         (selected: any) => selected !== question.id
       );
-      this.timeIntervalSubtraction(question)
+      this.timeIntervalSubtraction(question);
+      this.totalCutoff=this.cutOff/this.selectedquestions.length;
+
+
    
       console.log('Selected Questions:', this.selectedquestions);
     }
   }
   count!: number | undefined;
-  
   async saveSelected() {
-    
+   
     this.scheduleMessage();
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
@@ -311,7 +312,7 @@ totalCutoff:number=0;
  
         JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
  
-       cutOff: this.cutOff, 
+       cutoff: this.cutOff,
  
         Managername: this.updateNewScheduleForm.get('managerName')?.value,
         // id:date,
@@ -334,8 +335,8 @@ totalCutoff:number=0;
     // Notification
  
     this.router.navigate(['/dashboard']);
-    const managerId = sessionStorage.getItem('loginManagerId') 
-
+    const managerId = sessionStorage.getItem('loginManagerId')
+ 
     console.log("managerid",managerId)
     this.receiverManagers=this.receiverManagers.filter((data)=> data !== managerId)
     console.log("receivermanager except the login one",this.receiverManagers)
@@ -343,17 +344,17 @@ totalCutoff:number=0;
       const managerName=localStorage.getItem('managerName')
     const notification : CNotification = {
       sender:  managerId,  //Suresh
-      receiver: this.receiverManagers, 
+      receiver: this.receiverManagers,
       title:"Created",
       content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
-      
-    }
+         }
     this.notificationService.postNotification(notification).subscribe((response)=>{
       this.notificationResponse=response
       // console.log("notificaton service called",this.response)
      
       console.log("notificaton service called",this.notificationResponse)
       sessionStorage.setItem("notification",`${notification.sender}has sended message`)
+
     })
   }
   }
@@ -384,11 +385,13 @@ totalCutoff:number=0;
         question.selection = true;
         this.selectedquestions?.push(question.id);
         this.timeIntervalAddition(question);
+        this.totalCutoff=this.cutOff/this.selectedquestions.length;
+
       }
     });
     console.log('select all Questions', this.selectedquestions);
   }
-
+ 
   loginManagerNames() {
     this.managernameService.getManagerNames().subscribe((data) => {
       this.managerSet = data;
@@ -400,21 +403,28 @@ totalCutoff:number=0;
       console.log("manager RECEIVER" , this.receiverManagers)
     });
   }
-
+ 
   unselectAllQuestions(questions: any) {
     const duplicateQuestions = this.selectedquestions;
     for (let i = 0; i < questions.length; i++) {
       if (questions[i].selection) {
         questions[i].selection = false;
     this.timeIntervalSubtraction(questions[i]);
+    
       }
     }
+   
     const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions?.filter(
       (question: any) => !questionIds.includes(question)
     );
    
     console.log('un select all ', this.selectedquestions);
+     this.totalCutoff=this.cutOff/this.selectedquestions.length;
+    console.log('Cutoff',this.cutOff)
+    console.log('TotalCutoff',this.totalCutoff)
+    console.log('Question Length',this.selectedquestions.length)
+
   }
   scheduleMessage() {
     this.messageService.add({
@@ -585,7 +595,7 @@ totalCutoff:number=0;
   update(
     scheduleName: string | null,
     manager: String | null
-    
+   
   ) {
     this.formSubmitted = true;
     if (this.updateNewScheduleForm.valid) {
@@ -654,9 +664,9 @@ totalCutoff:number=0;
       return null;
     };
   }
-
+ 
 timeIntervalAddition(question: any){
-
+ 
   if(question.Difficulty_Level=='E'){
     this.timeInterval= this.timeInterval + 1;
     this.cutOff=this.cutOff+80;
@@ -669,20 +679,22 @@ timeIntervalAddition(question: any){
                     this.timeInterval=this.timeInterval +3;
                     this.cutOff=this.cutOff+50;
                           }
-                       
 }
-
-
+ 
+ 
 timeIntervalSubtraction(question:any){
   if(question.Difficulty_Level=='E'){
     this.timeInterval= this.timeInterval -1;
+    this.cutOff=this.cutOff-80;
           }
           if(question.Difficulty_Level=='M'){
             this.timeInterval= this.timeInterval -2;
+            this.cutOff=this.cutOff-60;
                   }
                   if(question.Difficulty_Level=='H'){
                     this.timeInterval=this.timeInterval -3;
+                    this.cutOff=this.cutOff-50;
                           }
 }
-
+ 
 }

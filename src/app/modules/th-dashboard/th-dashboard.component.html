@@ -186,7 +186,7 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th colspan="4" class="title">Recent Assessments</th>
+              <th colspan="3" class="title">Recent Assessments</th>
             </tr>
           </ng-template>
 
@@ -289,21 +289,21 @@
         <ng-template pTemplate="body" let-rowData let-i="rowIndex">
           <tr>
             <td class="ass-name">
-              <span>{{ rowData.assessment }}</span>
+              <span>{{ rowData.schedule }}</span>
             </td>
             <td class="manager-name">
-              <span>{{ rowData.managerName }}</span>
+              <span>{{ rowData.managername }}</span>
             </td>
             <td>
               <div class="candidate-count">
                 <p class="count scheduled-color">
-                  {{ rowData.scheduled }}
+                  {{ rowData.Scheduled }}
                 </p>
                 <p class="count shortlisted-color">
-                  <span>{{ rowData.shortlisted }}</span>
+                  <span>{{ rowData.Shortlisted }}</span>
                 </p>
                 <p class="count rejected-color">
-                  <span>{{ rowData.rejected }}</span>
+                  <span>{{ rowData.Rejected }}</span>
                 </p>
               </div>
             </td>
