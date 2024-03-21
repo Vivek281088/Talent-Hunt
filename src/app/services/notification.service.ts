@@ -25,7 +25,7 @@ export class NotificationService {
       sender: notification.sender,
       receiver: notification.receiver,
       title: notification.title,
-      content: notification.content,
+      content : notification.content,
     };
     console.log("notification service",body);
     return this.http.post<any>(

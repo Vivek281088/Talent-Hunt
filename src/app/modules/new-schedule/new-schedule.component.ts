@@ -14,8 +14,7 @@ import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
-// import * as moment from 'moment-timezone';
-// import * as moment from 'moment-timezone';
+ import * as moment from 'moment-timezone';
 import {
   AbstractControl,
   FormBuilder,
@@ -100,8 +99,8 @@ export class NewScheduleComponent {
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     const currentutcdate = new Date();
-    // const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
-    // this.isTime = istMoment.format('YYYY-MM-DD HH:mm:ss');
+     const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
+    this.isTime = istMoment.format('YYYY-MM-DD HH:mm:ss');
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
@@ -125,15 +124,15 @@ export class NewScheduleComponent {
       //   null,
       //   [Validators.required, Validators.max(100), Validators.min(1)],
       // ],
-      duration: [
-        null,
-        [
-          Validators.required,
-          Validators.max(180),
-          Validators.min(30),
-          Validators.pattern(nonWhitespaceRegExp),
-        ],
-      ],
+      // duration: [
+      //   null,
+      //   [
+      //     Validators.required,
+      //     Validators.max(180),
+      //     Validators.min(30),
+      //     Validators.pattern(nonWhitespaceRegExp),
+      //   ],
+      // ],
     });
     this.updateNewScheduleForm
       .get('scheduleName')!
@@ -163,6 +162,7 @@ export class NewScheduleComponent {
     const a = sessionStorage.getItem('boolean');
     const timeInv = sessionStorage?.getItem('duration');
     const cutoff = sessionStorage?.getItem('cutoff');
+    //new schedule
     if (a == null) {
       this.updateNewScheduleForm.patchValue({
         scheduleName: sessionStorage.getItem('scheduleName'),
@@ -197,15 +197,16 @@ export class NewScheduleComponent {
       this.updateNewScheduleForm.patchValue({
         scheduleName: sessionStorage.getItem('scheduleName'),
         managerName: sessionStorage.getItem('manager'),
-
         // cutoff: sessionStorage.getItem('cutoff'),
         // duration: sessionStorage.getItem('duration'),
       });
-      this.totalCutoff = cutoff ? parseInt(cutoff, 10) : 0;
-      console.log('this is the cutoff from the schedulepage', this.totalCutoff);
-
-      this.timeInterval = timeInv ? parseInt(timeInv, 10) : 0;
-      console.log('Time interval from schedulepage', this.timeInterval);
+      
+      
+      this.totalCutoff= cutoff?parseInt(cutoff,10) : 0;
+      console.log("this is the cutoff from the schedulepage",this.totalCutoff)
+      
+      this.timeInterval= timeInv?parseInt(timeInv,10) : 0;
+      console.log("Time interval from schedulepage",this.timeInterval)
       console.log('Edit Data------', this.updateNewScheduleForm.value);
       console.log('Edit Data------', this.updateNewScheduleForm.value);
 
@@ -273,11 +274,12 @@ export class NewScheduleComponent {
       console.log('Client Manager Details', response);
     });
   }
+ 
+timeInterval:number=0;
+cutOff:number=0;
+totalCutoff:number=0;
 
-  timeInterval: number = 0;
-  cutOff: number = 0;
-  totalCutoff: number = 0;
-
+ 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
     console.log('loop entered', question.id);
@@ -286,13 +288,17 @@ export class NewScheduleComponent {
       this.selectedquestions?.unshift(question.id);
       console.log('Selected Questions:', this.selectedquestions);
       this.timeIntervalAddition(question);
-      this.totalCutoff = this.cutOff / this.selectedquestions.length;
+      this.totalCutoff=this.cutOff/this.selectedquestions.length;
+      console.log("this is the duration",this.timeInterval)
+      
+ 
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
         (selected: any) => selected !== question.id
       );
       this.timeIntervalSubtraction(question);
-      this.totalCutoff = this.cutOff / this.selectedquestions.length;
+      this.totalCutoff=this.cutOff/this.selectedquestions.length;
+   
 
       console.log('Selected Questions:', this.selectedquestions);
     }
@@ -303,9 +309,8 @@ export class NewScheduleComponent {
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
     console.log('Final', this.FinalizedQuestions);
-
-    this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
-
+     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
+ 
     try {
       const selectedSkillName = this.selectedSkills.sort();
       const dataToSave = {
@@ -378,8 +383,10 @@ export class NewScheduleComponent {
         this.updateNewScheduleForm.get('managerName')?.value,
         this.updateNewScheduleForm.get('scheduleName')?.value,
         this.FinalizedQuestions,
-        this.updateNewScheduleForm.get('cutoff')?.value,
-        this.updateNewScheduleForm.get('duration')?.value
+        this.totalCutoff,
+        this.timeInterval
+        // this.updateNewScheduleForm.get('cutoff')?.value,
+        // this.updateNewScheduleForm.get('duration')?.value
       )
       .subscribe((response) => {
         console.log('Edit status---', response);

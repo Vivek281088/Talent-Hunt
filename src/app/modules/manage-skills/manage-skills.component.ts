@@ -100,14 +100,14 @@ export class ManageSkillsComponent {
   ) {
     // this.data=this.dataservice.sharedData;
     this.updateQuestionForm = this.fb.group({
-      question: ['', [Validators.required, Validators.minLength(7)]],
-      questionType: ['', [Validators.required]],
-      difficulty: ['', [Validators.required]],
-      choices0: ['', Validators.required, optionValodator()],
-      choices1: ['', Validators.required, optionValodator()],
-      choices2: ['', Validators.required, optionValodator()],
-      choices3: ['', Validators.required, optionValodator()],
-      answer: ['', Validators.required],
+      question: ['', [Validators.required,Validators.minLength(7)]],
+      questionType: ['', [Validators.required,]],
+      difficulty: ['',[Validators.required,]],
+      choices0: ['', Validators.required,Validators.minLength(1)], 
+      choices1: ['', Validators.required,Validators.minLength(1)],       
+      choices2: ['', Validators.required,Validators.minLength(1)],     
+      choices3: ['', Validators.required,Validators.minLength(1)],
+      answer:['',Validators.required]
     });
     this.checkboxControl = this.fb.control([]);
   }
