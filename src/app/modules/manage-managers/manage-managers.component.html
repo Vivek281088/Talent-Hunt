@@ -217,7 +217,7 @@
               <input
               pInputText 
                 formControlName="employeeId"
-                appAllowDigits ="6"
+                appAllowDigits ="8"
                 
               >
             
@@ -390,7 +390,7 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="text" formControlName="location" pInputText />
+              <input type="text" appNameInput formControlName="location" pInputText />
               <div
                 *ngIf="
                   addManagerForm.get('location')?.invalid &&
@@ -400,6 +400,12 @@
                 <div
                   class="error-message"
                   *ngIf="addManagerForm.get('location')?.hasError('required')"
+                >
+                Enter valid Location !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('location')?.hasError('minlength')"
                 >
                   Location is required !
                 </div>

@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   showNavbar1: boolean = true; 
   showNavbar2: boolean = true;
   showNavbar3: boolean = true; 
+  hasError : boolean = true;
 
   constructor(private service: AppServiceService, private router: Router) {
     // Subscribe to the route changes
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit {
         this.showNavbar1 = urlSegments[urlSegments.length - 1] !== 'signup';
         this.showNavbar2 = urlSegments[urlSegments.length - 1] !== 'forgotpassword';
         this.showNavbar3 = urlSegments[urlSegments.length - 1] !== 'resetpassword';
+        this.hasError = urlSegments[urlSegments.length - 1] !== 'errorpage';
 
 
       }

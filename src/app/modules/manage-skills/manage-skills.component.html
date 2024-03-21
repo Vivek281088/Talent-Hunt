@@ -250,7 +250,7 @@
         </div>
 
         <div class="Createbutton">
-          <p-button label="Download" (onClick)="downloadQuestionsCsvTemplate()">
+          <p-button label="Download" (onClick)="downloadTemplate()">
           </p-button>
         </div>
 
@@ -277,6 +277,7 @@
     [draggable]="false"
     [closable]="false"
     [resizable]="false"
+    [formGroup]="updateQuestionForm"
   >
     <div class="NewSchedule-content">
       <div class="labelvalue">
@@ -288,8 +289,9 @@
           <input
             type="text"
             pInputText
-            [(ngModel)]="question"
+           
             (ngModelChange)="formModified = true"
+            formControlName="question"
           />
         </div>
       </div>
@@ -305,8 +307,10 @@
             class="w-full table_dropdown"
             placeholder="--Select--"
             [options]="questionType"
-            [(ngModel)]="questionTypeSelected"
+           (onChange) = "resetAnswers($event.value)"
             (ngModelChange)="formModified = true"
+            formControlName="questionType"
+
           >
           </p-dropdown>
         </div>
@@ -323,8 +327,9 @@
             class="w-full table_dropdown"
             placeholder="--Select--"
             [options]="difficultyLevel"
-            [(ngModel)]="Difficulty_Level"
-            (ngModelChange)="formModified = true"
+            
+            
+            formControlName="difficulty"
           >
           </p-dropdown>
         </div>
@@ -333,8 +338,8 @@
       <div
         class="labelvalue"
         *ngIf="
-          questionTypeSelected === 'Radio' ||
-          questionTypeSelected === 'Checkbox'
+          updateQuestionForm.get('questionType')?.value === 'Radio' ||
+          updateQuestionForm.get('questionType')?.value === 'Checkbox'
         "
       >
         <div class="label">
@@ -349,8 +354,10 @@
           <input
             type="text"
             pInputText
-            [(ngModel)]="choices[i]"
-            (ngModelChange)="formModified = true"
+          formControlName="choices{{i}}"
+          
+
+            
           />
         </div>
       </div>
@@ -358,8 +365,8 @@
       <div
         class="labelvalue"
         *ngIf="
-          questionTypeSelected === 'Radio' ||
-          questionTypeSelected === 'Checkbox'
+          updateQuestionForm.get('questionType')?.value === 'Radio' ||
+          updateQuestionForm.get('questionType')?.value === 'Checkbox'
         "
       >
         <div class="label">
@@ -371,17 +378,20 @@
           *ngFor="let letter of ['A', 'B', 'C', 'D']; let i = index"
         >
           <ng-container
-            *ngIf="questionTypeSelected === 'Radio'; else checkboxBlock"
+            *ngIf="updateQuestionForm.get('questionType')?.value === 'Radio'; else checkboxBlock"
           >
+         {{updateQuestionForm.get('questionType')?.value}}
             <p-radioButton
-              [(ngModel)]="answer"
-              (ngModelChange)="formModified = true"
               [value]="choices[i]"
+              formControlName="answer"
               required
             ></p-radioButton>
           </ng-container>
           <ng-template #checkboxBlock>
-            <p-checkbox [(ngModel)]="answer" [value]="choices[i]"></p-checkbox>
+            {{updateQuestionForm.get('questionType')?.value}}
+            {{choices[i]}}
+            <!-- <p-checkbox name="group2" [value]="choices[i]" [inputId]="choices[i]" ></p-checkbox> -->
+            <p-checkbox [formControl]="checkboxControl" [value]="choices[i]"></p-checkbox>
           </ng-template>
 
           <label for="answer{{ i }}" class="title">{{ letter }}</label>
@@ -397,7 +407,7 @@
           </p-button>
         </div>
         <div class="Createbutton">
-          <p-button (click)="updateQuestionView()" [disabled]="!formModified">
+          <p-button (click)="updateQuestionView()" [disabled]="updateQuestionForm.invalid">
             <label class="Create-word"> Update </label>
           </p-button>
         </div>
