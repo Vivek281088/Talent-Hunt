@@ -350,11 +350,11 @@ export class SchedulepageComponent implements OnInit {
   // Loading skills for dropdown in add question
   loadSkills() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
-      this.skillSet = data;
+      // this.skillSet = data;
       data.forEach((element: any) => {
         this.skillSet.push({ skill: element });
       });
-      console.log('Skill Set', data);
+      console.log('Skill Set', this.skillSet);
     });
   }
  
