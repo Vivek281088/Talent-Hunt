@@ -305,6 +305,7 @@ totalCutoff:number=0;
   }
   count!: number | undefined;
   async saveSelected() {
+    this.timeInterval = 0;
     this.scheduleMessage();
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
