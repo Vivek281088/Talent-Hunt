@@ -22,25 +22,29 @@ export class NotificationService {
     console.log('notification service', notification);
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
-      sender: notification.sender,
-      receiver: notification.receiver,
-      title: notification.title,
-      content : notification.content,
+      sender : notification.sender,
+      receiver : notification.receiver,
+      content : notification.content
     };
     console.log("notification service",body);
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification2',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification',
       body,
       { headers }
-    );
-  }
+    ).pipe(
+      catchError((err : any) =>{
+        console.log('err' , err)
+        this.router.navigate(['/errorpage'], { queryParams: { message: err.message } });
+        return of(null)
+      })
+    )
+    }
 
-  getNotification(receiver: any) {
-    console.log(receiver);
-    const url1 =
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/receivenotifi';
-    const headers = new HttpHeaders();
-    headers.append('Access-Control-Allow-Origin', '*');
+    getNotification(receiver : any){
+      console.log(receiver)
+      const url1 ='https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/receivenotifi';
+      const headers = new HttpHeaders()
+      headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');
     headers.append(
       'Access-Control-Allow-Methods',
@@ -50,8 +54,17 @@ export class NotificationService {
       'Access-Control-Allow-Headers',
       'Content-Type,X-Amz-Date,X-Api-Key'
     );
-    return this.http.post(url1, receiver, { headers: headers }).pipe();
-  }
+    return this.http.post(url1, receiver, { headers: headers }).pipe(
+      catchError((err : any) =>{
+        console.log('err' , err)
+        this.router.navigate(['/errorpage'], { queryParams: { message: err.message } });
+        return of(null)
+      })
+    );
+      
+      
+      
+    }
 
   // Update Notification
 
@@ -75,24 +88,5 @@ export class NotificationService {
     );
   }
 
-  clearNotification(
-    receiverId: string | null,
-    notificationId: string[]
-  ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
-    const body = {
-      receiverId: receiverId,
-      notificationId: notificationId,
-    };
-
-    console.log('Notification test', body);
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/clearNotification',
-      body,
-      {
-        headers,
-      }
-    );
-  }
 }

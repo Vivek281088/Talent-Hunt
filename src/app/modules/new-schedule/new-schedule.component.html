@@ -16,12 +16,12 @@
       <div class="cancelBtn">
         <p-button label="Cancel" (click)="cancelButton()"> </p-button>
       </div>
-      <div class="saveBtn" *ngIf="saveOrEditButton == 'Save'">
+      <div class="saveBtn" (click)="saveSelected()"*ngIf="saveOrEditButton == 'Save'">
         <p-button
         (click)="saveSelected() "
        
           label="Save Changes"
-          [disabled]="selectedquestions.length == 0"
+          [disabled]="selectedquestions?.length == 0"
         >
           <svg
             width="24"
@@ -40,7 +40,7 @@
       <div class="saveBtn" (click)="editSelected()" *ngIf="saveOrEditButton == 'Edit'">
         <p-button
           label="Edit Changes"
-          [disabled]="selectedquestions.length == 0"
+          [disabled]="selectedquestions?.length == 0"
         >
           <svg
             width="24"

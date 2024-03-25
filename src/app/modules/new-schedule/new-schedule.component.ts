@@ -23,11 +23,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification.service';
-export class CNotification {
-  sender!: string;
-  receiver!: string[];
-  title!: string;
-  content!: string;
+export class CNotification{
+  sender !: string
+  receiver !: string[]
+  content !:string
+
 }
 export class Receiver {
   receiver!: string;
@@ -346,34 +346,25 @@ totalCutoff:number=0;
     this.router.navigate(['/dashboard']);
     const managerId = sessionStorage.getItem('loginManagerId');
 
-    console.log('managerid', managerId);
-    this.receiverManagers = this.receiverManagers.filter(
-      (data) => data !== managerId
-    );
-    console.log('receivermanager except the login one', this.receiverManagers);
-    if (managerId) {
-      const managerName = localStorage.getItem('managerName');
-      const notification: CNotification = {
-        sender: managerId, //Suresh
-        receiver: this.receiverManagers,
-        title: 'Created',
-        content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem(
-          'scheduleName'
-        )}`,
-      };
-      this.notificationService
-        .postNotification(notification)
-        .subscribe((response) => {
-          this.notificationResponse = response;
-          // console.log("notificaton service called",this.response)
-
-          console.log('notificaton service called', this.notificationResponse);
-          sessionStorage.setItem(
-            'notification',
-            `${notification.sender}has sended message`
-          );
-        });
+    console.log("managerid",managerId)
+    this.receiverManagers=this.receiverManagers.filter((data)=> data !== managerId)
+    console.log("receivermanager except the login one",this.receiverManagers)
+    if(managerId){
+      const managerName=localStorage.getItem('managerName')
+    const notification : CNotification = {
+      sender:  managerId,  //Suresh
+      receiver: this.receiverManagers, 
+      content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
+      
     }
+    this.notificationService.postNotification(notification).subscribe((response)=>{
+      this.notificationResponse=response
+      // console.log("notificaton service called",this.response)
+     
+      console.log("notificaton service called",this.notificationResponse)
+      sessionStorage.setItem("notification",`${notification.sender}has sended message`)
+    })
+  }
   }
   editSelected() {
     this.editScheduleMessage();

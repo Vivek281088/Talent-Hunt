@@ -172,7 +172,6 @@ this.notificationService.newNotificationReceived.subscribe(() => {
   }
  
   logout() {
-    localStorage.clear();
     this.authservice.logout();
   }
 
@@ -204,40 +203,25 @@ clearNotification(notification: any) {
     this.notificationService.updateNotification(notification.id, 
       managerId).subscribe(response=>{
         console.log(response);
+        // Remove cleared notification from the array
         const index = this.notifications.indexOf(notification);
         if (index !== -1) {
           this.notifications.splice(index, 1);
         }
+        // Check if all notifications are cleared
         if (this.notifications.length === 0) {
+          // If all notifications are cleared, show "No Notifications to display"
           this.notifications = [];
         }
       });
   }
+
   }
+  
 
-// Clear All Notification
-// clearAllNotification(){
-//   const receiverId = sessionStorage.getItem('loginManagerId')
-//   const notificationId = this.notifications.map((item: { id: any })=>item.id);
-//   console.log("receiver notificationid",receiverId,notificationId);
-//      this.notificationService.clearNotification(
-//     receiverId,
-//     notificationId
-//        ).subscribe(response=>{
-//       console.log('Clear All Notifications', response);
-// });
-// this.hasNewNotifications = false;
-// console.log('Has New', this.hasNewNotifications)
-// }
+  //  clearNotification(noti: any) {
 
-clearAllNotification() {
-  const receiverId = sessionStorage.getItem('loginManagerId');
-  const notificationId = this.notifications.map((item: { id: any })=>item.id);
-  this.notificationService.clearNotification(receiverId, notificationId).subscribe(response => {
-    console.log('Clear All Notifications', response);
-    // Clear notifications in UI immediately
-    this.notifications = [];
-    this.hasNewNotifications = false;
-  });
-}
+  //     this.notifications.splice(noti, 1);
+  //     // localStorage.setItem('notifications', JSON.stringify(this.notifications));
+  // }
 }

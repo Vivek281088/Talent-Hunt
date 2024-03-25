@@ -161,6 +161,7 @@
     <ng-template pTemplate="content" *ngIf="selectedquestions">
       <span *ngFor="let question of selectedquestions; let j = index">
         <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
+
         <div class="select-size">
           <div
             *ngFor="let option of question.options; let i = index"
@@ -377,6 +378,7 @@
           <ng-container
             *ngIf="updateQuestionForm.get('questionType')?.value === 'Radio'; else checkboxBlock"
           >
+         {{updateQuestionForm.get('questionType')?.value}}
             <p-radioButton
               [value]="choices[i]"
               formControlName="answer"
@@ -384,6 +386,8 @@
             ></p-radioButton>
           </ng-container>
           <ng-template #checkboxBlock>
+            {{updateQuestionForm.get('questionType')?.value}}
+            {{choices[i]}}
             <!-- <p-checkbox name="group2" [value]="choices[i]" [inputId]="choices[i]" ></p-checkbox> -->
             <p-checkbox [formControl]="checkboxControl" [value]="choices[i]"></p-checkbox>
           </ng-template>
