@@ -7,7 +7,7 @@ import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
-
+ 
 import { FormControl } from '@angular/forms';
 import { FilterMetadata, MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -21,8 +21,8 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
-
-
+ 
+ 
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -57,9 +57,9 @@ export class SchedulepageComponent implements OnInit {
   question!: string;
   candidateSkill!: any;
   position: string = 'center';
-
+ 
   candidateId!: Date | null;
-
+ 
   todayDate!: Date;
   scheduleName!: string;
   manager!: string;
@@ -69,7 +69,7 @@ export class SchedulepageComponent implements OnInit {
   viewQuestionSidebar: boolean = false;
   sendQuestionCardVisible: boolean = false;
   visible: boolean = false;
-
+ 
   roles: string = 'user';
   candidateData: any;
   managerData: any;
@@ -77,7 +77,7 @@ export class SchedulepageComponent implements OnInit {
   addnewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
   isScheduleInvalid: boolean = false;
-
+ 
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
@@ -110,19 +110,19 @@ export class SchedulepageComponent implements OnInit {
         ],
       ],
       skills: ['', [Validators.required]],
-      cutoff: [
-        null,
-        [Validators.required, Validators.max(100), Validators.min(1)],
-      ],
-      duration: [
-        null,
-        [
-          Validators.required,
-          Validators.max(180),
-          Validators.min(30),
-          Validators.pattern(nonWhitespaceRegExp),
-        ],
-      ],
+      // cutoff: [
+      //   null,
+      //   [Validators.required, Validators.max(100), Validators.min(1)],
+      // ],
+      // duration: [
+      //   null,
+      //   [
+      //     Validators.required,
+      //     Validators.max(180),
+      //     Validators.min(30),
+      //     Validators.pattern(nonWhitespaceRegExp),
+      //   ],
+      // ],
     });
     this.addnewScheduleForm
       .get('scheduleName')!
@@ -135,12 +135,12 @@ export class SchedulepageComponent implements OnInit {
   ngOnInit() {
     this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
-
+ 
     this.todayDate = new Date();
     // console.log('Date--------', this.todayDate);
-
+ 
     this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
-
+ 
     this.loadSkills();
     this.loadManagerNames();
     this.existingData();
@@ -175,10 +175,10 @@ export class SchedulepageComponent implements OnInit {
     remainingCount: number;
   } {
     const maxLength = 16;
-
+ 
     let result: string[] = [];
     let totalLength = 0;
-
+ 
     for (const skill of skills) {
       if (totalLength + skill.length <= maxLength) {
         result.push(skill);
@@ -187,15 +187,15 @@ export class SchedulepageComponent implements OnInit {
         break;
       }
     }
-
+ 
     const remainingCount = skills.length - result.length;
-
+ 
     return { skills: result, remainingCount: remainingCount };
   }
   remainaingSkills(skills: any, count: number): string[] {
     return skills.slice(-count);
   }
-
+ 
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
       const uniqueEmails = new Set<string>();
@@ -223,7 +223,7 @@ export class SchedulepageComponent implements OnInit {
       this.Tdata = data;
     });
   }
-
+ 
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((response) => {
       this.managerData = response;
@@ -233,46 +233,46 @@ export class SchedulepageComponent implements OnInit {
       console.log('Client Manager Details', response);
     });
   }
-
+ 
   cancelButton() {
     this.visible = false;
     this.formSubmitted = false;
     this.addnewScheduleForm.markAsPristine();
     this.addnewScheduleForm.markAsUntouched();
     this.addnewScheduleForm.reset();
-
+ 
     // this.resetData();
     console.log('Manager after cancel', this.manager);
   }
-
+ 
   createButton() {
     this.formSubmitted = true;
     if (this.addnewScheduleForm.valid) {
       const formData = this.addnewScheduleForm.value;
       console.log('Form Data:', formData);
-
+ 
       // this.sendData();
       console.log('sended');
       const dataToSend = {
         scheduleName: formData.scheduleName,
         manager: formData.managerName,
         selectedSkills: formData.skills,
-        cutOff: formData.cutoff,
-        duration: formData.duration,
+       // cutOff: formData.cutoff,
+        //duration: formData.duration,
       };
       this.newScheduleService.setNewScheduleData(dataToSend);
       sessionStorage.setItem('scheduleName', formData.scheduleName);
       sessionStorage.setItem('manager', formData.managerName);
       this.dataService.savedata(formData.skills);
-      sessionStorage.setItem('cutoff', formData.cutoff);
-      sessionStorage.setItem('duration', formData.duration);
+      //sessionStorage.setItem('cutoff', formData.cutoff);
+      //sessionStorage.setItem('duration', formData.duration);
       // const dataToSend={
       this.router.navigate(['/new-schedule']);
     }
   }
-
+ 
   closeSidebar() {
-    this.viewQuestionSidebar = false;
+    this, (this.viewQuestionSidebar = false);
   }
   onViewClick(data: any) {
     this.viewQuestionSidebar = true;
@@ -284,10 +284,10 @@ export class SchedulepageComponent implements OnInit {
       this.FinalizedQuestions = responses;
       console.log('Updated Total Question data--', this.FinalizedQuestions);
     });
-
+ 
     console.log('questions :', this.FinalizedQuestions);
   }
-
+ 
   getSelectedOptions(selected_Option: any, option: any) {
     if (option.includes(selected_Option)) {
       return 'correctAnswer';
@@ -298,11 +298,12 @@ export class SchedulepageComponent implements OnInit {
   getLabel(index: number): string {
     return String.fromCharCode(65 + index);
   }
-
+ 
   handleEditIconClick(data: any) {
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;
+ 
     this.selectedQuestions = data.questions;
     this.cutoff = data.cutoff;
     this.durations = data.durations;
@@ -311,11 +312,11 @@ export class SchedulepageComponent implements OnInit {
     sessionStorage.setItem('scheduleName', data.JobDescription),
       sessionStorage.setItem('manager', data.Managername),
       sessionStorage.setItem('cutoff', data.cutoff),
-      sessionStorage.setItem('duration', data.durations);
+      sessionStorage.setItem('', data.durations);
     sessionStorage.setItem('FinalizedQuestion', data.questions);
     sessionStorage.setItem('SelectedSkill', data.Skill);
     // this.managernameService.setCutoff(this.cutoff);
-    console.log('edit cutoff', this.cutoff);
+    console.log('durationedit cutoff', this.cutoff);
     // this.managernameService.setDuration(this.durations);
     // this.skillsdropdownservice.setSkill(this.Skill);
     console.log('edit skill', this.Skill);
@@ -329,31 +330,32 @@ export class SchedulepageComponent implements OnInit {
     sessionStorage.setItem('scheduleId', data.id);
     this.router.navigate(['new-schedule']);
   }
-
+ 
   showEmailSubmitted() {
     this.messageService.add({
       severity: 'success',
-
+ 
       summary: 'Success',
-
+ 
       detail: 'Invite Sent Successfully',
     });
   }
-
+ 
   openquestiondialog() {
     this.visible = true;
   }
-
+ 
   // Loading skills for dropdown in add question
   loadSkills() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
+      // this.skillSet = data;
       data.forEach((element: any) => {
         this.skillSet.push({ skill: element });
       });
-      console.log('Skill Set', data);
+      console.log('Skill Set', this.skillSet);
     });
   }
-
+ 
   onSendQuestionClick(data: any) {
     this.sendQuestionCardVisible = true;
     this.getUniqueCandidatedata();
@@ -369,27 +371,28 @@ export class SchedulepageComponent implements OnInit {
     this.email_Status = 'Not Started';
   }
 
-  endTime!: string;
+  scheduledTime!: string;
   inviteCandidate() {
     console.log('Selected Candidates', this.selectedCandidates);
-
+ 
     this.selectedCandidates.forEach((selectedCandidate) => {
       const existingCandidate = this.candidateData.find(
         (candidate: { candidateEmail: any }) =>
           candidate.candidateEmail === selectedCandidate.candidateEmail
       );
       console.log('matched candidate', existingCandidate);
-
+ 
       //rest data
       this.score = null;
-      this.result = 'Scheduled';
+      this.result = 'Awaiting Eval';
       const date = Date.now();
       this.candidateId = new Date(date);
-
+const loginManagerid = sessionStorage.getItem('loginManagerId')
+console.log('Login Manager id', loginManagerid)
       if (existingCandidate) {
-        const currentutcdate = new Date();
-        const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
-        this.endTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
+        const currentdate = new Date();
+        const istMoment = moment.utc(currentdate).tz('Asia/Kolkata');
+        this.scheduledTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
         this.tableService
           .postExistingCandidateDetails(
             this.candidateId,
@@ -411,7 +414,8 @@ export class SchedulepageComponent implements OnInit {
             this.Skill,
             existingCandidate.department,
             existingCandidate.candidate_location,
-            this.endTime
+            loginManagerid,
+            this.scheduledTime
           )
           .subscribe((data) => {
             console.log('Stored data for existing candidate:', data);
@@ -424,7 +428,7 @@ export class SchedulepageComponent implements OnInit {
       this.showEmailSubmitted();
     }, 1000);
   }
-
+ 
   closeInviteDialog() {
     this.sendQuestionCardVisible = false;
     this.selectedCandidates = [];
@@ -447,7 +451,30 @@ export class SchedulepageComponent implements OnInit {
     this.addnewScheduleForm.reset();
     sessionStorage.setItem('SaveOrEdit', 'Save');
   }
-
+  formattedDate(date: Date) {
+    const months: string[] = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+ 
+    const month: string = months[date.getMonth()];
+    const day: number = date.getDate();
+    const year: number = date.getFullYear();
+    const formatDate: string = `${month} ${day}, ${year}`;
+ 
+    return formatDate;
+  }
+ 
   selectingCandidate() {
     console.log('Selected', this.selectedCandidates);
   }
@@ -461,14 +488,14 @@ export class SchedulepageComponent implements OnInit {
           console.log('Deleted Candidate.....', Schedule.JobDescription);
         });
     }
-
+ 
     setTimeout(() => {
       // this.deleteMessage();
       this.existingData();
       this.selectedDeleteSchedule = [];
     }, 1500);
   }
-
+ 
   // deleteMessage() {
   //   this.messageService.add({
   //     severity: 'success',
@@ -476,10 +503,10 @@ export class SchedulepageComponent implements OnInit {
   //     detail: 'Schedule Deleted successfully',
   //   });
   // }
-
+ 
   confirmPosition(position: string) {
     this.position = position;
-
+ 
     this.confirmationService.confirm({
       message: 'Do you want to delete the schedule?',
       header: 'Delete Confirmation',
@@ -495,13 +522,13 @@ export class SchedulepageComponent implements OnInit {
       key: 'positionDialog',
     });
   }
-
+ 
   toggleSelection(data: any) {
     if (!data || !data.id) {
       return;
     }
     data.selection = !data.selection;
-
+ 
     if (data.selection) {
       console.log('Selected schedule:', this.selectedDeleteSchedule);
     } else {
@@ -515,3 +542,4 @@ export class SchedulepageComponent implements OnInit {
     console.log('Selected all Schedule:', this.selectedDeleteSchedule);
   }
 }
+ 

@@ -1,26 +1,32 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, of} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CNotification } from '../modules/new-schedule/new-schedule.component';
-import { Router } from '@angular/router';
-
+ 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
+  private newNotificationSubject = new Subject<void>();
+  constructor(private http: HttpClient) {}
 
-  constructor( private http: HttpClient,private router : Router) {
+  notifyNewNotification() {
+    this.newNotificationSubject.next();
+  }
 
-   }
+  get newNotificationReceived() {
+    return this.newNotificationSubject.asObservable();
+  }
 
-   postNotification(notification : CNotification): Observable<any> {
-    console.log("notification service" , notification)
+  postNotification(notification: CNotification): Observable<any> {
+    console.log('notification service', notification);
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       sender : notification.sender,
       receiver : notification.receiver,
       content : notification.content
     };
+    console.log("notification service",body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification',
       body,
@@ -60,21 +66,18 @@ export class NotificationService {
       
     }
 
-// Update Notification
+  // Update Notification
 
-updateNotification(
-        notificationId: string,
-        receiverId: string
-
-    
+  updateNotification(
+    notificationId: string,
+    receiverId: string
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
-      notificationId:notificationId,
-      receiverId: receiverId
+      notificationId: notificationId,
+      receiverId: receiverId,
     };
-
     console.log('Notification test', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/updatenotification',
@@ -87,4 +90,3 @@ updateNotification(
 
 
 }
-

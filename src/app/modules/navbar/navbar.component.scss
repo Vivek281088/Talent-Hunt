@@ -311,7 +311,8 @@
   font-weight: 600;
   font-size: 16px;
   // line-height: 24px;
-  border-bottom: 1px solid #B3ABBA33;
+  border-bottom: 1px solid #0000001f;
+  // border-top: 1px solid #0000001f;
   padding: 12px;
   // border: 1px solid transparent;
   z-index: 900;
@@ -330,8 +331,10 @@
   border-bottom: 1px solid #B3ABBA33;
   padding: 10px 12px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
+  align-items: flex-start;
 }
  
 .notification-item-container i {

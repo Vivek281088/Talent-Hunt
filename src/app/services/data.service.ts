@@ -21,16 +21,6 @@ export class DataService {
     const storedData = localStorage.getItem(this.localstoragekey);
     return storedData ? JSON.parse(storedData) : [];
   }
-  getRecentAssessmentData(): Observable<any> {
-    return this.http.get<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentassessmentcard'
-    );
-  }
-  getRecentAssessmentCompleted(): Observable<any> {
-    return this.http.get<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/RecentAssessmentCompleted'
-    );
-  }
   getDashboardData(): Observable<any[]> {
     const recentAssessmentData$ = this.http.get<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentassessmentcard'

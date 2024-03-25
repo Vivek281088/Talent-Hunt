@@ -12,7 +12,7 @@ export function optionValodator() : ValidatorFn{
             return;
           }
           const valueWithoutSpaces = value.replace(/\s/g, '');
-          const isValid = !isNaN(valueWithoutSpaces) ? valueWithoutSpaces.length >= 1 : valueWithoutSpaces.length >= 2;
+          const isValid = isNaN(valueWithoutSpaces) ? valueWithoutSpaces.length >= 2 : valueWithoutSpaces.length >= 1;
           observer.next(isValid ? null : { 'minLength': true });
           observer.complete();
         });

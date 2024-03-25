@@ -32,25 +32,63 @@ export class ManageSkillsComponent {
   item: any[] = [];
   todayDate!: string;
   items: MenuItem[] | undefined;
-  formModified: boolean = false;
   visible: boolean = false;
   scheduleName!: string;
   tabs: { title: any; content: any }[] = [];
   skills: any[] = [];
   previewSidebarVisible: boolean = false;
   questionPreviewvisible: boolean = false;
+  formModified: boolean = false;
   singleQuestion: any;
   singleQuestionOption: any;
   singleQuestionAnswer: any;
   selectedquestions: any[] = [];
-  updateQuestionForm:FormGroup;
+  updateQuestionForm: FormGroup;
   checkboxControl!: FormControl;
-  headers = ['question', 'questionType', 'difficulty', 'option1', 'option2', 'option3', 'option4', 'answer1', 'answer2', 'answer3', 'answer4', 'skill'];
-  exampleData = [
-    ['How many types of cloud computing are there?', 'Radio', 'E', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer 1', '', '', '', 'AWS'],
-    ['What is Angular?', 'Checkbox', 'M', 'Option A', 'Option B', 'Option C', 'Option D', '', '', '', '', 'Web Development']
+  headers = [
+    'question',
+    'questionType',
+    'difficulty',
+    'option1',
+    'option2',
+    'option3',
+    'option4',
+    'answer1',
+    'answer2',
+    'answer3',
+    'answer4',
+    'skill',
   ];
-
+  exampleData = [
+    [
+      'How many types of cloud computing are there?',
+      'Radio',
+      'E',
+      'Option 1',
+      'Option 2',
+      'Option 3',
+      'Option 4',
+      'Answer 1',
+      '',
+      '',
+      '',
+      'AWS',
+    ],
+    [
+      'What is Angular?',
+      'Checkbox',
+      'M',
+      'Option A',
+      'Option B',
+      'Option C',
+      'Option D',
+      '',
+      '',
+      '',
+      '',
+      'Web Development',
+    ],
+  ];
 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
@@ -58,17 +96,17 @@ export class ManageSkillsComponent {
     private managerService: ManagernameService,
     private messageService: MessageService,
     private cdr: ChangeDetectorRef,
-    private fb:FormBuilder
+    private fb: FormBuilder
   ) {
     // this.data=this.dataservice.sharedData;
     this.updateQuestionForm = this.fb.group({
       question: ['', [Validators.required,Validators.minLength(7)]],
       questionType: ['', [Validators.required,]],
       difficulty: ['',[Validators.required,]],
-      choices0: ['', Validators.required,optionValodator()], 
-      choices1: ['', Validators.required,optionValodator()],       
-      choices2: ['', Validators.required,optionValodator()],     
-      choices3: ['', Validators.required,optionValodator()],
+      choices0: ['', Validators.required,Validators.minLength(1)], 
+      choices1: ['', Validators.required,Validators.minLength(1)],       
+      choices2: ['', Validators.required,Validators.minLength(1)],     
+      choices3: ['', Validators.required,Validators.minLength(1)],
       answer:['',Validators.required]
     });
     this.checkboxControl = this.fb.control([]);
@@ -79,7 +117,7 @@ export class ManageSkillsComponent {
     this.todayDate = this.formattedDate(new Date());
     this.getSkillSet();
     this.items = [
-      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Questions', routerLink: '/manage-skills' },
     ];
   }
@@ -134,7 +172,7 @@ export class ManageSkillsComponent {
       .postskillsList(this.skills)
       .subscribe((response) => {
         console.log('recieved response', response);
-        
+
         for (let i = 0; i < response.length; i++) {
           this.tabs.push({
             title: response[i].skills,
@@ -158,7 +196,7 @@ export class ManageSkillsComponent {
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
-    if (selected_Option.includes(option)) {
+    if (option.includes(selected_Option)) {
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -197,9 +235,9 @@ export class ManageSkillsComponent {
   uploadCsv(event: any) {
     const file: File = event.target.files[0];
     const value = this.processCsv(file);
-    value.subscribe((data)=> {
-      console.log(data)
-    })
+    value.subscribe((data) => {
+      console.log(data);
+    });
 
     // if (file) {
     //   const reader: FileReader = new FileReader();
@@ -208,32 +246,31 @@ export class ManageSkillsComponent {
     //     // this.processCsvData(csvData);
     //     const results: any[] = [];
 
-
     // // const lines = csvData.split('\n');
     // // lines.forEach((line:any) => {
     // //   const data = line.split(',');
     // //   const question = data[0]?.trim() || '';
-    // //   const questionType = data[1]?.trim() || ''; 
-    // //   const difficulty = data[2]?.trim() || ''; 
-    // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || '']; 
+    // //   const questionType = data[1]?.trim() || '';
+    // //   const difficulty = data[2]?.trim() || '';
+    // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || ''];
 
     // //   let answers: any[] = [];
     // //   if (questionType === 'Radio') {
-    // //     const answer = data[7]?.trim() || ''; 
+    // //     const answer = data[7]?.trim() || '';
     // //     if (answer !== '') {
     // //       answers = answer;
     // //     }
     // //   } else {
     // //     answers = [
-    // //       data[7]?.trim() || '', 
-    // //       data[8]?.trim() || '', 
-    // //       data[9]?.trim() || '', 
+    // //       data[7]?.trim() || '',
+    // //       data[8]?.trim() || '',
+    // //       data[9]?.trim() || '',
     // //       data[10]?.trim() || ''
-    // //     ]; 
+    // //     ];
     // //     answers = answers.filter(answer => answer !== '');
     // //   }
 
-    // //   const skill = data[11]?.trim() || ''; 
+    // //   const skill = data[11]?.trim() || '';
 
     // //   if (question !== '' && questionType !== '') {
     // //     results.push({
@@ -242,7 +279,7 @@ export class ManageSkillsComponent {
     // //       difficulty,
     // //       options,
     // //       answers,
-    // //       skill: skill.replace(/\r$/, '') 
+    // //       skill: skill.replace(/\r$/, '')
     // //     });
     // //   }
     // // });
@@ -257,7 +294,7 @@ export class ManageSkillsComponent {
   downloadTemplate() {
     const csvContent = Papa.unparse({
       fields: this.headers,
-      data: this.exampleData
+      data: this.exampleData,
     });
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -271,8 +308,8 @@ export class ManageSkillsComponent {
       document.body.removeChild(link);
     }
   }
-  processCsv(file: File): Observable<any[]>{
-    return new Observable<any[]>(observer => {
+  processCsv(file: File): Observable<any[]> {
+    return new Observable<any[]>((observer) => {
       const results: any[] = [];
 
       const reader = new FileReader();
@@ -282,7 +319,7 @@ export class ManageSkillsComponent {
           header: false,
           skipEmptyLines: true,
           complete: (result) => {
-            result.data.forEach((row:any) => {
+            result.data.forEach((row: any) => {
               const questionType = row[1]?.trim() || '';
               let answers: any;
               if (questionType === 'Radio') {
@@ -291,16 +328,23 @@ export class ManageSkillsComponent {
                   answers = answer;
                 }
               } else {
-                answers = row.slice(7, 11).filter((answer: string) => answer.trim() !== '');
+                answers = row
+                  .slice(7, 11)
+                  .filter((answer: string) => answer.trim() !== '');
               }
-              console.log( "Row" , row)
+              console.log('Row', row);
               results.push({
                 question: row[0]?.trim() || '',
                 questionType,
                 difficulty: row[2]?.trim() || '',
-                options: [row[3]?.trim() || '', row[4]?.trim() || '', row[5]?.trim() || '', row[6]?.trim() || ''],
+                options: [
+                  row[3]?.trim() || '',
+                  row[4]?.trim() || '',
+                  row[5]?.trim() || '',
+                  row[6]?.trim() || '',
+                ],
                 answers,
-                skill: row[11]?.trim().replace(/\r$/, '') || ''
+                skill: row[11]?.trim().replace(/\r$/, '') || '',
               });
             });
 
@@ -308,10 +352,10 @@ export class ManageSkillsComponent {
             observer.next(results);
             observer.complete();
           },
-          error: (error : any) => {
+          error: (error: any) => {
             // If an error occurs during parsing, emit the error
             observer.error(error);
-          }
+          },
         });
       };
 
@@ -419,9 +463,10 @@ export class ManageSkillsComponent {
     // this.options=choices;
     this.choices = choices;
 
-    this.Difficulty_Level = this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
-    console.log("difficulty level",Difficulty_Level, this.Difficulty_Level);
-    
+    this.Difficulty_Level =
+      this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
+    console.log('difficulty level', Difficulty_Level, this.Difficulty_Level);
+
     this.skills = skills;
     this.answer = answer;
 
@@ -435,21 +480,21 @@ export class ManageSkillsComponent {
     );
     this.updateQuestionForm.patchValue({
       question: question,
-      questionType : questionTypeSelected,
-      difficulty :this.Difficulty_Level,
-      choices0 :choices[0],
-      choices1:choices[1],
-      choices2:choices[2],
-      choices3:choices[3],
-      answer : this.answer
-     })
-     if(questionTypeSelected == "Checkbox"){
-      console.log(" selected question", questionTypeSelected)
-      this.checkboxControl.patchValue(answer)
-     }
+      questionType: questionTypeSelected,
+      difficulty: this.Difficulty_Level,
+      choices0: choices[0],
+      choices1: choices[1],
+      choices2: choices[2],
+      choices3: choices[3],
+      answer: this.answer,
+    });
+    if (questionTypeSelected == 'Checkbox') {
+      console.log(' selected question', questionTypeSelected);
+      this.checkboxControl.patchValue(answer);
+    }
   }
-  resetAnswers(value : any){
-    console.log("inside rest values",value)
+  resetAnswers(value: any) {
+    console.log('inside rest values', value);
     // if(value == "Checkbox"){
     //   console.log("Checkbox",this.updateQuestionForm.get('answer'))
     //   this.checkboxControl = this.fb.control([]);
@@ -457,9 +502,8 @@ export class ManageSkillsComponent {
     //   console.log("answer",this.updateQuestionForm.get('answer'))
     //   this.updateQuestionForm.get('answer')?.reset();
     // }
-    
-   
-  // this.updateQuestionForm.get('answer')?.patchValue(null);
+
+    // this.updateQuestionForm.get('answer')?.patchValue(null);
   }
   getBackendDifficultyLevelViceVersa(frontendValue: string): string {
     if (frontendValue === 'E') {
@@ -484,13 +528,12 @@ export class ManageSkillsComponent {
   }
 
   updateQuestionView() {
-   
-    const qType =  this.updateQuestionForm.get('questionType')?.value;
+    const qType = this.updateQuestionForm.get('questionType')?.value;
     let answer;
-    if(qType === "Checkbox"){
+    if (qType === 'Checkbox') {
       answer = this.checkboxControl.value;
-    }else {
-      answer = this.updateQuestionForm.get('answer')?.value
+    } else {
+      answer = this.updateQuestionForm.get('answer')?.value;
     }
     this.showUpdateMessage();
     console.log('dd=>>>>>>>>>>>>>>>>>>', this.difficultyLevel);
@@ -502,15 +545,17 @@ export class ManageSkillsComponent {
         this.id,
         this.updateQuestionForm.get('question')?.value,
         this.updateQuestionForm.get('questionType')?.value,
-       [ this.updateQuestionForm.get('choices0')?.value,
-        this.updateQuestionForm.get('choices1')?.value,
-        this.updateQuestionForm.get('choices2')?.value,
-        this.updateQuestionForm.get('choices3')?.value,],
+        [
+          this.updateQuestionForm.get('choices0')?.value,
+          this.updateQuestionForm.get('choices1')?.value,
+          this.updateQuestionForm.get('choices2')?.value,
+          this.updateQuestionForm.get('choices3')?.value,
+        ],
         this.skills,
         this.getBackendDifficultyLevel(
-          this.updateQuestionForm.get('difficulty')?.value,
+          this.updateQuestionForm.get('difficulty')?.value
         ),
-       answer
+        answer
       )
       .subscribe((response) => {
         console.log('updateQuestionView response', response);
@@ -518,6 +563,7 @@ export class ManageSkillsComponent {
           this.QuestionView = false;
           window.location.reload();
           this.formModified = false;
+          window.location.reload();
         }, 1000);
       });
   }
@@ -529,16 +575,15 @@ export class ManageSkillsComponent {
     });
   }
   cancelQuestionView() {
-    console.log("value", this.checkboxControl.value)
-    console.log(" check box from" , this.checkboxControl)
-    console.log("updateform",this.updateQuestionForm);
+    console.log('value', this.checkboxControl.value);
+    console.log(' check box from', this.checkboxControl);
+    console.log('updateform', this.updateQuestionForm);
     //this.checkboxControl.reset();
     // this.updateQuestionForm.reset();
     // this.checkboxControl.reset()
     this.QuestionView = false;
-    this.formModified = false;
   }
-  
+
   sidebarClose() {
     this.previewSidebarVisible = false;
   }

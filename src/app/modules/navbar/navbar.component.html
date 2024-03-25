@@ -207,6 +207,7 @@
   <div class="icon-container">
     <!-- notification icon -->
     <div class="ic notification cursor-pointer" (click)="notificationToggle()">
+      <!-- <div class="notification-dot" *ngIf="hasNewNotifications"></div> -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -219,6 +220,7 @@
           fill="white"
         />
       </svg>
+     <span class="notification-dot" *ngIf="hasNewNotifications"></span>
     </div>
     <div class="vrline1"></div>
     <div class="avatar-name cursor-pointer" (click)="toggle()">
