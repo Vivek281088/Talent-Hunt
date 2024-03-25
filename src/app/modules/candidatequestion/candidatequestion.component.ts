@@ -144,9 +144,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     });
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
-    console.log('Selected Option', this.previewOptions);
-    console.log('asdjbvahbvhabvahbvahbvhv', option, pageIndex, optionIndex);
-
+    console.log('Selected Option', this.selectedOptions1);
+    console.log('Selected Option', this.selectedOptions);
+    ;
     if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
       console.log('checkbox inside');
       // Toggle checkbox option
@@ -215,21 +215,24 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/login']);
   }
   prev() {
-    console.log('prev', 'previous function called');
+    console.log('first -',this.first,"row -",this.rows , "page -", this.page);
     if (this.first >= this.rows) {
       this.page -= 1;
       this.first -= this.rows;
-      debugger;
+  
     }
   }
 
   next() {
+    console.log("page" , this.page , " total questions" , this.totalQuestions);
+    if(this.page < this.totalQuestions-1)
     {
-      console.log('next', 'nextfunction called');
+      console.log('inside iff', 'nextfunction called', this.first,this.page);
       this.page += 1;
-
       this.first += 1;
+      console.log("after ",'first -',this.first,"row -",this.rows , "page -", this.page);
     }
+    console.log("outside ",'first -',this.first,"row -",this.rows , "page -", this.page);
   }
   submitAnswers() {
     console.log('submit function');
@@ -380,6 +383,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.rows = event.rows;
     this.page = event.page;
     this.pageCount = event.pageCount;
+    console.log("first- " , this.first , "rows - " , this.rows , "page- " , this.page)
     console.log('selected Option', this.selectedOptions1);
   }
 
