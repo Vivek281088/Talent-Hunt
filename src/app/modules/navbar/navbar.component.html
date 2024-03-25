@@ -207,7 +207,6 @@
   <div class="icon-container">
     <!-- notification icon -->
     <div class="ic notification cursor-pointer" (click)="notificationToggle()">
-      <!-- <div class="notification-dot" *ngIf="hasNewNotifications"></div> -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -220,7 +219,6 @@
           fill="white"
         />
       </svg>
-     <span class="notification-dot" *ngIf="hasNewNotifications"></span>
     </div>
     <div class="vrline1"></div>
     <div class="avatar-name cursor-pointer" (click)="toggle()">
@@ -237,6 +235,7 @@
         <p class="user-name">{{ userName }}</p>
         <p class="user-role" *ngIf="isAdmin">Admin</p>
       </div>
+
       <!-- Profile Overlay -->
       <p-overlay [(visible)]="overlayVisible" [modal]="true" appendTo="body">
         <div class="overlay-whole">
@@ -282,12 +281,7 @@
         <div class="notification-content flex flex-column">
           <div class="notification-header">
             Notifications
-            
-            <button
-              (click)="clearAllNotification()"
-              class="clearAll"
-              [disabled]="notifications?.length === 0"
-            >
+            <button *ngIf="notifications" (click)="clearAllNotification()" class="clearAll">
               Clear All
             </button>
           </div>
@@ -297,14 +291,16 @@
                 class="notification-item-container"
                 *ngFor="let noti of notifications; let i = index"
               >
-                <div class="notification-content-header">
-                  <div><p>{{ noti.title }}</p></div>
-                  <div><i class="pi pi-times" (click)="clearNotification(noti)"></i></div>
+                <div>
+                  <p>{{ noti.title }}</p>
+                  <p></p>
                 </div>
-                <div class="notification-content-body">
+
+                <div>
                   <p>{{ noti.content }}</p>
-              
                 </div>
+
+                <i class="pi pi-times" (click)="clearNotification(noti)"></i>
               </div>
             </div>
             <div class="no-noti" *ngIf="notifications?.length === 0">

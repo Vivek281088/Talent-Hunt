@@ -186,7 +186,7 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th colspan="3" class="title">Recent Assessments</th>
+              <th colspan="4" class="title">Recent Assessments</th>
             </tr>
           </ng-template>
 
@@ -194,8 +194,7 @@
             <tr>
               <td class="svg">
                 <ng-container *ngIf="i === 0">
-                  <div class="customsvg">
-                    <svg
+                  <svg
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -207,12 +206,9 @@
                       fill="#652D90"
                     />
                   </svg>
-                  </div>
-                  
                 </ng-container>
                 <ng-container *ngIf="i === 1">
-                  <div class="customsvg">
-                    <svg
+                  <svg
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -224,13 +220,9 @@
                       fill="#1666DC"
                     />
                   </svg>
-
-                  </div>
-                  
                 </ng-container>
                 <ng-container *ngIf="i === 2">
-                  <div class="customsvg">
-                    <svg
+                  <svg
                     width="20"
                     height="16"
                     viewBox="0 0 20 16"
@@ -242,13 +234,9 @@
                       fill="#652D90"
                     />
                   </svg>
-
-                  </div>
-                  
                 </ng-container>
                 <ng-container *ngIf="i === 3">
-                  <div class="customsvg">
-                    <svg
+                  <svg
                     width="16"
                     height="16"
                     viewBox="0 0 16 16"
@@ -260,9 +248,6 @@
                       fill="#652D90"
                     />
                   </svg>
-
-                  </div>
-                  
                 </ng-container>
               </td>
               <td class="content">
@@ -304,21 +289,21 @@
         <ng-template pTemplate="body" let-rowData let-i="rowIndex">
           <tr>
             <td class="ass-name">
-              <span>{{ rowData.schedule }}</span>
+              <span>{{ rowData.assessment }}</span>
             </td>
             <td class="manager-name">
-              <span>{{ rowData.managername }}</span>
+              <span>{{ rowData.managerName }}</span>
             </td>
             <td>
               <div class="candidate-count">
                 <p class="count scheduled-color">
-                  {{ rowData.Scheduled }}
+                  {{ rowData.scheduled }}
                 </p>
                 <p class="count shortlisted-color">
-                  <span>{{ rowData.Shortlisted }}</span>
+                  <span>{{ rowData.shortlisted }}</span>
                 </p>
                 <p class="count rejected-color">
-                  <span>{{ rowData.Rejected }}</span>
+                  <span>{{ rowData.rejected }}</span>
                 </p>
               </div>
             </td>

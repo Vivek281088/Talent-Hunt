@@ -39,12 +39,12 @@ export class CandidateProfileComponent {
     private newScheduleService: NewScheduleService
   ) {
     this.editCandidateForm = this.fb.group({
-      employeeId: [{value:'',disabled:true} ,[Validators.required]],
-      candidateName: [{value:'',disabled:true} ,[Validators.required]],
-      email: [{value:null,disabled:true}, [Validators.required, Validators.email]],
-      phone: [{value:null,disabled:true} ,[Validators.required]],
-      department: [{value:'',disabled:true} ],
-      location: [{value:'',disabled:true}]
+      employeeId: [null],
+      candidateName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [null, [Validators.required]],
+      department: [''],
+      location: [''],
     });
   }
 
@@ -55,7 +55,7 @@ export class CandidateProfileComponent {
     console.log('Date--------', this.todayDate);
   
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Candidate', routerLink: '/manage-candidates' },
       { label: 'Candidate Profile', routerLink: '/candidateProfile' },
     ];

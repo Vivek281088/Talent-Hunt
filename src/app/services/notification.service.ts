@@ -1,46 +1,46 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, catchError, of} from 'rxjs';
 import { CNotification } from '../modules/new-schedule/new-schedule.component';
- 
+import { Router } from '@angular/router';
+
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class NotificationService {
-  private newNotificationSubject = new Subject<void>();
-  constructor(private http: HttpClient) {}
 
-  notifyNewNotification() {
-    this.newNotificationSubject.next();
-  }
+  constructor( private http: HttpClient,private router : Router) {
 
-  get newNotificationReceived() {
-    return this.newNotificationSubject.asObservable();
-  }
+   }
 
-  postNotification(notification: CNotification): Observable<any> {
-    console.log('notification service', notification);
+   postNotification(notification : CNotification): Observable<any> {
+    console.log("notification service" , notification)
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
-      sender: notification.sender,
-      receiver: notification.receiver,
+      sender : notification.sender,
+      receiver : notification.receiver,
       title: notification.title,
-      content : notification.content,
+      content : notification.content
     };
-    console.log("notification service",body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification2',
       body,
       { headers }
-    );
-  }
+    )
+    .pipe(
+      catchError((err : any) =>{
+        console.log('err' , err)
+        this.router.navigate(['/errorpage'], { queryParams: { message: err.message } });
+        return of(null)
+      })
+    )
+    }
 
-  getNotification(receiver: any) {
-    console.log(receiver);
-    const url1 =
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/receivenotifi';
-    const headers = new HttpHeaders();
-    headers.append('Access-Control-Allow-Origin', '*');
+    getNotification(receiver : any){
+      console.log(receiver)
+      const url1 ='https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/receivenotifi';
+      const headers = new HttpHeaders()
+      headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Content-Type', 'application/json');
     headers.append(
       'Access-Control-Allow-Methods',
@@ -50,21 +50,34 @@ export class NotificationService {
       'Access-Control-Allow-Headers',
       'Content-Type,X-Amz-Date,X-Api-Key'
     );
-    return this.http.post(url1, receiver, { headers: headers }).pipe();
-  }
+    return this.http.post(url1, receiver, { headers: headers })
+    // .pipe(
+    //   catchError((err : any) =>{
+    //     console.log('err' , err)
+    //     this.router.navigate(['/errorpage'], { queryParams: { message: err.message } });
+    //     return of(null)
+    //   })
+    // );
+      
+      
+      
+    }
 
-  // Update Notification
+// Update Notification
 
-  updateNotification(
-    notificationId: string,
-    receiverId: string
+updateNotification(
+        notificationId: string,
+        receiverId: string
+
+    
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
-      notificationId: notificationId,
-      receiverId: receiverId,
+      notificationId:notificationId,
+      receiverId: receiverId
     };
+
     console.log('Notification test', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/updatenotification',
@@ -75,24 +88,28 @@ export class NotificationService {
     );
   }
 
+
   clearNotification(
-    receiverId: string | null,
+    receiverId:  string | null,
     notificationId: string[]
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-
-    const body = {
-      receiverId: receiverId,
-      notificationId: notificationId,
-    };
-
-    console.log('Notification test', body);
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/clearNotification',
-      body,
-      {
-        headers,
-      }
-    );
+      const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+   
+      const body = {
+        receiverId: receiverId,
+        notificationId:notificationId
+           };
+   
+           console.log('Notification test', body);
+           return this.http.post<any>(
+             'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/clearNotification',
+             body,
+             {
+               headers,
+             }
+           );
+   
   }
+
 }
+

@@ -324,8 +324,7 @@
   font-weight: 500;
   font-size: 16px;
   // line-height: 24px;
-  border-bottom: 1px solid #0000001f;
-  // border-top: 1px solid #0000001f;
+  border-bottom: 1px solid #B3ABBA33;
   padding: 12px;
   // border: 1px solid transparent;
   z-index: 900;
@@ -351,10 +350,8 @@
   border-bottom: 1px solid #B3ABBA33;
   padding: 10px 12px;
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
-  // align-items: center;
-  align-items: flex-start;
+  align-items: center;
 }
  
 .notification-item-container i {
@@ -374,19 +371,19 @@
 .notification-content {
   display: flex;
 }
-
-
+ 
+ 
 // .no-noti{
-//   font-family: Arial, sans-serif; 
-//   font-size: 18px; 
-//   color: #555; 
+//   font-family: Arial, sans-serif;
+//   font-size: 18px;
+//   color: #555;
 //   text-align: center;
 //   margin-top: 50px;
 //   }
-
+ 
 // .no-noti {
 //   display: flex;
-//   // font-family: Arial, sans-serif; 
+//   // font-family: Arial, sans-serif;
 //   justify-content: center;
 //   align-items: center;
 //   height: 100px;
@@ -400,6 +397,7 @@
 //   color: #652d90;
 //   font-family: "Poppins", sans-serif;
 // }
+ 
 .no-noti {
   display: flex;
   justify-content: center;
@@ -407,13 +405,13 @@
   height: 100px;
   // background: linear-gradient(91.47deg, #652d90 14.44%, #d61360 158.5%);
   background: #000;
-  color: transparent; 
+  color: transparent;
   font-size: 16px;
   // font-weight: bold;
-  -webkit-background-clip: text; 
+  -webkit-background-clip: text;
   background-clip: text;
   font-family: "Poppins", sans-serif;
-
+ 
 }
  
 .clearAll{
@@ -421,50 +419,5 @@ background-color: transparent;
 border: none;
 color:  #652d90;
 cursor: pointer;
+ 
 }
-
-.clearAll:disabled {
-  opacity: 0.5;
-  cursor: not-allowed; 
-  // cursor:auto
-}
-.notification-content-header{
-  font-weight: 500;
-  font-size: 12px;
-  color: #652D90;
-  display: flex;
-  flex-direction: row;
-  width: 360px;
-  gap:290px;
-}
-
-.notification-content-body{
-  margin-top: 5px;
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  width: 340px;
-}
-
-.notification-dot{
-    position: absolute;
-    top: 6px; 
-    right: 6px; 
-    width: 10px;
-    height: 10px;
-    background-color: red;
-    border-radius: 50%;
-  }
-  
-
-  .pi-bell.pi-bell-active::after {
-    content: '';
-    display: block;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background-color: red;
-    position: absolute;
-    top: -3px;
-    right: -3px;
-  }
