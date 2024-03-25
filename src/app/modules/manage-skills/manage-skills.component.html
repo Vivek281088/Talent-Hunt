@@ -213,7 +213,6 @@
       [style]="{ width: '47VW' }"
       [draggable]="false"
       [resizable]="false"
-      [closable]="false"
     >
       <div class="NewSchedule-content">
         <div class="quiz-instruction">
@@ -231,12 +230,10 @@
               Hard.
             </li>
             <li>
-              If it is Radio type question, Give the exact correct answer in any
-              one of the answer field.
+              If it is Radio type question, Give the exact correct answer in any one of the answer field.
             </li>
             <li>
-              If it is Checkbox type question, Mention the correct answers in
-              separate answer field.
+              If it is Checkbox type question, Mention the correct answers in separate answer field.
             </li>
           </ul>
         </div>
@@ -247,6 +244,8 @@
           <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
           </p-button>
         </div>
+
+        
 
         <div class="Createbutton">
           <p-button label="Download" (onClick)="downloadTemplate()">
@@ -274,7 +273,6 @@
     [modal]="true"
     [style]="{ width: '47VW' }"
     [draggable]="false"
-    [closable]="false"
     [resizable]="false"
     [formGroup]="updateQuestionForm"
   >
@@ -443,5 +441,6 @@
         <span class="option-content">{{ option }}</span>
       </div>
     </div>
+    
   </p-dialog>
 </div>

@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Receiver } from '../new-schedule/new-schedule.component';
  
- 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -25,15 +24,14 @@ export class NavbarComponent {
   name: boolean = false;
   modalVisible: boolean = false;
   isAdmin: boolean = false;
- 
-  finalizedManagerEmail!: string;
+   finalizedManagerEmail!: string;
   visible: boolean = false;
   tempUserName!: string | null;
   id!: string;
   notification:any;
   receiver!:string;
   notifications !:any;
- 
+  hasNewNotifications: boolean = false;
   constructor(
     private authservice: AuthService,
     private managernameService: ManagernameService,
@@ -43,12 +41,15 @@ export class NavbarComponent {
   ) {}
   ngOnInit(): void {
     this.authUserOrManager();
-    const storedNotifications = localStorage.getItem('notifications');
+      const storedNotifications = localStorage.getItem('notifications');
   if (storedNotifications) {
     this.notifications = JSON.parse(storedNotifications);
   }
- 
-  }
+// Handling new notifications
+this.notificationService.newNotificationReceived.subscribe(() => {
+  this.hasNewNotifications = true; 
+   });
+   }
   notifydata(){
     const body = {
       receiver : this.receiver
@@ -57,6 +58,7 @@ export class NavbarComponent {
       this.notificationService.getNotification(body).subscribe((response)=>{
         console.log("notificaton service called",response)
         this.notifications = response;
+
       });
   }
  
@@ -72,8 +74,7 @@ export class NavbarComponent {
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
           console.log('Navbar-res', response);
-         
-          this.tempUserName =
+                   this.tempUserName =
             response[0].Firstname + ' ' + response[0].Lastname;
           this.userName = response[0].Firstname + ' ' + response[0].Lastname;
           this.receiver=response[0].id.toString();
@@ -85,7 +86,6 @@ export class NavbarComponent {
           console.log("iddd",this.id,response[0].id)
           sessionStorage.setItem('loginManagerId', this.id);
           this.managernameService.setManagerName_Email(this.userEmail);
-          localStorage.setItem('managerName', this.userName);
           this.name = true;
         });
     } else {
@@ -107,8 +107,7 @@ export class NavbarComponent {
         });
     }
   }
- 
-  authUserOrManager1() {
+   authUserOrManager1() {
     this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
     this.finalizedEmail = localStorage.getItem('Candidateemail')!;
  
@@ -168,7 +167,7 @@ export class NavbarComponent {
   toggle() {
     this.overlayVisible = !this.overlayVisible;
   }
-  notificationToggle() {
+  notificationToggle(){
     this.notificationOverlayVisible = !this.notificationOverlayVisible;
   }
  
@@ -197,8 +196,6 @@ export class NavbarComponent {
 //       console.log(response);
 //     })
 // }
-
-
 //     }
 clearNotification(notification: any) {
   console.log('Notifcation here', notification);
@@ -216,20 +213,31 @@ clearNotification(notification: any) {
         }
       });
   }
-
   }
 
+// Clear All Notification
+// clearAllNotification(){
+//   const receiverId = sessionStorage.getItem('loginManagerId')
+//   const notificationId = this.notifications.map((item: { id: any })=>item.id);
+//   console.log("receiver notificationid",receiverId,notificationId);
+//      this.notificationService.clearNotification(
+//     receiverId,
+//     notificationId
+//        ).subscribe(response=>{
+//       console.log('Clear All Notifications', response);
+// });
+// this.hasNewNotifications = false;
+// console.log('Has New', this.hasNewNotifications)
+// }
 
-
-  clearAllNotification(){
-    const receiverId = sessionStorage.getItem('loginManagerId')
-    const notificationId = this.notifications.map((item: { id: any })=>item.id);
-    console.log("receiver notificationid",receiverId,notificationId);
-       this.notificationService.clearNotification(
-      receiverId,
-      notificationId
-         ).subscribe(response=>{
-        console.log('Clear All Notifications', response);
+clearAllNotification() {
+  const receiverId = sessionStorage.getItem('loginManagerId');
+  const notificationId = this.notifications.map((item: { id: any })=>item.id);
+  this.notificationService.clearNotification(receiverId, notificationId).subscribe(response => {
+    console.log('Clear All Notifications', response);
+    // Clear notifications in UI immediately
+    this.notifications = [];
+    this.hasNewNotifications = false;
   });
-  }
+}
 }
