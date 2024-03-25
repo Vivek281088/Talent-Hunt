@@ -19,13 +19,15 @@ export class NotificationService {
     const body = {
       sender : notification.sender,
       receiver : notification.receiver,
+      title: notification.title,
       content : notification.content
     };
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification2',
       body,
       { headers }
-    ).pipe(
+    )
+    .pipe(
       catchError((err : any) =>{
         console.log('err' , err)
         this.router.navigate(['/errorpage'], { queryParams: { message: err.message } });
@@ -48,13 +50,14 @@ export class NotificationService {
       'Access-Control-Allow-Headers',
       'Content-Type,X-Amz-Date,X-Api-Key'
     );
-    return this.http.post(url1, receiver, { headers: headers }).pipe(
-      catchError((err : any) =>{
-        console.log('err' , err)
-        this.router.navigate(['/errorpage'], { queryParams: { message: err.message } });
-        return of(null)
-      })
-    );
+    return this.http.post(url1, receiver, { headers: headers })
+    // .pipe(
+    //   catchError((err : any) =>{
+    //     console.log('err' , err)
+    //     this.router.navigate(['/errorpage'], { queryParams: { message: err.message } });
+    //     return of(null)
+    //   })
+    // );
       
       
       
@@ -85,6 +88,28 @@ updateNotification(
     );
   }
 
+
+  clearNotification(
+    receiverId:  string | null,
+    notificationId: string[]
+  ): Observable<any> {
+      const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+   
+      const body = {
+        receiverId: receiverId,
+        notificationId:notificationId
+           };
+   
+           console.log('Notification test', body);
+           return this.http.post<any>(
+             'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/clearNotification',
+             body,
+             {
+               headers,
+             }
+           );
+   
+  }
 
 }
 

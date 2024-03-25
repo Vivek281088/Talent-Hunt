@@ -66,7 +66,9 @@ export class THDashboardComponent {
         result: 'Rejected',
       },
     ];
-    this.dataService.getDashboardData().subscribe((response) => {
+    
+    this.dataService.getDashboardData().subscribe({
+      next : (response) => {
       // this.recentAssessmentDataContext = response;
       // console.log('recentAssessmentData', this.recentAssessmentDataContext);
       this.recentData = [
@@ -91,7 +93,10 @@ export class THDashboardComponent {
           time: '25 min',
         },
       ];
-    });
+    }, 
+    //error :(error) => console.warn("error",error.message)
+    
+  });
 
     this.scheduleData = [
       {

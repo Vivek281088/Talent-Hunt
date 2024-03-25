@@ -203,7 +203,7 @@
       </div>
     </div>
   </div>
- 
+
   <div class="icon-container">
     <!-- notification icon -->
     <div class="ic notification cursor-pointer" (click)="notificationToggle()">
@@ -235,12 +235,9 @@
         <p class="user-name">{{ userName }}</p>
         <p class="user-role" *ngIf="isAdmin">Admin</p>
       </div>
- 
+
       <!-- Profile Overlay -->
-      <p-overlay [(visible)]="overlayVisible"
-       [modal]="true"
-        appendTo="body"
-       >
+      <p-overlay [(visible)]="overlayVisible" [modal]="true" appendTo="body">
         <div class="overlay-whole">
           <div class="overlay-content1">
             <p-avatar
@@ -256,7 +253,7 @@
               <p class="overlay-user-role" *ngIf="isAdmin">Admin</p>
             </div>
           </div>
- 
+
           <!-- <div class="overlay-content2 cursor-pointer" (click)="refreshPage()">
           <span class="text2">Profile</span>
         </div>
@@ -274,7 +271,7 @@
           </div>
         </div>
       </p-overlay>
- 
+
       <!-- Notification Overlay -->
       <p-overlay
         [(visible)]="notificationOverlayVisible"
@@ -284,25 +281,31 @@
         <div class="notification-content flex flex-column">
           <div class="notification-header">
             Notifications
-            <!-- <i class="pi pi-times"></i> -->
+            <button *ngIf="notifications" (click)="clearAllNotification()" class="clearAll">
+              Clear All
+            </button>
           </div>
           <div class="notification-list">
-            <!-- <div class="notification-list-inner"> -->
-              <div *ngIf="notifications?.length > 0">
-            <div
-              class="notification-item-container"
+            <div *ngIf="notifications">
+              <div
+                class="notification-item-container"
+                *ngFor="let noti of notifications; let i = index"
+              >
+                <div>
+                  <p>{{ noti.title }}</p>
+                  <p></p>
+                </div>
 
-              *ngFor="let noti of notifications; let i = index"
-            >
-              <p>{{ noti.content }}</p>
-              <i class="pi pi-times" (click)="clearNotification(noti)"></i>
+                <div>
+                  <p>{{ noti.content }}</p>
+                </div>
+
+                <i class="pi pi-times" (click)="clearNotification(noti)"></i>
+              </div>
             </div>
-          </div>
-          <div *ngIf="notifications?.length === 0">
-            <!-- No Notifications to display -->
-            No Notifications to display
-          </div>
-            <!-- </div> -->
+            <div class="no-noti" *ngIf="notifications?.length === 0">
+              No Notifications to display
+            </div>
           </div>
         </div>
       </p-overlay>
