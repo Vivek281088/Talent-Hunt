@@ -7,11 +7,6 @@ import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { forkJoin } from 'rxjs';
-import { PasswordValidator } from '../signup/password-validator';
-import { Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-
-
 
 @Component({
   selector: 'app-manager-profile',
@@ -23,24 +18,15 @@ export class ManagerProfileComponent {
   items: MenuItem[] | undefined;
   editManagerForm!: FormGroup;
   formSubmitted: boolean = false;
-  
-  
-  visible: boolean = false;
-  resetPasswordForm!: FormGroup;
-  isPasswordInvalid: boolean = false;
 
   //schedules
   globalSearchValue!: string;
   viewQuestionSidebar: boolean = false;
-  passwordNotMatching: boolean = true;
   FinalizedQuestions!: any;
   scheduleData: any;
-  scheduleLength:number=0
-  assesmentLength:number=0
 
   //assessment
   candidateList: any[] = [];
-  private subscription: Subscription = new Subscription();
 
   constructor(
     private fb: FormBuilder,
@@ -51,74 +37,27 @@ export class ManagerProfileComponent {
     private newScheduleService: NewScheduleService
   ) {
     this.editManagerForm = this.fb.group({
-      employeeId: [{ value: '', disabled: true }, [Validators.required]],
-      managerName: [{ value: '', disabled: true }, [Validators.required]],
-      email: [{ value: null, disabled: true }, [Validators.required, Validators.email]],
-      phone: [{ value: null, disabled: true }, [Validators.required]],
-      department: [{ value: '', disabled: true }, [Validators.required]],
-      location: [{ value: '', disabled: true }, [Validators.required]],
+      employeeId: [null, [Validators.required]],
+      managerName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: [null, [Validators.required]],
+      department: ['', [Validators.required]],
+      location: ['', [Validators.required]],
     });
-    this.resetPasswordForm = this.fb.group({
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(8),
-          Validators.pattern(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-          ),
-        ],
-      ],
-      confirmPassword: ['', [Validators.required]],
-    },
-
-      { validator: PasswordValidator.match }
-    );
-    this.subscription.add(
-      this.resetPasswordForm
-        .get('password')!
-        .valueChanges.pipe(debounceTime(2000))
-        .subscribe(() => {
-          this.isPasswordInvalid = this.resetPasswordForm.get('password')!.invalid;
-        })
-    );
-    this.subscription.add(
-      this.resetPasswordForm
-        .get('confirmPassword')!
-        .valueChanges.pipe(debounceTime(2000))
-        .subscribe(() => {
-          console.log(
-            this.resetPasswordForm.get('password')?.value,
-            this.resetPasswordForm.get('confirmPassword')?.value
-          );
-          console.log('Fomrs ', this.resetPasswordForm);
-          if (
-            this.resetPasswordForm.get('password')?.value !==
-            this.resetPasswordForm.get('confirmPassword')?.value
-          ) {
-            this.passwordNotMatching = true;
-            console.log('from confirm password', this.passwordNotMatching);
-          } else {
-            this.passwordNotMatching = false;
-          }
-        })
-    );
   }
-
 
   ngOnInit() {
     this.getManagerData();
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Manager', routerLink: '/manage-managers' },
       { label: 'Manager Profile', routerLink: '/managerProfile' },
     ];
   }
   getManagerData() {
-
     this.editManagerForm.setValue({
-      employeeId: sessionStorage.getItem('ManagerProfileId')?.toString(),
+      employeeId: sessionStorage.getItem('ManagerProfileId'),
       managerName: sessionStorage.getItem('ManagerProfileName'),
       email: sessionStorage.getItem('ManagerProfileEmail'),
       phone: sessionStorage.getItem('ManagerProfilePhone'),
@@ -133,9 +72,7 @@ export class ManagerProfileComponent {
       .subscribe((response) => {
         console.log('ManagerData---->', response);
         this.scheduleData = response.result1;
-        this.scheduleLength=this.scheduleData.length
         this.candidateList = response.result2;
-        this.assesmentLength=this.candidateList.length
         console.log('ManagerScheduleData---->', this.scheduleData);
         console.log('Manager Assessment Data---->', this.candidateList);
       });
@@ -150,12 +87,6 @@ export class ManagerProfileComponent {
 
   closeManagerProfile() {
     this.router.navigate(['/manage-managers']);
-  }
-
-  resetPassword() {
-    this.visible = true;
-    this.formSubmitted = false;
-
   }
 
   //schedules
@@ -236,32 +167,4 @@ export class ManagerProfileComponent {
   closePreview() {
     this.viewQuestionSidebar = false;
   }
-
-  resetFunction() {
-    this.visible = false;
-    this.formSubmitted = false;
-    this.resetPasswordForm.markAsPristine();
-    this.resetPasswordForm.markAsUntouched();
-    this.resetPasswordForm.reset();
-    this.router.navigate(['/managerProfile']);
-  }
-
-  updatereset() {
-    const password = this.resetPasswordForm.get('password')?.value;
-    const email = this.editManagerForm.get('email')?.value
-    console.log("Data" , password , email)
-    this.managernameService
-    .postResetPassword(
-      password,
-      email
-
-    )
-    .subscribe((response) => {
-      console.log('Manager Updated....');
-    });
-this.visible=false;
-
-  }
-
-
 }

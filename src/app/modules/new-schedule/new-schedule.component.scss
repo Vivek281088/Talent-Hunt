@@ -143,8 +143,8 @@
   flex-direction: row;
   justify-content: space-between;
   padding: 16px 16px 5px 16px;
-
-  ::ng-deep .p-button .p-button-label {
+ 
+   ::ng-deep .p-button .p-button-label {
     transition-duration: 0.2s;
     font-size: 14px;
     font-weight: 500;
@@ -152,6 +152,8 @@
 
   .cancelBtn {
     padding-right: 2rem;
+    // height: 45.6px;
+
     ::ng-deep {
       .p-button {
         color: #652d90;
@@ -313,13 +315,19 @@
     }
   }
   .selectallBtn {
-    font-family: "Roboto", sans-serif;
+
     ::ng-deep {
       .p-button {
         color: #652d90;
         background: #fafafa;
         height: 36px;
         border: 1px solid #652d90;
+        font-size: 14px;
+font-weight: 500;
+line-height: 16px;
+letter-spacing: 1.25px;
+text-align: left;
+font-family: "Roboto", sans-serif;
       }
 
       .p-button:focus {
@@ -334,6 +342,12 @@
         background: #fafafa;
         height: 36px;
         border: 1px solid #652d90;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 1.25px;
+        text-align: left;
+        font-family: "Roboto", sans-serif;
       }
 
       .p-button:focus {
@@ -347,8 +361,13 @@
         color: #fafafa;
         background: #652d90;
         height: 36px;
-
         border: 1px solid #652d90;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 16px;
+        letter-spacing: 1.25px;
+        text-align: left;
+        font-family: "Roboto", sans-serif;
       }
       .pi {
         font-size: 100%;
@@ -409,7 +428,9 @@
   font-weight: 400;
   color: #00000061;
   text-align: left;
-}
+  line-height: 16px;
+  letter-spacing: 0.25px;
+   }
 
 // .newscheduleTable {
 //   .schedulebuttons {
