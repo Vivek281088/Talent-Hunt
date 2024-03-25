@@ -173,7 +173,6 @@ export class NavbarComponent {
   }
  
   logout() {
-    localStorage.clear();
     this.authservice.logout();
   }
 
@@ -207,29 +206,25 @@ clearNotification(notification: any) {
     this.notificationService.updateNotification(notification.id, 
       managerId).subscribe(response=>{
         console.log(response);
+        // Remove cleared notification from the array
         const index = this.notifications.indexOf(notification);
         if (index !== -1) {
           this.notifications.splice(index, 1);
         }
+        // Check if all notifications are cleared
         if (this.notifications.length === 0) {
+          // If all notifications are cleared, show "No Notifications to display"
           this.notifications = [];
         }
       });
   }
 
   }
+  
 
+  //  clearNotification(noti: any) {
 
-
-  clearAllNotification(){
-    const receiverId = sessionStorage.getItem('loginManagerId')
-    const notificationId = this.notifications.map((item: { id: any })=>item.id);
-    console.log("receiver notificationid",receiverId,notificationId);
-       this.notificationService.clearNotification(
-      receiverId,
-      notificationId
-         ).subscribe(response=>{
-        console.log('Clear All Notifications', response);
-  });
-  }
+  //     this.notifications.splice(noti, 1);
+  //     // localStorage.setItem('notifications', JSON.stringify(this.notifications));
+  // }
 }
