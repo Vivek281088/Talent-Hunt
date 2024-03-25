@@ -43,37 +43,7 @@ import { CandidateProfileComponent } from './modules/candidate-profile/candidate
 import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.component';
 import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { BodyComponent } from './modules/body/body.component';
-const modifiedRoute :Routes =[
-  {path : '' , component:BodyComponent,
-  children : [
-    {path :'' , component:THDashboardComponent},
-    { path: 'candidatequestion', component: CandidatequestionComponent },
-    { path: 'create', component: Dash1Component },
-    {path: 'dashboard',component: SchedulepageComponent},
-    { path: 'new-schedule', component: NewScheduleComponent },
-    { path: 'questiondisplay', component: QuestiondisplayComponent },
-    { path: 'edit', component: EditComponent },
-    { path: 'reviewer', component: ReviewerComponent },
-    { path: 'candidatehome', component: CandidateAssessmentComponent },
-    { path: 'assessment-display', component: AssessmentDisplayComponent },
-    { path: 'AssessmentDisplay', component: AssessmentTableComponent },
-    { path: 'questiondb', component: QuestiondbComponent },
-    { path: 'profile', component: ProfileDialogComponent },
-    { path: 'manage-managers', component: ManageManagersComponent },
-    { path: 'manage-candidates', component: ManageCandidatesComponent },
-    { path: 'manage-skills', component: ManageSkillsComponent },
-    { path: 'managerProfile', component: ManagerProfileComponent },
-    { path: 'candidateProfile', component: CandidateProfileComponent },
-    { path: 'thdashboard', component: THDashboardComponent },
-  ]
-},
-{ path: 'login', component: LoginComponent },
-{ path: 'signup', component: SignupComponent },
-{ path: 'resetpassword', component: ResetpasswordComponent },
-{path:'errorpage' , component : ErrorPageComponent},
-{ path: '**', redirectTo: '/login', pathMatch: 'full' }
-]
+
 const routes: Routes = [
   { path: 'candidatequestion', component: CandidatequestionComponent },
   { path: 'create', component: Dash1Component },

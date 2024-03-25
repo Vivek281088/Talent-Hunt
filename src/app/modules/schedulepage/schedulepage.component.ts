@@ -289,7 +289,7 @@ export class SchedulepageComponent implements OnInit {
   }
 
   getSelectedOptions(selected_Option: any, option: any) {
-    if (selected_Option.includes(option)) {
+    if (option.includes(selected_Option)) {
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
