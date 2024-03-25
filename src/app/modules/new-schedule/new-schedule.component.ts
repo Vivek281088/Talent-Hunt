@@ -26,6 +26,7 @@ import { NotificationService } from 'src/app/services/notification.service';
 export class CNotification{
   sender !: string
   receiver !: string[]
+  title !:  string
   content !:string
 
 }
@@ -329,6 +330,7 @@ export class NewScheduleComponent {
     const notification : CNotification = {
       sender:  managerId,  //Suresh
       receiver: this.receiverManagers, 
+      title: "Created",
       content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
       
     }

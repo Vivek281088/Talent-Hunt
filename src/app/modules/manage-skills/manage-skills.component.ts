@@ -516,7 +516,7 @@ export class ManageSkillsComponent {
         console.log('updateQuestionView response', response);
         setTimeout(() => {
           this.QuestionView = false;
-          window.location.reload();
+          //window.location.reload();
           this.formModified = false;
         }, 1000);
       });
