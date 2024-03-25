@@ -28,6 +28,7 @@ export class CNotification {
   receiver!: string[];
   title!: string;
   content!: string;
+ 
 }
 export class Receiver {
   receiver!: string;
@@ -39,6 +40,7 @@ export class Receiver {
   styleUrls: ['./new-schedule.component.scss'],
 })
 export class NewScheduleComponent {
+  hasNotification!:boolean;
   [x: string]: any;
   items: MenuItem[] | undefined;
   tabs: { title: any; content: any }[] = [];
@@ -389,6 +391,9 @@ totalCutoff:number=0;
           );
         });
     }
+
+   
+    
   }
   editSelected() {
     this.editScheduleMessage();

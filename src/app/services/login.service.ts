@@ -51,7 +51,8 @@ export class LoginService {
     emailId: string,
     phoneNumer: number | null,
     password: string,
-    confirmpassword: string
+    confirmpassword: string,
+    
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
