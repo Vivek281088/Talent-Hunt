@@ -5,7 +5,6 @@
 
       <p-paginator
         id="paginator-design"
-        *ngIf="totalQuestions !== undefined"
         (onPageChange)="onPageChange($event)"
         [first]="first"
         [rows]="rows"
@@ -42,7 +41,7 @@
               selected: selectedOptions1[page][i],
               'option-background': selectedBox[page] === i + 1
             }"
-            (click)="selectOption(option, page, i)"
+          
           >
             <input
               [type]="
@@ -61,7 +60,7 @@
             <div
               class="whole-option"
               [ngClass]="{ 'option-background': selectedBox[page] === i + 1 }"
-              (click)="toggleColor(i + 1, page)"
+              (click)="toggleColor(i + 1, page);selectOption(option, page, i)"
             >
               <label class="box-design" [for]="'option' + page + '-' + i">{{
                 getLabel(i)
@@ -89,7 +88,7 @@
     <p-chip id="chip-design"> {{ page + 1 }}/{{ totalQuestions }}</p-chip>
 
     <p-button
-      [disabled]="page == totalQuestions - 1"
+      [disable]="page == totalQuestions - 1"
       icon="pi pi-chevron-right"
       label="next"
       iconPos="right"

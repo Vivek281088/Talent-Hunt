@@ -2,7 +2,6 @@ import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 
 import { ManagernameService } from 'src/app/services/managername.service';
-import { NotificationService } from 'src/app/services/notification.service';
 
 import { TableService } from 'src/app/services/table.service';
 import {
@@ -18,7 +17,6 @@ import { Toast } from 'ngx-toastr';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { forkJoin } from 'rxjs';
 import Swal from 'sweetalert2';
-import { CNotification } from '../new-schedule/new-schedule.component';
 import * as moment from 'moment-timezone';
 @Component({
   selector: 'app-candidatequestion',
@@ -46,7 +44,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   first: number = 0;
 
   rows: number = 1;
-  notificationResponse: any;
 
   page: number = 0;
   pageCount: number = 0;
@@ -72,7 +69,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   CountTotalQuestions!: number;
   score!: number;
   result: string = '';
-  loginManagerId!: string;
   cutoff!: number;
   fileName!: string;
   id: any = '2024-01-04T06:04:10.746Z';
@@ -89,11 +85,10 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     private reviewerService: ReviewerService,
     private candidateService: CandidateAssessmentService,
     private cdr: ChangeDetectorRef,
-    private notificationService: NotificationService,
 
     private router: Router,
-    private newScheduleService: NewScheduleService,
-  ) { }
+    private newScheduleService : NewScheduleService,
+  ) {}
   ngAfterViewInit(): void {
     this.totalQuestions = this.previewOptions.length;
 
@@ -111,7 +106,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
     this.startTime = new Date();
 
-
     this.updateTimer();
 
     //get the assessment data
@@ -120,7 +114,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
     console.log('Assessment Data', this.assessmentData);
     this.previewOptions = this.assessmentData.questions;
-    this.loginManagerId = this.assessmentData.loginManagerId
     this.duration = this.assessmentData.durations;
     this.fileName = this.assessmentData.email_Filename;
 
@@ -131,7 +124,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.candidateEmail = this.assessmentData.candidateEmail;
     console.log('Email-->', this.candidateEmail);
 
-    this.getQuestionsById(this.previewOptions);
+     this.getQuestionsById(this.previewOptions);
     this.remainingTime = this.duration * 60;
     console.log('Assessment Questions', this.previewOptions);
     this.selectedOptions1 = this.previewOptions.map(() => []);
@@ -139,7 +132,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     console.log('Count Total Quest-', this.totalQuestions);
     this.updateSessionStorage();
   }
-
+  
   getQuestionsById(previewOptions: any) {
     console.log('get id', previewOptions);
     const observables = previewOptions.map((questionId: string) =>
@@ -151,9 +144,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     });
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
-    console.log('Selected Option', this.previewOptions);
-    console.log('asdjbvahbvhabvahbvahbvhv', option, pageIndex, optionIndex);
-
     if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
       console.log('checkbox inside');
       // Toggle checkbox option
@@ -170,11 +160,18 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       }
     } else {
       // Radio option (single selection)
-      this.selectedOptions1[pageIndex] = option;
+      option==this.selectedOptions1[pageIndex]? this.selectedOptions1[pageIndex]='':this.selectedOptions1[pageIndex]=option;
+      }
+      
+      console.log("pageIndex", this.selectedOptions1[pageIndex]);
+      console.log("selected question",this.selectedOptions1)
+      
     }
+    
+  
 
     // Update session storage
-  }
+  
 
   updateSessionStorage() {
     // Store the selected options in session storage
@@ -185,6 +182,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   }
 
   toggleColor(boxNumber: number, page: number) {
+  
     if (
       this.selectedBox[page] !== null &&
       this.selectedBox[page] === boxNumber
@@ -193,6 +191,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     } else {
       this.selectedBox[page] = boxNumber;
     }
+    console.log("toggle color")
   }
 
   updateTimer() {
@@ -205,8 +204,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           const minutes = Math.floor((this.remainingTime % 3600) / 60);
           this.remainingTimeString = `${hours}h ${minutes}m`;
         } else {
-          this.remainingTimeString = `${Math.floor(this.remainingTime / 60)}m ${this.remainingTime % 60
-            }s`;
+          this.remainingTimeString = `${Math.floor(this.remainingTime / 60)}m ${
+            this.remainingTime % 60
+          }s`;
         }
         this.cdr.detectChanges();
       } else {
@@ -221,21 +221,24 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.router.navigate(['/login']);
   }
   prev() {
-    console.log('prev', 'previous function called');
+    console.log('first -',this.first,"row -",this.rows , "page -", this.page);
     if (this.first >= this.rows) {
       this.page -= 1;
       this.first -= this.rows;
-      debugger;
+  
     }
   }
 
   next() {
+    console.log("page" , this.page , " total questions" , this.totalQuestions);
+    if(this.page < this.totalQuestions-1)
     {
-      console.log('next', 'nextfunction called');
+      console.log('inside iff', 'nextfunction called', this.first,this.page);
       this.page += 1;
-
       this.first += 1;
+      console.log("after ",'first -',this.first,"row -",this.rows , "page -", this.page);
     }
+    console.log("outside ",'first -',this.first,"row -",this.rows , "page -", this.page);
   }
   submitAnswers() {
     console.log('submit function');
@@ -294,8 +297,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     //Auto review update for reviewer
 
     const reviewData = {
-
-
       id: this.id,
 
       questions: this.previewOptions,
@@ -345,9 +346,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           detail: 'Submitted',
         });
         this.submitAnswers();
-        this.notificationSend();
-
-
+        
         Swal.fire({
           title: 'Submitted Successfully!',
           text: 'You have submitted the test succesfully!',
@@ -355,10 +354,10 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           allowOutsideClick: false,
         }).then((result: { isConfirmed: any; }) => {
           if (result.isConfirmed) {
-            
             this.router.navigate(['/login']);
           }
         });
+
         console.log('Submitted');
       },
       reject: (type: ConfirmEventType) => {
@@ -390,6 +389,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.rows = event.rows;
     this.page = event.page;
     this.pageCount = event.pageCount;
+    console.log("first- " , this.first , "rows - " , this.rows , "page- " , this.page)
     console.log('selected Option', this.selectedOptions1);
   }
 
@@ -401,6 +401,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
   getLabel(index: number): string {
     return String.fromCharCode(65 + index);
+    console.log("label");
   }
 
   getCodeLines(code: string): string[] {
@@ -415,22 +416,4 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       return 'wrongAnswer';
     }
   }
-
-  notificationSend() {
-    const notification: CNotification = {
-      sender: this.assessmentData.id,  //Suresh
-      receiver: [this.assessmentData.loginManagerid],
-      title: "Submitted",
-      content: `${this.assessmentData.candidateName} has Submitted an assessment named ${sessionStorage.getItem('scheduleName')}`,
-        }
-    console.log("noti body", notification);
-
-    this.notificationService.postNotification(notification).subscribe((response) => {
-      this.notificationResponse = response
-      console.log("notificaton service called", this.notificationResponse)
-      sessionStorage.setItem("notification", `${notification.sender}has sended message`)
-    })
-  }
-
 }
-
