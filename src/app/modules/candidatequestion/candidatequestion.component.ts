@@ -27,39 +27,27 @@ import * as moment from 'moment-timezone';
 export class CandidatequestionComponent implements OnInit, AfterViewInit {
   @HostListener('window:focus', ['$event'])
   onFocus(event: FocusEvent): void {
-    // Tab is in focus
   }
-
   @HostListener('window:blur', ['$event'])
   onBlur(event: FocusEvent): void {
-    // Tab is blurred (inactive)
-
     console.warn('Warning: Please do not switch tabs during the test.');
   }
-
   position: string = 'center';
   remainingTime: number = 0;
   remainingTimeString: string = '';
   selectedOptions1: any = [];
   first: number = 0;
-
   rows: number = 1;
-
   page: number = 0;
   pageCount: number = 0;
   candidateName!: string;
   code!: string;
   selectedBox: number[] = [];
-  //selectedBox: number |null=null;
-
   selectedOptions: boolean[] = [];
   isCheckbox: boolean = true;
-
-  // In your component class
   questionSelectedOptions: { [questionId: number]: number | null } = {};
   startTime!: Date;
   duration!: number;
-
   assessmentData: any;
   totalQuestions!: number;
   assessmentQuestions: any;
@@ -73,26 +61,20 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   fileName!: string;
   id: any = '2024-01-04T06:04:10.746Z';
   candidateEmail: string = 'sapna@gmail.com';
-
   constructor(
     private managernameService: ManagernameService,
-
     private tableservice: TableService,
-
     private candidateAssessmentService: CandidateAssessmentService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private reviewerService: ReviewerService,
     private candidateService: CandidateAssessmentService,
     private cdr: ChangeDetectorRef,
-
     private router: Router,
     private newScheduleService : NewScheduleService,
   ) {}
   ngAfterViewInit(): void {
     this.totalQuestions = this.previewOptions.length;
-
-    // Update session storage after the view has been initialized
     this.updateSessionStorage();
   }
 
@@ -144,9 +126,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     });
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
-    console.log('Selected Option', this.selectedOptions1);
-    console.log('Selected Option', this.selectedOptions);
-    ;
+    console.log("inside selected option")
     if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
       console.log('checkbox inside');
       // Toggle checkbox option
@@ -163,7 +143,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       }
     } else {
       // Radio option (single selection)
-      this.selectedOptions1[pageIndex] = option;
+      this.selectedOptions1[pageIndex] === option ? this.selectedOptions1[pageIndex] = '' : this.selectedOptions1[pageIndex] = option;
+      console.log('Selected Option else', this.selectedOptions1);
+
     }
 
     // Update session storage
@@ -222,7 +204,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   
     }
   }
-
   next() {
     console.log("page" , this.page , " total questions" , this.totalQuestions);
     if(this.page < this.totalQuestions-1)
@@ -236,8 +217,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   }
   submitAnswers() {
     console.log('submit function');
-
-    // this.endTime = new Date();
      const currentutcdate = new Date();
      const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
      this.endTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
@@ -246,14 +225,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   }
   reviewQuestion() {
     this.countCorrectQues = 0;
-
     for (let i = 0; i < this.selectedOptions1.length; i++) {
       this.previewOptions[i].selectedOption = this.selectedOptions1[i];
     }
     console.log('preview Options after selected option', this.previewOptions);
-
     console.log('Updated Question', this.previewOptions);
-
     for (let question of this.previewOptions) {
       let correct;
       if ((question.questionType = 'Radio')) {

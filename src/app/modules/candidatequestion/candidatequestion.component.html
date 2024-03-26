@@ -1,7 +1,7 @@
 <div class="wholepage">
   <div class="header">
     <div class="header-design">
-      <p>{{fileName}}</p>
+      <p>{{ fileName }}</p>
 
       <p-paginator
         id="paginator-design"
@@ -41,7 +41,6 @@
               selected: selectedOptions1[page][i],
               'option-background': selectedBox[page] === i + 1
             }"
-            (click)="selectOption(option, page, i)"
           >
             <input
               [type]="
@@ -60,7 +59,7 @@
             <div
               class="whole-option"
               [ngClass]="{ 'option-background': selectedBox[page] === i + 1 }"
-              (click)="toggleColor(i + 1, page)"
+              (click)="toggleColor(i + 1, page) ;selectOption(option, page, i)"
             >
               <label class="box-design" [for]="'option' + page + '-' + i">{{
                 getLabel(i)
