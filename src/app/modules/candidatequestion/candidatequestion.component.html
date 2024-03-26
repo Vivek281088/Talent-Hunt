@@ -37,10 +37,7 @@
           <div
             *ngFor="let option of previewOptions[page].options; let i = index"
             class="option"
-            [ngClass]="{
-              selected: selectedOptions1[page][i],
-              'option-background': selectedBox[page] === i + 1
-            }"
+            
           >
             <input
               [type]="
@@ -58,8 +55,8 @@
             />
             <div
               class="whole-option"
-              [ngClass]="{ 'option-background': selectedBox[page] === i + 1 }"
-              (click)="toggleColor(i + 1, page) ;selectOption(option, page, i)"
+              [ngClass]="{ 'option-background': toggleColor(option,previewOptions[page]?.questionType,page)}"
+              (click)=" selectOption(option, page, i)"
             >
               <label class="box-design" [for]="'option' + page + '-' + i">{{
                 getLabel(i)
