@@ -66,7 +66,9 @@ export class THDashboardComponent {
         result: 'Rejected',
       },
     ];
-    this.dataService.getDashboardData().subscribe((response) => {
+    
+    this.dataService.getDashboardData().subscribe({
+      next : (response) => {
       // this.recentAssessmentDataContext = response;
       console.log('Dashboard Data', response);
       this.recentData = [
@@ -88,7 +90,7 @@ export class THDashboardComponent {
       ];
       this.scheduleData = response[2];
       
-    });
+    }});
 
   
     this.ManagerEmail = localStorage.getItem('managerEmail');

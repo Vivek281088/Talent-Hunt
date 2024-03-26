@@ -562,6 +562,7 @@ export class ManageSkillsComponent {
         setTimeout(() => {
           this.QuestionView = false;
           window.location.reload();
+          this.formModified = false;
         }, 1000);
       });
   }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 
@@ -24,7 +24,13 @@ export class DataService {
   getDashboardData(): Observable<any[]> {
     const recentAssessmentData$ = this.http.get<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/recentassessmentcard'
-    );
+    ).pipe(
+      catchError( (err : Error) => {
+       console.log("error while dashboard" , err);
+        return throwError(()=> Error('Dashboard Error', {cause : 'Could not able to load the Dashboard data'}))
+      } 
+      )
+    )
     const recentAssessmentCompleted$ = this.http.get<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/RecentAssessmentCompleted'
     );

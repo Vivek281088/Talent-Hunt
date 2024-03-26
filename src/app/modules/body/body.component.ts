@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppServiceService } from '../../app-service.service';
 // import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-body',
@@ -13,8 +13,9 @@ export class BodyComponent {
   showNavbar1: boolean = true;
   showNavbar2: boolean = true;
   showNavbar3: boolean = true;
+  hasError: boolean = true;
 
-  constructor(private service: AppServiceService, private router: Router) {
+  constructor(private service: AppServiceService, private router: Router,private activatedRoute : ActivatedRoute) {
     // Subscribe to the route changes
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -26,6 +27,7 @@ export class BodyComponent {
         this.showNavbar1 = urlSegments[urlSegments.length - 1] !== 'signup';
         this.showNavbar2 =urlSegments[urlSegments.length - 1] !== 'forgotpassword';
         this.showNavbar3 = urlSegments[urlSegments.length - 1] !== 'resetpassword';
+        this.hasError = this.activatedRoute.snapshot.firstChild?.routeConfig?.path !== 'errorpage';
       }
     });
   }
