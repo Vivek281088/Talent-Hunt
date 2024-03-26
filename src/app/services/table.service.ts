@@ -190,7 +190,7 @@ export class TableService {
 
     console.log('Send Existing email Data', body);
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidatemail',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/sendmail',
       body,
       {
         headers,

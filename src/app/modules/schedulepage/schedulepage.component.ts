@@ -384,7 +384,7 @@ export class SchedulepageComponent implements OnInit {
  
       //rest data
       this.score = null;
-      this.result = 'Awaiting Eval';
+      this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
 const loginManagerid = sessionStorage.getItem('loginManagerId')
