@@ -289,7 +289,7 @@ export class SchedulepageComponent implements OnInit {
   }
  
   getSelectedOptions(selected_Option: any, option: any) {
-    if (option.includes(selected_Option)) {
+    if (selected_Option.includes(option)) {
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -348,11 +348,11 @@ export class SchedulepageComponent implements OnInit {
   // Loading skills for dropdown in add question
   loadSkills() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
-      this.skillSet = data;
+      // this.skillSet = data;
       data.forEach((element: any) => {
         this.skillSet.push({ skill: element });
       });
-      console.log('Skill Set', data);
+      console.log('Skill Set', this.skillSet);
     });
   }
  
@@ -384,7 +384,7 @@ export class SchedulepageComponent implements OnInit {
  
       //rest data
       this.score = null;
-      this.result = 'Awaiting Eval';
+      this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
 const loginManagerid = sessionStorage.getItem('loginManagerId')

@@ -5,11 +5,7 @@
         <p>Managers</p>
       </div>
       <div class="header-breadcrumb">
-        <p-breadcrumb
-          class="BreadCrumb"
-          [model]="items"
-          [style]="{ border: 'none' }"
-        ></p-breadcrumb>
+        <p-breadcrumb class="BreadCrumb" [model]="items" [style]="{ border: 'none' }"></p-breadcrumb>
       </div>
     </div>
     <div class="new-schedule-header-2">
@@ -18,26 +14,27 @@
       </div>
     </div>
   </div>
-<div class="box_design">
-  <div class="photo">
+  <div class="box_design">
+    <div class="photo">
+
+    </div>
+    <div class="name">
+
+      <h2 class="name_design">{{editManagerForm.get('managerName')?.value}}</h2>
+      <div>
+        <p style="color:#00000061">{{editManagerForm.get('department')?.value}}</p>
+      </div>
+      <p style="color:#00000061">{{editManagerForm.get('email')?.value}} | {{editManagerForm.get('phone')?.value}}</p>
+      <p style="color: #00000099;
+">{{editManagerForm.get('location')?.value}}</p>
+
+
+
+
+    </div>
+
 
   </div>
-<div class="name">
-
-  <h2 class="name_design">{{editManagerForm.get('managerName')?.value}}</h2>
-  <div>
-  <p>{{editManagerForm.get('department')?.value}}</p>
-  </div>
-  <p>{{editManagerForm.get('email')?.value}} | {{editManagerForm.get('phone')?.value}}</p>
-  <p>{{editManagerForm.get('location')?.value}}</p>
-
-
-
-
-</div>
-  
-
-</div>
   <!-- <div class="managerDetails">
     <p class="name">Suresh</p>
     <p class="department">Delta</p>
@@ -55,22 +52,25 @@
   <div class="managerTabview">
     <p-tabView>
       <p-tabPanel header="Profile" [formGroup]="editManagerForm">
+        <ng-template pTemplate="header">
+          <div class="header-content">
+            <span class="tab-header-text">Profile</span>
+            <p-badge class="hidebadge"></p-badge>
+          </div>
+        </ng-template>
+
+
         <ng-template pTemplate="content">
           <div class="profilecontent">
+
             <div class="labelvalue">
               <div class="label">
                 <label>Employee Id</label>
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <p-inputNumber
-                  formControlName="employeeId"
-                  mode="decimal"
-                  inputId="withoutgrouping"
-                  [useGrouping]="false"
-                  [disabled]="true"
-                >
-                </p-inputNumber>
+                <input type="text" formControlName="employeeId" pInputText />
+
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('employeeId')?.invalid &&
@@ -90,36 +90,8 @@
               </div>
             </div>
 
-            <div class="labelvalue">
-              <div class="label">
-                <label>First Name</label>
-                <span class="important-symbol">&#42;</span>
-              </div>
-              <div class="value">
-                <input
-                  type="text"
-                  formControlName="managerName"
-                  pInputText
-                  [disabled]="true"
-                />
-                <!-- <div
-                  *ngIf="
-                    editManagerForm.get('managerName')?.invalid &&
-                    (editManagerForm.get('managerName')?.touched ||
-                      formSubmitted)
-                  "
-                >
-                  <div
-                    class="error-message"
-                    *ngIf="
-                      editManagerForm.get('managerName')?.hasError('required')
-                    "
-                  >
-                    Manager Name is required !
-                  </div>
-                </div> -->
-              </div>
-            </div>
+
+
 
             <div class="labelvalue">
               <div class="label">
@@ -127,12 +99,7 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input
-                  type="text"
-                  formControlName="managerName"
-                  pInputText
-                  [disabled]="true"
-                />
+                <input type="text" formControlName="managerName" pInputText [disableControl]=true />
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('managerName')?.invalid &&
@@ -153,18 +120,23 @@
             </div>
 
             <div class="labelvalue">
+
               <div class="label">
+
                 <label>Email</label>
                 <span class="important-symbol">&#42;</span>
               </div>
+
               <div class="value">
-                <input
-                  type="email"
-                  formControlName="email"
-                  pInputText
-                  [disabled]="true"
-                />
-                <!-- <div
+                <input type="email" formControlName="email" pInputText [disabled]="true" />
+                <div class="customDelete">
+                  <p-button label="Reset Password" icon="pi pi-unlock" (click)=resetPassword();></p-button>
+
+                </div>
+              </div>
+
+
+              <!-- <div
                   *ngIf="
                     editManagerForm.get('email')?.invalid &&
                     (editManagerForm.get('email')?.touched || formSubmitted)
@@ -177,7 +149,7 @@
                     Email is required !
                   </div>
                 </div> -->
-              </div>
+
             </div>
 
             <div class="labelvalue">
@@ -186,14 +158,7 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <p-inputNumber
-                  formControlName="phone"
-                  mode="decimal"
-                  inputId="withoutgrouping"
-                  [useGrouping]="false"
-                  [disabled]="true"
-                >
-                </p-inputNumber>
+                <input type="text" formControlName="phone" pInputText />
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('phone')?.invalid &&
@@ -216,12 +181,7 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input
-                  type="text"
-                  formControlName="department"
-                  pInputText
-                  [disabled]="true"
-                />
+                <input type="text" formControlName="department" pInputText [disabled]="true" />
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('department')?.invalid &&
@@ -247,12 +207,7 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input
-                  type="text"
-                  formControlName="location"
-                  pInputText
-                  [disabled]="true"
-                />
+                <input type="text" formControlName="location" pInputText [disabled]="true" />
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('location')?.invalid &&
@@ -280,51 +235,39 @@
           </div>
         </ng-template>
       </p-tabPanel>
+
+
       <p-tabPanel header="Schedules">
+        <ng-template pTemplate="header">
+          <div class="header-content">
+            <span class="tab-header-text">Schedules</span>
+            <p-badge value={{scheduleLength}}></p-badge>
+          </div>
+        </ng-template>
         <div class="scheduleTable">
-          <p-table
-            #dt2
-            dataKey="id"
-            [tableStyle]="{ height: 'max-content' }"
-            [value]="scheduleData"
-            [rows]="3"
-            [showCurrentPageReport]="true"
-            [rowsPerPageOptions]="[3, 5, 10, 25, 50]"
-            [loading]=""
-            [paginator]="true"
+          <p-table #dt2 dataKey="id" [tableStyle]="{ height: 'max-content' }" [value]="scheduleData" [rows]="3"
+            [showCurrentPageReport]="true" [rowsPerPageOptions]="[3, 5, 10, 25, 50]" [loading]="" [paginator]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['JobDescription', 'Managername', 'Skill']"
-          >
+            [globalFilterFields]="['JobDescription', 'Managername', 'Skill']">
             <ng-template pTemplate="header">
               <tr>
                 <th colspan="4">
                   <div class="filter-components">
                     <div>
                       <span class="p-input-icon-right searchIcon">
-                        <input
-                          pInputText
-                          type="text"
-                          placeholder="Search"
-                          [(ngModel)]="globalSearchValue"
-                          (input)="
+                        <input pInputText type="text" placeholder="Search" [(ngModel)]="globalSearchValue" (input)="
                             dt2.filterGlobal(
                               $any($event.target).value,
                               'contains'
                             )
-                          "
-                        />
+                          " />
 
                         <i class="pi pi-search"></i>
                       </span>
                     </div>
                     <div class="custom-clear">
-                      <button
-                        pButton
-                        label="Clear filter"
-                        class="clear-button cursor-pointer"
-                        [style]="{ width: '130px' }"
-                        (click)="onSearchClick(dt2)"
-                      ></button>
+                      <button pButton label="Clear filter" class="clear-button cursor-pointer"
+                        [style]="{ width: '130px' }" (click)="onSearchClick(dt2)"></button>
                     </div>
                   </div>
                 </th>
@@ -345,62 +288,45 @@
                 <td class="jobDescription">
                   <span class="ml-1 vertical-align-middle">{{
                     rowData.JobDescription
-                  }}</span>
+                    }}</span>
                 </td>
 
                 <td class="skills">
-                  <span
-                    *ngFor="
+                  <span *ngFor="
                       let item of getFormattedSkills(rowData.Skill).skills
-                    "
-                  >
+                    ">
                     <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
                   </span>
-                  <span
-                    *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0"
-                    class="plusIcon"
-                  >
+                  <span *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0" class="plusIcon">
                     +
                     <p-overlayPanel #op>
-                      <ul
-                      style="list-style-type: none"
-                        *ngFor="
+                      <ul style="list-style-type: none" *ngFor="
                           let skill of remainaingSkills(
                             rowData.Skill,
                             getFormattedSkills(rowData.Skill).remainingCount
                           )
-                        "
-                      >
+                        ">
                         <li>
                           <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
                         </li>
                       </ul>
                     </p-overlayPanel>
-                    <p-badge
-                      class="cursor-design"
-                      (mouseenter)="op.toggle($event)"
-                (mouseleave)="op.toggle($event)"
+                    <p-badge class="cursor-design" (mouseenter)="op.toggle($event)" (mouseleave)="op.toggle($event)"
                       [value]="
                         getFormattedSkills(
                           rowData.Skill
                         ).remainingCount.toString()
-                      "
-                    ></p-badge>
+                      "></p-badge>
                   </span>
                 </td>
                 <!--skill end-->
 
                 <td>
-                  <div
-                    class="icons-td flex align-items-center justify-content-between cursor-pointer"
-                  >
+                  <div class="icons-td flex align-items-center justify-content-between cursor-pointer">
                     <!--View Icon-->
 
                     <div class="PreviewBtn">
-                      <p-button
-                        icon="pi pi-eye"
-                        (onClick)="onViewClick(rowData.questions)"
-                      >
+                      <p-button icon="pi pi-eye" (onClick)="onViewClick(rowData.questions)">
                       </p-button>
                     </div>
                   </div>
@@ -416,57 +342,42 @@
         </div>
       </p-tabPanel>
       <p-tabPanel header="Assessments">
+        <ng-template pTemplate="header">
+          <div class="header-content">
+            <span class="tab-header-text">Assessments</span>
+            <p-badge class="tab-badge" value={{assesmentLength}}></p-badge>
+          </div>
+        </ng-template>
         <div class="candidate-table">
-          <p-table
-            class="candidateTable"
-            [resizableColumns]="true"
-            [autoLayout]="true"
-            [value]="candidateList"
-            #dt1
-            [paginator]="true"
-            [tableStyle]="{ height: 'max-content' }"
-            [rows]="5"
-            [showCurrentPageReport]="true"
+          <p-table class="candidateTable" [resizableColumns]="true" [autoLayout]="true" [value]="candidateList" #dt1
+            [paginator]="true" [tableStyle]="{ height: 'max-content' }" [rows]="5" [showCurrentPageReport]="true"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [rowsPerPageOptions]="[4, 8, 12]"
-            [globalFilterFields]="[
+            [rowsPerPageOptions]="[4, 8, 12]" [globalFilterFields]="[
               'candidateName',
               'email_Filename',
               'skills',
               'results',
               'score'
-            ]"
-          >
+            ]">
             <ng-template pTemplate="header">
               <tr>
                 <th colspan="9">
                   <div class="filter-components">
                     <div>
                       <span class="p-input-icon-right searchIcon">
-                        <input
-                          pInputText
-                          type="text"
-                          placeholder="Search"
-                          [(ngModel)]="globalSearchValue"
-                          (input)="
+                        <input pInputText type="text" placeholder="Search" [(ngModel)]="globalSearchValue" (input)="
                             dt2.filterGlobal(
                               $any($event.target).value,
                               'contains'
                             )
-                          "
-                        />
+                          " />
 
                         <i class="pi pi-search"></i>
                       </span>
                     </div>
                     <div class="custom-clear">
-                      <button
-                        pButton
-                        label="Clear filter"
-                        class="clear-button cursor-pointer"
-                        [style]="{ width: '130px' }"
-                        (click)="clear(dt1)"
-                      ></button>
+                      <button pButton label="Clear filter" class="clear-button cursor-pointer"
+                        [style]="{ width: '130px' }" (click)="clear(dt1)"></button>
                     </div>
                   </div>
                 </th>
@@ -489,46 +400,30 @@
                 <td>{{ rowData.candidateName }}</td>
 
                 <td class="skills">
-                  <span
-                    *ngFor="
+                  <span *ngFor="
                       let item of getFormattedSkills(rowData.Skill).skills
-                    "
-                  >
+                    ">
                     <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
                   </span>
-                  <span
-                    *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0"
-                    class="plusIcon"
-                  >
+                  <span *ngIf="getFormattedSkills(rowData.Skill).remainingCount > 0" class="plusIcon">
                     +
-                    <p-overlayPanel #op >
-                      <ul
-                      style="list-style-type: none"
-                        *ngFor="
+                    <p-overlayPanel #op>
+                      <ul *ngFor="
                           let skill of remainaingSkills(
                             rowData.Skill,
                             getFormattedSkills(rowData.Skill).remainingCount
                           )
-                        "
-                      >
+                        ">
                         <li>
-                          <p-chip
-                          class="scheduleChip"
-                          label="{{ skill }}"
-                        ></p-chip>
+                          {{ skill }}
                         </li>
                       </ul>
                     </p-overlayPanel>
-                    <p-badge
-                      class="cursor-design"
-                      (mouseenter)="op.toggle($event)"
-                      (mouseleave)="op.toggle($event)"
-                      [value]="
+                    <p-badge class="cursor-design" (click)="op.toggle($event)" [value]="
                         getFormattedSkills(
                           rowData.Skill
                         ).remainingCount.toString()
-                      "
-                    ></p-badge>
+                      "></p-badge>
                   </span>
                 </td>
 
@@ -556,28 +451,19 @@
 
 <div class="questionsidebar">
   <p-sidebar [(visible)]="viewQuestionSidebar" position="right" [modal]="false">
-    <ng-template class="header_design" pTemplate="header"
-      >Quiz Preview
+    <ng-template class="header_design" pTemplate="header">Quiz Preview
     </ng-template>
     <ng-template pTemplate="content">
       <span *ngFor="let question of FinalizedQuestions; let j = index">
         <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
 
         <div class="select-size">
-          <div
-            *ngFor="let option of question.options; let i = index"
-            class="option"
-            [ngClass]="getSelectedOptions(question.answer, option)"
-          >
-            <input
-              type="radio"
-              [name]="'option_' + i"
-              [id]="'option_' + i"
-              [checked]="option === question.answer"
-            />
+          <div *ngFor="let option of question.options; let i = index" class="option"
+            [ngClass]="getSelectedOptions(question.answer, option)">
+            <input type="radio" [name]="'option_' + i" [id]="'option_' + i" [checked]="option === question.answer" />
             <label class="box-design" [for]="'option' + question + '-' + i">{{
               getLabel(i)
-            }}</label>
+              }}</label>
 
             <span class="option-content">{{ option }}</span>
           </div>
@@ -605,3 +491,59 @@
     </ng-template>
   </p-sidebar>
 </div>
+
+<p-dialog style="width: fit-content;" header="Reset Password" [(visible)]="visible" [formGroup]="resetPasswordForm"
+  [modal]="true" [style]="{ width: '47VW' }" [draggable]="false" [resizable]="false" (onHide)="resetFunction()">
+
+
+
+
+  <div class="login-card">
+
+
+
+
+
+
+    <div class="input-with-icon">
+      <i class="pi pi-lock"></i>
+      <input id="password" formControlName="password" class="signup-newpassword" type="password" pInputText
+        placeholder="New Password" />
+
+      <div class="error-message"
+        *ngIf="resetPasswordForm.get('password')?.hasError('required') && resetPasswordForm.get('password')?.invalid && resetPasswordForm.get('password')?.touched ">
+        Password is required !
+      </div>
+      <div class="error-message" *ngIf="isPasswordInvalid && resetPasswordForm.get('password')?.hasError('pattern')">
+        Password should match given Criteria
+      </div>
+
+    </div>
+
+    <div class="input-with-icon" style="width:auto">
+      <i class="pi pi-lock"></i>
+      <input formControlName="confirmPassword" class="confirmpassword-signup" type="password" pInputText
+        placeholder="Confirm Password" />
+
+      <div class="error-message"
+        *ngIf="resetPasswordForm.get('confirmPassword')?.hasError('required')&& resetPasswordForm.get('confirmPassword')?.invalid && resetPasswordForm.get('confirmPassword')?.touched ">
+        Confirm Password is required !
+      </div>
+      <div class="error-message"
+        *ngIf="resetPasswordForm?.errors?.['match'] && resetPasswordForm.get('confirmPassword')?.touched">
+        Password and Confirm Password are not Matching
+      </div>
+
+    </div>
+
+    <p-toast></p-toast>
+    <div class="button-signup">
+      <button type="button" type="submit" class="loginButton" (click)="updatereset()"
+        [disabled]=!resetPasswordForm.valid>Reset</button>
+    </div>
+
+
+
+
+
+  </div>
