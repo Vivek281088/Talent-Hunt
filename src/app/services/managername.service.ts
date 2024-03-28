@@ -301,9 +301,21 @@ export class ManagernameService {
       }
     );
   }
+  postquestions(data:any): Observable<any> {
+    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    console.log('Post Question Data', data);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb1',
+      data,
+      {
+        headers,
+      }
+    ).pipe(
+      catchError((err) => throwError(() => new Error(`Error While Uploading Questions ${err.message}`)))
+    )
+  }
 
   //candidate list
-
   getCandidateStatus(): Observable<any> {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidate`;
     return this.http.get<any>(endpoint);
