@@ -289,7 +289,7 @@ export class SchedulepageComponent implements OnInit {
   }
  
   getSelectedOptions(selected_Option: any, option: any) {
-    if (option.includes(selected_Option)) {
+    if (selected_Option.includes(option)) {
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -386,7 +386,7 @@ export class SchedulepageComponent implements OnInit {
  
       //rest data
       this.score = null;
-      this.result = 'Awaiting Eval';
+      this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
 const loginManagerid = sessionStorage.getItem('loginManagerId')
