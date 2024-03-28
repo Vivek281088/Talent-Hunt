@@ -346,6 +346,7 @@ totalCutoff:number=0;
       receiver: this.receiverManagers,
       title:"Created",
       content: `${managerName} has scheduled an assessment named ${sessionStorage.getItem('scheduleName')}`
+      
          }
     this.notificationService.postNotification(notification).subscribe((response)=>{
       this.notificationResponse=response
