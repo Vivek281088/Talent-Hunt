@@ -289,7 +289,7 @@ export class SchedulepageComponent implements OnInit {
   }
  
   getSelectedOptions(selected_Option: any, option: any) {
-    if (selected_Option.includes(option)) {
+    if (option.includes(selected_Option)) {
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
@@ -300,6 +300,7 @@ export class SchedulepageComponent implements OnInit {
   }
  
   handleEditIconClick(data: any) {
+    
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;
@@ -312,7 +313,7 @@ export class SchedulepageComponent implements OnInit {
     sessionStorage.setItem('scheduleName', data.JobDescription),
       sessionStorage.setItem('manager', data.Managername),
       sessionStorage.setItem('cutoff', data.cutoff),
-      sessionStorage.setItem('', data.durations);
+      sessionStorage.setItem('duration', data.durations);
     sessionStorage.setItem('FinalizedQuestion', data.questions);
     sessionStorage.setItem('SelectedSkill', data.Skill);
     // this.managernameService.setCutoff(this.cutoff);
@@ -320,14 +321,15 @@ export class SchedulepageComponent implements OnInit {
     // this.managernameService.setDuration(this.durations);
     // this.skillsdropdownservice.setSkill(this.Skill);
     console.log('edit skill', this.Skill);
-    console.log('edit questions', this.selectedQuestions);
-    this.managernameService.setFinalizedQuestions(this.selectedQuestions);
-    this.managernameService.setManagerName(this.editManagername);
-    this.managernameService.setFileName(this.editFilename);
     sessionStorage.setItem('scheduleName', this.editFilename);
     sessionStorage.setItem('boolean', 'true');
     sessionStorage.setItem('SaveOrEdit', 'Edit');
     sessionStorage.setItem('scheduleId', data.id);
+    console.log('edit questions', this.selectedQuestions);
+    this.managernameService.setFinalizedQuestions(this.selectedQuestions);
+    this.managernameService.setManagerName(this.editManagername);
+    this.managernameService.setFileName(this.editFilename);
+    
     this.router.navigate(['new-schedule']);
   }
  
@@ -384,7 +386,7 @@ export class SchedulepageComponent implements OnInit {
  
       //rest data
       this.score = null;
-      this.result = 'Scheduled';
+      this.result = 'Awaiting Eval';
       const date = Date.now();
       this.candidateId = new Date(date);
 const loginManagerid = sessionStorage.getItem('loginManagerId')
