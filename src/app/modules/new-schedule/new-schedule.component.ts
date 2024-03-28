@@ -200,11 +200,11 @@ export class NewScheduleComponent {
         // cutoff: sessionStorage.getItem('cutoff'),
         // duration: sessionStorage.getItem('duration'),
       });
-      
-      
+
+
       this.totalCutoff= cutoff?parseInt(cutoff,10) : 0;
       console.log("this is the cutoff from the schedulepage",this.totalCutoff)
-      
+
       this.timeInterval= timeInv?parseInt(timeInv,10) : 0;
       console.log("Time interval from schedulepage",this.timeInterval)
       console.log('Edit Data------', this.updateNewScheduleForm.value);
@@ -251,7 +251,7 @@ export class NewScheduleComponent {
           this.processTotalQuestions();
         });
     }
-    sessionStorage.removeItem('boolean');
+   
   }
   checkEditQuestions(Totalquestion: any, selectedQuestion: any) {
     for (let i = 0; i < Totalquestion.length; i++) {
@@ -274,12 +274,12 @@ export class NewScheduleComponent {
       console.log('Client Manager Details', response);
     });
   }
- 
+
 timeInterval:number=0;
 cutOff:number=0;
 totalCutoff:number=0;
 
- 
+
   toggleSelection(question: any): void {
     question.selection = !question.selection;
     console.log('loop entered', question.id);
@@ -290,15 +290,15 @@ totalCutoff:number=0;
       this.timeIntervalAddition(question);
       this.totalCutoff=this.cutOff/this.selectedquestions.length;
       console.log("this is the duration",this.timeInterval)
-      
- 
+
+
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
         (selected: any) => selected !== question.id
       );
       this.timeIntervalSubtraction(question);
       this.totalCutoff=this.cutOff/this.selectedquestions.length;
-   
+
 
       console.log('Selected Questions:', this.selectedquestions);
     }
@@ -311,7 +311,7 @@ totalCutoff:number=0;
     console.log('selected', this.selectedquestions);
     console.log('Final', this.FinalizedQuestions);
      this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
- 
+
     try {
       const selectedSkillName = this.selectedSkills.sort();
       const dataToSave = {

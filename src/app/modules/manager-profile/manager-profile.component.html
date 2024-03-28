@@ -158,7 +158,7 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input type="text" formControlName="phone" pInputText />
+                <input type="text" formControlName="phone" pInputText [disabled]="true" />
                 <!-- <div
                   *ngIf="
                     editManagerForm.get('phone')?.invalid &&
@@ -227,7 +227,7 @@
             </div>
 
             <!-- <div class="Newschedule-button">
-        
+
                     <div class="Createbutton">
                       <p-button label="Update" (onClick)="updateManager()"> </p-button>
                     </div>

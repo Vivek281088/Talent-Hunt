@@ -19,7 +19,7 @@
       <div class="saveBtn" *ngIf="saveOrEditButton == 'Save'">
         <p-button
         (click)="saveSelected() "
-       
+
           label="Save Changes"
           [disabled]="selectedquestions.length == 0"
         >
@@ -58,7 +58,7 @@
       </div>
     </div>
   </div>
- 
+
   <div class="edit-schedule">
     <div class="edit-start">
       <div class="edit-name">
@@ -96,7 +96,7 @@
           fill="white"
         />
       </svg>
- 
+
       <p-toast></p-toast>
       <div class="newSchedule-Dialog">
         <p-dialog
@@ -107,6 +107,7 @@
           [formGroup]="updateNewScheduleForm"
           [draggable]="false"
           [resizable]="false"
+          [closable]="false"
         >
           <div class="NewSchedule-content">
             <div class="labelvalue">
@@ -156,7 +157,7 @@
                 </div>
               </div>
             </div>
- 
+
             <div class="labelvalue">
               <div class="label">
                 <label>Manager</label>
@@ -169,7 +170,7 @@
                   [editable]="true"
                   formControlName="managerName"
                 ></p-dropdown>
- 
+
                 <div
                   *ngIf="
                     updateNewScheduleForm.get('managerName')?.invalid &&
@@ -207,11 +208,11 @@
                   >
                     Manager Name should be greater than 6 character !
                   </div>
-                 
+
                 </div>
               </div>
             </div>
- 
+
             <div class="cuttoffDuration">
               <!-- <div class="labelvalue">
                 <div class="label">
@@ -220,7 +221,7 @@
                 </div>
                 <div class="value">
                   <input type="text" pInputText formControlName="cutoff" />
- 
+
                   <div
                     *ngIf="
                       updateNewScheduleForm.get('cutoff')?.invalid &&
@@ -246,7 +247,7 @@
                     >
                       Cutoff must be less than 100!
                     </div>
- 
+
                     <div
                       class="error-message"
                       *ngIf="
@@ -258,7 +259,7 @@
                   </div>
                 </div>
               </div> -->
- 
+
               <div class="labelvalue">
                 <!-- <div class="label">
                   <label>Duration(minutes)</label>
@@ -291,7 +292,7 @@
                     >
                       Duration should not exceed 180 mins (3hr)!
                     </div>
- 
+
                     <div
                       class="error-message"
                       *ngIf="
@@ -305,10 +306,10 @@
               </div>
             </div>
           </div>
- 
+
           <ng-template pTemplate="footer">
             <div class="Newschedule-button">
-              <div class="Cancelbutton" *ngIf="!isEditSchedule">
+              <div class="Cancelbutton">
                 <p-button
                   label="Cancel"
                   [outlined]="true"
@@ -316,7 +317,7 @@
                 >
                 </p-button>
               </div>
- 
+
               <div class="Createbutton">
                 <p-button
                   (click)="update(scheduleName, manager)"
@@ -330,21 +331,21 @@
       </div>
     </div>
   </div>
- 
+
   <div class="questioncount">
     <label>Selected Questions :</label>
     <p>{{ (selectedquestions && selectedquestions.length) || 0 }}</p>
   </div>
- 
+
   <div class="tabview-count">
     <!-- {{tabs | json}} -->
     <div class="tabview">
       <p-tabView>
         <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
           <!-- <ng-template pTemplate="header">
-             
+
             </ng-template> -->
- 
+
           <ng-template pTemplate="content">
             <p-table
               #dt2
@@ -380,7 +381,7 @@
                           />
                         </span>
                       </div>
- 
+
                       <div class="selectallBtn">
                         <p-button
                           label="Select All"
@@ -407,7 +408,7 @@
                   </th>
                 </tr>
               </ng-template>
- 
+
               <ng-template pTemplate="body" let-rowData>
                 <tr class="customRow">
                   <td class="checkboxcell">
@@ -436,7 +437,7 @@
                             xmlns="http://www.w3.org/2000/svg"
                             style="cursor: pointer"
                             (click)="individualQuestionView(rowData.id,rowData.question,rowData.questionType,rowData.options,rowData.skills,rowData.Difficulty_Level,rowData.answer)"
-                           
+
                           >
                             <path
                               d="M3.375 14.625H4.2L12.5062 6.31877L11.6812 5.49377L3.375 13.8V14.625ZM14.8875 5.51252L12.4875 3.11252L13.275 2.32502C13.4875 2.11252 13.7531 2.0094 14.0719 2.01565C14.3906 2.0219 14.6563 2.13127 14.8688 2.34377L15.675 3.15002C15.8875 3.36252 15.9938 3.62502 15.9938 3.93752C15.9938 4.25002 15.8875 4.51252 15.675 4.72502L14.8875 5.51252ZM2.8125 15.75C2.65 15.75 2.51563 15.6969 2.40938 15.5906C2.30313 15.4844 2.25 15.35 2.25 15.1875V13.575C2.25 13.5 2.2625 13.4313 2.2875 13.3688C2.3125 13.3063 2.35625 13.2438 2.41875 13.1813L11.7 3.90002L14.1 6.30002L4.81875 15.5813C4.75625 15.6438 4.69375 15.6875 4.63125 15.7125C4.56875 15.7375 4.5 15.75 4.425 15.75H2.8125ZM12.0938 5.90627L11.6812 5.49377L12.5062 6.31877L12.0938 5.90627Z"
@@ -471,7 +472,7 @@
     </div>
   </div>
 </div>
- 
+
 <div class="questionPreview">
   <p-dialog
     header="Question Preview"
@@ -479,7 +480,7 @@
     [modal]="true"
     [style]="{ width: '38.75rem', height: 'auto' }"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-   
+
   >
     <ng-template pTemplate="header">
       <div class="inline-flex align-items-center justify-content-center gap-2">
@@ -499,7 +500,7 @@
       >
         <input type="radio" [checked]="option === singleQuestionAnswer" />
         <label class="box-design">{{ getLabel(i) }}</label>
- 
+
         <span class="option-content">{{ option }}</span>
       </div>
     </div>
@@ -512,7 +513,7 @@
     </ng-template>
   </p-dialog>
 </div>
- 
+
 <div class="questionsidebar">
   <p-sidebar
     [(visible)]="previewSidebarVisible"
@@ -525,7 +526,7 @@
     <ng-template pTemplate="content">
       <span *ngFor="let question of totalSelectedQuestion; let j = index">
         <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
- 
+
         <div class="select-size">
           <div
             *ngFor="let option of question.options; let i = index"
@@ -544,12 +545,12 @@
             <label class="box-design" [for]="'option' + question + '-' + i">{{
               getLabel(i)
             }}</label>
- 
+
             <span class="option-content">{{ option }}</span>
           </div>
         </div>
       </span>
- 
+
       <div class="btnfooter">
         <div class="quiz-instruction">
           <p class="instruction">Quiz Instructions</p>
@@ -571,7 +572,7 @@
     </ng-template>
   </p-sidebar>
 </div>
- 
+
 <div class="newSchedule-Dialog">
   <p-dialog
     header="New Schedule"
@@ -591,7 +592,7 @@
           <input type="text" pInputText [(ngModel)]="question" />
         </div>
       </div>
- 
+
       <div class="labelvalue">
         <div class="label">
           <label>QuestionType</label>
@@ -608,7 +609,7 @@
           </p-dropdown>
         </div>
       </div>
- 
+
       <div class="labelvalue">
         <div class="label">
           <label>Difficulty Level</label>
@@ -625,7 +626,7 @@
           </p-dropdown>
         </div>
       </div>
- 
+
       <div
         class="labelvalue"
         *ngIf="
@@ -645,7 +646,7 @@
           <input type="text" pInputText [(ngModel)]="choices[i]" />
         </div>
       </div>
- 
+
       <div
         class="labelvalue"
         *ngIf="
@@ -673,12 +674,12 @@
           <ng-template #checkboxBlock>
             <p-checkbox [(ngModel)]="answer" [value]="choices[i]"></p-checkbox>
           </ng-template>
- 
+
           <label for="answer{{ i }}" class="title">{{ letter }}</label>
         </div>
       </div>
     </div>
- 
+
     <ng-template pTemplate="footer">
       <div class="Newschedule-button">
         <div class="Cancelbutton">

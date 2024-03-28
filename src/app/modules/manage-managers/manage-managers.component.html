@@ -103,9 +103,11 @@
               <div class="addmanager">
                 <button
                   pButton
-                  [disabled]="!selectedDeleteManager||selectedDeleteManager.length==0"
+                  [disabled]="
+                    !selectedDeleteManager || selectedDeleteManager.length == 0
+                  "
                   label="Delete Manager"
-                  (click)="confirmPosition('top')" 
+                  (click)="confirmPosition('top')"
                 ></button>
               </div>
             </div>
@@ -114,7 +116,10 @@
 
         <tr>
           <th style="width: 4rem">
-            <p-tableHeaderCheckbox [value]="managerData" (click)="selectAll()"></p-tableHeaderCheckbox>
+            <p-tableHeaderCheckbox
+              [value]="managerData"
+              (click)="selectAll()"
+            ></p-tableHeaderCheckbox>
           </th>
           <th class="EmployeeId" pSortableColumn="empid">
             Emp ID <p-sortIcon field="empid"></p-sortIcon>
@@ -134,7 +139,11 @@
       >
         <tr>
           <td>
-            <p-tableCheckbox [value]="rowData" [checked]="rowData.selection" (click)="toggleSelection(rowData)"></p-tableCheckbox>
+            <p-tableCheckbox
+              [value]="rowData"
+              [checked]="rowData.selection"
+              (click)="toggleSelection(rowData)"
+            ></p-tableCheckbox>
           </td>
           <td>{{ rowData.empid }}</td>
           <td class="managernamedesign">
@@ -161,25 +170,6 @@
                   />
                 </svg>
               </a>
-
-              <!-- <a
-                [class.disabled]="!rowData.isMail"
-                title="View"
-                (click)="onViewClick(rowData)"
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M8.99998 11.8125C9.88748 11.8125 10.6406 11.5031 11.2593 10.8844C11.8781 10.2656 12.1875 9.5125 12.1875 8.625C12.1875 7.7375 11.8781 6.98438 11.2593 6.36563C10.6406 5.74688 9.88748 5.4375 8.99998 5.4375C8.11248 5.4375 7.35935 5.74688 6.7406 6.36563C6.12185 6.98438 5.81248 7.7375 5.81248 8.625C5.81248 9.5125 6.12185 10.2656 6.7406 10.8844C7.35935 11.5031 8.11248 11.8125 8.99998 11.8125ZM8.99998 10.725C8.41248 10.725 7.9156 10.5219 7.50935 10.1156C7.1031 9.70937 6.89998 9.2125 6.89998 8.625C6.89998 8.0375 7.1031 7.54063 7.50935 7.13437C7.9156 6.72812 8.41248 6.525 8.99998 6.525C9.58748 6.525 10.0844 6.72812 10.4906 7.13437C10.8969 7.54063 11.1 8.0375 11.1 8.625C11.1 9.2125 10.8969 9.70937 10.4906 10.1156C10.0844 10.5219 9.58748 10.725 8.99998 10.725ZM8.99998 14.25C7.27498 14.25 5.7031 13.7812 4.28435 12.8438C2.8656 11.9062 1.76873 10.6688 0.993726 9.13125C0.956226 9.06875 0.928101 8.99375 0.909351 8.90625C0.890601 8.81875 0.881226 8.725 0.881226 8.625C0.881226 8.525 0.890601 8.43125 0.909351 8.34375C0.928101 8.25625 0.956226 8.18125 0.993726 8.11875C1.76873 6.58125 2.8656 5.34375 4.28435 4.40625C5.7031 3.46875 7.27498 3 8.99998 3C10.725 3 12.2969 3.46875 13.7156 4.40625C15.1344 5.34375 16.2312 6.58125 17.0062 8.11875C17.0437 8.18125 17.0719 8.25625 17.0906 8.34375C17.1094 8.43125 17.1187 8.525 17.1187 8.625C17.1187 8.725 17.1094 8.81875 17.0906 8.90625C17.0719 8.99375 17.0437 9.06875 17.0062 9.13125C16.2312 10.6688 15.1344 11.9062 13.7156 12.8438C12.2969 13.7812 10.725 14.25 8.99998 14.25ZM8.99998 13.125C10.5125 13.125 11.9031 12.7156 13.1719 11.8969C14.4406 11.0781 15.4062 9.9875 16.0687 8.625C15.4062 7.2625 14.4406 6.17188 13.1719 5.35312C11.9031 4.53437 10.5125 4.125 8.99998 4.125C7.48748 4.125 6.09685 4.53437 4.8281 5.35312C3.55935 6.17188 2.58748 7.2625 1.91248 8.625C2.58748 9.9875 3.55935 11.0781 4.8281 11.8969C6.09685 12.7156 7.48748 13.125 8.99998 13.125Z"
-                    fill="#652D90"
-                  />
-                </svg>
-              </a> -->
             </div>
           </td>
         </tr>
@@ -208,7 +198,6 @@
     <p-tabView>
       <p-tabPanel header="Add a Single Manager">
         <div class="NewSchedule-content">
-         
           <div class="labelvalue">
             <div class="label">
               <label>Employee Id</label>
@@ -216,12 +205,11 @@
             </div>
             <div class="value">
               <input
-              pInputText 
+                pInputText
                 formControlName="employeeId"
-                appAllowDigits ="8"
-                
-              >
-            
+                appAllowDigits="8"
+              />
+
               <div
                 *ngIf="
                   addManagerForm.get('employeeId')?.invalid &&
@@ -236,7 +224,9 @@
                 </div>
                 <div
                   class="error-message"
-                  *ngIf="addManagerForm.get('employeeId')?.hasError('minlength')"
+                  *ngIf="
+                    addManagerForm.get('employeeId')?.hasError('minlength')
+                  "
                 >
                   Enter a valid Employee Id !
                 </div>
@@ -250,7 +240,12 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="text" appNameInput formControlName="managerName" pInputText />
+              <input
+                type="text"
+                appNameInput
+                formControlName="managerName"
+                pInputText
+              />
               <div
                 *ngIf="
                   addManagerForm.get('managerName')?.invalid &&
@@ -267,9 +262,7 @@
                 </div>
                 <div
                   class="error-message"
-                  *ngIf="
-                    addManagerForm.get('managerName')?.hasError('pattern')
-                  "
+                  *ngIf="addManagerForm.get('managerName')?.hasError('pattern')"
                 >
                   Enter a Valid Managername !
                 </div>
@@ -284,7 +277,7 @@
               </div>
             </div>
           </div>
-       
+
           <div class="labelvalue">
             <div class="label">
               <label>Email</label>
@@ -308,7 +301,7 @@
                   class="error-message"
                   *ngIf="addManagerForm.get('email')?.hasError('pattern')"
                 >
-               Enter a valid Email !
+                  Enter a valid Email !
                 </div>
               </div>
             </div>
@@ -320,12 +313,8 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input
-                formControlName="phone"
-                appAllowDigits="10"
-                pInputText
-              >
-              
+              <input formControlName="phone" appAllowDigits="10" pInputText />
+
               <div
                 *ngIf="
                   addManagerForm.get('phone')?.invalid &&
@@ -354,7 +343,12 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="text" pKeyFilter="alpha" formControlName="department" pInputText />
+              <input
+                type="text"
+                pKeyFilter="alpha"
+                formControlName="department"
+                pInputText
+              />
               <div
                 *ngIf="
                   addManagerForm.get('department')?.invalid &&
@@ -369,7 +363,9 @@
                 </div>
                 <div
                   class="error-message"
-                  *ngIf="addManagerForm.get('department')?.hasError('minlength')"
+                  *ngIf="
+                    addManagerForm.get('department')?.hasError('minlength')
+                  "
                 >
                   Enter a valid Department Name !
                 </div>
@@ -383,7 +379,12 @@
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
-              <input type="text" appNameInput formControlName="location" pInputText />
+              <input
+                type="text"
+                appNameInput
+                formControlName="location"
+                pInputText
+              />
               <div
                 *ngIf="
                   addManagerForm.get('location')?.invalid &&
@@ -394,7 +395,7 @@
                   class="error-message"
                   *ngIf="addManagerForm.get('location')?.hasError('required')"
                 >
-                Enter valid Location !
+                  Enter valid Location !
                 </div>
                 <div
                   class="error-message"
@@ -423,7 +424,7 @@
             </div>
             <div class="Createbutton" *ngIf="isEditManager">
               <p-button
-              [disabled]="addManagerForm.touched"
+                [disabled]="addManagerForm.touched"
                 label="Update"
                 (onClick)="updateManager(addManagerForm.value)"
               >
@@ -507,6 +508,7 @@
             mode="decimal"
             inputId="withoutgrouping"
             [useGrouping]="false"
+            [disabled]="isEditManager"
           >
           </p-inputNumber>
           <div
@@ -554,7 +556,12 @@
           <span class="important-symbol">&#42;</span>
         </div>
         <div class="value">
-          <input type="email" formControlName="email" pInputText />
+          <input
+            type="email"
+            formControlName="email"
+            pInputText
+            [disabled]=true
+          />
           <div
             *ngIf="
               addManagerForm.get('email')?.invalid &&
@@ -656,7 +663,7 @@
         <div class="Createbutton" *ngIf="isEditManager">
           <p-button
             label="Update"
-            [disabled]= (addManagerForm.pristine)
+            [disabled]="addManagerForm.pristine"
             (onClick)="updateManager(addManagerForm.value)"
           >
           </p-button>
@@ -665,7 +672,8 @@
     </ng-template>
   </p-dialog>
 </div>
-<p-confirmDialog class="button_design"
+<p-confirmDialog
+  class="button_design"
   [style]="{ width: '40vw' }"
   key="positionDialog"
   [position]="position"
