@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { CNotification } from '../modules/new-schedule/new-schedule.component';
-
+ 
 @Injectable({
   providedIn: 'root',
 })
@@ -27,8 +27,9 @@ export class NotificationService {
       title: notification.title,
       content : notification.content,
     };
+    console.log("notification service",body);
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification2',
       body,
       { headers }
     );
@@ -64,7 +65,6 @@ export class NotificationService {
       notificationId: notificationId,
       receiverId: receiverId,
     };
-
     console.log('Notification test', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/updatenotification',
