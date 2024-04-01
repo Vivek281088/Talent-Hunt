@@ -23,8 +23,8 @@ export class ManagerProfileComponent {
   items: MenuItem[] | undefined;
   editManagerForm!: FormGroup;
   formSubmitted: boolean = false;
-  
-  
+
+
   visible: boolean = false;
   resetPasswordForm!: FormGroup;
   isPasswordInvalid: boolean = false;
@@ -189,22 +189,30 @@ export class ManagerProfileComponent {
   remainaingSkills(skills: any, count: number): string[] {
     return skills.slice(-count);
   }
-
-  onViewClick(questions: any) {
+  onViewClick(data: any) {
     this.viewQuestionSidebar = true;
-    this.getQuestionsById(questions);
-    console.log('View questions :', this.FinalizedQuestions);
-  }
-  getQuestionsById(questionIdArray: any) {
-    console.log('get id', questionIdArray);
-    const observables = questionIdArray.map((questionId: string) =>
-      this.newScheduleService.getIndividualQuestion(questionId)
-    );
-    forkJoin(observables).subscribe((responses: any) => {
-      this.FinalizedQuestions = responses;
+    console.log('View Data', data);
+    this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
+      this.FinalizedQuestions = response;
       console.log('Updated Total Question data--', this.FinalizedQuestions);
     });
   }
+
+  // onViewClick(questions: any) {
+  //   this.viewQuestionSidebar = true;
+  //   this.getQuestionsById(questions);
+  //   console.log('View questions :', this.FinalizedQuestions);
+  // }
+  // getQuestionsById(questionIdArray: any) {
+  //   console.log('get id', questionIdArray);
+  //   const observables = questionIdArray.map((questionId: string) =>
+  //     this.newScheduleService.getIndividualQuestion(questionId)
+  //   );
+  //   forkJoin(observables).subscribe((responses: any) => {
+  //     this.FinalizedQuestions = responses;
+  //     console.log('Updated Total Question data--', this.FinalizedQuestions);
+  //   });
+  // }
 
   getSelectedOptions(selected_Option: any, option: any) {
     if (option.includes(selected_Option)) {

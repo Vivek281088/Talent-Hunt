@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { DataService } from 'src/app/services/data.service';
@@ -34,39 +35,8 @@ export class THDashboardComponent {
       routerLink: '/thdashboard',
       label: 'Home',
     };
-    this.assessmentData = [
-      {
-        name: 'Anand',
-        assessment: ' AWS Junior Developer',
-        result: 'Shortlisted',
-      },
-      {
-        name: 'Aishu',
-        assessment: ' AWS Junior Developer',
-        result: 'Scheduled',
-      },
-      {
-        name: 'Barani',
-        assessment: ' JAVA Junior Developer',
-        result: 'Rejected',
-      },
-      {
-        name: 'Kannan',
-        assessment: ' JAVA Junior Developer',
-        result: 'Scheduled',
-      },
-      {
-        name: 'Barani',
-        assessment: ' JAVA Junior Developer',
-        result: 'Shortlisted',
-      },
-      {
-        name: 'Barani',
-        assessment: ' JAVA Junior Developer',
-        result: 'Rejected',
-      },
-    ];
-    
+    this.loadCandidateAssessmentData();
+
     this.dataService.getDashboardData().subscribe({
       next : (response) => {
       // this.recentAssessmentDataContext = response;
@@ -89,10 +59,10 @@ export class THDashboardComponent {
         }
       ];
       this.scheduleData = response[2];
-      
+
     }});
 
-  
+
     this.ManagerEmail = localStorage.getItem('managerEmail');
     this.managernameService
       .getManagerdata_by_Email(this.ManagerEmail)
@@ -100,6 +70,19 @@ export class THDashboardComponent {
         console.log('Navbar-res', response);
         this.managerName = response[0].Firstname + ' ' + response[0].Lastname;
       });
+  }
+
+  loadCandidateAssessmentData(){
+    this.managernameService.getCandidateStatus().subscribe((data) => {
+      this.assessmentData = data.map((item: any) => {
+        return {
+          name: item.candidateName,
+          assessment: item.email_Filename,
+          result : item.results}
+      });
+      console.log('Candidate Data', data);
+      console.log('Assessment Data', this.assessmentData);
+    });
   }
 
   getDashboardCount() {

@@ -616,13 +616,15 @@ export class NewScheduleComponent {
   }
   getQuestionsById(questionIdArray: any) {
     console.log('get id', questionIdArray);
-    const observables = questionIdArray.map((questionId: string) =>
-      this.newScheduleService.getIndividualQuestion(questionId)
-    );
-    forkJoin(observables).subscribe((responses: any) => {
-      this.selectedquestions = responses;
-      console.log('Updated Total Question data--', this.selectedquestions);
-    });
+    this.totalSelectedQuestion = this.newScheduleService.getIndividualQuestion(questionIdArray);
+    console.log('Updated Total Question data--', this.totalSelectedQuestion);
+    // const observables = questionIdArray.map((questionId: string) =>
+    //   this.newScheduleService.getIndividualQuestion(questionId)
+    // );
+    // forkJoin(observables).subscribe((responses: any) => {
+    //   this.selectedquestions = responses;
+    //   console.log('Updated Total Question data--', this.selectedquestions);
+    // });
   }
   cancelQuestionView() {
     this.QuestionView = false;
@@ -673,18 +675,17 @@ export class NewScheduleComponent {
   onPreviewClick() {
     this.previewSidebarVisible = true;
 
-    this.observables = this.selectedquestions?.map((questionId: string) =>
-      this.newScheduleService.getIndividualQuestion(questionId)
-    );
-    forkJoin(this.observables).subscribe((responses) => {
-      this.totalSelectedQuestion = responses;
-      console.log('Updated Total Question data--', this.totalSelectedQuestion);
-    });
+    // this.observables = this.selectedquestions?.map((questionId: string) =>
+    //   this.newScheduleService.getIndividualQuestion(questionId)
+    // );
+    this.totalSelectedQuestion = this.newScheduleService.getIndividualQuestion(this.selectedquestions)
+    // forkJoin(this.observables).subscribe((responses) => {
+    //   this.totalSelectedQuestion = responses;
+    //   console.log('Updated Total Question data--', this.totalSelectedQuestion);
+    // });
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log('Function Working');
-    if (option.includes(selected_Option)) {
-      console.log('correct answer');
+    if (selected_Option.includes(option)) {
       return 'correctAnswer';
     } else {
       return 'wrongAnswer';
