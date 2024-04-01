@@ -111,6 +111,7 @@ export class ManageManagersComponent {
   }
   selectedRowData: any;
   EditManagerDialog: boolean = false;
+
   handleEditIconClick(data: any) {
     this.isEditManager = true;
     this.isAddManager = false;
@@ -118,7 +119,7 @@ export class ManageManagersComponent {
 
     this.selectedRowData = data;
     console.log(' Selected Edit Data', this.selectedRowData);
-
+    console.log(' Edit -----------', this.isEditManager);
     this.populateFormControls();
   }
   populateFormControls() {
@@ -144,6 +145,7 @@ export class ManageManagersComponent {
     this.addManagerForm.markAsPristine();
     this.addManagerForm.markAsUntouched();
     this.formSubmitted = false;
+    this.isEditManager=false;
   }
   saveSuccessMessage() {
     this.messageService.add({
@@ -205,7 +207,7 @@ export class ManageManagersComponent {
           )
           .subscribe({
             next: (x) => {
-              
+
               setTimeout(() => {
                 this.saveSuccessMessage();
                 this.cancelButton();
@@ -346,7 +348,7 @@ export class ManageManagersComponent {
   }
   confirmPosition(position: string) {
     this.position = position;
- 
+
     this.confirmationService.confirm({
       message: 'Do you want to delete the schedule?',
       header: 'Delete Confirmation',
@@ -358,7 +360,7 @@ export class ManageManagersComponent {
           detail: 'Schedule Deleted Successfully',
         });
      this.deleteManager();
-       
+
       },
       reject: (type: ConfirmEventType) => {
         switch (type) {

@@ -42,29 +42,29 @@ export class SkillsdropdownService {
     );
   }
 
-  filterManager(
-    filterManager: string | undefined,
-    filterSkills: string[] | undefined,
-    fromDate: any,
-    toDate: any
-  ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+  // filterManager(
+  //   filterManager: string | undefined,
+  //   filterSkills: string[] | undefined,
+  //   fromDate: any,
+  //   toDate: any
+  // ): Observable<any> {
+  //   const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
-    const body = {
-      Managername: filterManager,
-      Skill: filterSkills,
-      FromDate: fromDate,
-      ToDate: toDate,
-    };
+  //   const body = {
+  //     Managername: filterManager,
+  //     Skill: filterSkills,
+  //     FromDate: fromDate,
+  //     ToDate: toDate,
+  //   };
 
-    console.log('body', body);
+  //   console.log('body', body);
 
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/question',
-      body,
-      { headers }
-    );
-  }
+  //   return this.http.post<any>(
+  //     'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/question',
+  //     body,
+  //     { headers }
+  //   );
+  // }
 
   postOneSkill(Skill: string): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
@@ -227,21 +227,20 @@ export class SkillsdropdownService {
       }
     );
   }
+  // deletetabledata(Managername: String, fileName: String): Observable<any> {
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  deletetabledata(Managername: String, fileName: String): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //   const body = { Managername: Managername, fileName: fileName };
+  //   console.log('delete data sevice', body);
 
-    const body = { Managername: Managername, fileName: fileName };
-    console.log('delete data sevice', body);
-
-    return this.http.post(
-      `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/delete_tabledata`,
-      body,
-      {
-        headers,
-      }
-    );
-  }
+  //   return this.http.post(
+  //     `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/delete_tabledata`,
+  //     body,
+  //     {
+  //       headers,
+  //     }
+  //   );
+  // }
 
   // Filter candidate name
 

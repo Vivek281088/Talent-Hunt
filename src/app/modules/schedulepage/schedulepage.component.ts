@@ -7,7 +7,7 @@ import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ReviewerService } from 'src/app/services/reviewer.service';
- 
+
 import { FormControl } from '@angular/forms';
 import { FilterMetadata, MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -21,8 +21,8 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
- 
- 
+
+
 @Component({
   selector: 'app-schedulepage',
   templateUrl: './schedulepage.component.html',
@@ -57,9 +57,9 @@ export class SchedulepageComponent implements OnInit {
   question!: string;
   candidateSkill!: any;
   position: string = 'center';
- 
+
   candidateId!: Date | null;
- 
+
   todayDate!: Date;
   scheduleName!: string;
   manager!: string;
@@ -69,7 +69,7 @@ export class SchedulepageComponent implements OnInit {
   viewQuestionSidebar: boolean = false;
   sendQuestionCardVisible: boolean = false;
   visible: boolean = false;
- 
+
   roles: string = 'user';
   candidateData: any;
   managerData: any;
@@ -77,7 +77,7 @@ export class SchedulepageComponent implements OnInit {
   addnewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
   isScheduleInvalid: boolean = false;
- 
+
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
@@ -135,12 +135,12 @@ export class SchedulepageComponent implements OnInit {
   ngOnInit() {
     this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
- 
+
     this.todayDate = new Date();
     // console.log('Date--------', this.todayDate);
- 
+
     this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
- 
+
     this.loadSkills();
     this.loadManagerNames();
     this.existingData();
@@ -150,7 +150,7 @@ export class SchedulepageComponent implements OnInit {
   customFilter(value: any, filter: FilterMetadata): boolean {
     const selectedSkills: string[] = filter ? filter.value : null;
     if (selectedSkills && selectedSkills.length > 0) {
-        return selectedSkills.some(skill => value.Skill.includes(skill)); 
+        return selectedSkills.some(skill => value.Skill.includes(skill));
     }
     return true;
 }
@@ -175,10 +175,10 @@ export class SchedulepageComponent implements OnInit {
     remainingCount: number;
   } {
     const maxLength = 16;
- 
+
     let result: string[] = [];
     let totalLength = 0;
- 
+
     for (const skill of skills) {
       if (totalLength + skill.length <= maxLength) {
         result.push(skill);
@@ -187,15 +187,15 @@ export class SchedulepageComponent implements OnInit {
         break;
       }
     }
- 
+
     const remainingCount = skills.length - result.length;
- 
+
     return { skills: result, remainingCount: remainingCount };
   }
   remainaingSkills(skills: any, count: number): string[] {
     return skills.slice(-count);
   }
- 
+
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
       const uniqueEmails = new Set<string>();
@@ -223,7 +223,7 @@ export class SchedulepageComponent implements OnInit {
       this.Tdata = data;
     });
   }
- 
+
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((response) => {
       this.managerData = response;
@@ -233,24 +233,24 @@ export class SchedulepageComponent implements OnInit {
       console.log('Client Manager Details', response);
     });
   }
- 
+
   cancelButton() {
     this.visible = false;
     this.formSubmitted = false;
     this.addnewScheduleForm.markAsPristine();
     this.addnewScheduleForm.markAsUntouched();
     this.addnewScheduleForm.reset();
- 
+
     // this.resetData();
     console.log('Manager after cancel', this.manager);
   }
- 
+
   createButton() {
     this.formSubmitted = true;
     if (this.addnewScheduleForm.valid) {
       const formData = this.addnewScheduleForm.value;
       console.log('Form Data:', formData);
- 
+
       // this.sendData();
       console.log('sended');
       const dataToSend = {
@@ -270,24 +270,20 @@ export class SchedulepageComponent implements OnInit {
       this.router.navigate(['/new-schedule']);
     }
   }
- 
+
   closeSidebar() {
     this, (this.viewQuestionSidebar = false);
   }
   onViewClick(data: any) {
     this.viewQuestionSidebar = true;
     console.log('View Data', data);
-    const observables = data.questions.map((questionId: string) =>
-      this.newScheduleService.getIndividualQuestion(questionId)
-    );
-    forkJoin(observables).subscribe((responses: any) => {
-      this.FinalizedQuestions = responses;
+    this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
+      this.FinalizedQuestions = response;
       console.log('Updated Total Question data--', this.FinalizedQuestions);
     });
- 
-    console.log('questions :', this.FinalizedQuestions);
   }
- 
+
+
   getSelectedOptions(selected_Option: any, option: any) {
     if (selected_Option.includes(option)) {
       return 'correctAnswer';
@@ -298,12 +294,13 @@ export class SchedulepageComponent implements OnInit {
   getLabel(index: number): string {
     return String.fromCharCode(65 + index);
   }
- 
+
   handleEditIconClick(data: any) {
+
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;
- 
+
     this.selectedQuestions = data.questions;
     this.cutoff = data.cutoff;
     this.durations = data.durations;
@@ -312,7 +309,7 @@ export class SchedulepageComponent implements OnInit {
     sessionStorage.setItem('scheduleName', data.JobDescription),
       sessionStorage.setItem('manager', data.Managername),
       sessionStorage.setItem('cutoff', data.cutoff),
-      sessionStorage.setItem('durations', data.durations);
+      sessionStorage.setItem('duration', data.durations);
     sessionStorage.setItem('FinalizedQuestion', data.questions);
     sessionStorage.setItem('SelectedSkill', data.Skill);
     // this.managernameService.setCutoff(this.cutoff);
@@ -320,31 +317,32 @@ export class SchedulepageComponent implements OnInit {
     // this.managernameService.setDuration(this.durations);
     // this.skillsdropdownservice.setSkill(this.Skill);
     console.log('edit skill', this.Skill);
-    console.log('edit questions', this.selectedQuestions);
-    this.managernameService.setFinalizedQuestions(this.selectedQuestions);
-    this.managernameService.setManagerName(this.editManagername);
-    this.managernameService.setFileName(this.editFilename);
     sessionStorage.setItem('scheduleName', this.editFilename);
     sessionStorage.setItem('boolean', 'true');
     sessionStorage.setItem('SaveOrEdit', 'Edit');
     sessionStorage.setItem('scheduleId', data.id);
+    console.log('edit questions', this.selectedQuestions);
+    this.managernameService.setFinalizedQuestions(this.selectedQuestions);
+    this.managernameService.setManagerName(this.editManagername);
+    this.managernameService.setFileName(this.editFilename);
+
     this.router.navigate(['new-schedule']);
   }
- 
+
   showEmailSubmitted() {
     this.messageService.add({
       severity: 'success',
- 
+
       summary: 'Success',
- 
+
       detail: 'Invite Sent Successfully',
     });
   }
- 
+
   openquestiondialog() {
     this.visible = true;
   }
- 
+
   // Loading skills for dropdown in add question
   loadSkills() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
@@ -355,7 +353,7 @@ export class SchedulepageComponent implements OnInit {
       console.log('Skill Set', this.skillSet);
     });
   }
- 
+
   onSendQuestionClick(data: any) {
     this.sendQuestionCardVisible = true;
     this.getUniqueCandidatedata();
@@ -374,14 +372,14 @@ export class SchedulepageComponent implements OnInit {
   scheduledTime!: string;
   inviteCandidate() {
     console.log('Selected Candidates', this.selectedCandidates);
- 
+
     this.selectedCandidates.forEach((selectedCandidate) => {
       const existingCandidate = this.candidateData.find(
         (candidate: { candidateEmail: any }) =>
           candidate.candidateEmail === selectedCandidate.candidateEmail
       );
       console.log('matched candidate', existingCandidate);
- 
+
       //rest data
       this.score = null;
       this.result = 'Scheduled';
@@ -428,7 +426,7 @@ console.log('Login Manager id', loginManagerid)
       this.showEmailSubmitted();
     }, 1000);
   }
- 
+
   closeInviteDialog() {
     this.sendQuestionCardVisible = false;
     this.selectedCandidates = [];
@@ -466,15 +464,15 @@ console.log('Login Manager id', loginManagerid)
       'Nov',
       'Dec',
     ];
- 
+
     const month: string = months[date.getMonth()];
     const day: number = date.getDate();
     const year: number = date.getFullYear();
     const formatDate: string = `${month} ${day}, ${year}`;
- 
+
     return formatDate;
   }
- 
+
   selectingCandidate() {
     console.log('Selected', this.selectedCandidates);
   }
@@ -488,14 +486,14 @@ console.log('Login Manager id', loginManagerid)
           console.log('Deleted Candidate.....', Schedule.JobDescription);
         });
     }
- 
+
     setTimeout(() => {
       // this.deleteMessage();
       this.existingData();
       this.selectedDeleteSchedule = [];
     }, 1500);
   }
- 
+
   // deleteMessage() {
   //   this.messageService.add({
   //     severity: 'success',
@@ -503,10 +501,10 @@ console.log('Login Manager id', loginManagerid)
   //     detail: 'Schedule Deleted successfully',
   //   });
   // }
- 
+
   confirmPosition(position: string) {
     this.position = position;
- 
+
     this.confirmationService.confirm({
       message: 'Do you want to delete the schedule?',
       header: 'Delete Confirmation',
@@ -522,13 +520,13 @@ console.log('Login Manager id', loginManagerid)
       key: 'positionDialog',
     });
   }
- 
+
   toggleSelection(data: any) {
     if (!data || !data.id) {
       return;
     }
     data.selection = !data.selection;
- 
+
     if (data.selection) {
       console.log('Selected schedule:', this.selectedDeleteSchedule);
     } else {
@@ -542,4 +540,3 @@ console.log('Login Manager id', loginManagerid)
     console.log('Selected all Schedule:', this.selectedDeleteSchedule);
   }
 }
- 

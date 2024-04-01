@@ -37,15 +37,13 @@ export class NewScheduleService {
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidate_Details'
     );
   }
-  getIndividualQuestion(id: string ): Observable<any> {
+  getIndividualQuestion(id: string[] ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-    const body = {
-      id: id,
-    };
-    console.log("service body",body)
+
+    console.log("service body",id)
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-Questions_GetById',
-      body,
+      id,
       {
         headers,
       }

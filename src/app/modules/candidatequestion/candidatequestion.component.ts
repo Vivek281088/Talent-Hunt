@@ -100,7 +100,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
     //get the assessment data
     this.assessmentData = this.candidateAssessmentService.getAssessmentData();
-    
+
 
     console.log('Assessment Data', this.assessmentData);
     this.previewOptions = this.assessmentData.questions;
@@ -126,13 +126,15 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
   getQuestionsById(previewOptions: any) {
     console.log('get id', previewOptions);
-    const observables = previewOptions.map((questionId: string) =>
-      this.newScheduleService.getIndividualQuestion(questionId)
-    );
-    forkJoin(observables).subscribe((responses) => {
-      this.previewOptions = responses;
-      console.log('Updated Total Question data--', this.previewOptions);
-    });
+    this.previewOptions = this.newScheduleService.getIndividualQuestion(previewOptions);
+    console.log('Updated Total Question data--', this.previewOptions);
+    // const observables = previewOptions.map((questionId: string) =>
+    //   this.newScheduleService.getIndividualQuestion(questionId)
+    // );
+    // forkJoin(observables).subscribe((responses) => {
+    //   this.previewOptions = responses;
+    //   console.log('Updated Total Question data--', this.previewOptions);
+    // });
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
     
@@ -209,7 +211,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     if (this.first >= this.rows) {
       this.page -= 1;
       this.first -= this.rows;
-  
+
     }
   }
   next() {
@@ -336,7 +338,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           allowOutsideClick: false,
         }).then((result: { isConfirmed: any; }) => {
           if (result.isConfirmed) {
-            
+
             this.router.navigate(['/login']);
           }
         });
