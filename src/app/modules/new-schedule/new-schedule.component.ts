@@ -1,9 +1,4 @@
-import {
-  Component,
-  ViewChildren,
-  QueryList,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, ViewChildren, QueryList, ChangeDetectorRef, signal, computed } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
@@ -13,8 +8,7 @@ import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
-
- import * as moment from 'moment-timezone';
+import * as moment from 'moment-timezone';
 import {
   AbstractControl,
   FormBuilder,
@@ -39,6 +33,9 @@ export class Receiver {
   styleUrls: ['./new-schedule.component.scss'],
 })
 export class NewScheduleComponent {
+  computedCutoff = computed(()=> this.cutoff1() / this.selectedQus().length);
+  cutoff1 = signal(0);
+  selectedQus = signal([] as string[]);
   [x: string]: any;
   items: MenuItem[] | undefined;
   tabs: { title: any; content: any }[] = [];
@@ -99,7 +96,7 @@ export class NewScheduleComponent {
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     const currentutcdate = new Date();
-     const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
+    const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
     this.isTime = istMoment.format('YYYY-MM-DD HH:mm:ss');
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
@@ -160,53 +157,43 @@ export class NewScheduleComponent {
     ];
 
     const a = sessionStorage.getItem('boolean');
-    const timeInv = sessionStorage?.getItem('duration');
+    const timeInv = sessionStorage?.getItem('durations');
     const cutoff = sessionStorage?.getItem('cutoff');
     //new schedule
     if (a == null) {
       this.updateNewScheduleForm.patchValue({
         scheduleName: sessionStorage.getItem('scheduleName'),
         managerName: sessionStorage.getItem('manager'),
-
-        // cutoff: sessionStorage.getItem('cutoff'),
-        // duration: sessionStorage.getItem('duration'),
       });
       console.log('this is the cutoff from the schedulepage', this.totalCutoff);
       this.totalCutoff = cutoff ? parseInt(cutoff, 10) : 0;
-
+      this.cutoff1.update(cut => cutoff ? parseInt(cutoff, 10) : 0);
       this.timeInterval = timeInv ? parseInt(timeInv, 10) : 0;
       this.selectedSkills = this.dataservice.getData();
-
       console.log('ss', this.selectedSkills);
-
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
           console.log('recieved response', response);
-
           for (let i = 0; i < response.length; i++) {
             this.tabs.push({
               title: response[i].skills,
               content: response[i].data,
             });
           }
-
           this.cdr.detectChanges();
         });
     } else {
       this.updateNewScheduleForm.patchValue({
         scheduleName: sessionStorage.getItem('scheduleName'),
         managerName: sessionStorage.getItem('manager'),
-        // cutoff: sessionStorage.getItem('cutoff'),
-        // duration: sessionStorage.getItem('duration'),
       });
-      
-      
-      this.totalCutoff= cutoff?parseInt(cutoff,10) : 0;
-      console.log("this is the cutoff from the schedulepage",this.totalCutoff)
-      
-      this.timeInterval= timeInv?parseInt(timeInv,10) : 0;
-      console.log("Time interval from schedulepage",this.timeInterval)
+      this.cutoff1.update(cut => cutoff ? parseInt(cutoff, 10) : 0)
+      this.totalCutoff = cutoff ? parseInt(cutoff, 10) : 0;
+      console.log("this is the cutoff from the schedulepage", this.totalCutoff)
+
+      this.timeInterval = timeInv ? parseInt(timeInv, 10) : 0;
+      console.log("Time interval from schedulepage", this.timeInterval)
       console.log('Edit Data------', this.updateNewScheduleForm.value);
       console.log('Edit Data------', this.updateNewScheduleForm.value);
 
@@ -222,6 +209,7 @@ export class NewScheduleComponent {
       this.selectedquestions = sessionStorage
         .getItem('FinalizedQuestion')!
         ?.split(',');
+      this.selectedQus.set(sessionStorage.getItem('FinalizedQuestion')!?.split(',') as string[])
       console.log('selected edit question', this.selectedquestions);
 
       this.skillsdropdownservice
@@ -274,44 +262,43 @@ export class NewScheduleComponent {
       console.log('Client Manager Details', response);
     });
   }
- 
-timeInterval:number=0;
-cutOff:number=0;
-totalCutoff:number=0;
 
- 
+  timeInterval: number = 0;
+  cutOff: number = 0;
+  totalCutoff: number = 0;
+
+
   toggleSelection(question: any): void {
     question.selection = !question.selection;
     console.log('loop entered', question.id);
     console.log('Difficulty level', question.Difficulty_Level);
     if (question.selection) {
       this.selectedquestions?.unshift(question.id);
+      this.selectedQus.update( data => [...data , question.id])
       console.log('Selected Questions:', this.selectedquestions);
       this.timeIntervalAddition(question);
-      this.totalCutoff=this.cutOff/this.selectedquestions.length;
-      console.log("this is the duration",this.timeInterval)
-      
- 
+      this.totalCutoff = this.cutOff / this.selectedquestions.length;
+      console.log("this is the duration", this.timeInterval)
+
+
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
         (selected: any) => selected !== question.id
       );
+      this.selectedQus.update( data => data.filter(qus => qus != question.id))
       this.timeIntervalSubtraction(question);
-      this.totalCutoff=this.cutOff/this.selectedquestions.length;
-   
-
+      this.totalCutoff = this.cutOff / this.selectedquestions.length;
       console.log('Selected Questions:', this.selectedquestions);
     }
   }
   count!: number | undefined;
   async saveSelected() {
-    this.timeInterval = 0;
     this.scheduleMessage();
     this.FinalizedQuestions = this.selectedquestions;
     console.log('selected', this.selectedquestions);
     console.log('Final', this.FinalizedQuestions);
-     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
- 
+    this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
+
     try {
       const selectedSkillName = this.selectedSkills.sort();
       const dataToSave = {
@@ -321,7 +308,7 @@ totalCutoff:number=0;
 
         JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
 
-        cutoff: this.cutOff,
+        cutoff: this.totalCutoff,
 
         Managername: this.updateNewScheduleForm.get('managerName')?.value,
         // id:date,
@@ -403,6 +390,7 @@ totalCutoff:number=0;
       if (!question.selection) {
         question.selection = true;
         this.selectedquestions?.push(question.id);
+        this.selectedQus.update( data => [...data , question.id])
         this.timeIntervalAddition(question);
         this.totalCutoff = this.cutOff / this.selectedquestions.length;
       }
@@ -435,6 +423,7 @@ totalCutoff:number=0;
     this.selectedquestions = duplicateQuestions?.filter(
       (question: any) => !questionIds.includes(question)
     );
+    this.selectedQus.update(data => duplicateQuestions?.filter(qus => questionIds.includes(qus)))
 
     console.log('un select all ', this.selectedquestions);
     this.totalCutoff = this.cutOff / this.selectedquestions.length;
@@ -476,6 +465,7 @@ totalCutoff:number=0;
     console.log('count----------------------->', this.count);
 
     if (!this.selectedquestions) {
+     // this.selectedQus ? this.selectedQus.set([] as string[]) : null;
       this.selectedquestions = [];
     }
     for (let sec of this.selectedquestions) {
@@ -488,6 +478,7 @@ totalCutoff:number=0;
               this.selectedquestions = [];
             }
             this.selectedquestions.push(this.tabs[i].content[j]);
+            this.selectedQus.update(data => [...data , this.tabs[i].content[j]])
           }
         }
       }
@@ -587,6 +578,7 @@ totalCutoff:number=0;
       this.newScheduleService.getIndividualQuestion(questionId)
     );
     forkJoin(observables).subscribe((responses: any) => {
+      this.selectedQus.set(responses)
       this.selectedquestions = responses;
       console.log('Updated Total Question data--', this.selectedquestions);
     });
@@ -649,8 +641,8 @@ totalCutoff:number=0;
     });
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log('Function Working');
-    if (option.includes(selected_Option)) {
+  
+    if (selected_Option.includes(option)) {
       console.log('correct answer');
       return 'correctAnswer';
     } else {
@@ -681,14 +673,17 @@ totalCutoff:number=0;
     if (question.Difficulty_Level == 'E') {
       this.timeInterval = this.timeInterval + 1;
       this.cutOff = this.cutOff + 80;
+      this.cutoff1.update(cut => cut + 80)
     }
     if (question.Difficulty_Level == 'M') {
       this.timeInterval = this.timeInterval + 2;
       this.cutOff = this.cutOff + 60;
+      this.cutoff1.update(cut => cut + 60);
     }
     if (question.Difficulty_Level == 'H') {
       this.timeInterval = this.timeInterval + 3;
       this.cutOff = this.cutOff + 50;
+      this.cutoff1.update(cut => cut + 50);
     }
   }
 
@@ -696,14 +691,17 @@ totalCutoff:number=0;
     if (question.Difficulty_Level == 'E') {
       this.timeInterval = this.timeInterval - 1;
       this.cutOff = this.cutOff - 80;
+      this.cutoff1.update( cut => cut - 80);
     }
     if (question.Difficulty_Level == 'M') {
       this.timeInterval = this.timeInterval - 2;
       this.cutOff = this.cutOff - 60;
+      this.cutoff1.update( cut => cut - 60);
     }
     if (question.Difficulty_Level == 'H') {
       this.timeInterval = this.timeInterval - 3;
       this.cutOff = this.cutOff - 50;
+      this.cutoff1.update( cut => cut - 50);
     }
   }
 }

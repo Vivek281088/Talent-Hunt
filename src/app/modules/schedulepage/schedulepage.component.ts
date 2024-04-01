@@ -312,7 +312,7 @@ export class SchedulepageComponent implements OnInit {
     sessionStorage.setItem('scheduleName', data.JobDescription),
       sessionStorage.setItem('manager', data.Managername),
       sessionStorage.setItem('cutoff', data.cutoff),
-      sessionStorage.setItem('', data.durations);
+      sessionStorage.setItem('durations', data.durations);
     sessionStorage.setItem('FinalizedQuestion', data.questions);
     sessionStorage.setItem('SelectedSkill', data.Skill);
     // this.managernameService.setCutoff(this.cutoff);
