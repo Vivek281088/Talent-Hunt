@@ -66,7 +66,9 @@ export class THDashboardComponent {
         result: 'Rejected',
       },
     ];
-    this.dataService.getDashboardData().subscribe((response) => {
+    
+    this.dataService.getDashboardData().subscribe({
+      next : (response) => {
       // this.recentAssessmentDataContext = response;
       console.log('Dashboard Data', response);
       this.recentData = [
@@ -78,142 +80,19 @@ export class THDashboardComponent {
         {
           title: 'Assessment Completed',
           content: response[1].context[0],
-          time: response[1  ].Time,
+          time: response[1].Time,
         },
         {
           title: 'Assessment invites sent to Candidates',
-          content: 'Invite for Junior AWS Dev has been sent to',
-          time: '25 min',
-        },
-        {
-          title: 'Changed User Password',
-          content: 'Mathanrajprabhu created new schedule Junior AWS Dev',
-          time: '25 min',
-        },
+          content: response[3].context[0],
+          time: response[3].Time,
+        }
       ];
-    });
+      this.scheduleData = response[2];
+      
+    }});
 
-    this.scheduleData = [
-      {
-        assessment: ' AWS Junior Developer',
-        managerName: 'Chandrasekar',
-        scheduled: 5,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: 'Junior Frontend Developer',
-        managerName: 'Chandrasekar',
-        scheduled: 15,
-        shortlisted: 8,
-        rejected: 3,
-      },
-      {
-        assessment: ' Github Junior Developer',
-        managerName: 'Madhanrajprabhu',
-        scheduled: 10,
-        shortlisted: 4,
-        rejected: 1,
-      },
-      {
-        assessment: ' Node.Js Expert',
-        managerName: 'Deborah Wheeler',
-        scheduled: 5,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: 'Senior Software Engineer',
-        managerName: 'Krishnakumar K',
-        scheduled: 8,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: ' Senior Testing Engineer',
-        managerName: 'Krishnakumar K',
-        scheduled: 9,
-        shortlisted: 5,
-        rejected: 2,
-      },
-      {
-        assessment: ' Full Stack Developer',
-        managerName: 'Indu Nair',
-        scheduled: 5,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: 'Senior AWS Developer',
-        managerName: 'Chandrasekar',
-        scheduled: 5,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: ' AWS Junior Developer',
-        managerName: 'Chandrasekar',
-        scheduled: 5,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: 'Junior Frontend Developer',
-        managerName: 'Chandrasekar',
-        scheduled: 15,
-        shortlisted: 8,
-        rejected: 3,
-      },
-      {
-        assessment: ' Github Junior Developer',
-        managerName: 'Madhanrajprabhu',
-        scheduled: 10,
-        shortlisted: 4,
-        rejected: 1,
-      },
-      {
-        assessment: ' Node.Js Expert',
-        managerName: 'Deborah Wheeler',
-        scheduled: 5,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: 'Senior Software Engineer',
-        managerName: 'Krishnakumar K',
-        scheduled: 8,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: ' Senior Testing Engineer',
-        managerName: 'Krishnakumar K',
-        scheduled: 9,
-        shortlisted: 5,
-        rejected: 2,
-      },
-      {
-        assessment: ' Node.Js Expert',
-        managerName: 'Deborah Wheeler',
-        scheduled: 5,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: 'Senior Software Engineer',
-        managerName: 'Krishnakumar K',
-        scheduled: 8,
-        shortlisted: 2,
-        rejected: 1,
-      },
-      {
-        assessment: ' Senior Testing Engineer',
-        managerName: 'Krishnakumar K',
-        scheduled: 9,
-        shortlisted: 5,
-        rejected: 2,
-      },
-    ];
+  
     this.ManagerEmail = localStorage.getItem('managerEmail');
     this.managernameService
       .getManagerdata_by_Email(this.ManagerEmail)

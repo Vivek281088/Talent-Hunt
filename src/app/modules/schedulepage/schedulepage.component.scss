@@ -32,6 +32,16 @@
       color: #00000061;
       transition: box-shadow 0.2s;
     }
+    span.p-badge.p-component.p-badge-no-gutter.ng-star-inserted {
+      color: #495057;
+      font-size: 0.75rem;
+      font-weight: 700;
+      min-width: 0.5rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      background: transparent;
+      margin-left: 1px;
+    }
   }
 }
 

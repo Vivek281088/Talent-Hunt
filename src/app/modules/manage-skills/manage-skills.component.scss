@@ -956,3 +956,15 @@
   margin-bottom: 5px;
   //styleName: Body 2;
 }
+
+.newscheduleTable{
+  ::ng-deep {
+    .p-datatable .p-datatable-tbody > tr {
+      background: none;
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+

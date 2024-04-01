@@ -7,7 +7,6 @@ import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { Router } from '@angular/router';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
-
 import {
   ConfirmationService,
   MessageService,
@@ -45,11 +44,11 @@ export class ManageManagersComponent {
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.addManagerForm = this.fb.group({
       employeeId: [null, [Validators.required,Validators.minLength(6)]],
-      managerName: ['', [Validators.required,Validators.pattern(nonWhitespaceRegExp),Validators.minLength(3)]],
+      managerName: ['', [Validators.required,Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$')]],
       phone: [null, [Validators.required,Validators.minLength(10)]],
       department: ['', [Validators.required,Validators.minLength(3)]],
-      location: ['', [Validators.required]],
+      location: ['', [Validators.required ,Validators.minLength(3)]],
     });
   }
   ngOnInit() {
@@ -60,7 +59,7 @@ export class ManageManagersComponent {
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
+      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Managers', routerLink: '/manage-managers' },
     ];
   }
@@ -95,6 +94,7 @@ export class ManageManagersComponent {
     const day: number = date.getDate();
     const year: number = date.getFullYear();
     const formatDate: string = `${month} ${day}, ${year}`;
+
     return formatDate;
   }
   clear(table: Table) {
@@ -110,6 +110,7 @@ export class ManageManagersComponent {
   }
   selectedRowData: any;
   EditManagerDialog: boolean = false;
+
   handleEditIconClick(data: any) {
     this.isEditManager = true;
     this.isAddManager = false;
@@ -117,7 +118,7 @@ export class ManageManagersComponent {
 
     this.selectedRowData = data;
     console.log(' Selected Edit Data', this.selectedRowData);
-
+    console.log(' Edit -----------', this.isEditManager);
     this.populateFormControls();
   }
   populateFormControls() {
@@ -142,6 +143,7 @@ export class ManageManagersComponent {
     this.addManagerForm.markAsPristine();
     this.addManagerForm.markAsUntouched();
     this.formSubmitted = false;
+    this.isEditManager=false;
   }
   saveSuccessMessage() {
     this.messageService.add({
@@ -194,7 +196,7 @@ export class ManageManagersComponent {
       try {
         this.managerService
           .postClientManager(
-            formData.employeeId,
+            parseInt(formData.employeeId, 10),
             formData.managerName,
             formData.email,
             formData.phone,
@@ -203,7 +205,7 @@ export class ManageManagersComponent {
           )
           .subscribe({
             next: (x) => {
-              
+
               setTimeout(() => {
                 this.saveSuccessMessage();
                 this.cancelButton();
@@ -344,7 +346,7 @@ export class ManageManagersComponent {
   }
   confirmPosition(position: string) {
     this.position = position;
- 
+
     this.confirmationService.confirm({
       message: 'Do you want to delete the schedule?',
       header: 'Delete Confirmation',
@@ -356,7 +358,7 @@ export class ManageManagersComponent {
           detail: 'Schedule Deleted Successfully',
         });
      this.deleteManager();
-       
+
       },
       reject: (type: ConfirmEventType) => {
         switch (type) {

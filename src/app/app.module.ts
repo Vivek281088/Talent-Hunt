@@ -1,4 +1,4 @@
-import { NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
+import { ErrorHandler, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimeModule } from './prime.module';
 import { SharedModule } from './shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SchedulepageComponent } from './modules/schedulepage/schedulepage.component';
 import { NavbarComponent } from './modules/navbar/navbar.component';
 import { FooterComponent } from './modules/footer/footer.component';
@@ -39,8 +39,10 @@ import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.co
 import { ThreeDigitDirective } from './modules/schedulepage/directives/three-digit.directive';
 import { NameInputDirective } from './modules/manage-managers/name-input.directive';
 import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.directive';
-import { CustomDirective } from './custom.directive';
 import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
+import { CustomHttpException } from './error-page/customexception';
+import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor';
+
 
 
 
@@ -64,6 +66,7 @@ import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.compon
     SidenavbarComponent,
     AssessmentTableComponent,
     CandidatequestionComponent,
+    THDashboardComponent,
 
     BodyComponent,
       NewScheduleComponent,
@@ -76,8 +79,6 @@ import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.compon
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
-      CustomDirective,
-      THDashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,11 +89,22 @@ import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.compon
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
+  
     
     ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [MessageService,DatePipe],
+  providers: [MessageService,DatePipe,
+  {
+    provide : ErrorHandler,
+    useClass : CustomHttpException
+  },
+  {
+    provide : HTTP_INTERCEPTORS,
+    useClass : GlobalErrorInterceptor,
+    multi : true
+  }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

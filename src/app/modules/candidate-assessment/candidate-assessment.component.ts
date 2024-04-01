@@ -14,22 +14,6 @@ export class CandidateAssessmentComponent implements AfterViewInit {
   visible: boolean = false;
   candidateEmail!: string | null;
   assessmentData: any;
-  // assessmentData: any = [
-  //   {
-  //     testName: 'Angular Full Stack for Junior developers',
-  //     skills: ['AWS', 'Java'],
-  //     cutoff: 75,
-  //     duration: 10,
-  //     validity: '24-JAN',
-  //   },
-  //   {
-  //     testName: 'NodeJs Dev',
-  //     skills: ['Node.Js', 'Java'],
-  //     cutoff: 65,
-  //     duration: 15,
-  //     validity: '28-JAN',
-  //   },
-  // ];
   constructor(
     private messageService: MessageService,
     private managernameService: ManagernameService,
@@ -49,7 +33,7 @@ export class CandidateAssessmentComponent implements AfterViewInit {
       .getCandidatedata_by_Email(this.candidateEmail)
       .subscribe((response) => {
         this.assessmentData = response.filter((data: { email_Filename: any; }) => data.email_Filename!=null);
-        console.log('candidate data', this.assessmentData);
+        console.log('candidate data /////////', this.assessmentData);
         
 
         
