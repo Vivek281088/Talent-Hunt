@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { SidebarModule } from 'primeng/sidebar';
-import { Button, ButtonModule } from 'primeng/button';
+import {  ButtonModule } from 'primeng/button';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
-
 @Component({
   selector: 'app-question-preview',
   standalone: true,
@@ -13,22 +12,30 @@ import { NewScheduleService } from 'src/app/services/new-schedule.service';
   styleUrls: ['./question-preview.component.scss']
 })
 export class QuestionPreviewComponent implements OnInit{
-  @Input() previewQuestions !: string[];
+  @Input() showSidebar !:boolean;
+  @Input() previewQuestions !: any;
+  @Output() hidePreview : EventEmitter<boolean> = new EventEmitter<boolean>();
   singleQuestion: any;
-  totalQuestions: any;
+  totalQuestions !:any
   getQuestionService = inject(NewScheduleService);
   ngOnInit(): void {
-   this.getQuestionService.getIndividualQuestion("").subscribe((data) => {
+   this.getQuestionService.getIndividualQuestion(this.previewQuestions).subscribe((data) => {
     this.totalQuestions = data;
+    console.log("total questions preview",this.totalQuestions)
    })
   }
   closeButton() {
-    throw new Error('Method not implemented.');
+    this.showSidebar = false;
+    this.hidePreview.emit(false);
     }
-    getLabel(_t18: number) {
-    throw new Error('Method not implemented.');
+    getLabel(index: number) {
+      return String.fromCharCode(65 + index);
     }
-    getSelectedOptions(arg0: any,_t17: any): string|string[]|Set<string>|{ [klass: string]: any; }|null|undefined {
-    throw new Error('Method not implemented.');
+    getSelectedOptions(selected_Option: any, option: any) {
+      if (selected_Option.includes(option)) {
+        return 'correctAnswer';
+      } else {
+        return 'wrongAnswer';
+      }
     }
 }

@@ -42,6 +42,8 @@ import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.dir
 import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
 import { CustomHttpException } from './error-page/customexception';
 import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor';
+import { QuestionPreviewComponent } from './modules/question-preview/question-preview.component';
+import { zip } from 'rxjs';
 
 
 
@@ -89,7 +91,7 @@ import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor'
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
-  
+    QuestionPreviewComponent,
     
     ToastrModule.forRoot(),
   ],

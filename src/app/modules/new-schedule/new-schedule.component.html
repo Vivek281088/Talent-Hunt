@@ -1,3 +1,4 @@
+<app-question-preview *ngIf="previewSidebarVisible" [showSidebar]="previewSidebarVisible" [previewQuestions] ="selectedquestions"></app-question-preview>
 <div class="new-schedule-page">
   <div class="new-schedule-header">
     <div class="new-schedule-header-1">
@@ -20,7 +21,7 @@
         <p-button
         (click)="saveSelected() "
         label="Save Changes"
-          [disabled]="selectedquestions?.length == 0"
+          [disabled]="selectedquestions.length == 0"
         >
           <svg
             width="24"
@@ -39,7 +40,7 @@
       <div class="saveBtn" (click)="editSelected()" *ngIf="saveOrEditButton == 'Edit'">
         <p-button
           label="Edit Changes"
-          [disabled]="selectedquestions?.length == 0"
+          [disabled]="selectedquestions.length == 0"
         >
           <svg
             width="24"
@@ -424,7 +425,7 @@
     </ng-template>
   </p-dialog>
 </div>
-
+<!-- 
 <div class="questionsidebar">
   <p-sidebar
     [(visible)]="previewSidebarVisible"
@@ -444,9 +445,6 @@
             class="option"
             [ngClass]="getSelectedOptions(question.answer, option)"
           >
-            <!-- <input type="radio" name="first" id="small" />
-            <label class="box-design" for="small">A</label>
-            <span class="option-content">{{ preview.options[0] }}</span> -->
             <input
               type="radio"
               [name]="'option_' + i"
@@ -482,8 +480,7 @@
       </div>
     </ng-template>
   </p-sidebar>
-</div>
-
+</div> -->
 <div class="newSchedule-Dialog">
   <p-dialog
     header="New Schedule"

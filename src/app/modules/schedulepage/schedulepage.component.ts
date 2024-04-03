@@ -77,6 +77,7 @@ export class SchedulepageComponent implements OnInit {
   addnewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
   isScheduleInvalid: boolean = false;
+  previewQuestionsId:string[]=[]
 
   constructor(
     private tableService: TableService,
@@ -272,17 +273,22 @@ export class SchedulepageComponent implements OnInit {
   }
 
   closeSidebar() {
-    this, (this.viewQuestionSidebar = false);
+  this.viewQuestionSidebar = false;
   }
   onViewClick(data: any) {
     this.viewQuestionSidebar = true;
     console.log('View Data', data);
-    this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
-      this.FinalizedQuestions = response;
-      console.log('Updated Total Question data--', this.FinalizedQuestions);
-    });
+    // this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
+    //   this.FinalizedQuestions = response;
+    //   console.log('Updated Total Question data--', this.FinalizedQuestions);
+    //   this.previewQuestionsId=this.FinalizedQuestions.map(data=>data.id);
+    // });
+    this.previewQuestionsId = data.questions;
   }
 
+  onHidePreview(event:any){
+    this.viewQuestionSidebar = event
+  }
 
   getSelectedOptions(selected_Option: any, option: any) {
     if (selected_Option.includes(option)) {

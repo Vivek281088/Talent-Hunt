@@ -678,7 +678,8 @@ export class NewScheduleComponent {
   observables: any | undefined;
 
   onPreviewClick() {
-    this.previewSidebarVisible = true;
+    this.previewSidebarVisible = !this.previewSidebarVisible;
+    console.log("Preview Visible" , this.previewSidebarVisible);
 
     // this.observables = this.selectedquestions?.map((questionId: string) =>
     //   this.newScheduleService.getIndividualQuestion(questionId)

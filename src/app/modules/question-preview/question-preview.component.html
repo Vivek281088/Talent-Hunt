@@ -1,5 +1,5 @@
 <div class="questionsidebar">
-    <p-sidebar position="right">
+    <p-sidebar position="right" [(visible)]="showSidebar" [modal]="true" (onHide)="closeButton()">
       <ng-template class="header_design" pTemplate="header"
         >Questions Preview
       </ng-template>

@@ -39,6 +39,8 @@ export class ManageSkillsComponent {
   skills: any[] = [];
   previewSidebarVisible: boolean = false;
   questionPreviewvisible: boolean = false;
+  selectedQuestionsId:string[] =[];
+  
   singleQuestion: any;
   singleQuestionOption: any;
   singleQuestionAnswer: any;
@@ -118,16 +120,13 @@ export class ManageSkillsComponent {
   resetData() {
     //this.scheduleName = '';
   }
-
   getSkillSet() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skills = data;
       this.postSkill();
-
       console.log('skillset', this.skills);
     });
   }
-
   postSkill() {
     console.log('skill inside post', this.skills);
     this.skillsdropdownservice
@@ -145,11 +144,16 @@ export class ManageSkillsComponent {
         this.cdr.detectChanges();
       });
   }
+  onHidePreview(event:any){
+    this.previewSidebarVisible = event
+  }
   onPreviewClick(data: any) {
     console.log("on Previve click",data)
     this.selectedquestions = data;
-    this.previewSidebarVisible = true;
+    this.previewSidebarVisible = !this.previewSidebarVisible;
     console.log('inside the preview', this.selectedquestions);
+    this.selectedQuestionsId=this.selectedquestions.map(data=> data.id)
+    console.log("selectedquestionId",this.selectedQuestionsId);
   }
   questionPreview(questions: any) {
     console.log(questions);
@@ -160,7 +164,7 @@ export class ManageSkillsComponent {
     this.singleQuestionAnswer = questions.answer;
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    console.log(selected_Option);
+    
     if (selected_Option.includes(option)) {
       return 'correctAnswer';
     } else {
