@@ -87,6 +87,7 @@
         <p-knob
           [(ngModel)]="assessmentCount"
           valueTemplate="{value}%"
+          [readonly]="true"
           [size]="60"
         ></p-knob>
       </div>
@@ -118,6 +119,7 @@
 
       <div class="knob">
         <p-knob
+          [readonly]="true"
           [(ngModel)]="assessmentCount"
           valueTemplate="{value}%"
           [size]="60"
