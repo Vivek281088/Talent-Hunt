@@ -1,3 +1,4 @@
+
 <div class="whole-design">
   <div class="assesment-header">
     <p class="assessment-text">Questions</p>
@@ -14,7 +15,6 @@
       {{ todayDate }}
     </div>
   </div>
-
   <div class="candidate-table">
     <div class="tabview-count">
       <div class="tabview">
@@ -57,7 +57,6 @@
                           />
                         </span>
                       </div>
-
                       <div class="Createbutton">
                         <p-button
                           label="Preview"
@@ -66,7 +65,6 @@
                         >
                         </p-button>
                       </div>
-
                       <div class="Createbutton">
                         <button
                           pButton
@@ -79,7 +77,6 @@
                   </th>
                 </tr>
               </ng-template>
-
               <ng-template pTemplate="body" let-rowData let-j="rowIndex">
                 <tr class="customRow">
                   <td class="questiontext">
@@ -148,7 +145,6 @@
     </div>
   </div>
 </div>
-
 <div class="questionsidebar">
   <p-sidebar
     [(visible)]="previewSidebarVisible"
@@ -176,12 +172,10 @@
             <label class="box-design" [for]="'option' + question + '-' + i">{{
               getLabel(i)
             }}</label>
-
             <span class="option-content">{{ option }}</span>
           </div>
         </div>
       </span>
-
       <div class="btnfooter">
         <div class="quiz-instruction">
           <p class="instruction">Quiz Instructions</p>
@@ -203,7 +197,6 @@
     </ng-template>
   </p-sidebar>
 </div>
-
 <div class="card flex justify-content-centre">
   <div class="newSchedule-Dialog">
     <p-dialog
@@ -241,18 +234,15 @@
           </ul>
         </div>
       </div>
-
       <ng-template pTemplate="footer" class="Newschedule-button">
         <div class="Cancelbutton">
           <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
           </p-button>
         </div>
-
         <div class="Createbutton">
           <p-button label="Download" (onClick)="downloadTemplate()">
           </p-button>
         </div>
-
         <label class="custom-file-input">
           Upload File
           <input
@@ -265,7 +255,6 @@
     </p-dialog>
   </div>
 </div>
-
 <p-toast></p-toast>
 <div class="newSchedule-Dialog">
   <p-dialog
@@ -294,7 +283,6 @@
           />
         </div>
       </div>
-
       <div class="labelvalue">
         <div class="label">
           <label>QuestionType</label>
@@ -309,12 +297,10 @@
            (onChange) = "resetAnswers($event.value)"
             (ngModelChange)="formModified = true"
             formControlName="questionType"
-
           >
           </p-dropdown>
         </div>
       </div>
-
       <div class="labelvalue">
         <div class="label">
           <label>Difficulty Level</label>
@@ -333,7 +319,6 @@
           </p-dropdown>
         </div>
       </div>
-
       <div
         class="labelvalue"
         *ngIf="
@@ -355,12 +340,10 @@
             pInputText
           formControlName="choices{{i}}"
           
-
             
           />
         </div>
       </div>
-
       <div
         class="labelvalue"
         *ngIf="
@@ -389,12 +372,10 @@
             <!-- <p-checkbox name="group2" [value]="choices[i]" [inputId]="choices[i]" ></p-checkbox> -->
             <p-checkbox [formControl]="checkboxControl" [value]="choices[i]"></p-checkbox>
           </ng-template>
-
           <label for="answer{{ i }}" class="title">{{ letter }}</label>
         </div>
       </div>
     </div>
-
     <ng-template pTemplate="footer">
       <div class="Update-button">
         <div class="Cancelbutton">
@@ -411,7 +392,6 @@
     </ng-template>
   </p-dialog>
 </div>
-
 <div class="questionPreview">
   <p-dialog
     header="Question Preview"
@@ -439,7 +419,6 @@
       >
         <input type="radio" [checked]="option === singleQuestionAnswer" />
         <label class="box-design">{{ getLabel(i) }}</label>
-
         <span class="option-content">{{ option }}</span>
       </div>
     </div>
