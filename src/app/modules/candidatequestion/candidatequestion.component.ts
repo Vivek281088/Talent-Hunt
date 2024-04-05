@@ -98,12 +98,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
     this.updateTimer();
 
-    //get the assessment data
-    this.assessmentData = this.candidateAssessmentService.getAssessmentData();
-    
-
-    console.log('Assessment Data', this.assessmentData);
-    this.previewOptions = this.assessmentData.questions;
+   //get the assessment data
+   this.assessmentData = this.candidateAssessmentService.getAssessmentData();
+   console.log('Assessment Data', this.assessmentData);
+    // Assign the shuffled questions to the previewOptions
+    this.previewOptions =this.shuffleArray(this.assessmentData.questions);
     this.loginManagerId = this.assessmentData.loginManagerId
     this.duration = this.assessmentData.durations;
     this.fileName = this.assessmentData.email_Filename;
@@ -124,15 +123,29 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.updateSessionStorage();
   }
 
+  shuffleArray(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
   getQuestionsById(previewOptions: any) {
     console.log('get id', previewOptions);
-    const observables = previewOptions.map((questionId: string) =>
-      this.newScheduleService.getIndividualQuestion(questionId)
-    );
-    forkJoin(observables).subscribe((responses) => {
-      this.previewOptions = responses;
+
+    this.newScheduleService.getIndividualQuestion(previewOptions).subscribe((response: any) => {
+      this.previewOptions = response;
       console.log('Updated Total Question data--', this.previewOptions);
     });
+
+    // const observables = previewOptions.map((questionId: string) =>
+    //   this.newScheduleService.getIndividualQuestion(questionId)
+    // );
+    // forkJoin(observables).subscribe((responses) => {
+    //   this.previewOptions = responses;
+    //   console.log('Updated Total Question data--', this.previewOptions);
+    // });
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
     console.log("inside selected option")
@@ -150,6 +163,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
         console.log('else option', option);
         this.selectedOptions1[pageIndex].push(option);
       }
+
     } else {
       // Radio option (single selection)
       this.selectedOptions1[pageIndex] === option ? this.selectedOptions1[pageIndex] = '' : this.selectedOptions1[pageIndex] = option;
@@ -209,7 +223,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     if (this.first >= this.rows) {
       this.page -= 1;
       this.first -= this.rows;
-  
+
     }
   }
   next() {
@@ -336,7 +350,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           allowOutsideClick: false,
         }).then((result: { isConfirmed: any; }) => {
           if (result.isConfirmed) {
-            
+
             this.router.navigate(['/login']);
           }
         });
@@ -371,8 +385,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.rows = event.rows;
     this.page = event.page;
     this.pageCount = event.pageCount;
-    console.log("first- " , this.first , "rows - " , this.rows , "page- " , this.page)
-    console.log('selected Option', this.selectedOptions1);
   }
 
   showQuestion(questionId: number) {

@@ -45,10 +45,11 @@ export class ManageSkillsComponent {
   updateQuestionForm:FormGroup;
   checkboxControl!: FormControl;
   headers = ['question', 'questionType', 'difficulty', 'option1', 'option2', 'option3', 'option4', 'answer1', 'answer2', 'answer3', 'answer4', 'skill'];
-  exampleData = [
-    ['How many types of cloud computing are there?', 'Radio', 'E', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer 1', '', '', '', 'AWS'],
-    ['What is Angular?', 'Checkbox', 'M', 'Option A', 'Option B', 'Option C', 'Option D', '', '', '', '', 'Web Development']
-  ];
+  // exampleData = [
+  //   ['How many types of cloud computing are there?', 'Radio', 'E', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer 1', '', '', '', 'AWS'],
+  //   ['What is Angular?', 'Checkbox', 'M', 'Option A', 'Option B', 'Option C', 'Option D', '', '', '', '', 'Web Development']
+
+  // ];
 
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
@@ -63,9 +64,9 @@ export class ManageSkillsComponent {
       question: ['', [Validators.required,Validators.minLength(7)]],
       questionType: ['', [Validators.required,]],
       difficulty: ['',[Validators.required,]],
-      choices0: ['', Validators.required,optionValodator()], 
-      choices1: ['', Validators.required,optionValodator()],       
-      choices2: ['', Validators.required,optionValodator()],     
+      choices0: ['', Validators.required,optionValodator()],
+      choices1: ['', Validators.required,optionValodator()],
+      choices2: ['', Validators.required,optionValodator()],
       choices3: ['', Validators.required,optionValodator()],
       answer:['',Validators.required]
     });
@@ -124,7 +125,7 @@ export class ManageSkillsComponent {
       .postskillsList(this.skills)
       .subscribe((response) => {
         console.log('recieved response', response);
-        
+
         for (let i = 0; i < response.length; i++) {
           this.tabs.push({
             title: response[i].skills,
@@ -202,22 +203,29 @@ export class ManageSkillsComponent {
     // //   const questionType = data[1]?.trim() || ''; 
     // //   const difficulty = data[2]?.trim() || ''; 
     // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || '']; 
+    // //   const questionType = data[1]?.trim() || '';
+    // //   const difficulty = data[2]?.trim() || '';
+    // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || ''];
+
     // //   let answers: any[] = [];
     // //   if (questionType === 'Radio') {
-    // //     const answer = data[7]?.trim() || ''; 
+    // //     const answer = data[7]?.trim() || '';
     // //     if (answer !== '') {
     // //       answers = answer;
     // //     }
     // //   } else {
     // //     answers = [
-    // //       data[7]?.trim() || '', 
-    // //       data[8]?.trim() || '', 
-    // //       data[9]?.trim() || '', 
+    // //       data[7]?.trim() || '',
+    // //       data[8]?.trim() || '',
+    // //       data[9]?.trim() || '',
     // //       data[10]?.trim() || ''
-    // //     ]; 
+    // //     ];
     // //     answers = answers.filter(answer => answer !== '');
     // //   }
     // //   const skill = data[11]?.trim() || ''; 
+
+    // //   const skill = data[11]?.trim() || '';
+
     // //   if (question !== '' && questionType !== '') {
     // //     results.push({
     // //       question,
@@ -225,7 +233,7 @@ export class ManageSkillsComponent {
     // //       difficulty,
     // //       options,
     // //       answers,
-    // //       skill: skill.replace(/\r$/, '') 
+    // //       skill: skill.replace(/\r$/, '')
     // //     });
     // //   }
     // // });
@@ -238,7 +246,7 @@ export class ManageSkillsComponent {
   downloadTemplate() {
     const csvContent = Papa.unparse({
       fields: this.headers,
-      data: this.exampleData
+       data: []
     });
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
@@ -386,7 +394,7 @@ export class ManageSkillsComponent {
     this.choices = choices;
     this.Difficulty_Level = this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
     console.log("difficulty level",Difficulty_Level, this.Difficulty_Level);
-    
+
     this.skills = skills;
     this.answer = answer;
     console.log(
@@ -421,8 +429,8 @@ export class ManageSkillsComponent {
     //   console.log("answer",this.updateQuestionForm.get('answer'))
     //   this.updateQuestionForm.get('answer')?.reset();
     // }
-    
-   
+
+
   // this.updateQuestionForm.get('answer')?.patchValue(null);
   }
   getBackendDifficultyLevelViceVersa(frontendValue: string): string {
@@ -447,7 +455,7 @@ export class ManageSkillsComponent {
     return frontendValue;
   }
   updateQuestionView() {
-   
+
     const qType =  this.updateQuestionForm.get('questionType')?.value;
     let answer;
     if(qType === "Checkbox"){
@@ -501,7 +509,7 @@ export class ManageSkillsComponent {
     this.QuestionView = false;
     this.formModified = false;
   }
-  
+
   sidebarClose() {
     this.previewSidebarVisible = false;
   }
