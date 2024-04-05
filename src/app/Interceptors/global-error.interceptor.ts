@@ -18,11 +18,11 @@ export class GlobalErrorInterceptor implements HttpInterceptor {
     .pipe(
       catchError((err : Error) =>{
         console.log('error caught by Interceptor' , err);
-        this.messageService.add({
-          severity : 'error',
-          summary : err.name,
-          detail : err.message
-      })
+      //   this.messageService.add({
+      //     severity : 'error',
+      //     summary : err.name,
+      //     detail : err.message
+      // })
         return throwError(()=> {
           console.log("error in the throw error block" )
           return err;

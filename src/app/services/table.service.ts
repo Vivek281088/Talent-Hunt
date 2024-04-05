@@ -157,7 +157,7 @@ export class TableService {
     candidate_location: string,
     loginManagerid: string | null,
     scheduledTime : string,
-    
+
   ): Observable<any> {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
@@ -166,7 +166,7 @@ export class TableService {
       empid: empid,
       email_Managername: managerName,
       candidateName: candidateName,
-      candidateEmail: candidateEmail,
+      email: candidateEmail,
       candidatePhone: candidatePhone,
       email_Status: status,
       email_Filename: fileName,
