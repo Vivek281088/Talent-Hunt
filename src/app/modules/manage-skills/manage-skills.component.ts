@@ -1,9 +1,8 @@
-
-
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
+
 import { SkillsdropdownService } from 'src/app/services/skillsdropdown.service';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
@@ -13,6 +12,7 @@ import { Table } from 'primeng/table';
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
+
 import {
   ConfirmationService,
   MessageService,
@@ -21,6 +21,7 @@ import {
 } from 'primeng/api';
 import { Router } from '@angular/router';
 import { optionValodator } from './optionvalidator';
+
 @Component({
   selector: 'app-manage-skills',
   templateUrl: './manage-skills.component.html',
@@ -51,6 +52,7 @@ export class ManageSkillsComponent {
 
   // ];
 
+
   constructor(
     private skillsdropdownservice: SkillsdropdownService,
     private router: Router,
@@ -72,6 +74,7 @@ export class ManageSkillsComponent {
     });
     this.checkboxControl = this.fb.control([]);
   }
+
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'question_bank');
     this.todayDate = this.formattedDate(new Date());
@@ -96,29 +99,36 @@ export class ManageSkillsComponent {
       'Nov',
       'Dec',
     ];
+
     const month: string = months[date.getMonth()];
     const day: number = date.getDate();
     const year: number = date.getFullYear();
     const formatDate: string = `${month} ${day}, ${year}`;
+
     return formatDate;
   }
   clear(table: Table) {
     table.clear();
   }
+
   cancelButton() {
     this.visible = false;
     this.resetData();
   }
+
   resetData() {
     //this.scheduleName = '';
   }
+
   getSkillSet() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skills = data;
       this.postSkill();
+
       console.log('skillset', this.skills);
     });
   }
+
   postSkill() {
     console.log('skill inside post', this.skills);
     this.skillsdropdownservice
@@ -147,6 +157,7 @@ export class ManageSkillsComponent {
     this.singleQuestionOption = questions.options;
     this.singleQuestionAnswer = questions.answer;
   }
+
   getSelectedOptions(selected_Option: any, option: any) {
     if (selected_Option.includes(option)) {
       return 'correctAnswer';
@@ -160,6 +171,7 @@ export class ManageSkillsComponent {
   newQuestionAdd() {
     this.visible = true;
   }
+
   storeSkill() {
     this.skillsdropdownservice
       .postOneSkill(this.scheduleName)
@@ -189,6 +201,7 @@ export class ManageSkillsComponent {
     value.subscribe((data)=> {
       console.log(data)
     })
+
     // if (file) {
     //   const reader: FileReader = new FileReader();
     //   reader.onload = () => {
@@ -196,13 +209,11 @@ export class ManageSkillsComponent {
     //     // this.processCsvData(csvData);
     //     const results: any[] = [];
 
+
     // // const lines = csvData.split('\n');
     // // lines.forEach((line:any) => {
     // //   const data = line.split(',');
     // //   const question = data[0]?.trim() || '';
-    // //   const questionType = data[1]?.trim() || ''; 
-    // //   const difficulty = data[2]?.trim() || ''; 
-    // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || '']; 
     // //   const questionType = data[1]?.trim() || '';
     // //   const difficulty = data[2]?.trim() || '';
     // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || ''];
@@ -222,7 +233,6 @@ export class ManageSkillsComponent {
     // //     ];
     // //     answers = answers.filter(answer => answer !== '');
     // //   }
-    // //   const skill = data[11]?.trim() || ''; 
 
     // //   const skill = data[11]?.trim() || '';
 
@@ -237,9 +247,11 @@ export class ManageSkillsComponent {
     // //     });
     // //   }
     // // });
+
     // results.shift();
     // console.log(results);
     //   };
+
     //   reader.readAsText(file);
     // }
   }
@@ -248,6 +260,7 @@ export class ManageSkillsComponent {
       fields: this.headers,
        data: []
     });
+
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     if (link.download !== undefined) {
@@ -262,6 +275,7 @@ export class ManageSkillsComponent {
   processCsv(file: File): Observable<any[]>{
     return new Observable<any[]>(observer => {
       const results: any[] = [];
+
       const reader = new FileReader();
       reader.onload = () => {
         const fileContent = reader.result as string;
@@ -290,6 +304,7 @@ export class ManageSkillsComponent {
                 skill: row[11]?.trim().replace(/\r$/, '') || ''
               });
             });
+
             // When parsing is finished, emit the results array
             observer.next(results);
             observer.complete();
@@ -300,6 +315,7 @@ export class ManageSkillsComponent {
           }
         });
       };
+
       reader.readAsText(file);
     });
   }
@@ -309,24 +325,29 @@ export class ManageSkillsComponent {
         const csvRows = result.data.filter((row: { [row: string]: string }) =>
           Object.keys(row).some((key) => row[key] !== '')
         );
+
         if (csvRows.length === 0) {
           this.fileUploadErrorMessage();
           this.cancelButton();
           return;
         }
         console.log('CSV Data:', csvRows);
+
         for (let data of csvRows) {
           console.log('Data---->', data);
+
           const optionsArray = [];
           for (let i = 1; data['option-' + i]; i++) {
             optionsArray.push(data['option-' + i]);
           }
           console.log('Options Array', optionsArray);
+
           const answerArray = [];
           for (let i = 1; data['answer-' + i]; i++) {
             answerArray.push(data['answer-' + i]);
           }
           console.log('Answer Array--', answerArray);
+
           const questionData = {
             Question: data.Question,
             questionType: data.questionType,
@@ -335,9 +356,12 @@ export class ManageSkillsComponent {
             difficulty: data.difficulty,
             answer: answerArray,
           };
+
           console.log('Question Data--', questionData);
+
           this.storeQuestion(questionData);
         }
+
         setTimeout(() => {
           this.fileUploadMessage();
           this.cancelButton();
@@ -346,6 +370,7 @@ export class ManageSkillsComponent {
       header: true,
     });
   }
+
   fileUploadMessage() {
     this.messageService.add({
       severity: 'success',
@@ -366,12 +391,14 @@ export class ManageSkillsComponent {
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'questions-template.csv');
   }
+
   choices!: any;
   options!: any;
   Difficulty_Level!: any;
   id!: any;
   answer!: any;
   difficultyLevel: any = ['Easy', 'Medium', 'Hard'];
+
   questionType: any = ['Radio', 'Checkbox'];
   questionTypeSelected!: any;
   question!: string;
@@ -392,11 +419,13 @@ export class ManageSkillsComponent {
     this.questionTypeSelected = questionTypeSelected;
     // this.options=choices;
     this.choices = choices;
+
     this.Difficulty_Level = this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
     console.log("difficulty level",Difficulty_Level, this.Difficulty_Level);
 
     this.skills = skills;
     this.answer = answer;
+
     console.log(
       'id------------->',
       id,
@@ -454,6 +483,7 @@ export class ManageSkillsComponent {
     }
     return frontendValue;
   }
+
   updateQuestionView() {
 
     const qType =  this.updateQuestionForm.get('questionType')?.value;
@@ -514,4 +544,3 @@ export class ManageSkillsComponent {
     this.previewSidebarVisible = false;
   }
 }
-
