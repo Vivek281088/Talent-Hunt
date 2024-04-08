@@ -31,11 +31,7 @@ export class QuestionPreviewComponent implements OnInit{
     getLabel(index: number) {
       return String.fromCharCode(65 + index);
     }
-    getSelectedOptions(selected_Option: any, option: any) {
-      if (selected_Option.includes(option)) {
-        return 'correctAnswer';
-      } else {
-        return 'wrongAnswer';
-      }
+    getSelectedOptions(question: any, option: any) {
+      return question.questionType === "Radio" ? (question.answer === option ? 'correctAnswer' : 'wrongAnswer') : (question.answer.includes(option) ? 'correctAnswer' : 'wrongAnswer');
     }
 }
