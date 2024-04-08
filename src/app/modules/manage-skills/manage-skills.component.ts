@@ -48,10 +48,7 @@ export class ManageSkillsComponent {
   updateQuestionForm:FormGroup;
   checkboxControl!: FormControl;
   headers = ['question', 'questionType', 'difficulty', 'option1', 'option2', 'option3', 'option4', 'answer1', 'answer2', 'answer3', 'answer4', 'skill'];
-  exampleData = [
-    ['How many types of cloud computing are there?', 'Radio', 'E', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer 1', '', '', '', 'AWS'],
-    ['What is Angular?', 'Checkbox', 'M', 'Option A', 'Option B', 'Option C', 'Option D', '', '', '', '', 'Web Development']
-  ];
+
 
 
   constructor(
@@ -269,7 +266,7 @@ export class ManageSkillsComponent {
   downloadTemplate() {
     const csvContent = Papa.unparse({
       fields: this.headers,
-      data: this.exampleData
+      data: []
     });
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });

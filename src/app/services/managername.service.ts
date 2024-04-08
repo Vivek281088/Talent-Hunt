@@ -305,7 +305,7 @@ export class ManagernameService {
     const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     console.log('Post Question Data', data);
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb1',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb',
       data,
       {
         headers,
