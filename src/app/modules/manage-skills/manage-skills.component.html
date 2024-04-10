@@ -1,3 +1,4 @@
+<app-question-preview *ngIf="previewSidebarVisible" [showSidebar]="previewSidebarVisible" [previewQuestions] ="selectedQuestionsId" (hidePreview)="onHidePreview($event)"></app-question-preview>
 <div class="whole-design">
   <div class="assesment-header">
     <p class="assessment-text">Questions</p>
@@ -148,8 +149,7 @@
     </div>
   </div>
 </div>
-
-<div class="questionsidebar">
+<!-- <div class="questionsidebar"> 
   <p-sidebar
     [(visible)]="previewSidebarVisible"
     position="right"
@@ -202,7 +202,7 @@
       </div>
     </ng-template>
   </p-sidebar>
-</div>
+</div>  -->
 
 <div class="card flex justify-content-centre">
   <div class="newSchedule-Dialog">

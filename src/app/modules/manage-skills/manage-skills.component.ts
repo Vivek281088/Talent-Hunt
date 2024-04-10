@@ -11,7 +11,7 @@ import { ReviewerService } from 'src/app/services/reviewer.service';
 import { Table } from 'primeng/table';
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 
 import {
   ConfirmationService,
@@ -39,6 +39,8 @@ export class ManageSkillsComponent {
   skills: any[] = [];
   previewSidebarVisible: boolean = false;
   questionPreviewvisible: boolean = false;
+  selectedQuestionsId:string[] =[];
+  
   singleQuestion: any;
   singleQuestionOption: any;
   singleQuestionAnswer: any;
@@ -46,10 +48,7 @@ export class ManageSkillsComponent {
   updateQuestionForm:FormGroup;
   checkboxControl!: FormControl;
   headers = ['question', 'questionType', 'difficulty', 'option1', 'option2', 'option3', 'option4', 'answer1', 'answer2', 'answer3', 'answer4', 'skill'];
-  exampleData = [
-    ['How many types of cloud computing are there?', 'Radio', 'E', 'Option 1', 'Option 2', 'Option 3', 'Option 4', 'Answer 1', '', '', '', 'AWS'],
-    ['What is Angular?', 'Checkbox', 'M', 'Option A', 'Option B', 'Option C', 'Option D', '', '', '', '', 'Web Development']
-  ];
+
 
 
   constructor(
@@ -118,16 +117,13 @@ export class ManageSkillsComponent {
   resetData() {
     //this.scheduleName = '';
   }
-
   getSkillSet() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
       this.skills = data;
       this.postSkill();
-
       console.log('skillset', this.skills);
     });
   }
-
   postSkill() {
     console.log('skill inside post', this.skills);
     this.skillsdropdownservice
@@ -145,19 +141,27 @@ export class ManageSkillsComponent {
         this.cdr.detectChanges();
       });
   }
+  onHidePreview(event:any){
+    this.previewSidebarVisible = event
+  }
   onPreviewClick(data: any) {
+    console.log("on Previve click",data)
     this.selectedquestions = data;
-    this.previewSidebarVisible = true;
+    this.previewSidebarVisible = !this.previewSidebarVisible;
     console.log('inside the preview', this.selectedquestions);
+    this.selectedQuestionsId=this.selectedquestions.map(data=> data.id)
+    console.log("selectedquestionId",this.selectedQuestionsId);
   }
   questionPreview(questions: any) {
+    console.log(questions);
     this.questionPreviewvisible = true;
     this.singleQuestion = questions.question;
     this.singleQuestionOption = questions.options;
+    console.log(this.singleQuestionOption);
     this.singleQuestionAnswer = questions.answer;
   }
-
   getSelectedOptions(selected_Option: any, option: any) {
+    
     if (selected_Option.includes(option)) {
       return 'correctAnswer';
     } else {
@@ -181,24 +185,29 @@ export class ManageSkillsComponent {
       });
   }
   storeQuestion(data: any) {
-    this.managerService
-      .postquestionstodb(
-        data.Question,
-        data.questionType,
-        data.options,
-        data.skill,
-        data.difficulty,
-        data.answer
+    console.log("inside store Question" , data)
+    this.managerService.postquestions(data)
+    .pipe(
+      catchError((err : any) => {
+        this.messageService.add({
+          severity : 'error',
+          summary : err.message,
+         
+      })
+      return of(null);
+      }
       )
-      .subscribe((data) => {
+    ).subscribe((data) => {
         console.log('Stored Question', data);
-      });
+      })
   }
   uploadCsv(event: any) {
     const file: File = event.target.files[0];
     const value = this.processCsv(file);
-    value.subscribe((data)=> {
-      console.log(data)
+    value.subscribe((data:any)=> {
+      data.shift()
+      this.storeQuestion(data);
+      console.log(data);
     })
 
     // if (file) {
@@ -257,7 +266,7 @@ export class ManageSkillsComponent {
   downloadTemplate() {
     const csvContent = Papa.unparse({
       fields: this.headers,
-      data: this.exampleData
+      data: []
     });
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -282,6 +291,12 @@ export class ManageSkillsComponent {
           header: false,
           skipEmptyLines: true,
           complete: (result) => {
+            if (result.data.length < 2) {
+              this.fileUploadErrorMessage();
+              this.cancelButton();
+              return;
+            }
+            console.log("After complete method",result)
             result.data.forEach((row:any) => {
               const questionType = row[1]?.trim() || '';
               let answers: any;
@@ -424,15 +439,7 @@ export class ManageSkillsComponent {
     
     this.skills = skills;
     this.answer = answer;
-
-    console.log(
-      'id------------->',
-      id,
-      skills,
-      answer,
-      this.Difficulty_Level,
-      choices
-    );
+    console.log("all the data" , question , id , questionTypeSelected , choices , skills ,Difficulty_Level,answer)
     this.updateQuestionForm.patchValue({
       question: question,
       questionType : questionTypeSelected,
@@ -484,7 +491,6 @@ export class ManageSkillsComponent {
   }
 
   updateQuestionView() {
-   
     const qType =  this.updateQuestionForm.get('questionType')?.value;
     let answer;
     if(qType === "Checkbox"){
@@ -532,9 +538,6 @@ export class ManageSkillsComponent {
     console.log("value", this.checkboxControl.value)
     console.log(" check box from" , this.checkboxControl)
     console.log("updateform",this.updateQuestionForm);
-    //this.checkboxControl.reset();
-    // this.updateQuestionForm.reset();
-    // this.checkboxControl.reset()
     this.QuestionView = false;
     this.formModified = false;
   }

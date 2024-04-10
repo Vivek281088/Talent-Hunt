@@ -29,7 +29,7 @@ export class NotificationService {
     };
     console.log("notification service",body);
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification2',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/notification',
       body,
       { headers }
     );
