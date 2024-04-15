@@ -44,6 +44,7 @@ import { CustomHttpException } from './error-page/customexception';
 import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor';
 import { QuestionPreviewComponent } from './modules/question-preview/question-preview.component';
 import { zip } from 'rxjs';
+import { MFAComponent } from './modules/mfa/mfa.component';
 
 
 
@@ -81,6 +82,7 @@ import { zip } from 'rxjs';
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
+     
   ],
   imports: [
     BrowserModule,
@@ -92,7 +94,7 @@ import { zip } from 'rxjs';
     HttpClientModule,
     ReactiveFormsModule,
     QuestionPreviewComponent,
-    
+    MFAComponent,
     ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],

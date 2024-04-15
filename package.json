@@ -31,6 +31,7 @@
     "moment-timezone": "^0.5.45",
     "mongodb": "^5.8.1",
     "mongoose": "^7.4.5",
+    "ng-otp-input": "^1.9.3",
     "ng2-file-upload": "^5.0.0",
     "ngx-toastr": "^17.0.2",
     "papaparse": "^5.4.1",

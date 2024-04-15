@@ -126,7 +126,10 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
   getQuestionsById(previewOptions: any) {
     console.log('get id', previewOptions);
-    this.previewOptions = this.newScheduleService.getIndividualQuestion(previewOptions);
+     this.newScheduleService.getIndividualQuestion(previewOptions).subscribe( data => {
+      console.log("total question " , data)
+      this.previewOptions = data;
+    });
     console.log('Updated Total Question data--', this.previewOptions);
     // const observables = previewOptions.map((questionId: string) =>
     //   this.newScheduleService.getIndividualQuestion(questionId)

@@ -1,0 +1,19 @@
+
+<div class="card flex justify-content-center">
+  
+    <p-dialog   [modal]="true" [(visible)]="visible" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '25vw', 'height': '50vh' }" [draggable]="false" [resizable]="false" [closable]="true">
+       <div class="dialog-body">
+        <div class="logo-text">
+        <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
+        <p class="heading">MTalent</p>
+    </div>
+            <div>
+                <ng-otp-input  (onInputChange)="onOtpChange($event)"   [config]="{length:6 , allowNumbersOnly:true}"></ng-otp-input>
+            </div>
+            <div class="verify-button">
+                
+                <button  class="verify-button "> Verify Now</button>
+            </div>
+        </div> 
+    </p-dialog>
+</div>
