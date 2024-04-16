@@ -45,6 +45,7 @@ import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor'
 import { QuestionPreviewComponent } from './modules/question-preview/question-preview.component';
 import { zip } from 'rxjs';
 import { MFAComponent } from './modules/mfa/mfa.component';
+import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
 
 
 
@@ -95,6 +96,7 @@ import { MFAComponent } from './modules/mfa/mfa.component';
     ReactiveFormsModule,
     QuestionPreviewComponent,
     MFAComponent,
+    Enable2faComponent,
     ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],
