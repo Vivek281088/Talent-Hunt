@@ -1,3 +1,4 @@
+<app-question-preview *ngIf="previewSidebarVisible" [showSidebar]="previewSidebarVisible" [previewQuestions] ="selectedQuestionsId" (hidePreview)="onHidePreview($event)"></app-question-preview>
 <div class="whole-design">
   <div class="assesment-header">
     <p class="assessment-text">Questions</p>
@@ -29,7 +30,7 @@
               [value]="tab.content"
               dataKey="id"
               [scrollable]="true"
-              scrollHeight="400px"
+              scrollHeight="740px"
               [globalFilterFields]="[
                 'question',
                 'questionType',
@@ -148,8 +149,7 @@
     </div>
   </div>
 </div>
-
-<div class="questionsidebar">
+<!-- <div class="questionsidebar"> 
   <p-sidebar
     [(visible)]="previewSidebarVisible"
     position="right"
@@ -202,7 +202,7 @@
       </div>
     </ng-template>
   </p-sidebar>
-</div>
+</div>  -->
 
 <div class="card flex justify-content-centre">
   <div class="newSchedule-Dialog">
@@ -427,8 +427,8 @@
       </div>
     </ng-template>
     <div class="questionpreviewcardbody">
-      <div class="questionhead">
-        {{ singleQuestion }}
+      <div class="questionhead">{{ singleQuestion }}
+      <!-- <pre class="questionhead">{{ singleQuestion }}</pre> -->
       </div>
     </div>
     <div class="select-size">
@@ -440,7 +440,7 @@
         <input type="radio" [checked]="option === singleQuestionAnswer" />
         <label class="box-design">{{ getLabel(i) }}</label>
 
-        <span class="option-content">{{ option }}</span>
+        <pre class="option-content">{{ option }}</pre>
       </div>
     </div>
   </p-dialog>
