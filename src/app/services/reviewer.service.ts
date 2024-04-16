@@ -21,7 +21,7 @@ export class ReviewerService {
 
     email_FileName: String
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
       email_Managername: email_Managername,
@@ -38,7 +38,7 @@ export class ReviewerService {
 
       body,
 
-      { headers }
+      // { headers }
     );
   }
 
@@ -64,7 +64,7 @@ console.log("data from service",data)
   }
 
   getTestResponse_by_testId(Id: string): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
       testId: Id,
@@ -75,9 +75,9 @@ console.log("data from service",data)
     return this.http.post<any>(
       this.defaultUrl + '/candidate-response-by-testId',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
 }

@@ -44,6 +44,7 @@ import { CustomHttpException } from './error-page/customexception';
 import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor';
 import { QuestionPreviewComponent } from './modules/question-preview/question-preview.component';
 import { zip } from 'rxjs';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 
 
@@ -68,7 +69,8 @@ import { zip } from 'rxjs';
     SidenavbarComponent,
     AssessmentTableComponent,
     CandidatequestionComponent,
-    THDashboardComponent,
+    THDashboardComponent
+    ,
 
     BodyComponent,
       NewScheduleComponent,
@@ -92,7 +94,7 @@ import { zip } from 'rxjs';
     HttpClientModule,
     ReactiveFormsModule,
     QuestionPreviewComponent,
-    
+
     ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],
@@ -105,7 +107,14 @@ import { zip } from 'rxjs';
     provide : HTTP_INTERCEPTORS,
     useClass : GlobalErrorInterceptor,
     multi : true
+  },
+  {
+    provide :  HTTP_INTERCEPTORS,
+    useClass:AuthInterceptorService,
+    multi:true
   }
+
+
   ],
   bootstrap: [AppComponent],
 })
