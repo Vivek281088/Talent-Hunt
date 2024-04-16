@@ -39,8 +39,8 @@ export class ManageSkillsComponent {
   skills: any[] = [];
   previewSidebarVisible: boolean = false;
   questionPreviewvisible: boolean = false;
-  selectedQuestionsId: string[] = [];
-
+  selectedQuestionsId:string[] =[];
+  
   singleQuestion: any;
   singleQuestionOption: any;
   singleQuestionAnswer: any;
@@ -141,16 +141,16 @@ export class ManageSkillsComponent {
         this.cdr.detectChanges();
       });
   }
-  onHidePreview(event: any) {
+  onHidePreview(event:any){
     this.previewSidebarVisible = event
   }
   onPreviewClick(data: any) {
-    console.log("on Previve click", data)
+    console.log("on Previve click",data)
     this.selectedquestions = data;
     this.previewSidebarVisible = !this.previewSidebarVisible;
     console.log('inside the preview', this.selectedquestions);
-    this.selectedQuestionsId = this.selectedquestions.map(data => data.id)
-    console.log("selectedquestionId", this.selectedQuestionsId);
+    this.selectedQuestionsId=this.selectedquestions.map(data=> data.id)
+    console.log("selectedquestionId",this.selectedQuestionsId);
   }
   questionPreview(questions: any) {
     console.log(questions);
@@ -161,7 +161,7 @@ export class ManageSkillsComponent {
     this.singleQuestionAnswer = questions.answer;
   }
   getSelectedOptions(selected_Option: any, option: any) {
-
+    
     if (selected_Option.includes(option)) {
       return 'correctAnswer';
     } else {
@@ -185,19 +185,19 @@ export class ManageSkillsComponent {
       });
   }
   storeQuestion(data: any) {
-    console.log("inside store Question", data)
+    console.log("inside store Question" , data)
     this.managerService.postquestions(data)
-      .pipe(
-        catchError((err: any) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: err.message,
-
-          })
-          return of(null);
-        }
-        )
-      ).subscribe((data) => {
+    .pipe(
+      catchError((err : any) => {
+        this.messageService.add({
+          severity : 'error',
+          summary : err.message,
+         
+      })
+      return of(null);
+      }
+      )
+    ).subscribe((data) => {
         console.log('Stored Question', data);
       })
   }
@@ -221,11 +221,64 @@ export class ManageSkillsComponent {
       return;
     }
     const value = this.processCsv(file);
-    value.subscribe((data: any) => {
+    value.subscribe((data:any)=> {
       data.shift()
       this.storeQuestion(data);
       console.log(data);
-    });
+    })
+
+    // if (file) {
+    //   const reader: FileReader = new FileReader();
+    //   reader.onload = () => {
+    //      const csvData: string = reader.result as string;
+    //     // this.processCsvData(csvData);
+    //     const results: any[] = [];
+
+
+    // // const lines = csvData.split('\n');
+    // // lines.forEach((line:any) => {
+    // //   const data = line.split(',');
+    // //   const question = data[0]?.trim() || '';
+    // //   const questionType = data[1]?.trim() || ''; 
+    // //   const difficulty = data[2]?.trim() || ''; 
+    // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || '']; 
+
+    // //   let answers: any[] = [];
+    // //   if (questionType === 'Radio') {
+    // //     const answer = data[7]?.trim() || ''; 
+    // //     if (answer !== '') {
+    // //       answers = answer;
+    // //     }
+    // //   } else {
+    // //     answers = [
+    // //       data[7]?.trim() || '', 
+    // //       data[8]?.trim() || '', 
+    // //       data[9]?.trim() || '', 
+    // //       data[10]?.trim() || ''
+    // //     ]; 
+    // //     answers = answers.filter(answer => answer !== '');
+    // //   }
+
+    // //   const skill = data[11]?.trim() || ''; 
+
+    // //   if (question !== '' && questionType !== '') {
+    // //     results.push({
+    // //       question,
+    // //       questionType,
+    // //       difficulty,
+    // //       options,
+    // //       answers,
+    // //       skill: skill.replace(/\r$/, '') 
+    // //     });
+    // //   }
+    // // });
+
+    // results.shift();
+    // console.log(results);
+    //   };
+
+    //   reader.readAsText(file);
+    // }
   }
 
   downloadTemplate() {
@@ -261,8 +314,8 @@ export class ManageSkillsComponent {
               this.cancelButton();
               return;
             }
-            console.log("After complete method", result)
-            result.data.forEach((row: any) => {
+            console.log("After complete method",result)
+            result.data.forEach((row:any) => {
               const questionType = row[1]?.trim() || '';
               let answers: any;
               if (questionType === 'Radio') {
@@ -410,7 +463,7 @@ csvUploadErrorMessage() {
 
     this.skills = skills;
     this.answer = answer;
-    console.log("all the data", question, id, questionTypeSelected, choices, skills, Difficulty_Level, answer)
+    console.log("all the data" , question , id , questionTypeSelected , choices , skills ,Difficulty_Level,answer)
     this.updateQuestionForm.patchValue({
       question: question,
       questionType: questionTypeSelected,
@@ -462,7 +515,7 @@ csvUploadErrorMessage() {
   }
 
   updateQuestionView() {
-    const qType = this.updateQuestionForm.get('questionType')?.value;
+    const qType =  this.updateQuestionForm.get('questionType')?.value;
     let answer;
     if (qType === "Checkbox") {
       answer = this.checkboxControl.value;
@@ -507,8 +560,8 @@ csvUploadErrorMessage() {
   }
   cancelQuestionView() {
     console.log("value", this.checkboxControl.value)
-    console.log(" check box from", this.checkboxControl)
-    console.log("updateform", this.updateQuestionForm);
+    console.log(" check box from" , this.checkboxControl)
+    console.log("updateform",this.updateQuestionForm);
     this.QuestionView = false;
     this.formModified = false;
   }

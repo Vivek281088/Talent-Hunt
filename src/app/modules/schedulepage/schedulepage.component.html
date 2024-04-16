@@ -1,3 +1,4 @@
+<app-question-preview *ngIf="viewQuestionSidebar" [showSidebar]="viewQuestionSidebar" [previewQuestions]="previewQuestionsId" (hidePreview)="onHidePreview($event)"></app-question-preview>
 <div class="full-content">
   <div style="margin-bottom: 20px">
     <div class="assesment-header">
@@ -310,7 +311,7 @@
   </div>
 </div>
  
-<div class="questionsidebar">
+<!-- <div class="questionsidebar">
   <p-sidebar [(visible)]="viewQuestionSidebar" position="right" [modal]="true">
     <ng-template class="header_design" pTemplate="header"
       >Quiz Preview
@@ -378,7 +379,7 @@
       </div>
     </ng-template>
   </p-sidebar>
-</div>
+</div> -->
  
 <p-toast></p-toast>
 <div class="sendinvite">

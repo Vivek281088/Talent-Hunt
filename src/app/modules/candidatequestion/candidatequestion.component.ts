@@ -133,12 +133,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
   getQuestionsById(previewOptions: any) {
     console.log('get id', previewOptions);
-
-    this.newScheduleService.getIndividualQuestion(previewOptions).subscribe((response: any) => {
-      this.previewOptions = response;
-      console.log('Updated Total Question data--', this.previewOptions);
+     this.newScheduleService.getIndividualQuestion(previewOptions).subscribe( data => {
+      console.log("total question " , data)
+      this.previewOptions = data;
     });
-
+    console.log('Updated Total Question data--', this.previewOptions);
     // const observables = previewOptions.map((questionId: string) =>
     //   this.newScheduleService.getIndividualQuestion(questionId)
     // );
@@ -148,22 +147,17 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     // });
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
-    console.log("inside selected option")
-    if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
-      console.log('checkbox inside');
-      // Toggle checkbox option
-      const isSelected = this.selectedOptions1[pageIndex].includes(option);
-      if (isSelected) {
-        this.selectedOptions1[pageIndex] = this.selectedOptions1[
-          pageIndex
-        ].filter((selected: any) => selected !== option);
-      } else {
-        console.log('inside else');
-        console.log('page index ????', pageIndex);
-        console.log('else option', option);
-        this.selectedOptions1[pageIndex].push(option);
-      }
+    
+    if (this.previewOptions[pageIndex]?.questionType === 'Checkbox') {
 
+      
+     
+      if(this.selectedOptions1[pageIndex].includes(option))
+      this.selectedOptions1[pageIndex]= this.selectedOptions1[pageIndex].filter((data:string)=>data!=option)
+      else
+      this.selectedOptions1[pageIndex].push(option);
+      console.log("inside checkbox answers",this.selectedOptions1);
+      
     } else {
       // Radio option (single selection)
       this.selectedOptions1[pageIndex] === option ? this.selectedOptions1[pageIndex] = '' : this.selectedOptions1[pageIndex] = option;
@@ -182,15 +176,19 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     );
   }
 
-  toggleColor(boxNumber: number, page: number) {
-    if (
-      this.selectedBox[page] !== null &&
-      this.selectedBox[page] === boxNumber
-    ) {
-      this.selectedBox[page] = -1;
-    } else {
-      this.selectedBox[page] = boxNumber;
-    }
+  // toggleColor(boxNumber: number, page: number) {
+  //   if (this.selectedBox[page] !== null &&this.selectedBox[page] === boxNumber)
+  //    {
+  //     this.selectedBox[page] = -1;
+  //   } else {
+  //     this.selectedBox[page] = boxNumber;
+  //   }
+  // }
+  toggleColor(option:string,questiontype:string,pageIndex:number):boolean{
+    if(questiontype=='Checkbox')
+    return this.selectedOptions1[pageIndex].includes(option);
+  else 
+    return this.selectedOptions1[pageIndex]==option;
   }
 
   updateTimer() {
@@ -386,13 +384,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.page = event.page;
     this.pageCount = event.pageCount;
   }
-
   showQuestion(questionId: number) {
     if (!this.questionSelectedOptions[questionId]) {
       this.questionSelectedOptions[questionId] = null;
     }
   }
-
   getLabel(index: number): string {
     return String.fromCharCode(65 + index);
   }
