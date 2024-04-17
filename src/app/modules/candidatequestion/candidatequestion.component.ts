@@ -98,12 +98,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
     this.updateTimer();
 
-    //get the assessment data
-    this.assessmentData = this.candidateAssessmentService.getAssessmentData();
-
-
-    console.log('Assessment Data', this.assessmentData);
-    this.previewOptions = this.assessmentData.questions;
+   //get the assessment data
+   this.assessmentData = this.candidateAssessmentService.getAssessmentData();
+   console.log('Assessment Data', this.assessmentData);
+    // Assign the shuffled questions to the previewOptions
+    this.previewOptions =this.shuffleArray(this.assessmentData.questions);
     this.loginManagerId = this.assessmentData.loginManagerId
     this.duration = this.assessmentData.durations;
     this.fileName = this.assessmentData.email_Filename;
@@ -122,6 +121,14 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.totalQuestions = this.previewOptions.length;
     console.log('Count Total Quest-', this.totalQuestions);
     this.updateSessionStorage();
+  }
+
+  shuffleArray(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
   }
 
   getQuestionsById(previewOptions: any) {
@@ -376,8 +383,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.rows = event.rows;
     this.page = event.page;
     this.pageCount = event.pageCount;
-    console.log("first- " , this.first , "rows - " , this.rows , "page- " , this.page)
-    console.log('selected Option', this.selectedOptions1);
   }
   showQuestion(questionId: number) {
     if (!this.questionSelectedOptions[questionId]) {

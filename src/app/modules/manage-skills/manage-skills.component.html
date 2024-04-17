@@ -30,7 +30,7 @@
               [value]="tab.content"
               dataKey="id"
               [scrollable]="true"
-              scrollHeight="400px"
+              scrollHeight="740px"
               [globalFilterFields]="[
                 'question',
                 'questionType',
@@ -241,18 +241,15 @@
           </ul>
         </div>
       </div>
-
       <ng-template pTemplate="footer" class="Newschedule-button">
         <div class="Cancelbutton">
           <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
           </p-button>
         </div>
-
         <div class="Createbutton">
           <p-button label="Download" (onClick)="downloadTemplate()">
           </p-button>
         </div>
-
         <label class="custom-file-input">
           Upload File
           <input
@@ -427,8 +424,8 @@
       </div>
     </ng-template>
     <div class="questionpreviewcardbody">
-      <div class="questionhead">
-        {{ singleQuestion }}
+      <div class="questionhead">{{ singleQuestion }}
+      <!-- <pre class="questionhead">{{ singleQuestion }}</pre> -->
       </div>
     </div>
     <div class="select-size">
