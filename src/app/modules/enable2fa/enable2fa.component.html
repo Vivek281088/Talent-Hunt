@@ -22,7 +22,7 @@
         </ng-template>
     </p-card> -->
 <!-- Aishuu -->
-<button (click)="clickme()">click me</button>
+
 <div class="card flex justify-content-centre">
     <div class="newSchedule-Dialog">
       <p-dialog
@@ -36,14 +36,17 @@
       >
       <p>Add the following to your authenticator app of choice, and verify it below to enable</p>
       <div z>
-      <img  src="../assets\QR-Code-PNG-Image.png" class="qr-code" alt="Your QRcode">
+      <img  src={{imageSource}} class="qr-code" alt="Your QRcode">
+    </div>
+    <div>
+      <p> {{secretKey}}</p>
     </div>
     <div class="auth-code-input">
-        <input type="text" placeholder="Enter Authentication Code" >
+        <input type="text" [(ngModel)]="token" placeholder="Enter Authentication Code" >
       </div>
       <ng-template pTemplate="footer" class="Newschedule-button">
         <div class="Verifybutton">
-          <p-button label="Verify and Enable" (onClick)="cancelButton()">
+          <p-button label="Verify and Enable" (onClick)="verifyNow()">
           </p-button>
         </div>
         <div class="Cancelbutton">
