@@ -44,6 +44,8 @@ import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.co
 import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { BodyComponent } from './modules/body/body.component';
+import { MFAComponent } from './modules/mfa/mfa.component';
+import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
 const modifiedRoute :Routes =[
   {path : '' , component:BodyComponent,
   children : [
@@ -124,6 +126,7 @@ const routes: Routes = [
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'thdashboard', component: THDashboardComponent },
   {path:'errorpage' , component : ErrorPageComponent},
+  {path:'mfa',component:MFAComponent},
   { path: '**', redirectTo: '/login' },
 
   // { path: '**', redirectTo:'login' }
