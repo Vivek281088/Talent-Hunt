@@ -5,32 +5,26 @@ import { DialogModule } from 'primeng/dialog';
 import { NgOtpInputModule } from  'ng-otp-input';
 import { FormControl } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-mfa',
   standalone:true,
   templateUrl: './mfa.component.html',
   styleUrls: ['./mfa.component.scss'],
-  imports: [CommonModule,DialogModule ,CardModule,NgOtpInputModule,ButtonModule  ]
+  imports: [CommonModule,DialogModule ,CardModule,NgOtpInputModule,ButtonModule,HttpClientModule ]
   
 })
 export class MFAComponent implements OnInit{
   value : any;
   visible: boolean = true;
-  otpInput = new FormControl();
-
-  verificationCode = '';
-  ngOnInit(): void {
-    
-  }
-
+  token !:string;
+  constructor(private http : HttpClient){}
+  ngOnInit(): void {}
   onOtpChange(data:any){
-    console.log("inside otpchange",this.otpInput);
-    
+    this.token = data;
   }
-
-  async verifyTOTP() {
-    let user;
+  verify() {
     try {
       
     } catch (error) {

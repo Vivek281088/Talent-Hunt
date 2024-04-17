@@ -126,7 +126,7 @@ const routes: Routes = [
   { path: 'resetpassword', component: ResetpasswordComponent },
   { path: 'thdashboard', component: THDashboardComponent },
   {path:'errorpage' , component : ErrorPageComponent},
-  {path:'mfa',component:Enable2faComponent},
+  {path:'mfa',component:MFAComponent},
   { path: '**', redirectTo: '/login' },
 
   // { path: '**', redirectTo:'login' }

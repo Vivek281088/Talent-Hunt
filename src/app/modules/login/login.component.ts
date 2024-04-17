@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
  
 import { ManagernameService } from 'src/app/services/managername.service';
  
@@ -9,15 +9,15 @@ import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
 import { LoginService } from 'src/app/services/login.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MFAComponent } from '../mfa/mfa.component';
  
 @Component({
   selector: 'app-login',
- 
   templateUrl: './login.component.html',
- 
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy {
+  @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer!: ViewContainerRef;
   showNavbar: boolean = false;
   name!: string;
   password!: string;
@@ -31,6 +31,7 @@ export class LoginComponent implements OnDestroy {
   formSubmitted:boolean=false
  
   constructor(
+    private resolver:ComponentFactoryResolver,
     private router: Router,
  
     private authService: AuthService,
@@ -97,11 +98,18 @@ console.log("inside sign in")
             localStorage.setItem('managerEmail', formData.userName);
  
             if (this.authService.isAuthenticated()) {
-              const redirectUrl = this.authService.redirectUrl
-                ? this.authService.redirectUrl
-                : '/dashboard';  //not in use
- 
-              this.router.navigate(['/thdashboard']);
+
+              const factory=this.resolver.resolveComponentFactory(MFAComponent);
+              console.log("factory",factory);
+              console.log("factory",factory);
+              
+              const mfaComponentReference=this.dynamicComponentContainer.createComponent(factory)
+              // const redirectUrl = this.authService.redirectUrl
+              //   ? this.authService.redirectUrl
+              //   : '/dashboard';  //not in use
+              
+
+            //  this.router.navigate(['/thdashboard']);
             }`  `
           } else if (data.role == 'user') {
             console.log("inside else if")
