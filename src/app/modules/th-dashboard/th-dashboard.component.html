@@ -83,14 +83,14 @@
           <div class="count">{{ dashboardCount?.assessment }}</div>
         </div>
       </div>
-      <div class="knob">
+      <!-- <div class="knob">
         <p-knob
           [(ngModel)]="assessmentCount"
           valueTemplate="{value}%"
           [readonly]="true"
           [size]="60"
         ></p-knob>
-      </div>
+      </div> -->
     </div>
     <div class="shortlistedcard">
       <div class="countSvg">
@@ -122,6 +122,7 @@
           [readonly]="true"
           [(ngModel)]="assessmentCount"
           valueTemplate="{value}%"
+          [readonly]="true"
           [size]="60"
         ></p-knob>
       </div>

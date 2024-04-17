@@ -1,5 +1,5 @@
 
-    <p-card>
+    <!-- <p-card>
         <ng-template pTemplate="header" >
             <p class="header">Enable Multi-factor Authentication</p>
         </ng-template>
@@ -17,8 +17,40 @@
         <div class="confirmation-field">
             <p>Enter your current password and the code from your authentication app to enable MFA.</p>
             <div>
-                
             </div>
         </div>
         </ng-template>
-    </p-card>
+    </p-card> -->
+<!-- Aishuu -->
+<button (click)="clickme()">click me</button>
+<div class="card flex justify-content-centre">
+    <div class="newSchedule-Dialog">
+      <p-dialog
+        header="Setup Two Factor Authentication"
+        [(visible)]="visible"
+        [modal]="true"
+        [style]="{ width: '35VW' }"
+        [draggable]="false"
+        [resizable]="false"
+        [closable]="false"
+      >
+      <p>Add the following to your authenticator app of choice, and verify it below to enable</p>
+      <div z>
+      <img  src="../assets\QR-Code-PNG-Image.png" class="qr-code" alt="Your QRcode">
+    </div>
+    <div class="auth-code-input">
+        <input type="text" placeholder="Enter Authentication Code" >
+      </div>
+      <ng-template pTemplate="footer" class="Newschedule-button">
+        <div class="Verifybutton">
+          <p-button label="Verify and Enable" (onClick)="cancelButton()">
+          </p-button>
+        </div>
+        <div class="Cancelbutton">
+          <p-button label="Cancel" (onClick)="cancelButton()">
+          </p-button>
+        </div>
+      </ng-template>
+      </p-dialog>
+    </div>
+  </div>

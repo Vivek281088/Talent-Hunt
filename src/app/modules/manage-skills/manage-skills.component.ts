@@ -45,7 +45,7 @@ export class ManageSkillsComponent {
   singleQuestionOption: any;
   singleQuestionAnswer: any;
   selectedquestions: any[] = [];
-  updateQuestionForm:FormGroup;
+  updateQuestionForm: FormGroup;
   checkboxControl!: FormControl;
   headers = ['question', 'questionType', 'difficulty', 'option1', 'option2', 'option3', 'option4', 'answer1', 'answer2', 'answer3', 'answer4', 'skill'];
 
@@ -57,18 +57,18 @@ export class ManageSkillsComponent {
     private managerService: ManagernameService,
     private messageService: MessageService,
     private cdr: ChangeDetectorRef,
-    private fb:FormBuilder
+    private fb: FormBuilder
   ) {
     // this.data=this.dataservice.sharedData;
     this.updateQuestionForm = this.fb.group({
-      question: ['', [Validators.required,Validators.minLength(7)]],
+      question: ['', [Validators.required, Validators.minLength(7)]],
       questionType: ['', [Validators.required,]],
-      difficulty: ['',[Validators.required,]],
-      choices0: ['', Validators.required,optionValodator()], 
-      choices1: ['', Validators.required,optionValodator()],       
-      choices2: ['', Validators.required,optionValodator()],     
-      choices3: ['', Validators.required,optionValodator()],
-      answer:['',Validators.required]
+      difficulty: ['', [Validators.required,]],
+      choices0: ['', Validators.required, optionValodator()],
+      choices1: ['', Validators.required, optionValodator()],
+      choices2: ['', Validators.required, optionValodator()],
+      choices3: ['', Validators.required, optionValodator()],
+      answer: ['', Validators.required]
     });
     this.checkboxControl = this.fb.control([]);
   }
@@ -130,7 +130,7 @@ export class ManageSkillsComponent {
       .postskillsList(this.skills)
       .subscribe((response) => {
         console.log('recieved response', response);
-        
+
         for (let i = 0; i < response.length; i++) {
           this.tabs.push({
             title: response[i].skills,
@@ -201,8 +201,25 @@ export class ManageSkillsComponent {
         console.log('Stored Question', data);
       })
   }
+  // uploadCsv(event: any) {
+  //   const file: File = event.target.files[0];
+  //   const value = this.processCsv(file);
+  //   value.subscribe((data:any)=> {
+  //     data.shift()
+  //     this.storeQuestion(data);
+  //     console.log(data);
+  //   })
+
+
+  // }
+
   uploadCsv(event: any) {
     const file: File = event.target.files[0];
+    if(!file.name.endsWith('.csv')) {
+      console.error('Please upload a CSV file.');
+      this.csvUploadErrorMessage();
+      return;
+    }
     const value = this.processCsv(file);
     value.subscribe((data:any)=> {
       data.shift()
@@ -263,13 +280,14 @@ export class ManageSkillsComponent {
     //   reader.readAsText(file);
     // }
   }
+
   downloadTemplate() {
     const csvContent = Papa.unparse({
       fields: this.headers,
       data: []
     });
 
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const blob = new Blob([csvContent], { type: '.csv;charset=utf-8;' });
     const link = document.createElement('a');
     if (link.download !== undefined) {
       const url = URL.createObjectURL(blob);
@@ -280,7 +298,7 @@ export class ManageSkillsComponent {
       document.body.removeChild(link);
     }
   }
-  processCsv(file: File): Observable<any[]>{
+  processCsv(file: File): Observable<any[]> {
     return new Observable<any[]>(observer => {
       const results: any[] = [];
 
@@ -308,7 +326,7 @@ export class ManageSkillsComponent {
               } else {
                 answers = row.slice(7, 11).filter((answer: string) => answer.trim() !== '');
               }
-              console.log( "Row" , row)
+              console.log("Row", row)
               results.push({
                 question: row[0]?.trim() || '',
                 questionType,
@@ -318,12 +336,11 @@ export class ManageSkillsComponent {
                 skill: row[11]?.trim().replace(/\r$/, '') || ''
               });
             });
-
             // When parsing is finished, emit the results array
             observer.next(results);
             observer.complete();
           },
-          error: (error : any) => {
+          error: (error: any) => {
             // If an error occurs during parsing, emit the error
             observer.error(error);
           }
@@ -399,6 +416,13 @@ export class ManageSkillsComponent {
       detail: 'File is Empty',
     });
   }
+csvUploadErrorMessage() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'Please upload a CSV file.',
+    });
+  }
   downloadQuestionsCsvTemplate() {
     let csvTemplate;
     csvTemplate = `Question,questionType,difficulty,option-1,option-2,option-3,option-4,answer-1,answer2,answer-3,answer-4,skill\n`;
@@ -435,28 +459,28 @@ export class ManageSkillsComponent {
     this.choices = choices;
 
     this.Difficulty_Level = this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
-    console.log("difficulty level",Difficulty_Level, this.Difficulty_Level);
-    
+    console.log("difficulty level", Difficulty_Level, this.Difficulty_Level);
+
     this.skills = skills;
     this.answer = answer;
     console.log("all the data" , question , id , questionTypeSelected , choices , skills ,Difficulty_Level,answer)
     this.updateQuestionForm.patchValue({
       question: question,
-      questionType : questionTypeSelected,
-      difficulty :this.Difficulty_Level,
-      choices0 :choices[0],
-      choices1:choices[1],
-      choices2:choices[2],
-      choices3:choices[3],
-      answer : this.answer
-     })
-     if(questionTypeSelected == "Checkbox"){
+      questionType: questionTypeSelected,
+      difficulty: this.Difficulty_Level,
+      choices0: choices[0],
+      choices1: choices[1],
+      choices2: choices[2],
+      choices3: choices[3],
+      answer: this.answer
+    })
+    if (questionTypeSelected == "Checkbox") {
       console.log(" selected question", questionTypeSelected)
       this.checkboxControl.patchValue(answer)
-     }
+    }
   }
-  resetAnswers(value : any){
-    console.log("inside rest values",value)
+  resetAnswers(value: any) {
+    console.log("inside rest values", value)
     // if(value == "Checkbox"){
     //   console.log("Checkbox",this.updateQuestionForm.get('answer'))
     //   this.checkboxControl = this.fb.control([]);
@@ -464,9 +488,9 @@ export class ManageSkillsComponent {
     //   console.log("answer",this.updateQuestionForm.get('answer'))
     //   this.updateQuestionForm.get('answer')?.reset();
     // }
-    
-   
-  // this.updateQuestionForm.get('answer')?.patchValue(null);
+
+
+    // this.updateQuestionForm.get('answer')?.patchValue(null);
   }
   getBackendDifficultyLevelViceVersa(frontendValue: string): string {
     if (frontendValue === 'E') {
@@ -493,9 +517,9 @@ export class ManageSkillsComponent {
   updateQuestionView() {
     const qType =  this.updateQuestionForm.get('questionType')?.value;
     let answer;
-    if(qType === "Checkbox"){
+    if (qType === "Checkbox") {
       answer = this.checkboxControl.value;
-    }else {
+    } else {
       answer = this.updateQuestionForm.get('answer')?.value
     }
     this.showUpdateMessage();
@@ -508,7 +532,7 @@ export class ManageSkillsComponent {
         this.id,
         this.updateQuestionForm.get('question')?.value,
         this.updateQuestionForm.get('questionType')?.value,
-       [ this.updateQuestionForm.get('choices0')?.value,
+        [this.updateQuestionForm.get('choices0')?.value,
         this.updateQuestionForm.get('choices1')?.value,
         this.updateQuestionForm.get('choices2')?.value,
         this.updateQuestionForm.get('choices3')?.value,],
@@ -516,7 +540,7 @@ export class ManageSkillsComponent {
         this.getBackendDifficultyLevel(
           this.updateQuestionForm.get('difficulty')?.value,
         ),
-       answer
+        answer
       )
       .subscribe((response) => {
         console.log('updateQuestionView response', response);
@@ -541,7 +565,7 @@ export class ManageSkillsComponent {
     this.QuestionView = false;
     this.formModified = false;
   }
-  
+
   sidebarClose() {
     this.previewSidebarVisible = false;
   }
