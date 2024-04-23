@@ -33,7 +33,6 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private resolver:ComponentFactoryResolver,
     private router: Router,
- 
     private authService: AuthService,
     private managernameService: ManagernameService,
     private loginservice: LoginService,
@@ -101,14 +100,10 @@ console.log("inside sign in")
 
               const factory=this.resolver.resolveComponentFactory(MFAComponent);
               console.log("factory",factory);
-              console.log("factory",factory);
-              
               const mfaComponentReference=this.dynamicComponentContainer.createComponent(factory)
               // const redirectUrl = this.authService.redirectUrl
               //   ? this.authService.redirectUrl
               //   : '/dashboard';  //not in use
-              
-
             //  this.router.navigate(['/thdashboard']);
             }`  `
           } else if (data.role == 'user') {
