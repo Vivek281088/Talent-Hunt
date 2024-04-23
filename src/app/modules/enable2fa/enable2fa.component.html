@@ -6,7 +6,7 @@
 <div class="card flex justify-content-centre">
   <div class="newSchedule-Dialog">
     <p-dialog
-      [(visible)]="visible"
+      [(visible)]="twofactvisible"
       [modal]="true"
       [style]="{ width: '35VW' }"
       [draggable]="false"
@@ -35,19 +35,18 @@
             Secret Key: <span class="secret-code-text">{{ secretCode }}</span>
           </p>
           <div class="icon-container">
-            <div class="copy-icon" (click)="copyToClipboard(secretCode)">
+            <div *ngIf="!showTick" class="copy-icon" (click)="copyToClipboard(secretCode)">
               <i class="fas fa-copy"></i>
             </div>
-            <div class="tick-icon" [ngClass]="{ 'show': showTick }">
+            <div *ngIf="showTick" class="tick-icon">
               <i class="fas fa-check"></i>
             </div>
           </div>
           <!-- <span class="copy-message" [class.visible]="copyMessage">{{ copyMessage }}</span> -->
         </div>
-        
       </div>
       <div class="auth-code-input">
-        <input type="text" placeholder="Enter Authentication Code" />
+        <input  placeholder="Enter Authentication Code" maxlength="6"/>
       </div>
       <ng-template pTemplate="footer">
         <div class="twoFactorButtons">

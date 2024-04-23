@@ -15,7 +15,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 export class Enable2faComponent {
 
-  visible: boolean = false;
+  twofactvisible: boolean = false;
   secretCode: string = 'bfhbfh34627865784';
   authCode = 'Aishu271200';
   copyMessage: string = 'Copied!'; 
@@ -24,30 +24,22 @@ export class Enable2faComponent {
   constructor(private clipboard: Clipboard) {}
 
   clickme() {
-    this.visible = true;
+    this.twofactvisible = true;
   }
 
   cancelButton() {
-    this.visible = false;
+    this.twofactvisible = false;
   }
-
-  // copyToClipboard(text: string) {
-  //   this.clipboard.copy(text);
-  //   this.copyMessage = 'Copied!'; 
-  //   setTimeout(() => {
-  //     this.copyMessage = ''; 
-  //   }, 1000);
-  //   console.log('Copiedd', this.copyMessage)
-  // }
   copyToClipboard(text: string) {
     this.clipboard.copy(text);
     this.copyMessage = 'Copied!';
-    this.showTick = true; // show tick icon
-
+    this.showTick = true; 
+    console.log("showTick set to true"); 
     setTimeout(() => {
-      this.showTick = false; // hide tick icon
-      this.copyMessage = ''; // reset copy message
-    }, 1000); // 1000 milliseconds or 1 second
+      this.showTick = false; 
+      this.copyMessage = ''; 
+      console.log("showTick set to false");
+    }, 1000); 
   }
 
 }
