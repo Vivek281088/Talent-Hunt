@@ -2,7 +2,7 @@
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
 />
-<button (click)="clickme()">click me</button>
+
 <div class="card flex justify-content-centre">
   <div class="newSchedule-Dialog">
     <p-dialog
@@ -25,33 +25,32 @@
         authenticator app of choice
       </p>
       <div class="qr-code-container">
-        <img
-          src="../assets\QR-Code-PNG-Image.png"
-          class="qr-code"
-          alt="Your QRcode"
-        />
+        <img  src={{imageSource}} class="qr-code" alt="Your QRcode">
         <div class="secretCode">
           <p>
-            Secret Key: <span class="secret-code-text">{{ secretCode }}</span>
+            Secret Key: <span class="secret-code-text">{{ secretKey }}</span>
           </p>
           <div class="icon-container">
-            <div *ngIf="!showTick" class="copy-icon" (click)="copyToClipboard(secretCode)">
+            <div *ngIf="!showTick" class="copy-icon" (click)="copyToClipboard(secretKey)">
               <i class="fas fa-copy"></i>
             </div>
             <div *ngIf="showTick" class="tick-icon">
               <i class="fas fa-check"></i>
             </div>
           </div>
-          <!-- <span class="copy-message" [class.visible]="copyMessage">{{ copyMessage }}</span> -->
         </div>
       </div>
       <div class="auth-code-input">
-        <input  placeholder="Enter Authentication Code" maxlength="6"/>
+        <input 
+        [(ngModel)]="token"
+        placeholder="Enter Authentication Code"
+         maxlength="6"
+         />
       </div>
       <ng-template pTemplate="footer">
         <div class="twoFactorButtons">
           <div class="verifyButton">
-            <p-button label="Verify and Enable" (onClick)="cancelButton()">
+            <p-button label="Verify and Enable" (onClick)="verifyNow()">
             </p-button>
           </div>
           <div class="cancelButton">
