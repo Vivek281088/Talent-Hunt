@@ -7,7 +7,6 @@
   gap: 1rem; 
 }
 
-
 .qr-code {
   border-radius: 1rem;
   display: flex;
@@ -18,32 +17,43 @@
   height: 300px;
 }
 
+.secretCode,
+.auth-code-input {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .auth-code-input {
   margin-top: 1rem;
-  
 }
 
 .auth-code-input input {
-  width: 40%;
+  min-width: 120px; 
+  width: auto; 
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
   box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
+  text-align: center; 
+}
+
+.twoFactorButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 1rem;}
+
+  .cancelButton,
+.verifyButton {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-
-.twoFactorButtons {
-  display: inline-flex;
-  flex-direction: row;
-  border-radius: 4px;
-  border: 1px;
-  gap: 8%;
-  width: 100%;
 
   .cancelButton {
     ::ng-deep {
@@ -87,7 +97,6 @@
       }
     }
   }
-}
 
 .secretCode {
   display: flex;
@@ -102,11 +111,23 @@
     font-weight: bold; 
   }
 
-  .copy-icon {
-    cursor: pointer;
-    font-size: 18px;
+ 
+}
+// .copy-icon {
+//   cursor: pointer;
+//   font-size: 18px;
+// }
+.copy-message {
+  margin-left: 10px;
+  color: #652d90;
+  font-size: 14px;
+  visibility: hidden; 
+
+  &.visible {
+    visibility: visible;
   }
 }
+
 .authHeader{
   text-align: center;
   display: flex;
@@ -117,5 +138,35 @@
   margin-left: auto;
   margin-right: auto;
   // border-bottom: 1px solid black;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.copy-icon,
+.tick-icon {
+  cursor: pointer;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.tick-icon {
+  display: none;
+}
+
+.show {
+  display: block;
+  animation: fadeInOut 0.5s linear forwards;
+}
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 

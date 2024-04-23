@@ -1,52 +1,65 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
 <button (click)="clickme()">click me</button>
 <div class="card flex justify-content-centre">
-    <div class="newSchedule-Dialog">
-      <p-dialog
-       
-        [(visible)]="visible"
-        [modal]="true"
-        [style]="{ width: '35VW' }"
-        [draggable]="false"
-        [resizable]="false"
-        [closable]="false"
-      >
+  <div class="newSchedule-Dialog">
+    <p-dialog
+      [(visible)]="visible"
+      [modal]="true"
+      [style]="{ width: '35VW' }"
+      [draggable]="false"
+      [resizable]="false"
+      [closable]="false"
+    >
       <ng-template pTemplate="header">
-        <div class=" authHeader inline-flex align-items-center justify-content-center gap-2">
-<p class="authHeader">
-  Setup Two Factor Authentication
-</p>
-        
-         
-        
+        <div
+          class="authHeader inline-flex align-items-center justify-content-center gap-2"
+        >
+          <p class="authHeader">Setup Two Factor Authentication</p>
         </div>
-
       </ng-template>
-      <p>Scan the QR code below or Manually enter the secret key into your authenticator app of choice</p>
+      <p>
+        Scan the QR code below or Manually enter the secret key into your
+        authenticator app of choice
+      </p>
       <div class="qr-code-container">
-      <img  src="../assets\QR-Code-PNG-Image.png" class="qr-code" alt="Your QRcode">
-<div class="secretCode">
-  <p> Secret Key: <span class="secret-code-text">{{ secretCode }}</span></p>
-  <span class="copy-icon" (click)="copyToClipboard(secretCode)">
-    <i class="fas fa-copy"></i> 
-  </span>
-</div>
-    </div>
-    <div class="auth-code-input">
-        <input type="text" placeholder="Enter Authentication Code" >
+        <img
+          src="../assets\QR-Code-PNG-Image.png"
+          class="qr-code"
+          alt="Your QRcode"
+        />
+        <div class="secretCode">
+          <p>
+            Secret Key: <span class="secret-code-text">{{ secretCode }}</span>
+          </p>
+          <div class="icon-container">
+            <div class="copy-icon" (click)="copyToClipboard(secretCode)">
+              <i class="fas fa-copy"></i>
+            </div>
+            <div class="tick-icon" [ngClass]="{ 'show': showTick }">
+              <i class="fas fa-check"></i>
+            </div>
+          </div>
+          <!-- <span class="copy-message" [class.visible]="copyMessage">{{ copyMessage }}</span> -->
+        </div>
+        
       </div>
-      <ng-template pTemplate="footer" >
+      <div class="auth-code-input">
+        <input type="text" placeholder="Enter Authentication Code" />
+      </div>
+      <ng-template pTemplate="footer">
         <div class="twoFactorButtons">
-        <div class="verifyButton">
-          <p-button label="Verify and Enable" (onClick)="cancelButton()">
-          </p-button>
+          <div class="verifyButton">
+            <p-button label="Verify and Enable" (onClick)="cancelButton()">
+            </p-button>
+          </div>
+          <div class="cancelButton">
+            <p-button label="Cancel" (onClick)="cancelButton()"> </p-button>
+          </div>
         </div>
-        <div class="cancelButton">
-          <p-button label="Cancel" (onClick)="cancelButton()">
-          </p-button>
-        </div>
-      </div>
       </ng-template>
-      </p-dialog>
-    </div>
+    </p-dialog>
   </div>
+</div>
