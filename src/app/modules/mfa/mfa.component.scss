@@ -4,7 +4,9 @@
     font-size: 48px;
     color: #652d90;
     align-items: center;
-    margin: 0px;
+  
+    display: flex;
+    justify-content: center;
   
     // line-height: 72px;
   }
@@ -32,20 +34,22 @@
     font-size: 20px;
     cursor: pointer;
   }
-
+.logo-text{
+  margin-right: 19px;
+}
   .logo-text img {
-    padding-left: 7%;
+    
     width: fit-content;
-    height: 48px;
+    height: 63px;
   }
 
   .logo-text .heading {
     font-family: "Poppins", sans-serif;
     font-weight: 400;
-    font-size: 48px;
+    font-size: 30px;
     color: #652d90;
     align-items: center;
-    margin: 0px;
+    margin-left: 13px;
   
     // line-height: 72px;
   }
