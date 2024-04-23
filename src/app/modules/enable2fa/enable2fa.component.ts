@@ -35,11 +35,11 @@ export class Enable2faComponent {
     this.copyMessage = 'Copied!';
     this.showTick = true; 
     console.log("showTick set to true"); 
-    setTimeout(() => {
+        setTimeout(() => {
       this.showTick = false; 
       this.copyMessage = ''; 
       console.log("showTick set to false");
-    }, 1000); 
+    }, 1500); 
   }
 
 }
