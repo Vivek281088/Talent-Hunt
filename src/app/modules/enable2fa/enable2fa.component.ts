@@ -4,24 +4,22 @@ import { CardModule } from 'primeng/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { Subscription } from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-enable2fa',
   standalone: true,
-  imports: [CommonModule,CardModule,ReactiveFormsModule,DialogModule, ButtonModule,FormsModule],
+  imports: [CommonModule, CardModule, ReactiveFormsModule, DialogModule, ButtonModule,FormsModule],
   templateUrl: './enable2fa.component.html',
   styleUrls: ['./enable2fa.component.scss'],
 })
 export class Enable2faComponent {
 
-  visible: boolean = true;
-  authCode = 'Aishu271200'; 
-  
+  twofactvisible: boolean = true;
+  showTick: boolean= false;
   subscription!: Subscription;
   message!: any;
   imageSource!:string;
@@ -29,11 +27,12 @@ export class Enable2faComponent {
   token!:string
 
   constructor(
-   private router : Router,
-    private dataService:DataService,
-   
-  )
-  {}
+    private clipboard: Clipboard,
+    private router : Router,
+    private dataService:DataService
+  
+  
+  ) {}
 
   ngOnInit() {
     this.message = this.dataService.getSighupdata()
@@ -59,8 +58,6 @@ export class Enable2faComponent {
         }
       )
   }
-  
-
   createQrCode()
   {
     this.dataService.createQR(this.message.emailId).subscribe((response) => {
@@ -72,6 +69,16 @@ export class Enable2faComponent {
 
 
   cancelButton() {
-    this.visible = false;
+    this.twofactvisible = false;
   }
+  copyToClipboard(text: string) {
+    this.clipboard.copy(text);
+    this.showTick = true; 
+    console.log("showTick set to true"); 
+        setTimeout(() => {
+      this.showTick = false; 
+      console.log("showTick set to false");
+    }, 1500); 
+  }
+
 }
