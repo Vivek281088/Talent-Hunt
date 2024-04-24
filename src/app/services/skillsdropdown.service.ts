@@ -16,29 +16,29 @@ export class SkillsdropdownService {
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/skills'
     );
   }
-  
+
 
   postSkill(Skill: string): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = { skill: Skill };
 
     return this.http.post<any>(this.skillsUrl + '/skillnames', body, {
-      headers,
+      // headers,
     });
   }
   //question db
   postskillsList(Skills: string[]): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = { skills: Skills };
 
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/allquestions',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
 
@@ -67,16 +67,16 @@ export class SkillsdropdownService {
   // }
 
   postOneSkill(Skill: string): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = { skill: Skill };
 
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/skills',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
   getUniqueSkills(): Observable<any> {
@@ -87,7 +87,7 @@ export class SkillsdropdownService {
 
   //post questions,cuttoff,duration
   postNewSchedule(dataToSave: any): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = dataToSave;
     console.log('Service Body', body);
@@ -95,7 +95,7 @@ export class SkillsdropdownService {
       //this.skillsUrl + '/questions',
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/add',
       body,
-      { headers }
+      // { headers }
     );
   }
   editSchedule(
@@ -106,7 +106,7 @@ export class SkillsdropdownService {
     cutOff: number,
     duration: number
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
       id: id,
@@ -129,19 +129,19 @@ export class SkillsdropdownService {
 
       body,
 
-      { headers }
+      // { headers }
     );
   }
   //post questions by manager
   postquestions_by_Manager(dataToSave: any): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = dataToSave;
     console.log('see here', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/add',
       body,
-      { headers }
+      // { headers }
     );
   }
 
@@ -156,7 +156,7 @@ export class SkillsdropdownService {
 
     cutoff: number
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const data = {
       Managername: Managername,
@@ -177,7 +177,7 @@ export class SkillsdropdownService {
 
       data,
 
-      { headers }
+      // { headers }
     );
   }
 
@@ -192,7 +192,7 @@ export class SkillsdropdownService {
     answer: any
   ): Observable<any> {
     // console.log('body', data);
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+   // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const data = {
       id: id,
       question: question,
@@ -208,21 +208,21 @@ export class SkillsdropdownService {
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_question',
       data,
-      { headers }
+      // { headers }
     );
   }
 
   //delete questions in questionDb
 
   deleteQuestion(id: string, skills: any): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     const body = { id: id, skills: skills };
 
     return this.http.delete(
       `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deletequestions`,
       {
-        headers: headers,
+       // headers: headers,
         body: body,
       }
     );
@@ -248,30 +248,30 @@ export class SkillsdropdownService {
     candidateName: string | undefined,
     results: any
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = { candidateName, results };
 
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/filtercandidate',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
 
   // Function to get the latest version
   getLatestVersion(Managername: string, Skill: string[]): Observable<number> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { Managername: Managername, Skill: Skill };
 
     return this.http.post<number>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fileVersion',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
 

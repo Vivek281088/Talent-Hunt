@@ -23,12 +23,12 @@ export class TableService {
   postManagerList(name: String): Observable<any> {
     console.log('name', name);
 
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = { ManagerName: name };
 
     return this.http.post<any>(this.skillsUrl + '/select-manager', body, {
-      headers,
+      //headers,
     });
   }
 
@@ -46,13 +46,13 @@ export class TableService {
   getdataby_Id(
     id: any
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+   // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { id: id };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/viewquestion',
       body,
       {
-        headers,
+        //headers,
       }
     );
   }
@@ -62,7 +62,7 @@ export class TableService {
     candidateName: string,
     email_FileName: string
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateName: candidateName,
       email_FileName: email_FileName,
@@ -70,7 +70,7 @@ export class TableService {
     return this.http.post<any>(
       this.skillsUrl + '/candidatelist_for_reviewer',
       body,
-      { headers }
+      //{ headers }
     );
   }
 
@@ -105,7 +105,7 @@ export class TableService {
   ): Observable<any> {
     console.log('name', name);
 
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
       id: candidateId,
@@ -130,7 +130,7 @@ export class TableService {
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidatemail',
       body,
       {
-        headers,
+        //headers,
       }
     );
   }
@@ -159,7 +159,7 @@ export class TableService {
     scheduledTime : string,
 
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
       id: candidateId,
@@ -193,7 +193,7 @@ export class TableService {
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/sendmail',
       body,
       {
-        headers,
+       // headers,
       }
     );
   }

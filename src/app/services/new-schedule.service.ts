@@ -38,15 +38,15 @@ export class NewScheduleService {
     );
   }
   getIndividualQuestion(id: string[] ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     console.log("service body",id)
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-Questions_GetById',
       id,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
 }
