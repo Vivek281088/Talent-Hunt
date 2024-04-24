@@ -17,7 +17,7 @@ import { MFAComponent } from '../mfa/mfa.component';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy {
-  @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer!: ViewContainerRef;
+ // @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer!: ViewContainerRef;
   showNavbar: boolean = false;
   name!: string;
   password!: string;
@@ -98,13 +98,14 @@ console.log("inside sign in")
  
             if (this.authService.isAuthenticated()) {
 
-              const factory=this.resolver.resolveComponentFactory(MFAComponent);
-              console.log("factory",factory);
-              const mfaComponentReference=this.dynamicComponentContainer.createComponent(factory)
+             // const factory=this.resolver.resolveComponentFactory(MFAComponent);
+             //console.log("factory",factory);
+            //  const mfaComponentReference=this.dynamicComponentContainer.createComponent(factory)
               // const redirectUrl = this.authService.redirectUrl
               //   ? this.authService.redirectUrl
               //   : '/dashboard';  //not in use
             //  this.router.navigate(['/thdashboard']);
+              this.router.navigate(['/verifymfa']);
             }`  `
           } else if (data.role == 'user') {
             console.log("inside else if")

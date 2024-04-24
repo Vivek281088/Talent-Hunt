@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   showNavbar3: boolean = true; 
   hasError : boolean = true;
   enablemfa:boolean=true;
+  verifymfa:boolean=true;
 
   constructor(private service: AppServiceService, private router: Router , private activatedRoute : ActivatedRoute) {
     // Subscribe to the route changes
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
         this.showNavbar3 = urlSegments[urlSegments.length - 1] !== 'resetpassword';
         this.hasError = this.activatedRoute.snapshot.firstChild?.routeConfig?.path !== 'errorpage';
         this.enablemfa = this.activatedRoute.snapshot.firstChild?.routeConfig?.path !== 'enablemfa';
+        this.verifymfa = this.activatedRoute.snapshot.firstChild?.routeConfig?.path !== 'verifymfa';
 
       }
     });
