@@ -32,6 +32,7 @@ export class ManageManagersComponent {
   addManagerForm!: FormGroup;
   formSubmitted: boolean = false;
   position: string = 'center';
+  isdisabled: boolean=false;
 
   constructor(
     private managerService: ManagernameService,
@@ -131,6 +132,7 @@ export class ManageManagersComponent {
         department: this.selectedRowData.department,
         location: this.selectedRowData.managerLocation,
       });
+      
     }
     //console.log('Edit Data', this.addManagerForm);
     console.log("touched",this.addManagerForm)

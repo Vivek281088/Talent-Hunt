@@ -98,12 +98,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
     this.updateTimer();
 
-    //get the assessment data
-    this.assessmentData = this.candidateAssessmentService.getAssessmentData();
-
-
-    console.log('Assessment Data', this.assessmentData);
-    this.previewOptions = this.assessmentData.questions;
+   //get the assessment data
+   this.assessmentData = this.candidateAssessmentService.getAssessmentData();
+   console.log('Assessment Data', this.assessmentData);
+    // Assign the shuffled questions to the previewOptions
+    this.previewOptions =this.shuffleArray(this.assessmentData.questions);
     this.loginManagerId = this.assessmentData.loginManagerId
     this.duration = this.assessmentData.durations;
     this.fileName = this.assessmentData.email_Filename;
@@ -124,9 +123,20 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.updateSessionStorage();
   }
 
+  shuffleArray(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
   getQuestionsById(previewOptions: any) {
     console.log('get id', previewOptions);
-    this.previewOptions = this.newScheduleService.getIndividualQuestion(previewOptions);
+     this.newScheduleService.getIndividualQuestion(previewOptions).subscribe( data => {
+      console.log("total question " , data)
+      this.previewOptions = data;
+    });
     console.log('Updated Total Question data--', this.previewOptions);
     // const observables = previewOptions.map((questionId: string) =>
     //   this.newScheduleService.getIndividualQuestion(questionId)
@@ -137,21 +147,17 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     // });
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
-    console.log("inside selected option")
-    if (this.previewOptions[pageIndex]?.questionType === 'checkbox') {
-      console.log('checkbox inside');
-      // Toggle checkbox option
-      const isSelected = this.selectedOptions1[pageIndex].includes(option);
-      if (isSelected) {
-        this.selectedOptions1[pageIndex] = this.selectedOptions1[
-          pageIndex
-        ].filter((selected: any) => selected !== option);
-      } else {
-        console.log('inside else');
-        console.log('page index ????', pageIndex);
-        console.log('else option', option);
-        this.selectedOptions1[pageIndex].push(option);
-      }
+    
+    if (this.previewOptions[pageIndex]?.questionType === 'Checkbox') {
+
+      
+     
+      if(this.selectedOptions1[pageIndex].includes(option))
+      this.selectedOptions1[pageIndex]= this.selectedOptions1[pageIndex].filter((data:string)=>data!=option)
+      else
+      this.selectedOptions1[pageIndex].push(option);
+      console.log("inside checkbox answers",this.selectedOptions1);
+      
     } else {
       // Radio option (single selection)
       this.selectedOptions1[pageIndex] === option ? this.selectedOptions1[pageIndex] = '' : this.selectedOptions1[pageIndex] = option;
@@ -170,15 +176,19 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     );
   }
 
-  toggleColor(boxNumber: number, page: number) {
-    if (
-      this.selectedBox[page] !== null &&
-      this.selectedBox[page] === boxNumber
-    ) {
-      this.selectedBox[page] = -1;
-    } else {
-      this.selectedBox[page] = boxNumber;
-    }
+  // toggleColor(boxNumber: number, page: number) {
+  //   if (this.selectedBox[page] !== null &&this.selectedBox[page] === boxNumber)
+  //    {
+  //     this.selectedBox[page] = -1;
+  //   } else {
+  //     this.selectedBox[page] = boxNumber;
+  //   }
+  // }
+  toggleColor(option:string,questiontype:string,pageIndex:number):boolean{
+    if(questiontype=='Checkbox')
+    return this.selectedOptions1[pageIndex].includes(option);
+  else 
+    return this.selectedOptions1[pageIndex]==option;
   }
 
   updateTimer() {
@@ -373,16 +383,12 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.rows = event.rows;
     this.page = event.page;
     this.pageCount = event.pageCount;
-    console.log("first- " , this.first , "rows - " , this.rows , "page- " , this.page)
-    console.log('selected Option', this.selectedOptions1);
   }
-
   showQuestion(questionId: number) {
     if (!this.questionSelectedOptions[questionId]) {
       this.questionSelectedOptions[questionId] = null;
     }
   }
-
   getLabel(index: number): string {
     return String.fromCharCode(65 + index);
   }

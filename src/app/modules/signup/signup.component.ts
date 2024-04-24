@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { MessageService } from 'primeng/api';
+
 import {
   FormBuilder,
   FormGroup,
@@ -14,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { PasswordValidator } from './password-validator';
 import { TitleCasePipe } from '@angular/common';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-signup',
@@ -22,6 +24,9 @@ import { TitleCasePipe } from '@angular/common';
   providers: [MessageService],
 })
 export class SignupComponent {
+
+  message!:string;
+ 
   signupForm: FormGroup;
   formSubmitted: boolean = false;
   isPasswordInvalid: boolean = false;
@@ -30,10 +35,14 @@ export class SignupComponent {
   passwordNotMatching: boolean = true;
   mailidExist:boolean=false;
   private subscription: Subscription = new Subscription();
+  private signupDataSubscription: Subscription = new Subscription();
+  //subscription!: Subscription;
+  data: any;
 
   constructor(
     private loginservice: LoginService,
     private messageService: MessageService,
+    private dataService:DataService,
     private router: Router,
     private fb: FormBuilder
   ) {
@@ -119,7 +128,10 @@ export class SignupComponent {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+  }
+
 
   id!: Date;
   signup() {
@@ -142,35 +154,37 @@ export class SignupComponent {
         return;
       }
 
-      try {
-        this.loginservice
-        .postsignup(
-          id,
-          this.signupForm.value.firstName,
-          this.signupForm.value.lastName,
-          this.signupForm.value.emailId,
-          this.signupForm.value.phoneNumber,
-          this.signupForm.value.password,
-          this.signupForm.value.confirmPassword
-        )
-        .subscribe({
-          next: x => {
+      // try {
+      //   this.loginservice
+      //   .postsignup(
+      //     id,
+      //     this.signupForm.value.firstName,
+      //     this.signupForm.value.lastName,
+      //     this.signupForm.value.emailId,
+      //     this.signupForm.value.phoneNumber,
+      //     this.signupForm.value.password,
+      //     this.signupForm.value.confirmPassword
+      //   )
+      //   .subscribe({
+      //     next: x => {
 
-            this.successValidForm();
-            setTimeout(() => {
-              this.signupForm.reset();
-              this.router.navigate(['login']);
-            }, 1500);
+      //       this.successValidForm();
+      //       setTimeout(() => {
+      //         this.signupForm.reset();
+      //         this.router.navigate(['login']);
+      //       }, 1500);
             
-          },
-          error: err => console.warn('An error occurred :', err.message,`${this.mailidExist=true}`),  
-          complete: () => console.log('There are no more action happen.') 
+      //     },
+      //     error: err => console.warn('An error occurred :', err.message,`${this.mailidExist=true}`),  
+      //     complete: () => console.log('There are no more action happen.') 
           
-        });
-      } catch (error) {
-        console.log("this is the error Message" ,  error);
+      //   });
+      // } catch (error) {
+      //   console.log("this is the error Message" ,  error);
         
-      }
+      // }
+      this.dataService.changeMessage(this.signupForm.value)
+      this.router.navigate(['/enablemfa'])
     } else {
       console.error(
         'Form is not valid. Validation errors:',

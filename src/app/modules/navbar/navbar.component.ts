@@ -24,7 +24,8 @@ export class NavbarComponent {
   name: boolean = false;
   modalVisible: boolean = false;
   isAdmin: boolean = false;
-   finalizedManagerEmail!: string;
+  showBellIcon: boolean = false;
+  finalizedManagerEmail!: string;
   visible: boolean = false;
   tempUserName!: string | null;
   id!: string;
@@ -32,6 +33,7 @@ export class NavbarComponent {
   receiver!:string;
   notifications !:any;
   hasNewNotifications: boolean = false;
+  isManager: boolean = true;
   constructor(
     private authservice: AuthService,
     private managernameService: ManagernameService,
@@ -47,7 +49,7 @@ export class NavbarComponent {
   }
 // Handling new notifications
 this.notificationService.newNotificationReceived.subscribe(() => {
-  this.hasNewNotifications = true; 
+  this.hasNewNotifications = true;
    });
    }
   notifydata(){
@@ -58,7 +60,6 @@ this.notificationService.newNotificationReceived.subscribe(() => {
       this.notificationService.getNotification(body).subscribe((response)=>{
         console.log("notificaton service called",response)
         this.notifications = response;
-
       });
   }
  
@@ -70,6 +71,7 @@ this.notificationService.newNotificationReceived.subscribe(() => {
  
     if (a == 'manager') {
       this.isAdmin = true;
+      this.showBellIcon= true;
       this.managernameService
         .getManagerdata_by_Email(this.finalizedManagerEmail)
         .subscribe((response) => {
@@ -86,6 +88,7 @@ this.notificationService.newNotificationReceived.subscribe(() => {
           console.log("iddd",this.id,response[0].id)
           sessionStorage.setItem('loginManagerId', this.id);
           this.managernameService.setManagerName_Email(this.userEmail);
+          localStorage.setItem('managerName', this.userName);
           this.name = true;
         });
     } else {
@@ -104,6 +107,7 @@ this.notificationService.newNotificationReceived.subscribe(() => {
           this.userEmail = response[0].candidateEmail;
           this.userPhone = response[0].candidatePhone;
           console.log('candidateName', this.tempUserName);
+          this.isManager=false;
         });
     }
   }
@@ -172,26 +176,25 @@ this.notificationService.newNotificationReceived.subscribe(() => {
   }
  
   logout() {
-    localStorage.clear();
     this.authservice.logout();
   }
-
+ 
 //   clearNotification(notification: any) {
 //     // const index = this.notifications.indexOf(notification);
 //     // if (index !== -1) {
 //     //   this.notifications.splice(index, 1);
-//     //   this.notificationService.updateNotification(notification.notificationId, 
+//     //   this.notificationService.updateNotification(notification.notificationId,
 //     //     notification.receiverId).subscribe(() => {
 //     //     console.log('Notification cleared successfully');
 //     //   }, (error) => {
 //     //     console.error('Error clearing notification:', error);
 //     //   });
-//     // this.notificationService.updateNotification(notification.notificationId, 
+//     // this.notificationService.updateNotification(notification.notificationId,
 //           // notification.receiverId)
 // console.log('Notifcation here', notification);
 // const managerId = sessionStorage.getItem('loginManagerId') ;
 // if(managerId){
-//   this.notificationService.updateNotification(notification.id, 
+//   this.notificationService.updateNotification(notification.id,
 //     managerId).subscribe(response=>{
 //       console.log(response);
 //     })
@@ -201,22 +204,38 @@ clearNotification(notification: any) {
   console.log('Notifcation here', notification);
   const managerId = sessionStorage.getItem('loginManagerId');
   if(managerId){
-    this.notificationService.updateNotification(notification.id, 
+    this.notificationService.updateNotification(notification.id,
       managerId).subscribe(response=>{
         console.log(response);
+        // Remove cleared notification from the array
         const index = this.notifications.indexOf(notification);
         if (index !== -1) {
           this.notifications.splice(index, 1);
         }
+        // Check if all notifications are cleared
         if (this.notifications.length === 0) {
+          // If all notifications are cleared, show "No Notifications to display"
           this.notifications = [];
         }
       });
   }
   }
-
-
-
+ 
+// Clear All Notification
+// clearAllNotification(){
+//   const receiverId = sessionStorage.getItem('loginManagerId')
+//   const notificationId = this.notifications.map((item: { id: any })=>item.id);
+//   console.log("receiver notificationid",receiverId,notificationId);
+//      this.notificationService.clearNotification(
+//     receiverId,
+//     notificationId
+//        ).subscribe(response=>{
+//       console.log('Clear All Notifications', response);
+// });
+// this.hasNewNotifications = false;
+// console.log('Has New', this.hasNewNotifications)
+// }
+ 
 clearAllNotification() {
   const receiverId = sessionStorage.getItem('loginManagerId');
   const notificationId = this.notifications.map((item: { id: any })=>item.id);

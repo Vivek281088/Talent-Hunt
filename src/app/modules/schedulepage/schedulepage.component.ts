@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { Router } from '@angular/router';
@@ -21,7 +26,6 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
-
 
 @Component({
   selector: 'app-schedulepage',
@@ -78,6 +82,7 @@ export class SchedulepageComponent implements OnInit {
   addnewScheduleForm!: FormGroup;
   formSubmitted: boolean = false;
   isScheduleInvalid: boolean = false;
+  previewQuestionsId:string[]=[]
 
   constructor(
     private tableService: TableService,
@@ -151,10 +156,10 @@ export class SchedulepageComponent implements OnInit {
   customFilter(value: any, filter: FilterMetadata): boolean {
     const selectedSkills: string[] = filter ? filter.value : null;
     if (selectedSkills && selectedSkills.length > 0) {
-        return selectedSkills.some(skill => value.Skill.includes(skill));
+      return selectedSkills.some((skill) => value.Skill.includes(skill));
     }
     return true;
-}
+  }
   maxLengthValidator(maxLength: number) {
     return (control: AbstractControl): { [key: string]: any } | null => {
       if (control.value && control.value.length > maxLength) {
@@ -258,7 +263,7 @@ export class SchedulepageComponent implements OnInit {
         scheduleName: formData.scheduleName,
         manager: formData.managerName,
         selectedSkills: formData.skills,
-       // cutOff: formData.cutoff,
+        // cutOff: formData.cutoff,
         //duration: formData.duration,
       };
       this.newScheduleService.setNewScheduleData(dataToSend);
@@ -272,15 +277,19 @@ export class SchedulepageComponent implements OnInit {
     }
   }
 
- 
+  closeSidebar() {
+  this.viewQuestionSidebar = false;
+  }
   onViewClick(data: any) {
     
     this.displayCommonContent=true;
     console.log('View Data', data);
-    this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
-      this.FinalizedQuestions = response;
-      console.log('Updated Total Question data--', this.FinalizedQuestions);
-    });
+    // this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
+    //   this.FinalizedQuestions = response;
+    //   console.log('Updated Total Question data--', this.FinalizedQuestions);
+    //   this.previewQuestionsId=this.FinalizedQuestions.map(data=>data.id);
+    // });
+    this.previewQuestionsId = data.questions;
   }
   onHide(hide:boolean){
     console.log("button clicked",hide)
@@ -288,6 +297,9 @@ export class SchedulepageComponent implements OnInit {
 
   }
 
+  onHidePreview(event:any){
+    this.viewQuestionSidebar = event
+  }
 
   getSelectedOptions(selected_Option: any, option: any) {
     if (selected_Option.includes(option)) {
@@ -301,7 +313,6 @@ export class SchedulepageComponent implements OnInit {
   }
 
   handleEditIconClick(data: any) {
-
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;
@@ -390,8 +401,8 @@ export class SchedulepageComponent implements OnInit {
       this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
-const loginManagerid = sessionStorage.getItem('loginManagerId')
-console.log('Login Manager id', loginManagerid)
+      const loginManagerid = sessionStorage.getItem('loginManagerId');
+      console.log('Login Manager id', loginManagerid);
       if (existingCandidate) {
         const currentdate = new Date();
         const istMoment = moment.utc(currentdate).tz('Asia/Kolkata');

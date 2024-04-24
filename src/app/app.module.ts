@@ -42,7 +42,10 @@ import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.dir
 import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
 import { CustomHttpException } from './error-page/customexception';
 import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor';
-import { SidebarComponent } from './modules/sidebar/sidebar.component';
+import { QuestionPreviewComponent } from './modules/question-preview/question-preview.component';
+import { zip } from 'rxjs';
+import { MFAComponent } from './modules/mfa/mfa.component';
+import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
 
 
 
@@ -80,7 +83,7 @@ import { SidebarComponent } from './modules/sidebar/sidebar.component';
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
-      SidebarComponent,
+     
   ],
   imports: [
     BrowserModule,
@@ -91,8 +94,9 @@ import { SidebarComponent } from './modules/sidebar/sidebar.component';
     SharedModule,
     HttpClientModule,
     ReactiveFormsModule,
-  
-    
+    QuestionPreviewComponent,
+    MFAComponent,
+    Enable2faComponent,
     ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],
