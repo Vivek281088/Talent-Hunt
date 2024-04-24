@@ -103,4 +103,11 @@ export class LoginService {
   islogin() {
     return localStorage.getItem('token');
   }
+
+  checkDuplicate(email : string){
+    const body = {
+      email : email
+    }
+    return this.http.post('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/checkduplicate', body);
+  }
 }
