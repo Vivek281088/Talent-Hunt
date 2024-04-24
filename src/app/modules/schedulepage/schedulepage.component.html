@@ -310,75 +310,10 @@
   </div>
 </div>
  
-<div class="questionsidebar">
-  <p-sidebar [(visible)]="viewQuestionSidebar" position="right" [modal]="true">
-    <ng-template class="header_design" pTemplate="header"
-      >Quiz Preview
-    </ng-template>
-    <ng-template pTemplate="content" *ngIf="FinalizedQuestions">
-      <span *ngFor="let question of FinalizedQuestions; let j = index">
-        <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
- 
-        <div class="select-size">
-          <div
-            *ngFor="let option of question.options; let i = index"
-            class="option"
-            [ngClass]="getSelectedOptions(question.answer, option)"
-          >
-            <input
-              type="radio"
-              [name]="'option_' + i"
-              [id]="'option_' + i"
-              [checked]="option === question.answer"
-            />
-            <label class="box-design" [for]="'option' + question + '-' + i">{{
-              getLabel(i)
-            }}</label>
- 
-            <span class="option-content">{{ option }}</span>
-          </div>
-        </div>
-      </span>
- 
-      <div class="btnfooter">
-        <div class="quiz-instruction">
-          <p class="instruction">Quiz Instructions</p>
-          <ul class="points">
-            <li>
-              Read each question carefully, and select the corresponding answer
-              for each of the questions.
-            </li>
-            <li>
-              After responding to a question, click on the "Next" button at the
-              bottom to go to the next questino.
-            </li>
-            <li>
-              Click on "Prev" button at the bottom of the page to go to the next
-              question
-            </li>
-            <li>
-              After responding to all the question, click on "Submit" on the top
-              of the window to exit the quiz.
-            </li>
-            <li>
-              The questions which you have skipped or unmarked will be
-              considered as wrong
-            </li>
-            <li>
-              Complete the test within the given time limit. It will be
-              automatically submitted once the duration is over
-            </li>
-          </ul>
-        </div>
-        <div class="sidebarbuttons">
-          <div class="custom_button_send">
-            <p-button label="Close" (onClick)="closeSidebar()"></p-button>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </p-sidebar>
-</div>
+
+<app-sidebar *ngIf="displayCommonContent" [displayCommonContent]="displayCommonContent" [FinalizedQuestions]="FinalizedQuestions" hideData="onHide($event)">
+
+</app-sidebar>
  
 <p-toast></p-toast>
 <div class="sendinvite">

@@ -42,6 +42,7 @@ import { AllowDigitsDirective } from './modules/manage-managers/allow-digits.dir
 import { THDashboardComponent } from './modules/th-dashboard/th-dashboard.component';
 import { CustomHttpException } from './error-page/customexception';
 import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor';
+import { SidebarComponent } from './modules/sidebar/sidebar.component';
 
 
 
@@ -79,6 +80,7 @@ import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor'
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
+      SidebarComponent,
   ],
   imports: [
     BrowserModule,
