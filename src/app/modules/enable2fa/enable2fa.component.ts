@@ -69,7 +69,8 @@ export class Enable2faComponent {
 
 
   cancelButton() {
-    this.twofactvisible = false;
+    // this.twofactvisible = false;
+    this.router.navigate(['signup'])
   }
   copyToClipboard(text: string) {
     this.clipboard.copy(text);
