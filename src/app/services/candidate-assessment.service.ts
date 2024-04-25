@@ -19,7 +19,7 @@ export class CandidateAssessmentService {
     cutoff: number,
     duration: number
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
       candidateName: candidateName,
@@ -33,24 +33,24 @@ export class CandidateAssessmentService {
     return this.http.post<any>(
       this.defaultUrl + '/postcandidate_assessment',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
 
   // Method to fetch Candidate data by email
   getCandidatedata_by_Email(candidateEmail: string | null): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateEmail: candidateEmail,
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetch_candidatedetails',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
 

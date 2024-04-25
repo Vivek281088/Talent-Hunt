@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, tap, throwError } from 'rxjs';
- 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -11,22 +11,22 @@ export class LoginService {
     throw new Error('Method not implemented.');
   }
   private skillsUrl = 'http://localhost:9000/skill';
- 
+
   constructor(private http: HttpClient) {}
- 
+
   postlogincredentials(
     userEmail: string,
     encrypted_password: string
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { candidateEmail: userEmail, password: encrypted_password };
     console.log('bodey', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/loginresource',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     ).pipe(
       tap((responsedata)=>{
         this.message="Mail updated successfully"
@@ -43,7 +43,7 @@ export class LoginService {
     //   headers,
     // });
   }
- 
+
   postsignup(
     id: Date,
     Firstname: String,
@@ -53,7 +53,7 @@ export class LoginService {
     password: string,
     confirmpassword: string
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       id: id,
       Firstname: Firstname,
@@ -68,33 +68,33 @@ export class LoginService {
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/signup',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
     // return this.http.post<any>(this.skillsUrl + '/postsignup', body, {
     //   headers,
     // });
   }
- 
+
   postforgotpassword(
     emailId: string,
     password: string,
     confirmPassword: string
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateEmail: emailId,
       password: password,
       confirmPassword: confirmPassword,
     };
- 
+
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/forgotpassword',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
     // return this.http.post<any>(this.skillsUrl + '/forgotpassword', body, {
     //   headers,
@@ -103,5 +103,11 @@ export class LoginService {
   islogin() {
     return localStorage.getItem('token');
   }
+
+  checkDuplicate(email : string){
+    const body = {
+      email : email
+    }
+    return this.http.post('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/checkduplicate', body);
+  }
 }
- 
