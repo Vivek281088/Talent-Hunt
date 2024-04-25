@@ -1,5 +1,5 @@
 
-<div class="flex justify-content-center">
+<div class="flex justify-content-center"(keydown.enter)="onEnterKey()">
   
     <p-dialog   [modal]="true" [(visible)]="visible"  [style]="{ width: '40%', 'height': 'fit-content' }" [draggable]="false" [resizable]="false" [closable]="true">
        <div class="dialog-body">
@@ -11,6 +11,7 @@
                 <ng-otp-input  (onInputChange)="onOtpChange($event)"   [config]="{length:6 , allowNumbersOnly:true}"></ng-otp-input>
             </div>
             <div class="verify-button">
+                <p-toast></p-toast>
                 
                 <button  class="verify-button" (click)="verify()"> Verify Now</button>
             </div>
