@@ -185,15 +185,11 @@ export class SignupComponent {
       // }
       this.dataService.changeMessage(this.signupForm.value)
       this.loginservice.checkDuplicate(this.signupForm.value.emailId).subscribe(data => {
-        if(!data){
-          this.router.navigate(['/enablemfa'])
-        }else {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Email ID already Exists!!',
-            detail: '',
-          });
-        }
+        !data?this.router.navigate(['/enablemfa']): this.messageService.add({
+              severity: 'error',
+              summary: 'Email ID already Exists!!',
+              detail: '',
+            });
       })
       
     } else {
