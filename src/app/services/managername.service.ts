@@ -394,7 +394,7 @@ export class ManagernameService {
     const body = {
       email:email,
       password: password
-      
+
     };
 return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resetpassword',
 body,
