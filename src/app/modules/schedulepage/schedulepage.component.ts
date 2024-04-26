@@ -458,29 +458,6 @@ export class SchedulepageComponent implements OnInit {
     this.addnewScheduleForm.reset();
     sessionStorage.setItem('SaveOrEdit', 'Save');
   }
-  formattedDate(date: Date) {
-    const months: string[] = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const month: string = months[date.getMonth()];
-    const day: number = date.getDate();
-    const year: number = date.getFullYear();
-    const formatDate: string = `${month} ${day}, ${year}`;
-
-    return formatDate;
-  }
 
   selectingCandidate() {
     console.log('Selected', this.selectedCandidates);

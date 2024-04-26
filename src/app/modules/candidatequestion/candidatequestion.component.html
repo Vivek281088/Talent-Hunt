@@ -29,6 +29,14 @@
           <div class="question-design">
             {{ previewOptions[page]?.question }}
           </div>
+          <div class="code-design" *ngIf="previewOptions[page]?.code">
+           <pre>
+            <code>
+              {{ previewOptions[page]?.code }}
+            </code>
+
+           </pre>
+          </div>
         </div>
       </ng-template>
 
@@ -37,7 +45,7 @@
           <div
             *ngFor="let option of previewOptions[page].options; let i = index"
             class="option"
-            
+
           >
             <input
               [type]="

@@ -16,14 +16,14 @@ import { Router } from '@angular/router';
   templateUrl: './mfa.component.html',
   styleUrls: ['./mfa.component.scss'],
   imports: [CommonModule,DialogModule ,CardModule,NgOtpInputModule,ButtonModule,HttpClientModule ]
-  
+
 })
 export class MFAComponent implements OnInit{
   value : any;
   visible: boolean = true;
   token !:string;
   constructor(private http : HttpClient,private dataService:DataService,private router:Router){
-    
+
   }
   ngOnInit(): void {}
   onOtpChange(data:any){
@@ -31,16 +31,16 @@ export class MFAComponent implements OnInit{
   }
   verify() {
     try {
-       
+
       const emailId: string | null = localStorage.getItem('managerEmail');
-  
+
       this.dataService.verifyMFA(emailId,this.token).subscribe((data)=>{
         console.log("Verify code",data)
         if(data){
-          
-          this.router.navigate(['/dashboard'])
+          this.router.navigate(['/thdashboard'])
         }
         else{
+
           this.router.navigate(['/login'])
         }
       })

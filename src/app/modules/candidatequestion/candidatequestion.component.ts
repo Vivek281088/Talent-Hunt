@@ -64,16 +64,15 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   loginManagerId!: string;
   cutoff!: number;
   fileName!: string;
-  id: any = '2024-01-04T06:04:10.746Z';
-  candidateEmail: string = 'sapna@gmail.com';
+  id : any;
+  candidateEmail : string='';
+  // id: any = '2024-01-04T06:04:10.746Z';
+  // candidateEmail: string = 'sapna@gmail.com';
   constructor(
-    private managernameService: ManagernameService,
-    private tableservice: TableService,
     private candidateAssessmentService: CandidateAssessmentService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private reviewerService: ReviewerService,
-    private candidateService: CandidateAssessmentService,
     private cdr: ChangeDetectorRef,
     private notificationService: NotificationService,
 

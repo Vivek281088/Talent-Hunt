@@ -166,7 +166,7 @@ export class TableService {
       empid: empid,
       email_Managername: managerName,
       candidateName: candidateName,
-      email: candidateEmail,
+      candidateEmail: candidateEmail,
       candidatePhone: candidatePhone,
       email_Status: status,
       email_Filename: fileName,
@@ -190,7 +190,7 @@ export class TableService {
 
     console.log('Send Existing email Data', body);
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/sendmail',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/createMail',
       body,
       {
        // headers,
