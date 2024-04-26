@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class ManageCandidatesComponent {
   items: MenuItem[] | undefined;
-  todayDate!: string;
+  todayDate!: Date;
   managerData: any;
   candidateData: any;
   managerNames!: string;
@@ -65,7 +65,7 @@ export class ManageCandidatesComponent {
       console.log('Client Manager Names-->', response);
       this.managerNames = response;
     });
-    this.todayDate = this.formattedDate(new Date());
+    this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
 
     this.items = [
@@ -73,30 +73,7 @@ export class ManageCandidatesComponent {
       { label: 'Candidates', routerLink: '/manage-candidates' },
     ];
   }
-
-  formattedDate(date: Date) {
-    const months: string[] = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const month: string = months[date.getMonth()];
-    const day: number = date.getDate();
-    const year: number = date.getFullYear();
-    const formatDate: string = `${month} ${day}, ${year}`;
-
-    return formatDate;
-  }
+  
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
@@ -156,7 +133,7 @@ export class ManageCandidatesComponent {
     this.isEditCandidate = false;
     this.addCandidatevisible = true;
   }
-  
+
   cancelButton() {
     this.addCandidatevisible = false;
     this.editCandidatevisible = false;
@@ -214,7 +191,7 @@ export class ManageCandidatesComponent {
           }
         }
         );
-      
+
     }
   }
 

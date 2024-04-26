@@ -12,7 +12,7 @@
       ></p-breadcrumb>
     </div>
     <div class="date">
-      {{ todayDate }}
+      {{ todayDate | date}}
     </div>
   </div>
 
@@ -149,7 +149,7 @@
     </div>
   </div>
 </div>
-<!-- <div class="questionsidebar"> 
+<!-- <div class="questionsidebar">
   <p-sidebar
     [(visible)]="previewSidebarVisible"
     position="right"

@@ -38,7 +38,7 @@ export class MFAComponent implements OnInit{
     try {
        console.log("entered try") 
       const emailId: string | null = localStorage.getItem('managerEmail');
-  
+
       this.dataService.verifyMFA(emailId,this.token).subscribe((data)=>{
         console.log("Verify code",data)
         if(data){
