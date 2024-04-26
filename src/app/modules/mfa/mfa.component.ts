@@ -15,14 +15,14 @@ import { Router } from '@angular/router';
   standalone:true,
   templateUrl: './mfa.component.html',
   styleUrls: ['./mfa.component.scss'],
-  imports: [CommonModule,DialogModule ,CardModule,NgOtpInputModule,ButtonModule,HttpClientModule ]
+  imports: [CommonModule,DialogModule ,CardModule,NgOtpInputModule,ButtonModule]
 
 })
 export class MFAComponent implements OnInit{
   value : any;
   visible: boolean = true;
   token !:string;
-  constructor(private http : HttpClient,private dataService:DataService,private router:Router){
+  constructor(private dataService:DataService,private router:Router){
 
   }
   ngOnInit(): void {}
