@@ -58,12 +58,6 @@ export class Enable2faComponent {
             this.router.navigate(['login'])
           },
           error : (error) => {
-            this.messageservice.add({
-              severity: 'error',
-              summary: 'Wrong Authentication Code',
-              detail: ' Try Again!',
-              sticky: true
-            });
             this.showErrorMessage = true;
             console.log(error)
           }
