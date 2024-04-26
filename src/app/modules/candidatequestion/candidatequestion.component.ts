@@ -147,17 +147,17 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     // });
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
-    
+
     if (this.previewOptions[pageIndex]?.questionType === 'Checkbox') {
 
-      
-     
+
+
       if(this.selectedOptions1[pageIndex].includes(option))
       this.selectedOptions1[pageIndex]= this.selectedOptions1[pageIndex].filter((data:string)=>data!=option)
       else
       this.selectedOptions1[pageIndex].push(option);
       console.log("inside checkbox answers",this.selectedOptions1);
-      
+
     } else {
       // Radio option (single selection)
       this.selectedOptions1[pageIndex] === option ? this.selectedOptions1[pageIndex] = '' : this.selectedOptions1[pageIndex] = option;
@@ -187,7 +187,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   toggleColor(option:string,questiontype:string,pageIndex:number):boolean{
     if(questiontype=='Checkbox')
     return this.selectedOptions1[pageIndex].includes(option);
-  else 
+  else
     return this.selectedOptions1[pageIndex]==option;
   }
 

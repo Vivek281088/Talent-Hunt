@@ -44,6 +44,7 @@ import { CustomHttpException } from './error-page/customexception';
 import { GlobalErrorInterceptor } from './Interceptors/global-error.interceptor';
 import { QuestionPreviewComponent } from './modules/question-preview/question-preview.component';
 import { zip } from 'rxjs';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
 
@@ -70,7 +71,8 @@ import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
     SidenavbarComponent,
     AssessmentTableComponent,
     CandidatequestionComponent,
-    THDashboardComponent,
+    THDashboardComponent
+    ,
 
     BodyComponent,
       NewScheduleComponent,
@@ -83,7 +85,7 @@ import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
-     
+
   ],
   imports: [
     BrowserModule,
@@ -109,7 +111,14 @@ import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
     provide : HTTP_INTERCEPTORS,
     useClass : GlobalErrorInterceptor,
     multi : true
+  },
+  {
+    provide :  HTTP_INTERCEPTORS,
+    useClass:AuthInterceptorService,
+    multi:true
   }
+
+
   ],
   bootstrap: [AppComponent],
 })

@@ -55,7 +55,7 @@ export class ManagernameService {
     department: string,
     location: string
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       empid: employeeId,
       managerName: managerName,
@@ -68,7 +68,7 @@ export class ManagernameService {
       .post<any>(
         'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
         body,
-        { headers }
+        // { headers }
       )
       .pipe(
         tap((responsedata) => {
@@ -106,7 +106,7 @@ export class ManagernameService {
     department?: string,
     location?: string
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateName: candidateName,
       email: email,
@@ -118,7 +118,7 @@ export class ManagernameService {
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
       body,
-      { headers }
+      // { headers }
     ).pipe(
       tap((responsedata) => {
         console.log('Mail updated successfully', responsedata);
@@ -142,7 +142,7 @@ export class ManagernameService {
     department?: string,
     location?: string
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateName: candidateName,
       candidateEmail: email,
@@ -154,11 +154,11 @@ export class ManagernameService {
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_CandidateDetails',
       body,
-      { headers }
+      // { headers }
     );
   }
   deleteCandidate(id: string, email: string): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       id: id,
       candidateEmail: email,
@@ -166,19 +166,19 @@ export class ManagernameService {
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deletecandidatedetails',
       body,
-      { headers }
+      // { headers }
     );
   }
 
   deleteSchedule(id: string): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       id: id,
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteScheduleData',
       body,
-      { headers }
+      // { headers }
     );
   }
 
@@ -190,7 +190,7 @@ export class ManagernameService {
     department: string,
     managerLocation: string
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       managerName: managerName,
       email: email,
@@ -203,12 +203,12 @@ export class ManagernameService {
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_ManagerDetail',
       body,
-      { headers }
+      // { headers }
     );
   }
 
   deleteManagerDetails(empid: number, email: string): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       empid: empid,
       email: email,
@@ -217,33 +217,33 @@ export class ManagernameService {
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteManager',
       body,
-      { headers }
+      // { headers }
     );
   }
 
   //To get Manager profile Data
   postManagerName(name: String): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { Managername: name };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/managerProfile',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
 
   //to get candidate Profile Data
   postCandidateEmail(email: String): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { candidateEmail: email };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidateProfile',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
 
@@ -257,7 +257,7 @@ export class ManagernameService {
 
     questions: any
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       email_Managername: managername,
       candidateName: name,
@@ -269,7 +269,7 @@ export class ManagernameService {
       questions: questions,
     };
     return this.http.post<any>(this.managerNameUrl + '/add-candidate', body, {
-      headers,
+      // headers,
     });
   }
 
@@ -283,7 +283,7 @@ export class ManagernameService {
     selecteddifficultyType: String,
     selectedAnswer: String[]
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       question: question,
       questionType: selectedquestionType,
@@ -296,20 +296,20 @@ export class ManagernameService {
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb',
       body,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     );
   }
   postquestions(data:any): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     console.log('Post Question Data', data);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb',
       data,
-      {
-        headers,
-      }
+      // {
+      //   headers,
+      // }
     ).pipe(
       catchError((err) => throwError(() => new Error(`Error While Uploading Questions ${err.message}`)))
     )
@@ -377,28 +377,28 @@ export class ManagernameService {
   }
 
   getManagerdata_by_Email(managerEmail: string): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateEmail: managerEmail,
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetch_managerdetails',
       body,
-      { headers }
+      // { headers }
     );
   }
 
   postResetPassword(password:string,email:string): Observable<any> {
     console.log("at service" , password , email)
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       email:email,
       password: password
-      
+
     };
 return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resetpassword',
 body,
-{headers}
+// {headers}
 );
   }
 

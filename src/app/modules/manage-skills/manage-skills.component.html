@@ -22,7 +22,7 @@
         <p-tabView>
           <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
             <!-- <ng-template pTemplate="header">
-             
+
             </ng-template> -->
             <p-table
               #dt2
@@ -285,7 +285,7 @@
           <input
             type="text"
             pInputText
-           
+
             (ngModelChange)="formModified = true"
             formControlName="question"
           />
@@ -323,8 +323,8 @@
             class="w-full table_dropdown"
             placeholder="--Select--"
             [options]="difficultyLevel"
-            
-            
+
+
             formControlName="difficulty"
           >
           </p-dropdown>
@@ -351,9 +351,9 @@
             type="text"
             pInputText
           formControlName="choices{{i}}"
-          
 
-            
+
+
           />
         </div>
       </div>

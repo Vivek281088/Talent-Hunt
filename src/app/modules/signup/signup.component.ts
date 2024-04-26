@@ -184,7 +184,14 @@ export class SignupComponent {
         
       // }
       this.dataService.changeMessage(this.signupForm.value)
-      this.router.navigate(['/enablemfa'])
+      this.loginservice.checkDuplicate(this.signupForm.value.emailId).subscribe(data => {
+        !data?this.router.navigate(['/enablemfa']): this.messageService.add({
+              severity: 'error',
+              summary: 'Email ID already Exists!!',
+              detail: '',
+            });
+      })
+      
     } else {
       console.error(
         'Form is not valid. Validation errors:',
