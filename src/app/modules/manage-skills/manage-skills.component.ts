@@ -30,7 +30,7 @@ import { optionValodator } from './optionvalidator';
 })
 export class ManageSkillsComponent {
   item: any[] = [];
-  todayDate!: string;
+  todayDate!: Date;
   items: MenuItem[] | undefined;
   formModified: boolean = false;
   visible: boolean = false;
@@ -40,7 +40,6 @@ export class ManageSkillsComponent {
   previewSidebarVisible: boolean = false;
   questionPreviewvisible: boolean = false;
   selectedQuestionsId:string[] =[];
-  
   singleQuestion: any;
   singleQuestionOption: any;
   singleQuestionAnswer: any;
@@ -75,36 +74,14 @@ export class ManageSkillsComponent {
 
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'question_bank');
-    this.todayDate = this.formattedDate(new Date());
+    this.todayDate = new Date();
     this.getSkillSet();
     this.items = [
       { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Questions', routerLink: '/manage-skills' },
     ];
   }
-  formattedDate(date: Date) {
-    const months: string[] = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const month: string = months[date.getMonth()];
-    const day: number = date.getDate();
-    const year: number = date.getFullYear();
-    const formatDate: string = `${month} ${day}, ${year}`;
-
-    return formatDate;
-  }
+ 
   clear(table: Table) {
     table.clear();
   }

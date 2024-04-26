@@ -20,7 +20,7 @@ import {
 })
 export class ManageManagersComponent {
   items: MenuItem[] | undefined;
-  todayDate!: string;
+  todayDate!: Date;
   managerData: any;
   managerNames!: string;
   elipsisOverlayVisible: boolean = false;
@@ -56,7 +56,7 @@ export class ManageManagersComponent {
     sessionStorage.setItem('Component-Name', 'user');
     this.loadManagerData();
 
-    this.todayDate = this.formattedDate(new Date());
+    this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
 
     this.items = [
@@ -75,29 +75,7 @@ export class ManageManagersComponent {
     });
   }
 
-  formattedDate(date: Date) {
-    const months: string[] = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ];
-
-    const month: string = months[date.getMonth()];
-    const day: number = date.getDate();
-    const year: number = date.getFullYear();
-    const formatDate: string = `${month} ${day}, ${year}`;
-
-    return formatDate;
-  }
+  
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
