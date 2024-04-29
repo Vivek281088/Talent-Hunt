@@ -75,7 +75,6 @@ export class ManageManagersComponent {
     });
   }
 
-  
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
@@ -110,7 +109,7 @@ export class ManageManagersComponent {
         department: this.selectedRowData.department,
         location: this.selectedRowData.managerLocation,
       });
-      
+
     }
     //console.log('Edit Data', this.addManagerForm);
     console.log("touched",this.addManagerForm)

@@ -46,7 +46,7 @@ export class ManageSkillsComponent {
   selectedquestions: any[] = [];
   updateQuestionForm: FormGroup;
   checkboxControl!: FormControl;
-  headers = ['question', 'questionType', 'difficulty', 'option1', 'option2', 'option3', 'option4', 'answer1', 'answer2', 'answer3', 'answer4', 'skill'];
+  headers = ['question', 'code','questionType', 'difficulty', 'option1', 'option2', 'option3', 'option4', 'answer1', 'answer2', 'answer3', 'answer4', 'skill'];
 
 
 
@@ -81,7 +81,6 @@ export class ManageSkillsComponent {
       { label: 'Questions', routerLink: '/manage-skills' },
     ];
   }
- 
   clear(table: Table) {
     table.clear();
   }
@@ -138,7 +137,7 @@ export class ManageSkillsComponent {
     this.singleQuestionAnswer = questions.answer;
   }
   getSelectedOptions(selected_Option: any, option: any) {
-    
+
     if (selected_Option.includes(option)) {
       return 'correctAnswer';
     } else {
@@ -152,15 +151,7 @@ export class ManageSkillsComponent {
     this.visible = true;
   }
 
-  storeSkill() {
-    this.skillsdropdownservice
-      .postOneSkill(this.scheduleName)
-      .subscribe((response: any) => {
-        console.log('recieved response1', response);
-        this.visible = false;
-        this.resetData();
-      });
-  }
+
   storeQuestion(data: any) {
     console.log("inside store Question" , data)
     this.managerService.postquestions(data)
@@ -169,7 +160,7 @@ export class ManageSkillsComponent {
         this.messageService.add({
           severity : 'error',
           summary : err.message,
-         
+
       })
       return of(null);
       }
@@ -216,27 +207,27 @@ export class ManageSkillsComponent {
     // // lines.forEach((line:any) => {
     // //   const data = line.split(',');
     // //   const question = data[0]?.trim() || '';
-    // //   const questionType = data[1]?.trim() || ''; 
-    // //   const difficulty = data[2]?.trim() || ''; 
-    // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || '']; 
+    // //   const questionType = data[1]?.trim() || '';
+    // //   const difficulty = data[2]?.trim() || '';
+    // //   const options = [data[3]?.trim() || '', data[4]?.trim() || '', data[5]?.trim() || '', data[6]?.trim() || ''];
 
     // //   let answers: any[] = [];
     // //   if (questionType === 'Radio') {
-    // //     const answer = data[7]?.trim() || ''; 
+    // //     const answer = data[7]?.trim() || '';
     // //     if (answer !== '') {
     // //       answers = answer;
     // //     }
     // //   } else {
     // //     answers = [
-    // //       data[7]?.trim() || '', 
-    // //       data[8]?.trim() || '', 
-    // //       data[9]?.trim() || '', 
+    // //       data[7]?.trim() || '',
+    // //       data[8]?.trim() || '',
+    // //       data[9]?.trim() || '',
     // //       data[10]?.trim() || ''
-    // //     ]; 
+    // //     ];
     // //     answers = answers.filter(answer => answer !== '');
     // //   }
 
-    // //   const skill = data[11]?.trim() || ''; 
+    // //   const skill = data[11]?.trim() || '';
 
     // //   if (question !== '' && questionType !== '') {
     // //     results.push({
@@ -245,7 +236,7 @@ export class ManageSkillsComponent {
     // //       difficulty,
     // //       options,
     // //       answers,
-    // //       skill: skill.replace(/\r$/, '') 
+    // //       skill: skill.replace(/\r$/, '')
     // //     });
     // //   }
     // // });
@@ -293,24 +284,25 @@ export class ManageSkillsComponent {
             }
             console.log("After complete method",result)
             result.data.forEach((row:any) => {
-              const questionType = row[1]?.trim() || '';
+              const questionType = row[2]?.trim() || '';
               let answers: any;
               if (questionType === 'Radio') {
-                const answer = row[7]?.trim() || '';
+                const answer = row[8]?.trim() || '';
                 if (answer !== '') {
                   answers = answer;
                 }
               } else {
-                answers = row.slice(7, 11).filter((answer: string) => answer.trim() !== '');
+                answers = row.slice(8, 12).filter((answer: string) => answer.trim() !== '');
               }
               console.log("Row", row)
               results.push({
                 question: row[0]?.trim() || '',
+                code: row[1]?.trim() || '',
                 questionType,
-                difficulty: row[2]?.trim() || '',
-                options: [row[3]?.trim() || '', row[4]?.trim() || '', row[5]?.trim() || '', row[6]?.trim() || ''],
+                difficulty: row[3]?.trim() || '',
+                options: [row[4]?.trim() || '', row[5]?.trim() || '', row[6]?.trim() || '', row[7]?.trim() || ''],
                 answers,
-                skill: row[11]?.trim().replace(/\r$/, '') || ''
+                skill: row[12]?.trim().replace(/\r$/, '') || ''
               });
             });
             // When parsing is finished, emit the results array
@@ -363,6 +355,7 @@ export class ManageSkillsComponent {
             skill: data.skill,
             difficulty: data.difficulty,
             answer: answerArray,
+            code: data?.code,
           };
 
           console.log('Question Data--', questionData);
@@ -402,9 +395,9 @@ csvUploadErrorMessage() {
   }
   downloadQuestionsCsvTemplate() {
     let csvTemplate;
-    csvTemplate = `Question,questionType,difficulty,option-1,option-2,option-3,option-4,answer-1,answer2,answer-3,answer-4,skill\n`;
+    csvTemplate = `Question,Code,questionType,difficulty,option-1,option-2,option-3,option-4,answer-1,answer2,answer-3,answer-4,skill\n`;
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
-    saveAs(blob, 'questions-template.csv');
+    saveAs(blob, 'questiontemplate.csv');
   }
 
   choices!: any;

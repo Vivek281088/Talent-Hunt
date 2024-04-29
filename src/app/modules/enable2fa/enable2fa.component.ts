@@ -6,15 +6,18 @@ import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Subscription } from 'rxjs';
+import {ToastModule} from 'primeng/toast';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-enable2fa',
   standalone: true,
-  imports: [CommonModule, CardModule, ReactiveFormsModule, DialogModule, ButtonModule,FormsModule],
+  imports: [CommonModule, CardModule, ReactiveFormsModule, DialogModule, ButtonModule,FormsModule,ToastModule],
   templateUrl: './enable2fa.component.html',
   styleUrls: ['./enable2fa.component.scss'],
+  providers: [MessageService]
 })
 export class Enable2faComponent {
 
@@ -25,20 +28,22 @@ export class Enable2faComponent {
   imageSource!:string;
   secretKey!:string;
   token!:string
+  showErrorMessage: boolean = false;
 
   constructor(
     private clipboard: Clipboard,
     private router : Router,
-    private dataService:DataService
-  
-  
+    private dataService:DataService,
+    private messageservice: MessageService,
+
+
   ) {}
 
   ngOnInit() {
     this.message = this.dataService.getSighupdata()
     console.log("message received from signup",this.message);
     this.createQrCode();
-    
+
   }
 
   verifyNow()
@@ -53,6 +58,7 @@ export class Enable2faComponent {
             this.router.navigate(['login'])
           },
           error : (error) => {
+            this.showErrorMessage = true;
             console.log(error)
           }
         }
@@ -66,7 +72,9 @@ export class Enable2faComponent {
       console.log('emailid created....',response);
     });
   }
-
+  onEnterKey() {
+      this.verifyNow();
+  }
 
   cancelButton() {
     // this.twofactvisible = false;
@@ -74,12 +82,12 @@ export class Enable2faComponent {
   }
   copyToClipboard(text: string) {
     this.clipboard.copy(text);
-    this.showTick = true; 
-    console.log("showTick set to true"); 
+    this.showTick = true;
+    console.log("showTick set to true");
         setTimeout(() => {
-      this.showTick = false; 
+      this.showTick = false;
       console.log("showTick set to false");
-    }, 1500); 
+    }, 1500);
   }
 
 }
