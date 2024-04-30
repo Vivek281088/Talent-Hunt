@@ -9,7 +9,6 @@ import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
 import { LoginService } from 'src/app/services/login.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MFAComponent } from '../mfa/mfa.component';
 import * as CryptoJS from 'crypto-js';
 
 @Component({

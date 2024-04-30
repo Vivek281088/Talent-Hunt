@@ -296,7 +296,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
       results: this.result,
 
-      email_Status: 'Completed',
+      // email_Status: 'Completed',
 
       candidateEmail: this.candidateEmail,
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
- 
+
 import { Router } from '@angular/router';
 import {
   FormBuilder,
@@ -12,6 +12,7 @@ import { MessageService } from 'primeng/api';
 import { PasswordValidator } from '../signup/password-validator';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-resetpassword',
@@ -101,15 +102,17 @@ export class ResetpasswordComponent {
   }
 
   ngOnInit() {}
-  
+
 
   reset() {
     this.formSubmitted = true;
+    const hashedPassword = CryptoJS.SHA256(this.resetForm.value.password).toString();
+      console.log('Hashed New Password:', hashedPassword);
     this.loginservice
       .postforgotpassword(
         this.resetForm.value.emailId,
-        this.resetForm.value.password,
-        this.resetForm.value.confirmPassword
+        hashedPassword,
+        hashedPassword
       )
       .subscribe((data) => {
         console.log('data', data);
@@ -132,4 +135,4 @@ export class ResetpasswordComponent {
     this.router.navigate(['login']);
   }
 }
- 
+
