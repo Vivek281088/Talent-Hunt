@@ -1,8 +1,8 @@
 
 <div class="flex justify-content-center">
-  
+
     <p-dialog   [modal]="true" [(visible)]="visible"  [style]="{ width: '40%', 'height': 'fit-content' }" [draggable]="false" [resizable]="false" [closable]="true">
-       <div class="dialog-body">
+       <div class="dialog-body" (keydown.enter)="onEnterKey()">
         <div class="logo-text">
         <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
         <p class="heading">MTalent</p>
@@ -11,10 +11,10 @@
                 <ng-otp-input  (onInputChange)="onOtpChange($event)"   [config]="{length:6 , allowNumbersOnly:true}"></ng-otp-input>
             </div>
             <div class="verify-button">
-                
+
                 <button  class="verify-button" (click)="verify()"> Verify Now</button>
             </div>
-        </div> 
+        </div>
         <ng-template pTemplate="footer">
         </ng-template>
     </p-dialog>
