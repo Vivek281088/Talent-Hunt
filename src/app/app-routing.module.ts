@@ -53,9 +53,11 @@ const routes :Routes =[
 {path:'errorpage' , component : ErrorPageComponent},
 {path:'verifymfa',component:MFAComponent},
 {
-  path:'',loadChildren:()=>import('./modules/body/component-routing.module').then((m)=>m.ComponentRoutingModule),
+  path:'/MTalent',loadChildren:()=>import('./modules/body/component-routing.module').then((m)=>m.ComponentRoutingModule),
 },
-// {path:'',component:BodyComponent},
+// {path:'',redirectTo:LoginComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+
 { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ]
 // const routes: Routes = [
