@@ -75,7 +75,6 @@ export class ManageManagersComponent {
     });
   }
 
-
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';

@@ -139,7 +139,7 @@ console.log("inside sign in")
         } else {
           this.messageservice.add({
             severity: 'error',
-            summary: 'Wrong Credentials! Try Again',
+            summary: 'Invalid Credentials! Try Again',
             detail: '',
           });
         }

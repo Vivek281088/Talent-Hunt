@@ -425,6 +425,16 @@
 //     justify-content: space-between;
 //   }
 // }
+.newscheduleTable{
+  ::ng-deep {
+    .p-datatable .p-datatable-tbody > tr {
+      background: none;
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
 
 .labelvalue {
   display: flex;

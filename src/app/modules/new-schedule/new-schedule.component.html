@@ -101,13 +101,14 @@
       <div class="newSchedule-Dialog">
         <p-dialog
           header="New Schedule"
-          [(visible)]="visible"
+          [(visible)]="editvisible"
           [modal]="true"
           [style]="{ width: '47VW' }"
           [formGroup]="updateNewScheduleForm"
           [draggable]="false"
           [resizable]="false"
           [closable]="false"
+          
         >
           <div class="NewSchedule-content">
             <div class="labelvalue">
@@ -165,10 +166,12 @@
               </div>
               <div class="value">
                 <p-dropdown
+                appendTo="body"
                   [options]="managerOption"
                   placeholder=""
                   [editable]="true"
                   formControlName="managerName"
+                  
                 ></p-dropdown>
 
                 <div
@@ -225,7 +228,7 @@
                 <p-button
                   label="Cancel"
                   [outlined]="true"
-                  (onClick)="cancelButton()"
+                  (onClick)="cancelEditButton()"
                 >
                 </p-button>
               </div>
@@ -266,7 +269,7 @@
               [(selection)]="selectedquestions"
               dataKey="id"
               [scrollable]="true"
-              scrollHeight="290px"
+              scrollHeight="400px"
               [globalFilterFields]="[
                 'question',
                 'questionType',

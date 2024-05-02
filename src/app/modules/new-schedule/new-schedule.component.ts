@@ -50,7 +50,7 @@ export class NewScheduleComponent {
   selectedSkills!: any | null;
   // cutOff!: string | number | null;
   receiverManagers: string[] = [];
-
+editvisible: boolean =false;
   skill!: string | null;
   questions = [];
   selectedquestions: any[] | string[] = [];
@@ -334,7 +334,6 @@ export class NewScheduleComponent {
     console.log('selected', this.selectedquestions);
     console.log('Final', this.FinalizedQuestions);
     this.managernameService.setFinalizedQuestions(this.FinalizedQuestions);
-
     try {
       const selectedSkillName = this.selectedSkills.sort();
       const dataToSave = {
@@ -643,8 +642,9 @@ export class NewScheduleComponent {
     this.router.navigate(['/dashboard']);
   }
 
+  
   editicon() {
-    this.visible = true;
+    this.editvisible = true;
     this.isEditSchedule = true;
   }
 
@@ -754,6 +754,10 @@ export class NewScheduleComponent {
       this.cutOff = this.cutOff - 50;
       this.cutoff1.update( cut => cut - 50);
     }
+  }
+
+  cancelEditButton(){
+    this.editvisible = false;
   }
 
 }

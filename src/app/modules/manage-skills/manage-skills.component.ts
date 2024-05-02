@@ -40,7 +40,6 @@ export class ManageSkillsComponent {
   previewSidebarVisible: boolean = false;
   questionPreviewvisible: boolean = false;
   selectedQuestionsId:string[] =[];
-
   singleQuestion: any;
   singleQuestionOption: any;
   singleQuestionAnswer: any;
@@ -82,7 +81,6 @@ export class ManageSkillsComponent {
       { label: 'Questions', routerLink: '/manage-skills' },
     ];
   }
-
   clear(table: Table) {
     table.clear();
   }
