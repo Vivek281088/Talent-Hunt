@@ -74,7 +74,7 @@ const modifiedRoute :Routes =[
 { path: 'signup', component: SignupComponent },
 { path: 'resetpassword', component: ResetpasswordComponent },
 {path:'errorpage' , component : ErrorPageComponent},
-{ path: '**', redirectTo: '/login', pathMatch: 'full' }
+{ path: '**', redirectTo: '/login', pathMatch: 'full'}
 ]
 const routes: Routes = [
 

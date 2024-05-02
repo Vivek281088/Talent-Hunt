@@ -60,7 +60,6 @@ export class CandidateAssessmentService {
   getAssessmentData(): any {
     return this.assessmentData;
   }
-
   updateStatus(data: any): Observable<any> {
     // Send a PUT request to the API endpoint to update score and result
     return this.http.put<any>(

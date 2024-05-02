@@ -1,9 +1,9 @@
+
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ManagernameService } from 'src/app/services/managername.service';
-
 @Component({
   selector: 'app-candidate-assessment',
   templateUrl: './candidate-assessment.component.html',
@@ -14,6 +14,7 @@ export class CandidateAssessmentComponent implements AfterViewInit {
   visible: boolean = false;
   candidateEmail!: string | null;
   assessmentData: any;
+
   constructor(
     private messageService: MessageService,
     private managernameService: ManagernameService,
@@ -26,7 +27,6 @@ export class CandidateAssessmentComponent implements AfterViewInit {
     console.log('Mail Id', this.candidateEmail);
     this.getAssessmentdatabyEmail();
   }
-
  
   getAssessmentdatabyEmail() {
     this.candidateAssessmentService
@@ -35,11 +35,9 @@ export class CandidateAssessmentComponent implements AfterViewInit {
         this.assessmentData = response.filter((data: { email_Filename: any; }) => data.email_Filename!=null);
         console.log('candidate data /////////', this.assessmentData);
         
-
         
       });
   }
-
   show() {
     this.messageService.add({
       severity: 'info',
@@ -47,22 +45,18 @@ export class CandidateAssessmentComponent implements AfterViewInit {
       sticky: true,
     });
   }
-
   showAssessmentDialog(data: any) {
     console.log("Assessment Data", data);
     //setting the data for assessment page
     this.candidateAssessmentService.setAssessmentData(data);
     this.visible = true;
   }
-
   cancelButton() {
         this.visible = false;
-
   }
-
   startAssessment() {
+    localStorage.setItem('showNavbar','false');
     this.router.navigate(['candidatequestion']);
   }
-
   
 }
