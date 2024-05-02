@@ -32,6 +32,7 @@ export class ManageCandidatesComponent {
   globalSearchValue!: string;
   showUpload: boolean = false;
   uploadedFileData: any;
+ 
 
   constructor(
     private managerService: ManagernameService,
@@ -228,7 +229,7 @@ export class ManageCandidatesComponent {
       }, 1000);
     }
   }
-
+ 
   UpdateMessage() {
     this.messageService.add({
       severity: 'success',

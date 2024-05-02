@@ -71,6 +71,7 @@ export class SchedulepageComponent implements OnInit {
   cutOff!: number;
   duration!: number;
   viewQuestionSidebar: boolean = false;
+  displayCommonContent!:boolean;
   sendQuestionCardVisible: boolean = false;
   visible: boolean = false;
 
@@ -280,7 +281,8 @@ export class SchedulepageComponent implements OnInit {
   this.viewQuestionSidebar = false;
   }
   onViewClick(data: any) {
-    this.viewQuestionSidebar = true;
+    
+    this.displayCommonContent=true;
     console.log('View Data', data);
     // this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
     //   this.FinalizedQuestions = response;
@@ -288,6 +290,11 @@ export class SchedulepageComponent implements OnInit {
     //   this.previewQuestionsId=this.FinalizedQuestions.map(data=>data.id);
     // });
     this.previewQuestionsId = data.questions;
+  }
+  onHide(hide:boolean){
+    console.log("button clicked",hide)
+    this.displayCommonContent=hide
+
   }
 
   onHidePreview(event:any){
