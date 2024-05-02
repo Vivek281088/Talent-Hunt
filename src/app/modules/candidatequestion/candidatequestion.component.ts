@@ -137,13 +137,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       this.previewOptions = data;
     });
     console.log('Updated Total Question data--', this.previewOptions);
-    // const observables = previewOptions.map((questionId: string) =>
-    //   this.newScheduleService.getIndividualQuestion(questionId)
-    // );
-    // forkJoin(observables).subscribe((responses) => {
-    //   this.previewOptions = responses;
-    //   console.log('Updated Total Question data--', this.previewOptions);
-    // });
+    
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
 
@@ -251,13 +245,16 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     console.log('Updated Question', this.previewOptions);
     for (let question of this.previewOptions) {
       let correct;
-      if ((question.questionType = 'Radio')) {
+      console.log('Question Type:........................}}}}}}}}}', question.questionType);
+      if ((question.questionType = 'Radio' && question.selectedOption.length != 0)) {
         correct = question.answer.includes(question.selectedOption);
         console.log('correct ', correct);
-      } else if ((question.questionType = 'Checkbox')) {
-        correct = question.selectedOption.every((opt: any) =>
-          question.answer.includes(opt)
-        );
+      } else if ((question.questionType = 'Checkbox' && question.selectedOption.length != 0)) {
+        console.log("Inside Checkbox..............................??????????????????????????????")
+        correct=JSON.stringify(question.selectedOption)==JSON.stringify(question.answer);
+        // correct = question.ans.every((opt: any) =>
+        //   question.selectedOption.includes(opt)
+        // );
         console.log('correct ', correct);
       }
       if (correct) {
@@ -296,7 +293,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
       results: this.result,
 
-      // email_Status: 'Completed',
+      email_Status: 'Not Started',
 
       candidateEmail: this.candidateEmail,
 
