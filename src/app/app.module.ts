@@ -103,20 +103,20 @@ import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [MessageService,DatePipe,
-  {
-    provide : ErrorHandler,
-    useClass : CustomHttpException
-  },
-  {
-    provide : HTTP_INTERCEPTORS,
-    useClass : GlobalErrorInterceptor,
-    multi : true
-  },
-  {
-    provide :  HTTP_INTERCEPTORS,
-    useClass:AuthInterceptorService,
-    multi:true
-  }
+  // {
+  //   provide : ErrorHandler,
+  //   useClass : CustomHttpException
+  // },
+  // {
+  //   provide : HTTP_INTERCEPTORS,
+  //   useClass : GlobalErrorInterceptor,
+  //   multi : true
+  // },
+  // {
+  //   provide :  HTTP_INTERCEPTORS,
+  //   useClass:AuthInterceptorService,
+  //   multi:true
+  // }
 
 
   ],

@@ -400,6 +400,7 @@ export class SchedulepageComponent implements OnInit {
         const currentdate = new Date();
         const istMoment = moment.utc(currentdate).tz('Asia/Kolkata');
         this.scheduledTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
+        console.log("Questions------",this.questions)
         this.tableService
           .postExistingCandidateDetails(
             this.candidateId,
