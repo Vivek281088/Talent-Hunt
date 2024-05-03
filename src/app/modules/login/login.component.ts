@@ -49,9 +49,9 @@ export class LoginComponent implements OnDestroy {
 
 
     });
-  }
-  //  ) {}
-
+  } 
+  //  ) {}//
+ 
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'home');
 
@@ -120,9 +120,9 @@ console.log("inside sign in")
               console.log("entered")
               const redirectUrl = this.authService.redirectUrl
                 ? this.authService.redirectUrl
-                : '/candidatehome';
-
-              this.router.navigate(['candidatehome']);
+                : '/mtalent/candidatehome';
+ 
+              this.router.navigate(['/mtalent/candidatehome']);
             }
           }
         } else if (data.status == 400) {

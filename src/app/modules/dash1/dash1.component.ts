@@ -216,7 +216,7 @@ export class Dash1Component implements OnInit {
 
       this.saveSuccess();
       setTimeout(() => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['/mtalent/dashboard']);
       }, 1000);
     } catch (error) {
       console.error(error);
