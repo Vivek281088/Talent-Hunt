@@ -54,6 +54,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   totalQuestions!: number;
   assessmentQuestions: any;
   previewOptions: any;
+  questionIds: any;
   endTime!: string;
   countCorrectQues!: number;
   CountTotalQuestions!: number;
@@ -95,6 +96,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
    this.assessmentData = this.candidateAssessmentService.getAssessmentData();
    console.log('Assessment Data', this.assessmentData);
     // Assign the shuffled questions to the previewOptions
+    this.questionIds = this.assessmentData.questions;
+    console.log('Question Ids', this.questionIds);
+
     this.previewOptions =this.shuffleArray(this.assessmentData.questions);
     this.loginManagerId = this.assessmentData.loginManagerId
     this.duration = this.assessmentData.durations;
@@ -105,7 +109,8 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     console.log('Id--->', this.id);
     this.candidateEmail = this.assessmentData.candidateEmail;
     console.log('Email-->', this.candidateEmail);
-    this.getQuestionsById(this.previewOptions);
+
+    this.getQuestionsById(this.questionIds);
     this.remainingTime = this.duration * 60;
     console.log('Assessment Questions', this.previewOptions);
     this.selectedOptions1 = this.previewOptions.map(() => []);
@@ -127,7 +132,8 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       this.previewOptions = data;
     });
     console.log('Updated Total Question data--', this.previewOptions);
-    }
+
+  }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
     if (this.previewOptions[pageIndex]?.questionType === 'Checkbox') {
 
@@ -250,7 +256,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     const reviewData = {
 
       id: this.id,
-      questions: this.previewOptions,
+
+      questions: this.questionIds,
+
       score: this.score.toFixed(2),
       results: this.result,
       email_Status: 'Completed',
