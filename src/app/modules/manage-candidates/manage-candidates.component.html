@@ -14,7 +14,7 @@
     </div>
     <div class="new-schedule-header-2">
       <div class="date">
-        {{ todayDate }}
+        {{ todayDate | date }}
       </div>
     </div>
   </div>
@@ -136,7 +136,7 @@
                   [disabled]="!selectedDeleteCandidate || selectedDeleteCandidate.length==0"
                     label="Delete candidate"
                     (onClick)="deleteCandidate()"
-                    
+
                   >
                   </p-button>
                 </div>
@@ -252,10 +252,10 @@
             </div>
             <div class="value">
               <input
-              pInputText 
+              pInputText
                 formControlName="empid"
                 appAllowDigits ="8"
-                
+
               >
               <div
                 *ngIf="
@@ -384,7 +384,7 @@
             </div>
             <div class="value">
               <input type="text" formControlName="department" pInputText />
-              
+
             </div>
           </div>
         </div>

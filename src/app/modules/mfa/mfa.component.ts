@@ -8,6 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
@@ -15,14 +17,14 @@ import { Router } from '@angular/router';
   standalone:true,
   templateUrl: './mfa.component.html',
   styleUrls: ['./mfa.component.scss'],
-  imports: [CommonModule,DialogModule ,CardModule,NgOtpInputModule,ButtonModule,HttpClientModule ]
+  imports: [CommonModule,DialogModule ,CardModule,NgOtpInputModule,ButtonModule,HttpClientModule,ToastModule]
 
 })
 export class MFAComponent implements OnInit{
   value : any;
   visible: boolean = true;
   token !:string;
-  constructor(private http : HttpClient,private dataService:DataService,private router:Router){
+  constructor(private http : HttpClient,private dataService:DataService,private router:Router, private messageservice:MessageService){
 
   }
   ngOnInit(): void {}
@@ -35,18 +37,29 @@ export class MFAComponent implements OnInit{
       const emailId: string | null = localStorage.getItem('managerEmail');
 
       this.dataService.verifyMFA(emailId,this.token).subscribe((data)=>{
+        console.log("Verify code",data)
         if(data){
-          this.router.navigate(['/dashboard'])
+          this.router.navigate(['/thdashboard'])
         }
         else{
+          this.messageservice.add({
+            severity: 'error',
+            summary: 'Please Enter Valid OTP',
+            detail: '',
+          });
 
-          this.router.navigate(['/login'])
+          return;
+          // this.router.navigate(['/login'])
         }
       })
     } catch (error) {
       console.error('Error verifying TOTP', error);
     }
   }
+  // onEnterKey(){
+
+  //   this.verify();
+  // }
 
   onEnterKey() {
     if(this.token.length==6)
