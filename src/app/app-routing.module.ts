@@ -53,67 +53,11 @@ const routes :Routes =[
 {path:'errorpage' , component : ErrorPageComponent},
 {path:'verifymfa',component:MFAComponent},
 {
-  path:'',loadChildren:()=>import('./modules/body/component-routing.module').then((m)=>m.ComponentRoutingModule),
+  path:'mtalent',loadChildren:()=>import('./modules/body/component-routing.module').then((m)=>m.ComponentRoutingModule),
 },
-// {path:'',component:BodyComponent},
+{ path: '', redirectTo: '/login', pathMatch: 'full' },
 { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ]
-// const routes: Routes = [
-
-//   {path:'candidatequestion',component:CandidatequestionComponent},
-//   { path: 'create', component: Dash1Component },
-
-//   // { path: 'dashboard', component: SchedulepageComponent },
-
-//   {
-//     path: 'dashboard',
-//     component: SchedulepageComponent,
-//   },
-//   { path: 'new-schedule', component: NewScheduleComponent },
-//   // { path: 'thdashboard', component: THDashboardComponent },
-  
-
-//   { path: 'questiondisplay', component: QuestiondisplayComponent },
-
-//   { path: 'edit', component: EditComponent },
-
-//   { path: 'login', component: LoginComponent },
-
-//   { path: 'signup', component: SignupComponent },
-
-//   { path: 'reviewer', component: ReviewerComponent },
-
-//   { path: 'candidatehome', component: CandidateAssessmentComponent },
-
-//   { path: 'sidebar', component: SidenavbarComponent },
-
-//   // { path: 'dashboard', component: SchedulepageComponent },
-
-//   { path: 'assessment-display', component: AssessmentDisplayComponent },
-
-//   { path: '', redirectTo: '/login', pathMatch: 'full' },
-
-//   { path: 'login', component: LoginComponent },
-
-//   { path: 'AssessmentDisplay', component: AssessmentTableComponent },
-
-//   { path: 'questiondb', component: QuestiondbComponent },
-
-//   { path: 'profile', component: ProfileDialogComponent },
-//   { path: 'manage-managers', component: ManageManagersComponent },
-//   { path: 'manage-candidates', component: ManageCandidatesComponent },
-//   { path: 'manage-skills', component: ManageSkillsComponent },
-//   { path: 'managerProfile', component: ManagerProfileComponent },
-//   { path: 'candidateProfile', component: CandidateProfileComponent },
-//   { path: 'resetpassword', component: ResetpasswordComponent },
-//   { path: 'thdashboard', component: THDashboardComponent },
-//   {path:'errorpage' , component : ErrorPageComponent},
-//   {path:'enablemfa',component:Enable2faComponent},
-//   {path:'verifymfa',component:MFAComponent},
-//   { path: '**', redirectTo: '/login' },
-
-//   // { path: '**', redirectTo:'login' }
-// ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
