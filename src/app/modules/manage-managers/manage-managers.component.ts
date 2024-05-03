@@ -162,7 +162,7 @@ export class ManageManagersComponent {
     sessionStorage.setItem('ManagerProfileLocation', data.managerLocation);
     sessionStorage.setItem('ManagerProfiledepartment', data.department);
 
-    this.router.navigate(['/managerProfile']);
+    this.router.navigate(['/mtalent/managerProfile']);
   }
 
   createButton() {

@@ -124,9 +124,9 @@ console.log("inside sign in")
               console.log("entered")
               const redirectUrl = this.authService.redirectUrl
                 ? this.authService.redirectUrl
-                : '/candidatehome';
+                : '/mtalent/candidatehome';
  
-              this.router.navigate(['candidatehome']);
+              this.router.navigate(['/mtalent/candidatehome']);
             }
           }
         } else if (data.status == 400) {

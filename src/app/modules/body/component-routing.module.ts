@@ -20,9 +20,9 @@ import { ManageSkillsComponent } from '../manage-skills/manage-skills.component'
 import { ManagerProfileComponent } from '../manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from '../candidate-profile/candidate-profile.component';
 
-const routes:Routes=[{path:'mtalent',component:BodyComponent,
+const routes:Routes=[{path:'',component:BodyComponent,
   children:[
-    {path :'mtalent' , component:THDashboardComponent},
+    {path :'' , component:THDashboardComponent},
     { path: 'candidatequestion', component: CandidatequestionComponent },
     { path: 'create', component: Dash1Component },
     {path: 'dashboard',component: SchedulepageComponent},
@@ -40,7 +40,7 @@ const routes:Routes=[{path:'mtalent',component:BodyComponent,
     { path: 'manage-skills', component: ManageSkillsComponent },
     { path: 'managerProfile', component: ManagerProfileComponent },
     { path: 'candidateProfile', component: CandidateProfileComponent },
-    { path: 'mtalent/thdashboard', component: THDashboardComponent },
+    { path: 'thdashboard', component: THDashboardComponent },
 
   ]
 }]

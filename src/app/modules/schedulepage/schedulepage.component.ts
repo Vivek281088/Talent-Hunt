@@ -273,7 +273,7 @@ export class SchedulepageComponent implements OnInit {
       //sessionStorage.setItem('cutoff', formData.cutoff);
       //sessionStorage.setItem('duration', formData.duration);
       // const dataToSend={
-      this.router.navigate(['/new-schedule']);
+      this.router.navigate(['/mtalent/new-schedule']);
     }
   }
 
@@ -342,7 +342,7 @@ export class SchedulepageComponent implements OnInit {
     this.managernameService.setManagerName(this.editManagername);
     this.managernameService.setFileName(this.editFilename);
 
-    this.router.navigate(['new-schedule']);
+    this.router.navigate(['/mtalent/new-schedule']);
   }
 
   showEmailSubmitted() {
