@@ -166,7 +166,7 @@ export class TableService {
       empid: empid,
       email_Managername: managerName,
       candidateName: candidateName,
-      email: candidateEmail,
+      candidateEmail: candidateEmail,
       candidatePhone: candidatePhone,
       email_Status: status,
       email_Filename: fileName,
