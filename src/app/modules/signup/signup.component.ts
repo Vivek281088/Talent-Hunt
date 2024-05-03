@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { MessageService } from 'primeng/api';
 
+
 import {
   FormBuilder,
   FormGroup,
@@ -16,6 +17,8 @@ import { debounceTime } from 'rxjs/operators';
 import { PasswordValidator } from './password-validator';
 import { TitleCasePipe } from '@angular/common';
 import { DataService } from 'src/app/services/data.service';
+import * as CryptoJS from 'crypto-js';
+
 
 @Component({
   selector: 'app-signup',
@@ -24,16 +27,15 @@ import { DataService } from 'src/app/services/data.service';
   providers: [MessageService],
 })
 export class SignupComponent {
+  message!: string;
 
-  message!:string;
- 
   signupForm: FormGroup;
   formSubmitted: boolean = false;
   isPasswordInvalid: boolean = false;
   isPhonenoInvalid: boolean = false;
   isMailIdInvalid: boolean = false;
   passwordNotMatching: boolean = true;
-  mailidExist:boolean=false;
+  mailidExist: boolean = false;
   private subscription: Subscription = new Subscription();
   private signupDataSubscription: Subscription = new Subscription();
   //subscription!: Subscription;
@@ -42,7 +44,7 @@ export class SignupComponent {
   constructor(
     private loginservice: LoginService,
     private messageService: MessageService,
-    private dataService:DataService,
+    private dataService: DataService,
     private router: Router,
     private fb: FormBuilder
   ) {
@@ -128,13 +130,11 @@ export class SignupComponent {
     );
   }
 
-  ngOnInit() {
-    
-  }
-
+  ngOnInit() {}
 
   id!: Date;
   signup() {
+
     this.formSubmitted = true;
     console.log('Form Values:', this.signupForm.value);
     console.log('Form Validity:', this.signupForm.valid);
@@ -152,52 +152,40 @@ export class SignupComponent {
           detail: '',
         });
         return;
+
       }
+        // Hash the password
+        const hashedConfirmPassword = CryptoJS.SHA256(confirmPassword).toString();
+        console.log('Hashed Confirm Password:', hashedConfirmPassword);
+        const hashedPassword = CryptoJS.SHA256(password).toString();
+        console.log('Hashed Password  :', hashedPassword);
 
-      // try {
-      //   this.loginservice
-      //   .postsignup(
-      //     id,
-      //     this.signupForm.value.firstName,
-      //     this.signupForm.value.lastName,
-      //     this.signupForm.value.emailId,
-      //     this.signupForm.value.phoneNumber,
-      //     this.signupForm.value.password,
-      //     this.signupForm.value.confirmPassword
-      //   )
-      //   .subscribe({
-      //     next: x => {
+          const hashedFormData = {
+            ...this.signupForm.value,
+            password: hashedPassword,
+            confirmPassword: hashedConfirmPassword,
+          };
+          console.log('Hashed Form Data:', hashedFormData);
+        this.dataService.changeMessage(hashedFormData);
+      this.loginservice
+        .checkDuplicate(this.signupForm.value.emailId)
+        .subscribe((data) => {
+          !data
+            ? this.router.navigate(['/enablemfa'])
+            : this.messageService.add({
+                severity: 'error',
+                summary: 'Email ID already Exists!!',
+                detail: '',
+              });
+        });
 
-      //       this.successValidForm();
-      //       setTimeout(() => {
-      //         this.signupForm.reset();
-      //         this.router.navigate(['login']);
-      //       }, 1500);
-            
-      //     },
-      //     error: err => console.warn('An error occurred :', err.message,`${this.mailidExist=true}`),  
-      //     complete: () => console.log('There are no more action happen.') 
-          
-      //   });
-      // } catch (error) {
-      //   console.log("this is the error Message" ,  error);
-        
-      // }
-      this.dataService.changeMessage(this.signupForm.value)
-      this.loginservice.checkDuplicate(this.signupForm.value.emailId).subscribe(data => {
-        !data?this.router.navigate(['/enablemfa']): this.messageService.add({
-              severity: 'error',
-              summary: 'Email ID already Exists!!',
-              detail: '',
-            });
-      })
-      
     } else {
       console.error(
         'Form is not valid. Validation errors:',
         this.signupForm.errors
       );
     }
+
   }
   alreadyHasAccount() {
     this.router.navigate(['login']);

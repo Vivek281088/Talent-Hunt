@@ -46,7 +46,7 @@ export class CandidateAssessmentService {
       candidateEmail: candidateEmail,
     };
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetch_candidatedetails',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetchcandidatedata',
       body,
       // {
       //   headers,

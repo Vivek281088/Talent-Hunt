@@ -88,7 +88,7 @@ export class LoginService {
       password: password,
       confirmPassword: confirmPassword,
     };
-
+    console.log('Password Updated', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/forgotpassword',
       body,
