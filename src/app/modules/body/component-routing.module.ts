@@ -20,7 +20,7 @@ import { ManageSkillsComponent } from '../manage-skills/manage-skills.component'
 import { ManagerProfileComponent } from '../manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from '../candidate-profile/candidate-profile.component';
 
-const routes:Routes=[{path:'',component:BodyComponent,
+const routes:Routes=[{path:'en',component:BodyComponent,
   children:[
     {path :'' , component:THDashboardComponent},
     { path: 'candidatequestion', component: CandidatequestionComponent },

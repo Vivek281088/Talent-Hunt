@@ -53,9 +53,9 @@ const routes :Routes =[
 {path:'errorpage' , component : ErrorPageComponent},
 {path:'verifymfa',component:MFAComponent},
 {
-  path:'/MTalent',loadChildren:()=>import('./modules/body/component-routing.module').then((m)=>m.ComponentRoutingModule),
+  path:'en',loadChildren:()=>import('./modules/body/component.module').then((m)=>m.ComponentModule),
 },
-// {path:'',redirectTo:LoginComponent},
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 
 { path: '**', redirectTo: '/login', pathMatch: 'full' }
