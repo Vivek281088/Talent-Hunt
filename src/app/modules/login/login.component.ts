@@ -79,7 +79,7 @@ console.log("inside sign in")
         console.log(data)
         if (data.status == 200) {
           localStorage.setItem('token', data.token);
-          console.log('Token-', data.token);
+          console.log('Token-', data.token); 
 
           if (data.role == 'manager') {
 
@@ -94,13 +94,7 @@ console.log("inside sign in")
 
             if (this.authService.isAuthenticated()) {
 
-             // const factory=this.resolver.resolveComponentFactory(MFAComponent);
-             //console.log("factory",factory);
-            //  const mfaComponentReference=this.dynamicComponentContainer.createComponent(factory)
-              // const redirectUrl = this.authService.redirectUrl
-              //   ? this.authService.redirectUrl
-              //   : '/dashboard';  //not in use
-            //  this.router.navigate(['/thdashboard']);
+           
               this.router.navigate(['/verifymfa']);
             }`  `
           } else if (data.role == 'user') {
