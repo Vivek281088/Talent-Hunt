@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
 import { NgOtpInputModule } from  'ng-otp-input';
@@ -10,6 +10,7 @@ import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { takeUntil, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -21,6 +22,11 @@ import { ToastModule } from 'primeng/toast';
 
 })
 export class MFAComponent implements OnInit{
+
+closeDialog() {
+this.router.navigate(['/login'])
+}
+@ViewChild('verify') button !:ElementRef
   value : any;
   visible: boolean = true;
   token !:string;
@@ -31,6 +37,8 @@ export class MFAComponent implements OnInit{
   onOtpChange(data:any){
     this.token = data;
   }
+
+
   verify() {
     try {
 
@@ -69,4 +77,6 @@ export class MFAComponent implements OnInit{
     }
   }
 
+
 }
+
