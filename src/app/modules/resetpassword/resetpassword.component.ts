@@ -115,11 +115,23 @@ export class ResetpasswordComponent {
         hashedPassword
       )
       .subscribe((data) => {
-        console.log('data', data);
-        this.showUpdateMessage();
+       this.showUpdateMessage();
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 1000);
+      },(error)=>{
+        if(error.status==404){
+
+          this.showUpdateMessageError();
+        }
+        else if(error.status==401){
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Password Already Used Please Enter New Pasword for Security Purpose',
+            detail: '',
+          });
+        }
+
       });
   }
   showUpdateMessage() {
@@ -129,6 +141,13 @@ export class ResetpasswordComponent {
       summary: 'Success',
 
       detail: 'Password Updated Successfully',
+    });
+  }
+  showUpdateMessageError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'User not Exist',
+      detail: '',
     });
   }
   login() {
