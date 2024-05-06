@@ -19,6 +19,7 @@
           [class.active]="activeSection === 'assessment'"
           (click)="changeStyle('assessment')"
           (click)="changeStyle1()"
+          [routerLink]="['/mtalent/dashboard']"
         >
           <i class="pi pi-map"></i>
           <p>Assessment</p>
@@ -87,6 +88,8 @@
           [class.active]="activeSection === 'user'"
           (click)="changeStyle('user')"
           (click)="changeStyle2()"
+          [routerLink]="['/mtalent/manage-managers']"
+          
         >
           <i class="pi pi-user"></i>
           <p>User</p>
@@ -156,6 +159,7 @@
           [class.active]="activeSection === 'question_bank'"
           (click)="changeStyle('question_bank')"
           (click)="changeStyle3()"
+          [routerLink]="['/mtalent/manage-skills']"
           
         >
           <i class="pi pi-book"></i>
@@ -194,7 +198,6 @@
   
           </ul>
         </span>
-
       </ul>
   
       <ul class="ul2">
