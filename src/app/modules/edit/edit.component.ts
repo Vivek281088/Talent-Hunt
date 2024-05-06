@@ -133,7 +133,7 @@ export class EditComponent implements OnInit {
           console.log('Update successful', response);
         });
 
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/mtalent/dashboard']);
     } catch (error) {
       console.error(error);
     }

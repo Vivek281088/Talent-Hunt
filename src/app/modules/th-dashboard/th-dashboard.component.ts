@@ -29,10 +29,10 @@ export class THDashboardComponent {
     sessionStorage.setItem('Component-Name', 'home');
     this.getDashboardCount();
     this.todayDate = new Date();
-    this.items = [{ label: 'Dashboard', routerLink: '/thdashboard' }];
+    this.items = [{ label: 'Dashboard', routerLink: '/mtalent/thdashboard' }];
     this.home = {
       icon: 'pi pi-home',
-      routerLink: '/thdashboard',
+      routerLink: '/mtalent/thdashboard',
       label: 'Home',
     };
     this.loadCandidateAssessmentData();

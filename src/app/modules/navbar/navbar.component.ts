@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { ManagernameService } from 'src/app/services/managername.service';
@@ -34,6 +35,7 @@ export class NavbarComponent {
   notifications !:any;
   hasNewNotifications: boolean = false;
   isManager: boolean = true;
+  showNavbarBoolean:boolean=true;
   constructor(
     private authservice: AuthService,
     private managernameService: ManagernameService,
@@ -42,6 +44,12 @@ export class NavbarComponent {
     private notificationService : NotificationService
   ) {}
   ngOnInit(): void {
+
+  const shownavflag=localStorage.getItem('showNavbar');
+  if(shownavflag==='false'){
+    this.showNavbarBoolean=false;
+  }
+console.log("result",this.showNavbarBoolean)
     this.authUserOrManager();
       const storedNotifications = localStorage.getItem('notifications');
   if (storedNotifications) {

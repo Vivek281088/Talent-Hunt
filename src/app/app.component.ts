@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
   hasError : boolean = true;
   enablemfa:boolean=true;
   verifymfa:boolean=true;
+  storedShowNavbar!:boolean;
+  showNavbarBoolean!:boolean;
 
   constructor(private service: AppServiceService, private router: Router , private activatedRoute : ActivatedRoute) {
     // Subscribe to the route changes
@@ -38,5 +40,9 @@ export class AppComponent implements OnInit {
       }
     });
   }
-  ngOnInit() {}
+  ngOnInit(): void{
+
+
+   
+  }
 }
