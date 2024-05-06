@@ -1,9 +1,8 @@
+
 import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
-
 import { ManagernameService } from 'src/app/services/managername.service';
 import { NotificationService } from 'src/app/services/notification.service';
-
 import { TableService } from 'src/app/services/table.service';
 import {
   ConfirmationService,
@@ -41,7 +40,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   first: number = 0;
   rows: number = 1;
   notificationResponse: any;
-
   page: number = 0;
   pageCount: number = 0;
   candidateName!: string;
@@ -56,6 +54,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   totalQuestions!: number;
   assessmentQuestions: any;
   previewOptions: any;
+  questionIds: any;
   endTime!: string;
   countCorrectQues!: number;
   CountTotalQuestions!: number;
@@ -66,6 +65,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   fileName!: string;
   id : any;
   candidateEmail : string='';
+  showNavbarBoolean : boolean = true;
   // id: any = '2024-01-04T06:04:10.746Z';
   // candidateEmail: string = 'sapna@gmail.com';
   constructor(
@@ -75,7 +75,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     private reviewerService: ReviewerService,
     private cdr: ChangeDetectorRef,
     private notificationService: NotificationService,
-
     private router: Router,
     private newScheduleService: NewScheduleService,
   ) { }
@@ -83,7 +82,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.totalQuestions = this.previewOptions.length;
     this.updateSessionStorage();
   }
-
   // In your component class
   ngOnInit(): void {
     const storedOptions = sessionStorage.getItem('selectedOptions');
@@ -91,21 +89,20 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       this.selectedOptions1 = JSON.parse(storedOptions);
       console.log('Selected Option', this.selectedOptions1);
     }
-
     this.startTime = new Date();
 
-
     this.updateTimer();
-
    //get the assessment data
    this.assessmentData = this.candidateAssessmentService.getAssessmentData();
    console.log('Assessment Data', this.assessmentData);
     // Assign the shuffled questions to the previewOptions
+    this.questionIds = this.assessmentData.questions;
+    console.log('Question Ids', this.questionIds);
+
     this.previewOptions =this.shuffleArray(this.assessmentData.questions);
     this.loginManagerId = this.assessmentData.loginManagerId
     this.duration = this.assessmentData.durations;
     this.fileName = this.assessmentData.email_Filename;
-
     this.cutoff = this.assessmentData.cutoff;
     console.log('cutoff--->', this.cutoff);
     this.id = this.assessmentData.id;
@@ -113,7 +110,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.candidateEmail = this.assessmentData.candidateEmail;
     console.log('Email-->', this.candidateEmail);
 
-    this.getQuestionsById(this.previewOptions);
+    this.getQuestionsById(this.questionIds);
     this.remainingTime = this.duration * 60;
     console.log('Assessment Questions', this.previewOptions);
     this.selectedOptions1 = this.previewOptions.map(() => []);
@@ -121,7 +118,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     console.log('Count Total Quest-', this.totalQuestions);
     this.updateSessionStorage();
   }
-
   shuffleArray(array: any[]): any[] {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -129,7 +125,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     }
     return array;
   }
-
   getQuestionsById(previewOptions: any) {
     console.log('get id', previewOptions);
      this.newScheduleService.getIndividualQuestion(previewOptions).subscribe( data => {
@@ -137,18 +132,10 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       this.previewOptions = data;
     });
     console.log('Updated Total Question data--', this.previewOptions);
-    // const observables = previewOptions.map((questionId: string) =>
-    //   this.newScheduleService.getIndividualQuestion(questionId)
-    // );
-    // forkJoin(observables).subscribe((responses) => {
-    //   this.previewOptions = responses;
-    //   console.log('Updated Total Question data--', this.previewOptions);
-    // });
+
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
-
     if (this.previewOptions[pageIndex]?.questionType === 'Checkbox') {
-
 
 
       if(this.selectedOptions1[pageIndex].includes(option))
@@ -156,17 +143,13 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       else
       this.selectedOptions1[pageIndex].push(option);
       console.log("inside checkbox answers",this.selectedOptions1);
-
     } else {
       // Radio option (single selection)
       this.selectedOptions1[pageIndex] === option ? this.selectedOptions1[pageIndex] = '' : this.selectedOptions1[pageIndex] = option;
       console.log('Selected Option else', this.selectedOptions1);
-
     }
-
-    // Update session storage
   }
-
+  // Update session storage
   updateSessionStorage() {
     // Store the selected options in session storage
     sessionStorage.setItem(
@@ -174,27 +157,16 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       JSON.stringify(this.selectedOptions1)
     );
   }
-
-  // toggleColor(boxNumber: number, page: number) {
-  //   if (this.selectedBox[page] !== null &&this.selectedBox[page] === boxNumber)
-  //    {
-  //     this.selectedBox[page] = -1;
-  //   } else {
-  //     this.selectedBox[page] = boxNumber;
-  //   }
-  // }
   toggleColor(option:string,questiontype:string,pageIndex:number):boolean{
     if(questiontype=='Checkbox')
     return this.selectedOptions1[pageIndex].includes(option);
   else
     return this.selectedOptions1[pageIndex]==option;
   }
-
   updateTimer() {
     const timerInterval = setInterval(() => {
       if (this.remainingTime > 0) {
         this.remainingTime--;
-
         if (this.remainingTime >= 60) {
           const hours = Math.floor(this.remainingTime / 3600);
           const minutes = Math.floor((this.remainingTime % 3600) / 60);
@@ -211,7 +183,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       }
     }, 1000); // 1000 milliseconds = 1 second
   }
-
   exit() {
     this.router.navigate(['/login']);
   }
@@ -220,7 +191,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     if (this.first >= this.rows) {
       this.page -= 1;
       this.first -= this.rows;
-
     }
   }
   next() {
@@ -251,13 +221,16 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     console.log('Updated Question', this.previewOptions);
     for (let question of this.previewOptions) {
       let correct;
-      if ((question.questionType = 'Radio')) {
+      console.log('Question Type:........................}}}}}}}}}', question.questionType);
+      if ((question.questionType = 'Radio' && question.selectedOption.length != 0)) {
         correct = question.answer.includes(question.selectedOption);
         console.log('correct ', correct);
-      } else if ((question.questionType = 'Checkbox')) {
-        correct = question.selectedOption.every((opt: any) =>
-          question.answer.includes(opt)
-        );
+      } else if ((question.questionType = 'Checkbox' && question.selectedOption.length != 0)) {
+        console.log("Inside Checkbox..............................??????????????????????????????")
+        correct=JSON.stringify(question.selectedOption)==JSON.stringify(question.answer);
+        // correct = question.ans.every((opt: any) =>
+        //   question.selectedOption.includes(opt)
+        // );
         console.log('correct ', correct);
       }
       if (correct) {
@@ -273,59 +246,43 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     console.log('count total ques', this.CountTotalQuestions);
     console.log('Correct ques', this.countCorrectQues);
     this.score = (this.countCorrectQues / this.CountTotalQuestions) * 100;
-
     if (this.score > this.cutoff) {
       this.result = 'Shortlisted';
     } else this.result = 'Rejected';
-
     console.log('Cutoff :', this.cutoff);
     console.log('Score :', this.score);
-
     console.log('Result :', this.result);
-
     //Auto review update for reviewer
-
     const reviewData = {
-
 
       id: this.id,
 
-      questions: this.previewOptions,
+      questions: this.questionIds,
 
       score: this.score.toFixed(2),
-
       results: this.result,
-
       email_Status: 'Completed',
-
       candidateEmail: this.candidateEmail,
-
       submitTime : this.endTime
     };
-
     console.log("Submitted Data",reviewData);
-
     this.reviewerService
       .updateScoreAndResult(reviewData)
       .subscribe((response) => {
         console.log('Questions updated successfully', response);
       });
   }
-
   formatTime(seconds: number): string {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
-
     const hoursDisplay = hours > 0 ? hours + 'h ' : '';
     const minutesDisplay = minutes > 0 ? minutes + 'm ' : '';
     const secondsDisplay = remainingSeconds + 's';
-
     return hoursDisplay + minutesDisplay + secondsDisplay;
   }
   confirmPosition(position: string) {
     this.position = position;
-
     this.confirmationService.confirm({
       message: 'Do you want to submit your answers?',
       header: 'Submit Confirmation',
@@ -336,9 +293,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           summary: 'Confirmed',
           detail: 'Submitted',
         });
+        localStorage.removeItem('showNavbar')
         this.submitAnswers();
         this.notificationSend();
-
 
         Swal.fire({
           title: 'Submitted Successfully!',
@@ -347,7 +304,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           allowOutsideClick: false,
         }).then((result: { isConfirmed: any; }) => {
           if (result.isConfirmed) {
-
             this.router.navigate(['/login']);
           }
         });
@@ -376,7 +332,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       key: 'positionDialog',
     });
   }
-
   onPageChange(event: any) {
     this.first = event.first;
     this.rows = event.rows;
@@ -391,11 +346,9 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   getLabel(index: number): string {
     return String.fromCharCode(65 + index);
   }
-
   getCodeLines(code: string): string[] {
     return code.split('\n');
   }
-
   getSelectedOptions(selected_Option: any, option: any) {
     if (selected_Option.includes(option)) {
       console.log('correct answer');
@@ -404,7 +357,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       return 'wrongAnswer';
     }
   }
-
   notificationSend() {
     const notification: CNotification = {
       sender: this.assessmentData.id,  //Suresh
@@ -413,13 +365,10 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       content: `${this.assessmentData.candidateName} has Submitted an assessment named ${sessionStorage.getItem('scheduleName')}`,
         }
     console.log("noti body", notification);
-
     this.notificationService.postNotification(notification).subscribe((response) => {
       this.notificationResponse = response
       console.log("notificaton service called", this.notificationResponse)
       sessionStorage.setItem("notification", `${notification.sender}has sended message`)
     })
   }
-
 }
-

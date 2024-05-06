@@ -42,8 +42,7 @@ export class MFAComponent implements OnInit{
       this.dataService.verifyMFA(emailId,this.token).subscribe((data)=>{
         console.log("Verify code",data)
         if(data){
-          console.log("routing starts")
-          this.router.navigate(['/en/thdashboard'])
+          this.router.navigate(['/mtalent/thdashboard'])
         }
         else{
 console.log("entered else")

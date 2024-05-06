@@ -46,7 +46,7 @@ export class CandidateAssessmentService {
       candidateEmail: candidateEmail,
     };
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetch_candidatedetails',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetchcandidatedata',
       body,
       // {
       //   headers,
@@ -60,7 +60,6 @@ export class CandidateAssessmentService {
   getAssessmentData(): any {
     return this.assessmentData;
   }
-
   updateStatus(data: any): Observable<any> {
     // Send a PUT request to the API endpoint to update score and result
     return this.http.put<any>(

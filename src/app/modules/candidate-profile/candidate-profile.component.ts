@@ -95,7 +95,7 @@ export class CandidateProfileComponent {
 
 }
 closeManagerProfile() {
-  this.router.navigate(['/manage-candidates']);
+  this.router.navigate(['/mtalent/manage-candidates']);
 }
 
 //schedules

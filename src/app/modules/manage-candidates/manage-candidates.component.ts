@@ -316,9 +316,7 @@ export class ManageCandidatesComponent {
     sessionStorage.setItem('CandiateProfilePhone', data.candidatePhone);
     sessionStorage.setItem('CandiateProfileDepartment', data.department);
     sessionStorage.setItem('CandiateProfileLocation', data.candidate_location);
-    this.router.navigate(['/candidateProfile']);
-
-    this.router.navigate(['/candidateProfile']);
+    this.router.navigate(['/mtalent/candidateProfile']);
   }
 
   selectedDeleteCandidate: any;

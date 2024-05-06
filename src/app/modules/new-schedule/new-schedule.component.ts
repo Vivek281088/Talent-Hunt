@@ -353,7 +353,7 @@ editvisible: boolean =false;
         .subscribe((response) => {
           console.log('Questions', response);
           setTimeout(() => {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/mtalent/dashboard']);
           }, 1500);
 
         });
@@ -363,7 +363,7 @@ editvisible: boolean =false;
 
     // Notification
 
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/mtalent/dashboard']);
     const managerId = sessionStorage.getItem('loginManagerId');
 
     console.log('managerid', managerId);
@@ -415,7 +415,7 @@ editvisible: boolean =false;
       .subscribe((response) => {
         console.log('Edit status---', response);
         setTimeout(() => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/mtalent/dashboard']);
         }, 1500);
       });
   }
@@ -639,7 +639,7 @@ editvisible: boolean =false;
     this.updateNewScheduleForm.markAsPristine();
     this.updateNewScheduleForm.markAsUntouched();
     this.updateNewScheduleForm.reset();
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/mtalent/dashboard']);
   }
 
   
@@ -656,7 +656,7 @@ editvisible: boolean =false;
       formData.scheduleName = scheduleName;
       formData.managerName = manager;
 
-      this.router.navigate(['new-schedule']);
+      this.router.navigate(['/mtalent/new-schedule']);
       this.visible = false;
       console.log('hi');
     }
