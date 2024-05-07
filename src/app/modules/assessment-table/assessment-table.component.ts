@@ -64,8 +64,6 @@ export class AssessmentTableComponent {
   }
 
   todayDate!: Date;
-
-  // candidateForm !: FormGroup;
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
@@ -75,25 +73,20 @@ export class AssessmentTableComponent {
   }
 
   ngOnInit() {
-    
     sessionStorage.setItem('Component-Name', 'assessment');
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
     this.loadManagerNames();
     this.getSkillSet();
-
     this.loadCandidateTableData();
     this.getCandidatename();
-
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Assessment', routerLink: 'dashboard' },
     ];
   }
 
-  
-
-  getResultClass(result: string): string {
+    getResultClass(result: string): string {
     if (result == 'Shortlisted') {
       return 'Shortlisted';
     } else if (result == 'Rejected') {
@@ -106,8 +99,6 @@ export class AssessmentTableComponent {
       return 'Scheduled';
     }
   }
-
-
 
   getFormattedSkills(skills: any): {
     skills: string[];
@@ -128,7 +119,6 @@ export class AssessmentTableComponent {
         break;
       }
     }
-
     // Calculate the count of remaining skills
     const remainingCount = skills.length - result.length;
 
@@ -144,14 +134,13 @@ export class AssessmentTableComponent {
 
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
-     
       const uniqueEmails = new Set<string>();
       const uniqueCandidateNames: any[] = [];
       data.forEach(
         (candidate: { candidateName: string; candidateEmail: string }) => {
           if (!uniqueEmails.has(candidate.candidateEmail)) {
             uniqueEmails.add(candidate.candidateEmail);
-            uniqueCandidateNames.push(candidate.candidateName);
+            uniqueCandidateNames.push({ candidateName: candidate.candidateName });
           }
         }
       );
@@ -160,7 +149,7 @@ export class AssessmentTableComponent {
       console.log(this.candidateNames);
     });
   }
-
+  
   loadCandidateTableData(){
     this.managernameService.getCandidateStatus().subscribe((data) => {
       this.candidateList = data;
@@ -168,11 +157,12 @@ export class AssessmentTableComponent {
     });
   }
 
- 
-  getSkillSet() {
+   getSkillSet() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
-      this.skillSet = data;
-      console.log('skillset', this.skillSet);
+    data.forEach((element: any) => {
+        this.skillSet.push({ skill: element });
+      });
+      console.log('Skill Set', this.skillSet);
     });
   }
 
@@ -182,8 +172,6 @@ export class AssessmentTableComponent {
       console.log('Manager Data', data);
     });
   }
- 
-  
 
- 
-}
+  }
+

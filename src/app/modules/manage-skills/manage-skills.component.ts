@@ -151,24 +151,31 @@ export class ManageSkillsComponent {
     this.visible = true;
   }
 
-
   storeQuestion(data: any) {
-    console.log("inside store Question" , data)
+    console.log("inside store Question", data);
     this.managerService.postquestions(data)
-    .pipe(
-      catchError((err : any) => {
-        this.messageService.add({
-          severity : 'error',
-          summary : err.message,
-
-      })
-      return of(null);
-      }
+      .pipe(
+        catchError((err: any) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: err.message,
+          });
+          return of(null);
+        })
       )
-    ).subscribe((data) => {
-        console.log('Stored Question', data);
-      })
+      .subscribe((response) => {
+        console.log('Stored Question', response);
+        if (response) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Questions saved successfully',
+          });
+        }
+        this.visible = false;
+      });
   }
+  
   // uploadCsv(event: any) {
   //   const file: File = event.target.files[0];
   //   const value = this.processCsv(file);
@@ -347,10 +354,6 @@ export class ManageSkillsComponent {
             answerArray.push(data['answer-' + i]);
           }
           console.log('Answer Array--', answerArray);
-          setTimeout(() => {
-            this.fileUploadMessage();
-            this.cancelButton();
-          }, 1000);
 
           const questionData = {
             Question: data.Question,
@@ -366,8 +369,10 @@ export class ManageSkillsComponent {
 
           this.storeQuestion(questionData);
         }
-
-        
+        setTimeout(() => {
+          this.fileUploadMessage();
+          this.cancelButton();
+        });
       },
       header: true,
     });

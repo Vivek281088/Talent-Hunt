@@ -334,7 +334,7 @@ export class ManageManagersComponent {
         this.messageService.add({
           severity: 'success',
           summary: 'Deleted',
-          detail: 'Schedule Deleted Successfully',
+          detail: 'Manager Deleted Successfully',
         });
      this.deleteManager();
 
