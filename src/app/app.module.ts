@@ -22,7 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { MessageService } from 'primeng/api';
 import { QuestiondbComponent } from './modules/questiondb/questiondb.component';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
 
@@ -99,6 +99,7 @@ import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
     QuestionPreviewComponent,
     MFAComponent,
     Enable2faComponent,
+    DecimalPipe,
     ToastrModule.forRoot(),
   ],
   schemas: [NO_ERRORS_SCHEMA],

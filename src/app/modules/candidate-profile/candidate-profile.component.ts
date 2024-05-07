@@ -19,6 +19,7 @@ export class CandidateProfileComponent {
   todayDate!: string;
   editCandidateForm!: FormGroup;
   formSubmitted: boolean = false;
+  candidateAssessmentLength:number=0
 
   //schedules
   Tdata: any[] = [];
@@ -53,7 +54,7 @@ export class CandidateProfileComponent {
     this.getCandidateProfileData();
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
-  
+
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Candidate', routerLink: '/manage-candidates' },
@@ -133,7 +134,7 @@ getCandidateProfileData(){
 
   // this.candidateData = this.newScheduleService.getCandidateProfileData();
   // console.log('Get Candidate Data', this.candidateData);
- 
+
   // Set values for the form controls
  this.editCandidateForm.setValue({
    employeeId: sessionStorage.getItem('CandiateProfileId'),
@@ -153,6 +154,7 @@ getCandidateProfileData(){
       .subscribe((response) => {
         console.log('Assessment Data---->', response);
         this.candidateAssessmentData = response.filter((data: { email_Filename: any; })=>(data.email_Filename!=null));
+        this.candidateAssessmentLength=this.candidateAssessmentData.length
       });
 }
 clear(table: Table) {

@@ -1,6 +1,6 @@
-<div class="manageManagers">
-  <div class="manageManagers-header">
-    <div class="manageManagers-header-1">
+<div class="manageManager">
+  <div class="manageManager-header">
+    <div class="manageManager-header-1">
       <div class="title">
         <p>Candidate</p>
       </div>
@@ -36,6 +36,13 @@
   <div class="managerTabview">
     <p-tabView>
       <p-tabPanel header="Profile" [formGroup]="editCandidateForm">
+        <ng-template pTemplate="header">
+          <div class="header-content1">
+            <span class="tab-header-text">Profile</span>
+
+
+          </div>
+        </ng-template>
         <ng-template pTemplate="content">
           <div class="profilecontent">
             <div class="labelvalue">
@@ -74,7 +81,7 @@
                 <label>Manager Name</label>
               </div>
               <div class="value">
-                <input type="text" formControlName="candidateName" pInputText />
+                <input type="text" formControlName="candidateName" pInputText [disabled]="true" />
                 <!-- <div
                     *ngIf="
                     editCandidateForm.get('candidateName')?.invalid &&
@@ -99,7 +106,7 @@
                 <label>Email</label>
               </div>
               <div class="value">
-                <input type="email" formControlName="email" pInputText />
+                <input type="email" formControlName="email" pInputText [disabled]="true"/>
                 <!-- <div
                     *ngIf="
                     editCandidateForm.get('email')?.invalid &&
@@ -149,7 +156,7 @@
                 <label>Department</label>
               </div>
               <div class="value">
-                <input type="text" formControlName="department" pInputText />
+                <input type="text" formControlName="department" pInputText [disabled]="true" />
                 <!-- <div
                     *ngIf="
                     editCandidateForm.get('department')?.invalid &&
@@ -174,7 +181,7 @@
                 <label>Location</label>
               </div>
               <div class="value">
-                <input type="text" formControlName="location" pInputText />
+                <input type="text" formControlName="location"pInputText [disabled]="true" />
                 <!-- <div
                     *ngIf="
                     editCandidateForm.get('location')?.invalid &&
@@ -194,7 +201,7 @@
             </div>
 
             <!-- <div class="Newschedule-button">
-          
+
                       <div class="Createbutton">
                         <p-button label="Update" (onClick)="updateManager()"> </p-button>
                       </div>
@@ -204,6 +211,13 @@
       </p-tabPanel>
 
       <p-tabPanel header="Assessments">
+        <ng-template pTemplate="header">
+          <div class="header-content1">
+            <span class="tab-header-text">Assessments</span>
+            <p-badge class="tab-badge" value={{candidateAssessmentLength}}></p-badge>
+          </div>
+        </ng-template>
+
         <div class="candidate-table">
           <p-table
             class="candidateTable"
@@ -338,6 +352,7 @@
           </p-table>
         </div>
       </p-tabPanel>
+
     </p-tabView>
   </div>
 </div>

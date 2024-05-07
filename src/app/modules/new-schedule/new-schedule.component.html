@@ -73,7 +73,7 @@
         <label>Cutoff</label>
         <!-- <p>{{ updateNewScheduleForm.get("cutoff")?.value }}</p> -->
         <!-- <p>{{totalCutoff}}</p> -->
-        <p>{{ selectedquestions.length > 0 ? totalCutoff : 0 }}</p>
+        <p>{{ selectedquestions.length > 0 ? totalCutoff  : 0  | number:'2.0-0'}} </p>
       </div>
       <div class="edit-duration">
         <label>Duration</label>
@@ -108,7 +108,7 @@
           [draggable]="false"
           [resizable]="false"
           [closable]="false"
-          
+
         >
           <div class="NewSchedule-content">
             <div class="labelvalue">
@@ -171,7 +171,7 @@
                   placeholder=""
                   [editable]="true"
                   formControlName="managerName"
-                  
+
                 ></p-dropdown>
 
                 <div
@@ -428,7 +428,7 @@
     </ng-template>
   </p-dialog>
 </div>
-<!-- 
+<!--
 <div class="questionsidebar">
   <p-sidebar
     [(visible)]="previewSidebarVisible"
