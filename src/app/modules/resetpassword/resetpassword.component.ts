@@ -127,7 +127,7 @@ export class ResetpasswordComponent {
         else if(error.status==401){
           this.messageService.add({
             severity: 'error',
-            summary: 'Password Already Used Please Enter New Pasword for Security Purpose',
+            summary: 'New password matches your current one. Please choose a different password',
             detail: '',
           });
         }

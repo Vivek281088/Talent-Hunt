@@ -193,13 +193,13 @@ export class ManageManagersComponent {
             },
             error: (err) => {
               console.log("error---",err)
-              if (err.status == 400) {
+              if (err.status == 405) {
                 setTimeout(() => {
                   this.IdExistError();
                   console.log('Mail already exists');
                   this.cancelButton();
                 }, 1000);
-              } else if (err.status == 401) {
+              } else if (err.status == 404) {
                 setTimeout(() => {
                   this.mailExistError();
                   console.log('Emp Id already exists');
