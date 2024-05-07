@@ -347,6 +347,10 @@ export class ManageSkillsComponent {
             answerArray.push(data['answer-' + i]);
           }
           console.log('Answer Array--', answerArray);
+          setTimeout(() => {
+            this.fileUploadMessage();
+            this.cancelButton();
+          }, 1000);
 
           const questionData = {
             Question: data.Question,
@@ -363,10 +367,7 @@ export class ManageSkillsComponent {
           this.storeQuestion(questionData);
         }
 
-        setTimeout(() => {
-          this.fileUploadMessage();
-          this.cancelButton();
-        }, 1000);
+        
       },
       header: true,
     });
