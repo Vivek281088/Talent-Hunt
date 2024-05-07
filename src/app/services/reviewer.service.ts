@@ -36,7 +36,7 @@ export class ReviewerService {
     return this.http.post<any>(
       this.defaultUrl + '/candidatelist_for_reviewer',
 
-      body,
+      body
 
       // { headers }
     );
@@ -53,8 +53,11 @@ export class ReviewerService {
   }
 
   updateScoreAndResult(data: any): Observable<any> {
-console.log("data from service",data)
-    return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/reviewerupdate',data);
+    console.log('data from service', data);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/reviewerupdate',
+      data
+    );
   }
 
   getCandidatetable(): Observable<any> {
@@ -74,7 +77,7 @@ console.log("data from service",data)
 
     return this.http.post<any>(
       this.defaultUrl + '/candidate-response-by-testId',
-      body,
+      body
       // {
       //   headers,
       // }
