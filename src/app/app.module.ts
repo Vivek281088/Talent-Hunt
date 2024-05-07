@@ -28,7 +28,7 @@ import { AssessmentTableComponent } from './modules/assessment-table/assessment-
 
 import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 
-import { BodyComponent } from './modules/body/body.component';
+import { BodyComponent } from './modules/body/component/body.component';
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 import { ManageCandidatesComponent } from './modules/manage-candidates/manage-candidates.component';
@@ -104,20 +104,20 @@ import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [MessageService,DatePipe,
-  {
-    provide : ErrorHandler,
-    useClass : CustomHttpException
-  },
-  {
-    provide : HTTP_INTERCEPTORS,
-    useClass : GlobalErrorInterceptor,
-    multi : true
-  },
-  {
-    provide :  HTTP_INTERCEPTORS,
-    useClass:AuthInterceptorService,
-    multi:true
-  }
+  // {
+  //   provide : ErrorHandler,
+  //   useClass : CustomHttpException
+  // },
+  // {
+  //   provide : HTTP_INTERCEPTORS,
+  //   useClass : GlobalErrorInterceptor,
+  //   multi : true
+  // },
+  // {
+  //   provide :  HTTP_INTERCEPTORS,
+  //   useClass:AuthInterceptorService,
+  //   multi:true
+  // }
 
 
   ],

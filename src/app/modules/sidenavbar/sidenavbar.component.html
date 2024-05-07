@@ -6,7 +6,7 @@
           id="home"
           [class.active]="activeSection === 'home'"
           (click)="changeStyle('home')"
-          [routerLink]="['/thdashboard']"
+          [routerLink]="['/mtalent/thdashboard']"
         >
           <i class="pi pi-th-large"></i>
           <p>Home</p>
@@ -17,13 +17,13 @@
         <li
           id="assessment"
           [class.active]="activeSection === 'assessment'"
-          (click)="changeStyle('assessment')"
-          (click)="changeStyle1()"
+          (click)="changeStyle('assessment'); toggleAssessmentRotation(); changeStyle1()"
+          [routerLink]="['/mtalent/dashboard']"
         >
           <i class="pi pi-map"></i>
           <p>Assessment</p>
           <span>
-            <i class="pi pi-angle-down"></i>
+            <i class="pi pi-angle-up" [class.rotated]="assessmentIconRotated"></i>
           </span>
         </li>
         <span *ngIf="assessmentShow">
@@ -32,7 +32,7 @@
               id="manageSchedule"
               [class.active]="activeSublist === 'manageSchedule'"
               (click)="changeSublist('manageSchedule','assessment')"
-              [routerLink]="['/dashboard']"
+              [routerLink]="['/mtalent/dashboard']"
             >
               <svg
                 width="24"
@@ -51,15 +51,15 @@
                   stroke-opacity="0.6"
                 />
               </svg>
-  
+ 
               <a >Manage Schedule</a>
             </li>
-  
+ 
             <li
               id="manageAssessment"
               [class.active]="activeSublist === 'manageAssessment'"
               (click)="changeSublist('manageAssessment','assessment')"
-              [routerLink]="['/AssessmentDisplay']"
+              [routerLink]="['/mtalent/AssessmentDisplay']"
             >
               <svg
                 width="24"
@@ -85,13 +85,13 @@
         <li
           id="user"
           [class.active]="activeSection === 'user'"
-          (click)="changeStyle('user')"
-          (click)="changeStyle2()"
-        >
+          (click)="changeStyle('user'); toggleUserRotation(); changeStyle2()"
+          [routerLink]="['/mtalent/manage-managers']"
+          >
           <i class="pi pi-user"></i>
           <p>User</p>
           <span>
-            <i class="pi pi-angle-down"></i>
+            <i class="pi pi-angle-up" [class.rotated]="userIconRotated"></i>
           </span>
         </li>
         <span *ngIf="userShow">
@@ -100,7 +100,7 @@
               id="manageManagers"
               [class.active]="activeSublist === 'manageManagers'"
               (click)="changeSublist('manageManagers','user')"
-              [routerLink]="['/manage-managers']"
+              [routerLink]="['/mtalent/manage-managers']"
             >
               <svg
                 width="24"
@@ -119,15 +119,15 @@
                   stroke-opacity="0.6"
                 />
               </svg>
-  
+ 
               <a >Manage Managers</a>
             </li>
-  
+ 
             <li
               id="manageCandidates"
               [class.active]="activeSublist === 'manageCandidates'"
               (click)="changeSublist('manageCandidates','user')"
-              [routerLink]="['/manage-candidates']"
+              [routerLink]="['/mtalent/manage-candidates']"
             >
               <svg
                 width="24"
@@ -150,25 +150,24 @@
             </li>
           </ul>
         </span>
-  
+ 
         <li
           id="question_bank"
           [class.active]="activeSection === 'question_bank'"
-          (click)="changeStyle('question_bank')"
-          (click)="changeStyle3()"
-          
+          (click)="changeStyle('question_bank'); toggleQuestionBankRotation(); changeStyle3()"
+          [routerLink]="['/mtalent/manage-skills']"
         >
           <i class="pi pi-book"></i>
           <p>Question Bank</p>
-          <span><i class="pi pi-angle-down"></i></span>
+          <span><i class="pi pi-angle-up" [class.rotated]="questionBankIconRotated"></i></span>
         </li>
-        <span *ngIf="questionBankShow">
+        <span *ngIf="questionBankShow" >
           <ul class="sub-list">
             <li
               id="manageSkills"
               [class.active]="activeSublist === 'manageSkills'"
               (click)="changeSublist('manageSkills','question_bank')"
-              [routerLink]="['/manage-skills']"
+              [routerLink]="['/mtalent/manage-skills']"
             >
               <svg
                 width="24"
@@ -187,16 +186,16 @@
                   stroke-opacity="0.6"
                 />
               </svg>
-  
+ 
               <a >Manage Questions</a>
             </li>
-  
-  
+ 
+ 
           </ul>
         </span>
-
+ 
       </ul>
-  
+ 
       <ul class="ul2">
         <li>
           <i class="pi pi-question-circle"></i>
@@ -208,8 +207,8 @@
         </li>
       </ul>
     </div>
-  
-    
+ 
+   
   </div>
   <div class="toggleBtn">
      
@@ -309,6 +308,6 @@
       </defs>
     </svg>
   </div>
-
+ 
 </div>
-
+ 

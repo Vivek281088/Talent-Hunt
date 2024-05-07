@@ -340,7 +340,7 @@ export class AssessmentDisplayComponent implements OnInit {
     //     console.log('Data', response);
     //   });
 
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/mtalent/dashboard']);
   }
 }
  
