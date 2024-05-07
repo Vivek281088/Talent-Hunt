@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, inject  } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service';
 import { ManagernameService } from 'src/app/services/managername.service';
@@ -10,6 +10,7 @@ import { ReviewerService } from 'src/app/services/reviewer.service';
 //import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ConfirmationService, MessageService, ConfirmEventType, MenuItem } from 'primeng/api';
+import { NewScheduleService } from 'src/app/services/new-schedule.service';
 @Component({
   selector: 'app-assessment-table',
   templateUrl: './assessment-table.component.html',
@@ -59,6 +60,14 @@ export class AssessmentTableComponent {
   overlayVisible = false;
   globalSearchValue !: string;
 
+  //sidebar
+  singleQuestion: any;
+  totalQuestions !:any
+  getQuestionService = inject(NewScheduleService);
+  @Input() showSidebar !:boolean;
+  @Input() previewQuestions !: any;
+  @Output() hidePreview : EventEmitter<boolean> = new EventEmitter<boolean>();
+
   toggle() {
     this.overlayVisible = !this.overlayVisible;
   }
@@ -68,7 +77,7 @@ export class AssessmentTableComponent {
     private tableService: TableService,
     private managernameService: ManagernameService,
     private skillsdropdownservice: SkillsdropdownService,
-  
+
   ) {
   }
 
@@ -84,6 +93,7 @@ export class AssessmentTableComponent {
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Assessment', routerLink: 'dashboard' },
     ];
+
   }
 
     getResultClass(result: string): string {
@@ -173,5 +183,55 @@ export class AssessmentTableComponent {
     });
   }
 
+  candidateSelectedAnswer : any;
+  previewCompletedTest(data: any){
+    console.log("data",data);
+    //sidebar
+    this.previewQuestions = Object.keys(data.candidateResponse).sort();
+    this.candidateSelectedAnswer = this.previewQuestions.map((key: string | number) => data.candidateResponse[key]);
+    console.log("Questions",this.previewQuestions);
+    this.getQuestionService.getIndividualQuestion(this.previewQuestions).subscribe((data) => {
+      this.totalQuestions = data;
+      console.log("total questions preview",this.totalQuestions)
+      this.totalQuestions.forEach((question: { candidateResponse: any; },index: string | number)=>{
+        question.candidateResponse=this.candidateSelectedAnswer[index]
+       })
+       console.log("Update total questions",this.totalQuestions)
+       this.showSidebar = true;
+     })
+
+
   }
 
+  // sidebar
+  closeButton() {
+    this.showSidebar = false;
+    this.hidePreview.emit(false);
+    }
+    getLabel(index: number) {
+      return String.fromCharCode(65 + index);
+    }
+    getSelectedOptions(question: any, option: any) {
+      if(question.questionType === "Radio"){
+
+          if(question.candidateResponse === option && question.candidateResponse== question.answer) return 'correctAnswer'
+          else if(question.candidateResponse === option && question.candidateResponse !== question.answer) return 'wrong'
+          else {
+            return 'wrongAnswer'
+          }
+
+      }
+      else{
+         if(question.candidateResponse.includes(option) && question.candidateResponse== question.answer) return 'correctAnswer';
+         else if(question.candidateResponse.includes(option) && question.candidateResponse !== question.answer) return 'wrong';
+         else {
+          return 'wrongAnswer'
+        }
+      }
+
+    }
+
+
+
+
+}
