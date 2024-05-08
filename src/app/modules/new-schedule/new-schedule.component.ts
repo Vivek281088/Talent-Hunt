@@ -74,6 +74,7 @@ editvisible: boolean =false;
   isEditSchedule: boolean = false;
   isTime!: string;
   updateNewScheduleForm!: FormGroup;
+  newScheduleEditForm!:FormGroup;
   formSubmitted: boolean = false;
   formData: any;
   isScheduleInvalid: boolean = false;
@@ -109,6 +110,26 @@ editvisible: boolean =false;
     const currentutcdate = new Date();
     const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
     this.isTime = istMoment.format('YYYY-MM-DD HH:mm:ss');
+    this.newScheduleEditForm = this.fb.group({
+      scheduleName: ['',
+        [
+          Validators.required,
+          this.maxLengthValidator(30),
+          this.minLengthValidator(6),
+          Validators.pattern(nonWhitespaceRegExp),
+        ]
+      ],
+      
+      managerName: [
+      '',
+        [
+          Validators.required,
+          this.maxLengthValidator(30),
+          this.minLengthValidator(6),
+        ],
+      ],
+
+    })
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
         '',
@@ -657,20 +678,30 @@ editvisible: boolean =false;
 
   
   editicon() {
+    this.newScheduleEditForm.setValue({
+      scheduleName : this.updateNewScheduleForm.get('scheduleName')?.value,
+      managerName : this.updateNewScheduleForm.get('managerName')?.value,
+    })
     this.editvisible = true;
     this.isEditSchedule = true;
   }
 
   update(scheduleName: string | null, manager: String | null) {
+    console.log("update function" , scheduleName , manager);
+    
+    this.updateNewScheduleForm.patchValue({
+      scheduleName:this.newScheduleEditForm.get('scheduleName')?.value,
+      managerName:this.newScheduleEditForm.get('managerName')?.value
+    })
     this.formSubmitted = true;
-    if (this.updateNewScheduleForm.valid) {
+    if (this.newScheduleEditForm.valid) {
       const formData = this.updateNewScheduleForm.value;
       console.log('Form Data:', formData);
       formData.scheduleName = scheduleName;
       formData.managerName = manager;
 
       this.router.navigate(['new-schedule']);
-      this.visible = false;
+      this.editvisible = false;
       console.log('hi');
     }
   }
