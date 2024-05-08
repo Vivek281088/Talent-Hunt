@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { Schedule } from '../store/schedule/schedule.action';
 
 @Injectable({
   providedIn: 'root',
@@ -32,10 +33,10 @@ export class TableService {
     });
   }
 
-  getExistingData(): Observable<any> {
+  getExistingData(): Observable<Schedule[]> {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/question`;
 
-    return this.http.get<any[]>(endpoint);
+    return this.http.get<Schedule[]>(endpoint);
   }
 
   getskillsList(): Observable<any> {

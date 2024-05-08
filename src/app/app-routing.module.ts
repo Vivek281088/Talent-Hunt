@@ -46,14 +46,18 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { BodyComponent } from './modules/body/body.component';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
+import { provideState } from '@ngrx/store';
+import { ScheduleFeature } from './store/schedule/schedule.selector';
+import { provideEffects } from '@ngrx/effects';
+import {addSchedule$, loadSchedule$} from './store/schedule/schedule.effects'
 const modifiedRoute :Routes =[
   {path : '' , component:BodyComponent,
   children : [
     {path :'' , component:THDashboardComponent},
     { path: 'candidatequestion', component: CandidatequestionComponent },
     { path: 'create', component: Dash1Component },
-    {path: 'dashboard',component: SchedulepageComponent},
-    { path: 'new-schedule', component: NewScheduleComponent },
+    {path: 'dashboard',component: SchedulepageComponent , providers:[provideState(ScheduleFeature),provideEffects({ loadSchedule$})]},
+    { path: 'new-schedule', component: NewScheduleComponent , providers : [provideState(ScheduleFeature),provideEffects({ addSchedule$})]},
     { path: 'questiondisplay', component: QuestiondisplayComponent },
     { path: 'edit', component: EditComponent },
     { path: 'reviewer', component: ReviewerComponent },

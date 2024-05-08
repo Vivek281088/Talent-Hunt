@@ -17,6 +17,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Store } from '@ngrx/store';
+import { Schedule, ScheduleActions } from 'src/app/store/schedule/schedule.action';
 export class CNotification {
   sender!: string;
   receiver!: string[];
@@ -100,7 +102,8 @@ editvisible: boolean =false;
     private messageService: MessageService,
     private router: Router,
     private notificationService: NotificationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private readonly store : Store
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     const currentutcdate = new Date();
@@ -346,17 +349,27 @@ editvisible: boolean =false;
         // id:date,
         Skill: selectedSkillName,
       };
+      const newSch = {
+        id: this.isTime,
+        questions: this.FinalizedQuestions,
+        durations: this.timeInterval,
+        JobDescription: this.updateNewScheduleForm.get('scheduleName')?.value,
+        cutoff: this.totalCutoff,
+        Managername: this.updateNewScheduleForm.get('managerName')?.value,
+        // id:date,
+        Skill: selectedSkillName,
+      };
       console.log('response', dataToSave);
+      this.store.dispatch(ScheduleActions.updateSchedule({schedule : newSch}))
+      // this.skillsdropdownservice
+      //   .postNewSchedule(dataToSave)
+      //   .subscribe((response) => {
+      //     console.log('Questions', response);
+      //     setTimeout(() => {
+      //       this.router.navigate(['/dashboard']);
+      //     }, 1500);
 
-      this.skillsdropdownservice
-        .postNewSchedule(dataToSave)
-        .subscribe((response) => {
-          console.log('Questions', response);
-          setTimeout(() => {
-            this.router.navigate(['/dashboard']);
-          }, 1500);
-
-        });
+      //   });
     } catch (error) {
       console.error(error);
     }

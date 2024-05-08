@@ -1,4 +1,4 @@
-import { ErrorHandler, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
+import { ErrorHandler, NO_ERRORS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,6 +47,11 @@ import { zip } from 'rxjs';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
+import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
+import { provideState, provideStore } from '@ngrx/store';
+import { ScheduleFeature } from './store/schedule/schedule.selector';
+import { addSchedule$, loadSchedule$ } from './store/schedule/schedule.effects';
 
 
 
@@ -100,9 +105,15 @@ import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
     MFAComponent,
     Enable2faComponent,
     ToastrModule.forRoot(),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [MessageService,DatePipe,
+    provideStore(),
+    provideState(ScheduleFeature),
+    provideEffects([{loadSchedule$},{addSchedule$}]),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
   // {
   //   provide : ErrorHandler,
   //   useClass : CustomHttpException

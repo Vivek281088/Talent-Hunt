@@ -26,6 +26,9 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+import { Store } from '@ngrx/store';
+import { ScheduleActions } from 'src/app/store/schedule/schedule.action';
+import { getSchedules } from 'src/app/store/schedule/schedule.selector';
 
 @Component({
   selector: 'app-schedulepage',
@@ -93,7 +96,8 @@ export class SchedulepageComponent implements OnInit {
     // reviewer
     private messageService: MessageService,
     private dataService: DataService,
-    private newScheduleService: NewScheduleService
+    private newScheduleService: NewScheduleService,
+    private readonly store : Store
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     this.addnewScheduleForm = this.fb.group({
@@ -148,7 +152,10 @@ export class SchedulepageComponent implements OnInit {
 
     this.loadSkills();
     this.loadManagerNames();
-    this.existingData();
+    this.store.dispatch(ScheduleActions.getSchedule())
+    const data = this.store.select(getSchedules).subscribe(data => this.Tdata = data);
+    console.log("from selector ????????????????????????????????????????",data)
+    //this.existingData();
     this.getUniqueCandidatedata();
     this.getCandidatename();
   }
