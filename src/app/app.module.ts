@@ -28,7 +28,7 @@ import { AssessmentTableComponent } from './modules/assessment-table/assessment-
 
 import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 
-import { BodyComponent } from './modules/body/body.component';
+import { BodyComponent } from './modules/body/component/body.component';
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
 import { ManageCandidatesComponent } from './modules/manage-candidates/manage-candidates.component';

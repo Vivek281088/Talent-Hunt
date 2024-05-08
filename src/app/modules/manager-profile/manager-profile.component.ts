@@ -149,7 +149,7 @@ export class ManagerProfileComponent {
   }
 
   closeManagerProfile() {
-    this.router.navigate(['/manage-managers']);
+    this.router.navigate(['/mtalent/manage-managers']);
   }
 
   resetPassword() {
@@ -251,7 +251,7 @@ export class ManagerProfileComponent {
     this.resetPasswordForm.markAsPristine();
     this.resetPasswordForm.markAsUntouched();
     this.resetPasswordForm.reset();
-    this.router.navigate(['/managerProfile']);
+    this.router.navigate(['/mtalent/managerProfile']);
   }
 
   updatereset() {

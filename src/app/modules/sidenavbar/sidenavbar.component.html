@@ -6,7 +6,7 @@
           id="home"
           [class.active]="activeSection === 'home'"
           (click)="changeStyle('home')"
-          [routerLink]="['/thdashboard']"
+          [routerLink]="['/mtalent/thdashboard']"
         >
           <i class="pi pi-th-large"></i>
           <p>Home</p>
@@ -32,7 +32,7 @@
               id="manageSchedule"
               [class.active]="activeSublist === 'manageSchedule'"
               (click)="changeSublist('manageSchedule','assessment')"
-              [routerLink]="['/dashboard']"
+              [routerLink]="['/mtalent/dashboard']"
             >
               <svg
                 width="24"
@@ -59,7 +59,7 @@
               id="manageAssessment"
               [class.active]="activeSublist === 'manageAssessment'"
               (click)="changeSublist('manageAssessment','assessment')"
-              [routerLink]="['/AssessmentDisplay']"
+              [routerLink]="['/mtalent/AssessmentDisplay']"
             >
               <svg
                 width="24"
@@ -100,7 +100,7 @@
               id="manageManagers"
               [class.active]="activeSublist === 'manageManagers'"
               (click)="changeSublist('manageManagers','user')"
-              [routerLink]="['/manage-managers']"
+              [routerLink]="['/mtalent/manage-managers']"
             >
               <svg
                 width="24"
@@ -127,7 +127,7 @@
               id="manageCandidates"
               [class.active]="activeSublist === 'manageCandidates'"
               (click)="changeSublist('manageCandidates','user')"
-              [routerLink]="['/manage-candidates']"
+              [routerLink]="['/mtalent/manage-candidates']"
             >
               <svg
                 width="24"
@@ -168,7 +168,7 @@
               id="manageSkills"
               [class.active]="activeSublist === 'manageSkills'"
               (click)="changeSublist('manageSkills','question_bank')"
-              [routerLink]="['/manage-skills']"
+              [routerLink]="['/mtalent/manage-skills']"
             >
               <svg
                 width="24"

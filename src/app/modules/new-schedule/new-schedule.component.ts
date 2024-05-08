@@ -391,13 +391,22 @@ editvisible: boolean =false;
       //     }, 1500);
 
       //   });
+      this.skillsdropdownservice
+        .postNewSchedule(dataToSave)
+        .subscribe((response) => {
+          console.log('Questions', response);
+          setTimeout(() => {
+            this.router.navigate(['/mtalent/dashboard']);
+          }, 1500);
+
+        });
     } catch (error) {
       console.error(error);
     }
 
     // Notification
 
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/mtalent/dashboard']);
     const managerId = sessionStorage.getItem('loginManagerId');
 
     console.log('managerid', managerId);
@@ -449,7 +458,7 @@ editvisible: boolean =false;
       .subscribe((response) => {
         console.log('Edit status---', response);
         setTimeout(() => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/mtalent/dashboard']);
         }, 1500);
       });
   }
@@ -673,7 +682,7 @@ editvisible: boolean =false;
     this.updateNewScheduleForm.markAsPristine();
     this.updateNewScheduleForm.markAsUntouched();
     this.updateNewScheduleForm.reset();
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/mtalent/dashboard']);
   }
 
   
@@ -700,9 +709,9 @@ editvisible: boolean =false;
       formData.scheduleName = scheduleName;
       formData.managerName = manager;
 
-      this.router.navigate(['new-schedule']);
+      
       this.editvisible = false;
-      console.log('hi');
+      this.router.navigate(['/mtalent/new-schedule']);
     }
   }
 

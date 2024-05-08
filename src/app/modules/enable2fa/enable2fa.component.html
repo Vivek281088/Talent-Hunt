@@ -50,10 +50,11 @@
           (input)="showErrorMessage = false"
         />
         <div *ngIf="showErrorMessage" class="error-msg">
-          Authentication code is wrong
+          Authentication code is wrong 
         </div>
       </div>
       <ng-template pTemplate="footer">
+        <p-toast></p-toast>
         <div class="twoFactorButtons">
 
           <div class="verifyButton">
