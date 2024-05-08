@@ -1,6 +1,4 @@
-
 <div class="flex justify-content-center"(keydown.enter)="onEnterKey()">
-  
     <p-dialog   [modal]="true" [(visible)]="visible"  [style]="{ width: '40%', 'height': 'fit-content' }" [draggable]="false" [resizable]="false" [closable]="true">
        <div class="dialog-body">
         <div class="logo-text">
@@ -8,11 +6,16 @@
         <p class="heading">MTalent</p>
     </div>
             <div>
-                <ng-otp-input  (onInputChange)="onOtpChange($event)"   [config]="{length:6 , allowNumbersOnly:true}"></ng-otp-input>
+                <ng-otp-input  (onInputChange)="onOtpChange($event)" 
+                  [config]="{length:6 , allowNumbersOnly:true}"
+                (input)="showErrorMessage = false"
+                ></ng-otp-input>
+                <div *ngIf="showErrorMessage" class="error-msg">
+                    Authentication code is wrong 
+                  </div>
             </div>
             <div class="verify-button">
                 <p-toast></p-toast>
-                
                 <button  class="verify-button" (click)="verify()"> Verify Now</button>
             </div>
         </div> 

@@ -27,9 +27,12 @@ export class MFAComponent implements OnInit{
   value : any;
   visible: boolean = true;
   token !:string;
+  showErrorMessage: boolean = false;
+
   constructor(private http : HttpClient,private dataService:DataService,private router:Router,private messageservice:MessageService){
-    
-  }
+      }
+
+      
   ngOnInit(): void {}
   onOtpChange(data:any){
     this.token = data;
@@ -47,11 +50,7 @@ export class MFAComponent implements OnInit{
         else{
 console.log("entered else")
 
-          this.messageservice.add({
-            severity: 'error',
-            summary: 'Please Enter Valid OTP',
-            detail: '',
-          });
+this.showErrorMessage = true;
           
           return;
         }

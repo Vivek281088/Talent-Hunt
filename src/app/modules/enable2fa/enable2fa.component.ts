@@ -20,7 +20,6 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]
 })
 export class Enable2faComponent {
-
   twofactvisible: boolean = true;
   showTick: boolean= false;
   subscription!: Subscription;
@@ -35,35 +34,31 @@ export class Enable2faComponent {
     private router : Router,
     private dataService:DataService,
     private messageservice: MessageService,
-
-
   ) {}
 
   ngOnInit() {
     this.message = this.dataService.getSighupdata()
     console.log("message received from signup",this.message);
     this.createQrCode();
-
   }
 
   verifyNow()
   {
     const date= Date.now();
     const id = new Date(date)
-    this.messageservice.add({
+        this.dataService.signupWithMFA(id,this.message.firstName,this.message.lastName,this.message.emailId,
+      this.message.phoneNumber,this.message.password,this.message.confirmPassword,this.token,this.secretKey).subscribe(
+        {
+          next : (response) => {
+            this.messageservice.add({
       severity: 'success',
       summary: 'Success',
       detail: 'Manager Registered Successfully',
     });
-    this.dataService.signupWithMFA(id,this.message.firstName,this.message.lastName,this.message.emailId,
-      this.message.phoneNumber,this.message.password,this.message.confirmPassword,this.token,this.secretKey).subscribe(
-        {
-          next : (response) => {
             console.log(response);
             setTimeout(() => {
               this.router.navigate(['login'])
             }, 1500);
-
           },
           error : (error) => {
             this.showErrorMessage = true;
@@ -85,17 +80,15 @@ export class Enable2faComponent {
   }
 
   cancelButton() {
-    // this.twofactvisible = false;
     this.router.navigate(['signup'])
   }
+
   copyToClipboard(text: string) {
     this.clipboard.copy(text);
     this.showTick = true;
     console.log("showTick set to true");
         setTimeout(() => {
       this.showTick = false;
-      console.log("showTick set to false");
     }, 1500);
   }
-
 }
