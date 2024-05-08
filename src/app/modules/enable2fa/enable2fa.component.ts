@@ -50,15 +50,16 @@ export class Enable2faComponent {
   {
     const date= Date.now();
     const id = new Date(date)
-    this.messageservice.add({
-      severity: 'success',
-      summary: 'Success',
-      detail: 'Manager Registered Successfully',
-    });
+
     this.dataService.signupWithMFA(id,this.message.firstName,this.message.lastName,this.message.emailId,
       this.message.phoneNumber,this.message.password,this.message.confirmPassword,this.token,this.secretKey).subscribe(
         {
           next : (response) => {
+            this.messageservice.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Manager Registered Successfully',
+            });
             console.log(response);
             setTimeout(() => {
               this.router.navigate(['login'])
