@@ -9,8 +9,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-// import { ToastrService } from 'ngx-toastr';
 import { ToastModule } from 'primeng/toast';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -27,10 +27,19 @@ export class MFAComponent implements OnInit{
   value : any;
   visible: boolean = true;
   token !:string;
-  constructor(private http : HttpClient,private dataService:DataService,private router:Router,private messageservice:MessageService){
+  Resetdata:any;
+  emailId:any;
+  constructor(private http : HttpClient,private dataService:DataService,private router:Router,private messageservice:MessageService,private route:ActivatedRoute){
     
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.route.queryParams.subscribe(params=>{
+       this.Resetdata=params['datafromReset']
+       this.emailId=params['emailId']
+
+      })
+      console.log("received mailid------------->",this.emailId)
+  }
   onOtpChange(data:any){
     this.token = data;
   }
@@ -39,9 +48,14 @@ export class MFAComponent implements OnInit{
        console.log("entered try") 
       const emailId: string | null = localStorage.getItem('managerEmail');
 
-      this.dataService.verifyMFA(emailId,this.token).subscribe((data)=>{
+      this.dataService.verifyMFA(this.emailId||emailId,this.token).subscribe((data)=>{
         console.log("Verify code",data)
-        if(data){
+        if(data && this.emailId){
+          this.router.navigate(['resetpassword'],{queryParams:{dataFromMFA:true,emailId:this.emailId}})
+
+        }
+        else if(data){
+        console.log("entered else if")
           this.router.navigate(['/mtalent/thdashboard'])
         }
         else{
