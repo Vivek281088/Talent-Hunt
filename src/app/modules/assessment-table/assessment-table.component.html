@@ -209,11 +209,12 @@
           <td>{{ i + 1 }}</td>
           <td>{{ rowData.candidateName }}</td>
           <td>{{ rowData.email_Managername }}</td>
-          <td class="assessmentName" style="cursor: pointer;">
-            <a (click)="previewCompletedTest(rowData)">
+          <td class="assessmentName" >
+            <a (click)="previewCompletedTest(rowData)" style="cursor: pointer;" *ngIf="rowData.results=='Shortlisted' || rowData.results=='Rejected' ">
               {{ rowData.email_Filename }}
 
             </a>
+            <span *ngIf="rowData.results=='Scheduled'" style="cursor: default;">{{rowData.email_Filename}}</span>
             </td>
 
           <td class="skills">
@@ -271,7 +272,7 @@
 <div class="questionsidebar">
   <p-sidebar position="right" [(visible)]="showSidebar" [modal]="true" (onHide)="closeButton()">
     <ng-template class="header_design" pTemplate="header"
-      >Questions Preview
+      >Candidate Response
     </ng-template>
     <ng-template pTemplate="content">
 
@@ -307,17 +308,7 @@
       </span>
 
       <div class="btnfooter">
-        <div class="quiz-instruction">
-          <p class="instruction">Quiz Instructions</p>
-          <ul class="points">
-            <li>Manager approval mandatory</li>
-            <li>
-              Automatic email will be triggered for every status change of the
-              request
-            </li>
-            <li>Approval is the permission to go to Office</li>
-          </ul>
-        </div>
+
         <div class="sidebarbuttons">
           <div class="custom_button_send">
             <p-button label="Close" (onClick)="closeButton()"></p-button>
