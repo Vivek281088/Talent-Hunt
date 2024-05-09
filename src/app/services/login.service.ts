@@ -94,13 +94,9 @@ export class LoginService {
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/forgotpassword',
       body,
-      // {
-      //   headers,
-      // }
+     
     );
-    // return this.http.post<any>(this.skillsUrl + '/forgotpassword', body, {
-    //   headers,
-    // });
+   
   }
   islogin() {
     return localStorage.getItem('token');

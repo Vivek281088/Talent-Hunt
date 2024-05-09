@@ -24,10 +24,10 @@
       #dt1
       [paginator]="true"
       [tableStyle]="{ height: 'max-content' }"
-      [rows]="5"
+      [rows]="12"
       [showCurrentPageReport]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [rowsPerPageOptions]="[5, 8, 12]"
+      [rowsPerPageOptions]="[8, 12]"
       [globalFilterFields]="[
         'candidateName',
         'email_Managername',
@@ -110,10 +110,12 @@
                       [maxSelectedLabels]="1"
                       [filter]="true"
                       [selectedItemsLabel]="'{0} items'"
+                      optionValue = "candidateName"
+                      optionLabel="candidateName"
                     >
                       <ng-template let-option pTemplate="item">
                         <div class="inline-block vertical-align-middle">
-                          <span class="ml-1 mt-1">{{ option }}</span>
+                          <span class="ml-1 mt-1">{{ option.candidateName }}</span>
                         </div>
                       </ng-template>
                     </p-multiSelect>
@@ -168,10 +170,12 @@
                       [maxSelectedLabels]="1"
                       [filter]="true"
                       [selectedItemsLabel]="'{0} items'"
+                      optionValue = "skill"
+                      optionLabel = "skill"
                     >
                       <ng-template let-option pTemplate="item">
                         <div class="inline-block vertical-align-middle">
-                          <span class="ml-1 mt-1">{{ option }}</span>
+                          <span class="ml-1 mt-1">{{ option.skill }}</span>
                         </div>
                       </ng-template>
                     </p-multiSelect>
@@ -308,7 +312,6 @@
       </span>
 
       <div class="btnfooter">
-
         <div class="sidebarbuttons">
           <div class="custom_button_send">
             <p-button label="Close" (onClick)="closeButton()"></p-button>
