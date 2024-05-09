@@ -73,9 +73,10 @@ this.showErrorMessage = true;
     }
   }
   onEnterKey(){
-    
-    
-
     this.verify();
+  }
+
+  closeDialog(){
+    this.router.navigate(['/login']);
   }
 }

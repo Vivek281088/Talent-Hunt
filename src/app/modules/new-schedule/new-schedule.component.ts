@@ -396,8 +396,8 @@ editvisible: boolean =false;
           console.log('Questions', response);
           setTimeout(() => {
             this.router.navigate(['/mtalent/dashboard']);
-          }, 1500);
- 
+            window.location.reload();
+          }, 100);
         });
     } catch (error) {
       console.error(error);

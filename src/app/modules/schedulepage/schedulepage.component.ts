@@ -282,7 +282,7 @@ export class SchedulepageComponent implements OnInit {
   }
   onViewClick(data: any) {
     
-    this.displayCommonContent=true;
+    this.viewQuestionSidebar=true;
     console.log('View Data', data);
     // this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
     //   this.FinalizedQuestions = response;
@@ -313,6 +313,7 @@ export class SchedulepageComponent implements OnInit {
   }
 
   handleEditIconClick(data: any) {
+    // debugger;
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;

@@ -1,5 +1,5 @@
 <div class="flex justify-content-center"(keydown.enter)="onEnterKey()">
-    <p-dialog   [modal]="true" [(visible)]="visible"  [style]="{ width: '40%', 'height': 'fit-content' }" [draggable]="false" [resizable]="false" [closable]="true">
+    <p-dialog   [modal]="true" [(visible)]="visible"  [style]="{ width: '40%', 'height': 'fit-content' }" [draggable]="false" [resizable]="false" [closable]="true" (onHide)="closeDialog()">
        <div class="dialog-body">
         <div class="logo-text">
         <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />

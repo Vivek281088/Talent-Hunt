@@ -53,7 +53,7 @@ export class Enable2faComponent {
             this.messageservice.add({
       severity: 'success',
       summary: 'Success',
-      detail: 'Manager Registered Successfully',
+      detail: 'User Registered Successfully',
     });
             console.log(response);
             setTimeout(() => {

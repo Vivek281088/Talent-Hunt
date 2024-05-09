@@ -212,11 +212,12 @@
           <td>{{ i + 1 }}</td>
           <td>{{ rowData.candidateName }}</td>
           <td>{{ rowData.email_Managername }}</td>
-          <td class="assessmentName" style="cursor: pointer;">
+          <td class="assessmentName" style="cursor: pointer;" *ngIf="rowData.results=='Shortlisted' || rowData.results=='Rejected' " >
             <a (click)="previewCompletedTest(rowData)">
               {{ rowData.email_Filename }}
 
             </a>
+            <span *ngIf="rowData.results=='Scheduled'" style="cursor: default;">{{rowData.email_Filename}}</span>
             </td>
 
           <td class="skills">
@@ -274,7 +275,7 @@
 <div class="questionsidebar">
   <p-sidebar position="right" [(visible)]="showSidebar" [modal]="true" (onHide)="closeButton()">
     <ng-template class="header_design" pTemplate="header"
-      >Questions Preview
+      >Candidate Response
     </ng-template>
     <ng-template pTemplate="content">
       <span *ngFor="let question of totalQuestions; let j = index">
