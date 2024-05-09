@@ -66,6 +66,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   id : any;
   candidateEmail : string='';
   showNavbarBoolean : boolean = true;
+  candidateResponse: any ={} ;
   // id: any = '2024-01-04T06:04:10.746Z';
   // candidateEmail: string = 'sapna@gmail.com';
   constructor(
@@ -136,16 +137,18 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
     if (this.previewOptions[pageIndex]?.questionType === 'Checkbox') {
-
-
       if(this.selectedOptions1[pageIndex].includes(option))
       this.selectedOptions1[pageIndex]= this.selectedOptions1[pageIndex].filter((data:string)=>data!=option)
       else
       this.selectedOptions1[pageIndex].push(option);
+      this.candidateResponse[this.previewOptions[pageIndex]?.id]=this.selectedOptions1[pageIndex];
+      console.log("Candidate Response: ",this.candidateResponse)
       console.log("inside checkbox answers",this.selectedOptions1);
     } else {
       // Radio option (single selection)
       this.selectedOptions1[pageIndex] === option ? this.selectedOptions1[pageIndex] = '' : this.selectedOptions1[pageIndex] = option;
+      this.candidateResponse[this.previewOptions[pageIndex]?.id]=this.selectedOptions1[pageIndex];
+      console.log("Candidate Response: ",this.candidateResponse)
       console.log('Selected Option else', this.selectedOptions1);
     }
   }
@@ -214,8 +217,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   }
   reviewQuestion() {
     this.countCorrectQues = 0;
+    console.log("Prev Opt",this.previewOptions);
+    console.log("Selec Opt", this.selectedOptions1)
     for (let i = 0; i < this.selectedOptions1.length; i++) {
-      this.previewOptions[i].selectedOption = this.selectedOptions1[i];
+        this.previewOptions[i].selectedOption = this.selectedOptions1[i];
+
     }
     console.log('preview Options after selected option', this.previewOptions);
     console.log('Updated Question', this.previewOptions);
@@ -257,7 +263,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
       id: this.id,
 
-      questions: this.questionIds,
+      candidateResponse: this.candidateResponse,
 
       score: this.score.toFixed(2),
       results: this.result,
