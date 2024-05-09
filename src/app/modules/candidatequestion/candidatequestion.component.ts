@@ -217,8 +217,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   }
   reviewQuestion() {
     this.countCorrectQues = 0;
+    console.log("Prev Opt",this.previewOptions);
+    console.log("Selec Opt", this.selectedOptions1)
     for (let i = 0; i < this.selectedOptions1.length; i++) {
-      this.previewOptions[i].selectedOption = this.selectedOptions1[i];
+        this.previewOptions[i].selectedOption = this.selectedOptions1[i];
+
     }
     console.log('preview Options after selected option', this.previewOptions);
     console.log('Updated Question', this.previewOptions);

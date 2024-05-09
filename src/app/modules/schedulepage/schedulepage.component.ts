@@ -288,7 +288,6 @@ export class SchedulepageComponent implements OnInit {
   this.viewQuestionSidebar = false;
   }
   onViewClick(data: any) {
-    
     this.viewQuestionSidebar=true;
     console.log('View Data', data);
     // this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
