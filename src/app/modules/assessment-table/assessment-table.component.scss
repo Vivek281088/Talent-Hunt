@@ -95,8 +95,8 @@
       padding: 5% 2% 2% 5%;
     }
     .p-inputtext {
-    padding: 5% 2% 2% 5%;
-  }
+      padding: 5% 2% 2% 5%;
+    }
   }
 }
 
@@ -126,7 +126,6 @@
   font-weight: 500;
 }
 
-
 ::ng-deep .p-badge-no-gutter {
   color: #00000099;
 }
@@ -152,7 +151,6 @@
   letter-spacing: 0.25px;
   text-align: left;
 }
-
 
 .Shortlisted {
   width: 70px;
@@ -376,10 +374,9 @@
   margin-bottom: 10px;
 }
 .option-content {
-  margin-left: 10px; /* Adjust the margin as needed */
+
   font-family: "Roboto";
-  font-size: 16px; /* Adjust the font size as needed */
-  /* Add other styles as needed */
+  font-size: 16px;
 }
 
 label {
@@ -412,7 +409,7 @@ label {
   letter-spacing: 0.15000000596046448px;
   text-align: left;
   color: #652d90;
-  margin-bottom: 1rem;
+
 }
 
 .header_design {
@@ -503,8 +500,6 @@ label {
   }
 }
 
-
-
 .btnfooter {
   display: flex;
   flex-direction: row;
@@ -535,10 +530,9 @@ label {
   color: #00000061;
 }
 .option-content {
-  margin-left: 10px; /* Adjust the margin as needed */
+
   font-family: "Roboto";
-  font-size: 16px; /* Adjust the font size as needed */
-  /* Add other styles as needed */
+  font-size: 16px;
 }
 
 label {
@@ -561,17 +555,7 @@ label {
   display: flex;
   flex-direction: column;
 }
-.question-design {
-  // width: 675px;
-  height: 23px;
-  font-family: "Roboto";
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 23px;
-  letter-spacing: 0.15000000596046448px;
-  text-align: left;
-  color: #652d90;
-}
+
 
 .header_design {
   width: 200px;
@@ -618,14 +602,13 @@ label {
 //sidebar
 .questionsidebar {
   .question-design {
-    // height: 23px;
     font-family: "Roboto";
     font-size: 20px;
     font-weight: 500;
     letter-spacing: 0.150000006px;
     text-align: left;
     color: #652d90;
-    padding: 3% 0% 3% 0%;
+    padding: 2% 0% 2% 1%;
   }
   .select-size input {
     display: none;
@@ -644,9 +627,10 @@ label {
     padding: 0.8% 1% 0.8% 1%;
     font-family: "Roboto";
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 400;
     border-radius: 3px;
     width: 100%;
+    height: fit-content;
   }
   .option {
     font-weight: 450;
@@ -656,38 +640,41 @@ label {
     .box-design {
       border: 1px solid #c1abd3;
       width: 5%;
+      height: 30px;
       border-radius: 4px;
       text-align: center;
-      padding: 5px;
+      font-weight: 400;
     }
-    &:hover:not(.correctAnswer) {
-      .box-design,
-      .option-content {
-        background: #c1abd3;
-        color: white;
-      }
-    }
+    // &:hover:not(.correctAnswer) {
+    //   .box-design,
+    //   .option-content {
+    //     background: #c1abd3;
+    //     color: white;
+    //   }
+    // }
   }
   .correctAnswer {
     .option-content {
-      background: lightgreen;
-      color: #652d90;
+      background: #e6ffeb;
+      color: #009a2a;
     }
     .box-design {
-      background: lightgreen;
-      color: white;
+      background: #e6ffeb;
+      color: #009a2a;
+      border: none;
     }
   }
-  .wrong{
-      .option-content {
-        background: lightsalmon;
-        color: #652d90;
-      }
-      .box-design {
-        background: lightsalmon;
-        color: white;
-      }
+  .wrong {
+    .option-content {
+      background: #ffe6e9;
+      color: #cc000c;
+    }
 
+    .box-design {
+      background: #ffe6e9;
+      color: #cc000c;
+      border: none;
+    }
   }
 
   .custom_button {
@@ -764,10 +751,12 @@ label {
       font-size: 20px;
     }
     .p-sidebar {
-      width: 45%;
+      width: 50%;
+      cursor: default;
     }
     .p-sidebar .p-sidebar-footer {
       padding: 0;
     }
   }
 }
+

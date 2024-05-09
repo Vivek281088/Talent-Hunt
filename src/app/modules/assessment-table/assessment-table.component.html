@@ -278,8 +278,10 @@
       >Candidate Response
     </ng-template>
     <ng-template pTemplate="content">
+
       <span *ngFor="let question of totalQuestions; let j = index">
-        <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
+        <div class="customquestiondesign">
+          <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
 
         <div class="select-size">
           <div
@@ -303,6 +305,9 @@
             <span class="option-content">{{ option }}</span>
           </div>
         </div>
+
+        </div>
+
       </span>
 
       <div class="btnfooter">
