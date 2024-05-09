@@ -77,6 +77,7 @@
                       [maxSelectedLabels]="1"
                       [selectedItemsLabel]="'{0} items'"
                       [filter]="true"
+                      [resetFilterOnHide]="true"
                       optionLabel="managerName"
                       optionValue="managerName"
                     >
@@ -109,6 +110,7 @@
                       (onChange)="filter($event.value)"
                       [maxSelectedLabels]="1"
                       [filter]="true"
+                      [resetFilterOnHide]="true"
                       [selectedItemsLabel]="'{0} items'"
                     >
                       <ng-template let-option pTemplate="item">
@@ -167,6 +169,7 @@
                       (onChange)="filter($event.value)"
                       [maxSelectedLabels]="1"
                       [filter]="true"
+                      [resetFilterOnHide]="true"
                       [selectedItemsLabel]="'{0} items'"
                     >
                       <ng-template let-option pTemplate="item">

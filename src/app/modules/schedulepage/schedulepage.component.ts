@@ -289,7 +289,7 @@ export class SchedulepageComponent implements OnInit {
   }
   onViewClick(data: any) {
     
-    this.displayCommonContent=true;
+    this.viewQuestionSidebar=true;
     console.log('View Data', data);
     // this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
     //   this.FinalizedQuestions = response;
