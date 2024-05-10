@@ -35,16 +35,8 @@
   }
   ::ng-deep .p-paginator {
     background: none;
-    //color:white !important;
   }
 }
-
-// .duration-design{
-
-//     background: linear-gradient(91.47deg, #652D90 14.44%, #D61360 158.5%);
-//     display: flex;
-
-// }
 
 .footer-submit {
   display: flex;
@@ -65,16 +57,6 @@
       color: #ffffff;
     }
   }
-
-  //   display: flex;
-  //   justify-content: end;
-  // align-items: center;
-  // gap: 16px;
-  // padding: 12px;
-  // align-self: stretch;
-  // border-radius: 4px;
-  // border: 1px solid rgba(0, 0, 0, 0.12);
-  // background: var(--Surface, #FFF);
 }
 
 .previewnext {
@@ -137,17 +119,10 @@
     font-size: 14px;
     color: #ffffff;
     font-family: "Roboto";
-
-    // font-weight: 400;
-    // line-height: 16px;
-    // letter-spacing: 0px;
-    // text-align: left;
   }
 }
 
 .duration i {
-  // width: 16px;
-  // height: 16px;
   padding: 1.33px, 1.33px, 1.33px, 1.33px;
   color: #ffffffbd;
 }
@@ -155,7 +130,6 @@
 .question-design {
   margin-left: 17px;
   display: flex;
-  // margin-bottom: 350px;
   color: #212529;
   margin-right: 4px;
   margin-top: 15px;
@@ -174,10 +148,9 @@
 }
 
 .option-content {
-  margin-left: 10px; /* Adjust the margin as needed */
+  margin-left: 10px;
   font-family: "Roboto";
-  font-size: 16px; /* Adjust the font size as needed */
-  /* Add other styles as needed */
+  font-size: 16px;
 }
 
 .box-design {
@@ -228,15 +201,11 @@ label {
   width: 32px;
   height: 32px;
   text-align: center;
-  // border: 1px solid #ddd;
   line-height: 32px;
   cursor: pointer;
   border-radius: 8px;
   color: #00000061;
-  //margin-left: 20px;
 }
-
-// --------------------------------
 .select-size {
   max-height: fit-content;
   overflow: auto;

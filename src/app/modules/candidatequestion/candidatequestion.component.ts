@@ -67,8 +67,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   candidateEmail : string='';
   showNavbarBoolean : boolean = true;
   candidateResponse: any ={} ;
-  // id: any = '2024-01-04T06:04:10.746Z';
-  // candidateEmail: string = 'sapna@gmail.com';
   constructor(
     private candidateAssessmentService: CandidateAssessmentService,
     private confirmationService: ConfirmationService,
@@ -83,7 +81,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.totalQuestions = this.previewOptions.length;
     this.updateSessionStorage();
   }
-  // In your component class
   ngOnInit(): void {
     const storedOptions = sessionStorage.getItem('selectedOptions');
     if (storedOptions) {
@@ -184,7 +181,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
         clearInterval(timerInterval); // Stop the timer
         this.submitAnswers(); // Automatically submit the answers
       }
-    }, 1000); // 1000 milliseconds = 1 second
+    }, 1000); 
   }
   exit() {
     this.router.navigate(['/login']);
@@ -213,7 +210,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
      const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
      this.endTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
     this.reviewQuestion();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/mtalent/candidatehome']);
   }
   reviewQuestion() {
     this.countCorrectQues = 0;
@@ -231,9 +228,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       } else if ((question.questionType = 'Checkbox' && question.selectedOption.length != 0)) {
         console.log("Inside Checkbox..............................??????????????????????????????")
         correct=JSON.stringify(question.selectedOption)==JSON.stringify(question.answer);
-        // correct = question.ans.every((opt: any) =>
-        //   question.selectedOption.includes(opt)
-        // );
         console.log('correct ', correct);
       }
       if (correct) {
@@ -307,7 +301,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           allowOutsideClick: false,
         }).then((result: { isConfirmed: any; }) => {
           if (result.isConfirmed) {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/mtalent/candidatehome']);
           }
         });
         console.log('Submitted');
@@ -315,20 +309,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       reject: (type: ConfirmEventType) => {
         switch (type) {
           case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Cancel',
-              detail: 'You have Cancelled',
-            });
+           
             console.log('Rejected');
             break;
           case ConfirmEventType.CANCEL:
-            console.log('Canceled');
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled',
-            });
+           
             break;
         }
       },
