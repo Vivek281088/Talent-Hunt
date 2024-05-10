@@ -36,13 +36,6 @@
   <div class="managerTabview">
     <p-tabView>
       <p-tabPanel header="Profile" [formGroup]="editCandidateForm">
-        <ng-template pTemplate="header">
-          <div class="header-content1">
-            <span class="tab-header-text">Profile</span>
-
-
-          </div>
-        </ng-template>
         <ng-template pTemplate="content">
           <div class="profilecontent">
             <div class="labelvalue">
@@ -211,13 +204,6 @@
       </p-tabPanel>
 
       <p-tabPanel header="Assessments">
-        <ng-template pTemplate="header">
-          <div class="header-content1">
-            <span class="tab-header-text">Assessments</span>
-            <p-badge class="tab-badge" value={{candidateAssessmentLength}}></p-badge>
-          </div>
-        </ng-template>
-
         <div class="candidate-table">
           <p-table
             class="candidateTable"
@@ -352,7 +338,6 @@
           </p-table>
         </div>
       </p-tabPanel>
-
     </p-tabView>
   </div>
 </div>

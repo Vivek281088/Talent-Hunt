@@ -1,39 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
-// @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto:wght@100;300&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Roboto+Condensed:wght@300&family=Roboto:wght@100;300&display=swap");
 
-//  .Cancelbutton {
-//     // width: 64px;
-//     // height: 24px;
-//     // padding: 4px, 8px, 4px, 6px;
-//     // gap: 10px;
-//     ::ng-deep {
-//       .p-button {
-//         height: 40px;
-//         background: transparent;
-//         border: 1px solid #652d90;
-//         outline: none;
-//         margin-right: 14px;
-//       }
-//       .p-button:focus {
-//         box-shadow: none;
-//       }
-//     }
-//     // background: transparent;
-//     .cancel-word {
-//       width: 50px;
-//       height: 16px;
-//       //styleName: Button;
-//       font-family: "Roboto";
-//       font-size: 14px;
-//       font-weight: 500;
-//       line-height: 16px;
-//       letter-spacing: 1.25px;
-//       text-align: left;
-//       color: #652d90;
-//       cursor: pointer;
-//     }
-//   }
+
 .top-part {
   width: 100%;
   height: 250px;
@@ -53,13 +21,10 @@
   height: 36.83px;
   top: 7.17px;
   left: 49%;
-  // padding: 7.17px, 0px, 0px, 8px;
   gap: 8px;
 }
 
 .mtalent-heading {
-  // width: 100%;
-  // height: 72px;
   font-family: "Poppins", sans-serif;
   font-size: 48px;
   font-weight: 400;
@@ -67,8 +32,6 @@
   letter-spacing: 0px;
   text-align: center;
   color: #fff;
-  // width: 1440px;
-  // height: 72px;
   top: 56px;
   padding: 54px, 0px, 54px, 0px;
   gap: 8px;
@@ -94,24 +57,6 @@
   gap: 16px;
 }
 
-// .toast{
-
-//   width: 1024px;
-//   height: 56px;
-//   padding: 14px;
-//   border-radius: 6px;
-//   border: 0px, 0px, 0px, 6px;
-//   opacity: 0.9px;
-//   display: flex;
-//   flex-direction: row;
-//   background: linear-gradient(0deg, #D0E0F8, #D0E0F8),
-// linear-gradient(0deg, #1666DC, #1666DC);
-// border-left: 6px solid rgba(22, 102, 220, 1);
-// margin-left: auto;
-// margin-right: auto;
-// margin-top: 25px;
-// margin-bottom: 16px;
-// }
 
 .toast[_ngcontent-ng-c2576854787] {
   width: 63%;
@@ -161,12 +106,9 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  // align-items: left;
   gap: 8px;
   height: 89px;
   padding-top: 1%;
-  // margin-left: auto;
-  // margin-right: auto;
 }
 
 .assessment-heading {
@@ -178,11 +120,7 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  // margin-top: 3px;
-  // margin-left: auto;
-  // margin-right: auto;
   border: 28px;
-  // padding: 14px;
 }
 
 .assessment-content {
@@ -194,10 +132,6 @@
   font-weight: 400;
   line-height: 28px;
   letter-spacing: 0px;
-  // text-align: center;
-  // margin-left: auto;
-  // margin-right: auto;
-  // padding: 14px;
 }
 
 .goto {
@@ -206,10 +140,6 @@
   display: flex;
   width: 1024px;
   align-items: center;
-  // margin-left: auto;
-  // margin-right: auto;
-  // margin-top: 30px;
-  // padding: 14px;
 
   p {
     color: var(--05-Blue-500, #1666dc);
@@ -229,6 +159,7 @@
   flex-direction: row;
   overflow-x: auto;
   gap: 2%;
+  padding: 20px 0px 0px 10px;
 }
 ::-webkit-scrollbar {
   width: 80%;
@@ -245,17 +176,13 @@
   flex-shrink: 0;
   border-radius: 8px;
   background: #fff;
-  box-shadow: 0px 7px 8px 0px rgba(179, 171, 186, 0.2),
-    0px 5px 22px 0px rgba(179, 171, 186, 0.12),
-    0px 12px 17px 0px rgba(179, 171, 186, 0.14);
+  box-shadow:3px 7px 6px 6px rgba(179, 171, 186, 0.2),
+   0px 0px 22px 0px rgba(179, 171, 186, 0.12),
+   0px 0px 17px 0px rgba(179, 171, 186, 0.14),
+   0px 0px 8px 0px rgba(179, 171, 186, 0.2);
 
   .card-top {
     .heading {
-      // color: #00000061;
-      // font-size: 14px;
-      // font-family: 'Roboto';
-      // padding-bottom: 3%;
-
       color: var(--On-Surface-Disabled, rgba(0, 0, 0, 0.38));
       font-family: "Roboto";
       font-size: 14px;
@@ -267,10 +194,6 @@
       height: 16px;
     }
     .card-title {
-      // color: #00000099;
-      // font-size: 24px;
-      // font-family: 'Roboto';
-      // padding-bottom: 3%;
       color: var(--On-Surface-Medium-Emphasis, rgba(0, 0, 0, 0.6));
       font-family: "Roboto";
       font-size: 24px;
@@ -356,7 +279,6 @@ h4 {
   line-height: normal;
   letter-spacing: 0.25px;
 }
-// Assessment Card
 
 .startassessmentcard {
   width: 620px;
@@ -385,15 +307,6 @@ h4 {
       border-bottom-left-radius: 6px;
     }
   }
-
-  // .footer{
-  //   width: 620px;
-  // height:56px;
-  // padding: 16px;
-  // border: 1px, 0px, 0px, 0px;
-  // gap: 16px;
-
-  // }
 }
 
 .headertitle {
@@ -417,8 +330,6 @@ h4 {
   flex-direction: column;
   align-items: flex-start;
   align-self: stretch;
-  // border-bottom: 1px solid #B3ABBA33;
-  // border-top: 1px solid #B3ABBA33;
 }
 
 .content-top {
@@ -440,7 +351,6 @@ h4 {
   letter-spacing: 0.15000000596046448px;
   text-align: left;
   color: #00000061;
-  // padding: 16px;
 }
 
 .assessmentCardbody {
@@ -452,7 +362,6 @@ h4 {
   line-height: 24px;
   letter-spacing: 0.15000000596046448px;
   text-align: left;
-  // padding: 16px;
 }
 
 .assessmentCardwish {
@@ -467,7 +376,6 @@ h4 {
   color: #652d90;
   align-self: stretch;
   color: var(--01-Primary-500, #652d90);
-  // padding: 16px;
 }
 
 .assessmentCardbodycontent {
@@ -477,7 +385,6 @@ h4 {
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  // line-height: 30px;
   letter-spacing: 0.15px;
   padding: 10px;
   gap: 10px;
@@ -489,7 +396,6 @@ h4 {
       height: 40px;
       color: white;
       background: #652d90;
-      // border: 1px solid #3d105f;
       outline: none;
       margin-right: 14px;
       border: 1px solid #652d90;
@@ -508,7 +414,6 @@ h4 {
     line-height: 16px;
     letter-spacing: 1.25px;
     text-align: left;
-    // color: #652d90;
     cursor: pointer;
   }
 }
@@ -519,7 +424,6 @@ h4 {
       height: 40px;
       background: white;
       color: #652d90;
-      // border: 1px solid #3d105f;
       outline: none;
       margin-right: 14px;
       border: 1px solid #652d90;
@@ -538,16 +442,11 @@ h4 {
     line-height: 16px;
     letter-spacing: 1.25px;
     text-align: left;
-    // color: #652d90;
     cursor: pointer;
   }
 }
 
 .startButton {
-  // width: 64px;
-  // height: 24px;
-  // padding: 4px, 8px, 4px, 6px;
-  // gap: 10px;
   ::ng-deep {
     .p-button {
       height: 40px;
@@ -561,7 +460,6 @@ h4 {
       box-shadow: none;
     }
   }
-  // background: transparent;
   .cancel-word {
     color: var(--02-Secondary-500, #c81a78);
     text-align: center;

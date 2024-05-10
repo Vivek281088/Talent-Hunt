@@ -195,16 +195,16 @@ export class ManageManagersComponent {
               console.log("error---",err)
               if (err.status == 405) {
                 setTimeout(() => {
-                  this.IdExistError();
+                  this.mailExistError();
                   console.log('Mail already exists');
                   this.cancelButton();
-                }, 1000);
+                }, 500);
               } else if (err.status == 404) {
                 setTimeout(() => {
-                  this.mailExistError();
+                  this.IdExistError();
                   console.log('Emp Id already exists');
                   this.cancelButton();
-                }, 1000);
+                }, 500);
               }
             },
             complete: () => console.log('There are no more action happen.'),
@@ -334,7 +334,7 @@ export class ManageManagersComponent {
         this.messageService.add({
           severity: 'success',
           summary: 'Deleted',
-          detail: 'Schedule Deleted Successfully',
+          detail: 'Manager Deleted Successfully',
         });
      this.deleteManager();
 

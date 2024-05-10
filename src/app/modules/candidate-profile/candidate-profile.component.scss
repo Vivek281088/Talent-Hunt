@@ -3,6 +3,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 .manageManager {
+
+.manageManager {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -23,22 +25,6 @@
     .p-datatable .p-datatable-thead > tr > th {
       background: white;
     }
-    .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-      border-color: #652d90;
-      color: #652d90;
-      height: 103%;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-   box-shadow: none;
-}
-.p-badge{
-  background: #652d90;
-
-}
-.tab-header-text{
-  padding-right: 5px;
-}
-
   }
 
   .managerDetails {
@@ -86,7 +72,7 @@
   }
 }
 
-.manageManager-header {
+.manageManagers-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -295,7 +281,7 @@
     border-radius: 4px;
     border: 1px;
     ::ng-deep {
-
+      
     .p-inputtext{
         padding: 5%;
     }
@@ -393,28 +379,6 @@
         color: #1e22aa !important;
       }
 
-      .assessment-badge{
-        display:flex;
-        flex-direction: row;
-      }
-
-      .hidebadge{
-        display:none;
-      }
-
-      .header-content1{
-        ::ng-deep p-badge{
-          background: #652d90  !important;
-          display: inline-block;
-          border-radius: 50px;
-          text-align: center;
-         // padding: 4px;
-
-        }
-
-  }
-  .tab-header-text{
-    padding-right: 5px;
   }
 
-  }
+}

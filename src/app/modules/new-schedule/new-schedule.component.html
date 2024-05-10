@@ -104,7 +104,7 @@
           [(visible)]="editvisible"
           [modal]="true"
           [style]="{ width: '47VW' }"
-          [formGroup]="updateNewScheduleForm"
+          [formGroup]="newScheduleEditForm"
           [draggable]="false"
           [resizable]="false"
           [closable]="false"
@@ -120,15 +120,15 @@
                 <input type="text" formControlName="scheduleName" pInputText />
                 <div
                   *ngIf="
-                    updateNewScheduleForm.get('scheduleName')?.invalid &&
-                    (updateNewScheduleForm.get('scheduleName')?.touched ||
+                    newScheduleEditForm.get('scheduleName')?.invalid &&
+                    (newScheduleEditForm.get('scheduleName')?.touched ||
                       formSubmitted)
                   "
                 >
                   <div
                     class="error-message"
                     *ngIf="
-                      updateNewScheduleForm
+                      newScheduleEditForm
                         .get('scheduleName')
                         ?.hasError('required')
                     "
@@ -138,7 +138,7 @@
                   <div
                     class="error-message"
                     *ngIf="
-                      updateNewScheduleForm
+                      newScheduleEditForm
                         .get('scheduleName')
                         ?.hasError('maxLengthExceeded')
                     "
@@ -148,7 +148,7 @@
                   <div
                     class="error-message"
                     *ngIf="isScheduleInvalid &&
-                      updateNewScheduleForm
+                      newScheduleEditForm
                         .get('scheduleName')
                         ?.hasError('minLength')
                     "
@@ -176,15 +176,15 @@
 
                 <div
                   *ngIf="
-                    updateNewScheduleForm.get('managerName')?.invalid &&
-                    (updateNewScheduleForm.get('managerName')?.touched ||
+                    newScheduleEditForm.get('managerName')?.invalid &&
+                    (newScheduleEditForm.get('managerName')?.touched ||
                       formSubmitted)
                   "
                 >
                   <div
                     class="error-message"
                     *ngIf="
-                      updateNewScheduleForm
+                      newScheduleEditForm
                         .get('managerName')
                         ?.hasError('required')
                     "
@@ -194,7 +194,7 @@
                   <div
                     class="error-message"
                     *ngIf="
-                      updateNewScheduleForm
+                      newScheduleEditForm
                         .get('managerName')
                         ?.hasError('maxLengthExceeded')
                     "
@@ -204,7 +204,7 @@
                   <div
                     class="error-message"
                     *ngIf="
-                      updateNewScheduleForm
+                      newScheduleEditForm
                         .get('managerName')
                         ?.hasError('minLength')
                     "

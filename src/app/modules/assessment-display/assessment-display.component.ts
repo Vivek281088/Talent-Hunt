@@ -75,17 +75,11 @@ export class AssessmentDisplayComponent implements OnInit {
  
   ngOnInit() {
     this.assessmentData = this.candidateAssessmentService.getAssessmentData();
-    console.log('get Data', this.assessmentData);
     this.id = this.assessmentData.id;
-    console.log('Id', this.id);
     this.duration = this.assessmentData.durations;
-    console.log('dur--------------', this.duration);
     this.cutoff = this.assessmentData.cutoff;
-    console.log('cut-------------', this.cutoff);
     this.candidateName = this.assessmentData.candidateName;
-    console.log('can----------', this.candidateName);
     this.candidateEmail = this.assessmentData.candidateEmail;
-    console.log('mail--------------', this.candidateEmail);
     this.messages2 = [
       { severity: 'warn', summary: 'Warning', detail: '5 mins more' },
     ];
