@@ -77,6 +77,7 @@
                       [maxSelectedLabels]="1"
                       [selectedItemsLabel]="'{0} items'"
                       [filter]="true"
+                      [resetFilterOnHide]="true"
                       optionLabel="managerName"
                       optionValue="managerName"
                     >
@@ -109,6 +110,7 @@
                       (onChange)="filter($event.value)"
                       [maxSelectedLabels]="1"
                       [filter]="true"
+                      [resetFilterOnHide]="true"
                       [selectedItemsLabel]="'{0} items'"
                       optionValue = "candidateName"
                       optionLabel="candidateName"
@@ -169,6 +171,7 @@
                       (onChange)="filter($event.value)"
                       [maxSelectedLabels]="1"
                       [filter]="true"
+                      [resetFilterOnHide]="true"
                       [selectedItemsLabel]="'{0} items'"
                       optionValue = "skill"
                       optionLabel = "skill"
@@ -194,20 +197,16 @@
             </div>
           </th>
         </tr>
- 
         <tr>
           <th>Seq.No</th>
           <th>Candidate Name</th>
           <th>Manager</th>
- 
           <th>Assessment</th>
- 
           <th>Skills</th>
           <th>Result</th>
           <th>Score(%)</th>
         </tr>
       </ng-template>
- 
       <ng-template pTemplate="body" let-rowData let-i="rowIndex">
         <tr>
           <td>{{ i + 1 }}</td>
@@ -216,11 +215,9 @@
           <td class="assessmentName" >
             <a (click)="previewCompletedTest(rowData)" style="cursor: pointer;" *ngIf="rowData.results=='Shortlisted' || rowData.results=='Rejected' ">
               {{ rowData.email_Filename }}
- 
             </a>
             <span *ngIf="rowData.results=='Scheduled'" style="cursor: default;">{{rowData.email_Filename}}</span>
             </td>
- 
           <td class="skills">
             <span *ngFor="let item of getFormattedSkills(rowData.Skill).skills">
               <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
@@ -255,7 +252,6 @@
               ></p-badge>
             </span>
           </td>
- 
           <td>
             <div class="resultDesign">
               <p [ngClass]="getResultClass(rowData.results)">
@@ -264,14 +260,11 @@
             </div>
           </td>
           <td>{{ rowData.score }}</td>
- 
- 
         </tr>
       </ng-template>
     </p-table>
   </div>
 </div>
- 
 <!-- sidebar -->
 <div class="questionsidebar">
   <p-sidebar position="right" [(visible)]="showSidebar" [modal]="true" (onHide)="closeButton()">
@@ -279,20 +272,15 @@
       >Candidate Response
     </ng-template>
     <ng-template pTemplate="content">
- 
       <span *ngFor="let question of totalQuestions; let j = index">
         <div class="customquestiondesign">
           <div class="question-design">{{ j + 1 }}. {{ question.question }}</div>
- 
         <div class="select-size">
           <div
             *ngFor="let option of question.options; let i = index"
             class="option"
             [ngClass]="getSelectedOptions(question, option)"
           >
-            <!-- <input type="radio" name="first" id="small" />
-            <label class="box-design" for="small">A</label>
-            <span class="option-content">{{ preview.options[0] }}</span> -->
             <input
               type="radio"
               [name]="'option_' + i"
@@ -302,17 +290,12 @@
             <label class="box-design" [for]="'option' + question + '-' + i">{{
               getLabel(i)
             }}</label>
- 
             <span class="option-content">{{ option }}</span>
           </div>
         </div>
- 
         </div>
- 
       </span>
- 
       <div class="btnfooter">
- 
         <div class="sidebarbuttons">
           <div class="custom_button_send">
             <p-button label="Close" (onClick)="closeButton()"></p-button>
