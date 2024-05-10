@@ -10,7 +10,7 @@ export const loadSchedule$ = createEffect(
     return actions$.pipe(
       ofType(ScheduleActions.getSchedule),
       exhaustMap(() =>
-        scheduleService.getExistingData().pipe(
+        scheduleService.getScheduleData().pipe(
           tap((schedules) => console.log(schedules)),
           map((schedules) => ScheduleActions.getScheduleSuccess({ schedules })),
           catchError((error: { message: string }) =>

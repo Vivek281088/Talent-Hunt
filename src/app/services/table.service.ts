@@ -38,6 +38,10 @@ export class TableService {
 
     return this.http.get<Schedule[]>(endpoint);
   }
+  getScheduleData() : Observable<Schedule[]>{
+    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/private/schedule`;
+    return this.http.get<Schedule[]>(endpoint)
+  }
 
   getskillsList(): Observable<any> {
     return this.http.get<any>(this.skillsUrl + '/getskill');
