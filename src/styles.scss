@@ -54,8 +54,10 @@ body {
   
   }
 
-
-
+  .p-button:disabled {
+    pointer-events: auto !important; 
+    cursor: not-allowed !important;
+  }
 // body {
 //     margin: 0;
 //    // font-family: 'Source Sans 3', sans-serif;
