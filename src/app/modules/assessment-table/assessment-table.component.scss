@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-
+ 
 .candidate-table {
   border: 1px solid #0000001f;
   border-radius: 8px;
@@ -46,7 +46,7 @@
     transition: box-shadow 0.2s;
   }
 }
-
+ 
 //searchIcon
 .p-input-icon-right > .p-inputtext {
   padding-right: 2.5rem;
@@ -57,7 +57,7 @@
   border: 1px;
   margin-right: 7px;
   gap: 8px;
-
+ 
   border: 1px solid #00000061;
 }
 .managerMultiselect {
@@ -65,7 +65,7 @@
     .p-multiselect .p-multiselect-trigger {
       width: 1rem;
     }
-
+ 
     .p-fluid .p-multiselect {
       width: 125px;
       height: 36px;
@@ -99,7 +99,7 @@
     }
   }
 }
-
+ 
 .customMultiselect {
   ::ng-deep {
     .p-fluid .p-multiselect {
@@ -151,7 +151,7 @@
   letter-spacing: 0.25px;
   text-align: left;
 }
-
+ 
 .Shortlisted {
   width: 70px;
   color: white;
@@ -164,7 +164,7 @@
   padding-left: 4px;
   padding-right: 4px;
 }
-
+ 
 .Rejected {
   background-color: red;
   color: white;
@@ -177,7 +177,7 @@
   padding-right: 4px;
   border-radius: 4px;
 }
-
+ 
 .Awaiting {
   color: white;
   background-color: blue;
@@ -191,7 +191,7 @@
   padding-right: 4px;
   border-radius: 4px;
 }
-
+ 
 .Cancelled {
   color: white;
   background-color: pink;
@@ -206,12 +206,12 @@
   padding-right: 4px;
   border-radius: 4px;
 }
-
+ 
 .Scheduled {
   color: white;
   background-color: grey;
   text-align: center;
-
+ 
   border-radius: 8px;
   width: 68px;
   height: 18px;
@@ -221,22 +221,22 @@
   padding-right: 4px;
   border-radius: 4px;
 }
-
+ 
 .resultDesign {
   width: 84px;
   height: 18px;
   font-size: 12px;
-
+ 
   span {
     font-size: 12px;
     margin-top: 2px;
   }
 }
-
+ 
 .assessmentName {
   color: #1e22aa !important;
 }
-
+ 
 ::ng-deep .p-breadcrumb {
   border: none;
   background: #fafafa;
@@ -263,7 +263,7 @@
       &:hover {
         color: #c81a78;
       }
-
+ 
       &:focus {
         box-shadow: none;
       }
@@ -275,11 +275,11 @@
     }
   }
 }
-
+ 
 .cursor-design {
   cursor: pointer;
 }
-
+ 
 .filter-components {
   display: flex;
   flex-direction: row;
@@ -294,11 +294,11 @@
     }
   }
 }
-
+ 
 .breadDate {
   justify-content: space-between;
   flex-direction: row;
-
+ 
   .date {
     text-align: end;
     width: 86px;
@@ -334,7 +334,7 @@
   .p-menuitem-icon {
   color: #6c757d;
 }
-
+ 
 .assesment-header {
   //styleName: Title;
   font-family: Poppins;
@@ -346,24 +346,24 @@
   cursor: pointer;
   color: #000;
 }
-
+ 
 //////////////////////////sidebar design started//////////////
 // ::ng-deep .header_design{
 //   .p-sidebar{
 //   color:violet;
 // }
 // }
-
+ 
 .design {
   width: Fill (705px);
   height: Hug (215px);
   gap: 16px;
 }
-
+ 
 .wrapper {
   width: 705px;
 }
-
+ 
 .select-size input {
   display: none;
 }
@@ -374,11 +374,11 @@
   margin-bottom: 10px;
 }
 .option-content {
-
+ 
   font-family: "Roboto";
   font-size: 16px;
 }
-
+ 
 label {
   display: inline-block;
   width: 32px;
@@ -390,7 +390,7 @@ label {
   border-radius: 8px;
   color: #00000061;
 }
-
+ 
 #small:checked ~ label[for="small"] {
   background: #999;
   color: #ffffff;
@@ -401,7 +401,7 @@ label {
 }
 .question-design {
   // width: 675px;
-
+ 
   font-family: "Roboto";
   font-size: 20px;
   font-weight: 400;
@@ -409,14 +409,14 @@ label {
   letter-spacing: 0.15000000596046448px;
   text-align: left;
   color: #652d90;
-
+ 
 }
-
+ 
 .header_design {
   width: 200px;
   height: 30px;
 }
-
+ 
 ::ng-deep .p-sidebar-header {
   color: #1e22aa;
   //styleName: Title;
@@ -427,7 +427,7 @@ label {
   letter-spacing: 0.15000000596046448px;
   text-align: left;
 }
-
+ 
 .design_panel {
   margin-bottom: 15px;
   font-family: "Roboto";
@@ -438,7 +438,7 @@ label {
   text-align: left;
   color: #00000061;
 }
-
+ 
 .line_design {
   margin-bottom: 5px;
   //styleName: Body 2;
@@ -446,7 +446,7 @@ label {
 .design_for_line {
   margin-bottom: 10px;
 }
-
+ 
 .design_panel_last {
   font-family: "Roboto";
   font-size: 14px;
@@ -483,7 +483,7 @@ label {
     }
   }
 }
-
+ 
 .correctAnswer {
   .option-content {
     padding: 6px 8px 6px 8px;
@@ -499,28 +499,28 @@ label {
     color: white;
   }
 }
-
+ 
 .btnfooter {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
+ 
   .cancel {
     background-color: white;
   }
 }
 // }
-
+ 
 .design {
   width: Fill (705px);
   height: Hug (215px);
   gap: 16px;
 }
-
+ 
 .wrapper {
   width: 705px;
 }
-
+ 
 .select-size input {
   display: none;
 }
@@ -530,11 +530,11 @@ label {
   color: #00000061;
 }
 .option-content {
-
+ 
   font-family: "Roboto";
   font-size: 16px;
 }
-
+ 
 label {
   display: inline-block;
   width: 32px;
@@ -546,7 +546,7 @@ label {
   border-radius: 8px;
   color: #00000061;
 }
-
+ 
 #small:checked ~ label[for="small"] {
   background: #999;
   color: #ffffff;
@@ -555,13 +555,13 @@ label {
   display: flex;
   flex-direction: column;
 }
-
-
+ 
+ 
 .header_design {
   width: 200px;
   height: 30px;
 }
-
+ 
 ::ng-deep .p-sidebar-header {
   color: #1e22aa;
   //styleName: Title;
@@ -582,12 +582,12 @@ label {
   text-align: left;
   color: #00000061;
 }
-
+ 
 .line_design {
   margin-bottom: 5px;
   //styleName: Body 2;
 }
-
+ 
 .design_panel_last {
   font-family: "Roboto";
   font-size: 14px;
@@ -598,7 +598,7 @@ label {
   color: #00000061;
   cursor: pointer;
 }
-
+ 
 //sidebar
 .questionsidebar {
   .question-design {
@@ -617,7 +617,7 @@ label {
     padding-bottom: 2%;
     border-bottom: 1px solid #0000001f;
   }
-
+ 
   .option {
     display: flex;
     align-items: center;
@@ -636,7 +636,7 @@ label {
     font-weight: 450;
     gap: 1%;
     margin-bottom: 1%;
-
+ 
     .box-design {
       border: 1px solid #c1abd3;
       width: 5%;
@@ -645,13 +645,7 @@ label {
       text-align: center;
       font-weight: 400;
     }
-    // &:hover:not(.correctAnswer) {
-    //   .box-design,
-    //   .option-content {
-    //     background: #c1abd3;
-    //     color: white;
-    //   }
-    // }
+   
   }
   .correctAnswer {
     .option-content {
@@ -669,14 +663,14 @@ label {
       background: #ffe6e9;
       color: #cc000c;
     }
-
+ 
     .box-design {
       background: #ffe6e9;
       color: #cc000c;
       border: none;
     }
   }
-
+ 
   .custom_button {
     gap: 3%;
     ::ng-deep .p-button {
@@ -692,12 +686,12 @@ label {
       }
     }
   }
-
+ 
   .btnfooter {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+ 
     .instruction {
       font-size: 16px;
       font-family: "Poppins";
@@ -718,7 +712,7 @@ label {
         padding-bottom: 1%;
       }
     }
-
+ 
     .sidebarbuttons {
       display: flex;
       flex-direction: row;
@@ -740,7 +734,7 @@ label {
       }
     }
   }
-
+ 
   ::ng-deep {
     .p-sidebar .p-sidebar-header {
       padding: 1.25rem;
@@ -759,4 +753,4 @@ label {
     }
   }
 }
-
+ 

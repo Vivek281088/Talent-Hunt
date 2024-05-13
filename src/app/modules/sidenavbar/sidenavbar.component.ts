@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Guard/auth.service';
-
+ 
 @Component({
   selector: 'app-sidenavbar',
   templateUrl: './sidenavbar.component.html',
@@ -16,7 +16,10 @@ export class SidenavbarComponent {
   activeSublist: string = '';
   role: string | null = '';
   showSidebar!: boolean;
-
+  assessmentIconRotated: boolean = false;
+  userIconRotated: boolean= false;
+  questionBankIconRotated: boolean= false;
+ 
   constructor(private authService: AuthService) {}
   ngOnInit(): void {
     const defaultPage=sessionStorage.getItem("Component-Name")
@@ -24,12 +27,22 @@ export class SidenavbarComponent {
     console.log('defaultPage--',defaultPage);
     this.shouldDisplaySidebar();
   }
-
+  toggleAssessmentRotation() {
+    this.assessmentIconRotated = !this.assessmentIconRotated;
+  }
+ 
+  toggleUserRotation() {
+    this.userIconRotated = !this.userIconRotated;
+  }
+ 
+  toggleQuestionBankRotation(){
+    this.questionBankIconRotated= !this.questionBankIconRotated;
+  }
+ 
   toggleSideNav() {
     this.isSideNavCollapsed = !this.isSideNavCollapsed;
-    
   }
-
+ 
   changeStyle(section: any) {
     const sections = ['home', 'assessment', 'user', 'question_bank', 'system'];
     sections.forEach((sec) => {
@@ -46,7 +59,7 @@ export class SidenavbarComponent {
       console.log("Active component", this.activeSection);
     });
   }
-
+ 
   changeSublist(sublist: string,section: string) {
     const sublists = [
       'manageSchedule',
@@ -64,17 +77,17 @@ export class SidenavbarComponent {
         sublistElement.classList.remove('active');
       }
     });
-
+ 
     const activeSublistElement = document.getElementById(sublist);
     if (activeSublistElement) {
       activeSublistElement.classList.add('active');
     }
-
+ 
     this.activeSublist = sublist;
-
+ 
     this.changeStyle(section);
   }
-
+ 
   changeStyle1() {
     this.assessmentShow = !this.assessmentShow;
   }

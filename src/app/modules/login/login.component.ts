@@ -96,7 +96,8 @@ console.log("inside sign in")
 
            
               this.router.navigate(['/verifymfa']);
-            }`  `
+      
+            }
           } else if (data.role == 'user') {
             console.log("inside else if")
             console.log("Entered USer role")

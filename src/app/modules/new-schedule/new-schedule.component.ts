@@ -19,17 +19,18 @@ import {
 import { NotificationService } from 'src/app/services/notification.service';
 import { Store } from '@ngrx/store';
 import { Schedule, ScheduleActions } from 'src/app/store/schedule/schedule.action';
+
 export class CNotification {
   sender!: string;
   receiver!: string[];
   title!: string;
   content!: string;
-
+ 
 }
 export class Receiver {
   receiver!: string;
 }
-
+ 
 @Component({
   selector: 'app-new-schedule',
   templateUrl: './new-schedule.component.html',
@@ -87,12 +88,12 @@ editvisible: boolean =false;
   timeInterval: number = 0;
   cutOff!: number;
   totalCutoff: number = 0;
-
-
-
+ 
+ 
+ 
   @ViewChildren('tableCheckbox')
   tableCheckboxes!: QueryList<any>;
-
+ 
   constructor(
     private route: ActivatedRoute,
     private dataservice: DataService,
@@ -105,6 +106,7 @@ editvisible: boolean =false;
     private notificationService: NotificationService,
     private fb: FormBuilder,
     private readonly store : Store
+
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     const currentutcdate = new Date();
@@ -120,6 +122,7 @@ editvisible: boolean =false;
         ]
       ],
       
+     
       managerName: [
       '',
         [
@@ -129,6 +132,7 @@ editvisible: boolean =false;
         ],
       ],
 
+ 
     })
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
@@ -148,7 +152,7 @@ editvisible: boolean =false;
           this.minLengthValidator(6),
         ],
       ],
-
+ 
       // cutoff: [
       //   null,
       //   [Validators.required, Validators.max(100), Validators.min(1)],
@@ -180,20 +184,20 @@ editvisible: boolean =false;
       'Now the functionality of the button is ',
       this.saveOrEditButton
     );
-
+ 
     this.loadManagerNames();
-
+ 
     this.items = [
       { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
       { label: 'Schedule', routerLink: '/dashboard' },
       { label: 'New Schedule', routerLink: '/new-schedule' },
     ];
-
+ 
     const a = sessionStorage.getItem('boolean');
     const timeInv = sessionStorage?.getItem('duration');
-
+ 
     const cutoff = sessionStorage?.getItem('cutoff');
-
+ 
     console.log("the value of a", a)
     //new schedule
     if (a == null) {
@@ -204,13 +208,13 @@ editvisible: boolean =false;
       console.log('this is the cutoff from the schedulepage', this.totalCutoff);
       this.totalCutoff = cutoff ? parseInt(cutoff, 10) : 0;
       this.cutoff1.update(cut => cutoff ? parseInt(cutoff, 10) : 0);
-
-
+ 
+ 
       console.log("this is the cutoff from the schedulepage", this.totalCutoff)
       this.totalCutoff = cutoff ? parseFloat(cutoff) : 0;
       this.cutOff = cutoff ? parseFloat(cutoff) : 0;
-
-
+ 
+ 
       this.timeInterval = timeInv ? parseInt(timeInv, 10) : 0;
       console.log("Time interval from schedulepage oniNit", this.timeInterval)
       this.selectedSkills = this.dataservice.getData();
@@ -240,34 +244,34 @@ editvisible: boolean =false;
         .getItem('FinalizedQuestion')!
         ?.split(',');
       console.log('selected edit question', this.selectedquestions);
-
+ 
       this.totalCutoff = cutoff ? parseFloat(cutoff) : 0;
       this.cutOff = cutoff ? parseFloat(cutoff) * this.selectedquestions.length : 0;
       console.log();
-
+ 
       console.log("this is the cutoff from the schedulepage in edit icon", this.cutOff, this.totalCutoff)
-
+ 
       this.timeInterval = timeInv ? parseInt(timeInv, 10) : 0;
       console.log("Time interval from schedulepage else", this.timeInterval)
       console.log('Edit Data------', this.updateNewScheduleForm.value);
       console.log('Edit Data------', this.updateNewScheduleForm.value);
-
+ 
       this.formData = this.updateNewScheduleForm.value;
-
+ 
       this.formData.scheduleName = sessionStorage.getItem('scheduleName');
-
+ 
       this.formData.managerName = this.managernameService.getManagerName();
       // this.formData.cutoff = this.managernameService.getCutoff();
       // this.formData.duration = this.managernameService.getDuration();
-
+ 
       this.selectedSkills = sessionStorage.getItem('SelectedSkill')?.split(',');
       this.selectedquestions = sessionStorage
         .getItem('FinalizedQuestion')!
         ?.split(',');
       this.selectedQus.set(sessionStorage.getItem('FinalizedQuestion')!?.split(',') as string[])
       console.log('selected edit question', this.selectedquestions);
-
-
+ 
+ 
       this.skillsdropdownservice
         .postskillsList(this.selectedSkills)
         .subscribe((response) => {
@@ -275,7 +279,7 @@ editvisible: boolean =false;
           for (let i = 0; i < response.length; i++) {
             for (let j = 0; j < response[i].data.length; j++)
               this.TotalQuestions.push(response[i].data[j]);
-
+ 
             this.tabs.push({
               title: response[i].skills,
               content: response[i].data,
@@ -290,7 +294,7 @@ editvisible: boolean =false;
             this.selectedquestions
           );
           this.checkEditQuestions(this.TotalQuestions, this.selectedquestions);
-
+ 
           this.cdr.detectChanges();
           this.processTotalQuestions();
         });
@@ -311,7 +315,7 @@ editvisible: boolean =false;
   trackByFn(_index: any, item: { id: any }) {
     return item.id;
   }
-
+ 
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((response) => {
       this.managerOption = response.map(
@@ -320,9 +324,9 @@ editvisible: boolean =false;
       console.log('Client Manager Details', response);
     });
   }
-
-
-
+ 
+ 
+ 
   toggleSelection(question: any): void {
     question.selection = !question.selection;
     console.log('loop entered', question.id);
@@ -332,12 +336,12 @@ editvisible: boolean =false;
       this.selectedQus.update( data => [...data , question.id])
       console.log('Selected Questions:', this.selectedquestions);
       this.timeIntervalAddition(question);
-
+ 
       this.totalCutoff = this.cutOff / this.selectedquestions.length;
-
+ 
       console.log("this is the totalCutoff in toggle questions", this.totalCutoff, this.cutOff, this.selectedquestions.length)
-
-
+ 
+ 
     } else {
       this.selectedquestions = this.selectedquestions?.filter(
         (selected: any) => selected !== question.id
@@ -346,8 +350,8 @@ editvisible: boolean =false;
       this.timeIntervalSubtraction(question);
       this.totalCutoff = this.cutOff / this.selectedquestions.length;
       console.log("this is the totalCutoff in toggle questions else", this.totalCutoff, this.cutOff)
-
-
+ 
+ 
       console.log('Selected Questions:', this.selectedquestions);
     }
   }
@@ -382,6 +386,7 @@ editvisible: boolean =false;
       };
       console.log('response', dataToSave);
       this.store.dispatch(ScheduleActions.updateSchedule({schedule : newSch}))
+      
       // this.skillsdropdownservice
       //   .postNewSchedule(dataToSave)
       //   .subscribe((response) => {
@@ -390,6 +395,7 @@ editvisible: boolean =false;
       //       this.router.navigate(['/dashboard']);
       //     }, 1500);
 
+ 
       //   });
       this.skillsdropdownservice
         .postNewSchedule(dataToSave)
@@ -397,18 +403,18 @@ editvisible: boolean =false;
           console.log('Questions', response);
           setTimeout(() => {
             this.router.navigate(['/mtalent/dashboard']);
-          }, 1500);
-
+            window.location.reload();
+          }, 100);
         });
     } catch (error) {
       console.error(error);
     }
-
+ 
     // Notification
-
+ 
     this.router.navigate(['/mtalent/dashboard']);
     const managerId = sessionStorage.getItem('loginManagerId');
-
+ 
     console.log('managerid', managerId);
     this.receiverManagers = this.receiverManagers.filter(
       (data: any) => data !== managerId
@@ -429,7 +435,7 @@ editvisible: boolean =false;
         .subscribe((response) => {
           this.notificationResponse = response;
           // console.log("notificaton service called",this.response)
-
+ 
           console.log('notificaton service called', this.notificationResponse);
           sessionStorage.setItem(
             'notification',
@@ -437,9 +443,9 @@ editvisible: boolean =false;
           );
         });
     }
-
-
-
+ 
+ 
+ 
   }
   editSelected() {
     this.editScheduleMessage();
@@ -462,7 +468,7 @@ editvisible: boolean =false;
         }, 1500);
       });
   }
-
+ 
   selectQuestions(tabs: any) {
     console.log('Selected', tabs);
     tabs.forEach((question: any) => {
@@ -473,13 +479,13 @@ editvisible: boolean =false;
         this.timeIntervalAddition(question);
         this.totalCutoff = this.cutOff / this.selectedquestions.length;
         console.log("this is the totalCutoff in select all", this.totalCutoff)
-
-
+ 
+ 
       }
     });
     console.log('select all Questions', this.selectedquestions);
   }
-
+ 
   loginManagerNames() {
     this.managernameService.getManagerNames().subscribe((data) => {
       this.managerSet = data;
@@ -491,7 +497,7 @@ editvisible: boolean =false;
       console.log('manager RECEIVER', this.receiverManagers);
     });
   }
-
+ 
   unselectAllQuestions(questions: any) {
     const duplicateQuestions = this.selectedquestions;
     for (let i = 0; i < questions.length; i++) {
@@ -500,20 +506,20 @@ editvisible: boolean =false;
         this.timeIntervalSubtraction(questions[i]);
       }
     }
-
+ 
     const questionIds = questions.map((item: { id: any }) => item.id);
     this.selectedquestions = duplicateQuestions?.filter(
       (question: any) => !questionIds.includes(question)
     );
     this.selectedQus.update(data => duplicateQuestions?.filter(qus => questionIds.includes(qus)))
-
+ 
     console.log('un select all ', this.selectedquestions);
     this.totalCutoff = this.cutOff / this.selectedquestions.length;
     console.log('Cutoff', this.cutOff)
     console.log('TotalCutoff', this.totalCutoff)
     console.log('Question Length', this.selectedquestions.length)
     console.log("this is the totalCutoff in unselectall", this.totalCutoff)
-
+ 
     console.log('un select all ', this.selectedquestions);
     this.totalCutoff = this.cutOff / this.selectedquestions.length;
     console.log('Cutoff', this.cutOff);
@@ -523,27 +529,27 @@ editvisible: boolean =false;
   scheduleMessage() {
     this.messageService.add({
       severity: 'success',
-
+ 
       summary: 'Success',
-
+ 
       detail: 'Schedule saved Successfully',
     });
   }
   editScheduleMessage() {
     this.messageService.add({
       severity: 'success',
-
+ 
       summary: 'Success',
-
+ 
       detail: 'Schedule Edited Successfully',
     });
   }
   showUpdateMessage() {
     this.messageService.add({
       severity: 'success',
-
+ 
       summary: 'Success',
-
+ 
       detail: 'Question Updated Successfully',
     });
   }
@@ -552,7 +558,7 @@ editvisible: boolean =false;
     // console.log("vara edit",this.slectedquestionforedit)
     this.count = this.selectedquestions?.length;
     console.log('count----------------------->', this.count);
-
+ 
     if (!this.selectedquestions) {
      // this.selectedQus ? this.selectedQus.set([] as string[]) : null;
       this.selectedquestions = [];
@@ -581,11 +587,11 @@ editvisible: boolean =false;
   answer!: any;
   skills!: any;
   difficultyLevel: any = ['Easy', 'Medium', 'Hard'];
-
+ 
   questionType: any = ['Radio', 'Checkbox', 'Text'];
   questionTypeSelected!: any;
   isViewingQuestion: boolean = false;
-
+ 
   individualQuestionView(
     id: any,
     question: any,
@@ -601,12 +607,12 @@ editvisible: boolean =false;
     this.questionTypeSelected = questionTypeSelected;
     // this.options=choices;
     this.choices = choices;
-
+ 
     this.Difficulty_Level =
       this.getBackendDifficultyLevelViceVersa(Difficulty_Level);
     this.skills = skills;
     this.answer = answer;
-
+ 
     console.log(
       'id------------->',
       id,
@@ -684,8 +690,8 @@ editvisible: boolean =false;
     this.updateNewScheduleForm.reset();
     this.router.navigate(['/mtalent/dashboard']);
   }
-
-  
+ 
+ 
   editicon() {
     this.newScheduleEditForm.setValue({
       scheduleName : this.updateNewScheduleForm.get('scheduleName')?.value,
@@ -694,10 +700,11 @@ editvisible: boolean =false;
     this.editvisible = true;
     this.isEditSchedule = true;
   }
-
+ 
   update(scheduleName: string | null, manager: String | null) {
     console.log("update function" , scheduleName , manager);
     
+   
     this.updateNewScheduleForm.patchValue({
       scheduleName:this.newScheduleEditForm.get('scheduleName')?.value,
       managerName:this.newScheduleEditForm.get('managerName')?.value
@@ -710,30 +717,32 @@ editvisible: boolean =false;
       formData.managerName = manager;
 
       
+ 
+     
       this.editvisible = false;
       this.router.navigate(['/mtalent/new-schedule']);
     }
   }
-
+ 
   questionPreview(questions: any) {
     this.questionPreviewvisible = true;
     this.singleQuestion = questions.question;
     this.singleQuestionOption = questions.options;
     this.singleQuestionAnswer = questions.answer;
   }
-
+ 
   closeButton() {
     this.questionPreviewvisible = false;
     this.previewSidebarVisible = false;
   }
-
+ 
   totalSelectedQuestion: any;
   observables: any | undefined;
-
+ 
   onPreviewClick() {
     this.previewSidebarVisible = !this.previewSidebarVisible;
     console.log("Preview Visible" , this.previewSidebarVisible);
-
+ 
     // this.observables = this.selectedquestions?.map((questionId: string) =>
     //   this.newScheduleService.getIndividualQuestion(questionId)
     // );
@@ -769,9 +778,9 @@ editvisible: boolean =false;
       return null;
     };
   }
-
+ 
   timeIntervalAddition(question: any) {
-
+ 
     if (question.Difficulty_Level == 'E') {
       this.timeInterval = this.timeInterval + 1;
       this.cutOff = this.cutOff + 80;
@@ -788,10 +797,10 @@ editvisible: boolean =false;
       this.cutoff1.update(cut => cut + 50);
     }
   }
-
-
+ 
+ 
   timeIntervalSubtraction(question: any) {
-
+ 
     if (question.Difficulty_Level == 'E') {
       this.timeInterval = this.timeInterval - 1;
       this.cutOff = this.cutOff - 80;
@@ -808,9 +817,10 @@ editvisible: boolean =false;
       this.cutoff1.update( cut => cut - 50);
     }
   }
-
+ 
   cancelEditButton(){
     this.editvisible = false;
   }
-
+ 
 }
+ 

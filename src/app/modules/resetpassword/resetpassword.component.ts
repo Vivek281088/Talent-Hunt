@@ -13,6 +13,8 @@ import { PasswordValidator } from '../signup/password-validator';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import * as CryptoJS from 'crypto-js';
+import { ActivatedRoute } from '@angular/router';
+import { error } from 'jquery';
 
 @Component({
   selector: 'app-resetpassword',
@@ -27,9 +29,14 @@ export class ResetpasswordComponent {
   isPhonenoInvalid: boolean = false;
   isMailIdInvalid: boolean = false;
   passwordNotMatching: boolean = true;
+  email:any;
+
+
+  showpasswordField:boolean=false;
   private subscription: Subscription = new Subscription();
 
   constructor(
+    private route:ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private loginservice: LoginService,
@@ -87,7 +94,7 @@ export class ResetpasswordComponent {
             this.resetForm.get('password')?.value,
             this.resetForm.get('confirmPassword')?.value
           );
-          console.log('Fomrs ', this.resetForm);
+          // console.log('Fomrs', this.resetForm);
           if (
             this.resetForm.get('password')?.value !==
             this.resetForm.get('confirmPassword')?.value
@@ -101,26 +108,78 @@ export class ResetpasswordComponent {
     );
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.queryParams.subscribe(params=>{
+      this.showpasswordField=params['dataFromMFA']==='true'
+      this.email=params['emailId']
+
+    })
+    
+  }
 
 
+  verifyotp(){
+    this.router.navigate(['/verifymfa'],{queryParams:{datafromReset:"Verified",emailId:this.resetForm.value.emailId}})
+    
+  }
   reset() {
+    console.log("reset button clicked")
+    this.showpasswordField=true;
     this.formSubmitted = true;
     const hashedPassword = CryptoJS.SHA256(this.resetForm.value.password).toString();
       console.log('Hashed New Password:', hashedPassword);
+      console.log("email id is ",this.email)
+
     this.loginservice
       .postforgotpassword(
-        this.resetForm.value.emailId,
+        this.email,
         hashedPassword,
         hashedPassword
       )
-      .subscribe((data) => {
-        console.log('data', data);
-        this.showUpdateMessage();
+      .subscribe
+      ({
+        next:(x)=>{
+
+          console.log("the data is ",x)
+       this.showUpdateMessage();
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 1000);
-      });
+        },error:(err)=>{
+          if(err.status==404){
+                this.showUpdateMessageError();
+              }
+              else if(err.status==405){
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Password Already Used Please Enter New Pasword for Security Purpose',
+                  detail: '',
+                });
+              }
+        },
+        complete: () => console.log('There are no more action happen.'),
+      })
+      // ((data) => {
+      //   console.log("the data is ",data)
+      
+      //  this.showUpdateMessage();
+      //   setTimeout(() => {
+      //     this.router.navigate(['/login']);
+      //   }, 1000);
+      // },(error)=>{
+      //   if(error.status==404){
+
+      //     this.showUpdateMessageError();
+      //   }
+      //   else if(error.status==405){
+      //     this.messageService.add({
+      //       severity: 'error',
+      //       summary: 'Password Already Used Please Enter New Pasword for Security Purpose',
+      //       detail: '',
+      //     });
+      //   }
+
+      // });
   }
   showUpdateMessage() {
     this.messageService.add({
@@ -129,6 +188,13 @@ export class ResetpasswordComponent {
       summary: 'Success',
 
       detail: 'Password Updated Successfully',
+    });
+  }
+  showUpdateMessageError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'User not Exist',
+      detail: '',
     });
   }
   login() {

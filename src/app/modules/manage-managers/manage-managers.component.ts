@@ -193,18 +193,18 @@ export class ManageManagersComponent {
             },
             error: (err) => {
               console.log("error---",err)
-              if (err.status == 400) {
-                setTimeout(() => {
-                  this.IdExistError();
-                  console.log('Mail already exists');
-                  this.cancelButton();
-                }, 1000);
-              } else if (err.status == 401) {
+              if (err.status == 405) {
                 setTimeout(() => {
                   this.mailExistError();
+                  console.log('Mail already exists');
+                  this.cancelButton();
+                }, 500);
+              } else if (err.status == 404) {
+                setTimeout(() => {
+                  this.IdExistError();
                   console.log('Emp Id already exists');
                   this.cancelButton();
-                }, 1000);
+                }, 500);
               }
             },
             complete: () => console.log('There are no more action happen.'),
@@ -334,7 +334,7 @@ export class ManageManagersComponent {
         this.messageService.add({
           severity: 'success',
           summary: 'Deleted',
-          detail: 'Schedule Deleted Successfully',
+          detail: 'Manager Deleted Successfully',
         });
      this.deleteManager();
 
