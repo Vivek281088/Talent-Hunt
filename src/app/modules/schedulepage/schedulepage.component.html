@@ -72,6 +72,7 @@
                         (onChange)="filter($event.value)"
                         appendTo="body"
                         [filter]="true"
+                        [resetFilterOnHide]="true"
                         optionLabel="managerName"
                         optionValue="managerName"
                       >
@@ -106,6 +107,7 @@
                         (onChange)="filter($event.value)"
                         appendTo="body"
                         [filter]="true"
+                        [resetFilterOnHide]="true"
                         optionLabel="skill"
                         optionValue="skill"
 
@@ -395,6 +397,7 @@
           [(ngModel)]="selectedCandidates"
           placeholder="Select Candidate"
           [filter]="true"
+          [resetFilterOnHide]="true"
           appendTo="body"
           display="chip"
           [showClear]="false"
@@ -546,6 +549,7 @@
             placeholder="--Select Skill--"
             formControlName="skills"
             [filter]="true"
+            [resetFilterOnHide]="true"
             appendTo="body"
             display="chip"
             [showClear]="false"

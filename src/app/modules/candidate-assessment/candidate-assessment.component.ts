@@ -56,7 +56,7 @@ export class CandidateAssessmentComponent implements AfterViewInit {
   }
   startAssessment() {
     localStorage.setItem('showNavbar','false');
-    this.router.navigate(['/mtalent/candidatequestion']);
+    this.router.navigate(['/candidatequestion']);
   }
   
 }

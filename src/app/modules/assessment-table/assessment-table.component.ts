@@ -26,8 +26,6 @@ export class AssessmentTableComponent {
   status: string[] = [
     'Shortlisted',
     'Rejected',
-    'Awaiting Eval',
-    'Cancelled',
     'Scheduled',
   ];
  
