@@ -4,7 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Schedule } from '../store/schedule/schedule.action';
-
+const baseUrlDev = process.env.BASE_URL_DEV;
+const baseUrlPrivate = process.env.BASE_URL_PRIVATE
 @Injectable({
   providedIn: 'root',
 })
@@ -34,12 +35,14 @@ export class TableService {
   }
 
   getExistingData(): Observable<Schedule[]> {
-    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/question`;
+    console.log("base url ....................." , baseUrlDev)
+    const endpoint = `${baseUrlDev}/question`;
 
     return this.http.get<Schedule[]>(endpoint);
   }
   getScheduleData() : Observable<Schedule[]>{
-    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/private/schedule`;
+    console.log("base url ....................." , baseUrlPrivate)
+    const endpoint = `${baseUrlPrivate}/schedule`;
     return this.http.get<Schedule[]>(endpoint)
   }
 
