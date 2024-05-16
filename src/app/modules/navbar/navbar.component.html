@@ -2,8 +2,8 @@
   'top-menu': isManager === true,
   'top-menu-candidate': isManager === false
 }">
-  <div class="logo-container">
-    <div class="logo-mphasis">
+  <div class="logo-container" >
+    <div class="logo-mphasis cursor-pointer" (click)="refreshPage()">
  
       <svg *ngIf="isManager"
         xmlns="http://www.w3.org/2000/svg"
@@ -250,9 +250,6 @@
 </clipPath>
 </defs>
 </svg>
- 
-     
- 
     </div>
     <div [ngClass]="{
       'vrline': isManager === true,

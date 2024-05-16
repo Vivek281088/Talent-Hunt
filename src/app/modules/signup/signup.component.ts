@@ -170,7 +170,8 @@ export class SignupComponent {
       this.loginservice
         .checkDuplicate(this.signupForm.value.emailId)
         .subscribe((data) => {
-          !data
+          console.log('This is data', data)
+          !data 
             ? this.router.navigate(['/enablemfa'])
             : this.messageService.add({
                 severity: 'error',

@@ -197,7 +197,6 @@
             </div>
           </th>
         </tr>
-
         <tr>
           <th>Seq.No</th>
           <th>Candidate Name</th>
@@ -210,7 +209,6 @@
           <th>Score(%)</th>
         </tr>
       </ng-template>
-
       <ng-template pTemplate="body" let-rowData let-i="rowIndex">
         <tr>
           <td>{{ i + 1 }}</td>
@@ -258,7 +256,6 @@
               ></p-badge>
             </span>
           </td>
-
           <td>
             <div class="resultDesign">
               <p [ngClass]="getResultClass(rowData.results)">
@@ -274,7 +271,6 @@
     </p-table>
   </div>
 </div>
-
 <!-- sidebar -->
 <div class="questionsidebar">
   <p-sidebar position="right" [(visible)]="showSidebar" [modal]="true" (onHide)="closeButton()">
@@ -293,9 +289,6 @@
             class="option"
             [ngClass]="getSelectedOptions(question, option)"
           >
-            <!-- <input type="radio" name="first" id="small" />
-            <label class="box-design" for="small">A</label>
-            <span class="option-content">{{ preview.options[0] }}</span> -->
             <input
               type="radio"
               [name]="'option_' + i"
