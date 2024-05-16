@@ -116,19 +116,19 @@ import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
     provideState(ScheduleFeature),
     provideEffects([{loadSchedule$},{addSchedule$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-  {
-    provide : ErrorHandler,
-    useClass : CustomHttpException
-  },
+  // {
+  //   provide : ErrorHandler,
+  //   useClass : CustomHttpException
+  // },
   {
     provide : HTTP_INTERCEPTORS,
     useClass : AuthkeyInterceptor,
     multi:true},
-  {
-    provide : HTTP_INTERCEPTORS,
-    useClass : GlobalErrorInterceptor,
-    multi : true
-  },
+  // {
+  //   provide : HTTP_INTERCEPTORS,
+  //   useClass : GlobalErrorInterceptor,
+  //   multi : true
+  // },
   {
     provide :  HTTP_INTERCEPTORS,
     useClass:AuthInterceptorService,

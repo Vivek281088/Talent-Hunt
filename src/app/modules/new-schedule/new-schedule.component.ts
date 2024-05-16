@@ -397,22 +397,13 @@ editvisible: boolean =false;
 
  
       //   });
-      this.skillsdropdownservice
-        .postNewSchedule(dataToSave)
-        .subscribe((response) => {
-          console.log('Questions', response);
-          setTimeout(() => {
-            this.router.navigate(['/mtalent/dashboard']);
-            window.location.reload();
-          }, 100);
-        });
     } catch (error) {
       console.error(error);
     }
  
     // Notification
  
-    this.router.navigate(['/mtalent/dashboard']);
+    
     const managerId = sessionStorage.getItem('loginManagerId');
  
     console.log('managerid', managerId);
@@ -442,6 +433,8 @@ editvisible: boolean =false;
             `${notification.sender}has sended message`
           );
         });
+
+        this.router.navigate(['/mtalent/dashboard']);
     }
  
  
