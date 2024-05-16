@@ -44,3 +44,26 @@ export const addSchedule$ = createEffect(
   },
   {functional:true}
 );
+
+export const deleteSchedule$ = createEffect(
+  (
+    actions$ = inject(Actions),
+    scheduleService = inject(TableService)
+  ) => {
+    return actions$.pipe(
+      ofType(ScheduleActions.deleteSchedule),
+      tap((scheduleIds) => console.log(scheduleIds)),
+      exhaustMap((scheduleIds) =>{
+        console.log("Schedule Idssssssssssssss" , scheduleIds)
+        return scheduleService.deleteSchedules(scheduleIds.scheduleIds).pipe(
+          tap((schedules) => console.log(schedules)),
+          map((scheduleIds) => ScheduleActions.deleteScheduleSuccess({ scheduleIds:scheduleIds as string[] })),
+          catchError((error: { message: string }) =>
+            of(ScheduleActions.deleteScheduleFailure({ error: error.message }))
+          )
+        )
+  })
+    );
+  },
+  {functional:true}
+);

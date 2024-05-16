@@ -10,7 +10,7 @@ export interface Schedule {
     questions : string[],
     Skill : string[]
 }
-
+let scheduleIds : string[];
 export const ScheduleActions = createActionGroup(
     {
         source : 'Schedule',
@@ -20,7 +20,10 @@ export const ScheduleActions = createActionGroup(
             'Get Schedule Failure' : props<{error : string}>(),
             'Update Schedule' : props<{schedule : Schedule}>(),
             'Update Schedule Success' : props<{schedule : Schedule}>(),
-            'Update Schedule Failure' : props<{error : string}>()
+            'Update Schedule Failure' : props<{error : string}>(),
+            'Delete Schedule' : props<{scheduleIds:string[]}>(),
+            'Delete Schedule Success' : props<{scheduleIds : string[]}>(),
+            'Delete Schedule Failure' : props<{error : string}>(),
         }
     }
 )

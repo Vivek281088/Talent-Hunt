@@ -480,29 +480,17 @@ export class SchedulepageComponent implements OnInit {
   }
   selectedDeleteSchedule: any;
   deleteSchedule() {
-    console.log('Deleteting Schedule.....', this.selectedDeleteSchedule);
-    for (let Schedule of this.selectedDeleteSchedule) {
-      this.managernameService
-        .deleteSchedule(Schedule.id)
-        .subscribe((response) => {
-          console.log('Deleted Candidate.....', Schedule.JobDescription);
-        });
-    }
-
-    setTimeout(() => {
-      // this.deleteMessage();
-      this.existingData();
-      this.selectedDeleteSchedule = [];
-    }, 1500);
+     const scheduleIds = this.selectedDeleteSchedule.map((schedule : any) => schedule.id)
+     console.log("delete schedules .........................." , scheduleIds)
+     this.store.dispatch(ScheduleActions.deleteSchedule({scheduleIds :scheduleIds }))
+    // this.tableService.deleteSchedules(scheduleIds).subscribe((data) => {
+    //   console.log("delete api private ......................" , data)
+    //   this.selectedDeleteSchedule = [];
+    // })
+ 
   }
 
-  // deleteMessage() {
-  //   this.messageService.add({
-  //     severity: 'success',
-  //     summary: 'Deleted',
-  //     detail: 'Schedule Deleted successfully',
-  //   });
-  // }
+
 
   confirmPosition(position: string) {
     this.position = position;

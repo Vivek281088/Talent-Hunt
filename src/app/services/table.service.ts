@@ -34,6 +34,12 @@ export class TableService {
     });
   }
 
+  deleteSchedules(scheduleIds : string[]){
+    console.log("Schedule Ids .....................................",scheduleIds)
+    const endpoint = `${process.env.BASE_URL_PRIVATE}/deleteSchedules`
+    return this.http.post(endpoint,scheduleIds)
+  }
+
   getExistingData(): Observable<Schedule[]> {
     console.log("base url ....................." , baseUrlDev)
     const endpoint = `${baseUrlDev}/question`;

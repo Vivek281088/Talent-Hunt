@@ -13,12 +13,12 @@ export const getSchedules = createSelector(
     (state) => state.schedules
 )
 
-export const getScheduleError = createSelector(
-    selectScheduleState,
-    (state) => state.error
-)
+// export const getScheduleError = createSelector(
+//     selectScheduleState,
+//     (state) => state.error
+// )
 
-export const addSchedule = createSelector(
-    selectScheduleState,
-    (state) => state.schedules
-)
+// export const addSchedule = createSelector(
+//     selectScheduleState,
+//     (state) => state.schedules
+// )

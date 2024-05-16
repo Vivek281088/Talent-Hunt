@@ -51,7 +51,7 @@ import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools'
 import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { provideState, provideStore } from '@ngrx/store';
 import { ScheduleFeature } from './store/schedule/schedule.selector';
-import { addSchedule$, loadSchedule$ } from './store/schedule/schedule.effects';
+import { addSchedule$, deleteSchedule$, loadSchedule$ } from './store/schedule/schedule.effects';
 import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
 
 
@@ -114,7 +114,7 @@ import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
   providers: [MessageService,DatePipe,
     provideStore(),
     provideState(ScheduleFeature),
-    provideEffects([{loadSchedule$},{addSchedule$}]),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,

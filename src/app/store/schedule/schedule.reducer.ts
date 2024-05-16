@@ -16,6 +16,7 @@ const initialState : ScheduleState = {
 export const getScheduleReducer = createReducer(
     initialState,
     on(ScheduleActions.getScheduleSuccess,(state,action) => {
+        console.log(state , action);
         return {
             ...state,
             schedules : action.schedules,
@@ -28,6 +29,19 @@ export const getScheduleReducer = createReducer(
             ...state,
             schedules : [],
             scheduleCount : 0,
+            error : action.error
+        }
+    }),
+    on(ScheduleActions.deleteScheduleSuccess, (state,action) => {
+        return {
+            ...state,
+            schedules : state.schedules.filter(schedule => ! action.scheduleIds.includes(schedule.id)),
+            scheduleCount : state.scheduleCount - action.scheduleIds.length
+        }
+    }),
+    on(ScheduleActions.deleteScheduleFailure, (state,action) => {
+        return {
+            ...state,
             error : action.error
         }
     }),
