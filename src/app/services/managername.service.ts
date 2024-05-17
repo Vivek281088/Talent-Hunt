@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
+import {Assessment} from '../store/Assessment/assessment.action'
 
 @Injectable({
   providedIn: 'root',
@@ -316,9 +317,9 @@ export class ManagernameService {
   }
 
   //candidate list
-  getCandidateStatus(): Observable<any> {
+  getCandidateStatus(): Observable<Assessment[]> {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidate`;
-    return this.http.get<any>(endpoint);
+    return this.http.get<Assessment[]>(endpoint);
   }
 
   setFinalizedQuestions(questions: any[]): void {
