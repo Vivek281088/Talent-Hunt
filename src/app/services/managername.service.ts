@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
+import { Manager } from '../store/manage-manager/manage-manager.action';
+
+const baseUrlDev = process.env.BASE_URL_DEV;
 
 @Injectable({
   providedIn: 'root',
@@ -36,10 +39,11 @@ export class ManagernameService {
 
     return this.http.get<any>(endpoint);
   }
-  getclientManagerData(): Observable<any> {
-    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager`;
+  getclientManagerData(): Observable<Manager[]> {
+    const endpoint = `${baseUrlDev}/ClientManager`;
 
-    return this.http.get<any>(endpoint);
+
+    return this.http.get<Manager[]>(endpoint);
   }
   getclientManagerName(): Observable<any> {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/Client-ManagerName`;
