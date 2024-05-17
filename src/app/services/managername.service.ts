@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
+import { Candidate } from '../store/candidate/candidate.action';
+import { Schedule } from '../store/schedule/schedule.action';
 
 @Injectable({
   providedIn: 'root',
@@ -133,7 +135,10 @@ export class ManagernameService {
       })
     );
   }
-
+updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
+  const endpoint = `${process.env.BASE_URL_DEV}/update_CandidateDetails`
+  return this.http.post<Candidate>(endpoint,candidate)
+}
   updateCandidate(
     candidateName: string,
     email: string,
