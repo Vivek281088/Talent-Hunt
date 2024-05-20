@@ -26,6 +26,9 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+import { Store } from '@ngrx/store';
+import { ScheduleActions } from 'src/app/store/schedule/schedule.action';
+import { getSchedules } from 'src/app/store/schedule/schedule.selector';
 
 @Component({
   selector: 'app-schedulepage',
@@ -94,7 +97,8 @@ export class SchedulepageComponent implements OnInit {
     // reviewer
     private messageService: MessageService,
     private dataService: DataService,
-    private newScheduleService: NewScheduleService
+    private newScheduleService: NewScheduleService,
+    private readonly store : Store
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     this.addnewScheduleForm = this.fb.group({
@@ -149,7 +153,12 @@ export class SchedulepageComponent implements OnInit {
 
     this.loadSkills();
     this.loadManagerNames();
-    this.existingData();
+    this.store.dispatch(ScheduleActions.getSchedule())
+    this.store.select(getSchedules).subscribe(data =>{ 
+      console.log("select state????????????????????????????????????????????????????????????" , data)
+      this.Tdata = data
+    });
+    //this.existingData();
     this.getUniqueCandidatedata();
     this.getCandidatename();
   }
@@ -281,8 +290,7 @@ export class SchedulepageComponent implements OnInit {
   this.viewQuestionSidebar = false;
   }
   onViewClick(data: any) {
-    
-    this.displayCommonContent=true;
+    this.viewQuestionSidebar=true;
     console.log('View Data', data);
     // this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
     //   this.FinalizedQuestions = response;
@@ -472,29 +480,17 @@ export class SchedulepageComponent implements OnInit {
   }
   selectedDeleteSchedule: any;
   deleteSchedule() {
-    console.log('Deleteting Schedule.....', this.selectedDeleteSchedule);
-    for (let Schedule of this.selectedDeleteSchedule) {
-      this.managernameService
-        .deleteSchedule(Schedule.id)
-        .subscribe((response) => {
-          console.log('Deleted Candidate.....', Schedule.JobDescription);
-        });
-    }
-
-    setTimeout(() => {
-      // this.deleteMessage();
-      this.existingData();
-      this.selectedDeleteSchedule = [];
-    }, 1500);
+     const scheduleIds = this.selectedDeleteSchedule.map((schedule : any) => schedule.id)
+     console.log("delete schedules .........................." , scheduleIds)
+     this.store.dispatch(ScheduleActions.deleteSchedule({scheduleIds :scheduleIds }))
+    // this.tableService.deleteSchedules(scheduleIds).subscribe((data) => {
+    //   console.log("delete api private ......................" , data)
+    //   this.selectedDeleteSchedule = [];
+    // })
+ 
   }
 
-  // deleteMessage() {
-  //   this.messageService.add({
-  //     severity: 'success',
-  //     summary: 'Deleted',
-  //     detail: 'Schedule Deleted successfully',
-  //   });
-  // }
+
 
   confirmPosition(position: string) {
     this.position = position;

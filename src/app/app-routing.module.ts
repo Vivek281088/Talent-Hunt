@@ -10,6 +10,7 @@ import { ResetpasswordComponent } from './modules/resetpassword/resetpassword.co
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
+import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'errorpage', component: ErrorPageComponent },
   { path: 'verifymfa', component: MFAComponent },
   {path: 'enablemfa', component: Enable2faComponent},
+  { path: 'candidatequestion', component: CandidatequestionComponent },
   {
     path: 'mtalent',
     loadChildren: () =>
@@ -27,7 +29,6 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login', pathMatch: 'full' },
 ];
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
 

@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-
+ 
 .candidate-table {
   border: 1px solid #0000001f;
   border-radius: 8px;
@@ -46,7 +46,7 @@
     transition: box-shadow 0.2s;
   }
 }
-
+ 
 //searchIcon
 .p-input-icon-right > .p-inputtext {
   padding-right: 2.5rem;
@@ -57,7 +57,7 @@
   border: 1px;
   margin-right: 7px;
   gap: 8px;
-
+ 
   border: 1px solid #00000061;
 }
 .managerMultiselect {
@@ -65,7 +65,7 @@
     .p-multiselect .p-multiselect-trigger {
       width: 1rem;
     }
-
+ 
     .p-fluid .p-multiselect {
       width: 125px;
       height: 36px;
@@ -95,11 +95,11 @@
       padding: 5% 2% 2% 5%;
     }
     .p-inputtext {
-    padding: 5% 2% 2% 5%;
-  }
+      padding: 5% 2% 2% 5%;
+    }
   }
 }
-
+ 
 .customMultiselect {
   ::ng-deep {
     .p-fluid .p-multiselect {
@@ -125,35 +125,9 @@
   font-size: 14px;
   font-weight: 500;
 }
+ 
 
-// ::ng-deep .p-chip {
-//   font-family: "Roboto", sans-serif;
-//   font-size: 12px;
-//   font-weight: 400;
-//   line-height: 14px;
-//   letter-spacing: 0.25px;
-//   text-align: left;
-//   background-color: #00000061;
-//   color: white;
-// }
-
-::ng-deep .p-badge-no-gutter {
-  color: #00000099;
-}
-
-::ng-deep .p-badge {
-  //styleName: Body 2;
-  font-family: "Roboto", sans-serif;
-  font-size: 12px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0.25px;
-  text-align: left;
-  color: #00000099;
-  background: transparent;
-}
-
+ 
 .chipdesign {
   font-family: "Roboto", sans-serif;
   font-size: 12px;
@@ -162,33 +136,7 @@
   letter-spacing: 0.25px;
   text-align: left;
 }
-
-// .assessment-header{
-//     width: 135px;
-// height: 30px
-
-// }
-// .assessment-text{
-//     //styleName: Title;
-// font-family: 'Poppins';
-// font-size: 20px;
-// font-weight: 500;
-// line-height: 30px;
-// letter-spacing: 0.15000000596046448px;
-// text-align: left;
-// color: #000000;
-
-// }
-// .mg-class{
-//   width: Hug (70px);
-// height: Hug (18px);
-// padding: 2px, 4px, 2px, 4px;
-// border-radius: 4px;
-// gap: 8px;
-// background: #1CB046;
-
-// }
-
+ 
 .Shortlisted {
   width: 70px;
   color: white;
@@ -201,7 +149,7 @@
   padding-left: 4px;
   padding-right: 4px;
 }
-
+ 
 .Rejected {
   background-color: red;
   color: white;
@@ -214,7 +162,7 @@
   padding-right: 4px;
   border-radius: 4px;
 }
-
+ 
 .Awaiting {
   color: white;
   background-color: blue;
@@ -228,7 +176,7 @@
   padding-right: 4px;
   border-radius: 4px;
 }
-
+ 
 .Cancelled {
   color: white;
   background-color: pink;
@@ -243,12 +191,12 @@
   padding-right: 4px;
   border-radius: 4px;
 }
-
+ 
 .Scheduled {
   color: white;
   background-color: grey;
   text-align: center;
-
+ 
   border-radius: 8px;
   width: 68px;
   height: 18px;
@@ -258,22 +206,22 @@
   padding-right: 4px;
   border-radius: 4px;
 }
-
+ 
 .resultDesign {
   width: 84px;
   height: 18px;
   font-size: 12px;
-
+ 
   span {
     font-size: 12px;
     margin-top: 2px;
   }
 }
-
+ 
 .assessmentName {
   color: #1e22aa !important;
 }
-
+ 
 ::ng-deep .p-breadcrumb {
   border: none;
   background: #fafafa;
@@ -300,7 +248,7 @@
       &:hover {
         color: #c81a78;
       }
-
+ 
       &:focus {
         box-shadow: none;
       }
@@ -312,15 +260,11 @@
     }
   }
 }
-
+ 
 .cursor-design {
   cursor: pointer;
 }
-// .filter-components{
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: flex-end;
-// }
+ 
 .filter-components {
   display: flex;
   flex-direction: row;
@@ -335,11 +279,11 @@
     }
   }
 }
-
+ 
 .breadDate {
   justify-content: space-between;
   flex-direction: row;
-
+ 
   .date {
     text-align: end;
     width: 86px;
@@ -375,7 +319,7 @@
   .p-menuitem-icon {
   color: #6c757d;
 }
-
+ 
 .assesment-header {
   //styleName: Title;
   font-family: Poppins;
@@ -387,24 +331,24 @@
   cursor: pointer;
   color: #000;
 }
-
+ 
 //////////////////////////sidebar design started//////////////
 // ::ng-deep .header_design{
 //   .p-sidebar{
 //   color:violet;
 // }
 // }
-
+ 
 .design {
   width: Fill (705px);
   height: Hug (215px);
   gap: 16px;
 }
-
+ 
 .wrapper {
   width: 705px;
 }
-
+ 
 .select-size input {
   display: none;
 }
@@ -415,12 +359,11 @@
   margin-bottom: 10px;
 }
 .option-content {
-  margin-left: 10px; /* Adjust the margin as needed */
+ 
   font-family: "Roboto";
-  font-size: 16px; /* Adjust the font size as needed */
-  /* Add other styles as needed */
+  font-size: 16px;
 }
-
+ 
 label {
   display: inline-block;
   width: 32px;
@@ -432,7 +375,7 @@ label {
   border-radius: 8px;
   color: #00000061;
 }
-
+ 
 #small:checked ~ label[for="small"] {
   background: #999;
   color: #ffffff;
@@ -443,7 +386,7 @@ label {
 }
 .question-design {
   // width: 675px;
-
+ 
   font-family: "Roboto";
   font-size: 20px;
   font-weight: 400;
@@ -451,14 +394,14 @@ label {
   letter-spacing: 0.15000000596046448px;
   text-align: left;
   color: #652d90;
-  margin-bottom: 1rem;
+ 
 }
-
+ 
 .header_design {
   width: 200px;
   height: 30px;
 }
-
+ 
 ::ng-deep .p-sidebar-header {
   color: #1e22aa;
   //styleName: Title;
@@ -469,7 +412,7 @@ label {
   letter-spacing: 0.15000000596046448px;
   text-align: left;
 }
-
+ 
 .design_panel {
   margin-bottom: 15px;
   font-family: "Roboto";
@@ -480,7 +423,7 @@ label {
   text-align: left;
   color: #00000061;
 }
-
+ 
 .line_design {
   margin-bottom: 5px;
   //styleName: Body 2;
@@ -488,7 +431,7 @@ label {
 .design_for_line {
   margin-bottom: 10px;
 }
-
+ 
 .design_panel_last {
   font-family: "Roboto";
   font-size: 14px;
@@ -525,7 +468,7 @@ label {
     }
   }
 }
-
+ 
 .correctAnswer {
   .option-content {
     padding: 6px 8px 6px 8px;
@@ -541,32 +484,28 @@ label {
     color: white;
   }
 }
-
-// .wrongAnswer{
-//   background: red;
-// }
-
+ 
 .btnfooter {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-
+ 
   .cancel {
     background-color: white;
   }
 }
 // }
-
+ 
 .design {
   width: Fill (705px);
   height: Hug (215px);
   gap: 16px;
 }
-
+ 
 .wrapper {
   width: 705px;
 }
-
+ 
 .select-size input {
   display: none;
 }
@@ -576,12 +515,11 @@ label {
   color: #00000061;
 }
 .option-content {
-  margin-left: 10px; /* Adjust the margin as needed */
+ 
   font-family: "Roboto";
-  font-size: 16px; /* Adjust the font size as needed */
-  /* Add other styles as needed */
+  font-size: 16px;
 }
-
+ 
 label {
   display: inline-block;
   width: 32px;
@@ -593,7 +531,7 @@ label {
   border-radius: 8px;
   color: #00000061;
 }
-
+ 
 #small:checked ~ label[for="small"] {
   background: #999;
   color: #ffffff;
@@ -602,23 +540,13 @@ label {
   display: flex;
   flex-direction: column;
 }
-.question-design {
-  // width: 675px;
-  height: 23px;
-  font-family: "Roboto";
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 23px;
-  letter-spacing: 0.15000000596046448px;
-  text-align: left;
-  color: #652d90;
-}
-
+ 
+ 
 .header_design {
   width: 200px;
   height: 30px;
 }
-
+ 
 ::ng-deep .p-sidebar-header {
   color: #1e22aa;
   //styleName: Title;
@@ -639,12 +567,12 @@ label {
   text-align: left;
   color: #00000061;
 }
-
+ 
 .line_design {
   margin-bottom: 5px;
   //styleName: Body 2;
 }
-
+ 
 .design_panel_last {
   font-family: "Roboto";
   font-size: 14px;
@@ -655,3 +583,159 @@ label {
   color: #00000061;
   cursor: pointer;
 }
+ 
+//sidebar
+.questionsidebar {
+  .question-design {
+    font-family: "Roboto";
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.150000006px;
+    text-align: left;
+    color: #652d90;
+    padding: 2% 0% 2% 1%;
+  }
+  .select-size input {
+    display: none;
+  }
+  .select-size {
+    padding-bottom: 2%;
+    border-bottom: 1px solid #0000001f;
+  }
+ 
+  .option {
+    display: flex;
+    align-items: center;
+    color: #00000061;
+  }
+  .option-content {
+    padding: 0.8% 1% 0.8% 1%;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 3px;
+    width: 100%;
+    height: fit-content;
+  }
+  .option {
+    font-weight: 450;
+    gap: 1%;
+    margin-bottom: 1%;
+ 
+    .box-design {
+      border: 1px solid #c1abd3;
+      width: 5%;
+      height: 30px;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: 400;
+    }
+   
+  }
+  .correctAnswer {
+    .option-content {
+      background: #e6ffeb;
+      color: #009a2a;
+    }
+    .box-design {
+      background: #e6ffeb;
+      color: #009a2a;
+      border: none;
+    }
+  }
+  .wrong {
+    .option-content {
+      background: #ffe6e9;
+      color: #cc000c;
+    }
+ 
+    .box-design {
+      background: #ffe6e9;
+      color: #cc000c;
+      border: none;
+    }
+  }
+ 
+  .custom_button {
+    gap: 3%;
+    ::ng-deep .p-button {
+      color: #652d90;
+      background: #ffffff;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: #652d90;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+ 
+  .btnfooter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ 
+    .instruction {
+      font-size: 16px;
+      font-family: "Poppins";
+      font-weight: 400;
+      color: #00000099;
+      padding: 2% 0% 2% 0%;
+    }
+    .quiz-instruction {
+      padding-bottom: 5%;
+      border-bottom: 1px solid #0000001f;
+    }
+    .points {
+      font-family: "Roboto";
+      color: #00000099;
+      font-weight: 400;
+      padding-left: 4%;
+      li {
+        padding-bottom: 1%;
+      }
+    }
+ 
+    .sidebarbuttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      padding-top: 5%;
+    }
+  }
+  .custom_button_send {
+    ::ng-deep .p-button {
+      color: white;
+      background: #652d90;
+      border: 1px solid #652d90;
+      height: 90%;
+      &:hover {
+        color: white;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+ 
+  ::ng-deep {
+    .p-sidebar .p-sidebar-header {
+      padding: 1.25rem;
+      border: 1px solid #0000001f;
+      color: #1e22aa;
+      font-family: "Poppins";
+      font-weight: 500;
+      font-size: 20px;
+    }
+    .p-sidebar {
+      width: 50%;
+      cursor: default;
+    }
+    .p-sidebar .p-sidebar-footer {
+      padding: 0;
+    }
+  }
+}
+ 

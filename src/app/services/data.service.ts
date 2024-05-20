@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DataService {
   sharedData: any;
-  currentMessage = new Subject();
+  currentMessage = new BehaviorSubject({});
   tempdata : any;
  
 

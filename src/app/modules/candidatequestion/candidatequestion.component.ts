@@ -66,8 +66,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   id : any;
   candidateEmail : string='';
   showNavbarBoolean : boolean = true;
-  // id: any = '2024-01-04T06:04:10.746Z';
-  // candidateEmail: string = 'sapna@gmail.com';
+  candidateResponse: any ={} ;
   constructor(
     private candidateAssessmentService: CandidateAssessmentService,
     private confirmationService: ConfirmationService,
@@ -82,7 +81,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
     this.totalQuestions = this.previewOptions.length;
     this.updateSessionStorage();
   }
-  // In your component class
   ngOnInit(): void {
     const storedOptions = sessionStorage.getItem('selectedOptions');
     if (storedOptions) {
@@ -136,16 +134,18 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
   }
   selectOption(option: string, pageIndex: number, optionIndex: number) {
     if (this.previewOptions[pageIndex]?.questionType === 'Checkbox') {
-
-
       if(this.selectedOptions1[pageIndex].includes(option))
       this.selectedOptions1[pageIndex]= this.selectedOptions1[pageIndex].filter((data:string)=>data!=option)
       else
       this.selectedOptions1[pageIndex].push(option);
+      this.candidateResponse[this.previewOptions[pageIndex]?.id]=this.selectedOptions1[pageIndex];
+      console.log("Candidate Response: ",this.candidateResponse)
       console.log("inside checkbox answers",this.selectedOptions1);
     } else {
       // Radio option (single selection)
       this.selectedOptions1[pageIndex] === option ? this.selectedOptions1[pageIndex] = '' : this.selectedOptions1[pageIndex] = option;
+      this.candidateResponse[this.previewOptions[pageIndex]?.id]=this.selectedOptions1[pageIndex];
+      console.log("Candidate Response: ",this.candidateResponse)
       console.log('Selected Option else', this.selectedOptions1);
     }
   }
@@ -181,7 +181,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
         clearInterval(timerInterval); // Stop the timer
         this.submitAnswers(); // Automatically submit the answers
       }
-    }, 1000); // 1000 milliseconds = 1 second
+    }, 1000); 
   }
   exit() {
     this.router.navigate(['/login']);
@@ -210,12 +210,15 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
      const istMoment = moment.utc(currentutcdate).tz('Asia/Kolkata');
      this.endTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
     this.reviewQuestion();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/mtalent/candidatehome']);
   }
   reviewQuestion() {
     this.countCorrectQues = 0;
+    console.log("Prev Opt",this.previewOptions);
+    console.log("Selec Opt", this.selectedOptions1)
     for (let i = 0; i < this.selectedOptions1.length; i++) {
-      this.previewOptions[i].selectedOption = this.selectedOptions1[i];
+        this.previewOptions[i].selectedOption = this.selectedOptions1[i];
+
     }
     console.log('preview Options after selected option', this.previewOptions);
     console.log('Updated Question', this.previewOptions);
@@ -228,9 +231,6 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       } else if ((question.questionType = 'Checkbox' && question.selectedOption.length != 0)) {
         console.log("Inside Checkbox..............................??????????????????????????????")
         correct=JSON.stringify(question.selectedOption)==JSON.stringify(question.answer);
-        // correct = question.ans.every((opt: any) =>
-        //   question.selectedOption.includes(opt)
-        // );
         console.log('correct ', correct);
       }
       if (correct) {
@@ -257,7 +257,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
 
       id: this.id,
 
-      questions: this.questionIds,
+      candidateResponse: this.candidateResponse,
 
       score: this.score.toFixed(2),
       results: this.result,
@@ -304,7 +304,7 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
           allowOutsideClick: false,
         }).then((result: { isConfirmed: any; }) => {
           if (result.isConfirmed) {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/mtalent/candidatehome']);
           }
         });
         console.log('Submitted');
@@ -312,20 +312,11 @@ export class CandidatequestionComponent implements OnInit, AfterViewInit {
       reject: (type: ConfirmEventType) => {
         switch (type) {
           case ConfirmEventType.REJECT:
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Cancel',
-              detail: 'You have Cancelled',
-            });
+           
             console.log('Rejected');
             break;
           case ConfirmEventType.CANCEL:
-            console.log('Canceled');
-            this.messageService.add({
-              severity: 'warn',
-              summary: 'Cancelled',
-              detail: 'You have cancelled',
-            });
+           
             break;
         }
       },

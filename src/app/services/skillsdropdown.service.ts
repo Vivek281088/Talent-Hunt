@@ -87,16 +87,20 @@ export class SkillsdropdownService {
 
   //post questions,cuttoff,duration
   postNewSchedule(dataToSave: any): Observable<any> {
-    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-
-    const body = dataToSave;
+    const body = {
+      id: dataToSave.schedule.id,
+      Questions: dataToSave.schedule.questions,
+      durations: dataToSave.schedule.durations,
+      JobDescription: dataToSave.schedule.JobDescription,
+      cutoff: dataToSave.schedule.cutoff,
+      Managername: dataToSave.schedule.Managername,
+      Skill: dataToSave.schedule.Skill,
+    };
     console.log('Service Body', body);
     return this.http.post<any>(
-      //this.skillsUrl + '/questions',
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/add',
       body,
-      // { headers }
-    );
+     );
   }
   editSchedule(
     id: any,
@@ -106,19 +110,12 @@ export class SkillsdropdownService {
     cutOff: number,
     duration: number
   ): Observable<any> {
-    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-
-    const body = {
+       const body = {
       id: id,
-
       Managername: managerName,
-
       JobDescription: JobDescription,
-
       questions: questions,
-
       cutoff: cutOff,
-
       durations: duration,
     };
 

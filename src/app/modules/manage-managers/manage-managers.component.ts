@@ -1,3 +1,4 @@
+import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -12,6 +13,8 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+import { ManagerActions } from 'src/app/store/manage-manager/manage-manager.action';
+import { getManagerData } from 'src/app/store/manage-manager/manager-manager.selector';
 @Component({
   selector: 'app-manage-managers',
   templateUrl: './manage-managers.component.html',
@@ -40,7 +43,8 @@ export class ManageManagersComponent {
     private messageService: MessageService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private newScheduleService: NewScheduleService
+    private newScheduleService: NewScheduleService,
+    private readonly store : Store
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.addManagerForm = this.fb.group({
@@ -65,14 +69,23 @@ export class ManageManagersComponent {
     ];
   }
   loadManagerData() {
-    this.managerService.getclientManagerData().subscribe((response) => {
-      console.log('Client Manager Details', response);
-      this.managerData = response;
+    this.store.dispatch(ManagerActions.getManagerData());
+    this.store.select(getManagerData).subscribe(data =>{
+      console.log("Client Manager Details From Store",data);
+      this.managerData= data;
 
       this.managerData.forEach((manager: { selection: boolean }) => {
         manager.selection = manager.selection || false;
       });
-    });
+    })
+    // this.managerService.getclientManagerData().subscribe((response) => {
+    //   console.log('Client Manager Details', response);
+    //   this.managerData = response;
+
+    //   this.managerData.forEach((manager: { selection: boolean }) => {
+    //     manager.selection = manager.selection || false;
+    //   });
+    // });
   }
 
   clear(table: Table) {
@@ -198,13 +211,13 @@ export class ManageManagersComponent {
                   this.mailExistError();
                   console.log('Mail already exists');
                   this.cancelButton();
-                }, 1000);
+                }, 500);
               } else if (err.status == 404) {
                 setTimeout(() => {
                   this.IdExistError();
                   console.log('Emp Id already exists');
                   this.cancelButton();
-                }, 1000);
+                }, 500);
               }
             },
             complete: () => console.log('There are no more action happen.'),
@@ -334,7 +347,7 @@ export class ManageManagersComponent {
         this.messageService.add({
           severity: 'success',
           summary: 'Deleted',
-          detail: 'Schedule Deleted Successfully',
+          detail: 'Manager Deleted Successfully',
         });
      this.deleteManager();
 

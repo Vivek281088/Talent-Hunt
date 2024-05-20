@@ -192,7 +192,7 @@ export class ManagerProfileComponent {
   onViewClick(data: any) {
     this.viewQuestionSidebar = true;
     console.log('View Data', data);
-    this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
+    this.newScheduleService.getIndividualQuestion(data).subscribe((response: any) => {
       this.FinalizedQuestions = response;
       console.log('Updated Total Question data--', this.FinalizedQuestions);
     });

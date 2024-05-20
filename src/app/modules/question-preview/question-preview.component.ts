@@ -19,6 +19,7 @@ export class QuestionPreviewComponent implements OnInit{
   totalQuestions !:any
   getQuestionService = inject(NewScheduleService);
   ngOnInit(): void {
+   console.log("Question Preview component",this.previewQuestions);
    this.getQuestionService.getIndividualQuestion(this.previewQuestions).subscribe((data) => {
     this.totalQuestions = data;
     console.log("total questions preview",this.totalQuestions)
