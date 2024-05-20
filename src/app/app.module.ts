@@ -122,9 +122,8 @@ import { loadAssessment$ } from './store/Assessment/assessment.effects';
     provideStore(),
     provideState(ScheduleFeature),
     provideState(managerFeature),
-    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadManager$}]),
     provideState(CandidateFeature),
-    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$}]),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{loadManager$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,
