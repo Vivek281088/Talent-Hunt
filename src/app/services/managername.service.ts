@@ -6,6 +6,9 @@ import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
 import { Manager } from '../store/manage-manager/manage-manager.action';
 
 const baseUrlDev = process.env.BASE_URL_DEV;
+import {Assessment} from '../store/Assessment/assessment.action'
+import { Candidate } from '../store/candidate/candidate.action';
+import { Schedule } from '../store/schedule/schedule.action';
 
 @Injectable({
   providedIn: 'root',
@@ -137,7 +140,10 @@ export class ManagernameService {
       })
     );
   }
-
+updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
+  const endpoint = `${process.env.BASE_URL_DEV}/update_CandidateDetails`
+  return this.http.post<Candidate>(endpoint,candidate)
+}
   updateCandidate(
     candidateName: string,
     email: string,
@@ -320,9 +326,9 @@ export class ManagernameService {
   }
 
   //candidate list
-  getCandidateStatus(): Observable<any> {
+  getCandidateStatus(): Observable<Assessment[]> {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidate`;
-    return this.http.get<any>(endpoint);
+    return this.http.get<Assessment[]>(endpoint);
   }
 
   setFinalizedQuestions(questions: any[]): void {
