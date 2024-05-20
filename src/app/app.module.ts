@@ -1,4 +1,4 @@
-import { ErrorHandler, NO_ERRORS_SCHEMA, NgModule } from '@angular/core';
+import { ErrorHandler, NO_ERRORS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,6 +47,16 @@ import { zip } from 'rxjs';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
+import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools';
+import { EffectsModule, provideEffects } from '@ngrx/effects';
+import { provideState, provideStore } from '@ngrx/store';
+import { ScheduleFeature } from './store/schedule/schedule.selector';
+import { addSchedule$, deleteSchedule$, loadSchedule$ } from './store/schedule/schedule.effects';
+import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
+import { assessmentFeature } from './store/Assessment/assessment.selector';
+import { loadAssessment$ } from './store/Assessment/assessment.effects';
+import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
+import { CandidateFeature } from './store/candidate/candidate.selector';
 
 
 
@@ -101,23 +111,34 @@ import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
     Enable2faComponent,
     DecimalPipe,
     ToastrModule.forRoot(),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [MessageService,DatePipe,
+    provideStore(),
+    provideState(ScheduleFeature),
+    provideState(CandidateFeature),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$}]),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,
   //   useClass : CustomHttpException
   // },
+  {
+    provide : HTTP_INTERCEPTORS,
+    useClass : AuthkeyInterceptor,
+    multi:true},
   // {
   //   provide : HTTP_INTERCEPTORS,
   //   useClass : GlobalErrorInterceptor,
   //   multi : true
   // },
-  // {
-  //   provide :  HTTP_INTERCEPTORS,
-  //   useClass:AuthInterceptorService,
-  //   multi:true
-  // }
+  {
+    provide :  HTTP_INTERCEPTORS,
+    useClass:AuthInterceptorService,
+    multi:true
+  }
 
 
   ],
