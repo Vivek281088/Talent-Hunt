@@ -11,6 +11,9 @@ import { ReviewerService } from 'src/app/services/reviewer.service';
 import { Table } from 'primeng/table';
 import { ConfirmationService, MessageService, ConfirmEventType, MenuItem } from 'primeng/api';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
+import { Store } from '@ngrx/store';
+import { AssessmentActions } from 'src/app/store/Assessment/assessment.action';
+import { getAssessment } from 'src/app/store/Assessment/assessment.selector';
 @Component({
   selector: 'app-assessment-table',
   templateUrl: './assessment-table.component.html',
@@ -19,19 +22,19 @@ import { NewScheduleService } from 'src/app/services/new-schedule.service';
 })
 export class AssessmentTableComponent {
   sidebarVisible2: boolean = false;
- 
+
   [x: string]: any;
   questionType: string[] = ['Radio', 'Multiple Choice', 'Text'];
- 
+
   status: string[] = [
     'Shortlisted',
     'Rejected',
     'Scheduled',
   ];
- 
+
   items: MenuItem[] | undefined;
   position: string = 'center';
- 
+
   candidateNames: any[] = [];
   name: boolean = true;
   finalizedEmail!: string;
@@ -57,7 +60,7 @@ export class AssessmentTableComponent {
   managerOption: any[] = [];
   overlayVisible = false;
   globalSearchValue !: string;
- 
+
   //sidebar
   singleQuestion: any;
   totalQuestions !:any
@@ -65,42 +68,49 @@ export class AssessmentTableComponent {
   @Input() showSidebar !:boolean;
   @Input() previewQuestions !: any;
   @Output() hidePreview : EventEmitter<boolean> = new EventEmitter<boolean>();
- 
+
   toggle() {
     this.overlayVisible = !this.overlayVisible;
   }
- 
+
   todayDate!: Date;
- 
+
   // candidateForm !: FormGroup;
   constructor(
     private tableService: TableService,
     private managernameService: ManagernameService,
     private skillsdropdownservice: SkillsdropdownService,
- 
+    private readonly store : Store
+
   ) {
   }
- 
+
   ngOnInit() {
- 
+
     sessionStorage.setItem('Component-Name', 'assessment');
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
     this.loadManagerNames();
     this.getSkillSet();
- 
-    this.loadCandidateTableData();
+
+    //this.loadCandidateTableData();
+    this.store.dispatch(AssessmentActions.getAssessment());
+    this.store.select(getAssessment).subscribe(data =>{
+      console.log("select state???????" , data)
+      this.candidateList = data
+    });
+
     this.getCandidatename();
- 
+
     this.items = [
       { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
       { label: 'Assessment', routerLink: 'dashboard' },
     ];
- 
+
   }
- 
- 
- 
+
+
+
   getResultClass(result: string): string {
     if (result == 'Shortlisted') {
       return 'Shortlisted';
@@ -114,18 +124,18 @@ export class AssessmentTableComponent {
       return 'Scheduled';
     }
   }
- 
- 
- 
+
+
+
   getFormattedSkills(skills: any): {
     skills: string[];
     remainingCount: number;
   } {
     const maxLength = 15;
- 
+
     let result: string[] = [];
     let totalLength = 0;
- 
+
     for (const skill of skills) {
       if (totalLength + skill.length <= maxLength) {
         result.push(skill);
@@ -134,10 +144,10 @@ export class AssessmentTableComponent {
         break;
       }
     }
- 
+
     // Calculate the count of remaining skills
     const remainingCount = skills.length - result.length;
- 
+
     return { skills: result, remainingCount: remainingCount };
   }
   remainaingSkills(skills: any, count: number): string[] {
@@ -147,10 +157,10 @@ export class AssessmentTableComponent {
     table.clear();
     this.globalSearchValue = '';
   }
- 
+
   getCandidatename(): void {
     this.tableService.getExistingCandidate().subscribe((data) => {
- 
+
       const uniqueEmails = new Set<string>();
       const uniqueCandidateNames: any[] = [];
       data.forEach(
@@ -166,15 +176,16 @@ export class AssessmentTableComponent {
       console.log(this.candidateNames);
     });
   }
- 
+
   loadCandidateTableData(){
+
     this.managernameService.getCandidateStatus().subscribe((data) => {
       this.candidateList = data;
       console.log('Candidate Data', data);
     });
   }
- 
- 
+
+
   getSkillSet() {
     this.skillsdropdownservice.getskillsList().subscribe((data) => {
     data.forEach((element: any) => {
@@ -183,14 +194,14 @@ export class AssessmentTableComponent {
       console.log('Skill Set', this.skillSet);
     });
   }
- 
+
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((data) => {
       this.managerOption = data;
       console.log('Manager Data', data);
     });
   }
- 
+
   candidateSelectedAnswer : any;
   previewCompletedTest(data: any){
     console.log("data",data);
@@ -207,10 +218,10 @@ export class AssessmentTableComponent {
        console.log("Update total questions",this.totalQuestions)
        this.showSidebar = true;
      })
- 
- 
+
+
   }
- 
+
   // sidebar
   closeButton() {
     this.showSidebar = false;
@@ -221,13 +232,13 @@ export class AssessmentTableComponent {
     }
     getSelectedOptions(question: any, option: any) {
       if(question.questionType === "Radio"){
- 
+
           if(question.candidateResponse === option && question.candidateResponse== question.answer) return 'correctAnswer'
           else if(question.candidateResponse === option && question.candidateResponse !== question.answer) return 'wrong'
           else {
             return 'wrongAnswer'
           }
- 
+
       }
       else{
          if(question.candidateResponse.includes(option) && question.candidateResponse== question.answer) return 'correctAnswer';
@@ -236,7 +247,6 @@ export class AssessmentTableComponent {
           return 'wrongAnswer'
         }
       }
- 
-    } 
+
+    }
 }
- 
