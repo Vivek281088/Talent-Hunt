@@ -9,9 +9,10 @@ import { saveAs } from 'file-saver';
 import { response } from 'express';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
-import { getCandidate } from 'src/app/store/candidate/candidate.selector';
+import { getCandidate, getCandidateError } from 'src/app/store/candidate/candidate.selector';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-manage-candidates',
@@ -35,6 +36,7 @@ export class ManageCandidatesComponent {
   globalSearchValue!: string;
   showUpload: boolean = false;
   uploadedFileData: any;
+  error$!: Observable<string>;
  
 
   constructor(
@@ -56,7 +58,25 @@ export class ManageCandidatesComponent {
   }
   ngOnInit() {
     this.store.dispatch(candidateActions.getCandidate());
-    this.store.select(getCandidate).subscribe((candidates) => this.candidateData = candidates)
+    this.store.select(getCandidate).subscribe((candidates) => {
+      console.log("naskdbvbasdv edv" , candidates)
+      if(this.candidateData && candidates.length > this.candidateData.length){
+        this.addSuccessMessage()
+      }
+      this.candidateData = candidates
+    })
+    this.store.select(getCandidateError).subscribe(error =>{
+         if (error) {
+        console.log('Mail already exists',error);
+          this.messageService.add({
+            severity: 'error',
+            summary: error,
+            detail: 'Check Employee ID or Email !',
+          });
+        this.cancelButton();
+        this.store.dispatch(candidateActions.clearCandidateError())
+      }
+    })
     sessionStorage.setItem('Component-Name', 'user');
     this.managerService.getclientManagerData().subscribe((response) => {
     console.log('Client Manager Details', response);
@@ -168,33 +188,42 @@ export class ManageCandidatesComponent {
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
-
-      this.managerService
-        .addCandidate(
-          formData.candidateName,
-          formData.email,
-          formData.phone,
-          formData.empid,
-          formData?.department,
-          formData?.location
-        )
-        .subscribe({
-          next: (x) => {
-            setTimeout(() => {
-              this.addSuccessMessage();
-              this.cancelButton();
-              this.getUniqueCandidatedata();
-            }, 1000);
-          },
-          error : (err) =>{
-            setTimeout(() => {
-              this.IdExistError();
-              console.log('Mail already exists');
-              this.cancelButton();
-            }, 500);
-          }
-        }
-        );
+      const candidate : Candidate = {
+        id: '',
+        empid:  formData.empid,
+        candidateEmail: formData.email,
+        candidate_location: formData?.location,
+        candidateName:  formData.candidateName,
+        candidatePhone: formData.phone,
+        department: formData?.department
+      }
+      this.store.dispatch(candidateActions.addCandidate({candidate}))
+      // this.managerService
+      //   .addCandidate(
+      //     formData.candidateName,
+      //     formData.email,
+      //     formData.phone,
+      //     formData.empid,
+      //     formData?.department,
+      //     formData?.location
+      //   )
+      //   .subscribe({
+      //     next: (x) => {
+      //       setTimeout(() => {
+      //         this.addSuccessMessage();
+      //         this.cancelButton();
+      //         this.getUniqueCandidatedata();
+      //       }, 1000);
+      //     },
+      //     error : (err) =>{
+      //       setTimeout(() => {
+      //         this.IdExistError();
+      //         console.log('Mail already exists');
+      //         this.cancelButton();
+      //       }, 500);
+      //     }
+      //   }
+      //   );
 
     }
   }

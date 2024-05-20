@@ -135,6 +135,18 @@ export class ManagernameService {
       })
     );
   }
+  addNewCandidate(candidate : Candidate) : Observable<Candidate>{
+    console.log('add nerw cANDIDATE' , candidate)
+    const body = {
+      candidateName: candidate.candidateName,
+      email: candidate.candidateEmail,
+      phone: candidate.candidatePhone,
+      empid: candidate.empid,
+      department: candidate.department,
+      candidate_location: candidate.candidate_location
+    };
+    return this.http.post<Candidate>(`${process.env.BASE_URL_DEV}/New-Candidate`,body)
+  }
 updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
   const endpoint = `${process.env.BASE_URL_DEV}/update_CandidateDetails`
   return this.http.post<Candidate>(endpoint,candidate)

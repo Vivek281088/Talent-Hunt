@@ -12,3 +12,7 @@ export const getCandidate = createSelector(
     candidateState,
     (state) => state.candidates
 )
+export const getCandidateError = createSelector(
+    candidateState,
+    (state) => state.error
+)

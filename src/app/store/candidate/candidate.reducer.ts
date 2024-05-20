@@ -35,7 +35,7 @@ export const candidateReducer = createReducer(
     on(candidateActions.updateCandidateSuccess , (state,action) => {
         return{
             ...state,
-            candidates : state.candidates.map(candidate => candidate.empid == action.candidate.empid ? {...candidate , ...action.candidate} : candidate)
+            candidates : state.candidates.map(candidate => candidate.empid == action.candidate.empid ? {...candidate , ...((({id,...rest})=> rest)(action.candidate))} : candidate)
         }
     }),
     on(candidateActions.getCandidateFailure , (state,action)=>{
@@ -43,7 +43,27 @@ export const candidateReducer = createReducer(
             ...state,
             candidates : state.candidates,
             candidateCount : state.candidateCount,
-            error : state.error
+            error : action.error
+        }
+    }),
+    on(candidateActions.addCandidateSuccess, (state,action) => {
+        console.log("candidate action" , action)
+        return {
+            ...state,
+            candidates : [...state.candidates , action.candidate],
+            candidateCount : state.candidateCount + 1
+        }
+    }),
+    on(candidateActions.addCandidateFailure, (state,action) => {
+        return {
+            ...state,
+            error : action.error
+        }
+    }),
+    on(candidateActions.clearCandidateError , (state , action)=>{
+        return {
+            ...state,
+            error: ""
         }
     })
 )
