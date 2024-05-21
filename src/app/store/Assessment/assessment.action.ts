@@ -7,14 +7,14 @@ export interface Assessment{
     loginManagerid: string
     Skill: string[]
     candidate_location: string
-    score: string
+    score: number
     candidatePhone: string
     confirmPassword: string
     scheduledTime: string
     durations: number
     password: string
     cutoff: number
-    deleted: string
+    deleted?: string
     roles: string
     candidateEmail: string
     empid: string
@@ -41,7 +41,10 @@ export interface Assessment{
         events : {
           'Get Assessment':emptyProps,
           'Get Assessment Success':props<{assessment:Assessment[]}>(),
-          'Get Assessment Failure':props<{error:string}>()
+          'Get Assessment Failure':props<{error:string}>(),
+          'Send Assessment':props<{assessment : Assessment}>(),
+          'Send Assessment Success':props<{assessment:Assessment}>(),
+          'Send Assessment Failure':props<{error:string}>()
 
        }
     }

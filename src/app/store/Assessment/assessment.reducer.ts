@@ -2,13 +2,13 @@ import { createReducer, on } from '@ngrx/store';
 import { AssessmentActions, Assessment } from './assessment.action';
 
 export interface AssessmentState{
-assessment:Assessment[],
+assessments:Assessment[],
 error:string,
 assessmentCount:number
 }
 
 const initialState:AssessmentState ={
-  assessment:[],
+  assessments:[],
   error:"",
   assessmentCount:0
 
@@ -20,7 +20,7 @@ on(AssessmentActions.getAssessmentSuccess,(state,action)=>{
 console.log(state,action);
 return{
   ...state,
-  assessment:action.assessment,
+  assessments:action.assessment,
   assessmentCount:action.assessment.length,
   error:""
 
@@ -29,9 +29,27 @@ return{
 on(AssessmentActions.getAssessmentFailure , (state,action)=> {
   return {
       ...state,
-      assessment: [],
+      assessments: [],
       assessmentCount : 0,
       error : action.error
   }
+}),
+
+on(AssessmentActions.sendAssessmentSuccess, (state,action)=> {
+  console.log("state inside",state)
+  console.log("action inside ..........." , action)
+  return {
+      ...state,
+      assessments : [...state.assessments , action.assessment],
+      assessmentCount : state.assessmentCount + 1,
+      error : ""
+  }
+}),
+on(AssessmentActions.sendAssessmentFailure,(state , action) => {
+  return {
+      ...state,
+      error : action.error
+  }
 })
+
 );

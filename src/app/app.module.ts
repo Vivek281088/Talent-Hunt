@@ -54,9 +54,10 @@ import { ScheduleFeature } from './store/schedule/schedule.selector';
 import { addSchedule$, deleteSchedule$, loadSchedule$ } from './store/schedule/schedule.effects';
 import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
 import { assessmentFeature } from './store/Assessment/assessment.selector';
-import { loadAssessment$ } from './store/Assessment/assessment.effects';
+import { loadAssessment$, sendAssessments$ } from './store/Assessment/assessment.effects';
 import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { CandidateFeature } from './store/candidate/candidate.selector';
+
 
 
 
@@ -118,8 +119,9 @@ import { CandidateFeature } from './store/candidate/candidate.selector';
   providers: [MessageService,DatePipe,
     provideStore(),
     provideState(ScheduleFeature),
+    provideState(assessmentFeature),
     provideState(CandidateFeature),
-    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$}]),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{sendAssessments$ },{loadAssessment$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,
