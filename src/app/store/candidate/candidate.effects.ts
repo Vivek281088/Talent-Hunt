@@ -2,7 +2,7 @@ import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { NewScheduleService } from "src/app/services/new-schedule.service";
 import { Candidate, candidateActions } from "./candidate.action";
-import { catchError, exhaustMap, map, of, tap } from "rxjs";
+import { catchError, debounceTime, exhaustMap, map, of, switchMap, tap } from "rxjs";
 import { ManagernameService } from "src/app/services/managername.service";
 import { ToastMessageService } from "src/app/services/toast-message.service";
 
@@ -45,7 +45,7 @@ export const AddCandidate$ = createEffect(
     (action$ = inject(Actions) , candidateService = inject(ManagernameService) , messageService = inject(ToastMessageService))  =>{
         return action$.pipe(
             ofType(candidateActions.addCandidate),
-            exhaustMap((candidate) => 
+            switchMap((candidate) => 
                 candidateService.addNewCandidate(candidate.candidate).pipe(
                     tap((candidate) =>{
                         console.log("add cadidate.................." , candidate);

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
@@ -11,8 +11,8 @@ import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
-import { getCandidate, getCandidateError } from 'src/app/store/candidate/candidate.selector';
-import { Observable } from 'rxjs';
+import { checkCandidateAddStaus, getCandidate, getCandidateError } from 'src/app/store/candidate/candidate.selector';
+import { Observable, Subject, Subscription, debounceTime, skip, switchMap, take, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-manage-candidates',
@@ -20,7 +20,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./manage-candidates.component.scss'],
   providers: [MessageService],
 })
-export class ManageCandidatesComponent {
+export class ManageCandidatesComponent implements OnDestroy{
+  private submit$ =new Subject<void>();
   items: MenuItem[] | undefined;
   todayDate!: Date;
   managerData: any;
@@ -37,6 +38,8 @@ export class ManageCandidatesComponent {
   showUpload: boolean = false;
   uploadedFileData: any;
   error$!: Observable<string>;
+  candidates$!: Observable<Candidate[]>;
+  private errorSubscription!: Subscription;
  
 
   constructor(
@@ -55,28 +58,31 @@ export class ManageCandidatesComponent {
       location: [''],
       department: ['',[Validators.required,Validators.minLength(3)]],
     });
+    this.error$ = this.store.select(getCandidateError);
+    this.candidates$ = this.store.select(getCandidate);
+    this.multiClickPreventSetUp();
+  }
+  ngOnDestroy(): void {
+    this.submit$.complete()
+    this.errorSubscription.unsubscribe(); 
   }
   ngOnInit() {
     this.store.dispatch(candidateActions.getCandidate());
-    this.store.select(getCandidate).subscribe((candidates) => {
-      console.log("naskdbvbasdv edv" , candidates)
-      if(this.candidateData && candidates.length > this.candidateData.length){
-        this.addSuccessMessage()
-      }
+    this.candidates$.subscribe((candidates) => 
       this.candidateData = candidates
-    })
-    this.store.select(getCandidateError).subscribe(error =>{
-         if (error) {
-        console.log('Mail already exists',error);
-          this.messageService.add({
-            severity: 'error',
-            summary: error,
-            detail: 'Check Employee ID or Email !',
-          });
-        this.cancelButton();
-        this.store.dispatch(candidateActions.clearCandidateError())
-      }
-    })
+  )
+    //  this.errorSubscription = this.error$.subscribe(error =>{
+    //      if (error) {
+    //     console.log('Mail already exists',error);
+    //       this.messageService.add({
+    //         severity: 'error',
+    //         summary: error,
+    //         detail: 'Check Employee ID or Email !',
+    //       });
+    //     this.cancelButton();
+    //     this.store.dispatch(candidateActions.clearCandidateError())
+    //   }
+    // })
     sessionStorage.setItem('Component-Name', 'user');
     this.managerService.getclientManagerData().subscribe((response) => {
     console.log('Client Manager Details', response);
@@ -181,7 +187,9 @@ export class ManageCandidatesComponent {
       detail: 'Check Employee ID or Email !',
     });
   }
-
+  saveCandidateSub(){
+    this.submit$.next()
+  }
   saveCandidate() {
     this.formSubmitted = true;
 
@@ -198,34 +206,42 @@ export class ManageCandidatesComponent {
         department: formData?.department
       }
       this.store.dispatch(candidateActions.addCandidate({candidate}))
-      // this.managerService
-      //   .addCandidate(
-      //     formData.candidateName,
-      //     formData.email,
-      //     formData.phone,
-      //     formData.empid,
-      //     formData?.department,
-      //     formData?.location
-      //   )
-      //   .subscribe({
-      //     next: (x) => {
-      //       setTimeout(() => {
-      //         this.addSuccessMessage();
-      //         this.cancelButton();
-      //         this.getUniqueCandidatedata();
-      //       }, 1000);
-      //     },
-      //     error : (err) =>{
-      //       setTimeout(() => {
-      //         this.IdExistError();
-      //         console.log('Mail already exists');
-      //         this.cancelButton();
-      //       }, 500);
-      //     }
-      //   }
-      //   );
-
     }
+  }
+  multiClickPreventSetUp(){
+    this.submit$.pipe(
+      debounceTime(800),
+      tap((candidate) => console.log("asfhbahvbva",candidate)),
+      switchMap(() => {
+        this.saveCandidate();
+        return this.store.pipe(select(checkCandidateAddStaus), skip(1),takeUntil(this.submit$));
+      })
+    ).subscribe(status => {
+      if (status) {
+        console.log("astatu s s " , status)
+        this.addSuccessMessage();
+        this.cancelButton();
+        this.store.dispatch(candidateActions.clearNewcandidate());
+      }
+    });
+    this.submit$.pipe(
+      debounceTime(800),
+      tap((candidate) => console.log("asfhbahvbva",candidate)),
+      switchMap(() => {
+        return this.store.pipe(select(getCandidateError), skip(1),takeUntil(this.submit$));
+      })
+    ).subscribe(error => {
+      if (error) {
+        console.log('Mail already exists', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: error,
+          detail: 'Check Employee ID or Email!',
+        });
+        this.cancelButton();
+        this.store.dispatch(candidateActions.clearCandidateError());
+      }
+    });
   }
 
   downloadCsvTemplate() {

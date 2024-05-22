@@ -23,5 +23,6 @@ export const candidateActions = createActionGroup({
         'Add Candidate Success' : props<{candidate:Candidate}>(),
         'Add Candidate Failure' : props<{error : string}>(),
         'Clear Candidate Error' : emptyProps,
+        'Clear Newcandidate' : emptyProps
     }
 })

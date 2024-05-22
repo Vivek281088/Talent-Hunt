@@ -2,11 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [RouterTestingModule,HttpClientTestingModule ],
-    declarations: [AppComponent]
+    declarations: [AppComponent],
+    providers:[MessagesModule]
   }));
 
   it('should create the app', () => {

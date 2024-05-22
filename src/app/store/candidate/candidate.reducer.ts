@@ -4,13 +4,15 @@ import { Candidate, candidateActions, } from "./candidate.action";
 export interface CandidateState{
     candidates : Candidate[],
     error : string,
-    candidateCount : number
+    candidateCount : number,
+    newUserAdded : boolean
 }
 
 export const initialState : CandidateState = {
     candidates: [],
     error: "",
-    candidateCount: 0
+    candidateCount: 0,
+    newUserAdded : false
 }
 
 export const candidateReducer = createReducer(
@@ -51,7 +53,8 @@ export const candidateReducer = createReducer(
         return {
             ...state,
             candidates : [...state.candidates , action.candidate],
-            candidateCount : state.candidateCount + 1
+            candidateCount : state.candidateCount + 1,
+            newUserAdded : true
         }
     }),
     on(candidateActions.addCandidateFailure, (state,action) => {
@@ -64,6 +67,12 @@ export const candidateReducer = createReducer(
         return {
             ...state,
             error: ""
+        }
+    }),
+    on(candidateActions.clearNewcandidate,(state,action)=> {
+        return {
+            ...state,
+            newUserAdded : false
         }
     })
 )

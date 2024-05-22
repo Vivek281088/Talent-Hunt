@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   storedShowNavbar!:boolean;
   showNavbarBoolean!:boolean;
 
-  constructor(private service: AppServiceService, private router: Router , private activatedRoute : ActivatedRoute) {
+  constructor(private router: Router , private activatedRoute : ActivatedRoute) {
     // Subscribe to the route changes
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
