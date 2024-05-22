@@ -3,7 +3,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { response } from 'express';
@@ -13,7 +12,6 @@ import { Store, select } from '@ngrx/store';
 import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
 import { getCandidate, getCandidateError } from 'src/app/store/candidate/candidate.selector';
 import { Observable } from 'rxjs';
-
 @Component({
   selector: 'app-manage-candidates',
   templateUrl: './manage-candidates.component.html',
