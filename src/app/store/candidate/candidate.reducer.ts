@@ -74,5 +74,18 @@ export const candidateReducer = createReducer(
             ...state,
             newUserAdded : false
         }
+    }),
+    on(candidateActions.deleteCandidateSuccess,(state,action) => {
+        const deleteSet = new Set(action.candidates.map(can => can.id));
+        return {
+            ...state,
+            candidates : state.candidates.filter(candidate => !deleteSet.has(candidate.id))
+        }
+    }),
+    on(candidateActions.deleteCandidateFailure,(state,action)=> {
+        return {
+            ...state,
+            error : action.error
+        }
     })
 )

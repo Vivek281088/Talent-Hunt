@@ -174,17 +174,9 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
       // { headers }
     );
   }
-  deleteCandidate(id: string, email: string): Observable<any> {
-    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-    const body = {
-      id: id,
-      candidateEmail: email,
-    };
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deletecandidatedetails',
-      body,
-      // { headers }
-    );
+  
+  deleteCandidates(candidates : {id:string , candidateEmail : string}[]){
+    return this.http.post(`${process.env.BASE_URL_PRIVATE}/deleteCandidates`,candidates)
   }
 
   deleteSchedule(id: string): Observable<any> {

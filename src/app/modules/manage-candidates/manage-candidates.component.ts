@@ -64,7 +64,7 @@ export class ManageCandidatesComponent implements OnDestroy{
   }
   ngOnDestroy(): void {
     this.submit$.complete()
-    this.errorSubscription.unsubscribe(); 
+    this.errorSubscription ? this.errorSubscription.unsubscribe() : null 
   }
   ngOnInit() {
     this.store.dispatch(candidateActions.getCandidate());
@@ -378,14 +378,9 @@ export class ManageCandidatesComponent implements OnDestroy{
   selectedDeleteCandidate: any;
   deleteCandidate() {
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
-    for (let candidateData of this.selectedDeleteCandidate) {
-      this.managerService
-        .deleteCandidate(candidateData.id,candidateData.candidateEmail)
-        .subscribe((response) => {
-          console.log('Deleted Candidate.....', candidateData.candidateName);
-        });
-    }
-
+    const candidates = this.selectedDeleteCandidate.map((candidate: { id: string , candidateEmail :string }) => ({id : candidate.id , candidateEmail : candidate.candidateEmail}))
+    console.log("candidates to be deleted" , candidates)
+    this.store.dispatch(candidateActions.deleteCandidates({candidates}))
     setTimeout(() => {
       this.deleteMessage();
       this.selectedDeleteCandidate = [];
