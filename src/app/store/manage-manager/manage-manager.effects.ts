@@ -25,3 +25,25 @@ export const loadManager$= createEffect(
   },
   {functional : true}
 );
+
+export const addManager$ = createEffect(
+  (actions$ = inject(Actions),
+  managerService = inject(ManagernameService)
+) => {
+  return actions$.pipe(
+    ofType(ManagerActions.postManagerData),
+    tap((action) => console.log(action)),
+    exhaustMap((action) =>
+      managerService.addClientManagerData(action.manager).pipe(
+        tap((manager) => console.log("Effect-----",manager)),
+        map((manager) => ManagerActions.postManagerDataSuccess({ manager})),
+        catchError((error: {message : string, status : number}) =>
+        of(ManagerActions.postManagerDataFailure({ error : error.message, status : error.status}))
+        )
+      )
+    )
+
+  );
+},
+{functional : true}
+);

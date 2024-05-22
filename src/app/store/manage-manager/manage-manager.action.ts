@@ -18,7 +18,11 @@ export const ManagerActions = createActionGroup(
     events : {
       'get Manager Data' : emptyProps,
       'get Manager Data Success' : props<{managerData : Manager[]}>(),
-      'get Manager Data Failure' : props<{error: string}>()
+      'get Manager Data Failure' : props<{error: string}>(),
+      'post Manager Data ' : props<{manager : Manager}>(),
+      'post Manager Data Success' : props<{manager : Manager}>(),
+      'post Manager Data Failure' : props<{error : string, status : number}>(),
+
     }
   }
 )
