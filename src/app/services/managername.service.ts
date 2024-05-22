@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
-import {Assessment} from '../store/Assessment/assessment.action'
+import { Manager } from '../store/manage-manager/manage-manager.action';
+
+const baseUrlDev = process.env.BASE_URL_DEV;
+import { Assessment } from '../store/Assessment/assessment.action';
 import { Candidate } from '../store/candidate/candidate.action';
 import { Schedule } from '../store/schedule/schedule.action';
 
@@ -39,15 +42,31 @@ export class ManagernameService {
 
     return this.http.get<any>(endpoint);
   }
-  getclientManagerData(): Observable<any> {
-    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager`;
+  getclientManagerData(): Observable<Manager[]> {
+    const endpoint = `${baseUrlDev}/ClientManager`;
 
-    return this.http.get<any>(endpoint);
+    return this.http.get<Manager[]>(endpoint);
   }
   getclientManagerName(): Observable<any> {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/Client-ManagerName`;
 
     return this.http.get<any>(endpoint);
+  }
+  addClientManagerData(data: any): Observable<Manager> {
+    console.log("Service Body", data)
+    const body = {
+      empid: data.empid,
+      managerName: data.managerName,
+      email: data.email,
+      phone: data.phoneNo,
+      department: data.department,
+      manager_location: data.managerLocation,
+    };
+    console.log("Service -------", body)
+    return this.http.post<Manager>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
+      body,
+    );
   }
 
   postClientManager(
@@ -70,7 +89,7 @@ export class ManagernameService {
     return this.http
       .post<any>(
         'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
-        body,
+        body
         // { headers }
       )
       .pipe(
@@ -80,17 +99,15 @@ export class ManagernameService {
         catchError((error) => {
           console.log('Inside Catch Error');
           if (error.status == 400) {
-            console.log(error.status,"error 1");
-          return throwError(() => error);
-
+            console.log(error.status, 'error 1');
+            return throwError(() => error);
           }
           if (error.status == 401) {
             console.log(error.status, 'error 2');
-          return throwError(() => error);
-
+            return throwError(() => error);
           }
 
-           return throwError(() => error);
+          return throwError(() => error);
         })
       );
   }
@@ -99,7 +116,6 @@ export class ManagernameService {
   unsubscribe(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
-
 
   addCandidate(
     candidateName: string,
@@ -118,28 +134,30 @@ export class ManagernameService {
       department: department !== undefined || '' ? department : '--',
       candidate_location: location !== undefined || '' ? location : '--',
     };
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
-      body,
-      // { headers }
-    ).pipe(
-      tap((responsedata) => {
-        console.log('Mail updated successfully', responsedata);
-      }),
-      catchError((error) => {
-        console.log('Inside Catch Error');
-        if (error.status == 401) {
-          console.log(error.status, "error 1");
+    return this.http
+      .post<any>(
+        'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
+        body
+        // { headers }
+      )
+      .pipe(
+        tap((responsedata) => {
+          console.log('Mail updated successfully', responsedata);
+        }),
+        catchError((error) => {
+          console.log('Inside Catch Error');
+          if (error.status == 401) {
+            console.log(error.status, 'error 1');
+            return throwError(() => error);
+          }
           return throwError(() => error);
-        }
-        return throwError(() => error);
-      })
-    );
+        })
+      );
   }
-updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
-  const endpoint = `${process.env.BASE_URL_DEV}/update_CandidateDetails`
-  return this.http.post<Candidate>(endpoint,candidate)
-}
+  updateSingleCandidate(candidate: Candidate): Observable<Candidate> {
+    const endpoint = `${process.env.BASE_URL_DEV}/update_CandidateDetails`;
+    return this.http.post<Candidate>(endpoint, candidate);
+  }
   updateCandidate(
     candidateName: string,
     email: string,
@@ -159,7 +177,7 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_CandidateDetails',
-      body,
+      body
       // { headers }
     );
   }
@@ -171,7 +189,7 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deletecandidatedetails',
-      body,
+      body
       // { headers }
     );
   }
@@ -183,7 +201,7 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteScheduleData',
-      body,
+      body
       // { headers }
     );
   }
@@ -208,7 +226,7 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
     console.log('Updated data :', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_ManagerDetail',
-      body,
+      body
       // { headers }
     );
   }
@@ -222,7 +240,7 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
     console.log('Deleted data :', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteManager',
-      body,
+      body
       // { headers }
     );
   }
@@ -233,7 +251,7 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
     const body = { Managername: name };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/managerProfile',
-      body,
+      body
       // {
       //   headers,
       // }
@@ -246,7 +264,7 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
     const body = { candidateEmail: email };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidateProfile',
-      body,
+      body
       // {
       //   headers,
       // }
@@ -301,24 +319,30 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
     console.log('Post Question Data', body);
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb',
-      body,
+      body
       // {
       //   headers,
       // }
     );
   }
-  postquestions(data:any): Observable<any> {
+  postquestions(data: any): Observable<any> {
     //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     console.log('Post Question Data', data);
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb',
-      data,
-      // {
-      //   headers,
-      // }
-    ).pipe(
-      catchError((err) => throwError(() => new Error(`Error While Uploading Questions ${err.message}`)))
-    )
+    return this.http
+      .post<any>(
+        'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb',
+        data
+        // {
+        //   headers,
+        // }
+      )
+      .pipe(
+        catchError((err) =>
+          throwError(
+            () => new Error(`Error While Uploading Questions ${err.message}`)
+          )
+        )
+      );
   }
 
   //candidate list
@@ -389,23 +413,22 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
     };
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetch_managerdetails',
-      body,
+      body
       // { headers }
     );
   }
 
-  postResetPassword(password:string,email:string): Observable<any> {
-    console.log("at service" , password , email)
+  postResetPassword(password: string, email: string): Observable<any> {
+    console.log('at service', password, email);
     //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
-      email:email,
-      password: password
-
+      email: email,
+      password: password,
     };
-return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resetpassword',
-body,
-// {headers}
-);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resetpassword',
+      body
+      // {headers}
+    );
   }
-
 }

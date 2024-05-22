@@ -53,10 +53,16 @@ import { provideState, provideStore } from '@ngrx/store';
 import { ScheduleFeature } from './store/schedule/schedule.selector';
 import { addSchedule$, deleteSchedule$, loadSchedule$ } from './store/schedule/schedule.effects';
 import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
+import { managerFeature } from './store/manage-manager/manager-manager.selector';
+import { loadManager$,addManager$ } from './store/manage-manager/manage-manager.effects';
+//import { CandidateFeature } from './store/candidate/candidate.selector';
+//import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { assessmentFeature } from './store/Assessment/assessment.selector';
 import { loadAssessment$, sendAssessments$ } from './store/Assessment/assessment.effects';
 import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { CandidateFeature } from './store/candidate/candidate.selector';
+//import { loadAssessment$ } from './store/Assessment/assessment.effects';
+
 
 
 
@@ -121,7 +127,7 @@ import { CandidateFeature } from './store/candidate/candidate.selector';
     provideState(ScheduleFeature),
     provideState(assessmentFeature),
     provideState(CandidateFeature),
-    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{sendAssessments$ },{loadAssessment$}]),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{sendAssessments$ },{loadAssessment$},{loadManager$},{addManager$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,

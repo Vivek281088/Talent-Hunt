@@ -10,7 +10,7 @@ export interface Schedule {
     questions : string[],
     Skill : string[]
 }
-let scheduleIds : string[];
+
 export const ScheduleActions = createActionGroup(
     {
         source : 'Schedule',
