@@ -232,6 +232,7 @@ export class SchedulepageComponent implements OnInit {
 
   loadManagerNames() {
     this.managernameService.getclientManagerData().subscribe((response) => {
+
       this.managerData = response;
       // .map(
       //   (manager: { managerName: string }) => manager.managerName
@@ -259,14 +260,14 @@ export class SchedulepageComponent implements OnInit {
 
       // this.sendData();
       console.log('sended');
-      const dataToSend = {
-        scheduleName: formData.scheduleName,
-        manager: formData.managerName,
-        selectedSkills: formData.skills,
-        // cutOff: formData.cutoff,
-        //duration: formData.duration,
-      };
-      this.newScheduleService.setNewScheduleData(dataToSend);
+      // const dataToSend = {
+      //   scheduleName: formData.scheduleName,
+      //   manager: formData.managerName,
+      //   selectedSkills: formData.skills,
+      //   // cutOff: formData.cutoff,
+      //   //duration: formData.duration,
+      // };
+     // this.newScheduleService.setNewScheduleData(dataToSend);
       sessionStorage.setItem('scheduleName', formData.scheduleName);
       sessionStorage.setItem('manager', formData.managerName);
       this.dataService.savedata(formData.skills);
