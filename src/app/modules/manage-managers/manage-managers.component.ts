@@ -413,20 +413,17 @@ export class ManageManagersComponent {
       key: 'positionDialog',
     });
   }
-  selectedDeleteManager: any;
+  selectedDeleteManager= [];
+  deleteManagerId : any;
   deleteManager() {
     console.log('Deleteting Manager.....', this.selectedDeleteManager);
-    for (let managerData of this.selectedDeleteManager) {
-      this.managerService
-        .deleteManagerDetails(managerData.empid, managerData.email)
-        .subscribe((response) => {
-          console.log('Deleted Manager.....', managerData.managerName);
-        });
-    }
-
+    this.deleteManagerId=this.selectedDeleteManager.map( ({empid,email}) => ({empid,email}));
+    console.log('Only Id.....', this.deleteManagerId);
+    this.store.dispatch(ManagerActions.deleteManagerData({deleteManager : this.deleteManagerId}))
     setTimeout(() => {
       //this.deleteMessage();
       this.selectedDeleteManager = [];
+      this.deleteManagerId =[]
       this.loadManagerData();
     }, 1500);
   }

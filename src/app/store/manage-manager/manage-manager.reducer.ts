@@ -54,5 +54,23 @@ export const getManagerDataReducer = createReducer(
       error,
       status,
     };
-  })
+  }),
+  on(ManagerActions.deleteManagerDataSuccess , (state, {deleteManager}) => {
+    console.log(state, deleteManager);
+    return {
+      ...state,
+      managerData: state.managerData.filter(data => !deleteManager.some((deletedManager: {
+        email: string; empid: number;
+}) => deletedManager.empid === data.empid && deletedManager.email === data.email)),
+      managerCount: state.managerCount - deleteManager.length,
+      error: "",
+    };
+  }),
+  on(ManagerActions.deleteManagerDataFailure , (state, action) => {
+    console.log(state, action);
+    return {
+      ...state,
+      error: action.error
+    };
+  }),
 );

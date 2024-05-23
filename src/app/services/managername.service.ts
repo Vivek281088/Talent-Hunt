@@ -244,6 +244,11 @@ export class ManagernameService {
       // { headers }
     );
   }
+  deleteManagerData(data: any){
+    console.log("Delete data", data);
+    const endpoint = `${process.env.BASE_URL_DEV}/deleteclientManagers`
+    return this.http.post(endpoint,data)
+  }
 
   //To get Manager profile Data
   postManagerName(name: String): Observable<any> {

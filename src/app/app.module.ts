@@ -54,7 +54,7 @@ import { ScheduleFeature } from './store/schedule/schedule.selector';
 import { addSchedule$, deleteSchedule$, loadSchedule$ } from './store/schedule/schedule.effects';
 import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
 import { managerFeature } from './store/manage-manager/manager-manager.selector';
-import { loadManager$,addManager$ } from './store/manage-manager/manage-manager.effects';
+import { loadManager$,addManager$,deleteManager$ } from './store/manage-manager/manage-manager.effects';
 import { CandidateFeature } from './store/candidate/candidate.selector';
 import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { assessmentFeature } from './store/Assessment/assessment.selector';
@@ -123,7 +123,7 @@ import { loadAssessment$ } from './store/Assessment/assessment.effects';
     provideState(ScheduleFeature),
     provideState(managerFeature),
     provideState(CandidateFeature),
-    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{loadManager$},{addManager$}]),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{loadManager$},{addManager$},{deleteManager$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,

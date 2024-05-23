@@ -12,6 +12,10 @@ export interface Manager {
   email: string;
   selection : boolean;
 }
+export interface DeleteManager {
+  empid: number;
+  email: string;
+}
 export const ManagerActions = createActionGroup(
   {
     source : 'Manager',
@@ -22,7 +26,9 @@ export const ManagerActions = createActionGroup(
       'post Manager Data ' : props<{manager : Manager}>(),
       'post Manager Data Success' : props<{manager : Manager}>(),
       'post Manager Data Failure' : props<{error : string, status : number}>(),
-
+      'delete Manager Data ' : props<{deleteManager : DeleteManager[]}>(),
+      'delete Manager Data Success' : props<{deleteManager : DeleteManager[]}>(),
+      'delete Manager Data Failure' : props<{error : string}>(),
     }
   }
 )
