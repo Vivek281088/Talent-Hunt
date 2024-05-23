@@ -11,7 +11,7 @@ import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
-import { checkCandidateAddStaus, getCandidate, getCandidateError } from 'src/app/store/candidate/candidate.selector';
+import { checkCandidateAddStaus, checkCandidateDeleteStaus, getCandidate, getCandidateError } from 'src/app/store/candidate/candidate.selector';
 import { Observable, Subject, Subscription, debounceTime, skip, switchMap, take, takeUntil, tap } from 'rxjs';
 
 @Component({

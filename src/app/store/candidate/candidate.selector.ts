@@ -20,3 +20,7 @@ export const checkCandidateAddStaus = createSelector(
     candidateState,
     (state) => state.newUserAdded
 )
+export const checkCandidateDeleteStaus = createSelector(
+    candidateState,
+    (state) => state.candidateDeleted
+)
