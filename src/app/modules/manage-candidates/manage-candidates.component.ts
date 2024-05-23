@@ -108,16 +108,16 @@ export class ManageCandidatesComponent implements OnDestroy{
     table.clear();
     this.globalSearchValue = '';
   }
-  getUniqueCandidatedata() {
-    this.newScheduleService
-      .getUniqueCandidateDetails()
-      .subscribe((response) => {
-        this.candidateData = response.filter(
-          (candidate: any) => candidate !== null
-        );
-        console.log('Candidate Data', this.candidateData);
-      });
-  }
+  // getUniqueCandidatedata() {
+  //   this.newScheduleService
+  //     .getUniqueCandidateDetails()
+  //     .subscribe((response) => {
+  //       this.candidateData = response.filter(
+  //         (candidate: any) => candidate !== null
+  //       );
+  //       console.log('Candidate Data', this.candidateData);
+  //     });
+  // }
 
   getUniqueDepartments(data: any[]): any[] {
     const uniqueDepartments = Array.from(
@@ -356,7 +356,7 @@ export class ManageCandidatesComponent implements OnDestroy{
         setTimeout(() => {
           this.fileUploadMessage();
           this.cancelButton();
-          this.getUniqueCandidatedata();
+          // this.getUniqueCandidatedata();
         }, 1000);
       },
       header: true,
@@ -384,7 +384,7 @@ export class ManageCandidatesComponent implements OnDestroy{
     setTimeout(() => {
       this.deleteMessage();
       this.selectedDeleteCandidate = [];
-      this.getUniqueCandidatedata();
+      // this.getUniqueCandidatedata();
     }, 1500);
   }
 
