@@ -9,7 +9,7 @@ export const loadCandidate$ = createEffect(
 (action$ = inject(Actions) , candidateService = inject(NewScheduleService)) => {
     return action$.pipe(
         ofType(candidateActions.getCandidate),
-        exhaustMap(()=> 
+        exhaustMap(()=>
             candidateService.getUniqueCandidate().pipe(
                 tap((candidates) => console.log(candidates)),
                 map((candidates) => candidateActions.getCandidateSuccess({candidates})),
@@ -27,15 +27,32 @@ export const updateCandidate$ = createEffect(
     (action$ = inject(Actions) , candidateService = inject(ManagernameService)) =>{
         return action$.pipe(
             ofType(candidateActions.updateCandidate),
-            exhaustMap((candidate) => 
+            exhaustMap((candidate) =>
                     candidateService.updateSingleCandidate(candidate.candidate).pipe(
                         tap(candidate => console.log(candidate)),
                         map((candidate) => candidateActions.updateCandidateSuccess({candidate})),
-                        catchError((error : {message : string}) => 
+                        catchError((error : {message : string}) =>
                             of(candidateActions.updateCandidateFailure({error: error.message}))
                         )
                     )
             )
         )
     },{functional:true}
+)
+
+export const deleteCandidate$ = createEffect(
+  (action$ = inject(Actions) , deleteService = inject(ManagernameService)) =>{
+      return action$.pipe(
+          ofType(candidateActions.deleteCandidate),
+          exhaustMap((candidate) =>
+            deleteService.deleteCandidates(candidate.deleteCandidate).pipe(
+                      tap(candidate => console.log(candidate)),
+                      map((deleteCandidate) => candidateActions.deleteCandidateSuccess({deleteCandidate})),
+                      catchError((error : {message : string}) =>
+                          of(candidateActions.deleteCandidateFailure({error: error.message}))
+                      )
+                  )
+          )
+      )
+  },{functional:true}
 )

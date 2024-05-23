@@ -59,7 +59,7 @@ import { loadManager$,addManager$ } from './store/manage-manager/manage-manager.
 //import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { assessmentFeature } from './store/Assessment/assessment.selector';
 import { loadAssessment$, sendAssessments$ } from './store/Assessment/assessment.effects';
-import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
+import { deleteCandidate$, loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { CandidateFeature } from './store/candidate/candidate.selector';
 //import { loadAssessment$ } from './store/Assessment/assessment.effects';
 
@@ -127,7 +127,7 @@ import { CandidateFeature } from './store/candidate/candidate.selector';
     provideState(ScheduleFeature),
     provideState(assessmentFeature),
     provideState(CandidateFeature),
-    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{sendAssessments$ },{loadAssessment$},{loadManager$},{addManager$}]),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{sendAssessments$ },{loadAssessment$},{loadManager$},{addManager$},{deleteCandidate$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,

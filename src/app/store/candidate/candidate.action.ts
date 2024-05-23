@@ -9,7 +9,9 @@ export interface Candidate{
     candidatePhone : string,
     department : string
 }
-
+export type Candidates=Candidate[];
+export type candidatePick=Pick<Candidate,'id'|'candidateEmail'>;
+export type candidatesPick=candidatePick[];
 export const candidateActions = createActionGroup({
     source : 'candidate',
     events : {
@@ -19,5 +21,8 @@ export const candidateActions = createActionGroup({
         'Update Candidate' : props<{candidate : Candidate}>(),
         'Update Candidate Success' : props<{candidate : Candidate}>(),
         'Update Candidate Failure' : props<{error : string}>(),
+        'Delete Candidate':props<{deleteCandidate:candidatesPick}>(),
+        'Delete Candidate Success':props<{deleteCandidate:candidatesPick}>(),
+        'Delete Candidate Failure':props<{error:string}>()
     }
 })
