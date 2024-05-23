@@ -10,7 +10,7 @@ import { response } from 'express';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
+import { Candidate, candidateActions, candidatesPick } from 'src/app/store/candidate/candidate.action';
 import { getCandidate } from 'src/app/store/candidate/candidate.selector';
 
 @Component({
@@ -35,7 +35,7 @@ export class ManageCandidatesComponent {
   globalSearchValue!: string;
   showUpload: boolean = false;
   uploadedFileData: any;
- 
+
 
   constructor(
     private managerService: ManagernameService,
@@ -77,7 +77,7 @@ export class ManageCandidatesComponent {
       { label: 'Candidates', routerLink: '/manage-candidates' },
     ];
   }
-  
+
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
@@ -240,7 +240,7 @@ export class ManageCandidatesComponent {
       }, 1000);
     }
   }
- 
+
   UpdateMessage() {
     this.messageService.add({
       severity: 'success',
@@ -333,13 +333,19 @@ export class ManageCandidatesComponent {
   selectedDeleteCandidate: any;
   deleteCandidate() {
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
-    for (let candidateData of this.selectedDeleteCandidate) {
-      this.managerService
-        .deleteCandidate(candidateData.id,candidateData.candidateEmail)
-        .subscribe((response) => {
-          console.log('Deleted Candidate.....', candidateData.candidateName);
-        });
-    }
+    const deleteCandidate:candidatesPick=this.selectedDeleteCandidate.map((ele: { id: any; candidateEmail: any; })=>({
+      id:ele.id,
+      candidateEmail:ele.candidateEmail
+    }));
+    console.log(".......................deleting",deleteCandidate)
+this.store.dispatch(candidateActions.deleteCandidate({deleteCandidate}));
+    // for (let candidateData of this.selectedDeleteCandidate) {
+    //   this.managerService
+    //     .deleteCandidate(candidateData.id,candidateData.candidateEmail)
+    //     .subscribe((response) => {
+    //       console.log('Deleted Candidate.....', candidateData.candidateName);
+    //     });
+
 
     setTimeout(() => {
       this.deleteMessage();

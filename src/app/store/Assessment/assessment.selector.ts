@@ -9,8 +9,13 @@ export const assessmentFeature=createFeature({
 })
 export const getAssessment=createSelector(
   SelectAssessmentState,
-  (state)=>state.assessment
+  (state)=>state.assessments
 )
 
+// export const sendAssessment=createSelector(
+//   SelectAssessmentState,
+//   (state)=>state.assessments
+
+// )
 
 
