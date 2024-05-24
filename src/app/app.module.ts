@@ -57,11 +57,8 @@ import { managerFeature } from './store/manage-manager/manager-manager.selector'
 import { loadManager$,addManager$,deleteManager$ } from './store/manage-manager/manage-manager.effects';
 import { CandidateFeature } from './store/candidate/candidate.selector';
 import { loadCandidate$, updateCandidate$,deleteCandidate$ } from './store/candidate/candidate.effects';
-//import { CandidateFeature } from './store/candidate/candidate.selector';
-//import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { assessmentFeature } from './store/Assessment/assessment.selector';
 import { loadAssessment$, sendAssessments$ } from './store/Assessment/assessment.effects';
-//import { loadAssessment$ } from './store/Assessment/assessment.effects';
 
 
 
@@ -127,6 +124,7 @@ import { loadAssessment$, sendAssessments$ } from './store/Assessment/assessment
     provideState(ScheduleFeature),
     provideState(assessmentFeature),
     provideState(CandidateFeature),
+    provideState(managerFeature),
     provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{sendAssessments$ },{loadAssessment$},{loadManager$},{addManager$},{deleteCandidate$},{deleteManager$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {

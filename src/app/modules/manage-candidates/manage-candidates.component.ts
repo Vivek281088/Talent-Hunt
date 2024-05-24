@@ -73,8 +73,8 @@ export class ManageCandidatesComponent {
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Candidates', routerLink: '/manage-candidates' },
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'Candidates', routerLink: '/mtalent/manage-candidates' },
     ];
   }
 
