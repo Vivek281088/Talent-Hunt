@@ -45,5 +45,15 @@ export const candidateReducer = createReducer(
             candidateCount : state.candidateCount,
             error : state.error
         }
+    }),
+
+    on(candidateActions.deleteCnadidateSuccess,(state,action)=>{
+    const statemap=new Map(action.candidateDelete.map(data=>[data.id,data])) ;
+        return{
+            ...state,
+            candiates:state.candidates.filter(ele=>!statemap.has(ele.id))
+
+
+        }
     })
 )

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Schedule } from '../store/schedule/schedule.action';
+import { Invite } from '../store/Invite/invite.action';
 const baseUrlDev = process.env.BASE_URL_DEV;
 const baseUrlPrivate = process.env.BASE_URL_PRIVATE
 @Injectable({
@@ -211,4 +212,10 @@ export class TableService {
       }
     );
   }
+ 
+  postInviteCandidate(assessment:Invite):Observable<Invite>
+{
+  return this.http.post<Invite>(`${process.env.BASE_URL_PRIVATE}/createMail`, assessment);
+
+}
 }

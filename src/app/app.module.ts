@@ -53,8 +53,11 @@ import { provideState, provideStore } from '@ngrx/store';
 import { ScheduleFeature } from './store/schedule/schedule.selector';
 import { addSchedule$, deleteSchedule$, loadSchedule$ } from './store/schedule/schedule.effects';
 import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
-import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
+import { deleteCandidate$, loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { CandidateFeature } from './store/candidate/candidate.selector';
+import { managerDataFeature } from './store/managers/manager.selector';
+import { loadmaangerdata$ } from './store/managers/manager.effects';
+
 
 
 
@@ -116,8 +119,9 @@ import { CandidateFeature } from './store/candidate/candidate.selector';
   providers: [MessageService,DatePipe,
     provideStore(),
     provideState(ScheduleFeature),
+    provideState(managerDataFeature),
     provideState(CandidateFeature),
-    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$}]),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{loadmaangerdata$},{deleteCandidate$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,

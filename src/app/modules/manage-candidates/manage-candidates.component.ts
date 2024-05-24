@@ -10,7 +10,7 @@ import { response } from 'express';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
+import { Candidate, candidateActions, candidateDelete } from 'src/app/store/candidate/candidate.action';
 import { getCandidate } from 'src/app/store/candidate/candidate.selector';
 
 @Component({
@@ -67,7 +67,7 @@ export class ManageCandidatesComponent {
 
     this.managerService.getclientManagerName().subscribe((response) => {
       console.log('Client Manager Names-->', response);
-      this.managerNames = response;
+      // this.managerNames = response;
     });
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
@@ -330,16 +330,25 @@ export class ManageCandidatesComponent {
     this.router.navigate(['/mtalent/candidateProfile']);
   }
 
-  selectedDeleteCandidate: any;
+  selectedDeleteCandidate= [];
   deleteCandidate() {
-    console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
-    for (let candidateData of this.selectedDeleteCandidate) {
-      this.managerService
-        .deleteCandidate(candidateData.id,candidateData.candidateEmail)
-        .subscribe((response) => {
-          console.log('Deleted Candidate.....', candidateData.candidateName);
-        });
-    }
+
+    // console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
+    // for (let candidateData of this.selectedDeleteCandidate) {
+    //   this.managerService
+    //     .deleteCandidate(candidateData.id,candidateData.candidateEmail)
+    //     .subscribe((response) => {
+    //       console.log('Deleted Candidate.....', candidateData.candidateName);
+    //     });
+
+    // }
+    const candidateDelete:candidateDelete[]=this.selectedDeleteCandidate.map((ele:{id:any,candidateEmail:any})=>({id:ele.id,candidateEmail:ele.candidateEmail}))
+
+    console.log("deleted manager",candidateDelete)
+
+    this.store.dispatch(candidateActions.deleteCnadidate({candidateDelete}))
+
+    
 
     setTimeout(() => {
       this.deleteMessage();

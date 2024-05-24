@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
-import { Candidate } from '../store/candidate/candidate.action';
+import { Candidate, candidateDelete } from '../store/candidate/candidate.action';
 import { Schedule } from '../store/schedule/schedule.action';
+import { Manager } from '../store/managers/manager.action';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +44,7 @@ export class ManagernameService {
 
     return this.http.get<any>(endpoint);
   }
-  getclientManagerName(): Observable<any> {
+  getclientManagerName(): Observable<Manager[]> {
     const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/Client-ManagerName`;
 
     return this.http.get<any>(endpoint);
@@ -162,17 +163,23 @@ updateSingleCandidate(candidate : Candidate) : Observable<Candidate>{
       // { headers }
     );
   }
-  deleteCandidate(id: string, email: string): Observable<any> {
-    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-    const body = {
-      id: id,
-      candidateEmail: email,
-    };
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deletecandidatedetails',
-      body,
-      // { headers }
-    );
+  // deleteCandidate(id: string, email: string): Observable<any> {
+  //   // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+  //   const body = {
+  //     id: id,
+  //     candidateEmail: email,
+  //   };
+  //   return this.http.post<any>(
+  //     'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deletecandidatedetails',
+  //     body,
+  //     // { headers }
+  //   );
+  // }
+
+  deleteCandidate(candidate:candidateDelete[]):Observable<candidateDelete[]>
+  {
+    return this.http.post<candidateDelete[]>(`${process.env.BASE_URL_PRIVATE}/deleteCandidates`, candidate);
+  
   }
 
   deleteSchedule(id: string): Observable<any> {

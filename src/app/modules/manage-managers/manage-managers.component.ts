@@ -12,6 +12,9 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+import { managerActions } from 'src/app/store/managers/manager.action';
+import { Store } from '@ngrx/store';
+import { getManager } from 'src/app/store/managers/manager.selector';
 @Component({
   selector: 'app-manage-managers',
   templateUrl: './manage-managers.component.html',
@@ -40,7 +43,8 @@ export class ManageManagersComponent {
     private messageService: MessageService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private newScheduleService: NewScheduleService
+    private newScheduleService: NewScheduleService,
+    private store:Store
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
     this.addManagerForm = this.fb.group({
@@ -54,7 +58,13 @@ export class ManageManagersComponent {
   }
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'user');
-    this.loadManagerData();
+    // this.loadManagerData();
+    this.store.dispatch(managerActions.getManager())
+    this.store.select(getManager).subscribe(data=>{
+      this.managerData = data;
+
+
+    })
 
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
@@ -64,16 +74,17 @@ export class ManageManagersComponent {
       { label: 'Managers', routerLink: '/manage-managers' },
     ];
   }
-  loadManagerData() {
-    this.managerService.getclientManagerData().subscribe((response) => {
-      console.log('Client Manager Details', response);
-      this.managerData = response;
+  // loadManagerData() {
+  //   this.store.dispatch()
+  //   // this.managerService.getclientManagerData().subscribe((response) => {
+  //   //   console.log('Client Manager Details', response);
+  //   //   this.managerData = response;
 
-      this.managerData.forEach((manager: { selection: boolean }) => {
-        manager.selection = manager.selection || false;
-      });
-    });
-  }
+  //   //   this.managerData.forEach((manager: { selection: boolean }) => {
+  //   //     manager.selection = manager.selection || false;
+  //   //   });
+  //   // });
+  // }
 
   clear(table: Table) {
     table.clear();
@@ -188,7 +199,7 @@ export class ManageManagersComponent {
               setTimeout(() => {
                 this.saveSuccessMessage();
                 this.cancelButton();
-                this.loadManagerData();
+                // this.loadManagerData();
               }, 1000);
             },
             error: (err) => {
@@ -273,7 +284,7 @@ export class ManageManagersComponent {
         setTimeout(() => {
           this.fileUploadMessage();
           this.cancelButton();
-          this.loadManagerData();
+          // this.loadManagerData();
         }, 1000);
       },
       header: true,
@@ -320,7 +331,7 @@ export class ManageManagersComponent {
     setTimeout(() => {
       this.updateSuccessMessage();
       this.cancelButton();
-      this.loadManagerData();
+      // this.loadManagerData();
     }, 1000);
   }
   confirmPosition(position: string) {
@@ -376,7 +387,7 @@ export class ManageManagersComponent {
     setTimeout(() => {
       //this.deleteMessage();
       this.selectedDeleteManager = [];
-      this.loadManagerData();
+      // this.loadManagerData();
     }, 1500);
   }
 

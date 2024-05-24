@@ -9,6 +9,10 @@ export interface Candidate{
     candidatePhone : string,
     department : string
 }
+export interface candidateDelete{
+    id:string,
+    candidateEmail:string
+}
 
 export const candidateActions = createActionGroup({
     source : 'candidate',
@@ -19,5 +23,8 @@ export const candidateActions = createActionGroup({
         'Update Candidate' : props<{candidate : Candidate}>(),
         'Update Candidate Success' : props<{candidate : Candidate}>(),
         'Update Candidate Failure' : props<{error : string}>(),
+        'delete Cnadidate':props<{candidateDelete:candidateDelete[]}>(),
+        'delete Cnadidate Success':props<{candidateDelete:candidateDelete[]}>(),
+        'delete Candidate Failure':props<{error:string}>()
     }
 })
