@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Guard/auth.service';
- 
+
 @Component({
   selector: 'app-sidenavbar',
   templateUrl: './sidenavbar.component.html',
@@ -11,15 +11,13 @@ export class SidenavbarComponent {
   userShow: boolean = true;
   questionBankShow: boolean = true;
   systemShow: boolean = true;
+  pcrSchow:boolean=true;
   isSideNavCollapsed: boolean = false;
   activeSection: string = 'home';
   activeSublist: string = '';
   role: string | null = '';
   showSidebar!: boolean;
-  assessmentIconRotated: boolean = false;
-  userIconRotated: boolean= false;
-  questionBankIconRotated: boolean= false;
- 
+
   constructor(private authService: AuthService) {}
   ngOnInit(): void {
     const defaultPage=sessionStorage.getItem("Component-Name")
@@ -27,24 +25,14 @@ export class SidenavbarComponent {
     console.log('defaultPage--',defaultPage);
     this.shouldDisplaySidebar();
   }
-  toggleAssessmentRotation() {
-    this.assessmentIconRotated = !this.assessmentIconRotated;
-  }
- 
-  toggleUserRotation() {
-    this.userIconRotated = !this.userIconRotated;
-  }
- 
-  toggleQuestionBankRotation(){
-    this.questionBankIconRotated= !this.questionBankIconRotated;
-  }
- 
+
   toggleSideNav() {
     this.isSideNavCollapsed = !this.isSideNavCollapsed;
+    
   }
- 
+
   changeStyle(section: any) {
-    const sections = ['home', 'assessment', 'user', 'question_bank', 'system'];
+    const sections = ['home', 'assessment', 'user', 'question_bank','pcr', 'system'];
     sections.forEach((sec) => {
       const element = document.getElementById(sec);
       if (element) {
@@ -59,7 +47,7 @@ export class SidenavbarComponent {
       console.log("Active component", this.activeSection);
     });
   }
- 
+
   changeSublist(sublist: string,section: string) {
     const sublists = [
       'manageSchedule',
@@ -70,6 +58,7 @@ export class SidenavbarComponent {
       'manageQuestions',
       'manageProfile',
       'configuration',
+      'managePCR'
     ];
     sublists.forEach((sub) => {
       const sublistElement = document.getElementById(sub);
@@ -77,17 +66,17 @@ export class SidenavbarComponent {
         sublistElement.classList.remove('active');
       }
     });
- 
+
     const activeSublistElement = document.getElementById(sublist);
     if (activeSublistElement) {
       activeSublistElement.classList.add('active');
     }
- 
+
     this.activeSublist = sublist;
- 
+
     this.changeStyle(section);
   }
- 
+
   changeStyle1() {
     this.assessmentShow = !this.assessmentShow;
   }
@@ -100,6 +89,10 @@ export class SidenavbarComponent {
   changeStyle4() {
     this.systemShow = !this.systemShow;
   }
+  changeStyle5() {
+    this.pcrSchow = !this.pcrSchow;
+  }
+
   shouldDisplaySidebar() {
     this.role = localStorage.getItem('userrole');
     console.log('Role : ', this.role);
