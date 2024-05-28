@@ -79,7 +79,7 @@ console.log("inside sign in")
         console.log(data)
         if (data.status == 200) {
           localStorage.setItem('token', data.token);
-          console.log('Token-', data.token);
+          console.log('Token-', data.token); 
 
           if (data.role == 'manager') {
 
@@ -94,7 +94,7 @@ console.log("inside sign in")
 
             if (this.authService.isAuthenticated()) {
 
-         
+           
               this.router.navigate(['/verifymfa']);
       
             }

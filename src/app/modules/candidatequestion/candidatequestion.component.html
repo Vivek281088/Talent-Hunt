@@ -92,7 +92,7 @@
     <p-chip id="chip-design"> {{ page + 1 }}/{{ totalQuestions }}</p-chip>
 
     <p-button
-      [disable]="page == totalQuestions - 1"
+      [disabled]="page == totalQuestions - 1"
       icon="pi pi-chevron-right"
       label="next"
       iconPos="right"
