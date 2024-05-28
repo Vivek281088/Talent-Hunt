@@ -59,6 +59,7 @@ import { CandidateFeature } from './store/candidate/candidate.selector';
 import { loadCandidate$, updateCandidate$,deleteCandidate$ } from './store/candidate/candidate.effects';
 import { assessmentFeature } from './store/Assessment/assessment.selector';
 import { loadAssessment$, sendAssessments$ } from './store/Assessment/assessment.effects';
+import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-resource-mapping.component';
 
 
 
@@ -99,6 +100,7 @@ import { loadAssessment$, sendAssessments$ } from './store/Assessment/assessment
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
+      PcrResourceMappingComponent,
 
   ],
   imports: [
