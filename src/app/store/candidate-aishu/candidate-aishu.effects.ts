@@ -5,13 +5,6 @@ import { CandidateDetails, manageCandidatesAction } from "./candidate-aishu.acti
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 
 
-
-
-
-
-
-
-
 export const loadCandidateDetails$ = createEffect(
     (action$ = inject(Actions), candidateService = inject(NewScheduleService)) => {
         return action$.pipe(

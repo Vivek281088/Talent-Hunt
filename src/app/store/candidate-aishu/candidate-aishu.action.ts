@@ -11,11 +11,10 @@ export interface CandidateDetails{
 }
 
 export const manageCandidatesAction = createActionGroup({
-
 source: 'candidate details',
 events:{
 'Get Unique Candidate': emptyProps,
 'Get Unique Candidate Success': props<{candidateDetails: CandidateDetails[]}>(),
-'Get Unique Candidate Failure': props<{error : string}>(),
+'Get Unique Candidate Failure': props<{error : string}>()
 }
 })
