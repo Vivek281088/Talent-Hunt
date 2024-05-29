@@ -139,13 +139,13 @@ export class SchedulepageComponent implements OnInit {
       });
   }
   ngOnInit() {
-    this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
+    this.items = [{ label: 'Schedules', routerLink: '/mtalent/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
     this.todayDate = new Date();
     // console.log('Date--------', this.todayDate);
 
-    this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
+    this.home = { icon: 'pi pi-home', routerLink: '/mtalent/thdashboard', label: 'Home' };
 
     this.loadSkills();
     this.loadManagerNames();
@@ -281,7 +281,7 @@ export class SchedulepageComponent implements OnInit {
   this.viewQuestionSidebar = false;
   }
   onViewClick(data: any) {
-    
+
     this.viewQuestionSidebar=true;
     console.log('View Data', data);
     // this.newScheduleService.getIndividualQuestion(data.questions).subscribe((response: any) => {
@@ -313,7 +313,6 @@ export class SchedulepageComponent implements OnInit {
   }
 
   handleEditIconClick(data: any) {
-    // debugger;
     // debugger;
     console.log('getting edit ', data);
     this.Skill = data.Skill;

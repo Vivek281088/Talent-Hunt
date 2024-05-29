@@ -19,11 +19,12 @@ import { ManageCandidatesComponent } from '../manage-candidates/manage-candidate
 import { ManageSkillsComponent } from '../manage-skills/manage-skills.component';
 import { ManagerProfileComponent } from '../manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from '../candidate-profile/candidate-profile.component';
+import { PcrResourceMappingComponent } from '../pcr-resource-mapping/pcr-resource-mapping.component';
 
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
     {path :'' , component:THDashboardComponent},
-   
+
     {path: 'dashboard',component: SchedulepageComponent},
     { path: 'new-schedule', component: NewScheduleComponent },
     { path: 'questiondisplay', component: QuestiondisplayComponent },
@@ -40,6 +41,7 @@ const routes:Routes=[{path:'',component:BodyComponent,
     { path: 'managerProfile', component: ManagerProfileComponent },
     { path: 'candidateProfile', component: CandidateProfileComponent },
     { path: 'thdashboard', component: THDashboardComponent },
+    { path: 'pcr-mapping', component: PcrResourceMappingComponent },
 
   ]
 }]
@@ -49,5 +51,5 @@ const routes:Routes=[{path:'',component:BodyComponent,
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ComponentRoutingModule { 
+export class ComponentRoutingModule {
 }
