@@ -47,6 +47,7 @@ import { zip } from 'rxjs';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
+import { L1screenComponent } from './l1screen/l1screen.component';
 
 
 
@@ -85,6 +86,7 @@ import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
+      L1screenComponent,
 
   ],
   imports: [

@@ -19,11 +19,12 @@ import { ManageCandidatesComponent } from '../manage-candidates/manage-candidate
 import { ManageSkillsComponent } from '../manage-skills/manage-skills.component';
 import { ManagerProfileComponent } from '../manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from '../candidate-profile/candidate-profile.component';
+import { L1screenComponent } from 'src/app/l1screen/l1screen.component';
 
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
     {path :'' , component:THDashboardComponent},
-   
+
     {path: 'dashboard',component: SchedulepageComponent},
     { path: 'new-schedule', component: NewScheduleComponent },
     { path: 'questiondisplay', component: QuestiondisplayComponent },
@@ -40,6 +41,7 @@ const routes:Routes=[{path:'',component:BodyComponent,
     { path: 'managerProfile', component: ManagerProfileComponent },
     { path: 'candidateProfile', component: CandidateProfileComponent },
     { path: 'thdashboard', component: THDashboardComponent },
+    { path:'l1Screen',component:L1screenComponent}
 
   ]
 }]
@@ -49,5 +51,5 @@ const routes:Routes=[{path:'',component:BodyComponent,
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ComponentRoutingModule { 
+export class ComponentRoutingModule {
 }

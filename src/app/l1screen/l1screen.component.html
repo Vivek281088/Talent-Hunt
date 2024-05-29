@@ -1,0 +1,110 @@
+<div class="l1Screen">
+  <div class="l1Screen-header">
+    <div class="l1Screen-header-1">
+      <div class="title">
+        <p>L1 SCREEN</p>
+      </div>
+      <div class="header-breadcrumb">
+        <p-breadcrumb
+          class="BreadCrumb"
+          [model]="items"
+          [style]="{ border: 'none' }"
+        ></p-breadcrumb>
+      </div>
+    </div>
+    <div class="new-schedule-header-2">
+      <div class="date">
+        {{ todayDate | date}}
+      </div>
+    </div>
+  </div>
+
+<div class="card">
+  <p-table
+      #dt2
+      [value]="customers"
+      dataKey="id"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [loading]=""
+      [paginator]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+      [tableStyle]="{ 'min-width': '60rem' }"
+      >
+      <ng-template pTemplate="caption">
+          <div class="flex pl-4">
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+
+                  <i class="pi pi-times"></i>
+                  <input pInputText type="text" (input)="dt2.filterGlobal($event.target, 'contains')" placeholder="Search keyword" />
+                  <!-- <i class="pi pi-times"></i> -->
+              </span>
+          </div>
+          <!-- <div class="ml-3">
+            <button
+              pButton
+              label="Clear Search"
+              class="clear-button cursor-pointer"
+
+            ></button>
+          </div> -->
+      </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+              <th>PCR ID</th>
+              <th>EMP ID</th>
+              <th >SOURCE</th>
+              <th >SCREENING DATE
+
+            </th>
+              <th >L1 PANEL</th>
+              <th >L1 SCHEDULE DATE</th>
+              <th >L1 INTERVIEW STATUS</th>
+              <th >MAIL SEND</th>
+          </tr>
+          <tr>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-customer>
+          <tr>
+              <td>
+                  {{ customer.name }}
+              </td>
+              <td>
+
+                  <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+              </td>
+              <td>
+
+                  <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+              </td>
+              <td>
+                <div  class="calender-field">
+                  <p-calendar [appendTo]="'body'"  [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                </div>
+              </td>
+              <td>
+                  <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
+              </td>
+              <td>
+                {{ customer.name }}
+            </td>
+            <td>
+              {{ customer.name }}
+          </td>
+          <td>
+            {{ customer.name }}
+        </td>
+
+          </tr>
+      </ng-template>
+      <!-- <ng-template pTemplate="emptymessage">
+          <tr>
+              <td colspan="8">No customers found.</td>
+          </tr>
+      </ng-template> -->
+  </p-table>
+</div>
