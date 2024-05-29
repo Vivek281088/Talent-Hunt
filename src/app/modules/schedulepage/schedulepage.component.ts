@@ -139,13 +139,13 @@ export class SchedulepageComponent implements OnInit {
       });
   }
   ngOnInit() {
-    this.items = [{ label: 'Schedules', routerLink: '/dashboard' }];
+    this.items = [{ label: 'Schedules', routerLink: '/mtalent/dashboard' }];
     sessionStorage.setItem('Component-Name', 'assessment'); //for sidebar
 
     this.todayDate = new Date();
     // console.log('Date--------', this.todayDate);
 
-    this.home = { icon: 'pi pi-home', routerLink: '/dashboard', label: 'Home' };
+    this.home = { icon: 'pi pi-home', routerLink: '/mtalent/thdashboard', label: 'Home' };
 
     this.loadSkills();
     this.loadManagerNames();

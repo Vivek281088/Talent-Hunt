@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
- 
+
 import { MenuItem, MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { TableService } from 'src/app/services/table.service';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
- 
+
 @Component({
   selector: 'app-candidate-profile',
   templateUrl: './candidate-profile.component.html',
@@ -20,17 +20,17 @@ export class CandidateProfileComponent {
   editCandidateForm!: FormGroup;
   formSubmitted: boolean = false;
   candidateAssessmentLength:number=0
- 
+
   //schedules
   Tdata: any[] = [];
   globalSearchValue!: string;
   viewQuestionSidebar : boolean=false;
   FinalizedQuestions !:any;
- 
+
   //assessment
   candidateAssessmentData: any[] = [];
   candidateData : any;
- 
+
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
@@ -48,21 +48,21 @@ export class CandidateProfileComponent {
       location: [{value:'',disabled:true}]
     });
   }
- 
+
   ngOnInit(){
- 
+
     this.getCandidateProfileData();
     this.todayDate = this.formattedDate(new Date());
     console.log('Date--------', this.todayDate);
- 
+
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Candidate', routerLink: '/manage-candidates' },
-      { label: 'Candidate Profile', routerLink: '/candidateProfile' },
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'Candidate', routerLink: '/mtalent/manage-candidates' },
+      { label: 'Candidate Profile', routerLink: '/mtalent/candidateProfile' },
     ];
- 
+
   }
- 
+
   formattedDate(date: Date) {
     const months: string[] = [
       'Jan',
@@ -78,12 +78,12 @@ export class CandidateProfileComponent {
       'Nov',
       'Dec',
     ];
- 
+
     const month: string = months[date.getMonth()];
     const day: number = date.getDate();
     const year: number = date.getFullYear();
     const formatDate: string = `${month} ${day}, ${year}`;
- 
+
     return formatDate;
   }
   cancelButton() {
@@ -93,24 +93,24 @@ export class CandidateProfileComponent {
     this.formSubmitted = false;
   }
   updateManager(){
- 
+
 }
 closeManagerProfile() {
   this.router.navigate(['/mtalent/manage-candidates']);
 }
- 
+
 //schedules
- 
- 
+
+
 getFormattedSkills(skills: any): {
   skills: string[];
   remainingCount: number;
 } {
   const maxLength = 16;
- 
+
   let result: string[] = [];
   let totalLength = 0;
- 
+
   for (const skill of skills) {
     if (totalLength + skill.length <= maxLength) {
       result.push(skill);
@@ -120,21 +120,21 @@ getFormattedSkills(skills: any): {
     }
   }
   const remainingCount = skills.length - result.length;
- 
+
   return { skills: result, remainingCount: remainingCount };
 }
 remainaingSkills(skills: any, count: number): string[] {
   return skills.slice(-count);
 }
- 
- 
- 
+
+
+
 //Assessment
 getCandidateProfileData(){
- 
+
   // this.candidateData = this.newScheduleService.getCandidateProfileData();
   // console.log('Get Candidate Data', this.candidateData);
- 
+
   // Set values for the form controls
  this.editCandidateForm.setValue({
    employeeId: sessionStorage.getItem('CandiateProfileId'),
@@ -144,11 +144,11 @@ getCandidateProfileData(){
    department: sessionStorage.getItem('CandiateProfileDepartment'),
    location: sessionStorage.getItem('CandiateProfileLocation'),
  });
- 
+
   console.log('Form Values', this.editCandidateForm.value);
   console.log('Candidate Email--', this.editCandidateForm.value.email);
- 
- 
+
+
   this.managernameService
       .postCandidateEmail(this.editCandidateForm.value.email)
       .subscribe((response) => {
@@ -173,6 +173,5 @@ getResultClass(result: string): string {
     return 'Scheduled';
   }
 }
- 
+
 }
- 

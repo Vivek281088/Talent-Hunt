@@ -77,8 +77,8 @@ export class ManageSkillsComponent {
     this.todayDate = new Date();
     this.getSkillSet();
     this.items = [
-      { label: 'Home', routerLink: '/dashboard', icon: 'pi pi-home' },
-      { label: 'Questions', routerLink: '/manage-skills' },
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'Questions', routerLink: '/mtalent/manage-skills' },
     ];
   }
   clear(table: Table) {
@@ -175,7 +175,7 @@ export class ManageSkillsComponent {
         this.visible = false;
       });
   }
-  
+
   // uploadCsv(event: any) {
   //   const file: File = event.target.files[0];
   //   const value = this.processCsv(file);

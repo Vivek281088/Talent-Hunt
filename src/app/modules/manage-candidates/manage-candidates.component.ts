@@ -32,7 +32,7 @@ export class ManageCandidatesComponent {
   globalSearchValue!: string;
   showUpload: boolean = false;
   uploadedFileData: any;
- 
+
 
   constructor(
     private managerService: ManagernameService,
@@ -69,11 +69,11 @@ export class ManageCandidatesComponent {
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Candidates', routerLink: '/manage-candidates' },
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'Candidates', routerLink: '/mtalent/manage-candidates' },
     ];
   }
-  
+
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
@@ -229,7 +229,7 @@ export class ManageCandidatesComponent {
       }, 1000);
     }
   }
- 
+
   UpdateMessage() {
     this.messageService.add({
       severity: 'success',
