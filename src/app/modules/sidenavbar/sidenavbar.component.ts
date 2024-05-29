@@ -12,6 +12,7 @@ export class SidenavbarComponent {
   questionBankShow: boolean = true;
   systemShow: boolean = true;
   isSideNavCollapsed: boolean = false;
+  pcrSchow:boolean=true;
   activeSection: string = 'home';
   activeSublist: string = '';
   role: string | null = '';
@@ -44,7 +45,7 @@ export class SidenavbarComponent {
   }
  
   changeStyle(section: any) {
-    const sections = ['home', 'assessment', 'user', 'question_bank', 'system'];
+    const sections = ['home', 'assessment', 'user', 'question_bank','pcr', 'system'];
     sections.forEach((sec) => {
       const element = document.getElementById(sec);
       if (element) {
@@ -70,6 +71,7 @@ export class SidenavbarComponent {
       'manageQuestions',
       'manageProfile',
       'configuration',
+      'managePCR'
     ];
     sublists.forEach((sub) => {
       const sublistElement = document.getElementById(sub);
@@ -99,6 +101,9 @@ export class SidenavbarComponent {
   }
   changeStyle4() {
     this.systemShow = !this.systemShow;
+  }
+  changeStyle5() {
+    this.pcrSchow = !this.pcrSchow;
   }
   shouldDisplaySidebar() {
     this.role = localStorage.getItem('userrole');

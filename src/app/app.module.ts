@@ -55,6 +55,7 @@ import { addSchedule$, deleteSchedule$, loadSchedule$ } from './store/schedule/s
 import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
 import { AddCandidate$, deleteCandidate$, loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { CandidateFeature } from './store/candidate/candidate.selector';
+import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
 
 
 
@@ -93,6 +94,7 @@ import { CandidateFeature } from './store/candidate/candidate.selector';
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
+      ManagePcrComponent
 
   ],
   imports: [
