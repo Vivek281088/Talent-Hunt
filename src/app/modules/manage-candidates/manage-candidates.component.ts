@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
@@ -9,6 +9,10 @@ import { saveAs } from 'file-saver';
 import { response } from 'express';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
+import { checkCandidateAddStaus, checkCandidateDeleteStaus, getCandidate, getCandidateError } from 'src/app/store/candidate/candidate.selector';
+import { Observable, Subject, Subscription, debounceTime, skip, switchMap, take, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-manage-candidates',
@@ -16,7 +20,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./manage-candidates.component.scss'],
   providers: [MessageService],
 })
-export class ManageCandidatesComponent {
+export class ManageCandidatesComponent implements OnDestroy{
+  private submit$ =new Subject<void>();
   items: MenuItem[] | undefined;
   todayDate!: Date;
   managerData: any;
@@ -32,6 +37,9 @@ export class ManageCandidatesComponent {
   globalSearchValue!: string;
   showUpload: boolean = false;
   uploadedFileData: any;
+  error$!: Observable<string>;
+  candidates$!: Observable<Candidate[]>;
+  private errorSubscription!: Subscription;
  
 
   constructor(
@@ -39,7 +47,8 @@ export class ManageCandidatesComponent {
     private fb: FormBuilder,
     private messageService: MessageService,
     private newScheduleService: NewScheduleService,
-    private router: Router
+    private router: Router,
+    private store : Store
   ) {
     this.addCandidateForm = this.fb.group({
       empid: [null, [Validators.required,Validators.minLength(6)]],
@@ -49,15 +58,36 @@ export class ManageCandidatesComponent {
       location: [''],
       department: ['',[Validators.required,Validators.minLength(3)]],
     });
+    this.error$ = this.store.select(getCandidateError);
+    this.candidates$ = this.store.select(getCandidate);
+    this.multiClickPreventSetUp();
+  }
+  ngOnDestroy(): void {
+    this.submit$.complete()
+    this.errorSubscription ? this.errorSubscription.unsubscribe() : null 
   }
   ngOnInit() {
+    this.store.dispatch(candidateActions.getCandidate());
+    this.candidates$.subscribe((candidates) => 
+      this.candidateData = candidates
+  )
+    //  this.errorSubscription = this.error$.subscribe(error =>{
+    //      if (error) {
+    //     console.log('Mail already exists',error);
+    //       this.messageService.add({
+    //         severity: 'error',
+    //         summary: error,
+    //         detail: 'Check Employee ID or Email !',
+    //       });
+    //     this.cancelButton();
+    //     this.store.dispatch(candidateActions.clearCandidateError())
+    //   }
+    // })
     sessionStorage.setItem('Component-Name', 'user');
-    this.getUniqueCandidatedata();
     this.managerService.getclientManagerData().subscribe((response) => {
-      console.log('Client Manager Details', response);
-      this.managerData = response;
-
-      this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
+    console.log('Client Manager Details', response);
+    this.managerData = response;
+    this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
       console.log('Unique Department', this.uniqueDepartment);
     });
 
@@ -78,16 +108,16 @@ export class ManageCandidatesComponent {
     table.clear();
     this.globalSearchValue = '';
   }
-  getUniqueCandidatedata() {
-    this.newScheduleService
-      .getUniqueCandidateDetails()
-      .subscribe((response) => {
-        this.candidateData = response.filter(
-          (candidate: any) => candidate !== null
-        );
-        console.log('Candidate Data', this.candidateData);
-      });
-  }
+  // getUniqueCandidatedata() {
+  //   this.newScheduleService
+  //     .getUniqueCandidateDetails()
+  //     .subscribe((response) => {
+  //       this.candidateData = response.filter(
+  //         (candidate: any) => candidate !== null
+  //       );
+  //       console.log('Candidate Data', this.candidateData);
+  //     });
+  // }
 
   getUniqueDepartments(data: any[]): any[] {
     const uniqueDepartments = Array.from(
@@ -157,42 +187,61 @@ export class ManageCandidatesComponent {
       detail: 'Check Employee ID or Email !',
     });
   }
-
+  saveCandidateSub(){
+    this.submit$.next()
+  }
   saveCandidate() {
     this.formSubmitted = true;
 
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
-
-      this.managerService
-        .addCandidate(
-          formData.candidateName,
-          formData.email,
-          formData.phone,
-          formData.empid,
-          formData?.department,
-          formData?.location
-        )
-        .subscribe({
-          next: (x) => {
-            setTimeout(() => {
-              this.addSuccessMessage();
-              this.cancelButton();
-              this.getUniqueCandidatedata();
-            }, 1000);
-          },
-          error : (err) =>{
-            setTimeout(() => {
-              this.IdExistError();
-              console.log('Mail already exists');
-              this.cancelButton();
-            }, 500);
-          }
-        }
-        );
-
+      const candidate : Candidate = {
+        id: '',
+        empid:  formData.empid,
+        candidateEmail: formData.email,
+        candidate_location: formData?.location,
+        candidateName:  formData.candidateName,
+        candidatePhone: formData.phone,
+        department: formData?.department
+      }
+      this.store.dispatch(candidateActions.addCandidate({candidate}))
     }
+  }
+  multiClickPreventSetUp(){
+    this.submit$.pipe(
+      debounceTime(800),
+      tap((candidate) => console.log("asfhbahvbva",candidate)),
+      switchMap(() => {
+        this.saveCandidate();
+        return this.store.pipe(select(checkCandidateAddStaus), skip(1),takeUntil(this.submit$));
+      })
+    ).subscribe(status => {
+      if (status) {
+        console.log("astatu s s " , status)
+        this.addSuccessMessage();
+        this.cancelButton();
+        this.store.dispatch(candidateActions.clearNewcandidate());
+      }
+    });
+    this.submit$.pipe(
+      debounceTime(800),
+      tap((candidate) => console.log("asfhbahvbva",candidate)),
+      switchMap(() => {
+        return this.store.pipe(select(getCandidateError), skip(1),takeUntil(this.submit$));
+      })
+    ).subscribe(error => {
+      if (error) {
+        console.log('Mail already exists', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: error,
+          detail: 'Check Employee ID or Email!',
+        });
+        this.cancelButton();
+        this.store.dispatch(candidateActions.clearCandidateError());
+      }
+    });
   }
 
   downloadCsvTemplate() {
@@ -202,30 +251,37 @@ export class ManageCandidatesComponent {
   }
 
   updateCandidate() {
-    console.log('Updating.....');
     this.formSubmitted = true;
-
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
-
-      this.managerService
-        .updateCandidate(
-          formData.candidateName,
-          formData.email,
-          formData.phone,
-          formData.empid,
-          formData?.department,
-          formData?.location
-        )
-        .subscribe((response) => {
-          console.log('Candidate Updated....');
-        });
+      const candidate : Candidate= {
+          id : "",
+          candidateName : formData.candidateName,
+          candidateEmail : formData.email,
+          candidatePhone : formData.phone,
+          empid : formData.empid,
+          department : formData?.department,
+          candidate_location : formData?.location
+      }
+      this.store.dispatch(candidateActions.updateCandidate({candidate}))
+      // this.managerService
+      //   .updateCandidate(
+      //     formData.candidateName,
+      //     formData.email,
+      //     formData.phone,
+      //     formData.empid,
+      //     formData?.department,
+      //     formData?.location
+      //   )
+      //   .subscribe((response) => {
+      //     console.log('Candidate Updated....');
+      //   });
 
       setTimeout(() => {
         this.UpdateMessage();
         this.cancelButton();
-        this.getUniqueCandidatedata();
+       // this.getUniqueCandidatedata();
       }, 1000);
     }
   }
@@ -300,7 +356,7 @@ export class ManageCandidatesComponent {
         setTimeout(() => {
           this.fileUploadMessage();
           this.cancelButton();
-          this.getUniqueCandidatedata();
+          // this.getUniqueCandidatedata();
         }, 1000);
       },
       header: true,
@@ -322,18 +378,13 @@ export class ManageCandidatesComponent {
   selectedDeleteCandidate: any;
   deleteCandidate() {
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
-    for (let candidateData of this.selectedDeleteCandidate) {
-      this.managerService
-        .deleteCandidate(candidateData.id,candidateData.candidateEmail)
-        .subscribe((response) => {
-          console.log('Deleted Candidate.....', candidateData.candidateName);
-        });
-    }
-
+    const candidates = this.selectedDeleteCandidate.map((candidate: { id: string , candidateEmail :string }) => ({id : candidate.id , candidateEmail : candidate.candidateEmail}))
+    console.log("candidates to be deleted" , candidates)
+    this.store.dispatch(candidateActions.deleteCandidates({candidates}))
     setTimeout(() => {
       this.deleteMessage();
       this.selectedDeleteCandidate = [];
-      this.getUniqueCandidatedata();
+      // this.getUniqueCandidatedata();
     }, 1500);
   }
 
