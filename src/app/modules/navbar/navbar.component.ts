@@ -6,6 +6,7 @@ import { CandidateAssessmentService } from 'src/app/services/candidate-assessmen
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification.service';
 import { Receiver } from '../new-schedule/new-schedule.component';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
  
 @Component({
   selector: 'app-navbar',
@@ -41,7 +42,8 @@ export class NavbarComponent {
     private managernameService: ManagernameService,
     private candidateService: CandidateAssessmentService,
     private router : Router,
-    private notificationService : NotificationService
+    private notificationService : NotificationService,
+    public loaderService : LoaderService
   ) {}
   ngOnInit(): void {
 

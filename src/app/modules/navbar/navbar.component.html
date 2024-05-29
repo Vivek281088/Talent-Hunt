@@ -389,4 +389,8 @@
       </p-overlay>
     </div>
   </div>
+ 
+</div>
+<div *ngIf="loaderService.isLoading | async" class="loader-container">
+  <p-progressBar mode="indeterminate" [style]="{'height': '6px'}"></p-progressBar>
 </div>
