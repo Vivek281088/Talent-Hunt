@@ -8,16 +8,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./pcr-manage.component.scss']
 })
 export class PcrManageComponent {
-  items:MenuItem[] | undefined;
-  constructor(private route:Router){
+  // items:MenuItem[] | undefined;
+  // todayDate!: Date;
+  // pcrData:any;
+  // constructor(private route:Router){
 
-  }
+  // }
+  
+//   ngOnInit(){
+//     this.todayDate = new Date();
+//     this.items=[
+//       {label:'Home',routerLink:'/login',icon:'pi-pi-home'},
+//       {label:'PCR',routerLink:'/manage-pcr'}
+//     ]
 
-  ngOnInit(){
-    this.items=[
-      {label:'Home',routerLink:'/login',icon:'pi-pi-home'},
-      {label:'PCR',routerLink:'/manage-pcr'}
-    ]
-
-}
+// }
 }

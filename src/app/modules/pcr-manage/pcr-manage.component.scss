@@ -1,0 +1,68 @@
+// @import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+// .managePCR {
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//     padding: 1.5%;
+//     @media (max-width: 768px) {
+//         .managePCR {
+//           padding: 1%;
+//         }
+//       }
+  
+//     ::ng-deep {
+//       .p-datatable .p-sortable-column .p-sortable-column-icon {
+//         color: #1666dc;
+//       }
+//       .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
+//         color: #1666dc;
+//       }
+//       .p-datatable .p-datatable-tbody > tr > td {
+//         font-family: "Roboto";
+//         color: #000000de;
+//         font-size: 14px;
+//         font-weight: 400;
+//       }
+//       .p-datatable .p-datatable-thead > tr > th {
+//         background: white;
+//       }
+//       .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+//         border-color: #652d90;
+//         color: #652d90;
+//       }
+//       .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+//         font-family: "Roboto", sans-serif;
+//         font-size: 14px;
+//       }
+//       .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+//         box-shadow: none;
+//       }
+//       .p-datatable .p-datatable-thead > tr > th {
+//         padding: 1rem 1rem 1rem 1rem;
+//       }
+//     }
+//   }
+
+//   .managePCR-header{
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     padding-bottom: 1.5%;
+//     @media (max-width: 768px) {
+//         .manageheader {
+//           flex-direction: column;
+//           padding-bottom: 1%;
+//         }
+//     }
+// .managePcrTable{
+//   ::ng-deep {
+//     .p-datatable {
+//       position: relative;
+//       border: 1px solid #0000001f;
+//       border-radius: 8px;
+//     }
+//   }
+//   }
+//   }
