@@ -389,23 +389,19 @@
   }
   }
 }
-::ng-deep .p-badge-no-gutter {
-  color: #00000099;
-}
 
-::ng-deep .p-badge {
-  //styleName: Body 2;
-  font-family: "Roboto", sans-serif;
-  font-size: 12px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 16px;
-  letter-spacing: 0.25px;
-  text-align: left;
-  color: #00000099;
-  background: transparent;
-}
-
+// ::ng-deep .p-badge {
+//   //styleName: Body 2;
+//   font-family: "Roboto", sans-serif;
+//   font-size: 12px;
+//   font-size: 14px;
+//   font-weight: 400;
+//   line-height: 16px;
+//   letter-spacing: 0.25px;
+//   text-align: left;
+//   color: #00000099;
+//   background: transparent;
+// }
 ::ng-deep .p-breadcrumb {
   border: none;
   background: #fafafa;
@@ -903,16 +899,20 @@
 
 
 .custom-file-input {
-  border: 1px solid #652d90;
   border-radius: 8px;
-  padding: 1.5% 1% 1.5% 2%;
+ padding: 9px 20px;
   height: fit-content;
-  background: #652d90;
-  color: white;
-  font-weight: 700;
-  cursor: pointer;
+ font-weight: 500;
+ font-size: 14px;
+ color: #ffffff;
+  border: 1px solid #652d90;
+ outline: none;
+ cursor: pointer;
+ overflow: hidden;
+ position: relative;
+ background: #652d90;
+ text-align: center;
 }
-// }
 
 .design {
   width: Fill (705px);

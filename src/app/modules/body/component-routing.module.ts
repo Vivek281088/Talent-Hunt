@@ -24,8 +24,7 @@ import { ManagePCRComponent } from '../manage-pcr/manage-pcr.component';
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
     {path :'' , component:THDashboardComponent},
-    { path: 'candidatequestion', component: CandidatequestionComponent },
-    { path: 'create', component: Dash1Component },
+   
     {path: 'dashboard',component: SchedulepageComponent},
     { path: 'new-schedule', component: NewScheduleComponent },
     { path: 'questiondisplay', component: QuestiondisplayComponent },

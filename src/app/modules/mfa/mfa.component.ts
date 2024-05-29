@@ -28,6 +28,8 @@ export class MFAComponent implements OnInit{
   visible: boolean = true;
   token !:string;
   Resetdata:any;
+  showErrorMessage: boolean = false;
+
   emailId:any;
   constructor(private http : HttpClient,private dataService:DataService,private router:Router,private messageservice:MessageService,private route:ActivatedRoute){
     
@@ -61,11 +63,7 @@ export class MFAComponent implements OnInit{
         else{
 console.log("entered else")
 
-          this.messageservice.add({
-            severity: 'error',
-            summary: 'Please Enter Valid OTP',
-            detail: '',
-          });
+this.showErrorMessage = true;
           
           return;
         }
@@ -75,9 +73,10 @@ console.log("entered else")
     }
   }
   onEnterKey(){
-    
-    
-
     this.verify();
+  }
+
+  closeDialog(){
+    this.router.navigate(['/login']);
   }
 }
