@@ -19,6 +19,7 @@ import { ManageCandidatesComponent } from '../manage-candidates/manage-candidate
 import { ManageSkillsComponent } from '../manage-skills/manage-skills.component';
 import { ManagerProfileComponent } from '../manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from '../candidate-profile/candidate-profile.component';
+import { PcrDetailsComponent } from '../pcr-details/pcr-details.component';
 
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
@@ -40,6 +41,7 @@ const routes:Routes=[{path:'',component:BodyComponent,
     { path: 'managerProfile', component: ManagerProfileComponent },
     { path: 'candidateProfile', component: CandidateProfileComponent },
     { path: 'thdashboard', component: THDashboardComponent },
+    {path : 'pcrdetails' , component : PcrDetailsComponent},
 
   ]
 }]
