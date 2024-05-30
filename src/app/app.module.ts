@@ -48,6 +48,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
 import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-resource-mapping.component';
+import { ResourceComponent } from './modules/resource/resource.component';
 
 
 
@@ -87,6 +88,7 @@ import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-
       NameInputDirective,
       AllowDigitsDirective,
       PcrResourceMappingComponent,
+      ResourceComponent
 
   ],
   imports: [

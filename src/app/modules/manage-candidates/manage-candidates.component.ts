@@ -1,15 +1,14 @@
+
 import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { response } from 'express';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-manage-candidates',
   templateUrl: './manage-candidates.component.html',
@@ -33,7 +32,6 @@ export class ManageCandidatesComponent {
   showUpload: boolean = false;
   uploadedFileData: any;
 
-
   constructor(
     private managerService: ManagernameService,
     private fb: FormBuilder,
@@ -56,24 +54,20 @@ export class ManageCandidatesComponent {
     this.managerService.getclientManagerData().subscribe((response) => {
       console.log('Client Manager Details', response);
       this.managerData = response;
-
       this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
       console.log('Unique Department', this.uniqueDepartment);
     });
-
     this.managerService.getclientManagerName().subscribe((response) => {
       console.log('Client Manager Names-->', response);
       this.managerNames = response;
     });
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
-
     this.items = [
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
       { label: 'Candidates', routerLink: '/mtalent/manage-candidates' },
     ];
   }
-
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
@@ -88,7 +82,6 @@ export class ManageCandidatesComponent {
         console.log('Candidate Data', this.candidateData);
       });
   }
-
   getUniqueDepartments(data: any[]): any[] {
     const uniqueDepartments = Array.from(
       new Set(data.map((item) => item.department))
@@ -105,10 +98,8 @@ export class ManageCandidatesComponent {
     this.isEditCandidate = true;
     this.isAddCandidate = false;
     this.editCandidatevisible = true;
-
     this.selectedRowData = data;
     console.log(' Selected Edit Data', this.selectedRowData);
-
     this.populateFormControls();
   }
   populateFormControls() {
@@ -123,17 +114,14 @@ export class ManageCandidatesComponent {
       });
     }
     console.log('Edit Data', this.addCandidateForm);
-
     // this.formSubmitted = true;
   }
   onViewClick(data: any) {}
-
   addCandidate() {
     this.isAddCandidate = true;
     this.isEditCandidate = false;
     this.addCandidatevisible = true;
   }
-
   cancelButton() {
     this.addCandidatevisible = false;
     this.editCandidatevisible = false;
@@ -157,14 +145,11 @@ export class ManageCandidatesComponent {
       detail: 'Check Employee ID or Email !',
     });
   }
-
   saveCandidate() {
     this.formSubmitted = true;
-
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
-
       this.managerService
         .addCandidate(
           formData.candidateName,
@@ -191,24 +176,19 @@ export class ManageCandidatesComponent {
           }
         }
         );
-
     }
   }
-
   downloadCsvTemplate() {
     const csvTemplate = `empid,candidateName,email,phone,Location,Department\n`;
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'Candidate-template.csv');
   }
-
   updateCandidate() {
     console.log('Updating.....');
     this.formSubmitted = true;
-
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
-
       this.managerService
         .updateCandidate(
           formData.candidateName,
@@ -221,7 +201,6 @@ export class ManageCandidatesComponent {
         .subscribe((response) => {
           console.log('Candidate Updated....');
         });
-
       setTimeout(() => {
         this.UpdateMessage();
         this.cancelButton();
@@ -229,7 +208,6 @@ export class ManageCandidatesComponent {
       }, 1000);
     }
   }
-
   UpdateMessage() {
     this.messageService.add({
       severity: 'success',
@@ -237,7 +215,6 @@ export class ManageCandidatesComponent {
       detail: 'Candidate updated successfully',
     });
   }
-
   fileUploadMessage() {
     this.messageService.add({
       severity: 'success',
@@ -252,38 +229,31 @@ export class ManageCandidatesComponent {
       detail: 'File is Empty',
     });
   }
-
   uploadCsv(event: any) {
     const file: File = event.target.files[0];
-
     if (file) {
       const reader: FileReader = new FileReader();
       reader.onload = () => {
         const csvData: string = reader.result as string;
         this.processCsvData(csvData);
       };
-
       reader.readAsText(file);
     }
   }
-
   processCsvData(csvData: string) {
     Papa.parse(csvData, {
       complete: (result: { data: any }) => {
         const csvRows = result.data.filter((row: { [row: string]: string }) =>
           Object.keys(row).some((key) => row[key] !== '')
         );
-
         if (csvRows.length === 0) {
           this.fileUploadErrorMessage();
           this.cancelButton();
           return;
         }
         console.log('CSV Data:', csvRows);
-
         for (let data of csvRows) {
           console.log('Csv File datum--', data);
-
           this.managerService
             .addCandidate(
               data.candidateName,
@@ -306,7 +276,6 @@ export class ManageCandidatesComponent {
       header: true,
     });
   }
-
   gotoCandidateProfile(data: any) {
     console.log('Candidate data', data);
     // this.newScheduleService.setCandidateProfileData(data);
@@ -318,7 +287,6 @@ export class ManageCandidatesComponent {
     sessionStorage.setItem('CandiateProfileLocation', data.candidate_location);
     this.router.navigate(['/mtalent/candidateProfile']);
   }
-
   selectedDeleteCandidate: any;
   deleteCandidate() {
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
@@ -329,14 +297,12 @@ export class ManageCandidatesComponent {
           console.log('Deleted Candidate.....', candidateData.candidateName);
         });
     }
-
     setTimeout(() => {
       this.deleteMessage();
       this.selectedDeleteCandidate = [];
       this.getUniqueCandidatedata();
     }, 1500);
   }
-
   deleteMessage() {
     this.messageService.add({
       severity: 'success',
@@ -344,13 +310,11 @@ export class ManageCandidatesComponent {
       detail: 'Candidate Deleted successfully',
     });
   }
-
   toggleSelection(data: any) {
     if (!data || !data.empid) {
       return;
     }
     data.selection = !data.selection;
-
     if (data.selection) {
       console.log('Selected Candidate:', this.selectedDeleteCandidate);
     } else {

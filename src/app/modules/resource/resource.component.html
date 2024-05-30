@@ -1,0 +1,125 @@
+<div class="mappingPage">
+    <div class="mappingPage-header">
+      <div class="mappingPage-header-1">
+        <div class="title">
+          <p>Manage Candidates</p>
+        </div>
+        <div class="header-breadcrumb">
+          <p-breadcrumb
+            class="BreadCrumb"
+            [model]="items"
+            [style]="{ border: 'none' }"
+          ></p-breadcrumb>
+        </div>
+      </div>
+      <div class="mappingPage-header-2">
+        <div class="date">
+          {{ todayDate | date }}
+        </div>
+      </div>
+    </div>
+    <div class="mappingTable">
+      <p-table
+        #dt2
+        dataKey="id"
+        [rows]="5"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[5, 10, 25, 50]"
+        [loading]=""
+        [paginator]="true"
+        dataKey="empid"
+       
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [globalFilterFields]="[
+          'managerName',
+          'department',
+          'email',
+          'empid',
+          'managerLocation'
+        ]"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th colspan="13">
+              <div class="mappingPage-header">
+                <div class="mappingPage-header1">
+                  <div class="p-input-icon-right">
+                    <i class="pi pi-search"></i>
+                    <input
+                      class="searchIcon"
+                      pInputText
+                      type="text"
+                      [(ngModel)]="globalSearchValue"
+                      (input)="
+                        dt2.filterGlobal($any($event.target).value, 'contains')
+                      "
+                      placeholder="Search"
+                    />
+                  </div>
+  
+                  <div class="ml-3">
+                    <button
+                      pButton
+                      label="Clear Search"
+                      class="clear-button cursor-pointer"
+                      (click)="clear(dt2)"
+                    ></button>
+                  </div>
+                </div>
+                <div class="mapPcr">
+                  <button pButton label="Add Candidate"></button>
+                </div>
+                <div class="mapPcr">
+                  <button pButton label="Delete Candidate"></button>
+                </div>
+              </div>
+            </th>
+          </tr>
+  
+          <tr>
+            <th style="width: 4rem" >
+              <p-tableHeaderCheckbox [value]=""></p-tableHeaderCheckbox>
+            </th>
+            <th class="customId">Candidate ID</th>
+            <th class="customId" >Candidate Name</th>
+            <th>Role</th>
+            <th>Skill Set</th>
+            <th>Experience</th>
+            <th>Location</th>
+            <th>Source</th>
+            <th>SPOC</th>
+          </tr>
+        </ng-template>
+        <ng-template
+          pTemplate="body"
+          let-rowData
+          let-i="rowIndex"
+          class="tableBody"
+        >
+          <tr>
+            <!-- <td>
+              <p-tableCheckbox
+                [value]="rowData"
+                [checked]="rowData.selection"
+              ></p-tableCheckbox>
+            </td> -->
+           
+            <td>{{candidateId}}</td>
+            <td>{{candidateName}}</td>
+            <td>{{role}}</td>
+            <td>{{skillSet}}</td>
+            <td>{{experience}}</td>
+            <td>{{source}}</td>
+            <td>{{spoc}}</td>
+            <td>{{location}}</td>
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="10">No Data found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>

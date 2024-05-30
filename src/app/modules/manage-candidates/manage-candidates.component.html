@@ -1,3 +1,4 @@
+
 <div class="manageManagers">
   <div class="manageManagers-header">
     <div class="manageManagers-header-1">
@@ -18,7 +19,6 @@
       </div>
     </div>
   </div>
-
   <div class="managerTable">
     <p-table
       #dt2
@@ -59,7 +59,6 @@
                     placeholder="Search"
                   />
                 </div>
-
                 <!-- <div class="deptMultiselect">
                   <p-columnFilter
                     field="department"
@@ -86,7 +85,6 @@
                     </ng-template>
                   </p-columnFilter>
                 </div> -->
-
                 <!-- <div class="deptMultiselect">
                     <p-columnFilter
                       field="location"
@@ -115,7 +113,6 @@
                       </ng-template>
                     </p-columnFilter>
                   </div> -->
-
                 <div class="ml-3">
                   <button
                     pButton
@@ -130,13 +127,11 @@
                   <p-button label="Add candidate" (onClick)="addCandidate()">
                   </p-button>
                 </div>
-
                 <div class="addcandidate">
                   <p-button
                   [disabled]="!selectedDeleteCandidate || selectedDeleteCandidate.length==0"
                     label="Delete candidate"
                     (onClick)="deleteCandidate()"
-
                   >
                   </p-button>
                 </div>
@@ -144,7 +139,6 @@
             </div>
           </th>
         </tr>
-
         <tr>
           <th style="width: 4rem">
             <p-tableHeaderCheckbox [value]="candidateData" (click)="selectAll()"></p-tableHeaderCheckbox>
@@ -196,7 +190,6 @@
                   />
                 </svg>
               </a>
-
               <!-- <a
                 [class.disabled]="!rowData.isMail"
                 title="View"
@@ -221,13 +214,12 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="8">No Data found.</td>
+          <td colspan="8">No Candidate found.</td>
         </tr>
       </ng-template>
     </p-table>
   </div>
 </div>
-
 <p-toast></p-toast>
 <div class="newSchedule-Dialog">
   <p-dialog
@@ -255,7 +247,6 @@
               pInputText
                 formControlName="empid"
                 appAllowDigits ="8"
-
               >
               <div
                 *ngIf="
@@ -278,7 +269,6 @@
               </div>
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label>Candidate Name</label>
@@ -312,7 +302,6 @@
               </div>
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label>Email</label>
@@ -341,7 +330,6 @@
               </div>
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label> Phone No</label>
@@ -368,7 +356,6 @@
               </div>
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label>Location</label>
@@ -377,18 +364,15 @@
               <input type="text" formControlName="location" pInputText />
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label>Department</label>
             </div>
             <div class="value">
               <input type="text" formControlName="department" pInputText />
-
             </div>
           </div>
         </div>
-
         <ng-template pTemplate="footer">
           <div class="tabview-button">
             <div class="Cancelbutton">
@@ -409,7 +393,6 @@
           </div>
         </ng-template>
       </p-tabPanel>
-
       <p-tabPanel header="Add Multiple Candidate">
         <div class="quiz-instruction">
           <p class="instruction">Upload Candidate Instructions</p>
@@ -427,7 +410,6 @@
             </li>
           </ul>
         </div>
-
         <ng-template pTemplate="footer">
           <div class="tabview-button-upload">
             <div class="Cancelbutton">
@@ -438,7 +420,6 @@
               >
               </p-button>
             </div>
-
             <label class="custom-file-input" *ngIf="isAddCandidate">
               Upload File
               <input
@@ -447,7 +428,6 @@
                 style="display: none"
               /> </label
             >`
-
             <div class="Createbutton" *ngIf="isAddCandidate">
               <p-button
                 label="Download Template"
@@ -460,7 +440,6 @@
     </p-tabView>
   </p-dialog>
 </div>
-
 <p-toast></p-toast>
 <div class="newSchedule-Dialog">
   <p-dialog
@@ -489,7 +468,6 @@
               </p-inputNumber>
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label>Candidate Name</label>
@@ -515,7 +493,6 @@
               </div>
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label>Email</label>
@@ -538,7 +515,6 @@
               </div>
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label> Phone No</label>
@@ -567,7 +543,6 @@
               </div>
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label>Location</label>
@@ -576,7 +551,6 @@
               <input type="text" formControlName="location" pInputText />
             </div>
           </div>
-
           <div class="labelvalue">
             <div class="label">
               <label>department</label>
@@ -586,7 +560,6 @@
             </div>
           </div>
         </div>
-
         <ng-template pTemplate="footer">
           <div class="Newschedule-button">
             <div class="Cancelbutton">
