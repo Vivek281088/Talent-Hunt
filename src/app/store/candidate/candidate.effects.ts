@@ -2,8 +2,9 @@ import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { NewScheduleService } from "src/app/services/new-schedule.service";
 import { Candidate, candidateActions } from "./candidate.action";
-import { catchError, exhaustMap, map, of, tap } from "rxjs";
+import { catchError, debounceTime, exhaustMap, map, of, switchMap, tap } from "rxjs";
 import { ManagernameService } from "src/app/services/managername.service";
+import { ToastMessageService } from "src/app/services/toast-message.service";
 
 export const loadCandidate$ = createEffect(
 (action$ = inject(Actions) , candidateService = inject(NewScheduleService)) => {
@@ -40,19 +41,26 @@ export const updateCandidate$ = createEffect(
     },{functional:true}
 )
 
-export const deleteCandidate$ = createEffect(
-  (action$ = inject(Actions) , deleteService = inject(ManagernameService)) =>{
-      return action$.pipe(
-          ofType(candidateActions.deleteCandidate),
-          exhaustMap((candidate) =>
-            deleteService.deleteCandidates(candidate.deleteCandidate).pipe(
-                      tap(candidate => console.log(candidate)),
-                      map((deleteCandidate) => candidateActions.deleteCandidateSuccess({deleteCandidate})),
-                      catchError((error : {message : string}) =>
-                          of(candidateActions.deleteCandidateFailure({error: error.message}))
-                      )
-                  )
-          )
-      )
-  },{functional:true}
+
+export const AddCandidate$ = createEffect(
+    (action$ = inject(Actions) , candidateService = inject(ManagernameService) , messageService = inject(ToastMessageService))  =>{
+        return action$.pipe(
+            ofType(candidateActions.addCandidate),
+            switchMap((candidate) =>
+                candidateService.addNewCandidate(candidate.candidate).pipe(
+                    tap((candidate) =>{
+                        console.log("add cadidate.................." , candidate);
+                    }),
+                    map((candidate) => candidateActions.addCandidateSuccess({candidate})),
+                    catchError((error) => {
+                        console.log(error)
+                        return of(candidateActions.addCandidateFailure({error : error.error}))
+                    } )
+                )
+            )
+        )
+    },
+    {functional:true}
 )
+
+
