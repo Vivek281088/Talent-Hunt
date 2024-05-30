@@ -21,6 +21,8 @@ import { ManagerProfileComponent } from '../manager-profile/manager-profile.comp
 import { CandidateProfileComponent } from '../candidate-profile/candidate-profile.component';
 import { PcrResourceMappingComponent } from '../pcr-resource-mapping/pcr-resource-mapping.component';
 import { ResourceComponent } from '../resource/resource.component';
+import { PcrDetailsComponent } from '../pcr-details/pcr-details.component';
+
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
     {path :'' , component:THDashboardComponent},
@@ -43,6 +45,7 @@ const routes:Routes=[{path:'',component:BodyComponent,
     { path: 'thdashboard', component: THDashboardComponent },
     { path: 'pcr-mapping', component: PcrResourceMappingComponent },
     { path: 'resource', component:ResourceComponent}
+    {path : 'pcrdetails' , component : PcrDetailsComponent},
 
   ]
 }]
