@@ -17,6 +17,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { NotificationService } from 'src/app/services/notification.service';
+import { Store } from '@ngrx/store';
+import { Schedule, ScheduleActions } from 'src/app/store/schedule/schedule.action';
 
 export class CNotification {
   sender!: string;
@@ -103,6 +105,7 @@ editvisible: boolean =false;
     private router: Router,
     private notificationService: NotificationService,
     private fb: FormBuilder,
+    private readonly store : Store
 
   ) {
     const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
@@ -119,6 +122,8 @@ editvisible: boolean =false;
         ]
       ],
 
+
+
       managerName: [
       '',
         [
@@ -127,6 +132,8 @@ editvisible: boolean =false;
           this.minLengthValidator(6),
         ],
       ],
+
+
 
     })
     this.updateNewScheduleForm = this.fb.group({
@@ -381,6 +388,8 @@ editvisible: boolean =false;
       };
       console.log('response', dataToSave);
 
+      this.store.dispatch(ScheduleActions.updateSchedule({schedule : newSch}))
+
       // this.skillsdropdownservice
       //   .postNewSchedule(dataToSave)
       //   .subscribe((response) => {
@@ -389,16 +398,9 @@ editvisible: boolean =false;
       //       this.router.navigate(['/dashboard']);
       //     }, 1500);
 
+
+
       //   });
-      this.skillsdropdownservice
-        .postNewSchedule(dataToSave)
-        .subscribe((response) => {
-          console.log('Questions', response);
-          setTimeout(() => {
-            this.router.navigate(['/mtalent/dashboard']);
-            window.location.reload();
-          }, 50);
-        });
     } catch (error) {
       console.error(error);
     }
@@ -406,6 +408,8 @@ editvisible: boolean =false;
     // Notification
 
     this.router.navigate(['/mtalent/dashboard']);
+
+
     const managerId = sessionStorage.getItem('loginManagerId');
 
     console.log('managerid', managerId);
@@ -435,6 +439,8 @@ editvisible: boolean =false;
             `${notification.sender}has sended message`
           );
         });
+
+        this.router.navigate(['/mtalent/dashboard']);
     }
 
 
@@ -697,6 +703,8 @@ editvisible: boolean =false;
   update(scheduleName: string | null, manager: String | null) {
     console.log("update function" , scheduleName , manager);
 
+
+
     this.updateNewScheduleForm.patchValue({
       scheduleName:this.newScheduleEditForm.get('scheduleName')?.value,
       managerName:this.newScheduleEditForm.get('managerName')?.value
@@ -707,6 +715,10 @@ editvisible: boolean =false;
       console.log('Form Data:', formData);
       formData.scheduleName = scheduleName;
       formData.managerName = manager;
+
+
+
+
 
 
       this.editvisible = false;

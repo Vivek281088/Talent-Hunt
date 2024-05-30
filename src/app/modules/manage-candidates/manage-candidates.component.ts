@@ -9,6 +9,9 @@ import { saveAs } from 'file-saver';
 import { response } from 'express';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Candidate, candidateActions, candidatesPick } from 'src/app/store/candidate/candidate.action';
+import { getCandidate } from 'src/app/store/candidate/candidate.selector';
 
 @Component({
   selector: 'app-manage-candidates',
@@ -39,7 +42,8 @@ export class ManageCandidatesComponent {
     private fb: FormBuilder,
     private messageService: MessageService,
     private newScheduleService: NewScheduleService,
-    private router: Router
+    private router: Router,
+    private store : Store
   ) {
     this.addCandidateForm = this.fb.group({
       empid: [null, [Validators.required,Validators.minLength(6)]],
@@ -51,13 +55,13 @@ export class ManageCandidatesComponent {
     });
   }
   ngOnInit() {
+    this.store.dispatch(candidateActions.getCandidate());
+    this.store.select(getCandidate).subscribe((candidates) => this.candidateData = candidates)
     sessionStorage.setItem('Component-Name', 'user');
-    this.getUniqueCandidatedata();
     this.managerService.getclientManagerData().subscribe((response) => {
-      console.log('Client Manager Details', response);
-      this.managerData = response;
-
-      this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
+    console.log('Client Manager Details', response);
+    this.managerData = response;
+    this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
       console.log('Unique Department', this.uniqueDepartment);
     });
 
@@ -202,30 +206,37 @@ export class ManageCandidatesComponent {
   }
 
   updateCandidate() {
-    console.log('Updating.....');
     this.formSubmitted = true;
-
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
-
-      this.managerService
-        .updateCandidate(
-          formData.candidateName,
-          formData.email,
-          formData.phone,
-          formData.empid,
-          formData?.department,
-          formData?.location
-        )
-        .subscribe((response) => {
-          console.log('Candidate Updated....');
-        });
+      const candidate : Candidate= {
+          id : "",
+          candidateName : formData.candidateName,
+          candidateEmail : formData.email,
+          candidatePhone : formData.phone,
+          empid : formData.empid,
+          department : formData?.department,
+          candidate_location : formData?.location
+      }
+      this.store.dispatch(candidateActions.updateCandidate({candidate}))
+      // this.managerService
+      //   .updateCandidate(
+      //     formData.candidateName,
+      //     formData.email,
+      //     formData.phone,
+      //     formData.empid,
+      //     formData?.department,
+      //     formData?.location
+      //   )
+      //   .subscribe((response) => {
+      //     console.log('Candidate Updated....');
+      //   });
 
       setTimeout(() => {
         this.UpdateMessage();
         this.cancelButton();
-        this.getUniqueCandidatedata();
+       // this.getUniqueCandidatedata();
       }, 1000);
     }
   }
@@ -322,13 +333,19 @@ export class ManageCandidatesComponent {
   selectedDeleteCandidate: any;
   deleteCandidate() {
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
-    for (let candidateData of this.selectedDeleteCandidate) {
-      this.managerService
-        .deleteCandidate(candidateData.id,candidateData.candidateEmail)
-        .subscribe((response) => {
-          console.log('Deleted Candidate.....', candidateData.candidateName);
-        });
-    }
+    const deleteCandidate:candidatesPick=this.selectedDeleteCandidate.map((ele: { id: any; candidateEmail: any; })=>({
+      id:ele.id,
+      candidateEmail:ele.candidateEmail
+    }));
+    console.log(".......................deleting",deleteCandidate)
+this.store.dispatch(candidateActions.deleteCandidate({deleteCandidate}));
+    // for (let candidateData of this.selectedDeleteCandidate) {
+    //   this.managerService
+    //     .deleteCandidate(candidateData.id,candidateData.candidateEmail)
+    //     .subscribe((response) => {
+    //       console.log('Deleted Candidate.....', candidateData.candidateName);
+    //     });
+
 
     setTimeout(() => {
       this.deleteMessage();

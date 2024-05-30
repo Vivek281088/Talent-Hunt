@@ -1,9 +1,12 @@
+import { Assessment } from 'src/app/store/Assessment/assessment.action';
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-
+import { Schedule } from '../store/schedule/schedule.action';
+const baseUrlDev = process.env.BASE_URL_DEV;
+const baseUrlPrivate = process.env.BASE_URL_PRIVATE
 @Injectable({
   providedIn: 'root',
 })
@@ -32,10 +35,22 @@ export class TableService {
     });
   }
 
-  getExistingData(): Observable<any> {
-    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/question`;
+  deleteSchedules(scheduleIds : string[]){
+    console.log("Schedule Ids .....................................",scheduleIds)
+    const endpoint = `${process.env.BASE_URL_PRIVATE}/deleteSchedules`
+    return this.http.post(endpoint,scheduleIds)
+  }
 
-    return this.http.get<any[]>(endpoint);
+  getExistingData(): Observable<Schedule[]> {
+    console.log("base url ....................." , baseUrlDev)
+    const endpoint = `${baseUrlDev}/question`;
+
+    return this.http.get<Schedule[]>(endpoint);
+  }
+  getScheduleData() : Observable<Schedule[]>{
+    console.log("base url ....................." , baseUrlPrivate)
+    const endpoint = `${baseUrlPrivate}/schedule`;
+    return this.http.get<Schedule[]>(endpoint)
   }
 
   getskillsList(): Observable<any> {
@@ -197,4 +212,10 @@ export class TableService {
       }
     );
   }
+
+postInviteCandidate(assessment:Assessment):Observable<Assessment>
+{
+  return this.http.post<Assessment>(`${process.env.BASE_URL_PRIVATE}/createMail`, assessment);
+
+}
 }
