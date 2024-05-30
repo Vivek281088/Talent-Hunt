@@ -98,6 +98,7 @@ export class AssessmentTableComponent {
     this.store.select(getAssessment).subscribe(data =>{
       console.log("select state???????" , data)
       this.candidateList = data
+      console.log('Candidate Data', data);
     });
 
     this.getCandidatename();
@@ -174,14 +175,6 @@ export class AssessmentTableComponent {
       this.candidateNames = uniqueCandidateNames;
       console.log('candidate', data);
       console.log(this.candidateNames);
-    });
-  }
-
-  loadCandidateTableData(){
-
-    this.managernameService.getCandidateStatus().subscribe((data) => {
-      this.candidateList = data;
-      console.log('Candidate Data', data);
     });
   }
 
