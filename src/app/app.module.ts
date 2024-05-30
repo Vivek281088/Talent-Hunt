@@ -53,15 +53,9 @@ import { provideState, provideStore } from '@ngrx/store';
 import { ScheduleFeature } from './store/schedule/schedule.selector';
 import { addSchedule$, deleteSchedule$, loadSchedule$ } from './store/schedule/schedule.effects';
 import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
-import { managerFeature } from './store/manage-manager/manager-manager.selector';
-import { loadManager$,addManager$,deleteManager$ } from './store/manage-manager/manage-manager.effects';
+import { loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { CandidateFeature } from './store/candidate/candidate.selector';
-import { loadCandidate$, updateCandidate$,deleteCandidate$ } from './store/candidate/candidate.effects';
 import { assessmentFeature } from './store/Assessment/assessment.selector';
-import { loadAssessment$, sendAssessments$ } from './store/Assessment/assessment.effects';
-import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-resource-mapping.component';
-
-
 
 
 
@@ -100,7 +94,6 @@ import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
-      PcrResourceMappingComponent,
 
   ],
   imports: [
@@ -126,8 +119,7 @@ import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-
     provideState(ScheduleFeature),
     provideState(assessmentFeature),
     provideState(CandidateFeature),
-    provideState(managerFeature),
-    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$},{sendAssessments$ },{loadAssessment$},{loadManager$},{addManager$},{deleteCandidate$},{deleteManager$}]),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$} , {loadCandidate$},{updateCandidate$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,

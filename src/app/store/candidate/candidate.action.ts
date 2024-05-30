@@ -21,8 +21,15 @@ export const candidateActions = createActionGroup({
         'Update Candidate' : props<{candidate : Candidate}>(),
         'Update Candidate Success' : props<{candidate : Candidate}>(),
         'Update Candidate Failure' : props<{error : string}>(),
-        'Delete Candidate':props<{deleteCandidate:candidatesPick}>(),
-        'Delete Candidate Success':props<{deleteCandidate:candidatesPick}>(),
-        'Delete Candidate Failure':props<{error:string}>()
+        'Add Candidate' : props<{candidate:Candidate}>(),
+        'Add Candidate Success' : props<{candidate:Candidate}>(),
+        'Add Candidate Failure' : props<{error : string}>(),
+        'Clear Candidate Error' : emptyProps,
+        'Clear Newcandidate' : emptyProps,
+        'Clear DeleteCamdidateStatus' : emptyProps,
+        'Delete Candidates' : props<{candidates:{id : string, candidateEmail : string}[]}>(),
+        'Delete Candidate Success' : props<{candidates:{id : string, candidateEmail : string}[]}>(),
+        'Delete Candidate Failure' : props<{error : string}>()
+
     }
 })

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Candidate } from '../store/candidate/candidate.action';
+import { PCR } from '../store/pcr/pcr.action';
 
 @Injectable({
   providedIn: 'root',

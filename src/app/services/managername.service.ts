@@ -155,6 +155,18 @@ export class ManagernameService {
         })
       );
   }
+  addNewCandidate(candidate : Candidate) : Observable<Candidate>{
+    console.log('add nerw cANDIDATE' , candidate)
+    const body = {
+      candidateName: candidate.candidateName,
+      email: candidate.candidateEmail,
+      phone: candidate.candidatePhone,
+      empid: candidate.empid,
+      department: candidate.department,
+      candidate_location: candidate.candidate_location
+    };
+    return this.http.post<Candidate>(`${process.env.BASE_URL_DEV}/New-Candidate`,body)
+  }
   updateSingleCandidate(candidate: Candidate): Observable<Candidate> {
     const endpoint = `${process.env.BASE_URL_DEV}/update_CandidateDetails`;
     return this.http.post<Candidate>(endpoint, candidate);
@@ -182,18 +194,8 @@ export class ManagernameService {
       // { headers }
     );
   }
-  deleteCandidate(id: string, email: string): Observable<any> {
-    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-    const body = {
-      id: id,
-      candidateEmail: email,
-    };
-    return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deletecandidatedetails',
-      body
-      // { headers }
-    );
-  }
+
+ 
 //ngrx
   deleteCandidates(deleteCandidate:candidatesPick):Observable<candidatesPick>{
 return this.http.post<candidatesPick>(`${process.env.BASE_URL_PRIVATE}/deleteCandidates`, deleteCandidate)
