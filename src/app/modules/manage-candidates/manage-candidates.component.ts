@@ -10,7 +10,7 @@ import { response } from 'express';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { Candidate, candidateActions, candidatesPick } from 'src/app/store/candidate/candidate.action';
+import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
 import { checkCandidateAddStaus, checkCandidateDeleteStaus, getCandidate, getCandidateError } from 'src/app/store/candidate/candidate.selector';
 import { Observable, Subject, Subscription, debounceTime, skip, switchMap, take, takeUntil, tap } from 'rxjs';
 
@@ -37,7 +37,6 @@ export class ManageCandidatesComponent implements OnDestroy{
   globalSearchValue!: string;
   showUpload: boolean = false;
   uploadedFileData: any;
-
   error$!: Observable<string>;
   candidates$!: Observable<Candidate[]>;
   private errorSubscription!: Subscription;
@@ -100,8 +99,8 @@ export class ManageCandidatesComponent implements OnDestroy{
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
-      { label: 'Candidates', routerLink: '/mtalent/manage-candidates' },
+      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Candidates', routerLink: '/manage-candidates' },
     ];
   }
 

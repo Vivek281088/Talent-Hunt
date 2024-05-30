@@ -41,7 +41,6 @@ export const updateCandidate$ = createEffect(
     },{functional:true}
 )
 
-
 export const AddCandidate$ = createEffect(
     (action$ = inject(Actions) , candidateService = inject(ManagernameService) , messageService = inject(ToastMessageService))  =>{
         return action$.pipe(
@@ -63,4 +62,18 @@ export const AddCandidate$ = createEffect(
     {functional:true}
 )
 
-
+export const deleteCandidate$ = createEffect(
+    (action$ = inject(Actions) , candidateService = inject(ManagernameService)) => {
+        return action$.pipe(
+            ofType(candidateActions.deleteCandidates),
+            exhaustMap((candidates) =>
+                candidateService.deleteCandidates(candidates.candidates).pipe(
+                    tap((candidates) => console.log("sdfbv bg r",candidates)),
+                    map((candidates : any) => candidateActions.deleteCandidateSuccess({candidates})),
+                    catchError((error) => of(candidateActions.deleteCandidateFailure({error : error.message})))
+                )
+            )
+        )
+    },
+    {functional :true}
+)

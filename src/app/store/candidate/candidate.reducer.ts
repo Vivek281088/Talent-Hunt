@@ -1,8 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { Candidate, candidateActions, candidatesPick, } from "./candidate.action";
-import { log } from "console";
-
-
+import { Candidate, candidateActions, } from "./candidate.action";
 
 export interface CandidateState{
     candidates : Candidate[],
@@ -19,8 +16,6 @@ export const initialState : CandidateState = {
     newUserAdded : false,
     candidateDeleted : false
 }
-
-
 
 export const candidateReducer = createReducer(
     initialState,
@@ -101,19 +96,5 @@ export const candidateReducer = createReducer(
             ...state,
             error : action.error
         }
-    }),
-    on(candidateActions.deleteCandidateSuccess,(state,action)=>{
-      const newMap=new Map(action.deleteCandidate.map(item=>[item.id,item]))
-      console.log("...........newMap",newMap)
-       return {
-             ...state,
-             candidates:state.candidates.filter(ele=>!newMap.has(ele.id))
-
-
-       }
-
-    }
-    )
-);
-
-
+    })
+)

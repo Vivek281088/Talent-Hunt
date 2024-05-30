@@ -8,7 +8,7 @@ import { Manager } from '../store/manage-manager/manage-manager.action';
 
 const baseUrlDev = process.env.BASE_URL_DEV;
 import { Assessment } from '../store/Assessment/assessment.action';
-import { Candidate, candidatesPick } from '../store/candidate/candidate.action';
+import { Candidate } from '../store/candidate/candidate.action';
 import { Schedule } from '../store/schedule/schedule.action';
 
 @Injectable({
@@ -195,11 +195,11 @@ export class ManagernameService {
     );
   }
 
- 
+
 //ngrx
-  deleteCandidates(deleteCandidate:candidatesPick):Observable<candidatesPick>{
-return this.http.post<candidatesPick>(`${process.env.BASE_URL_PRIVATE}/deleteCandidates`, deleteCandidate)
-  }
+deleteCandidates(candidates : {id:string , candidateEmail : string}[]){
+  return this.http.post(`${process.env.BASE_URL_PRIVATE}/deleteCandidates`,candidates)
+}
 
 
 

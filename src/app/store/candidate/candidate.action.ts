@@ -9,9 +9,7 @@ export interface Candidate{
     candidatePhone : string,
     department : string
 }
-export type Candidates=Candidate[];
-export type candidatePick=Pick<Candidate,'id'|'candidateEmail'>;
-export type candidatesPick=candidatePick[];
+
 export const candidateActions = createActionGroup({
     source : 'candidate',
     events : {
