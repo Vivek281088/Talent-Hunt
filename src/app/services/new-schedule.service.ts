@@ -56,6 +56,6 @@ export class NewScheduleService {
   }
 //this is another project
   getPcr() : Observable<PCR[]>{
-    return this.http.get<PCR[]>(`${process.env.BASE_URL_PRIVATE}/uniqueCandidate`)
+    return this.http.get<PCR[]>(`${process.env.BASE_URL_PRIVATE}/uniqueCandid`)
   }
 }
