@@ -30,7 +30,7 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
-
+import { PcrDetailsComponent } from './modules/pcr-details/pcr-details.component';
 import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
 import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-resource-mapping.component';
 import { BodyComponent } from './modules/body/component/body.component';
@@ -52,7 +52,6 @@ import { zip } from 'rxjs';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
-import { PcrDetailsComponent } from './modules/pcr-details/pcr-details.component';
 import {
   StoreDevtoolsModule,
   provideStoreDevtools,
@@ -84,6 +83,10 @@ import {
   loadAssessment$,
   sendAssessments$,
 } from './store/Assessment/assessment.effects';
+import { loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
+import { mappingFeature } from './store/PCR-Mapping/pcr-mapping.selector';
+import { getPcr$ } from './store/pcr/pcr.effects';
+import { pcrFeature } from './store/pcr/pcr.selector';
 
 @NgModule({
   declarations: [
@@ -145,6 +148,8 @@ import {
     provideState(assessmentFeature),
     provideState(CandidateFeature),
     provideState(managerFeature),
+    provideState(mappingFeature),
+    provideState(pcrFeature),
     provideEffects([
       { loadSchedule$ },
       { addSchedule$ },
@@ -157,6 +162,8 @@ import {
       { addManager$ },
       { deleteCandidate$ },
       { deleteManager$ },
+      {loadMappedData$},
+      {getPcr$}
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     // {

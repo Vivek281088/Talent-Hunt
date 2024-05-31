@@ -15,7 +15,6 @@ export const getMappingDataReducer = createReducer(
   on(PcrCandidateActions.getPcrMappingDataSuccess, (state, action) => {
     console.log(state, action);
     return {
-      ...state,
       mappingData: action.mappingData,
       error: '',
     };
@@ -23,7 +22,6 @@ export const getMappingDataReducer = createReducer(
   on(PcrCandidateActions.getPcrMappingDataFailure, (state, action) => {
     console.log(state, action);
     return {
-      ...state,
       mappingData: [],
       error: action.error,
     };

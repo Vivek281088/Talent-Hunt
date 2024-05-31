@@ -11,5 +11,5 @@ export const mappingFeature = createFeature({
 })
 export const getMappingData = createSelector(
   mappingState,
-  (state)=> state
+  (state)=> state.mappingData
 )
