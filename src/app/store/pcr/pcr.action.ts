@@ -10,7 +10,8 @@ export interface PCR{
     pcrStatus ?: string,
     projectId ?: string,
     requestResource : string,
-    skills : string[]
+    skills : string[],
+    scheduleName : string
 }
 
 export const PcrActions = createActionGroup({
@@ -22,6 +23,9 @@ export const PcrActions = createActionGroup({
         'Add PCR' : props<{pcr : PCR}>(),
         'Add PCR Success' : props<{pcr : PCR}>(),
         'Add PCR Failure' : props<{error : string}>(),
+        'Add Multi PCR' : props<{pcr : PCR[]}>(),
+        'Add Multi PCR Success' : props<{pcr : PCR[]}>(),
+        'Add Multi PCR Failure' : props<{error : string}>(),
         'Update PCR' : props<{pcr : PCR}>(),
         'Update PCR Success' : props<{pcr : PCR}>(),
         'Update PCR Failure' : props<{error : string}>(),

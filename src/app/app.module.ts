@@ -58,6 +58,9 @@ import { CandidateFeature } from './store/candidate/candidate.selector';
 import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
 import { pcrFeature } from './store/pcr/pcr.selector';
 import { getPcr$ } from './store/pcr/pcr.effects';
+// import { getPcr$ } from './store/pcr/pcr.effects';
+import { PCRState} from './store/pcr/pcr.selector';
+import { PcrDetailsComponent } from './modules/pcr-details/pcr-details.component';
 
 
 
@@ -96,7 +99,8 @@ import { getPcr$ } from './store/pcr/pcr.effects';
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
-      ManagePcrComponent
+      ManagePcrComponent,
+      PcrDetailsComponent,
 
   ],
   imports: [
