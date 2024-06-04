@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, Message } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Store } from '@ngrx/store';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -25,11 +25,13 @@ export class PcrResourceMappingComponent {
   todayDate!: Date;
   globalSearchValue!: string;
   pcrData !: PCR[];
+  candidateData = ["2528625","EXT0001"]
   mappingData!: AggregatedData[];
   selectedMappedData!: AggregatedData[];
   mappingDialogVisible: boolean = false;
   selectedPcrId !: string;
   selectedCandidates =[];
+  messages: Message[] =[];
 
   constructor(
     private MappingService: PcrMappingService,
@@ -73,11 +75,22 @@ export class PcrResourceMappingComponent {
   }
   cancelButton() {
     this.mappingDialogVisible = false;
+    this.selectedCandidates=[];
+    this.selectedPcrId =''
   }
   mappingPCR(){
     this.mappingDialogVisible = true
   }
   mapPCR(){
 
+  }
+  //for verification
+  selected(){
+    console.log("Selected ----",this.selectedPcrId);
+    console.log("Selected Candidate---", this.selectedCandidates)
+    this.messages = this.selectedCandidates.map(candidateId => ({
+      severity: 'info',
+      detail: `Selected PCR ID: ${this.selectedPcrId}, Candidate ID: ${candidateId}`
+    }));
   }
 }

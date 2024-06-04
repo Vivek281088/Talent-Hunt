@@ -144,26 +144,35 @@
       <div class="customInput">
         <div class="pcrDropdown">
           <p-dropdown
-            [options]=""
+            [options]="pcrData"
             placeholder="--Select PCR--"
             appendTo="body"
-            optionLabel=""
-            optionValue=""
+            optionLabel="pcrId"
+            [(ngModel)]="selectedPcrId"
+            optionValue="pcrId"
           ></p-dropdown>
         </div>
         <div class="candidateMultiselect">
           <p-multiSelect
-            [options]=""
+            [options]="candidateData"
             placeholder="--Select candidate--"
             [filter]="true"
             [resetFilterOnHide]="true"
             appendTo="body"
             display="chip"
             [showClear]="false"
+            [(ngModel)]="selectedCandidates"
             optionLabel=""
             optionValue=""
+            (onChange)="selected()"
           ></p-multiSelect>
         </div>
+      </div>
+      <div
+        class="customdisplay"
+        *ngIf="selectedPcrId && selectedCandidates.length > 0"
+      >
+        <p-messages [(value)]="messages" [enableService]="false" />
       </div>
     </div>
     <ng-template pTemplate="footer">
@@ -174,7 +183,11 @@
         </div>
 
         <div class="mapButton">
-          <p-button label="Map PCR" (click)="mapPCR()"></p-button>
+          <p-button
+            label="Map PCR"
+            (click)="mapPCR()"
+            [disabled]="!selectedPcrId || selectedCandidates.length == 0"
+          ></p-button>
         </div>
       </div>
     </ng-template>
