@@ -1,3 +1,4 @@
+import { Assessment } from 'src/app/store/Assessment/assessment.action';
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -211,4 +212,10 @@ export class TableService {
       }
     );
   }
+
+postInviteCandidate(assessment:Assessment):Observable<Assessment>
+{
+  return this.http.post<Assessment>(`${process.env.BASE_URL_PRIVATE}/createMail`, assessment);
+
+}
 }

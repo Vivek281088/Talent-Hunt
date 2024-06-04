@@ -40,7 +40,7 @@ export class ManageCandidatesComponent implements OnDestroy{
   error$!: Observable<string>;
   candidates$!: Observable<Candidate[]>;
   private errorSubscription!: Subscription;
- 
+
 
   constructor(
     private managerService: ManagernameService,
@@ -64,11 +64,11 @@ export class ManageCandidatesComponent implements OnDestroy{
   }
   ngOnDestroy(): void {
     this.submit$.complete()
-    this.errorSubscription ? this.errorSubscription.unsubscribe() : null 
+    this.errorSubscription ? this.errorSubscription.unsubscribe() : null
   }
   ngOnInit() {
     this.store.dispatch(candidateActions.getCandidate());
-    this.candidates$.subscribe((candidates) => 
+    this.candidates$.subscribe((candidates) =>
       this.candidateData = candidates
   )
     //  this.errorSubscription = this.error$.subscribe(error =>{
@@ -103,7 +103,7 @@ export class ManageCandidatesComponent implements OnDestroy{
       { label: 'Candidates', routerLink: '/manage-candidates' },
     ];
   }
-  
+
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
@@ -285,7 +285,7 @@ export class ManageCandidatesComponent implements OnDestroy{
       }, 1000);
     }
   }
- 
+
   UpdateMessage() {
     this.messageService.add({
       severity: 'success',
