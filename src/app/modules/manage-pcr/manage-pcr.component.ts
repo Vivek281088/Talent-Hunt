@@ -19,18 +19,22 @@ export class ManagePcrComponent {
   addPCRForm!: FormGroup;
   formSubmitted: boolean = false;
   pcrData: any;
+  pcrStaus:string[]=["open","closed","Available"]
   pcr$!:Observable<PCR[]>;
+  // createdDate!:Date;
 
   constructor(private route: Router, private fb: FormBuilder,private store:Store) {
     this.addPCRForm = this.fb.group({
+      agileId:[null,[Validators.required,Validators.minLength(6)]],
       pcrId: [null, [Validators.required, Validators.minLength(6)]],
       jobTitle: ['', [Validators.required, Validators.minLength(3)]],
       createdDate: [null, [Validators.required]],
       projectId: [null, [Validators.required, Validators.minLength(4)]],
       skills: ['', [Validators.required]],
-      position_status: ['', [Validators.required]],
+      pcr_status: ['', [Validators.required]],
       createdBy: ['', [Validators.required]],
       Location: ['', [Validators.required]],
+      SheduleName:['', [Validators.required]]
     });
     this.pcr$=this.store.select(getPcr);
   }
@@ -52,17 +56,36 @@ export class ManagePcrComponent {
 
   }
   addPcr() {
-getPcr  }
+    this.addPCR=true
+
+
+ }
   cancelButton() {
     this.addPCR = false;
     this.formSubmitted = false;
   }
   saveButton() {
     this.formSubmitted = true;
-
+  
+console.log("save button")
     if (this.addPCRForm.valid) {
       const formdata = this.addPCRForm.value;
       console.log('form data', formdata);
+      const pcr :PCR = {
+        pcrId: formdata.pcrId,
+        agileId:  formdata.agileId,
+        createdBy: formdata.createdBy,
+        createdDate: formdata.createdDate,
+        jobTitle:  formdata.jobTitle,
+        location: formdata.location,
+        pcrStatus: formdata?.pcr_status,
+        projectId:formdata.projectId,
+        requestResource:formdata.requestResource,
+        skills:formdata.skills,
+        scheduleName:formdata.scheduleName
+      }
+      console.log("save button",pcr)
+      this.store.dispatch(PcrActions.addPCR({pcr}))
     }
   }
 }

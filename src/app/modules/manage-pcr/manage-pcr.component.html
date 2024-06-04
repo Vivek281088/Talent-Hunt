@@ -31,7 +31,7 @@
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
-        'name',
+        'pcrId',
         'country.name',
         'representative.name',
         'status'
@@ -86,12 +86,12 @@
           <th style="width: 4rem">
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
-          <th class="EmployeeId" pSortableColumn="empid">PCR ID</th>
+          <th>PCR ID</th>
           <th>Job Title</th>
           <th>Created Date</th>
           <th>Project_Id</th>
           <th>Skills</th>
-          <th>Position_status</th>
+          <th>pcrStatus</th>
           <th>Created By</th>
           <th>Onsite/Offsshore</th>
 
@@ -111,16 +111,16 @@
               [checked]="rowData.selection"
             ></p-tableCheckbox>
           </td>
-          <td>{{ rowData.empid }}</td>
+          <td>{{ rowData.pcrId }}</td>
           <td class="candidatenamedesign">
-            <a>{{ rowData.candidateName }}</a>
+            <a>{{ rowData.jobTitle }}</a>
           </td>
-          <td>{{ rowData.candidateEmail }}</td>
-          <td>{{ rowData.candidatePhone }}</td>
-          <td>{{ rowData.department }}</td>
-          <td>{{ rowData.candidate_location }}</td>
-          <td>{{ rowData.candidate_location }}</td>
-          <td>{{ rowData.candidate_location }}</td>
+          <td>{{ rowData.createdDate }}</td>
+          <td>{{ rowData.projectId }}</td>
+          <td>{{ rowData.skills }}</td>
+          <td>{{ rowData.pcrStatus }}</td>
+          <td>{{ rowData.createdBy }}</td>
+          <td>{{ rowData.location }}</td>
 
           <td>
             <div class="icons">
@@ -166,6 +166,38 @@
       <p-tabView>
         <p-tabPanel header="Add a Single PCR">
           <div class="NewSchedule-content">
+            <div class="labelvalue">
+              <div class="label">
+                <label> Agile Id</label>
+                <span class="important-symbol">&#42;</span>
+              </div>
+              <div class="value">
+                <input
+                  pInputText
+                  formControlName="agileId"
+                  appAllowDigits="8"
+                />
+                <div
+                  *ngIf="
+                    addPCRForm.get('agileId')?.invalid &&
+                    (addPCRForm.get('agileId')?.touched || formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="addPCRForm.get('agileId')?.hasError('required')"
+                  >
+                    agileId is required !
+                  </div>
+                  <div
+                    class="error-message"
+                    *ngIf="addPCRForm.get('agileId')?.hasError('minlength')"
+                  >
+                    Enter a valid agileId !
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="labelvalue">
               <div class="label">
                 <label> PCR Id</label>
@@ -234,21 +266,21 @@
                 <label>Created Date</label>
                 <span class="important-symbol">&#42;</span>
               </div>
-              <div class="value">
-                <input type="email" formControlName="createdDate" pInputText />
-                <div *ngIf="addPCRForm.get('createdDate')?.invalid &&
-                (addPCRForm.get('createdDate')?.touched||formSubmitted )">
-                  <div class="error-message"
-                  *ngIf="addPCRForm.get('createdDate')?.hasError('required')">created Date is required !</div>
-                  <!-- <div
-              class="error-message"
              
-            >
-           Enter a valid Email !
-            </div> -->
+              <div class="card flex flex-wrap gap-3 p-fluid">
+                <div class="flex-auto">
+                    <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
+                    <p-calendar 
+                        formControlName="createdDate"
+                        appendTo="body"
+                        [showIcon]="true" 
+                        inputId="buttondisplay" 
+                        [showOnFocus]="false" />
                 </div>
-              </div>
+                </div>
             </div>
+
+            
 
             <div class="labelvalue">
               <div class="label">
@@ -256,38 +288,63 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input formControlName="projectId" appAllowDigits="12" pInputText />
+                <input
+                  formControlName="projectId"
+                  appAllowDigits="12"
+                  pInputText
+                />
                 <div
-                *ngIf="addPCRForm.get('projectId')?.invalid &&
-                (addPCRForm.get('projectId')?.touched || formSubmitted)">
-                  <div class="error-message"
-                  *ngIf="addPCRForm.get('projectId')?.hasError('required')">Project Id is required !</div>
+                  *ngIf="
+                    addPCRForm.get('projectId')?.invalid &&
+                    (addPCRForm.get('projectId')?.touched || formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="addPCRForm.get('projectId')?.hasError('required')"
+                  >
+                    Project Id is required !
+                  </div>
                 </div>
-                <div class="error-message"
-                  *ngIf="addPCRForm.get('projectId')?.hasError('minlength')">Enter valid Project Id!</div>
+                <div
+                  class="error-message"
+                  *ngIf="addPCRForm.get('projectId')?.hasError('minlength')"
+                >
+                  Enter valid Project Id!
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="labelvalue">
-              <div class="label">
-                <label>skills</label>
-              </div>
-              <div class="value">
-                <input type="text" formControlName="skills" pInputText />
+          <div class="labelvalue">
+            <div class="label">
+              <label>skills</label>
+            </div>
+            <div class="value">
+              <input type="text" formControlName="skills" pInputText />
+              <div
+                *ngIf="
+                  addPCRForm.get('skills')?.invalid &&
+                  (addPCRForm.get('skills')?.touched || formSubmitted)
+                "
+              >
                 <div
-                *ngIf="addPCRForm.get('skills')?.invalid &&
-                (addPCRForm.get('skills')?.touched || formSubmitted)">
-                  <div class="error-message"
-                  *ngIf="addPCRForm.get('skills')?.hasError('required')">Project Id is required !</div>
-                </div>
-                <div class="error-message"
-                  *ngIf="addPCRForm.get('skills')?.hasError('minlength')">Enter valid Project Id !</div>
+                  class="error-message"
+                  *ngIf="addPCRForm.get('skills')?.hasError('required')"
+                >
+                  Project Id is required !
                 </div>
               </div>
-            
+              <div
+                class="error-message"
+                *ngIf="addPCRForm.get('skills')?.hasError('minlength')"
+              >
+                Enter valid Project Id !
+              </div>
+            </div>
+          </div>
 
-            <div class="labelvalue">
+          <!-- <div class="labelvalue">
               <div class="label">
                 <label>PositionStatus</label>
               </div>
@@ -302,40 +359,119 @@
               </div>
 
 
-            </div>
+            </div> -->
 
-            <div class="labelvalue">
-              <div class="label">
-                <label>CreatedBy</label>
-              </div>
-              <div class="value">
-                <input type="text" formControlName="createdBy" pInputText />
+          <div class="labelvalue">
+            <div class="label">
+              <label>PcrStatus</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <p-dropdown
+                appendTo="body"
+                [options]="pcrStaus"
+                placeholder="--Select--"
+                [editable]="true"
+                formControlName="pcr_status"
+              ></p-dropdown>
+
+              <div
+                *ngIf="
+                  addPCRForm.get('pcr_status')?.invalid &&
+                  (addPCRForm.get('pcr_status')?.touched || formSubmitted)
+                "
+              >
+                
                 <div
-                *ngIf="addPCRForm.get('createdBy')?.invalid &&
-                (addPCRForm.get('createdBy')?.touched || formSubmitted)">
-                  <div class="error-message"
-                  *ngIf="addPCRForm.get('createdBy')?.hasError('required')">ceatedBy is required !</div>
+                  class="error-message"
+                  *ngIf="
+                    addPCRForm.get('pcr_status')?.hasError('required')
+                  "
+                >
+                PcrStatus is required !
                 </div>
               </div>
             </div>
+          </div>
 
+          <div class="labelvalue">
+            <div class="label">
+              <label>SheduleName</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <p-dropdown
+                appendTo="body"
+                [options]="pcrStaus"
+                placeholder="--Select--"
+                [editable]="true"
+                formControlName="SheduleName"
+              ></p-dropdown>
 
-            <div class="labelvalue">
-              <div class="label">
-                <label>Location</label>
-              </div>
-              <div class="value">
-                <input type="text" formControlName="Location" pInputText />
+              <div
+                *ngIf="
+                  addPCRForm.get('SheduleName')?.invalid &&
+                  (addPCRForm.get('SheduleName')?.touched || formSubmitted)
+                "
+              >
+                
                 <div
-                *ngIf="addPCRForm.get('Location')?.invalid &&
-                (addPCRForm.get('Location')?.touched || formSubmitted)">
-                  <div class="error-message"
-                  *ngIf="addPCRForm.get('Location')?.hasError('required')">Location is required !</div>
+                  class="error-message"
+                  *ngIf="
+                    addPCRForm.get('SheduleName')?.hasError('required')
+                  "
+                >
+                SheduleName is required !
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- <div class="">
+          <div class="labelvalue">
+            <div class="label">
+              <label>CreatedBy</label>
+            </div>
+            <div class="value">
+              <input type="text" formControlName="createdBy" pInputText />
+              <div
+                *ngIf="
+                  addPCRForm.get('createdBy')?.invalid &&
+                  (addPCRForm.get('createdBy')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addPCRForm.get('createdBy')?.hasError('required')"
+                >
+                  ceatedBy is required !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>Location</label>
+            </div>
+            <div class="value">
+              <input type="text" formControlName="Location" pInputText />
+              <div
+                *ngIf="
+                  addPCRForm.get('Location')?.invalid &&
+                  (addPCRForm.get('Location')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addPCRForm.get('Location')?.hasError('required')"
+                >
+                  Location is required !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="">
             <div class="">
               <label>Place</label>
             </div>
@@ -344,7 +480,28 @@
 
             </div>
           </div> -->
-          
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>RequestResource</label>
+            </div>
+            <div class="value">
+              <input type="text" formControlName="Location" pInputText />
+              <div
+                *ngIf="
+                  addPCRForm.get('Location')?.invalid &&
+                  (addPCRForm.get('Location')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addPCRForm.get('Location')?.hasError('required')"
+                >
+                  Location is required !
+                </div>
+              </div>
+            </div>
+          </div>
 
           <ng-template pTemplate="footer">
             <div class="tabview-button">

@@ -285,7 +285,12 @@
     .p-dialog {
       max-height: 75%;
     }
-
+    .p-dropdown {
+      width: 100%;
+    }
+    .p-calendar{
+      width: 100%;
+    }
     .p-dialog .p-dialog-footer {
       padding: 12px;
     }
@@ -313,6 +318,7 @@
     }
   }
 }
+
 
 .tabview-button {
   display: flex;
