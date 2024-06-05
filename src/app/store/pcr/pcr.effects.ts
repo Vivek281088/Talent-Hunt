@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { PcrActions } from "./pcr.action"
 import { catchError, exhaustMap, map, of, switchMap, tap } from "rxjs"
 import { PcrService } from "src/app/services/pcr.service"
+import { error } from "console"
 
 export const getPcr$ = createEffect(
   (action$ = inject(Actions) , pcrService = inject(PcrService)) => {
@@ -48,6 +49,38 @@ export const getPcr$ = createEffect(
 ,{functional:true}
   )
 
+// export const updatePcr$= createEffect(
+//     (action$=inject(Actions) , updatePCRService=inject(PcrService)) => {
+//         return action$.pipe(
+//             ofType(PcrActions.updatePCR),
+//             exhaustMap(pcr) => 
+            // exhaustMap(pcr) =>
+            //     updatePCRService.updatepcr(pcr.pcr).pipe(
+            //         tap(pcr =>console.log(pcr)),
+            //         map((pcr)=>PcrActions.updatePCRSuccess({pcr})),
+            //         catchError((error:{message:string})=>
+            //         of(PcrActions.updatePCRFailure({error:error.message})))
+
+            //     )
+//         )
+//     }
+//     ,{functional:true}
+// )
+export const updatePcr$ = createEffect(
+    (actions$ = inject(Actions) , updatePCRservice = inject(PcrService)) => {
+        return actions$.pipe(
+            ofType(PcrActions.updatePCR),
+            exhaustMap((pcr) => updatePCRservice.updatepcr(pcr.pcr).pipe(
+                tap(pcr=>console.log("pcr data",pcr)),
+                map((pcr)=>PcrActions.updatePCRSuccess({pcr})),
+                catchError((error:{message:string})=>
+                of(PcrActions.updatePCRFailure({error:error.message})))
+
+            ) )
+        )
+    },
+    {functional:true}
+)
 @Injectable()
 export class pcrEffects{
     constructor(private actions$ : Actions, private pcrService : PcrService){}

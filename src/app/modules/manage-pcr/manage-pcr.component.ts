@@ -19,8 +19,9 @@ export class ManagePcrComponent {
   addPCRForm!: FormGroup;
   formSubmitted: boolean = false;
   pcrData: any;
-  pcrStaus:string[]=["open","closed","Available"]
+  status:string[]=['open','closed','Available']
   pcr$!:Observable<PCR[]>;
+  editPCR:boolean=false;
   // createdDate!:Date;
 
   constructor(private router: Router, private fb: FormBuilder,private store:Store) {
@@ -31,9 +32,9 @@ export class ManagePcrComponent {
       createdDate: [null, [Validators.required]],
       projectId: [null, [Validators.required, Validators.minLength(4)]],
       skills: ['', [Validators.required]],
-      pcr_status: ['', [Validators.required]],
+      pcrStatus: ['', [Validators.required]],
       createdBy: ['', [Validators.required]],
-      Location: ['', [Validators.required]],
+      location: ['', [Validators.required]],
       SheduleName:['', [Validators.required]]
     });
     this.pcr$=this.store.select(getPcr);
@@ -79,7 +80,7 @@ console.log("save button")
         pcrId: formdata.pcrId,
         agileId:  formdata.agileId,
         createdBy: formdata.createdBy,
-        createdDate: formdata.createdDate,
+        createdDate: formdata.createdDate.toLocaleDateString('en-US'),
         jobTitle:  formdata.jobTitle,
         location: formdata.location,
         pcrStatus: formdata?.pcr_status,
@@ -91,5 +92,46 @@ console.log("save button")
       console.log("save button",pcr)
       this.store.dispatch(PcrActions.addPCR({pcr}))
     }
+  }
+  editData(data:any){
+  
+this.editPCR=true
+console.log("edit data",data)
+if(data){
+  this.addPCRForm.patchValue({
+    agileId:data.agileId,
+    pcrId: data.pcrId,
+    jobTitle:data.jobTitle,
+    createdDate: data.createdDate,
+    projectId:data.projectId,
+    skills: data.skills,
+    pcr_status:data.pcrStatus,
+    createdBy:data.createdBy,
+    location:data.location,
+    SheduleName:data.SheduleName
+
+  })
+}
+  }
+  updateButton(){
+    console.log("data to be updated",this.addPCRForm.value);
+    const formdata=this.addPCRForm.value
+    const pcr:PCR={
+      pcrId: formdata.pcrId,
+      agileId:  formdata.agileId,
+      createdBy: formdata.createdBy,
+      createdDate: formdata.createdDate,
+      jobTitle:  formdata.jobTitle,
+      location: formdata.location,
+      pcrStatus: formdata?.pcr_status,
+      projectId:formdata.projectId,
+      requestResource:formdata.requestResource,
+      skills:formdata.skills,
+      scheduleName:formdata.scheduleName
+
+    }
+    this.store.dispatch(PcrActions.updatePCR({pcr}))
+    this.editPCR=false
+
   }
 }

@@ -1,5 +1,6 @@
 import { createReducer, on } from "@ngrx/store"
 import { PCR, PcrActions } from "./pcr.action"
+import { Action } from "rxjs/internal/scheduler/Action"
 
 export interface pcrState{
   newPcrAdded: boolean
@@ -49,4 +50,19 @@ on(PcrActions.addPCRFailure, (state,action) => {
         error : action.error
     }
 }),
+
+on(PcrActions.updatePCRSuccess,(state,action)=>{
+    return{
+        ...state,
+        pcr : state.pcr.map(pcr => pcr.pcrId == action.pcr.pcrId ? {...pcr , ...((({pcrId,...rest})=> rest)(action.pcr))} : pcr)
+    }
+
+}),
+on(PcrActions.updatePCRFailure,(state,action)=>{
+    return{
+        ...state,
+        error:action.error
+    }
+
+})
 )

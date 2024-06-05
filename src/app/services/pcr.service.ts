@@ -22,6 +22,12 @@ export class PcrService {
   addMuiltPCR(pcr : PCR[]) : Observable<PCR[]>{
     return this.http.post<PCR[]>(`${process.env.BASE_URL_PRIVATE}/pcr`,pcr)
   }
+  updatepcr(pcr:PCR):Observable<PCR>{
+    
+    return this.http.put<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr`,pcr)
+
+  }
+  
   getIndividualPCR(id : string  | null) : Observable<PCR>{
     console.log("sdfvbsdfv",id)
     return this.http.get<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr?id=${id}`)
