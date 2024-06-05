@@ -32,7 +32,8 @@ export class PcrService {
     console.log("sdfvbsdfv",id)
     return this.http.get<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr?id=${id}`)
   }
-  getCandidate(id:string){
+  getCandidate(id:string | null){
+    console.log(id)
     return this.http.get<any>(`${process.env.BASE_URL_PRIVATE}/resource?id=${id}`)
   }
 }

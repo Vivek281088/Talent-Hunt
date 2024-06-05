@@ -48,24 +48,6 @@ export const getPcr$ = createEffect(
     }
 ,{functional:true}
   )
-
-// export const updatePcr$= createEffect(
-//     (action$=inject(Actions) , updatePCRService=inject(PcrService)) => {
-//         return action$.pipe(
-//             ofType(PcrActions.updatePCR),
-//             exhaustMap(pcr) => 
-            // exhaustMap(pcr) =>
-            //     updatePCRService.updatepcr(pcr.pcr).pipe(
-            //         tap(pcr =>console.log(pcr)),
-            //         map((pcr)=>PcrActions.updatePCRSuccess({pcr})),
-            //         catchError((error:{message:string})=>
-            //         of(PcrActions.updatePCRFailure({error:error.message})))
-
-            //     )
-//         )
-//     }
-//     ,{functional:true}
-// )
 export const updatePcr$ = createEffect(
     (actions$ = inject(Actions) , updatePCRservice = inject(PcrService)) => {
         return actions$.pipe(
