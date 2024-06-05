@@ -1,3 +1,4 @@
+import { L1screenComponent } from './l1screen/l1screen.component';
 import {
   ErrorHandler,
   NO_ERRORS_SCHEMA,
@@ -75,7 +76,6 @@ import {
 } from './store/candidate/candidate.effects';
 
 import { CandidateFeature } from './store/candidate/candidate.selector';
-import { L1screenComponent } from './l1screen/l1screen.component';
 import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
 import { addpcr$, } from './store/pcr/pcr.effects';
 // import { getPcr$ } from './store/pcr/pcr.effects';
@@ -132,13 +132,12 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
-      L1screenComponent,
-
       PcrResourceMappingComponent,
       ResourceComponent,
       ManagePcrComponent,
       PcrDetailsComponent,
       CandidateDetailsComponent,
+      L1screenComponent
   ],
   imports: [
     BrowserModule,

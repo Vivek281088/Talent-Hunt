@@ -1,25 +1,34 @@
 import { L1ScreenService } from './../services/l1-screen.service';
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Table} from 'primeng/table'
+import { Table} from 'primeng/table';
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+} from 'primeng/api';
 
 @Component({
   selector: 'app-l1screen',
   templateUrl: './l1screen.component.html',
-  styleUrls: ['./l1screen.component.scss']
+  styleUrls: ['./l1screen.component.scss'],
+  providers: [ConfirmationService, MessageService],
 })
 export class L1screenComponent implements OnInit  {
   items: MenuItem[] | undefined;
   todayDate!: Date;
   date: Date | undefined;
   globalSearchValue!: string;
-  l1Screen!:any
+  l1Screen!:any;
+  position: string = 'center';
 
   selectedCurrentStatus!:string;
   currentStatus:any = [{name:"l1"},{name:"l2"},{name:"Rejected at Screening"},{name:"Rejected at test"}]
   panelMembers:any=[{names:"Indhu", value :"Indhu"},{names:"Vairavan",value :"Vairavan"},{names:"Suresh",value:"Suresh"},{names:"Alamelu",value:"Alamelu"}]
   interviewStatus:any=[{names:"Selected",value:"Selected"},{names:"Rejected",value:"Rejected"},{names:"Pending",value:"Pending"}]
-  constructor( private L1ScreenService: L1ScreenService){
+  constructor( private L1ScreenService: L1ScreenService,private confirmationService: ConfirmationService,
+    private messageService: MessageService,
+  ){
 
 
   }
@@ -43,9 +52,11 @@ clear(table: Table) {
 }
 
 isDisabled(l1:any):boolean{
+  console.log("from disabled",l1)
     if(l1.testStatus=="Not Scheduled"){
       return true;
     }
+
     else{
       return false;
     }
@@ -79,6 +90,42 @@ getl1ScreenDetails() {
   });
 }
 
+postDetails(){
+
+
+}
+
+confirmPosition(position: string) {
+  this.position = position;
+  this.confirmationService.confirm({
+    message: 'Are you Sure?Do you want to change your Interview Status?',
+    header: 'Submit Confirmation',
+    icon: 'pi pi-info-circle',
+    accept: () => {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Confirmed',
+        detail: 'Submitted',
+      });
+
+
+
+      console.log('Submitted');
+    },
+    reject: (type: ConfirmEventType) => {
+      switch (type) {
+        case ConfirmEventType.REJECT:
+
+          console.log('Rejected');
+          break;
+        case ConfirmEventType.CANCEL:
+
+          break;
+      }
+    },
+    key: 'positionDialog',
+  });
+}
 
 
 }

@@ -270,4 +270,21 @@ padding-right: 30px;
 .p-button.p-button-outlined {
   color: #652D70;
 }
+
+
+}
+
+::ng-deep{
+  .pi-pi{
+    .pi{
+      color:#652D70;
+      cursor: pointer;
+    }
+
+    .p-button:enabled:hover {
+      background: #652D70;
+      color: #ffffff;
+      border-color: #652D70;
+  }
+  }
 }

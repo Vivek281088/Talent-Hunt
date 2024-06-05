@@ -24,9 +24,9 @@
       #dt2
       [value]="l1Screen"
       dataKey="id"
-      [rows]="11"
+      [rows]="5"
       [showCurrentPageReport]="true"
-      [rowsPerPageOptions]="[10, 25, 50]"
+      [rowsPerPageOptions]="[5,10,15,20, 25, 50]"
       [loading]=""
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -119,6 +119,7 @@
           <th>PANEL MEMBERS</th>
           <th>SCHEDULE DATE</th>
           <th>INTERVIEW STATUS</th>
+          <th></th>
         </tr>
 
       </ng-template>
@@ -152,7 +153,7 @@
             </div>
           </td>
           <td>
-            <ng-container *ngIf="l1.L1; else disabledDefault">
+            <ng-container *ngIf="l1.L1 else disabledDefault">
               <div class="multiselect">
                 <p-multiSelect
                   [options]="panelMembers"
@@ -169,8 +170,8 @@
             <ng-template #disabledDefault>
               <div class="multiselect">
                 <p-multiSelect
-                  [disabled]="true"
-                  placeholder="Disabled"
+                  [disabled]="isDisabled(l1)"
+                  placeholder="---"
                 ></p-multiSelect>
               </div>
             </ng-template>
@@ -190,7 +191,7 @@
           </td>
           <ng-template #disabledCalender>
             <div class="calender-field">
-              <p-calendar [disabled]="true" placeholder="Disabled"></p-calendar>
+              <p-calendar [disabled]="isDisabled(l1)" [showIcon]="true" placeholder="---"></p-calendar>
             </div>
           </ng-template>
           <td>
@@ -211,12 +212,16 @@
           </ng-container>
           <ng-template #disabledStatus>
             <div class="dropdowns">
-              <p-dropdown [disabled]="true" placeholder="Disabled"></p-dropdown>
+              <p-dropdown [disabled]="isDisabled(l1)" placeholder="---"></p-dropdown>
             </div>
           </ng-template>
           </td>
 
-          <td></td>
+          <td>
+            <div class="pi-pi">
+            <i class=" pi pi-save"  (click)="confirmPosition('top')"   style="font-size: 1.5rem"></i>
+            </div>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
@@ -230,3 +235,11 @@
 update
 </button> -->
 </div>
+
+<p-confirmDialog
+  class="confirm-design"
+  [style]="{ width: '40vw' }"
+  key="positionDialog"
+  [position]="position"
+  rejectButtonStyleClass=""
+></p-confirmDialog>
