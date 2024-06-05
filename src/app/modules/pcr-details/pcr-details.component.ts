@@ -29,16 +29,16 @@ export class PcrDetailsComponent implements OnInit{
         { label: 'Job Title', id: 'jobtitile', value: data.jobTitle },
         { label: 'Created By', id: 'createdby', value: data.createdBy },
         { label: 'Created Date', id: 'createddate', value: data.createdDate },
-        { label: 'Schedule Name', id: 'schedulename', value: data.scheduleName},
+        // { label: 'Schedule Name', id: 'schedulename', value: data.scheduleName},
         { label: 'Onsite/Offshore', id: 'location', value:data.location },
         { label: 'PCR Status', id: 'pcrstatus', value: data.pcrStatus },
         { label: 'Request Resource', id: 'request', value:data.requestResource },
       ];
     })
-   
+
   }
 
- 
+
   pcrTableData = {
     headers: [
       {
@@ -225,5 +225,5 @@ export class PcrDetailsComponent implements OnInit{
   applyFilter(value: any, field: string, mode: string) {
     this.dt.filter(value, field, mode);
   }
- 
+
 }

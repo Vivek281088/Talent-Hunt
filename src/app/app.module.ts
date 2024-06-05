@@ -170,7 +170,7 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
     provideState(managerFeature),
     provideState(mappingFeature),
     provideState(pcrFeature),
-   // provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$}]),
+   provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{deleteCandidate$},{getPcr$},{addpcr$},{updatePcr$}]),
     provideEffects([
       { loadSchedule$ },
       { addSchedule$ },

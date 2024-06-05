@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PcrActions } from 'src/app/store/pcr/pcr.action';
@@ -22,6 +23,9 @@ export class ManagePcrComponent {
   status:string[]=['open','closed','Available']
   pcr$!:Observable<PCR[]>;
   editPCR:boolean=false;
+  globalSearchValue!:string;
+  // isAddPcr:boolean=false;
+  // isEditPcr:boolean=false;
   // createdDate!:Date;
 
   constructor(private router: Router, private fb: FormBuilder,private store:Store) {
@@ -35,7 +39,7 @@ export class ManagePcrComponent {
       pcrStatus: ['', [Validators.required]],
       createdBy: ['', [Validators.required]],
       location: ['', [Validators.required]],
-      SheduleName:['', [Validators.required]]
+      requestResource:['', [Validators.required]]
     });
     this.pcr$=this.store.select(getPcr);
   }
@@ -64,15 +68,24 @@ export class ManagePcrComponent {
     this.addPCR=true
 
 
- }
+
+
+  }
+
+clear(table:Table){
+  table.clear();
+    this.globalSearchValue = '';
+}
   cancelButton() {
     this.addPCR = false;
     this.formSubmitted = false;
+    this.editPCR=false;
+    this.addPCRForm.reset();
   }
   saveButton() {
     this.formSubmitted = true;
-  
-console.log("save button")
+
+console.log("save button",this.addPCRForm)
     if (this.addPCRForm.valid) {
       const formdata = this.addPCRForm.value;
       console.log('form data', formdata);
@@ -83,18 +96,18 @@ console.log("save button")
         createdDate: formdata.createdDate.toLocaleDateString('en-US'),
         jobTitle:  formdata.jobTitle,
         location: formdata.location,
-        pcrStatus: formdata?.pcr_status,
+        pcrStatus: formdata?.pcrStatus,
         projectId:formdata.projectId,
         requestResource:formdata.requestResource,
-        skills:formdata.skills,
-        scheduleName:formdata.scheduleName
+        skills:formdata.skills
       }
       console.log("save button",pcr)
       this.store.dispatch(PcrActions.addPCR({pcr}))
+      this.addPCR=false
     }
   }
   editData(data:any){
-  
+
 this.editPCR=true
 console.log("edit data",data)
 if(data){
@@ -105,29 +118,30 @@ if(data){
     createdDate: data.createdDate,
     projectId:data.projectId,
     skills: data.skills,
-    pcr_status:data.pcrStatus,
+    pcrStatus:data.pcrStatus,
     createdBy:data.createdBy,
     location:data.location,
-    SheduleName:data.SheduleName
+    requestResource:data.requestResource
 
   })
 }
+
   }
   updateButton(){
+    this.formSubmitted=true;
     console.log("data to be updated",this.addPCRForm.value);
     const formdata=this.addPCRForm.value
     const pcr:PCR={
       pcrId: formdata.pcrId,
       agileId:  formdata.agileId,
       createdBy: formdata.createdBy,
-      createdDate: formdata.createdDate,
+      createdDate: formdata.createdDate.toLocaleDateString('en-US'),
       jobTitle:  formdata.jobTitle,
       location: formdata.location,
-      pcrStatus: formdata?.pcr_status,
+      pcrStatus: formdata?.pcrStatus,
       projectId:formdata.projectId,
       requestResource:formdata.requestResource,
-      skills:formdata.skills,
-      scheduleName:formdata.scheduleName
+      skills:formdata.skills
 
     }
     this.store.dispatch(PcrActions.updatePCR({pcr}))

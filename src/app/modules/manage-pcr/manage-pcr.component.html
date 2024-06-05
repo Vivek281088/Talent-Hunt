@@ -32,9 +32,14 @@
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
         'pcrId',
-        'country.name',
-        'representative.name',
-        'status'
+        'jobTitle',
+        'createdDate',
+        'projectId',
+        'skills',
+        'pcrStatus',
+        'createdBy',
+        'location',
+        'requestResource'
       ]"
       [tableStyle]="{ 'min-width': '65rem' }"
     >
@@ -49,6 +54,7 @@
                     class="searchIcon"
                     pInputText
                     type="text"
+                    [(ngModel)]="globalSearchValue"
                     (input)="
                       dt2.filterGlobal($any($event.target).value, 'contains')
                     "
@@ -62,8 +68,8 @@
                     pButton
                     label="Clear Search"
                     class="clear-button cursor-pointer"
-                  ></button>
-                  <!-- (click)="clear(dt2)" -->
+                    (click)="clear(dt2)"
+                    ></button>
                 </div>
               </div>
               <div class="manager-header-2">
@@ -94,8 +100,7 @@
           <th>pcrStatus</th>
           <th>Created By</th>
           <th>Onsite/Offsshore</th>
-
-          <th></th>
+          <th>RequestResource</th>
         </tr>
       </ng-template>
       <ng-template
@@ -123,6 +128,7 @@
           <td>{{ rowData.pcrStatus }}</td>
           <td>{{ rowData.createdBy }}</td>
           <td>{{ rowData.location }}</td>
+          <td>{{rowData.requestResource}}</td>
 
           <td>
             <div class="icons">
@@ -157,7 +163,8 @@
 
   <div class="newSchedule-Dialog">
     <p-dialog
-      [(visible)]="addPCR"
+      [header]=" addPCR ? 'Add PCR' : editPCR ? 'Edit PCR' :'' "
+      [visible]="addPCR || editPCR"
       [formGroup]="addPCRForm"
       [modal]="true"
       [style]="{ width: '47VW' }"
@@ -166,7 +173,7 @@
       [closable]="false"
     >
       <p-tabView>
-        <p-tabPanel header="Add a Single PCR">
+        <p-tabPanel [header]="addPCR? 'Add a Single PCR':editPCR? 'Edit a Single PCR':''" >
           <div class="NewSchedule-content">
             <div class="labelvalue">
               <div class="label">
@@ -268,21 +275,21 @@
                 <label>Created Date</label>
                 <span class="important-symbol">&#42;</span>
               </div>
-             
+
               <div class="card flex flex-wrap gap-3 p-fluid">
                 <div class="flex-auto">
                     <!-- <label for="buttondisplay" class="font-bold block mb-2"> Button </label> -->
-                    <p-calendar 
+                    <p-calendar
                         formControlName="createdDate"
                         appendTo="body"
-                        [showIcon]="true" 
-                        inputId="buttondisplay" 
+                        [showIcon]="true"
+                        inputId="buttondisplay"
                         [showOnFocus]="false" />
                 </div>
                 </div>
             </div>
 
-            
+
 
             <div class="labelvalue">
               <div class="label">
@@ -373,21 +380,21 @@
                 appendTo="body"
                 [options]="status"
                 placeholder="--Select--"
-                [editable]="true"
-                formControlName="pcr_status"
+
+                formControlName="pcrStatus"
               ></p-dropdown>
 
               <div
                 *ngIf="
-                  addPCRForm.get('pcr_status')?.invalid &&
-                  (addPCRForm.get('pcr_status')?.touched || formSubmitted)
+                  addPCRForm.get('pcrStatus')?.invalid &&
+                  (addPCRForm.get('pcrStatus')?.touched || formSubmitted)
                 "
               >
-                
+
                 <div
                   class="error-message"
                   *ngIf="
-                    addPCRForm.get('pcr_status')?.hasError('required')
+                    addPCRForm.get('pcrStatus')?.hasError('required')
                   "
                 >
                 PcrStatus is required !
@@ -396,7 +403,7 @@
             </div>
           </div>
 
-          <div class="labelvalue">
+          <!-- <div class="labelvalue">
             <div class="label">
               <label>SheduleName</label>
               <span class="important-symbol">&#42;</span>
@@ -416,7 +423,7 @@
                   (addPCRForm.get('SheduleName')?.touched || formSubmitted)
                 "
               >
-                
+
                 <div
                   class="error-message"
                   *ngIf="
@@ -427,7 +434,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="labelvalue">
             <div class="label">
@@ -488,18 +495,18 @@
               <label>RequestResource</label>
             </div>
             <div class="value">
-              <input type="text" formControlName="location" pInputText />
+              <input type="text" formControlName="requestResource" pInputText />
               <div
                 *ngIf="
-                  addPCRForm.get('location')?.invalid &&
-                  (addPCRForm.get('location')?.touched || formSubmitted)
+                  addPCRForm.get('requestResource')?.invalid &&
+                  (addPCRForm.get('requestResource')?.touched || formSubmitted)
                 "
               >
                 <div
                   class="error-message"
-                  *ngIf="addPCRForm.get('location')?.hasError('required')"
+                  *ngIf="addPCRForm.get('requestResource')?.hasError('required')"
                 >
-                  Location is required !
+                requestResource is required !
                 </div>
               </div>
             </div>
@@ -515,17 +522,17 @@
                 >
                 </p-button>
               </div>
-              <div class="Createbutton">
-                <p-button label="Save" (onClick)="saveButton()"> </p-button>
+              <div class="Createbutton" *ngIf="addPCR">
+                <p-button label="Save" (click)="saveButton()"> </p-button>
               </div>
-              <!-- <div class="Createbutton">
-                <p-button label="Update" (onclick)="updateButton()"> </p-button>
-              </div>-->
-             </div> 
+              <div class="Createbutton" *ngIf="editPCR">
+                <p-button label="Update" (click)="updateButton()"> </p-button>
+              </div>
+             </div>
           </ng-template>
         </p-tabPanel>
 
-        <p-tabPanel header="Add Multiple PCRID">
+        <p-tabPanel header="Add Multiple PCRID" *ngIf="addPCR">
           <div class="quiz-instruction">
             <p class="instruction">Upload Instructions</p>
             <ul class="points">
@@ -564,9 +571,19 @@
     </p-dialog>
   </div>
 
-  
 
-  <div class="newSchedule-Dialog">
+
+
+
+
+
+
+
+
+
+
+  <!--Edit-->
+  <!-- <div class="newSchedule-Dialog">
     <p-dialog
      header="Edit PCR"
       [(visible)]="editPCR"
@@ -577,8 +594,7 @@
       [resizable]="false"
       [closable]="false"
     >
-      <!-- <p-tabView>
-        <p-tabPanel header="Add a Single PCR"> -->
+
           <div class="NewSchedule-content">
             <div class="labelvalue">
               <div class="label">
@@ -680,21 +696,21 @@
                 <label>Created Date</label>
                 <span class="important-symbol">&#42;</span>
               </div>
-             
+
               <div class="card flex flex-wrap gap-3 p-fluid">
                 <div class="flex-auto">
-                   
-                    <p-calendar 
+
+                    <p-calendar
                         formControlName="createdDate"
                         appendTo="body"
-                        [showIcon]="true" 
-                        inputId="buttondisplay" 
+                        [showIcon]="true"
+                        inputId="buttondisplay"
                         [showOnFocus]="false" />
                 </div>
                 </div>
             </div>
 
-            
+
 
             <div class="labelvalue">
               <div class="label">
@@ -758,22 +774,7 @@
             </div>
           </div>
 
-          <!-- <div class="labelvalue">
-              <div class="label">
-                <label>PositionStatus</label>
-              </div>
-              <div class="value">
-                <input type="text" formControlName="position_status" pInputText />
-                <div
-                *ngIf="addPCRForm.get('position_status')?.invalid &&
-                (addPCRForm.get('position_status')?.touched || formSubmitted)">
-                  <div class="error-message"
-                  *ngIf="addPCRForm.get('position_status')?.hasError('required')">position_status is required !</div>
-                </div>
-              </div>
 
-
-            </div> -->
 
           <div class="labelvalue">
             <div class="label">
@@ -795,7 +796,7 @@
                   (addPCRForm.get('pcr_status')?.touched || formSubmitted)
                 "
               >
-                
+
                 <div
                   class="error-message"
                   *ngIf="
@@ -828,7 +829,7 @@
                   (addPCRForm.get('SheduleName')?.touched || formSubmitted)
                 "
               >
-                
+
                 <div
                   class="error-message"
                   *ngIf="
@@ -885,15 +886,7 @@
             </div>
           </div>
 
-          <!-- <div class="">
-            <div class="">
-              <label>Place</label>
-            </div>
-            <div class="value">
-              <input type="text" formControlName="department" pInputText />
 
-            </div>
-          </div> -->
 
           <div class="labelvalue">
             <div class="label">
@@ -927,52 +920,11 @@
                 >
                 </p-button>
               </div>
-              <!-- <div class="Createbutton">
-                <p-button label="Save" (onClick)="saveButton()"> </p-button>
-              </div> -->
+
               <div class="Createbutton">
                 <p-button label="Update" (onClick)="updateButton()"> </p-button>
               </div>
             </div>
-          <!-- </ng-template>
-        </p-tabPanel> -->
-
-        <!-- <p-tabPanel header="Add Multiple PCRID">
-          <div class="quiz-instruction">
-            <p class="instruction">Upload Instructions</p>
-            <ul class="points">
-              <li>Download the provided template.</li>
-              <li>Provide the correct value for each specific field.</li>
-              <li>Do not alter the heading in any way.</li> -->
-              <!-- <li>
-              Specify the correct employee Id for each pcrid which must be
-              unique.
-            </li>
-            <li>
-              Specify the correct email Id for each pcri which must be
-              unique.
-            </li> -->
-            <!-- </ul>
-          </div> -->
-
-          <!-- <ng-template pTemplate="footer">
-            <div class="tabview-button-upload">
-              <div class="Cancelbutton">
-                <p-button label="Cancel" [outlined]="true"> </p-button>
-              </div>
-
-              <label class="custom-file-input">
-                Upload File
-                <input type="file" style="display: none" /> </label
-              >` -->
-
-              <!-- <div class="Createbutton">
-                <p-button label="Download Template"></p-button>
-              </div>
-            </div>
-          </ng-template>
-        </p-tabPanel>
-      </p-tabView>
-    </p-dialog> -->
-  <!-- </div> -->
-<!-- </div> -->
+     </ng-template>
+     </p-dialog>
+</div> -->
