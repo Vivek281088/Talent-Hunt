@@ -1,5 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import { AggregatedData, PcrCandidateActions } from './pcr-mapping.action';
+import {
+  AggregatedData,
+  MappingPCRCandidateData,
+  PcrCandidateActions,
+} from './pcr-mapping.action';
 
 export interface MappingState {
   mappingData: AggregatedData[];
@@ -8,6 +12,15 @@ export interface MappingState {
 
 const initialState: MappingState = {
   mappingData: [],
+  error: '',
+};
+export interface MappingPcrCandidateState {
+  mappingPcrCandidateData: MappingPCRCandidateData[];
+  error: string;
+}
+
+const initialMappingState: MappingPcrCandidateState = {
+  mappingPcrCandidateData: [],
   error: '',
 };
 export const getMappingDataReducer = createReducer(
@@ -25,6 +38,22 @@ export const getMappingDataReducer = createReducer(
       mappingData: [],
       error: action.error,
     };
+  })
+);
+export const MapPcrCandidateReducer = createReducer(
+  initialMappingState,
+  on(PcrCandidateActions.mapPCRAndCandidateSuccess, (state, action) => {
+    console.log(state, action);
+    return {
+      mappingPcrCandidateData: action.mappingPcrCandidateData,
+      error: '',
+    };
   }),
-
+  on(PcrCandidateActions.mapPCRAndCandidateFailure, (state, action) => {
+    console.log(state, action);
+    return {
+      ...state,
+      error: action.error,
+    };
+  })
 );

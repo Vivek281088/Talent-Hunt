@@ -24,3 +24,22 @@ export const loadMappedData$ = createEffect(
   },
   { functional: true }
 );
+export const MapPcrCandidate$ = createEffect(
+  (action$ = inject(Actions), mappingService = inject(PcrMappingService)) => {
+    return action$.pipe(
+      ofType(PcrCandidateActions.mapPCRAndCandidate),
+      exhaustMap((mappingPcrCandidateData) =>
+        mappingService.MapPCRData(mappingPcrCandidateData).pipe(
+          tap((mappingPcrCandidateData) => console.log(mappingPcrCandidateData)),
+          map((mappingPcrCandidateData) =>
+            PcrCandidateActions.mapPCRAndCandidateSuccess({ mappingPcrCandidateData })
+          ),
+          catchError((error: { message: string }) =>
+            of(PcrCandidateActions.mapPCRAndCandidateFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
