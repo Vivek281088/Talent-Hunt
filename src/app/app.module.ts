@@ -57,7 +57,7 @@ import { AddCandidate$, deleteCandidate$, loadCandidate$, updateCandidate$ } fro
 import { CandidateFeature } from './store/candidate/candidate.selector';
 import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
 import { pcrFeature } from './store/pcr/pcr.selector';
-import { addpcr$, getPcr$ } from './store/pcr/pcr.effects';
+import { addpcr$, getPcr$, updatePcr$ } from './store/pcr/pcr.effects';
 // import { getPcr$ } from './store/pcr/pcr.effects';
 import { PCRState} from './store/pcr/pcr.selector';
 import { PcrDetailsComponent } from './modules/pcr-details/pcr-details.component';
@@ -126,7 +126,7 @@ import { PcrDetailsComponent } from './modules/pcr-details/pcr-details.component
     provideState(ScheduleFeature),
     provideState(CandidateFeature),
     provideState(pcrFeature),
-    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$}]),
+    provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$},{updatePcr$}]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
   // {
   //   provide : ErrorHandler,
