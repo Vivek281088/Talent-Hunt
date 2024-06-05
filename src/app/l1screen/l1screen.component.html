@@ -1,0 +1,232 @@
+<div class="l1Screen">
+  <div class="l1Screen-header">
+    <div class="l1Screen-header-1">
+      <div class="title">
+        <p>L1 SCREEN</p>
+      </div>
+      <div class="header-breadcrumb">
+        <p-breadcrumb
+          class="BreadCrumb"
+          [model]="items"
+          [style]="{ border: 'none' }"
+        ></p-breadcrumb>
+      </div>
+    </div>
+    <div class="new-schedule-header-2">
+      <div class="date">
+        {{ todayDate | date }}
+      </div>
+    </div>
+  </div>
+
+  <div class="l1-table">
+    <p-table
+      #dt2
+      [value]="l1Screen"
+      dataKey="id"
+      [rows]="11"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [loading]=""
+      [paginator]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [globalFilterFields]="[
+        'pcrId',
+        'candidateId',
+        'screeningDate',
+        'testStatus',
+        'Source',
+        'AgileId'
+      ]"
+      [tableStyle]="{ 'min-width': '50rem' }"
+    >
+      <ng-template pTemplate="caption">
+        <div class="totalSearch">
+          <span class="p-input-icon-double">
+            <i class="pi pi-search left-icon"></i>
+            <input
+              pInputText
+              type="text"
+              class="searchIcon"
+              (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+              [(ngModel)]="globalSearchValue"
+              placeholder="Search keyword"
+            />
+          </span>
+          <div class="ml-3">
+            <button
+              pButton
+              label="Clear Search"
+              class="clear-button cursor-pointer"
+              (click)="clear(dt2)"
+            ></button>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="min-width: 10rem">
+            <div class="filter-design">
+              PCR ID
+              <p-columnFilter
+                type="text"
+                class="button-design"
+                field="pcrId"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+
+          <th style="min-width: 10rem">
+            <div class="filter-design">
+              EMP ID
+              <p-columnFilter
+                type="text"
+                field="candidateId"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <!-- <th style="min-width:10rem">
+          <div class="filter-design">
+              AGILE ID
+              <p-columnFilter type="text" field="AgileId" display="menu"></p-columnFilter>
+          </div>
+      </th> -->
+          <!-- <th style="min-width:10rem">
+        <div class="filter-design">
+            SOURCE
+            <p-columnFilter type="text" field="Source" display="menu"></p-columnFilter>
+        </div>
+    </th> -->
+          <th style="min-width: 10rem">
+            <div class="filter-design">SCREENING DATE</div>
+          </th>
+          <th style="min-width: 10rem">
+            <div class="filter-design">
+              TEST RESULT
+              <p-columnFilter
+                type="text"
+                field="testStatus"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th style="min-width: 10rem">
+            <div class="filter-design">CURRENT STATUS</div>
+          </th>
+          <th>PANEL MEMBERS</th>
+          <th>SCHEDULE DATE</th>
+          <th>INTERVIEW STATUS</th>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="body" let-l1>
+        <tr>
+          <td>
+            {{ l1.pcrId }}
+          </td>
+          <td>
+            <span class="vertical-align-middle">{{ l1.candidateId }}</span>
+          </td>
+          <!-- <td>
+
+                  <span class="vertical-align-middle">{{ l1.AgileId}}</span>
+              </td>
+
+              <td>
+                <span class="ml-1 vertical-align-middle">{{ l1.Source }}</span>
+              </td> -->
+          <td>
+            {{ l1.screeningDate }}
+          </td>
+
+          <td>
+            {{ l1.testStatus }}
+          </td>
+          <td>
+            <div class="flex justify-content-center">
+              <!-- <p-dropdown [options]="currentStatus" appendTo="body" [(ngModel)]="l1.L1.l1Status" [disabled]="isDisabled(l1)" optionLabel="name" [showClear]="true" placeholder="Status"></p-dropdown> -->
+              {{ l1.currentStatus }}
+            </div>
+          </td>
+          <td>
+            <ng-container *ngIf="l1.L1; else disabledDefault">
+              <div class="multiselect">
+                <p-multiSelect
+                  [options]="panelMembers"
+                  [(ngModel)]="l1.L1.l1Panel"
+                  optionValue="value"
+                  appendTo="body"
+                  [filter]="true"
+                  optionLabel="names"
+                  [disabled]="isDisabled(l1)"
+                  placeholder="Select Panel"
+                ></p-multiSelect>
+              </div>
+            </ng-container>
+            <ng-template #disabledDefault>
+              <div class="multiselect">
+                <p-multiSelect
+                  [disabled]="true"
+                  placeholder="Disabled"
+                ></p-multiSelect>
+              </div>
+            </ng-template>
+          </td>
+
+          <td>
+            <ng-container *ngIf="l1.L1; else disabledCalender">
+              <div class="calender-field">
+                <p-calendar
+                  [appendTo]="'body'"
+                  [(ngModel)]="l1.L1.l1InterviewDate"
+                  [disabled]="isDisabled(l1)"
+                  [showIcon]="true"
+                ></p-calendar>
+              </div>
+            </ng-container>
+          </td>
+          <ng-template #disabledCalender>
+            <div class="calender-field">
+              <p-calendar [disabled]="true" placeholder="Disabled"></p-calendar>
+            </div>
+          </ng-template>
+          <td>
+
+            <ng-container *ngIf="l1.L1; else disabledStatus" >
+            <div class="dropdowns" *ngIf="l1.L1">
+              <p-dropdown
+                [options]="interviewStatus"
+                [disabled]="isDisabled(l1)"
+                appendTo="body"
+                optionValue="value"
+                [(ngModel)]="l1.L1.l1Status"
+                optionLabel="names"
+                [showClear]="true"
+                placeholder="Status"
+              ></p-dropdown>
+            </div>
+          </ng-container>
+          <ng-template #disabledStatus>
+            <div class="dropdowns">
+              <p-dropdown [disabled]="true" placeholder="Disabled"></p-dropdown>
+            </div>
+          </ng-template>
+          </td>
+
+          <td></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">No customers found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <!-- <button (click)="updateCheck()">
+update
+</button> -->
+</div>

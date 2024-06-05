@@ -1,25 +1,25 @@
 <div class="flex justify-content-center"(keydown.enter)="onEnterKey()">
-    <p-dialog   [modal]="true" [(visible)]="visible"  [style]="{ width: '40%', 'height': 'fit-content' }" [draggable]="false" [resizable]="false" [closable]="true" (onHide)="closeDialog()">
-       <div class="dialog-body">
-        <div class="logo-text">
-        <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
-        <p class="heading">MTalent</p>
-    </div>
-            <div>
-                <ng-otp-input  (onInputChange)="onOtpChange($event)" 
-                  [config]="{length:6 , allowNumbersOnly:true}"
-                (input)="showErrorMessage = false"
-                ></ng-otp-input>
-                <div *ngIf="showErrorMessage" class="error-msg">
-                    Authentication code is wrong 
-                  </div>
-            </div>
-            <div class="verify-button">
-                <p-toast></p-toast>
-                <button  class="verify-button" (click)="verify()"> Verify Now</button>
-            </div>
-        </div> 
-        <ng-template pTemplate="footer">
-        </ng-template>
-    </p-dialog>
+  <p-dialog   [modal]="true" [(visible)]="visible"  [style]="{ width: '40%', 'height': 'fit-content' }" [draggable]="false" [resizable]="false" [closable]="true" (onHide)="closeDialog()">
+     <div class="dialog-body">
+      <div class="logo-text">
+      <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
+      <p class="heading">MTalent</p>
+  </div>
+          <div>
+              <ng-otp-input  (onInputChange)="onOtpChange($event)"
+                [config]="{length:6 , allowNumbersOnly:true}"
+              (input)="showErrorMessage = false"
+              ></ng-otp-input>
+              <div *ngIf="showErrorMessage" class="error-msg">
+                  Authentication code is wrong
+                </div>
+          </div>
+          <div class="verify-button">
+              <p-toast></p-toast>
+              <button  class="verify-button" (click)="verify()"> Verify Now</button>
+          </div>
+      </div>
+      <ng-template pTemplate="footer">
+      </ng-template>
+  </p-dialog>
 </div>

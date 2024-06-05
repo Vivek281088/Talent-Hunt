@@ -32,7 +32,6 @@ import { SidenavbarComponent } from './modules/sidenavbar/sidenavbar.component';
 import { AssessmentTableComponent } from './modules/assessment-table/assessment-table.component';
 import { PcrDetailsComponent } from './modules/pcr-details/pcr-details.component';
 import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
-import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-resource-mapping.component';
 import { BodyComponent } from './modules/body/component/body.component';
 import { NewScheduleComponent } from './modules/new-schedule/new-schedule.component';
 import { ManageManagersComponent } from './modules/manage-managers/manage-managers.component';
@@ -52,10 +51,9 @@ import { zip } from 'rxjs';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
-import {
-  StoreDevtoolsModule,
-  provideStoreDevtools,
-} from '@ngrx/store-devtools';
+import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-resource-mapping.component';
+import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools';
+
 import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { provideState, provideStore } from '@ngrx/store';
 import { ScheduleFeature } from './store/schedule/schedule.selector';
@@ -77,6 +75,14 @@ import {
 } from './store/candidate/candidate.effects';
 
 import { CandidateFeature } from './store/candidate/candidate.selector';
+import { L1screenComponent } from './l1screen/l1screen.component';
+import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
+import { addpcr$, } from './store/pcr/pcr.effects';
+// import { getPcr$ } from './store/pcr/pcr.effects';
+
+
+
+
 import { assessmentFeature } from './store/Assessment/assessment.selector';
 import { managerFeature } from './store/manage-manager/manager-manager.selector';
 import {
@@ -86,7 +92,14 @@ import {
 import { MapPcrCandidate$, loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
 import { mappingFeature, mappingPcrCandidateFeature } from './store/PCR-Mapping/pcr-mapping.selector';
 import { getPcr$ } from './store/pcr/pcr.effects';
-import { pcrFeature } from './store/pcr/pcr.selector';
+import { PCRState, pcrFeature } from './store/pcr/pcr.selector';
+import { ResourceComponent } from './modules/resource/resource.component';
+
+
+
+
+
+import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
 
 @NgModule({
   declarations: [
@@ -108,19 +121,24 @@ import { pcrFeature } from './store/pcr/pcr.selector';
     AssessmentTableComponent,
     CandidatequestionComponent,
     THDashboardComponent,
-    PcrResourceMappingComponent,
-    PcrDetailsComponent,
     BodyComponent,
-    NewScheduleComponent,
-    ManageManagersComponent,
-    ManageCandidatesComponent,
-    ManageSkillsComponent,
-    CandidateProfileComponent,
-    ManagerProfileComponent,
-    ResetpasswordComponent,
-    ThreeDigitDirective,
-    NameInputDirective,
-    AllowDigitsDirective,
+      NewScheduleComponent,
+      ManageManagersComponent,
+      ManageCandidatesComponent,
+      ManageSkillsComponent,
+      CandidateProfileComponent,
+      ManagerProfileComponent,
+      ResetpasswordComponent,
+      ThreeDigitDirective,
+      NameInputDirective,
+      AllowDigitsDirective,
+      L1screenComponent,
+
+      PcrResourceMappingComponent,
+      ResourceComponent,
+      ManagePcrComponent,
+      PcrDetailsComponent,
+      CandidateDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -151,6 +169,7 @@ import { pcrFeature } from './store/pcr/pcr.selector';
     provideState(mappingFeature),
     provideState(pcrFeature),
     provideState(mappingPcrCandidateFeature),
+   // provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$}]),
     provideEffects([
       { loadSchedule$ },
       { addSchedule$ },

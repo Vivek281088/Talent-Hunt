@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
- 
+
+.manageManager {
+
 .manageManager {
   display: flex;
   flex-direction: column;
@@ -23,24 +25,8 @@
     .p-datatable .p-datatable-thead > tr > th {
       background: white;
     }
-    .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-      border-color: #652d90;
-      color: #652d90;
-      height: 103%;
   }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-   box-shadow: none;
-}
-.p-badge{
-  background: #652d90;
- 
-}
-.tab-header-text{
-  padding-right: 5px;
-}
- 
-  }
- 
+
   .managerDetails {
     display: flex;
     flex-direction: column;
@@ -48,7 +34,7 @@
     border: 1px solid #0000001f;
     border-radius: 8px;
     padding: 1%;
- 
+
     .name {
       font-family: "Roboto";
       font-weight: 500;
@@ -85,8 +71,8 @@
     }
   }
 }
- 
-.manageManager-header {
+
+.manageManagers-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -95,7 +81,7 @@
 .manageManager-header-1 {
   display: flex;
   flex-direction: column;
- 
+
   .title {
     p {
       font-family: "Poppins", sans-serif;
@@ -108,7 +94,7 @@
     }
   }
 }
- 
+
 .BreadCrumb {
   ::ng-deep .p-breadcrumb {
     overflow-x: auto;
@@ -140,18 +126,18 @@
     font-family: "Avenir", sans-serif;
   }
 }
- 
+
 .managerTabview {
   border: 1px solid #0000001f;
   border-radius: 8px;
   margin-top: 2%;
- 
+
   ::ng-deep {
     .p-tabview .p-tabview-panels {
         overflow-y: auto;
         // max-height: 296px;
         max-height: 418px;
- 
+
     }
     .p-inputtext {
       width: 100%;
@@ -170,24 +156,24 @@
   .profilecontent{
     padding: 0rem 1rem 1rem 1rem;
   }
- 
+
   .labelvalue {
     display: flex;
     flex-direction: column;
     font-family: "Roboto";
     font-weight: 400;
     color: #00000099;
- 
+
     .label {
       padding: 2% 0 2% 0;
- 
+
       span {
         color: #ee4555;
       }
     }
   }
- 
- 
+
+
 }
 .Newschedule-button {
     display: flex;
@@ -210,7 +196,7 @@
         }
       }
     }
- 
+
     .Createbutton {
       ::ng-deep {
         .Create-word {
@@ -235,8 +221,8 @@
       }
     }
   }
- 
- 
+
+
   //schedule design
   ::ng-deep .p-tabview .p-tabview-panels {
     padding: 0;
@@ -264,7 +250,7 @@
       color: #c81a78;
       border-color: #c81a78;
   }
- 
+
   }
   .cancelBtn {
     padding-right: 2rem;
@@ -289,18 +275,18 @@
     color: #c81a78;
     border-color: #c81a78;
 }
- 
+
   //Assessment design
   .searchIcon {
     border-radius: 4px;
     border: 1px;
     ::ng-deep {
- 
+      
     .p-inputtext{
         padding: 5%;
     }
 }
- 
+
   }
   .candidate-table{
     .filter-components {
@@ -320,7 +306,7 @@
         padding-left: 4px;
         padding-right: 4px;
       }
- 
+
       .Rejected {
         background-color: red;
         color: white;
@@ -333,7 +319,7 @@
         padding-right: 4px;
         border-radius: 4px;
       }
- 
+
       .Awaiting {
         color: white;
         background-color: blue;
@@ -347,7 +333,7 @@
         padding-right: 4px;
         border-radius: 4px;
       }
- 
+
       .Cancelled {
         color: white;
         background-color: pink;
@@ -362,12 +348,12 @@
         padding-right: 4px;
         border-radius: 4px;
       }
- 
+
       .Scheduled {
         color: white;
         background-color: grey;
         text-align: center;
- 
+
         border-radius: 8px;
         width: 68px;
         height: 18px;
@@ -377,45 +363,22 @@
         padding-right: 4px;
         border-radius: 4px;
       }
- 
+
       .resultDesign {
         width: 84px;
         height: 18px;
         font-size: 12px;
- 
+
         span {
           font-size: 12px;
           margin-top: 2px;
         }
       }
- 
+
       .assessmentName {
         color: #1e22aa !important;
       }
- 
-      .assessment-badge{
-        display:flex;
-        flex-direction: row;
-      }
- 
-      .hidebadge{
-        display:none;
-      }
- 
-      .header-content1{
-        ::ng-deep p-badge{
-          background: #652d90  !important;
-          display: inline-block;
-          border-radius: 50px;
-          text-align: center;
-         // padding: 4px;
- 
-        }
- 
+
   }
-  .tab-header-text{
-    padding-right: 5px;
-  }
- 
-  }
- 
+
+}

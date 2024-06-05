@@ -83,6 +83,7 @@ import { KnobModule } from 'primeng/knob';
     ConfirmPopupModule,
     MenuModule,
     KnobModule,
+    CalendarModule
   ],
   exports: [
     MultiSelectModule,
@@ -125,6 +126,7 @@ import { KnobModule } from 'primeng/knob';
     ConfirmPopupModule,
     MenuModule,
     KnobModule,
+    CalendarModule
   ],
 })
 export class PrimeModule {}

@@ -124,7 +124,25 @@ export class ManagernameService {
     phone: number,
     empid: number,
     department?: string,
-    location?: string
+    location?: string,
+    // New fields
+    // candidateId: string,
+    // emailId: string,
+    // candidateName: string,
+    // currentLocation: string,
+    // experience: string,
+    // candidateLocation: string,
+    // phoneNumber: number,
+    // roles: string[],
+    // candidateSource: string,
+    // SPOC: string,
+//     skillSet?:{
+//       primarySkills:string[],
+// secondarySkills: string[]
+
+//     }
+
+    
   ): Observable<any> {
     // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
@@ -134,6 +152,7 @@ export class ManagernameService {
       empid: empid,
       department: department !== undefined || '' ? department : '--',
       candidate_location: location !== undefined || '' ? location : '--',
+
     };
     return this.http
       .post<any>(
@@ -163,7 +182,8 @@ export class ManagernameService {
       phone: candidate.candidatePhone,
       empid: candidate.empid,
       department: candidate.department,
-      candidate_location: candidate.candidate_location
+      candidate_location: candidate.candidate_location,
+
     };
     return this.http.post<Candidate>(`${process.env.BASE_URL_DEV}/New-Candidate`,body)
   }

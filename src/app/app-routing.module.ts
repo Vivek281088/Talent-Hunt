@@ -11,6 +11,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
 import { CandidatequestionComponent } from './modules/candidatequestion/candidatequestion.component';
+import { L1screenComponent } from './l1screen/l1screen.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'verifymfa', component: MFAComponent },
   {path: 'enablemfa', component: Enable2faComponent},
   { path: 'candidatequestion', component: CandidatequestionComponent },
+  {path:'l1Screen',component:L1screenComponent},
   {
     path: 'mtalent',
     loadChildren: () =>
