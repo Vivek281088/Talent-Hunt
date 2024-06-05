@@ -83,8 +83,8 @@ import {
   loadAssessment$,
   sendAssessments$,
 } from './store/Assessment/assessment.effects';
-import { loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
-import { mappingFeature } from './store/PCR-Mapping/pcr-mapping.selector';
+import { MapPcrCandidate$, loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
+import { mappingFeature, mappingPcrCandidateFeature } from './store/PCR-Mapping/pcr-mapping.selector';
 import { getPcr$ } from './store/pcr/pcr.effects';
 import { pcrFeature } from './store/pcr/pcr.selector';
 
@@ -150,6 +150,7 @@ import { pcrFeature } from './store/pcr/pcr.selector';
     provideState(managerFeature),
     provideState(mappingFeature),
     provideState(pcrFeature),
+    provideState(mappingPcrCandidateFeature),
     provideEffects([
       { loadSchedule$ },
       { addSchedule$ },
@@ -163,7 +164,8 @@ import { pcrFeature } from './store/pcr/pcr.selector';
       { deleteCandidate$ },
       { deleteManager$ },
       {loadMappedData$},
-      {getPcr$}
+      {getPcr$},
+      {MapPcrCandidate$}
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     // {
