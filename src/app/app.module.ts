@@ -98,6 +98,7 @@ import { ResourceComponent } from './modules/resource/resource.component';
 
 
 
+import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
 
 @NgModule({
   declarations: [
@@ -134,6 +135,7 @@ import { ResourceComponent } from './modules/resource/resource.component';
       ResourceComponent,
       ManagePcrComponent,
       PcrDetailsComponent,
+      CandidateDetailsComponent,
   ],
   imports: [
     BrowserModule,

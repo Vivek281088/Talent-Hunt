@@ -23,6 +23,7 @@ import{ ResourceComponent } from '../resource/resource.component';
 import { ManagePcrComponent } from '../manage-pcr/manage-pcr.component';
 import { PcrDetailsComponent } from '../pcr-details/pcr-details.component';
 import { PcrResourceMappingComponent } from '../pcr-resource-mapping/pcr-resource-mapping.component';
+import { CandidateDetailsComponent } from '../candidate-details/candidate-details.component';
 
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
@@ -48,6 +49,7 @@ const routes:Routes=[{path:'',component:BodyComponent,
     {path : 'pcrdetails' , component : PcrDetailsComponent},
     {path: 'resource', component:ResourceComponent},
     {path:'manage-pcr',component:ManagePcrComponent},
+    { path: 'candidatedetails', component: CandidateDetailsComponent },
 
   ]
 }]
