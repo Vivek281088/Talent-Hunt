@@ -28,6 +28,6 @@ export const candidateActions = createActionGroup({
         'Delete Candidates' : props<{candidates:{id : string, candidateEmail : string}[]}>(),
         'Delete Candidate Success' : props<{candidates:{id : string, candidateEmail : string}[]}>(),
         'Delete Candidate Failure' : props<{error : string}>()
-        
+
     }
 })

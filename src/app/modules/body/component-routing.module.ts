@@ -20,6 +20,11 @@ import { ManageSkillsComponent } from '../manage-skills/manage-skills.component'
 import { ManagerProfileComponent } from '../manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from '../candidate-profile/candidate-profile.component';
 import { L1screenComponent } from 'src/app/l1screen/l1screen.component';
+import{ ResourceComponent } from '../resource/resource.component';
+import { ManagePcrComponent } from '../manage-pcr/manage-pcr.component';
+import { PcrDetailsComponent } from '../pcr-details/pcr-details.component';
+import { PcrResourceMappingComponent } from '../pcr-resource-mapping/pcr-resource-mapping.component';
+import { CandidateDetailsComponent } from '../candidate-details/candidate-details.component';
 
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
@@ -41,7 +46,12 @@ const routes:Routes=[{path:'',component:BodyComponent,
     { path: 'managerProfile', component: ManagerProfileComponent },
     { path: 'candidateProfile', component: CandidateProfileComponent },
     { path: 'thdashboard', component: THDashboardComponent },
-    { path:'l1Screen',component:L1screenComponent}
+    { path:'l1Screen',component:L1screenComponent},
+    { path: 'pcr-mapping', component: PcrResourceMappingComponent },
+    {path : 'pcrdetails' , component : PcrDetailsComponent},
+    {path: 'resource', component:ResourceComponent},
+    {path:'manage-pcr',component:ManagePcrComponent},
+    { path: 'candidatedetails', component: CandidateDetailsComponent },
 
   ]
 }]

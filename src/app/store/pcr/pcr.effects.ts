@@ -1,12 +1,12 @@
 
-import { inject } from "@angular/core"
+import { Injectable, inject } from "@angular/core"
 import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { PcrActions } from "./pcr.action"
-import { catchError, exhaustMap, map, of, tap } from "rxjs"
-import { NewScheduleService } from "src/app/services/new-schedule.service"
+import { catchError, exhaustMap, map, of, switchMap, tap } from "rxjs"
+import { PcrService } from "src/app/services/pcr.service"
 
 export const getPcr$ = createEffect(
-  (action$ = inject(Actions) , pcrService = inject(NewScheduleService)) => {
+  (action$ = inject(Actions) , pcrService = inject(PcrService)) => {
       return action$.pipe(
           ofType(PcrActions.getPCR),
           exhaustMap(()=>
@@ -22,3 +22,59 @@ export const getPcr$ = createEffect(
   },
   {functional:true}
   )
+
+  export const addpcr$=createEffect(
+    (action$=inject(Actions),addPCRService=inject(PcrService))=>{
+        return action$.pipe(
+            ofType(PcrActions.addPCR),
+           
+            switchMap((pcr) => 
+                addPCRService.addpcr(pcr.pcr).pipe(
+                    tap((pcr) =>{
+                        console.log("add pcr.................." , pcr);
+                    }),
+                    map((pcr) => PcrActions.addPCRSuccess({pcr})),
+                    catchError((error) => {
+                        console.log(error)
+                        return of(PcrActions.addPCRFailure({error : error.error}))
+                    } )
+                )
+            )
+        )
+        
+        
+
+    }
+,{functional:true}
+  )
+
+@Injectable()
+export class pcrEffects{
+    constructor(private actions$ : Actions, private pcrService : PcrService){}
+
+    getpcrDetails$ = createEffect(()=>{
+        return this.actions$.pipe(
+            ofType(PcrActions.getPCR),
+            exhaustMap((pcr)=> 
+                this.pcrService.getPcr().pipe(
+                    tap((pcr) => console.log(pcr)),
+                    map((pcr) => PcrActions.getPCRSuccess({pcr})),
+                    catchError((error) => of(PcrActions.getPCRFailure({error : error.message})))
+                )
+            )
+        )
+    })
+
+    addMultiPCR$ = createEffect(()=> {
+        return this.actions$.pipe(
+            ofType(PcrActions.addMultiPCR),
+            exhaustMap((pcr)=> 
+                this.pcrService.addMuiltPCR(pcr.pcr).pipe(
+                    tap(pcr => console.log("add multi pcr .........." , pcr)),
+                    map((pcr) => PcrActions.addMultiPCRSuccess({pcr})),
+                    catchError((error) => of(PcrActions.addMultiPCRFailure({error : error.message})))
+                )
+            )
+        )
+    })
+}

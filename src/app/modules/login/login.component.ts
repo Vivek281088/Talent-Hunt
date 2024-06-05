@@ -17,7 +17,6 @@ import * as CryptoJS from 'crypto-js';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy {
- // @ViewChild('dynamicComponentContainer', { read: ViewContainerRef }) dynamicComponentContainer!: ViewContainerRef;
   showNavbar: boolean = false;
   name!: string;
   password!: string;
@@ -25,7 +24,6 @@ export class LoginComponent implements OnDestroy {
   passwordinvalid!: string;
   finalizedName!: string;
   userEmail!: string;
-
   encrypted_password!: string;
   loginForm!: FormGroup;
   formSubmitted:boolean=false
@@ -42,20 +40,15 @@ export class LoginComponent implements OnDestroy {
   ) {
     this.loginForm = this.fb.group({
       userName: ['', [Validators.required
-
       ]],
       password: ['', [Validators.required]],
-
-
-
     });
   } 
-  //  ) {}//
  
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'home');
-
   }
+
   ngOnDestroy(): void {
 
   }
@@ -74,15 +67,12 @@ console.log("inside sign in")
     this.loginservice
       .postlogincredentials(formData.userName, hashedPassword)
       .subscribe((data) => {
-
         console.log('role', data);
         console.log(data)
         if (data.status == 200) {
           localStorage.setItem('token', data.token);
           console.log('Token-', data.token); 
-
           if (data.role == 'manager') {
-
             //display manager name
             this.managernameService.setManagerName_Email(formData.userName);
 
@@ -137,7 +127,6 @@ console.log("inside sign in")
       });
   }else{
     console.log("invalid form");
-
   }
   }
   onEnterKey() {

@@ -1,3 +1,4 @@
+import { Assessment } from 'src/app/store/Assessment/assessment.action';
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -203,6 +204,7 @@ export class TableService {
     };
 
     console.log('Send Existing email Data', body);
+    
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/createMail',
       body,
@@ -211,4 +213,10 @@ export class TableService {
       }
     );
   }
+
+postInviteCandidate(assessment:Assessment):Observable<Assessment>
+{
+  return this.http.post<Assessment>(`${process.env.BASE_URL_PRIVATE}/createMail`, assessment);
+
+}
 }

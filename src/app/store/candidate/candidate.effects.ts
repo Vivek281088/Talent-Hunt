@@ -10,7 +10,7 @@ export const loadCandidate$ = createEffect(
 (action$ = inject(Actions) , candidateService = inject(NewScheduleService)) => {
     return action$.pipe(
         ofType(candidateActions.getCandidate),
-        exhaustMap(()=> 
+        exhaustMap(()=>
             candidateService.getUniqueCandidate().pipe(
                 tap((candidates) => console.log(candidates)),
                 map((candidates) => candidateActions.getCandidateSuccess({candidates})),
@@ -28,11 +28,11 @@ export const updateCandidate$ = createEffect(
     (action$ = inject(Actions) , candidateService = inject(ManagernameService)) =>{
         return action$.pipe(
             ofType(candidateActions.updateCandidate),
-            exhaustMap((candidate) => 
+            exhaustMap((candidate) =>
                     candidateService.updateSingleCandidate(candidate.candidate).pipe(
                         tap(candidate => console.log(candidate)),
                         map((candidate) => candidateActions.updateCandidateSuccess({candidate})),
-                        catchError((error : {message : string}) => 
+                        catchError((error : {message : string}) =>
                             of(candidateActions.updateCandidateFailure({error: error.message}))
                         )
                     )
@@ -45,7 +45,7 @@ export const AddCandidate$ = createEffect(
     (action$ = inject(Actions) , candidateService = inject(ManagernameService) , messageService = inject(ToastMessageService))  =>{
         return action$.pipe(
             ofType(candidateActions.addCandidate),
-            switchMap((candidate) => 
+            switchMap((candidate) =>
                 candidateService.addNewCandidate(candidate.candidate).pipe(
                     tap((candidate) =>{
                         console.log("add cadidate.................." , candidate);
@@ -66,7 +66,7 @@ export const deleteCandidate$ = createEffect(
     (action$ = inject(Actions) , candidateService = inject(ManagernameService)) => {
         return action$.pipe(
             ofType(candidateActions.deleteCandidates),
-            exhaustMap((candidates) => 
+            exhaustMap((candidates) =>
                 candidateService.deleteCandidates(candidates.candidates).pipe(
                     tap((candidates) => console.log("sdfbv bg r",candidates)),
                     map((candidates : any) => candidateActions.deleteCandidateSuccess({candidates})),

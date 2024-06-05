@@ -56,9 +56,9 @@ export class CandidateProfileComponent {
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Candidate', routerLink: '/manage-candidates' },
-      { label: 'Candidate Profile', routerLink: '/candidateProfile' },
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'Candidate', routerLink: '/mtalent/manage-candidates' },
+      { label: 'Candidate Profile', routerLink: '/mtalent/candidateProfile' },
     ];
 
   }

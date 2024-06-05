@@ -42,6 +42,7 @@ export class ManageCandidatesComponent implements OnDestroy{
   private errorSubscription!: Subscription;
  
 
+
   constructor(
     private managerService: ManagernameService,
     private fb: FormBuilder,
@@ -64,11 +65,11 @@ export class ManageCandidatesComponent implements OnDestroy{
   }
   ngOnDestroy(): void {
     this.submit$.complete()
-    this.errorSubscription ? this.errorSubscription.unsubscribe() : null 
+    this.errorSubscription ? this.errorSubscription.unsubscribe() : null
   }
   ngOnInit() {
     this.store.dispatch(candidateActions.getCandidate());
-    this.candidates$.subscribe((candidates) => 
+    this.candidates$.subscribe((candidates) =>
       this.candidateData = candidates
   )
     //  this.errorSubscription = this.error$.subscribe(error =>{

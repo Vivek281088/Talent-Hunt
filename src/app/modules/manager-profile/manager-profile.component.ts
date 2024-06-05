@@ -110,9 +110,9 @@ export class ManagerProfileComponent {
     this.getManagerData();
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Manager', routerLink: '/manage-managers' },
-      { label: 'Manager Profile', routerLink: '/managerProfile' },
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'Manager', routerLink: '/mtalent/manage-managers' },
+      { label: 'Manager Profile', routerLink: '/mtalent/managerProfile' },
     ];
   }
   getManagerData() {
