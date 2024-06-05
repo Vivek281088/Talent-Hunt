@@ -95,6 +95,7 @@ import { loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
 import { mappingFeature } from './store/PCR-Mapping/pcr-mapping.selector';
 import { getPcr$ } from './store/pcr/pcr.effects';
 import { pcrFeature } from './store/pcr/pcr.selector';
+import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
 
 @NgModule({
   declarations: [
@@ -131,6 +132,7 @@ import { pcrFeature } from './store/pcr/pcr.selector';
       AllowDigitsDirective,
       ManagePcrComponent,
       PcrDetailsComponent,
+      CandidateDetailsComponent,
   ],
   imports: [
     BrowserModule,
