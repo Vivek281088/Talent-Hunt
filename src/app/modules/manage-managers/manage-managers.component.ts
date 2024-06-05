@@ -1,3 +1,4 @@
+import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -12,6 +13,9 @@ import {
   MessageService,
   ConfirmEventType,
 } from 'primeng/api';
+import { Manager,ManagerActions } from 'src/app/store/manage-manager/manage-manager.action';
+import { getManagerData, selectManagerState } from 'src/app/store/manage-manager/manager-manager.selector';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-manage-managers',
   templateUrl: './manage-managers.component.html',
@@ -32,7 +36,7 @@ export class ManageManagersComponent {
   addManagerForm!: FormGroup;
   formSubmitted: boolean = false;
   position: string = 'center';
-  isdisabled: boolean=false;
+  isdisabled: boolean = false;
 
   constructor(
     private managerService: ManagernameService,
@@ -40,16 +44,24 @@ export class ManageManagersComponent {
     private messageService: MessageService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private newScheduleService: NewScheduleService
+    private newScheduleService: NewScheduleService,
+    private readonly store: Store
   ) {
-    const nonWhitespaceRegExp: RegExp = new RegExp("\\S");
+    const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
     this.addManagerForm = this.fb.group({
-      employeeId: [null, [Validators.required,Validators.minLength(6)]],
-      managerName: ['', [Validators.required,Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$')]],
-      phone: [null, [Validators.required,Validators.minLength(10)]],
-      department: ['', [Validators.required,Validators.minLength(3)]],
-      location: ['', [Validators.required ,Validators.minLength(3)]],
+      employeeId: [null, [Validators.required, Validators.minLength(6)]],
+      managerName: ['', [Validators.required, Validators.minLength(3)]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$'),
+        ],
+      ],
+      phone: [null, [Validators.required, Validators.minLength(10)]],
+      department: ['', [Validators.required, Validators.minLength(3)]],
+      location: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
   ngOnInit() {
@@ -60,19 +72,28 @@ export class ManageManagersComponent {
     console.log('Date--------', this.todayDate);
 
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-      { label: 'Managers', routerLink: '/manage-managers' },
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'Managers', routerLink: '/mtalent/manage-managers' },
     ];
   }
   loadManagerData() {
-    this.managerService.getclientManagerData().subscribe((response) => {
-      console.log('Client Manager Details', response);
-      this.managerData = response;
+    this.store.dispatch(ManagerActions.getManagerData());
+    this.store.select(getManagerData).subscribe((data) => {
+      console.log('Client Manager Details From Store', data);
+      this.managerData = data;
 
-      this.managerData.forEach((manager: { selection: boolean }) => {
-        manager.selection = manager.selection || false;
-      });
+      // this.managerData.forEach((manager: { selection: boolean }) => {
+      //   manager.selection = manager.selection || false;
+      // });
     });
+    // this.managerService.getclientManagerData().subscribe((response) => {
+    //   console.log('Client Manager Details', response);
+    //   this.managerData = response;
+
+    //   this.managerData.forEach((manager: { selection: boolean }) => {
+    //     manager.selection = manager.selection || false;
+    //   });
+    // });
   }
 
   clear(table: Table) {
@@ -81,7 +102,7 @@ export class ManageManagersComponent {
   }
 
   addManager() {
-    console.log(this.addManagerForm)
+    console.log(this.addManagerForm);
     this.visible = true;
     this.isAddManager = true;
     this.isEditManager = false;
@@ -109,10 +130,9 @@ export class ManageManagersComponent {
         department: this.selectedRowData.department,
         location: this.selectedRowData.managerLocation,
       });
-
     }
     //console.log('Edit Data', this.addManagerForm);
-    console.log("touched",this.addManagerForm)
+    console.log('touched', this.addManagerForm);
   }
 
   cancelButton() {
@@ -122,7 +142,7 @@ export class ManageManagersComponent {
     this.addManagerForm.markAsPristine();
     this.addManagerForm.markAsUntouched();
     this.formSubmitted = false;
-    this.isEditManager=false;
+    this.isEditManager = false;
   }
   saveSuccessMessage() {
     this.messageService.add({
@@ -172,43 +192,75 @@ export class ManageManagersComponent {
       const formData = this.addManagerForm.value;
       console.log('Form Data:', formData);
 
-      try {
-        this.managerService
-          .postClientManager(
-            parseInt(formData.employeeId, 10),
-            formData.managerName,
-            formData.email,
-            formData.phone,
-            formData.department,
-            formData.location
-          )
-          .subscribe({
-            next: (x) => {
+      const addManager : Manager = {
+        empid: parseInt(formData.employeeId, 10),
+        managerName: formData.managerName,
+        email: formData.email,
+        phoneNo: formData.phone,
+        department: formData.department,
+        managerLocation: formData.location,
+        password: 'ClientManager@001#',
+        deleted: false,
+        role: 'manager',
+        selection: false
+      };
 
-              setTimeout(() => {
-                this.saveSuccessMessage();
-                this.cancelButton();
-                this.loadManagerData();
-              }, 1000);
-            },
-            error: (err) => {
-              console.log("error---",err)
-              if (err.status == 405) {
-                setTimeout(() => {
-                  this.mailExistError();
-                  console.log('Mail already exists');
-                  this.cancelButton();
-                }, 500);
-              } else if (err.status == 404) {
-                setTimeout(() => {
-                  this.IdExistError();
-                  console.log('Emp Id already exists');
-                  this.cancelButton();
-                }, 500);
-              }
-            },
-            complete: () => console.log('There are no more action happen.'),
-          });
+      // try {
+      //   this.managerService
+      //     .postClientManager(
+      //       parseInt(formData.employeeId, 10),
+      //       formData.managerName,
+      //       formData.email,
+      //       formData.phone,
+      //       formData.department,
+      //       formData.location
+      //     )
+      //     .subscribe({
+      //       next: (x) => {
+
+      //         setTimeout(() => {
+      //           this.saveSuccessMessage();
+      //           this.cancelButton();
+      //           this.loadManagerData();
+      //         }, 1000);
+      //       },
+      //       error: (err) => {
+      //         console.log("error---",err)
+      //         if (err.status == 405) {
+      //           setTimeout(() => {
+      //             this.mailExistError();
+      //             console.log('Mail already exists');
+      //             this.cancelButton();
+      //           }, 500);
+      //         } else if (err.status == 404) {
+      //           setTimeout(() => {
+      //             this.IdExistError();
+      //             console.log('Emp Id already exists');
+      //             this.cancelButton();
+      //           }, 500);
+      //         }
+      //       },
+      //       complete: () => console.log('There are no more action happen.'),
+      //     });
+      // }
+      try {
+
+        this.store.dispatch(ManagerActions.postManagerData({manager : addManager}));
+        this.cancelButton();
+
+        const subscription: Subscription = this.store.select(selectManagerState).subscribe(state => {
+          if (state.error) {
+            if (state.status === 405) {
+              this.mailExistError();
+              this.cancelButton();
+            } else if (state.status === 404) {
+              this.IdExistError();
+              this.cancelButton();
+            }
+            // Unsubscribe after handling the error to avoid memory leaks
+            subscription.unsubscribe();
+          }
+        });
       } catch (error) {
         console.log('this is the error Message', error);
       }
@@ -336,8 +388,7 @@ export class ManageManagersComponent {
           summary: 'Deleted',
           detail: 'Manager Deleted Successfully',
         });
-     this.deleteManager();
-
+        this.deleteManager();
       },
       reject: (type: ConfirmEventType) => {
         switch (type) {
@@ -362,25 +413,23 @@ export class ManageManagersComponent {
       key: 'positionDialog',
     });
   }
-  selectedDeleteManager: any;
+  selectedDeleteManager= [];
+  deleteManagerId : any;
   deleteManager() {
     console.log('Deleteting Manager.....', this.selectedDeleteManager);
-    for (let managerData of this.selectedDeleteManager) {
-      this.managerService
-        .deleteManagerDetails(managerData.empid, managerData.email)
-        .subscribe((response) => {
-          console.log('Deleted Manager.....', managerData.managerName);
-        });
-    }
-
+    this.deleteManagerId=this.selectedDeleteManager.map( ({empid,email}) => ({empid,email}));
+    console.log('Only Id.....', this.deleteManagerId);
+    this.store.dispatch(ManagerActions.deleteManagerData({deleteManager : this.deleteManagerId}))
     setTimeout(() => {
       //this.deleteMessage();
       this.selectedDeleteManager = [];
+      this.deleteManagerId =[]
       this.loadManagerData();
     }, 1500);
   }
 
   toggleSelection(data: any) {
+    console.log(data);
     if (!data || !data.empid) {
       return;
     }

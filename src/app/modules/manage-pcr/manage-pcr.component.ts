@@ -24,7 +24,7 @@ export class ManagePcrComponent {
   editPCR:boolean=false;
   // createdDate!:Date;
 
-  constructor(private route: Router, private fb: FormBuilder,private store:Store) {
+  constructor(private router: Router, private fb: FormBuilder,private store:Store) {
     this.addPCRForm = this.fb.group({
       agileId:[null,[Validators.required,Validators.minLength(6)]],
       pcrId: [null, [Validators.required, Validators.minLength(6)]],
@@ -55,6 +55,10 @@ export class ManagePcrComponent {
     })
 
 
+  }
+  individualPCR(id : string) {
+    sessionStorage.setItem("currentPCRid",id)
+    this.router.navigate(['/mtalent/pcrdetails'])
   }
   addPcr() {
     this.addPCR=true

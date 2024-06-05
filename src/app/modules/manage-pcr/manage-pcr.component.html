@@ -111,9 +111,11 @@
               [checked]="rowData.selection"
             ></p-tableCheckbox>
           </td>
-          <td>{{ rowData.pcrId }}</td>
-          <td class="candidatenamedesign">
-            <a>{{ rowData.jobTitle }}</a>
+          <td class="pcr-link"> <a (click)="individualPCR(rowData.pcrId)">{{
+            rowData.pcrId
+          }}</a></td>
+          <td>
+            {{ rowData.jobTitle }}
           </td>
           <td>{{ rowData.createdDate }}</td>
           <td>{{ rowData.projectId }}</td>

@@ -52,7 +52,6 @@
                     name="password"
                   />
                 </div>
-
                 <div
                   *ngIf="
                     loginForm.get('password')?.invalid &&
@@ -67,20 +66,16 @@
                   </div>
                 </div>
               </div>
-
               <p-toast></p-toast>
-
               <button type="button" class="loginButton" (click)="sign()">
                 Log in
               </button>
             </form>
-            
           </div><div class="bottomcontent">
             <a (click)="forgotpassword()" class="forgot-password"
               >Forgot Password ?</a
             >
             <div class="hrLine"></div>
-
             <div class="signup">
               <button
                 type="button"
@@ -91,8 +86,6 @@
               </button>
             </div>
           </div>
-
-         
         </div>
       </p-card>
       <!-- <div class="cardfooter">

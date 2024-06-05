@@ -21,7 +21,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./mfa.component.scss'],
   imports: [CommonModule,DialogModule ,CardModule,NgOtpInputModule,ButtonModule,HttpClientModule,ToastModule ],
   providers:[MessageService]
-  
+
 })
 export class MFAComponent implements OnInit{
   value : any;
@@ -32,7 +32,7 @@ export class MFAComponent implements OnInit{
 
   emailId:any;
   constructor(private http : HttpClient,private dataService:DataService,private router:Router,private messageservice:MessageService,private route:ActivatedRoute){
-    
+
   }
   ngOnInit(): void {
     this.route.queryParams.subscribe(params=>{
@@ -47,7 +47,7 @@ export class MFAComponent implements OnInit{
   }
   verify() {
     try {
-       console.log("entered try") 
+       console.log("entered try")
       const emailId: string | null = localStorage.getItem('managerEmail');
 
       this.dataService.verifyMFA(this.emailId||emailId,this.token).subscribe((data)=>{
@@ -64,7 +64,7 @@ export class MFAComponent implements OnInit{
 console.log("entered else")
 
 this.showErrorMessage = true;
-          
+
           return;
         }
       })
@@ -80,3 +80,4 @@ this.showErrorMessage = true;
     this.router.navigate(['/login']);
   }
 }
+ 

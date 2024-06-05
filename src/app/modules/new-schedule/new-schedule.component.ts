@@ -123,6 +123,9 @@ editvisible: boolean =false;
       ],
       
      
+
+
+
       managerName: [
       '',
         [
@@ -133,6 +136,8 @@ editvisible: boolean =false;
       ],
 
  
+
+
     })
     this.updateNewScheduleForm = this.fb.group({
       scheduleName: [
@@ -385,8 +390,9 @@ editvisible: boolean =false;
         Skill: selectedSkillName,
       };
       console.log('response', dataToSave);
+
       this.store.dispatch(ScheduleActions.updateSchedule({schedule : newSch}))
-      
+
       // this.skillsdropdownservice
       //   .postNewSchedule(dataToSave)
       //   .subscribe((response) => {
@@ -396,14 +402,18 @@ editvisible: boolean =false;
       //     }, 1500);
 
  
+
+
       //   });
     } catch (error) {
       console.error(error);
     }
  
     // Notification
- 
-    
+
+    this.router.navigate(['/mtalent/dashboard']);
+
+
     const managerId = sessionStorage.getItem('loginManagerId');
  
     console.log('managerid', managerId);
@@ -698,6 +708,9 @@ editvisible: boolean =false;
     console.log("update function" , scheduleName , manager);
     
    
+
+
+
     this.updateNewScheduleForm.patchValue({
       scheduleName:this.newScheduleEditForm.get('scheduleName')?.value,
       managerName:this.newScheduleEditForm.get('managerName')?.value
@@ -712,6 +725,11 @@ editvisible: boolean =false;
       
  
      
+
+
+
+
+
       this.editvisible = false;
       this.router.navigate(['/mtalent/new-schedule']);
     }
