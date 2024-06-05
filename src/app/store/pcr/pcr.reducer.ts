@@ -11,7 +11,6 @@ export const initialState : pcrState = {
   pcr: [],
   error: "",
   pcrCount: 0,
-
 }
 
 export const pcrReducer = createReducer(

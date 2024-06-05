@@ -55,6 +55,7 @@ import { addSchedule$, deleteSchedule$, loadSchedule$ } from './store/schedule/s
 import { AuthkeyInterceptor } from './Interceptors/authkey.interceptor';
 import { AddCandidate$, deleteCandidate$, loadCandidate$, updateCandidate$ } from './store/candidate/candidate.effects';
 import { CandidateFeature } from './store/candidate/candidate.selector';
+import { L1screenComponent } from './l1screen/l1screen.component';
 
 
 
@@ -79,9 +80,7 @@ import { CandidateFeature } from './store/candidate/candidate.selector';
     SidenavbarComponent,
     AssessmentTableComponent,
     CandidatequestionComponent,
-    THDashboardComponent
-    ,
-
+    THDashboardComponent,
     BodyComponent,
       NewScheduleComponent,
       ManageManagersComponent,
