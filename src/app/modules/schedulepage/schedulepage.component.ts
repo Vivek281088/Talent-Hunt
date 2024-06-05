@@ -29,6 +29,7 @@ import {
 import { Store } from '@ngrx/store';
 import { ScheduleActions } from 'src/app/store/schedule/schedule.action';
 import { getSchedules } from 'src/app/store/schedule/schedule.selector';
+import { Assessment, AssessmentActions } from 'src/app/store/Assessment/assessment.action';
 
 @Component({
   selector: 'app-schedulepage',
@@ -154,7 +155,7 @@ export class SchedulepageComponent implements OnInit {
     this.loadSkills();
     this.loadManagerNames();
     this.store.dispatch(ScheduleActions.getSchedule())
-    this.store.select(getSchedules).subscribe(data =>{ 
+    this.store.select(getSchedules).subscribe(data =>{
       console.log("select state????????????????????????????????????????????????????????????" , data)
       this.Tdata = data
     });
@@ -405,7 +406,7 @@ export class SchedulepageComponent implements OnInit {
       console.log('matched candidate', existingCandidate);
 
       //rest data
-      this.score = null;
+      this.score =0;
       this.result = 'Scheduled';
       const date = Date.now();
       this.candidateId = new Date(date);
@@ -416,34 +417,65 @@ export class SchedulepageComponent implements OnInit {
         const istMoment = moment.utc(currentdate).tz('Asia/Kolkata');
         this.scheduledTime = istMoment.format('YYYY-MM-DD HH:mm:ss.SSSSSS');
         console.log("Questions------",this.questions)
-        this.tableService
-          .postExistingCandidateDetails(
-            this.candidateId,
-            existingCandidate.empid,
-            this.email_Managername,
-            existingCandidate.candidateName,
-            existingCandidate.candidateEmail,
-            existingCandidate.candidatePhone,
-            this.email_Status,
-            this.email_Filename,
-            this.questions,
-            this.score,
-            this.result,
-            this.cutoff,
-            this.durations,
-            existingCandidate.password,
-            existingCandidate.confirmPassword,
-            this.roles,
-            this.Skill,
-            existingCandidate.department,
-            existingCandidate.candidate_location,
-            loginManagerid,
-            this.scheduledTime
-          )
-          .subscribe((data) => {
-            console.log('Stored data for existing candidate:', data);
-            this.candidateData.push(data);
-          });
+
+
+        // this.tableService
+        //   .postExistingCandidateDetails(
+        //     this.candidateId,
+        //     existingCandidate.empid,
+        //     this.email_Managername,
+        //     existingCandidate.candidateName,
+        //     existingCandidate.candidateEmail,
+        //     existingCandidate.candidatePhone,
+        //     this.email_Status,
+        //     this.email_Filename,
+        //     this.questions,
+        //     this.score,
+        //     this.result,
+        //     this.cutoff,
+        //     this.durations,
+        //     existingCandidate.password,
+        //     existingCandidate.confirmPassword,
+        //     this.roles,
+        //     this.Skill,
+        //     existingCandidate.department,
+        //     existingCandidate.candidate_location,
+        //     loginManagerid,
+        //     this.scheduledTime
+        //   )
+        //   .subscribe((data) => {
+        //     console.log('Stored data for existing candidate:', data);
+        //     this.candidateData.push(data);
+        //   });
+
+
+        const assessment:Assessment={
+          department: existingCandidate.department,
+          questions: this.questions,
+          loginManagerid: loginManagerid as string,
+          Skill: this.Skill,
+          candidate_location: existingCandidate.candidate_location,
+          score: this.score,
+          candidatePhone:  existingCandidate.candidatePhone,
+          confirmPassword: existingCandidate.confirmPassword,
+          scheduledTime: '',
+          durations: this.durations,
+          password: existingCandidate.password,
+          cutoff:this.cutoff ,
+          roles: this.roles,
+          candidateEmail: existingCandidate.candidateEmail,
+          empid: existingCandidate.empid,
+          email_Status:  this.email_Status,
+          email_Managername: this.email_Managername,
+          email_Filename: this.email_Filename,
+          results: this.result,
+          candidateName: existingCandidate.candidateName,
+          id:  this.candidateId.toString(),
+          submitTime: this.scheduledTime,
+          deleted:"false"
+        }
+        this.store.dispatch(AssessmentActions.sendAssessment({assessment}))
+
       }
     });
     setTimeout(() => {
@@ -487,7 +519,7 @@ export class SchedulepageComponent implements OnInit {
     //   console.log("delete api private ......................" , data)
     //   this.selectedDeleteSchedule = [];
     // })
- 
+
   }
 
 

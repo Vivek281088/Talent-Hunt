@@ -22,26 +22,30 @@
   <div class="mappingTable">
     <p-table
       #dt2
-      dataKey="id"
+      dataKey="uniqueId"
       [rows]="5"
       [showCurrentPageReport]="true"
+      [value]="mappingData"
+      [(selection)]="selectedMappedData"
       [rowsPerPageOptions]="[5, 10, 25, 50]"
       [loading]=""
       [paginator]="true"
-      dataKey="empid"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
-        'managerName',
-        'department',
-        'email',
-        'empid',
-        'managerLocation'
+        'pcrData.pcrId',
+        'candidateData.candidateId',
+        'candidateData.candidateName',
+        'pcrData.jobTitle',
+        'pcrData.scheduleName ',
+        'mappedData.testStatus',
+        'mappedData.submitTime',
+        'mappedData.testScore'
       ]"
     >
       <ng-template pTemplate="header">
         <tr>
           <th colspan="9">
-            <div class="mappingPage-header">
+            <div class="mappingPage-header-details">
               <div class="mappingPage-header1">
                 <div class="p-input-icon-right">
                   <i class="pi pi-search"></i>
@@ -67,7 +71,7 @@
                 </div>
               </div>
               <div class="mapPcr">
-                <button pButton label="Map PCR"></button>
+                <button pButton label="Map PCR" (click)="mappingPCR()"></button>
               </div>
               <div class="mapPcr">
                 <button pButton label="Send Mail"></button>
@@ -78,10 +82,12 @@
 
         <tr>
           <th style="width: 4rem">
-            <p-tableHeaderCheckbox [value]=""></p-tableHeaderCheckbox>
+            <p-tableHeaderCheckbox
+              [value]="mappingData"
+            ></p-tableHeaderCheckbox>
           </th>
           <th class="customId">PCR ID</th>
-          <th class="customId" >Candidate ID</th>
+          <th class="customId">Candidate ID</th>
           <th>Candidate Name</th>
           <th>Job Description</th>
           <th>Schedule Name</th>
@@ -101,12 +107,17 @@
             <p-tableCheckbox
               [value]="rowData"
               [checked]="rowData.selection"
+              (click)="toggleSelection(rowData)"
             ></p-tableCheckbox>
           </td>
-          <td>{{ rowData.empid }}</td>
-          <td>{{ rowData.email }}</td>
-          <td>{{ rowData.department }}</td>
-          <td>{{ rowData.managerLocation }}</td>
+          <td>{{ rowData.pcrData.pcrId }}</td>
+          <td>{{ rowData.candidateData.candidateId }}</td>
+          <td>{{ rowData.candidateData.candidateName }}</td>
+          <td>{{ rowData.pcrData.jobTitle }}</td>
+          <td>{{ rowData.pcrData.scheduleName }}</td>
+          <td>{{ rowData.mappedData.testStatus }}</td>
+          <td>{{ rowData.mappedData.submitTime }}</td>
+          <td>{{ rowData.mappedData.testScore }}</td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
@@ -116,4 +127,69 @@
       </ng-template>
     </p-table>
   </div>
+</div>
+
+<p-toast></p-toast>
+<div class="newSchedule-Dialog">
+  <p-dialog
+    header="PCR-Candidate Mapping"
+    [(visible)]="mappingDialogVisible"
+    [modal]="true"
+    [style]="{ width: '47VW' }"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="false"
+  >
+    <div class="mappingContent">
+      <div class="customInput">
+        <div class="pcrDropdown">
+          <p-dropdown
+            [options]="pcrData"
+            placeholder="--Select PCR--"
+            appendTo="body"
+            optionLabel="pcrId"
+            [(ngModel)]="selectedPcrId"
+            optionValue="pcrId"
+          ></p-dropdown>
+        </div>
+        <div class="candidateMultiselect">
+          <p-multiSelect
+            [options]="candidateData"
+            placeholder="--Select candidate--"
+            [filter]="true"
+            [resetFilterOnHide]="true"
+            appendTo="body"
+            display="chip"
+            [showClear]="false"
+            [(ngModel)]="selectedCandidates"
+            optionLabel=""
+            optionValue=""
+            (onChange)="selected()"
+          ></p-multiSelect>
+        </div>
+      </div>
+      <div
+        class="customdisplay"
+        *ngIf="selectedPcrId && selectedCandidates.length > 0"
+      >
+        <p-messages [(value)]="messages" [enableService]="false" />
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="customButtons">
+        <div class="Cancelbutton">
+          <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
+          </p-button>
+        </div>
+
+        <div class="mapButton">
+          <p-button
+            label="Map PCR"
+            (click)="mapPCR()"
+            [disabled]="!selectedPcrId || selectedCandidates.length == 0"
+          ></p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
 </div>

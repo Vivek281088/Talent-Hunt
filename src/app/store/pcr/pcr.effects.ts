@@ -2,7 +2,7 @@
 import { Injectable, inject } from "@angular/core"
 import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { PcrActions } from "./pcr.action"
-import { catchError, exhaustMap, map, of, tap } from "rxjs"
+import { catchError, exhaustMap, map, of, switchMap, tap } from "rxjs"
 import { PcrService } from "src/app/services/pcr.service"
 
 export const getPcr$ = createEffect(
@@ -21,6 +21,31 @@ export const getPcr$ = createEffect(
       )
   },
   {functional:true}
+  )
+
+  export const addpcr$=createEffect(
+    (action$=inject(Actions),addPCRService=inject(PcrService))=>{
+        return action$.pipe(
+            ofType(PcrActions.addPCR),
+           
+            switchMap((pcr) => 
+                addPCRService.addpcr(pcr.pcr).pipe(
+                    tap((pcr) =>{
+                        console.log("add pcr.................." , pcr);
+                    }),
+                    map((pcr) => PcrActions.addPCRSuccess({pcr})),
+                    catchError((error) => {
+                        console.log(error)
+                        return of(PcrActions.addPCRFailure({error : error.error}))
+                    } )
+                )
+            )
+        )
+        
+        
+
+    }
+,{functional:true}
   )
 
 @Injectable()

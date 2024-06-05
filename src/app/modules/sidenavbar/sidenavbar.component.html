@@ -193,6 +193,52 @@
  
           </ul>
         </span>
+
+
+        <!--pcr-->
+
+        <li
+        id="pcr"
+        [class.active]="activeSection === 'pcr'"
+        (click)="changeStyle('pcr'); toggleQuestionBankRotation(); changeStyle5()"
+        [routerLink]="['/mtalent/manage-skills']"
+      >
+        <i class="pi pi-book"></i>
+        <p>PCR</p>
+        <span><i class="pi pi-angle-up" [class.rotated]="questionBankIconRotated"></i></span>
+      </li>
+      <span *ngIf="pcrSchow" >
+        <ul class="sub-list">
+          <li
+            id="managePCR"
+            [class.active]="activeSublist === 'managePCR'"
+            (click)="changeSublist('managePCR','pcr')"
+            [routerLink]="['/mtalent/manage-pcr']"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="17.5"
+                y="9.5"
+                width="5"
+                height="5"
+                rx="2.5"
+                stroke="black"
+                stroke-opacity="0.6"
+              />
+            </svg>
+
+            <a >ManagePCR</a>
+          </li>
+
+
+        </ul>
+      </span>
  
       </ul>
  

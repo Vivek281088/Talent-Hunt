@@ -19,9 +19,10 @@ import { ManageCandidatesComponent } from '../manage-candidates/manage-candidate
 import { ManageSkillsComponent } from '../manage-skills/manage-skills.component';
 import { ManagerProfileComponent } from '../manager-profile/manager-profile.component';
 import { CandidateProfileComponent } from '../candidate-profile/candidate-profile.component';
-import { PcrResourceMappingComponent } from '../pcr-resource-mapping/pcr-resource-mapping.component';
-import { PcrDetailsComponent } from '../pcr-details/pcr-details.component';
 import{ ResourceComponent } from '../resource/resource.component';
+import { ManagePcrComponent } from '../manage-pcr/manage-pcr.component';
+import { PcrDetailsComponent } from '../pcr-details/pcr-details.component';
+import { PcrResourceMappingComponent } from '../pcr-resource-mapping/pcr-resource-mapping.component';
 
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
@@ -45,7 +46,8 @@ const routes:Routes=[{path:'',component:BodyComponent,
     { path: 'thdashboard', component: THDashboardComponent },
     { path: 'pcr-mapping', component: PcrResourceMappingComponent },
     {path : 'pcrdetails' , component : PcrDetailsComponent},
-    {path: 'resource', component:ResourceComponent}
+    {path: 'resource', component:ResourceComponent},
+    {path:'manage-pcr',component:ManagePcrComponent},
 
   ]
 }]

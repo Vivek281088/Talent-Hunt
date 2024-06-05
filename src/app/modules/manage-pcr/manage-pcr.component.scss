@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
-.manageManagers {
+.managePCR {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -41,13 +41,13 @@
   }
 }
 
-.manageManagers-header {
+.managePCR-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding-bottom: 1.5%;
 }
-.manageManagers-header-1 {
+.managerPCR-header-1 {
   display: flex;
   flex-direction: column;
 
@@ -113,23 +113,25 @@
 .manager-header {
   display: flex;
   flex-direction: row;
-  gap: 4%;
+  gap: 17%;
+  height: 52px;
 }
 .manager-header1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+
 }
 .manager-header-2 {
   display: flex;
   flex-direction: row;
-  gap: 7%;
+  gap: 16%;
   width: 58%;
 }
 .searchIcon {
   height: 92%;
-  border-radius: 4px;
+  border-radius: 7px;
  
 }
 .icons {
@@ -253,7 +255,10 @@
   cursor: pointer;
   color: #1666dc !important;
 }
-
+.pcr-link{
+  cursor: pointer;
+  color: #1666dc !important;
+}
 .newSchedule-Dialog {
   ::ng-deep {
     .p-dialog .p-dialog-header .p-dialog-title {
@@ -283,7 +288,12 @@
     .p-dialog {
       max-height: 75%;
     }
-
+    .p-dropdown {
+      width: 100%;
+    }
+    .p-calendar{
+      width: 100%;
+    }
     .p-dialog .p-dialog-footer {
       padding: 12px;
     }
@@ -311,6 +321,7 @@
     }
   }
 }
+
 
 .tabview-button {
   display: flex;

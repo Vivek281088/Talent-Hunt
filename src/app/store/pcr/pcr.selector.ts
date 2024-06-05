@@ -12,3 +12,7 @@ export const getPcr = createSelector(
   PCRState,
     (state) => state.pcr
 )
+export const checkPcrAddStaus = createSelector(
+  PCRState,
+  (state) => state.newPcrAdded
+)
