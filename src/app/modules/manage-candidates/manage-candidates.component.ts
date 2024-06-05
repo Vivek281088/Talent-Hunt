@@ -3,6 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { response } from 'express';
@@ -89,17 +90,20 @@ export class ManageCandidatesComponent implements OnDestroy{
     this.uniqueDepartment = this.getUniqueDepartments(this.managerData);
       console.log('Unique Department', this.uniqueDepartment);
     });
+
     this.managerService.getclientManagerName().subscribe((response) => {
       console.log('Client Manager Names-->', response);
       this.managerNames = response;
     });
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
+
     this.items = [
-      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
-      { label: 'Candidates', routerLink: '/mtalent/manage-candidates' },
+      { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
+      { label: 'Candidates', routerLink: '/manage-candidates' },
     ];
   }
+  
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
@@ -131,8 +135,10 @@ export class ManageCandidatesComponent implements OnDestroy{
     this.isEditCandidate = true;
     this.isAddCandidate = false;
     this.editCandidatevisible = true;
+
     this.selectedRowData = data;
     console.log(' Selected Edit Data', this.selectedRowData);
+
     this.populateFormControls();
   }
   populateFormControls() {
@@ -147,14 +153,17 @@ export class ManageCandidatesComponent implements OnDestroy{
       });
     }
     console.log('Edit Data', this.addCandidateForm);
+
     // this.formSubmitted = true;
   }
   onViewClick(data: any) {}
+
   addCandidate() {
     this.isAddCandidate = true;
     this.isEditCandidate = false;
     this.addCandidatevisible = true;
   }
+
   cancelButton() {
     this.addCandidatevisible = false;
     this.editCandidatevisible = false;
@@ -183,6 +192,7 @@ export class ManageCandidatesComponent implements OnDestroy{
   }
   saveCandidate() {
     this.formSubmitted = true;
+
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
@@ -239,6 +249,7 @@ export class ManageCandidatesComponent implements OnDestroy{
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'Candidate-template.csv');
   }
+
   updateCandidate() {
     this.formSubmitted = true;
     if (this.addCandidateForm.valid) {
@@ -274,6 +285,7 @@ export class ManageCandidatesComponent implements OnDestroy{
       }, 1000);
     }
   }
+ 
   UpdateMessage() {
     this.messageService.add({
       severity: 'success',
@@ -281,6 +293,7 @@ export class ManageCandidatesComponent implements OnDestroy{
       detail: 'Candidate updated successfully',
     });
   }
+
   fileUploadMessage() {
     this.messageService.add({
       severity: 'success',
@@ -295,31 +308,38 @@ export class ManageCandidatesComponent implements OnDestroy{
       detail: 'File is Empty',
     });
   }
+
   uploadCsv(event: any) {
     const file: File = event.target.files[0];
+
     if (file) {
       const reader: FileReader = new FileReader();
       reader.onload = () => {
         const csvData: string = reader.result as string;
         this.processCsvData(csvData);
       };
+
       reader.readAsText(file);
     }
   }
+
   processCsvData(csvData: string) {
     Papa.parse(csvData, {
       complete: (result: { data: any }) => {
         const csvRows = result.data.filter((row: { [row: string]: string }) =>
           Object.keys(row).some((key) => row[key] !== '')
         );
+
         if (csvRows.length === 0) {
           this.fileUploadErrorMessage();
           this.cancelButton();
           return;
         }
         console.log('CSV Data:', csvRows);
+
         for (let data of csvRows) {
           console.log('Csv File datum--', data);
+
           this.managerService
             .addCandidate(
               data.candidateName,
@@ -342,6 +362,7 @@ export class ManageCandidatesComponent implements OnDestroy{
       header: true,
     });
   }
+
   gotoCandidateProfile(data: any) {
     console.log('Candidate data', data);
     // this.newScheduleService.setCandidateProfileData(data);
@@ -353,6 +374,7 @@ export class ManageCandidatesComponent implements OnDestroy{
     sessionStorage.setItem('CandiateProfileLocation', data.candidate_location);
     this.router.navigate(['/mtalent/candidateProfile']);
   }
+
   selectedDeleteCandidate: any;
   deleteCandidate() {
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
@@ -365,6 +387,7 @@ export class ManageCandidatesComponent implements OnDestroy{
       // this.getUniqueCandidatedata();
     }, 1500);
   }
+
   deleteMessage() {
     this.messageService.add({
       severity: 'success',
@@ -372,11 +395,13 @@ export class ManageCandidatesComponent implements OnDestroy{
       detail: 'Candidate Deleted successfully',
     });
   }
+
   toggleSelection(data: any) {
     if (!data || !data.empid) {
       return;
     }
     data.selection = !data.selection;
+
     if (data.selection) {
       console.log('Selected Candidate:', this.selectedDeleteCandidate);
     } else {

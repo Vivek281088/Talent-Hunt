@@ -48,7 +48,6 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { MFAComponent } from './modules/mfa/mfa.component';
 import { Enable2faComponent } from './modules/enable2fa/enable2fa.component';
 import { PcrResourceMappingComponent } from './modules/pcr-resource-mapping/pcr-resource-mapping.component';
-import { ResourceComponent } from './modules/resource/resource.component';
 import { StoreDevtoolsModule, provideStoreDevtools } from '@ngrx/store-devtools';
 import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { provideState, provideStore } from '@ngrx/store';
@@ -60,6 +59,8 @@ import { CandidateFeature } from './store/candidate/candidate.selector';
 import { getPcr$ } from './store/pcr/pcr.effects';
 import { PCRState, pcrFeature } from './store/pcr/pcr.selector';
 import { PcrDetailsComponent } from './modules/pcr-details/pcr-details.component';
+import { ResourceComponent } from './modules/resource/resource.component';
+
 
 
 
@@ -84,8 +85,7 @@ import { PcrDetailsComponent } from './modules/pcr-details/pcr-details.component
     SidenavbarComponent,
     AssessmentTableComponent,
     CandidatequestionComponent,
-    THDashboardComponent
-    ,
+    THDashboardComponent,
 
     BodyComponent,
       NewScheduleComponent,
@@ -99,8 +99,8 @@ import { PcrDetailsComponent } from './modules/pcr-details/pcr-details.component
       NameInputDirective,
       AllowDigitsDirective,
       PcrResourceMappingComponent,
-      ResourceComponent,
       PcrDetailsComponent,
+      ResourceComponent,
 
   ],
   imports: [
