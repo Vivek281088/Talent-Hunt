@@ -2,11 +2,16 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators,AbstractControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 import { PcrActions } from 'src/app/store/pcr/pcr.action';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {PCR} from 'src/app/store/pcr/pcr.action';
+import { PCR } from 'src/app/store/pcr/pcr.action';
 import { getPcr } from 'src/app/store/pcr/pcr.selector';
 @Component({
   selector: 'app-manage-pcr',
@@ -20,33 +25,68 @@ export class ManagePcrComponent {
   addPCRForm!: FormGroup;
   formSubmitted: boolean = false;
   pcrData: any;
-  status:string[]=['open','closed','Available']
-  pcr$!:Observable<PCR[]>;
-  editPCR:boolean=false;
-  globalSearchValue!:string;
+  status: string[] = ['open', 'closed', 'Available'];
+  pcr$!: Observable<PCR[]>;
+  editPCR: boolean = false;
+  globalSearchValue!: string;
+  isAgileId: boolean = false;
+  isPcrId: boolean = false;
+  isProjectId: boolean = false;
 
-  constructor(private router: Router, private fb: FormBuilder,private store:Store) {
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private store: Store
+  ) {
     this.addPCRForm = this.fb.group({
-      agileId:[null,[Validators.required,Validators.minLength(6),Validators.maxLength(10),this.validateId]],
-      pcrId: [null, [Validators.required, Validators.minLength(6),Validators.maxLength(10),this.validateId]],
+      agileId: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(10),
+          this.validateId,
+        ],
+      ],
+      pcrId: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(10),
+          this.validateId,
+        ],
+      ],
       jobTitle: ['', [Validators.required, Validators.minLength(3)]],
       createdDate: [null, [Validators.required]],
-      projectId: [null, [Validators.required, Validators.minLength(6),Validators.maxLength(10),this.validateId]],
+      projectId: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(10),
+          this.validateId,
+        ],
+      ],
       skills: ['', [Validators.required]],
       pcrStatus: ['', [Validators.required]],
-      createdBy: ['', [Validators.required]],
-      location: ['', [Validators.required]],
-      requestResource:['', [Validators.required]]
+      createdBy: ['', [Validators.required, Validators.minLength(3)]],
+      location: ['', [Validators.required, Validators.minLength(3)]],
+      requestResource: ['', [Validators.required, Validators.minLength(3)]],
     });
-    this.pcr$=this.store.select(getPcr);
+    this.pcr$ = this.store.select(getPcr);
   }
-  validateId(control: { value: any; }){
-    const value=control.value;
-    if (!((typeof value === 'string' || typeof value === 'number') && /^[a-zA-Z0-9]{6,10}$/.test(String(value)))) {
+  validateId(control: { value: any }) {
+    const value = control.value;
+    if (
+      !(
+        (typeof value === 'string' || typeof value === 'number') &&
+        /^[a-zA-Z0-9]{6,10}$/.test(String(value))
+      )
+    ) {
       return { invalidInput: true };
     }
     return false;
-
   }
 
   onKeyPress(event: KeyboardEvent) {
@@ -56,7 +96,6 @@ export class ManagePcrComponent {
     }
   }
 
-
   ngOnInit() {
     this.todayDate = new Date();
     this.items = [
@@ -65,100 +104,92 @@ export class ManagePcrComponent {
     ];
 
     this.store.dispatch(PcrActions.getPCR());
-    this.pcr$.subscribe((pcr)=>{
-      this.pcrData=pcr
+    this.pcr$.subscribe((pcr) => {
+      this.pcrData = pcr;
 
-      console.log("pcr data from comp",this.pcrData)
-    })
-
-
+      console.log('pcr data from comp', this.pcrData);
+    });
   }
-  individualPCR(id : string) {
-    sessionStorage.setItem("currentPCRid",id)
-    this.router.navigate(['/mtalent/pcrdetails'])
+  individualPCR(id: string) {
+    sessionStorage.setItem('currentPCRid', id);
+    this.router.navigate(['/mtalent/pcrdetails']);
   }
   addPcr() {
-    this.addPCR=true
-
-
-
-
+    this.addPCR = true;
   }
 
-clear(table:Table){
-  table.clear();
+  clear(table: Table) {
+    table.clear();
     this.globalSearchValue = '';
-}
+  }
   cancelButton() {
     this.addPCR = false;
     this.formSubmitted = false;
-    this.editPCR=false;
+    this.editPCR = false;
     this.addPCRForm.reset();
   }
   saveButton() {
     this.formSubmitted = true;
 
-console.log("save button",this.addPCRForm)
+    console.log('save button', this.addPCRForm);
     if (this.addPCRForm.valid) {
       const formdata = this.addPCRForm.value;
       console.log('form data', formdata);
-      const pcr :PCR = {
+      const pcr: PCR = {
         pcrId: formdata.pcrId,
-        agileId:  formdata.agileId,
+        agileId: formdata.agileId,
         createdBy: formdata.createdBy,
         createdDate: formdata.createdDate.toLocaleDateString('en-US'),
-        jobTitle:  formdata.jobTitle,
+        jobTitle: formdata.jobTitle,
         location: formdata.location,
         pcrStatus: formdata?.pcrStatus,
-        projectId:formdata.projectId,
-        requestResource:formdata.requestResource,
-        skills:formdata.skills
-      }
-      console.log("save button",pcr)
-      this.store.dispatch(PcrActions.addPCR({pcr}))
-      this.addPCR=false
+        projectId: formdata.projectId,
+        requestResource: formdata.requestResource,
+        skills: formdata.skills,
+      };
+      console.log('save button', pcr);
+      this.store.dispatch(PcrActions.addPCR({ pcr }));
+      this.addPCR = false;
     }
   }
-  editData(data:any){
-
-this.editPCR=true
-console.log("edit data",data)
-if(data){
-  this.addPCRForm.patchValue({
-    agileId:data.agileId,
-    pcrId: data.pcrId,
-    jobTitle:data.jobTitle,
-    createdDate: data.createdDate,
-    projectId:data.projectId,
-    skills: data.skills,
-    pcrStatus:data.pcrStatus,
-    createdBy:data.createdBy,
-    location:data.location,
-    requestResource:data.requestResource
-
-  })
-}
-
+  editData(data: any) {
+    this.editPCR = true;
+    this.isAgileId = true;
+    this.isPcrId = true;
+    this.isProjectId = true;
+    console.log('edit data', data);
+    if (data) {
+      this.addPCRForm.patchValue({
+        agileId: data.agileId,
+        pcrId: data.pcrId,
+        jobTitle: data.jobTitle,
+        createdDate: data.createdDate,
+        projectId: data.projectId,
+        skills: data.skills,
+        pcrStatus: data.pcrStatus,
+        createdBy: data.createdBy,
+        location: data.location,
+        requestResource: data.requestResource,
+      });
+    }
   }
-  updateButton(){
-    this.formSubmitted=true;
-    console.log("data to be updated",this.addPCRForm.value);
-    const formdata=this.addPCRForm.value
-    const pcr:PCR={
+  updateButton() {
+    this.formSubmitted = true;
+    console.log('data to be updated', this.addPCRForm.value);
+    const formdata = this.addPCRForm.value;
+    const pcr: PCR = {
       pcrId: formdata.pcrId,
-      agileId:  formdata.agileId,
+      agileId: formdata.agileId,
       createdBy: formdata.createdBy,
       createdDate: formdata.createdDate.toLocaleDateString('en-US'),
-      jobTitle:  formdata.jobTitle,
+      jobTitle: formdata.jobTitle,
       location: formdata.location,
       pcrStatus: formdata?.pcrStatus,
-      projectId:formdata.projectId,
-      requestResource:formdata.requestResource,
-      skills:formdata.skills
-
-    }
-    this.store.dispatch(PcrActions.updatePCR({pcr}))
-    this.editPCR=false
-
+      projectId: formdata.projectId,
+      requestResource: formdata.requestResource,
+      skills: formdata.skills,
+    };
+    this.store.dispatch(PcrActions.updatePCR({ pcr }));
+    this.editPCR = false;
   }
 }
