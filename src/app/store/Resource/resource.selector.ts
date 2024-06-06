@@ -1,26 +1,26 @@
 import { createFeature, createFeatureSelector, createSelector } from "@ngrx/store";
 import { CandidateState, candidateReducer } from "./resource.reducer";
 
-const candidateFeatureKey = "candidate";
-export const candidateState = createFeatureSelector<CandidateState>(candidateFeatureKey);
-export const CandidateFeature = createFeature({
-    name : candidateFeatureKey,
+const resourceFeatureKey = "candidates";
+export const resourceState = createFeatureSelector<CandidateState>(resourceFeatureKey);
+export const ResourceFeature = createFeature({
+    name : resourceFeatureKey,
     reducer : candidateReducer
 });
 
-export const getCandidate = createSelector(
-    candidateState,
+export const getResource = createSelector(
+    resourceState,
     (state) => state.candidates
 )
-export const getCandidateError = createSelector(
-    candidateState,
+export const getResourceError = createSelector(
+    resourceState,
     (state) => state.error
 )
-export const checkCandidateAddStaus = createSelector(
-    candidateState,
+export const checkResourceAddStaus = createSelector(
+    resourceState,
     (state) => state.newUserAdded
 )
-export const checkCandidateDeleteStaus = createSelector(
-    candidateState,
+export const checkResourceDeleteStaus = createSelector(
+    resourceState,
     (state) => state.candidateDeleted
 )

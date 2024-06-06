@@ -99,6 +99,9 @@ import { ResourceComponent } from './modules/resource/resource.component';
 
 
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
+import { ResourceFeature } from './store/Resource/resource.selector';
+import { getCandidates$  ,
+  AddResource$ } from './store/Resource/resource.effects';
 
 @NgModule({
   declarations: [
@@ -165,6 +168,8 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
     provideState(managerFeature),
     provideState(mappingFeature),
     provideState(pcrFeature),
+    provideState(ResourceFeature),
+
    // provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$}]),
     provideEffects([
       { loadSchedule$ },
@@ -179,7 +184,9 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
       { deleteCandidate$ },
       { deleteManager$ },
       {loadMappedData$},
-      {getPcr$}
+      {getPcr$},
+      {getCandidates$},
+      {AddResource$}
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     // {
