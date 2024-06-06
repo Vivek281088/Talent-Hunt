@@ -69,7 +69,7 @@
                     label="Clear Search"
                     class="clear-button cursor-pointer"
                     (click)="clear(dt2)"
-                    ></button>
+                  ></button>
                 </div>
               </div>
               <div class="manager-header-2">
@@ -116,9 +116,9 @@
               [checked]="rowData.selection"
             ></p-tableCheckbox>
           </td>
-          <td class="pcr-link"> <a (click)="individualPCR(rowData.pcrId)">{{
-            rowData.pcrId
-          }}</a></td>
+          <td class="pcr-link">
+            <a (click)="individualPCR(rowData.pcrId)">{{ rowData.pcrId }}</a>
+          </td>
           <td>
             {{ rowData.jobTitle }}
           </td>
@@ -128,7 +128,7 @@
           <td>{{ rowData.pcrStatus }}</td>
           <td>{{ rowData.createdBy }}</td>
           <td>{{ rowData.location }}</td>
-          <td>{{rowData.requestResource}}</td>
+          <td>{{ rowData.requestResource }}</td>
 
           <td>
             <div class="icons">
@@ -163,7 +163,7 @@
 
   <div class="newSchedule-Dialog">
     <p-dialog
-      [header]=" addPCR ? 'Add PCR' : editPCR ? 'Edit PCR' :'' "
+      [header]="addPCR ? 'Add PCR' : editPCR ? 'Edit PCR' : ''"
       [visible]="addPCR || editPCR"
       [formGroup]="addPCRForm"
       [modal]="true"
@@ -173,7 +173,11 @@
       [closable]="false"
     >
       <p-tabView>
-        <p-tabPanel [header]="addPCR? 'Add a Single PCR':editPCR? 'Edit a Single PCR':''" >
+        <p-tabPanel
+          [header]="
+            addPCR ? 'Add a Single PCR' : editPCR ? 'Edit a Single PCR' : ''
+          "
+        >
           <div class="NewSchedule-content">
             <div class="labelvalue">
               <div class="label">
@@ -181,30 +185,43 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input
-                  pInputText
-                  formControlName="agileId"
-                  appAllowDigits="8"
-                />
+                <input pInputText type="text" formControlName="agileId" (keypress)="onKeyPress($event)" />
+
                 <div
                   *ngIf="
-                    addPCRForm.get('agileId')?.invalid &&
-                    (addPCRForm.get('agileId')?.touched || formSubmitted)
+                    addPCRForm.get('agileId')?.errors &&
+                    (addPCRForm.get('agileId')?.dirty ||
+                      addPCRForm.get('agileId')?.touched ||
+                      formSubmitted)
                   "
                 >
                   <div
-                    class="error-message"
                     *ngIf="addPCRForm.get('agileId')?.hasError('required')"
+                    class="error-message"
                   >
-                    agileId is required !
+                    Agile ID is required.
                   </div>
                   <div
-                    class="error-message"
                     *ngIf="addPCRForm.get('agileId')?.hasError('minlength')"
+                    class="error-message"
                   >
-                    Enter a valid agileId !
+                    Agile ID must be at least 6 characters long.
+                  </div>
+                  <div
+                    *ngIf="addPCRForm.get('agileId')?.hasError('maxlength')"
+                    class="error-message"
+                  >
+                    Agile ID cannot be more than 10 characters long.
+                  </div>
+                  <div
+                    *ngIf="addPCRForm.get('agileId')?.hasError('invalidInput')"
+                    class="error-message"
+                  >
+                    Please enter a valid Agile ID (6 to 10 characters, letters,
+                    and numbers only).
                   </div>
                 </div>
+
               </div>
             </div>
             <div class="labelvalue">
@@ -213,26 +230,43 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input pInputText formControlName="pcrId" appAllowDigits="8" />
+                <input pInputText type="text" formControlName="pcrId" (keypress)="onKeyPress($event)" />
+
                 <div
                   *ngIf="
-                    addPCRForm.get('pcrId')?.invalid &&
-                    (addPCRForm.get('pcrId')?.touched || formSubmitted)
+                    addPCRForm.get('pcrId')?.errors &&
+                    (addPCRForm.get('pcrId')?.dirty ||
+                      addPCRForm.get('pcrId')?.touched ||
+                      formSubmitted)
                   "
                 >
                   <div
-                    class="error-message"
                     *ngIf="addPCRForm.get('pcrId')?.hasError('required')"
+                    class="error-message"
                   >
-                    PCR Id is required !
+                  pcrId is required.
                   </div>
                   <div
-                    class="error-message"
                     *ngIf="addPCRForm.get('pcrId')?.hasError('minlength')"
+                    class="error-message"
                   >
-                    Enter a valid PCR Id !
+                  pcrId must be at least 6 characters long.
+                  </div>
+                  <div
+                    *ngIf="addPCRForm.get('pcrId')?.hasError('maxlength')"
+                    class="error-message"
+                  >
+                  pcrId cannot be more than 10 characters long.
+                  </div>
+                  <div
+                    *ngIf="addPCRForm.get('pcrId')?.hasError('invalidInput')"
+                    class="error-message"
+                  >
+                    Please enter a valid pcrId  (6 to 10 characters, letters,
+                    and numbers only).
                   </div>
                 </div>
+
               </div>
             </div>
 
@@ -278,18 +312,17 @@
 
               <div class="card flex flex-wrap gap-3 p-fluid">
                 <div class="flex-auto">
-                    <!-- <label for="buttondisplay" class="font-bold block mb-2"> Button </label> -->
-                    <p-calendar
-                        formControlName="createdDate"
-                        appendTo="body"
-                        [showIcon]="true"
-                        inputId="buttondisplay"
-                        [showOnFocus]="false" />
+                  <!-- <label for="buttondisplay" class="font-bold block mb-2"> Button </label> -->
+                  <p-calendar
+                    formControlName="createdDate"
+                    appendTo="body"
+                    [showIcon]="true"
+                    inputId="buttondisplay"
+                    [showOnFocus]="false"
+                  />
                 </div>
-                </div>
+              </div>
             </div>
-
-
 
             <div class="labelvalue">
               <div class="label">
@@ -297,30 +330,43 @@
                 <span class="important-symbol">&#42;</span>
               </div>
               <div class="value">
-                <input
-                  formControlName="projectId"
-                  appAllowDigits="12"
-                  pInputText
-                />
+                <input pInputText type="text" formControlName="projectId" (keypress)="onKeyPress($event)" />
+
                 <div
                   *ngIf="
-                    addPCRForm.get('projectId')?.invalid &&
-                    (addPCRForm.get('projectId')?.touched || formSubmitted)
+                    addPCRForm.get('projectId')?.errors &&
+                    (addPCRForm.get('projectId')?.dirty ||
+                      addPCRForm.get('projectId')?.touched ||
+                      formSubmitted)
                   "
                 >
                   <div
-                    class="error-message"
                     *ngIf="addPCRForm.get('projectId')?.hasError('required')"
+                    class="error-message"
                   >
-                    Project Id is required !
+                  projectId is required.
+                  </div>
+                  <div
+                    *ngIf="addPCRForm.get('projectId')?.hasError('minlength')"
+                    class="error-message"
+                  >
+                  projectId must be at least 6 characters long.
+                  </div>
+                  <div
+                    *ngIf="addPCRForm.get('projectId')?.hasError('maxlength')"
+                    class="error-message"
+                  >
+                  projectId cannot be more than 10 characters long.
+                  </div>
+                  <div
+                    *ngIf="addPCRForm.get('projectId')?.hasError('invalidInput')"
+                    class="error-message"
+                  >
+                    Please enter a valid projectId  (6 to 10 characters, letters,
+                    and numbers only).
                   </div>
                 </div>
-                <div
-                  class="error-message"
-                  *ngIf="addPCRForm.get('projectId')?.hasError('minlength')"
-                >
-                  Enter valid Project Id!
-                </div>
+
               </div>
             </div>
           </div>
@@ -341,14 +387,14 @@
                   class="error-message"
                   *ngIf="addPCRForm.get('skills')?.hasError('required')"
                 >
-                  Project Id is required !
+                skills is required !
                 </div>
               </div>
               <div
                 class="error-message"
                 *ngIf="addPCRForm.get('skills')?.hasError('minlength')"
               >
-                Enter valid Project Id !
+              skills Project Id !
               </div>
             </div>
           </div>
@@ -380,7 +426,6 @@
                 appendTo="body"
                 [options]="status"
                 placeholder="--Select--"
-
                 formControlName="pcrStatus"
               ></p-dropdown>
 
@@ -390,14 +435,11 @@
                   (addPCRForm.get('pcrStatus')?.touched || formSubmitted)
                 "
               >
-
                 <div
                   class="error-message"
-                  *ngIf="
-                    addPCRForm.get('pcrStatus')?.hasError('required')
-                  "
+                  *ngIf="addPCRForm.get('pcrStatus')?.hasError('required')"
                 >
-                PcrStatus is required !
+                  PcrStatus is required !
                 </div>
               </div>
             </div>
@@ -504,9 +546,11 @@
               >
                 <div
                   class="error-message"
-                  *ngIf="addPCRForm.get('requestResource')?.hasError('required')"
+                  *ngIf="
+                    addPCRForm.get('requestResource')?.hasError('required')
+                  "
                 >
-                requestResource is required !
+                  requestResource is required !
                 </div>
               </div>
             </div>
@@ -528,7 +572,7 @@
               <div class="Createbutton" *ngIf="editPCR">
                 <p-button label="Update" (click)="updateButton()"> </p-button>
               </div>
-             </div>
+            </div>
           </ng-template>
         </p-tabPanel>
 
@@ -570,17 +614,6 @@
       </p-tabView>
     </p-dialog>
   </div>
-
-
-
-
-
-
-
-
-
-
-
 
   <!--Edit-->
   <!-- <div class="newSchedule-Dialog">
@@ -928,3 +961,4 @@
      </ng-template>
      </p-dialog>
 </div> -->
+</div>

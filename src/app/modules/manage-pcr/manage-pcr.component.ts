@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import { PcrActions } from 'src/app/store/pcr/pcr.action';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -24,17 +24,14 @@ export class ManagePcrComponent {
   pcr$!:Observable<PCR[]>;
   editPCR:boolean=false;
   globalSearchValue!:string;
-  // isAddPcr:boolean=false;
-  // isEditPcr:boolean=false;
-  // createdDate!:Date;
 
   constructor(private router: Router, private fb: FormBuilder,private store:Store) {
     this.addPCRForm = this.fb.group({
-      agileId:[null,[Validators.required,Validators.minLength(6)]],
-      pcrId: [null, [Validators.required, Validators.minLength(6)]],
+      agileId:[null,[Validators.required,Validators.minLength(6),Validators.maxLength(10),this.validateId]],
+      pcrId: [null, [Validators.required, Validators.minLength(6),Validators.maxLength(10),this.validateId]],
       jobTitle: ['', [Validators.required, Validators.minLength(3)]],
       createdDate: [null, [Validators.required]],
-      projectId: [null, [Validators.required, Validators.minLength(4)]],
+      projectId: [null, [Validators.required, Validators.minLength(6),Validators.maxLength(10),this.validateId]],
       skills: ['', [Validators.required]],
       pcrStatus: ['', [Validators.required]],
       createdBy: ['', [Validators.required]],
@@ -43,6 +40,22 @@ export class ManagePcrComponent {
     });
     this.pcr$=this.store.select(getPcr);
   }
+  validateId(control: { value: any; }){
+    const value=control.value;
+    if (!((typeof value === 'string' || typeof value === 'number') && /^[a-zA-Z0-9]{6,10}$/.test(String(value)))) {
+      return { invalidInput: true };
+    }
+    return false;
+
+  }
+
+  onKeyPress(event: KeyboardEvent) {
+    const inputLength = (event.target as HTMLInputElement).value.length;
+    if (inputLength >= 10) {
+      event.preventDefault();
+    }
+  }
+
 
   ngOnInit() {
     this.todayDate = new Date();
