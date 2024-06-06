@@ -25,4 +25,12 @@ export class L1ScreenService {
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/l1screen'
     );
   }
+  updateL1Details(l1Details:any):Observable<any>{
+    return this.http.put<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/l1screen',
+      l1Details,
+
+    );
+
+  }
 }

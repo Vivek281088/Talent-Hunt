@@ -27,7 +27,7 @@
           <ng-template pTemplate="content">
               <div class="flex flex-wrap justify-content-around">
                   <div class="gap-2 col-6 flex flex-column justify-content-between candidate-field" *ngFor="let field of inputFields; let i = index">
-                    <label class="candidate-field-label pl-2" [for]="field.id">{{ field.label }}</label>
+                    <label class="candidate-field-label pl-2 capitalize" [for]="field.id">{{ field.label }}</label>
                     <input pInputText
                       [id]="field.id"
                       type="text"

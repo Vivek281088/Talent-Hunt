@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PCR } from '../store/pcr/pcr.action';
 import { HttpClient } from '@angular/common/http';
+import { PcrDetails } from '../shared/interface/pcrdetails';
 
 @Injectable({
   providedIn: 'root'
@@ -28,11 +29,12 @@ export class PcrService {
 
   }
   
-  getIndividualPCR(id : string  | null) : Observable<PCR>{
+  getIndividualPCR(id : string  | null) : Observable<PcrDetails>{
     console.log("sdfvbsdfv",id)
-    return this.http.get<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr?id=${id}`)
+    return this.http.get<PcrDetails>(`${process.env.BASE_URL_PRIVATE}/pcr?id=${id}`)
   }
-  getCandidate(id:string){
+  getCandidate(id:string | null){
+    console.log(id)
     return this.http.get<any>(`${process.env.BASE_URL_PRIVATE}/resource?id=${id}`)
   }
 }

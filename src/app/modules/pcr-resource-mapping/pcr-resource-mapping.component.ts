@@ -9,6 +9,7 @@ import {
   PcrCandidateActions,
   PcrData,
   CandidateData,
+  MappingPCRCandidateData,
 } from 'src/app/store/PCR-Mapping/pcr-mapping.action';
 import { getMappingData } from 'src/app/store/PCR-Mapping/pcr-mapping.selector';
 import { PCR, PcrActions } from 'src/app/store/pcr/pcr.action';
@@ -25,7 +26,7 @@ export class PcrResourceMappingComponent {
   todayDate!: Date;
   globalSearchValue!: string;
   pcrData !: PCR[];
-  candidateData = ["2528625","EXT0001"]
+  candidateData = ["2528625","EXT0001","EXT018"]
   mappingData!: AggregatedData[];
   selectedMappedData!: AggregatedData[];
   mappingDialogVisible: boolean = false;
@@ -82,7 +83,14 @@ export class PcrResourceMappingComponent {
     this.mappingDialogVisible = true
   }
   mapPCR(){
-
+    const mappingPcrCandidateData  : MappingPCRCandidateData[]= this.selectedCandidates.map(id =>({
+      pcrId: this.selectedPcrId,
+      candidateId: id
+    }));
+    console.log("Mapping Data",mappingPcrCandidateData)
+    this.store.dispatch(PcrCandidateActions.mapPCRAndCandidate({mappingPcrCandidateData}));
+    this.getPcrMappingData();
+    this.cancelButton();
   }
   //for verification
   selected(){
@@ -92,5 +100,6 @@ export class PcrResourceMappingComponent {
       severity: 'info',
       detail: `Selected PCR ID: ${this.selectedPcrId}, Candidate ID: ${candidateId}`
     }));
+
   }
 }

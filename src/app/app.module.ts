@@ -1,3 +1,4 @@
+import { L1screenComponent } from './l1screen/l1screen.component';
 import {
   ErrorHandler,
   NO_ERRORS_SCHEMA,
@@ -75,7 +76,6 @@ import {
 } from './store/candidate/candidate.effects';
 
 import { CandidateFeature } from './store/candidate/candidate.selector';
-import { L1screenComponent } from './l1screen/l1screen.component';
 import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
 // import { pcrFeature } from './store/pcr/pcr.selector';
 import { addpcr$,  updatePcr$ } from './store/pcr/pcr.effects';
@@ -91,8 +91,8 @@ import {
   loadAssessment$,
   sendAssessments$,
 } from './store/Assessment/assessment.effects';
-import { loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
-import { mappingFeature } from './store/PCR-Mapping/pcr-mapping.selector';
+import { MapPcrCandidate$, loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
+import { mappingFeature, mappingPcrCandidateFeature } from './store/PCR-Mapping/pcr-mapping.selector';
 import { getPcr$ } from './store/pcr/pcr.effects';
 import { PCRState, pcrFeature } from './store/pcr/pcr.selector';
 import { ResourceComponent } from './modules/resource/resource.component';
@@ -134,13 +134,12 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
       ThreeDigitDirective,
       NameInputDirective,
       AllowDigitsDirective,
-      L1screenComponent,
-
       PcrResourceMappingComponent,
       ResourceComponent,
       ManagePcrComponent,
       PcrDetailsComponent,
       CandidateDetailsComponent,
+      L1screenComponent
   ],
   imports: [
     BrowserModule,
@@ -170,7 +169,8 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
     provideState(managerFeature),
     provideState(mappingFeature),
     provideState(pcrFeature),
-   provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{deleteCandidate$},{getPcr$},{addpcr$},{updatePcr$}]),
+    provideState(mappingPcrCandidateFeature),
+   // provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$}]),
     provideEffects([
       { loadSchedule$ },
       { addSchedule$ },
@@ -184,7 +184,10 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
       { deleteCandidate$ },
       { deleteManager$ },
       {loadMappedData$},
-      {getPcr$}
+      {getPcr$},
+      {MapPcrCandidate$},
+      {addpcr$},
+      {updatePcr$}
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     // {
