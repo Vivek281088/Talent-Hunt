@@ -1,3 +1,4 @@
+import { L1screenComponent } from './l1screen/l1screen.component';
 import {
   ErrorHandler,
   NO_ERRORS_SCHEMA,
@@ -76,7 +77,9 @@ import {
 
 import { CandidateFeature } from './store/candidate/candidate.selector';
 import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
-import { addpcr$, } from './store/pcr/pcr.effects';
+// import { pcrFeature } from './store/pcr/pcr.selector';
+import { addpcr$,  updatePcr$ } from './store/pcr/pcr.effects';
+// import { addpcr$, } from './store/pcr/pcr.effects';
 // import { getPcr$ } from './store/pcr/pcr.effects';
 
 
@@ -88,8 +91,8 @@ import {
   loadAssessment$,
   sendAssessments$,
 } from './store/Assessment/assessment.effects';
-import { loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
-import { mappingFeature } from './store/PCR-Mapping/pcr-mapping.selector';
+import { MapPcrCandidate$, loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
+import { mappingFeature, mappingPcrCandidateFeature } from './store/PCR-Mapping/pcr-mapping.selector';
 import { getPcr$ } from './store/pcr/pcr.effects';
 import { PCRState, pcrFeature } from './store/pcr/pcr.selector';
 import { ResourceComponent } from './modules/resource/resource.component';
@@ -139,6 +142,7 @@ import { getCandidates$  ,
       ManagePcrComponent,
       PcrDetailsComponent,
       CandidateDetailsComponent,
+      L1screenComponent
   ],
   imports: [
     BrowserModule,
@@ -170,6 +174,7 @@ import { getCandidates$  ,
     provideState(pcrFeature),
     provideState(ResourceFeature),
 
+    provideState(mappingPcrCandidateFeature),
    // provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$}]),
     provideEffects([
       { loadSchedule$ },
@@ -186,10 +191,11 @@ import { getCandidates$  ,
       {loadMappedData$},
       {getPcr$},
       {getCandidates$},
-      {AddResource$}
+      {AddResource$},
+      {MapPcrCandidate$},
+      {addpcr$},
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    // {
     //   provide : ErrorHandler,
     //   useClass : CustomHttpException
     // },

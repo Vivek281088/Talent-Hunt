@@ -37,6 +37,7 @@ import { OverlayModule } from 'primeng/overlay';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { MenuModule } from 'primeng/menu';
 import { KnobModule } from 'primeng/knob';
+import { SkeletonModule } from 'primeng/skeleton';
 
 
 // import { DialogModule } from 'primeng/dialog';
@@ -83,6 +84,8 @@ import { KnobModule } from 'primeng/knob';
     ConfirmPopupModule,
     MenuModule,
     KnobModule,
+    CalendarModule,
+    SkeletonModule
   ],
   exports: [
     MultiSelectModule,
@@ -125,6 +128,8 @@ import { KnobModule } from 'primeng/knob';
     ConfirmPopupModule,
     MenuModule,
     KnobModule,
+    CalendarModule,
+    SkeletonModule
   ],
 })
 export class PrimeModule {}

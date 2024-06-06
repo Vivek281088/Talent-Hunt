@@ -18,7 +18,7 @@
       </div>
     </div>
   </div>
- 
+
   <!-- <div class="managerDetails">
       <p class="name">Suresh</p>
       <p class="department">Delta</p>
@@ -32,17 +32,10 @@
       </div>
       <p class="department">Chennai</p>
     </div> -->
- 
+
   <div class="managerTabview">
     <p-tabView>
       <p-tabPanel header="Profile" [formGroup]="editCandidateForm">
-        <ng-template pTemplate="header">
-          <div class="header-content1">
-            <span class="tab-header-text">Profile</span>
- 
- 
-          </div>
-        </ng-template>
         <ng-template pTemplate="content">
           <div class="profilecontent">
             <div class="labelvalue">
@@ -75,7 +68,7 @@
                   </div> -->
               </div>
             </div>
- 
+
             <div class="labelvalue">
               <div class="label">
                 <label>Manager Name</label>
@@ -100,7 +93,7 @@
                   </div> -->
               </div>
             </div>
- 
+
             <div class="labelvalue">
               <div class="label">
                 <label>Email</label>
@@ -122,7 +115,7 @@
                   </div> -->
               </div>
             </div>
- 
+
             <div class="labelvalue">
               <div class="label">
                 <label>Phone No</label>
@@ -150,7 +143,7 @@
                   </div> -->
               </div>
             </div>
- 
+
             <div class="labelvalue">
               <div class="label">
                 <label>Department</label>
@@ -175,7 +168,7 @@
                   </div> -->
               </div>
             </div>
- 
+
             <div class="labelvalue">
               <div class="label">
                 <label>Location</label>
@@ -199,9 +192,9 @@
                   </div> -->
               </div>
             </div>
- 
+
             <!-- <div class="Newschedule-button">
- 
+
                       <div class="Createbutton">
                         <p-button label="Update" (onClick)="updateManager()"> </p-button>
                       </div>
@@ -209,15 +202,8 @@
           </div>
         </ng-template>
       </p-tabPanel>
- 
+
       <p-tabPanel header="Assessments">
-        <ng-template pTemplate="header">
-          <div class="header-content1">
-            <span class="tab-header-text">Assessments</span>
-            <p-badge class="tab-badge" value={{candidateAssessmentLength}}></p-badge>
-          </div>
-        </ng-template>
- 
         <div class="candidate-table">
           <p-table
             class="candidateTable"
@@ -257,7 +243,7 @@
                             )
                           "
                         />
- 
+
                         <i class="pi pi-search"></i>
                       </span>
                     </div>
@@ -273,7 +259,7 @@
                   </div>
                 </th>
               </tr>
- 
+
               <tr>
                 <th>Seq.No</th>
                 <th>Assessment</th>
@@ -283,13 +269,13 @@
                 <th>Score(%)</th>
               </tr>
             </ng-template>
- 
+
             <ng-template pTemplate="body" let-rowData let-i="rowIndex">
               <tr>
                 <td>{{ i + 1 }}</td>
                 <td class="assessmentName">{{ rowData.email_Filename }}</td>
                 <td>{{ rowData.candidateName }}</td>
- 
+
                 <td class="skills">
                   <span
                     *ngFor="
@@ -333,7 +319,7 @@
                     ></p-badge>
                   </span>
                 </td>
- 
+
                 <td>
                   <div class="resultDesign">
                     <p [ngClass]="getResultClass(rowData.results)">
@@ -352,7 +338,6 @@
           </p-table>
         </div>
       </p-tabPanel>
- 
     </p-tabView>
   </div>
 </div>

@@ -114,6 +114,11 @@ export class ResourceComponent implements OnDestroy{
       { label: 'Manage Candidates', routerLink: '/mtalent/manage-candidates' },
     ];
   }
+  individualResource(id: any) {
+    console.log("candidate ids",id)
+    sessionStorage.setItem("currentResourceId",id)
+    this.router.navigate(['/mtalent/candidatedetails'])
+ }
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';

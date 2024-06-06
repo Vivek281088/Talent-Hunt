@@ -12,7 +12,7 @@ export class DataService {
   sharedData: any;
   currentMessage = new BehaviorSubject({});
   tempdata : any;
- 
+
 
   constructor(private http: HttpClient) {}
 
@@ -38,7 +38,7 @@ export class DataService {
       }
     );
   }
-  
+
 
   postforgotpassword(
     emailId: string,
@@ -51,7 +51,7 @@ export class DataService {
       password: password,
       confirmPassword: confirmPassword,
     };
- 
+
     return this.http.post<any>(
       'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/forgotpassword',
       body,
@@ -68,18 +68,18 @@ export class DataService {
 
   changeMessage(message: any) {
     console.log("data fromsignup",message );
-    
+
     this.currentMessage.next(message)
   }
 
-  private localstoragekey = 'sampledata';
+
   savedata(data: string[]): void {
     console.log('saved data-----------------', data);
-    localStorage.setItem(this.localstoragekey, JSON.stringify(data));
+    sessionStorage.setItem('sampledata', JSON.stringify(data));
   }
   getData(): string[] {
-    console.log('get data-----------------', this.localstoragekey);
-    const storedData = localStorage.getItem(this.localstoragekey);
+    console.log('get data-----------------');
+    const storedData = sessionStorage.getItem('sampledata');
     return storedData ? JSON.parse(storedData) : [];
   }
   getDashboardData(): Observable<any[]> {
@@ -89,7 +89,7 @@ export class DataService {
       catchError( (err : Error) => {
        console.log("error while dashboard" , err);
         return throwError(()=> Error('Dashboard Error', {cause : 'Could not able to load the Dashboard data'}))
-      } 
+      }
       )
     )
     const recentAssessmentCompleted$ = this.http.get<any>(
