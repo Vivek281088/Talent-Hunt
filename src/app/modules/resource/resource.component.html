@@ -33,13 +33,15 @@
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
-        'candidateName',
-        'department',
-        'email',
-        'empid',
-        'location',
-        'candidatePhone'
-      ]"
+        'candidateId',
+  'candidateName',
+  'roles',
+  'skillSet.primarySkills',
+  'experience',
+  'location',
+  'source',
+  'SPOC'
+   ]"
     >
       <ng-template pTemplate="header">
         <tr>
