@@ -89,14 +89,15 @@
             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
           </th>
           <th>PCR ID</th>
+          <th>Agile Id</th>
           <th>Job Title</th>
           <th>Created Date</th>
-          <th>Project_Id</th>
+          <th>Project Id</th>
           <th>Skills</th>
-          <th>pcrStatus</th>
+          <th>PcrStatus</th>
           <th>Created By</th>
           <th>Onsite/Offsshore</th>
-          <th>RequestResource</th>
+          <th>RequestSource</th>
         </tr>
       </ng-template>
       <ng-template
@@ -115,6 +116,7 @@
           <td class="pcr-link">
             <a (click)="individualPCR(rowData.pcrId)">{{ rowData.pcrId }}</a>
           </td>
+          <td>{{rowData.agileId}}</td>
           <td>
             {{ rowData.jobTitle }}
           </td>
@@ -181,17 +183,17 @@
               <div class="value">
                 <input
                   pInputText
-                  type="text"
+                  pKeyFilter="alphanum"
                   formControlName="agileId"
                   (keypress)="onKeyPress($event)"
-                  [disabled]="true"           />
+                  [disabled]="true"
+                />
 
                 <div
                   *ngIf="
-                    addPCRForm.get('agileId')?.errors &&
-                    (addPCRForm.get('agileId')?.dirty ||
-                      addPCRForm.get('agileId')?.touched ||
-                      formSubmitted)
+                    (addPCRForm.get('agileId')?.invalid &&
+                      addPCRForm.get('agileId')?.touched) ||
+                    formSubmitted
                   "
                 >
                   <div
@@ -212,13 +214,13 @@
                   >
                     Agile ID cannot be more than 10 characters long.
                   </div>
-                  <div
+                  <!-- <div
                     *ngIf="addPCRForm.get('agileId')?.hasError('invalidInput')"
                     class="error-message"
                   >
                     Please enter a valid Agile ID (6 to 10 characters, letters,
                     and numbers only).
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -238,35 +240,34 @@
 
                 <div
                   *ngIf="
-                    addPCRForm.get('pcrId')?.errors &&
-                    (addPCRForm.get('pcrId')?.dirty ||
-                      addPCRForm.get('pcrId')?.touched ||
-                      formSubmitted)
+                    (addPCRForm.get('pcrId')?.invalid &&
+                      addPCRForm.get('pcrId')?.touched) ||
+                    formSubmitted
                   "
                 >
                   <div
                     *ngIf="addPCRForm.get('pcrId')?.hasError('required')"
                     class="error-message"
                   >
-                    pcrId is required.
+                    PcrId is required.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('pcrId')?.hasError('minlength')"
                     class="error-message"
                   >
-                    pcrId must be at least 6 characters long.
+                    PcrId must be at least 6 characters long.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('pcrId')?.hasError('maxlength')"
                     class="error-message"
                   >
-                    pcrId cannot be more than 10 characters long.
+                    PcrId cannot be more than 10 characters long.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('pcrId')?.hasError('invalidInput')"
                     class="error-message"
                   >
-                    Please enter a valid pcrId (6 to 10 characters, letters, and
+                    Please enter a valid PcrId (6 to 10 characters, letters, and
                     numbers only).
                   </div>
                 </div>
@@ -321,6 +322,7 @@
                     [showIcon]="true"
                     inputId="buttondisplay"
                     [showOnFocus]="false"
+                    dateFormat="mm/dd/yy"
                   />
                 </div>
               </div>
@@ -352,19 +354,19 @@
                     *ngIf="addPCRForm.get('projectId')?.hasError('required')"
                     class="error-message"
                   >
-                    projectId is required.
+                    ProjectId is required.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('projectId')?.hasError('minlength')"
                     class="error-message"
                   >
-                    projectId must be at least 6 characters long.
+                    ProjectId must be at least 6 characters long.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('projectId')?.hasError('maxlength')"
                     class="error-message"
                   >
-                    projectId cannot be more than 10 characters long.
+                    ProjectId cannot be more than 10 characters long.
                   </div>
                   <div
                     *ngIf="
@@ -372,7 +374,7 @@
                     "
                     class="error-message"
                   >
-                    Please enter a valid projectId (6 to 10 characters, letters,
+                    Please enter a valid ProjectId (6 to 10 characters, letters,
                     and numbers only).
                   </div>
                 </div>
@@ -396,14 +398,14 @@
                   class="error-message"
                   *ngIf="addPCRForm.get('skills')?.hasError('required')"
                 >
-                  skills is required !
+                  Skills is required !
                 </div>
               </div>
               <div
                 class="error-message"
                 *ngIf="addPCRForm.get('skills')?.hasError('minlength')"
               >
-                skills Project Id !
+                Skills Project Id !
               </div>
             </div>
           </div>
@@ -453,13 +455,13 @@
                   class="error-message"
                   *ngIf="addPCRForm.get('createdBy')?.hasError('required')"
                 >
-                  ceatedBy is required !
+                  CReatedBy is required !
                 </div>
                 <div
                   class="error-message"
                   *ngIf="addPCRForm.get('createdBy')?.hasError('minlength')"
                 >
-                  createdBy must be at least 3 characters long.
+                  CreatedBy must be at least 3 characters long.
                 </div>
               </div>
             </div>
