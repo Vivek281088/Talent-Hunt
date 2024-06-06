@@ -30,8 +30,9 @@ export class CandidateDetailsComponent {
       ];
   ngOnInit(): void {
     console.log("data from pcr details")
-    const id = sessionStorage.getItem("currentPCRid") ? sessionStorage.getItem("currentPCRid")  : "" ;
-    this.pcrService.getCandidate('EXT011').subscribe(data => {
+    const id = sessionStorage.getItem("currentResourceId") ? sessionStorage.getItem("currentResourceId")  : "" ;
+    console.log("get items" , id)
+    this.pcrService.getCandidate(id).subscribe(data => {
       console.log("data??????????????????????????????????????" , data)
       this.inputFields = transformDataToInputFields(data);
       console.log("this input fieldssssssssss",this.inputFields)
