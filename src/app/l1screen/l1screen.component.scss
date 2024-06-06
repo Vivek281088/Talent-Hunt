@@ -152,31 +152,41 @@ padding-right: 30px;
   }
 }
 
-.multiselect{
-::ng-deep{
-  .p-multiselect .p-multiselect-label.p-placeholder {
- display:flex;
- justify-content: center;
-    height: 32px;
+// .multiselect{
+// ::ng-deep{
+//   .p-multiselect .p-multiselect-label.p-placeholder {
+//  display:flex;
+//  justify-content: center;
+//     height: 32px;
 
+// }
+// .p-multiselect-label{
+//   align-items: center;
+// }
+
+// .p-multiselect{
+//   height:32px;
+//   width:120px
+// }
+// .p-multiselect:not(.p-disabled):hover {
+//   border-color: #ced4da;
+// }
+// .p-multiselect .p-multiselect-label {
+//   display: flex;
+//   justify-content: center;
+// }
+// }
+
+// }
+::ng-deep{
+  .p-multiselect {
+    height: 32px;
+    width:110px;
 }
-.p-multiselect-label{
+.p-multiselect-label-container {
+  display: flex;
   align-items: center;
 }
-
-.p-multiselect{
-  height:32px;
-  width:120px
-}
-.p-multiselect:not(.p-disabled):hover {
-  border-color: #ced4da;
-}
-.p-multiselect .p-multiselect-label {
-  display: flex;
-  justify-content: center;
-}
-}
-
 }
 
 .dropdowns{
@@ -287,4 +297,16 @@ padding-right: 30px;
       border-color: #652D70;
   }
   }
+}
+::ng-deep{
+.confirm-design{
+  .p-button:enabled:hover {
+    background: #652D70;
+    color: #ffffff;
+    border-color: #652D70;
+}
+.p-button:focus {
+  box-shadow: none
+}
+}
 }

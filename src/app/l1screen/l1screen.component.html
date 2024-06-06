@@ -182,6 +182,7 @@
               <div class="calender-field">
                 <p-calendar
                   [appendTo]="'body'"
+                  dateFormat="mm/dd/yy"
                   [(ngModel)]="l1.L1.l1InterviewDate"
                   [disabled]="isDisabled(l1)"
                   [showIcon]="true"
@@ -219,7 +220,7 @@
 
           <td>
             <div class="pi-pi">
-            <i class=" pi pi-save"  (click)="confirmPosition('top')"   style="font-size: 1.5rem"></i>
+            <i class=" pi pi-save"  (click)="confirmPosition(l1)"   style="font-size: 1.5rem"></i>
             </div>
           </td>
         </tr>

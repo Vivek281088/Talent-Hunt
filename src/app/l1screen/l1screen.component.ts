@@ -22,6 +22,7 @@ export class L1screenComponent implements OnInit  {
   l1Screen!:any;
   position: string = 'center';
 
+
   selectedCurrentStatus!:string;
   currentStatus:any = [{name:"l1"},{name:"l2"},{name:"Rejected at Screening"},{name:"Rejected at test"}]
   panelMembers:any=[{names:"Indhu", value :"Indhu"},{names:"Vairavan",value :"Vairavan"},{names:"Suresh",value:"Suresh"},{names:"Alamelu",value:"Alamelu"}]
@@ -37,7 +38,8 @@ export class L1screenComponent implements OnInit  {
 
 
 ngOnInit(): void {
-  this.getl1ScreenDetails()
+  this.getl1ScreenDetails();
+
   //this.changeStatus();
   this.items = [
     { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
@@ -52,8 +54,8 @@ clear(table: Table) {
 }
 
 isDisabled(l1:any):boolean{
-  console.log("from disabled",l1)
-    if(l1.testStatus=="Not Scheduled"){
+  //console.log("from disabled",l1)
+    if(l1.testStatus=="Rejected"||l1.testStatus=="Not Scheduled"){
       return true;
     }
 
@@ -86,22 +88,20 @@ getl1ScreenDetails() {
   this.L1ScreenService.getL1Details().subscribe((data) => {
     this.l1Screen=data
 
-    console.log('Skill Set', this.l1Screen);
+    console.log('llllllllllllllllllllllllll', this.l1Screen);
   });
 }
 
-postDetails(){
 
 
-}
-
-confirmPosition(position: string) {
-  this.position = position;
+confirmPosition(l1: any) {
+  this.position = 'top';
   this.confirmationService.confirm({
     message: 'Are you Sure?Do you want to change your Interview Status?',
     header: 'Submit Confirmation',
     icon: 'pi pi-info-circle',
     accept: () => {
+      this.addL1Details(l1);
       this.messageService.add({
         severity: 'info',
         summary: 'Confirmed',
@@ -126,6 +126,24 @@ confirmPosition(position: string) {
     key: 'positionDialog',
   });
 }
+addL1Details(l1:any){
+   const l1Details = {
 
+     pcrId:l1.pcrId,
+  candidateId:l1.candidateId,
+  screeningDate:l1.screeningDate,
+  testStatus:l1.testStatus,
+  L1:l1.L1,
+  currentStatus:l1.currentStatus,
+
+   }
+   this.L1ScreenService.updateL1Details(l1Details).subscribe((data:any)=>{
+    console.log(data)
+
+   })
+
+
+
+}
 
 }
