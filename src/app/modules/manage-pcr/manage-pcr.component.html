@@ -25,6 +25,7 @@
       [value]="pcrData"
       dataKey="pcrId"
       [rows]="5"
+      [(selection)]="selectedDeletePcr"
       [showCurrentPageReport]="true"
       [rowsPerPageOptions]="[5, 10, 25, 50]"
       [loading]=""
@@ -77,7 +78,7 @@
                 </div>
 
                 <div class="addcandidate">
-                  <p-button label="Delete"> </p-button>
+                  <p-button label="Delete" (click)="Deletepcr()"> </p-button>
                 </div>
               </div>
             </div>
@@ -86,7 +87,8 @@
 
         <tr>
           <th style="width: 4rem">
-            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            <p-tableHeaderCheckbox
+            [value]="pcrData" (click)="selectAll()"></p-tableHeaderCheckbox>
           </th>
           <th>PCR ID</th>
           <th>Agile Id</th>
@@ -111,6 +113,7 @@
             <p-tableCheckbox
               [value]="rowData"
               [checked]="rowData.selection"
+              (click)="toggleSelection(rowData)"
             ></p-tableCheckbox>
           </td>
           <td class="pcr-link">

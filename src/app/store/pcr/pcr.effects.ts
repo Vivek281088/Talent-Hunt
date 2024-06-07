@@ -65,6 +65,21 @@ export const updatePcr$ = createEffect(
     },
     {functional:true}
 )
+
+export const deletepcr$=createEffect(
+  (actions$=inject(Actions),deletePcrService=inject(PcrService))=>{
+    return actions$.pipe(
+      ofType(PcrActions.deletePCR),
+      exhaustMap((pcrIds) =>
+             deletePcrService.deletepcr(pcrIds.pcrIds).pipe(
+              tap((pcrIds) => console.log("delete pcr",pcrIds)),
+              map((pcrIds : any) => PcrActions.deletePCRSuccess({pcrIds})),
+              catchError((error) => of(PcrActions.deletePCRFailure({error : error.message})))
+          )
+      )
+  )
+  },{functional:true}
+)
 @Injectable()
 export class pcrEffects{
     constructor(private actions$ : Actions, private pcrService : PcrService){}

@@ -32,6 +32,8 @@ export class ManagePcrComponent {
   isAgileId: boolean = false;
   isPcrId: boolean = false;
   isProjectId: boolean = false;
+  selectedDeletePcr:any;
+
 
   constructor(
     private router: Router,
@@ -195,5 +197,28 @@ export class ManagePcrComponent {
     this.editPCR = false;
 
   this.cancelButton();
+  }
+  toggleSelection(data: any) {
+    if (!data || !data.id) {
+      return;
+    }
+    data.selection = !data.selection;
+
+    if (data.selection) {
+      console.log('Selected schedule:', this.selectedDeletePcr);
+    } else {
+      // this.selectedDeleteSchedule = this.selectedDeleteSchedule.filter(
+      //   (selected: any) => selected.id !== data.id
+      // );
+      console.log('Selected ----schedule :', this.selectedDeletePcr);
+    }
+  }
+  selectAll(){
+    console.log("select all pcr ---->",this.selectedDeletePcr)
+  }
+  Deletepcr(){
+    const scheduleIds = this.selectedDeletePcr.map((pcr : any) => pcr.pcrId)
+        this.store.dispatch(PcrActions.deletePCR({pcrIds :pcrIds }))
+    /
   }
 }
