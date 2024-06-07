@@ -43,3 +43,22 @@ export const MapPcrCandidate$ = createEffect(
   },
   { functional: true }
 );
+export const MailTheMappedData$ = createEffect(
+  (action$ = inject(Actions), mappingService = inject(PcrMappingService)) => {
+    return action$.pipe(
+      ofType(PcrCandidateActions.mailMappedData),
+      exhaustMap((action) =>
+        mappingService.mailMappedData(action.mailData).pipe(
+          tap((mailData) => console.log(mailData)),
+          map((mailData) =>
+            PcrCandidateActions.mailMappedDataSuccess({ mailData })
+          ),
+          catchError((error: { message: string }) =>
+            of(PcrCandidateActions.mailMappedDataFailure({ error: error.message }))
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
