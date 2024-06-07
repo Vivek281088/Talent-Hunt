@@ -27,17 +27,17 @@ export interface VisaDetails{
     visaStamped: string
 }
 export const resourceActions = createActionGroup({
-    source : 'candidate',
+    source : 'resource',
     events : {
-        'Get Candidate' : emptyProps,
-        'Get Candidate Success' : props<{candidates : Candidates[]}>(),
-        'Get Candidate Failure' : props<{error : string}>(),
-        'Update Candidate' : props<{candidate : Candidates}>(),
-        'Update Candidate Success' : props<{candidate : Candidates}>(),
-        'Update Candidate Failure' : props<{error : string}>(),
-        'Add Candidate' : props<{candidate:Candidates}>(),
-        'Add Candidate Success' : props<{candidate:Candidates}>(),
-        'Add Candidate Failure' : props<{error : string}>(),
+        'Get Resource' : emptyProps,
+        'Get Resource Success' : props<{candidates : Candidates[]}>(),
+        'Get Resource Failure' : props<{error : string}>(),
+        'Update Resource' : props<{candidate : Candidates}>(),
+        'Update Resource Success' : props<{candidate : Candidates}>(),
+        'Update Resource Failure' : props<{error : string}>(),
+        'Add Resource' : props<{candidate:Candidates}>(),
+        'Add Resource Success' : props<{candidate:Candidates}>(),
+        'Add Resource Failure' : props<{error : string}>(),
         // 'Clear Candidate Error' : emptyProps,
         // 'Clear Newcandidate' : emptyProps,
         // 'Clear DeleteCamdidateStatus' : emptyProps,

@@ -39,7 +39,7 @@ export class CandidateDetailsComponent {
     })
   }
 
- 
+
   pcrTableData = {
     headers: [
       {
@@ -127,10 +127,10 @@ export function transformDataToInputFields(data: any, parentKey: string = ''): a
           } else if (typeof value === 'object' && value !== null) {
             value = JSON.stringify(value);
           }
-          inputFields.push({ 
-            label: newKey.replace(/([A-Z])/g, ' $1').replace(/\./g, ' ').replace(/^./, str => str.toUpperCase()), 
-            id: newKey, 
-            value 
+          inputFields.push({
+            label: newKey.replace(/([A-Z])/g, ' $1').replace(/\./g, ' ').replace(/^./, str => str.toUpperCase()),
+            id: newKey,
+            value
           });
         }
       }

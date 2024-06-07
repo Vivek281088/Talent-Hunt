@@ -114,13 +114,13 @@
             <p-tableCheckbox [value]="rowData" [checked]="rowData.selection" (click)="toggleSelection(rowData)"></p-tableCheckbox>
           </td>
           <td class="resource-link">
-            <a (click)="individualResource(candidateId)">{{
+            <a (click)="individualResource(rowData.candidateId)">{{
             rowData.candidateId
           }}</a></td>
-          <td class="candidatenamedesign">
-            <a (click)="gotoCandidateProfile(rowData)">{{
+          <td >
+          {{
               rowData.candidateName
-            }}</a>
+            }}
           </td>
           <td>{{ rowData.roles}}</td>
           <td>{{ rowData.skillSet.primarySkills}}</td>

@@ -102,9 +102,9 @@ import { ResourceComponent } from './modules/resource/resource.component';
 
 
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
-import { ResourceFeature } from './store/Resource/resource.selector';
+import { ResourceFeature } from './store/resource/resource.selector';
 import { getCandidates$  ,
-  AddResource$ } from './store/Resource/resource.effects';
+  AddResource$ } from './store/resource/resource.effects';
 
 @NgModule({
   declarations: [

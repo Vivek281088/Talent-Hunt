@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { Candidates, resourceActions, } from "./resource.action";
+import { Candidates, resourceActions } from "./resource.action";
 
 export interface CandidateState{
     candidates : Candidates[],
@@ -19,7 +19,7 @@ export const initialState : CandidateState = {
 
 export const candidateReducer = createReducer(
     initialState,
-    on(resourceActions.getCandidateSuccess, (state,action) =>{
+    on(resourceActions.getResourceSuccess, (state,action) =>{
         console.log("actionssss" , action)
         return {
             ...state,
@@ -28,7 +28,7 @@ export const candidateReducer = createReducer(
             candidateCount : action.candidates.length
         }
     }),
-    on(resourceActions.getCandidateFailure, (state,action) =>{
+    on(resourceActions.getResourceFailure, (state,action) =>{
         return {
             ...state,
             candidates : [],
@@ -36,7 +36,7 @@ export const candidateReducer = createReducer(
             candidateCount : 0
         }
     }),
-    on(resourceActions.addCandidateSuccess, (state,action) => {
+    on(resourceActions.addResourceSuccess, (state,action) => {
         console.log("candidate action" , action)
         return {
             ...state,
@@ -45,7 +45,7 @@ export const candidateReducer = createReducer(
             newUserAdded : true
         }
     }),
-    on(resourceActions.addCandidateFailure, (state,action) => {
+    on(resourceActions.addResourceFailure, (state,action) => {
         return {
             ...state,
             error : action.error

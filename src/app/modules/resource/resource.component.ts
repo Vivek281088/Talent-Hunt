@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject, Subscription, debounceTime, skip, switchMap, take, takeUntil, tap } from 'rxjs';
 import { CalendarModule } from 'primeng/calendar';
-import { Candidates, resourceActions } from 'src/app/store/Resource/resource.action';
-import { getResource, getResourceError } from 'src/app/store/Resource/resource.selector';
+import { Candidates, resourceActions } from 'src/app/store/resource/resource.action';
+import { getResource, getResourceError } from 'src/app/store/resource/resource.selector';
 @Component({
   selector: 'app-resource',
   templateUrl: './resource.component.html',
@@ -91,7 +91,7 @@ export class ResourceComponent implements OnDestroy{
     this.errorSubscription ? this.errorSubscription.unsubscribe() : null
   }
   ngOnInit() {
-    this.store.dispatch(resourceActions.getCandidate());
+    this.store.dispatch(resourceActions.getResource());
     this.Resource$.subscribe((candidates) =>
       this.candidateData = candidates)
     console.log("This is Candidate Data", this.candidateData)
@@ -227,7 +227,7 @@ export class ResourceComponent implements OnDestroy{
         }
       }
       console.log('Candidate details are:', candidate);
-      this.store.dispatch(resourceActions.addCandidate({candidate}));
+      this.store.dispatch(resourceActions.addResource({candidate}));
       // this.isAddCandidate = false;
       this.addCandidatevisible = true;
 

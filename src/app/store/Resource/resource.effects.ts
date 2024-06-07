@@ -1,20 +1,20 @@
-import { getCandidate } from './../candidate/candidate.selector';
+import { getCandidate } from '../candidate/candidate.selector';
 import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { Candidates, resourceActions } from "./resource.action";
 import { catchError, debounceTime, exhaustMap, map, of, switchMap, tap } from "rxjs";
 import { ResourceService } from "src/app/services/resource.service";
+import { resourceActions } from './resource.action';
 
 export const getCandidates$ = createEffect(
 (action$ = inject(Actions) , resourceService = inject(ResourceService)) => {
     return action$.pipe(
-        ofType(resourceActions.getCandidate),
+        ofType(resourceActions.getResource),
         exhaustMap((candidate)=>
             resourceService.getResourceData().pipe(
                 tap((candidate) => console.log( "This is candidate details coming", candidate)),
-                map((candidates) => resourceActions.getCandidateSuccess({candidates})),
+                map((candidates) => resourceActions.getResourceSuccess({candidates})),
                 catchError((error : {message : string}) =>
-                    of(resourceActions.getCandidateFailure({error : error.message}))
+                    of(resourceActions.getResourceFailure({error : error.message}))
                 )
             )
         )
@@ -27,16 +27,16 @@ export const getCandidates$ = createEffect(
 export const AddResource$ = createEffect(
   (action$ = inject(Actions) , resourceService = inject(ResourceService) )  =>{
       return action$.pipe(
-          ofType(resourceActions.addCandidate),
+          ofType(resourceActions.addResource),
           switchMap((candidate) =>
             resourceService.addSingleCandidate(candidate.candidate).pipe(
                   tap((candidate) =>{
                       console.log("add cadidate.................." , candidate);
                   }),
-                  map((candidate) => resourceActions.addCandidateSuccess({candidate})),
+                  map((candidate) => resourceActions.addResourceSuccess({candidate})),
                   catchError((error) => {
                       console.log(error)
-                      return of(resourceActions.addCandidateFailure({error : error.error}))
+                      return of(resourceActions.addResourceFailure({error : error.error}))
                   } )
               )
           )
