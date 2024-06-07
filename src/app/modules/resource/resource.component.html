@@ -80,7 +80,7 @@
                   <p-button
                   [disabled]="!selectedDeleteCandidate || selectedDeleteCandidate.length==0"
                     label="Delete candidate"
-
+                    (onClick)="deleteCandidate()"
                   >
                   </p-button>
                 </div>

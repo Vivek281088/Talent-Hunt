@@ -103,7 +103,7 @@ import { ResourceComponent } from './modules/resource/resource.component';
 
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
 import { ResourceFeature } from './store/resource/resource.selector';
-import { getCandidates$  ,
+import { getResources$  ,
   AddResource$ } from './store/resource/resource.effects';
 
 @NgModule({
@@ -190,7 +190,7 @@ import { getCandidates$  ,
       { deleteManager$ },
       {loadMappedData$},
       {getPcr$},
-      {getCandidates$},
+      {getResources$},
       {AddResource$},
       {MapPcrCandidate$},
       {addpcr$},

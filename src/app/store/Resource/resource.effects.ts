@@ -5,7 +5,7 @@ import { catchError, debounceTime, exhaustMap, map, of, switchMap, tap } from "r
 import { ResourceService } from "src/app/services/resource.service";
 import { resourceActions } from './resource.action';
 
-export const getCandidates$ = createEffect(
+export const getResources$ = createEffect(
 (action$ = inject(Actions) , resourceService = inject(ResourceService)) => {
     return action$.pipe(
         ofType(resourceActions.getResource),

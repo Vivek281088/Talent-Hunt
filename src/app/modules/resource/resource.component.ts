@@ -389,17 +389,17 @@ export class ResourceComponent implements OnDestroy{
     this.router.navigate(['/mtalent/candidateProfile']);
   }
   selectedDeleteCandidate: any;
-  // deleteCandidate() {
-  //   console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
-  //   const candidates = this.selectedDeleteCandidate.map((candidate: { id: string , candidateEmail :string }) => ({id : candidate.id , candidateEmail : candidate.candidateEmail}))
-  //   console.log("candidates to be deleted" , candidates)
-  //   this.store.dispatch(resourceActions.deleteCandidates({candidates}))
-  //   setTimeout(() => {
-  //     this.deleteMessage();
-  //     this.selectedDeleteCandidate = [];
-  //     // this.getUniqueCandidatedata();
-  //   }, 1500);
-  // }
+  deleteCandidate() {
+    console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
+    const candidates = this.selectedDeleteCandidate.map((candidate: { id: string , candidateEmail :string }) => ({id : candidate.id , candidateEmail : candidate.candidateEmail}))
+    console.log("candidates to be deleted" , candidates)
+    this.store.dispatch(resourceActions.deleteResource({candidates}))
+    setTimeout(() => {
+      this.deleteMessage();
+      this.selectedDeleteCandidate = [];
+      // this.getUniqueCandidatedata();
+    }, 1500);
+  }
   deleteMessage() {
     this.messageService.add({
       severity: 'success',
