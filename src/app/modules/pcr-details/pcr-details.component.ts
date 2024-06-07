@@ -24,21 +24,21 @@ export class PcrDetailsComponent implements OnInit{
     this.pcrService.getIndividualPCR(id).subscribe(data => {
       console.log("data from pcr details...........", sessionStorage.getItem("currentPCRid") , data)
       this.inputFields = [
-        { label: 'PCR ID', id: 'PCRID', value: data.pcrId},
-        { label: 'Agile One Id', id: 'agileid', value: data.agileId },
-        { label: 'Job Title', id: 'jobtitile', value: data.jobTitle },
-        { label: 'Created By', id: 'createdby', value: data.createdBy },
-        { label: 'Created Date', id: 'createddate', value: data.createdDate },
-        { label: 'Schedule Name', id: 'schedulename', value: data.scheduleName},
-        { label: 'Onsite/Offshore', id: 'location', value:data.location },
-        { label: 'PCR Status', id: 'pcrstatus', value: data.pcrStatus },
-        { label: 'Request Resource', id: 'request', value:data.requestResource },
+        { label: 'PCR ID', id: 'PCRID', value: data.pcr.pcrId},
+        { label: 'Agile One Id', id: 'agileid', value: data.pcr.agileId },
+        { label: 'Job Title', id: 'jobtitile', value: data.pcr.jobTitle },
+        { label: 'Created By', id: 'createdby', value: data.pcr.createdBy },
+        { label: 'Created Date', id: 'createddate', value: data.pcr.createdDate },
+       // { label: 'Schedule Name', id: 'schedulename', value: data.pcr.scheduleName},
+        { label: 'Onsite/Offshore', id: 'location', value:data.pcr.location },
+        { label: 'PCR Status', id: 'pcrstatus', value: data.pcr.pcrStatus },
+        { label: 'Request Resource', id: 'request', value:data.pcr.requestResource },
       ];
     })
-   
+
   }
 
- 
+
   pcrTableData = {
     headers: [
       {
@@ -225,5 +225,5 @@ export class PcrDetailsComponent implements OnInit{
   applyFilter(value: any, field: string, mode: string) {
     this.dt.filter(value, field, mode);
   }
- 
+
 }

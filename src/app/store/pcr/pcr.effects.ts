@@ -4,6 +4,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects"
 import { PcrActions } from "./pcr.action"
 import { catchError, exhaustMap, map, of, switchMap, tap } from "rxjs"
 import { PcrService } from "src/app/services/pcr.service"
+import { error } from "console"
 
 export const getPcr$ = createEffect(
   (action$ = inject(Actions) , pcrService = inject(PcrService)) => {
@@ -27,8 +28,8 @@ export const getPcr$ = createEffect(
     (action$=inject(Actions),addPCRService=inject(PcrService))=>{
         return action$.pipe(
             ofType(PcrActions.addPCR),
-           
-            switchMap((pcr) => 
+
+            switchMap((pcr) =>
                 addPCRService.addpcr(pcr.pcr).pipe(
                     tap((pcr) =>{
                         console.log("add pcr.................." , pcr);
@@ -41,13 +42,29 @@ export const getPcr$ = createEffect(
                 )
             )
         )
-        
-        
+
+
 
     }
 ,{functional:true}
   )
 
+
+export const updatePcr$ = createEffect(
+    (actions$ = inject(Actions) , updatePCRservice = inject(PcrService)) => {
+        return actions$.pipe(
+            ofType(PcrActions.updatePCR),
+            exhaustMap((pcr) => updatePCRservice.updatepcr(pcr.pcr).pipe(
+                tap(pcr=>console.log("pcr data",pcr)),
+                map((pcr)=>PcrActions.updatePCRSuccess({pcr})),
+                catchError((error:{message:string})=>
+                of(PcrActions.updatePCRFailure({error:error.message})))
+
+            ) )
+        )
+    },
+    {functional:true}
+)
 @Injectable()
 export class pcrEffects{
     constructor(private actions$ : Actions, private pcrService : PcrService){}
@@ -55,7 +72,7 @@ export class pcrEffects{
     getpcrDetails$ = createEffect(()=>{
         return this.actions$.pipe(
             ofType(PcrActions.getPCR),
-            exhaustMap((pcr)=> 
+            exhaustMap((pcr)=>
                 this.pcrService.getPcr().pipe(
                     tap((pcr) => console.log(pcr)),
                     map((pcr) => PcrActions.getPCRSuccess({pcr})),
@@ -68,7 +85,7 @@ export class pcrEffects{
     addMultiPCR$ = createEffect(()=> {
         return this.actions$.pipe(
             ofType(PcrActions.addMultiPCR),
-            exhaustMap((pcr)=> 
+            exhaustMap((pcr)=>
                 this.pcrService.addMuiltPCR(pcr.pcr).pipe(
                     tap(pcr => console.log("add multi pcr .........." , pcr)),
                     map((pcr) => PcrActions.addMultiPCRSuccess({pcr})),

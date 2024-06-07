@@ -10,8 +10,7 @@ export interface PCR{
     pcrStatus ?: string,
     projectId ?: string,
     requestResource : string,
-    skills : string[],
-    scheduleName : string
+    skills : string[]
 }
 
 export const PcrActions = createActionGroup({

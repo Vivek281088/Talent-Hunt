@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PCR } from '../store/pcr/pcr.action';
 import { HttpClient } from '@angular/common/http';
+import { PcrDetails } from '../shared/interface/pcrdetails';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +23,18 @@ export class PcrService {
   addMuiltPCR(pcr : PCR[]) : Observable<PCR[]>{
     return this.http.post<PCR[]>(`${process.env.BASE_URL_PRIVATE}/pcr`,pcr)
   }
-  getIndividualPCR(id : string  | null) : Observable<PCR>{
-    console.log("sdfvbsdfv",id)
-    return this.http.get<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr?id=${id}`)
+  updatepcr(pcr:PCR):Observable<PCR>{
+    
+    return this.http.put<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr`,pcr)
+
   }
-  getCandidate(id:string){
+  
+  getIndividualPCR(id : string  | null) : Observable<PcrDetails>{
+    console.log("sdfvbsdfv",id)
+    return this.http.get<PcrDetails>(`${process.env.BASE_URL_PRIVATE}/pcr?id=${id}`)
+  }
+  getCandidate(id:string | null){
+    console.log(id)
     return this.http.get<any>(`${process.env.BASE_URL_PRIVATE}/resource?id=${id}`)
   }
 }
