@@ -190,6 +190,7 @@
             optionLabel="pcrId"
             [(ngModel)]="selectedPcrId"
             optionValue="pcrId"
+            (onChange)="candidateFiltering()"
           ></p-dropdown>
         </div>
         <div class="candidateMultiselect">
@@ -204,7 +205,12 @@
             [(ngModel)]="selectedCandidates"
             optionLabel=""
             optionValue=""
+            [disabled]="!pcrSelected"
             (onChange)="selected()"
+            (onClick)="showTooltip()"
+            pTooltip="Please select a PCR first."
+            tooltipPosition="top"
+            [tooltipDisabled]="pcrSelected"
           ></p-multiSelect>
         </div>
       </div>

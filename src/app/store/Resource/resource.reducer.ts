@@ -36,12 +36,7 @@ export const candidateReducer = createReducer(
             candidateCount : 0
         }
     }),
-    on(candidateActions.updateCandidateSuccess , (state,action) => {
-        return{
-            ...state,
-            candidates : state.candidates.map(candidate => candidate.empid == action.candidate.empid ? {...candidate , ...((({id,...rest})=> rest)(action.candidate))} : candidate)
-        }
-    }),
+
     on(candidateActions.getCandidateFailure , (state,action)=>{
         return {
             ...state,
@@ -83,14 +78,7 @@ export const candidateReducer = createReducer(
             candidateDeleted : false
         }
     }),
-    on(candidateActions.deleteCandidateSuccess,(state,action) => {
-        const deleteSet = new Set(action.candidates.map(can => can.id));
-        return {
-            ...state,
-            candidates : state.candidates.filter(candidate => !deleteSet.has(candidate.id)),
-            candidateDeleted : true
-        }
-    }),
+    
     on(candidateActions.deleteCandidateFailure,(state,action)=> {
         return {
             ...state,

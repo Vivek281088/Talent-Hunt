@@ -1,3 +1,4 @@
+import { getCandidate } from './../../store/Resource/resource.selector';
 import { Component } from '@angular/core';
 import { MenuItem, Message } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -22,21 +23,20 @@ import { getPcr } from 'src/app/store/pcr/pcr.selector';
   styleUrls: ['./pcr-resource-mapping.component.scss'],
   providers: [ConfirmationService, MessageService],
 })
-
 export class PcrResourceMappingComponent {
   items: MenuItem[] | undefined;
   todayDate!: Date;
   globalSearchValue!: string;
-  pcrData !: PCR[];
-  candidateData = ["EXT011","2528625"]
+  pcrData!: PCR[];
+  candidateData = [];
   mappingData!: AggregatedData[];
   selectedMappedData!: AggregatedData[];
   mappingDialogVisible: boolean = false;
-  selectedPcrId !: string;
-  selectedCandidates =[];
-  messages: Message[] =[];
-  mailData : MailDetails[]=[];
-
+  selectedPcrId!: string;
+  selectedCandidates = [];
+  messages: Message[] = [];
+  mailData: MailDetails[] = [];
+  pcrSelected: boolean = false;
 
   constructor(
     private MappingService: PcrMappingService,
@@ -46,6 +46,7 @@ export class PcrResourceMappingComponent {
     sessionStorage.setItem('Component-Name', 'user');
     this.getPcrMappingData();
     this.getPcrData();
+    this.getCandidateData();
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
 
@@ -59,12 +60,18 @@ export class PcrResourceMappingComponent {
     table.clear();
     this.globalSearchValue = '';
   }
-  getPcrData(){
+  getPcrData() {
     this.store.dispatch(PcrActions.getPCR());
     this.store.select(getPcr).subscribe((data) => {
-      console.log("Pcr Details",data);
+      console.log('Pcr Details', data);
       this.pcrData = data;
-    })
+    });
+  }
+  getCandidateData(){
+    this.MappingService.getAllResource().subscribe((data) => {
+      this.candidateData = data.map((item: { candidateId: string; }) => item.candidateId);
+      console.log('Candidate Data :', this.candidateData);
+    });
   }
   getPcrMappingData() {
     this.store.dispatch(PcrCandidateActions.getPcrMappingData());
@@ -78,26 +85,27 @@ export class PcrResourceMappingComponent {
     console.log(data);
     console.log('Selected Data ', this.selectedMappedData);
     const mapData = (data: any[]) => {
-      return data.map(item => ({
+      return data.map((item) => ({
         candidateName: item.candidateData.candidateName,
         emailId: item.candidateData.emailId,
         candidateId: item.candidateData.candidateId,
-        pcrId: item.mappedData.pcrId
+        pcrId: item.mappedData.pcrId,
       }));
     };
     this.mailData = mapData(this.selectedMappedData);
     console.log('New Selected Data ', this.mailData);
-
   }
-  toggleSelectAll(){
-    const filteredSelection = this.selectedMappedData.filter(data => !data.mappedData.mailSend);
+  toggleSelectAll() {
+    const filteredSelection = this.selectedMappedData.filter(
+      (data) => !data.mappedData.mailSend
+    );
     console.log('Filetered Selected Data ', filteredSelection);
     const mapData = (data: any[]) => {
-      return data.map(item => ({
+      return data.map((item) => ({
         candidateName: item.candidateData.candidateName,
         emailId: item.candidateData.emailId,
         candidateId: item.candidateData.candidateId,
-        pcrId: item.mappedData.pcrId
+        pcrId: item.mappedData.pcrId,
       }));
     };
     this.mailData = mapData(filteredSelection);
@@ -112,37 +120,42 @@ export class PcrResourceMappingComponent {
   }
   cancelButton() {
     this.mappingDialogVisible = false;
-    this.selectedCandidates=[];
-    this.selectedPcrId =''
+    this.selectedCandidates = [];
+    this.selectedPcrId = '';
+    this.getCandidateData();
   }
-  mappingPCR(){
-    this.mappingDialogVisible = true
+  mappingPCR() {
+    this.mappingDialogVisible = true;
   }
-  mapPCR(){
-    const mappingPcrCandidateData  : MappingPCRCandidateData[]= this.selectedCandidates.map(id =>({
-      pcrId: this.selectedPcrId,
-      candidateId: id
-    }));
-    console.log("Mapping Data",mappingPcrCandidateData)
-    this.store.dispatch(PcrCandidateActions.mapPCRAndCandidate({mappingPcrCandidateData}));
+  mapPCR() {
+    const mappingPcrCandidateData: MappingPCRCandidateData[] =
+      this.selectedCandidates.map((id) => ({
+        pcrId: this.selectedPcrId,
+        candidateId: id,
+      }));
+    console.log('Mapping Data', mappingPcrCandidateData);
+    this.store.dispatch(
+      PcrCandidateActions.mapPCRAndCandidate({ mappingPcrCandidateData })
+    );
     this.getPcrMappingData();
     this.cancelButton();
   }
-  selected(){
-    console.log("Selected ----",this.selectedPcrId);
-    console.log("Selected Candidate---", this.selectedCandidates)
-    this.messages = this.selectedCandidates.map(candidateId => ({
+  selected() {
+    console.log('Selected ----', this.selectedPcrId);
+    console.log('Selected Candidate---', this.selectedCandidates);
+    this.messages = this.selectedCandidates.map((candidateId) => ({
       severity: 'info',
-      detail: `Selected PCR ID: ${this.selectedPcrId}, Candidate ID: ${candidateId}`
+      detail: `Selected PCR ID: ${this.selectedPcrId}, Candidate ID: ${candidateId}`,
     }));
-
   }
 
-  sendEmail(){
-    console.log("Email Sent ----",this.mailData);
-    this.store.dispatch(PcrCandidateActions.mailMappedData({mailData : this.mailData}))
-    this.mailData=[];
-    this.selectedMappedData =[]
+  sendEmail() {
+    console.log('Email Sent ----', this.mailData);
+    this.store.dispatch(
+      PcrCandidateActions.mailMappedData({ mailData: this.mailData })
+    );
+    this.mailData = [];
+    this.selectedMappedData = [];
   }
   getFormattedSkills(skills: any): {
     skills: string[];
@@ -169,5 +182,24 @@ export class PcrResourceMappingComponent {
   remainaingSkills(skills: any, count: number): string[] {
     return skills.slice(-count);
   }
-}
+  candidateFiltering() {
+    this.pcrSelected = true; 
+    const filtrredCandidate = this.mappingData
+      .filter((item) => item.mappedData.pcrId === this.selectedPcrId)
+      .map((item) => item.candidateData.candidateId);
+    console.log('Filtered Candidate--', filtrredCandidate);
 
+    this.MappingService.getAllResource().subscribe((data) => {
+      this.candidateData = data.map((item: { candidateId: string; }) => item.candidateId).filter((id: string) => !filtrredCandidate.includes(id));
+      console.log('Candidate Data :', this.candidateData);
+    });
+  }
+  showTooltip() {
+    if (!this.pcrSelected) {
+      // Display tooltip or any other message indicating to select PCR first
+      this.messages = [{ severity: 'warn', detail: 'Please select a PCR first.' }];
+    }
+  }
+
+
+}
