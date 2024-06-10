@@ -43,11 +43,8 @@ export class ManagePcrComponent {
     this.addPCRForm = this.fb.group({
       agileId: [
         null,
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(10)
-        ],
+        []
+        ,
       ],
       pcrId: [
         null,

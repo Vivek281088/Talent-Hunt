@@ -33,6 +33,7 @@
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
         'pcrId',
+        'agileId',
         'jobTitle',
         'createdDate',
         'projectId',
@@ -181,7 +182,7 @@
             <div class="labelvalue">
               <div class="label">
                 <label> Agile Id</label>
-                <span class="important-symbol">&#42;</span>
+
               </div>
               <div class="value">
                 <input
@@ -189,42 +190,14 @@
                   pKeyFilter="alphanum"
                   formControlName="agileId"
                   (keypress)="onKeyPress($event)"
-                  [disabled]="true"
+                  [readonly]="editPCR"
                 />
 
-                <div
-                  *ngIf="
-                    (addPCRForm.get('agileId')?.invalid &&
-                      addPCRForm.get('agileId')?.touched) ||
-                    formSubmitted
-                  "
-                >
-                  <div
-                    *ngIf="addPCRForm.get('agileId')?.hasError('required')"
-                    class="error-message"
-                  >
-                    Agile ID is required.
-                  </div>
-                  <div
-                    *ngIf="addPCRForm.get('agileId')?.hasError('minlength')"
-                    class="error-message"
-                  >
-                    Agile ID must be at least 6 characters long.
-                  </div>
-                  <div
-                    *ngIf="addPCRForm.get('agileId')?.hasError('maxlength')"
-                    class="error-message"
-                  >
-                    Agile ID cannot be more than 10 characters long.
-                  </div>
-                  <!-- <div
-                    *ngIf="addPCRForm.get('agileId')?.hasError('invalidInput')"
-                    class="error-message"
-                  >
-                    Please enter a valid Agile ID (6 to 10 characters, letters,
-                    and numbers only).
-                  </div> -->
-                </div>
+
+
+
+
+
               </div>
             </div>
             <div class="labelvalue">
@@ -239,6 +212,7 @@
                   formControlName="pcrId"
                   (keypress)="onKeyPress($event)"
                   [disabled]="isPcrId"
+                  [readonly]="editPCR"
                 />
 
                 <div
@@ -343,6 +317,7 @@
                   formControlName="projectId"
                   (keypress)="onKeyPress($event)"
                   [disabled]="isProjectId"
+                  [readonly]="editPCR"
                 />
 
                 <div
