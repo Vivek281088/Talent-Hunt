@@ -47,7 +47,7 @@
       <ng-template pTemplate="content">
         
 <div class="card">
-    <p-table  [value]="pcrTableData.data" #dt1 styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+    <p-table  [value]="mappingDetails" #dt1 styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header" >
             <tr>
                 <th colspan="8">
@@ -77,11 +77,15 @@
         </ng-template>
         <ng-template pTemplate="body" let-emp>
             <tr>
-                <td>{{emp.Project_id}}</td>
+                <td>{{emp.candidateId}}</td>
                 <td>{{emp.CreatedBy}}</td>
-                <td>{{emp.Jobtitle}}</td>
-                <td>{{emp.PCRstatus}}</td>
+                <td>{{emp.testStatus}}</td>
+                <td>{{emp.currentStatus}}</td>
+                <td><i class="pi pi-info-circle details-icon" (click)="allDetails($event,op,emp)"></i></td>
             </tr>
+            <p-overlayPanel #op>
+              <pre [innerHTML]="jsonData"></pre>
+            </p-overlayPanel>
         </ng-template>
     </p-table>
 </div>

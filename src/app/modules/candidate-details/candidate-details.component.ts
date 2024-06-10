@@ -29,11 +29,8 @@ export class CandidateDetailsComponent {
         { label: 'Secondary Skills', id: 'secondaryskills', value:"ufhkef" },
       ];
   ngOnInit(): void {
-    console.log("data from pcr details")
     const id = sessionStorage.getItem("currentResourceId") ? sessionStorage.getItem("currentResourceId")  : "" ;
-    console.log("get items" , id)
     this.pcrService.getCandidate(id).subscribe(data => {
-      console.log("data??????????????????????????????????????" , data)
       this.inputFields = transformDataToInputFields(data);
       console.log("this input fieldssssssssss",this.inputFields)
     })
