@@ -102,6 +102,7 @@ import { ResourceComponent } from './modules/resource/resource.component';
 
 
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
+import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
 
 @NgModule({
   declarations: [
@@ -139,7 +140,8 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
       ManagePcrComponent,
       PcrDetailsComponent,
       CandidateDetailsComponent,
-      L1screenComponent
+      L1screenComponent,
+      MainscreenComponent
   ],
   imports: [
     BrowserModule,
