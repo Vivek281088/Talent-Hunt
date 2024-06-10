@@ -85,7 +85,6 @@ getl1ScreenDetails() {
         item.L2.l2InterviewDate = new Date(item.L2.l2InterviewDate);
       }
       // Initialize current bindings
-      
       this.updateCurrentBindings(item);
       // Set initial values for currentPanel, currentInterviewDate, and currentLStatus if they're empty
       if (!item.currentPanel) {
@@ -155,6 +154,7 @@ addL1Details(l1:any){
       L1:L1 ,
       L2 : l1.L2,
       currentStatus:l1.currentStatus,
+      uniqueId : l1.uniqueId
     }
   }else if(l1.currentStatus == "L2"){
     const L2 = {
@@ -170,6 +170,7 @@ addL1Details(l1:any){
       L1:l1.L1,
       L2 : L2,
       currentStatus:l1.currentStatus,
+      uniqueId : l1.uniqueId
     }
   }else{
     l1Details = {
@@ -180,6 +181,7 @@ addL1Details(l1:any){
       L1:l1.L1,
       L2 : l1.L2,
       currentStatus:l1.currentStatus,
+      uniqueId : l1.uniqueId
     }
   }
  
@@ -193,8 +195,6 @@ onRowEditInit(product: any) {
 
 onRowEditSave(product: any) {
   console.log("lioasdkfnakjf", this.l1Screen)
-  product.L1.l1InterviewDate =  product.L1.l1InterviewDate.toLocaleDateString()
-
 }
 
 onRowEditCancel(product: any, index: number) {

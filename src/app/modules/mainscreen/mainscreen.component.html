@@ -179,7 +179,7 @@
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{l1.currentInterviewDate}}
+                        {{l1.currentInterviewDate  | date: 'MM/dd/yyyy'}}
                     </ng-template>
                 </p-cellEditor>
             </td>
