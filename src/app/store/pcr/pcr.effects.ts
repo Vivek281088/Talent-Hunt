@@ -45,6 +45,8 @@ export const getPcr$ = createEffect(
 
 
 
+
+        
     }
 ,{functional:true}
   )
@@ -70,13 +72,13 @@ export const deletepcr$=createEffect(
   (actions$=inject(Actions),deletePcrService=inject(PcrService))=>{
     return actions$.pipe(
       ofType(PcrActions.deletePCR),
-      exhaustMap((pcrIds) =>
-             deletePcrService.deletepcr(pcrIds.pcrIds).pipe(
-              tap((pcrIds) => console.log("delete pcr",pcrIds)),
-              map((pcrIds : any) => PcrActions.deletePCRSuccess({pcrIds})),
+      exhaustMap((pcrIds) =>{
+            return  deletePcrService.deletepcr(pcrIds.pcrIds).pipe(
+              tap((pcrIds:any) => console.log("delete pcr",pcrIds)),
+              map((pcrIds : any) => PcrActions.deletePCRSuccess({pcrIds:pcrIds as string[]})),
               catchError((error) => of(PcrActions.deletePCRFailure({error : error.message})))
           )
-      )
+   } )
   )
   },{functional:true}
 )

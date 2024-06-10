@@ -69,8 +69,8 @@ on(PcrActions.updatePCRFailure,(state,action)=>{
 on(PcrActions.deletePCRSuccess, (state,action) => {
   return {
       ...state,
-      schedules : state.pcr.filter(pcr => ! action.pcrIds.includes(pcr.pcrId)),
-      scheduleCount : state.pcrCount - action.pcrIds.length
+      pcr : state.pcr.filter(pcr => ! action.pcrIds.includes(pcr.pcrId)),
+      pcrCount : state.pcrCount - action.pcrIds.length
   }
 }),
 on(PcrActions.deletePCRFailure, (state,action) => {

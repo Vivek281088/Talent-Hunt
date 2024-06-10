@@ -78,7 +78,7 @@ import {
 import { CandidateFeature } from './store/candidate/candidate.selector';
 import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
 // import { pcrFeature } from './store/pcr/pcr.selector';
-import { addpcr$,  updatePcr$ } from './store/pcr/pcr.effects';
+import { addpcr$,  deletepcr$,  updatePcr$ } from './store/pcr/pcr.effects';
 // import { addpcr$, } from './store/pcr/pcr.effects';
 // import { getPcr$ } from './store/pcr/pcr.effects';
 
@@ -187,7 +187,8 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
       {getPcr$},
       {MapPcrCandidate$},
       {addpcr$},
-      {updatePcr$}
+      {updatePcr$},
+      {deletepcr$}
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     // {

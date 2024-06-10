@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PCR } from '../store/pcr/pcr.action';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PcrDetails } from '../shared/interface/pcrdetails';
+
 
 @Injectable({
   providedIn: 'root',
@@ -25,11 +26,21 @@ export class PcrService {
     return this.http.put<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr`, pcr);
   }
 
-  deletepcr(pcrIds: string[]): Observable<PCR> {
-    return this.http.delete<PCR>(
-      `${process.env.BASE_URL_PRIVATE}/pcr,pcrIds`
-    );
+
+
+  deletepcr(pcrIds: string[]): Observable<any> {
+    console.log("pcrIds  .....................................", pcrIds);
+    const endpoint = `${process.env.BASE_URL_PRIVATE}/pcr`;
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      body: { pcrId: pcrIds }
+    };
+
+    return this.http.request('delete', endpoint, httpOptions);
   }
+
+
 
   getIndividualPCR(id: string | null): Observable<PcrDetails> {
     console.log('sdfvbsdfv', id);

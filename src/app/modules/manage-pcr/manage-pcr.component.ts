@@ -217,8 +217,8 @@ export class ManagePcrComponent {
     console.log("select all pcr ---->",this.selectedDeletePcr)
   }
   Deletepcr(){
-    const scheduleIds = this.selectedDeletePcr.map((pcr : any) => pcr.pcrId)
+    const pcrIds = this.selectedDeletePcr.map((pcr : any) => pcr.pcrId)
         this.store.dispatch(PcrActions.deletePCR({pcrIds :pcrIds }))
-    /
+
   }
 }
