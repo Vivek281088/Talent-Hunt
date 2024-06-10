@@ -86,7 +86,14 @@ isDisabled(l1:any):boolean{
 
 getl1ScreenDetails() {
   this.L1ScreenService.getL1Details().subscribe((data) => {
-    this.l1Screen=data
+    
+  
+    this.l1Screen= data.map((candidate: any) => {
+      if (candidate.L1 && candidate.L1.l1InterviewDate) {
+        candidate.L1.l1InterviewDate = new Date(candidate.L1.l1InterviewDate);
+      }
+      return candidate;
+    });
 
     console.log('llllllllllllllllllllllllll', this.l1Screen);
   });
@@ -133,7 +140,11 @@ addL1Details(l1:any){
   candidateId:l1.candidateId,
   screeningDate:l1.screeningDate,
   testStatus:l1.testStatus,
-  L1:l1.L1,
+  L1: {
+    l1InterviewDate : l1.L1.l1InterviewDate.toLocaleDateString(),
+    l1Panel : l1.L1.l1Panel,
+    l1Status : l1.L1.l1Status
+  },
   currentStatus:l1.currentStatus,
 
    }

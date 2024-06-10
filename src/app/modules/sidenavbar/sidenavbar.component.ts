@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Guard/auth.service';
- 
+
 @Component({
   selector: 'app-sidenavbar',
   templateUrl: './sidenavbar.component.html',
@@ -10,9 +10,8 @@ export class SidenavbarComponent {
   assessmentShow: boolean = true;
   userShow: boolean = true;
   questionBankShow: boolean = true;
-  systemShow: boolean = true;
   isSideNavCollapsed: boolean = false;
-  pcrSchow:boolean=true;
+  pcrShow:boolean=true;
   activeSection: string = 'home';
   activeSublist: string = '';
   role: string | null = '';
@@ -20,7 +19,8 @@ export class SidenavbarComponent {
   assessmentIconRotated: boolean = false;
   userIconRotated: boolean= false;
   questionBankIconRotated: boolean= false;
- 
+  pcrRotated : boolean =false;
+
   constructor(private authService: AuthService) {}
   ngOnInit(): void {
     const defaultPage=sessionStorage.getItem("Component-Name")
@@ -31,21 +31,24 @@ export class SidenavbarComponent {
   toggleAssessmentRotation() {
     this.assessmentIconRotated = !this.assessmentIconRotated;
   }
- 
+
   toggleUserRotation() {
     this.userIconRotated = !this.userIconRotated;
   }
- 
+
   toggleQuestionBankRotation(){
     this.questionBankIconRotated= !this.questionBankIconRotated;
   }
- 
+
   toggleSideNav() {
     this.isSideNavCollapsed = !this.isSideNavCollapsed;
   }
- 
+  togglePcrRotation(){
+    this.pcrRotated =!this.pcrRotated
+  }
+
   changeStyle(section: any) {
-    const sections = ['home', 'assessment', 'user', 'question_bank','pcr', 'system'];
+    const sections = ['home', 'assessment', 'user', 'question_bank','pcr'];
     sections.forEach((sec) => {
       const element = document.getElementById(sec);
       if (element) {
@@ -60,7 +63,7 @@ export class SidenavbarComponent {
       console.log("Active component", this.activeSection);
     });
   }
- 
+
   changeSublist(sublist: string,section: string) {
     const sublists = [
       'manageSchedule',
@@ -69,9 +72,8 @@ export class SidenavbarComponent {
       'manageCandidates',
       'manageSkills',
       'manageQuestions',
-      'manageProfile',
-      'configuration',
-      'managePCR'
+      'managePCR',
+      'pcrMapping'
     ];
     sublists.forEach((sub) => {
       const sublistElement = document.getElementById(sub);
@@ -79,17 +81,17 @@ export class SidenavbarComponent {
         sublistElement.classList.remove('active');
       }
     });
- 
+
     const activeSublistElement = document.getElementById(sublist);
     if (activeSublistElement) {
       activeSublistElement.classList.add('active');
     }
- 
+
     this.activeSublist = sublist;
- 
+
     this.changeStyle(section);
   }
- 
+
   changeStyle1() {
     this.assessmentShow = !this.assessmentShow;
   }
@@ -99,11 +101,8 @@ export class SidenavbarComponent {
   changeStyle3() {
     this.questionBankShow = !this.questionBankShow;
   }
-  changeStyle4() {
-    this.systemShow = !this.systemShow;
-  }
   changeStyle5() {
-    this.pcrSchow = !this.pcrSchow;
+    this.pcrShow = !this.pcrShow;
   }
   shouldDisplaySidebar() {
     this.role = localStorage.getItem('userrole');

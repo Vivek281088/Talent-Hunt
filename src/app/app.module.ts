@@ -91,10 +91,10 @@ import {
   loadAssessment$,
   sendAssessments$,
 } from './store/Assessment/assessment.effects';
-import { MapPcrCandidate$, loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
+import { MapPcrCandidate$, loadMappedData$,MailTheMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
 import { mappingFeature, mappingPcrCandidateFeature } from './store/PCR-Mapping/pcr-mapping.selector';
 import { getPcr$ } from './store/pcr/pcr.effects';
-import { PCRState, pcrFeature } from './store/pcr/pcr.selector';
+import {  pcrFeature } from './store/pcr/pcr.selector';
 import { ResourceComponent } from './modules/resource/resource.component';
 
 
@@ -187,7 +187,10 @@ import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
       { deleteManager$ },
       {loadMappedData$},
       {getPcr$},
-      {MapPcrCandidate$}
+      {MapPcrCandidate$},
+      {MailTheMappedData$},
+      {addpcr$},
+      {updatePcr$}
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     // {

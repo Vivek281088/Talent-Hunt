@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { createReducer, on } from '@ngrx/store';
 import {
   AggregatedData,
@@ -36,6 +37,34 @@ export const getMappingDataReducer = createReducer(
     console.log(state, action);
     return {
       mappingData: [],
+      error: action.error,
+    };
+  }),
+  on(PcrCandidateActions.mailMappedDataSuccess, (state, action) => {
+    console.log(state, action);
+
+    const updatedMappingData = state.mappingData.map(item => {
+      const mailMatch = action.mailData.find(data =>
+        data.pcrId === item.pcrData.pcrId && data.candidateId === item.candidateData.candidateId
+      );
+
+      if (mailMatch) {
+        return { ...item, mappedData: { ...item.mappedData, mailSend: true } };
+      }
+
+      return item;
+    });
+
+    return {
+      ...state,
+      mappingData: updatedMappingData,
+      error: ''
+    };
+  }),
+  on(PcrCandidateActions.getPcrMappingDataFailure, (state, action) => {
+    console.log(state, action);
+    return {
+      ...state,
       error: action.error,
     };
   })

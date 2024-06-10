@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { PcrService } from 'src/app/services/pcr.service';
+import { transformDataToInputFields } from '../candidate-details/candidate-details.component';
+import { OverlayPanel } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-pcr-details',
@@ -10,6 +12,7 @@ import { PcrService } from 'src/app/services/pcr.service';
   styleUrls: ['./pcr-details.component.scss'],
 })
 export class PcrDetailsComponent implements OnInit{
+jsonData: any;
   constructor(private pcrService:PcrService){}
   @ViewChild('dt') dt !: Table;
   todayDate!: string | number | Date;
@@ -18,45 +21,36 @@ export class PcrDetailsComponent implements OnInit{
     { label: 'PCR details', routerLink: '/mtalent/pcrdetails' },
   ];
   inputFields : any = [];
+  mappingDetails : any = []
   ngOnInit(): void {
-    console.log("data from pcr details")
     const id = sessionStorage.getItem("currentPCRid") ? sessionStorage.getItem("currentPCRid")  : "" ;
     this.pcrService.getIndividualPCR(id).subscribe(data => {
-      console.log("data from pcr details...........", sessionStorage.getItem("currentPCRid") , data)
-      this.inputFields = [
-        { label: 'PCR ID', id: 'PCRID', value: data.pcr.pcrId},
-        { label: 'Agile One Id', id: 'agileid', value: data.pcr.agileId },
-        { label: 'Job Title', id: 'jobtitile', value: data.pcr.jobTitle },
-        { label: 'Created By', id: 'createdby', value: data.pcr.createdBy },
-        { label: 'Created Date', id: 'createddate', value: data.pcr.createdDate },
-        { label: 'Schedule Name', id: 'schedulename', value: data.pcr.scheduleName},
-        { label: 'Onsite/Offshore', id: 'location', value:data.pcr.location },
-        { label: 'PCR Status', id: 'pcrstatus', value: data.pcr.pcrStatus },
-        { label: 'Request Resource', id: 'request', value:data.pcr.requestResource },
-      ];
+      this.mappingDetails = data.mappingDetails
+      console.log("data....................................",data)
+      this.inputFields = transformDataToInputFields(data.pcr)
     })
-   
+
   }
 
- 
+
   pcrTableData = {
     headers: [
       {
-        title: "Emp Id",
+        title: "Candidate Id",
         sortable: true,
         filterable: true,
         filterMode: "contains",
         filterType: "input"
       },
       {
-        title: "Employee Name",
+        title: "Candidate Name",
         sortable: true,
         filterable: true,
         filterMode: "contains",
         filterType: "input"
       },
       {
-        title: "Schedule Name",
+        title: "Test Status",
         sortable: false,
         filterable: true,
         filterMode: "contains",
@@ -66,164 +60,25 @@ export class PcrDetailsComponent implements OnInit{
         title: "Current Staus",
         sortable: true,
         filterable: false
+      },
+      {
+        title: "All Details",
       }
     ],
-    data: [
-      {
-        PCRid: "1",
-        Jobtitle: "Software Developer",
-        Requestresource: "John Doe",
-        CreatedDate: "2023-01-15",
-        Project_id: "P001",
-        Skills: [
-          "JavaScript",
-          "React"
-        ],
-        PCRstatus: "Open",
-        CreatedBy: "Alice",
-        Location: "New York",
-        Agileid: "A001"
-      },
-      {
-        PCRid: "2",
-        Jobtitle: "Project Manager",
-        Requestresource: "Jane Smith",
-        CreatedDate: "2023-02-20",
-        Project_id: "P002",
-        Skills: [
-          "Project Management",
-          "Agile"
-        ],
-        PCRstatus: "Closed",
-        CreatedBy: "Bob",
-        Location: "San Francisco",
-        Agileid: "A002"
-      },
-      {
-        PCRid: "3",
-        Jobtitle: "QA Engineer",
-        Requestresource: "Emily Jones",
-        CreatedDate: "2023-03-10",
-        Project_id: "P003",
-        Skills: [
-          "Testing",
-          "Selenium"
-        ],
-        PCRstatus: "In Progress",
-        CreatedBy: "Charlie",
-        Location: "Austin",
-        Agileid: "A003"
-      },
-      {
-        PCRid: "3",
-        Jobtitle: "QA Engineer",
-        Requestresource: "Emily Jones",
-        CreatedDate: "2023-03-10",
-        Project_id: "P003",
-        Skills: [
-          "Testing",
-          "Selenium"
-        ],
-        PCRstatus: "In Progress",
-        CreatedBy: "Charlie",
-        Location: "Austin",
-        Agileid: "A003"
-      },
-      {
-        PCRid: "3",
-        Jobtitle: "QA Engineer",
-        Requestresource: "Emily Jones",
-        CreatedDate: "2023-03-10",
-        Project_id: "P003",
-        Skills: [
-          "Testing",
-          "Selenium"
-        ],
-        PCRstatus: "In Progress",
-        CreatedBy: "Charlie",
-        Location: "Austin",
-        Agileid: "A003"
-      },
-      {
-        PCRid: "3",
-        Jobtitle: "QA Engineer",
-        Requestresource: "Emily Jones",
-        CreatedDate: "2023-03-10",
-        Project_id: "P003",
-        Skills: [
-          "Testing",
-          "Selenium"
-        ],
-        PCRstatus: "In Progress",
-        CreatedBy: "Charlie",
-        Location: "Austin",
-        Agileid: "A003"
-      },
-      {
-        PCRid: "3",
-        Jobtitle: "QA Engineer",
-        Requestresource: "Emily Jones",
-        CreatedDate: "2023-03-10",
-        Project_id: "P003",
-        Skills: [
-          "Testing",
-          "Selenium"
-        ],
-        PCRstatus: "In Progress",
-        CreatedBy: "Charlie",
-        Location: "Austin",
-        Agileid: "A003"
-      },
-      {
-        PCRid: "3",
-        Jobtitle: "QA Engineer",
-        Requestresource: "Emily Jones",
-        CreatedDate: "2023-03-10",
-        Project_id: "P003",
-        Skills: [
-          "Testing",
-          "Selenium"
-        ],
-        PCRstatus: "In Progress",
-        CreatedBy: "Charlie",
-        Location: "Austin",
-        Agileid: "A003"
-      },
-      {
-        PCRid: "3",
-        Jobtitle: "QA Engineer",
-        Requestresource: "Emily Jones",
-        CreatedDate: "2023-03-10",
-        Project_id: "P003",
-        Skills: [
-          "Testing",
-          "Selenium"
-        ],
-        PCRstatus: "In Progress",
-        CreatedBy: "Charlie",
-        Location: "Austin",
-        Agileid: "A003"
-      },
-      {
-        PCRid: "3",
-        Jobtitle: "QA Engineer",
-        Requestresource: "Emily Jones",
-        CreatedDate: "2023-03-10",
-        Project_id: "P003",
-        Skills: [
-          "Testing",
-          "Selenium"
-        ],
-        PCRstatus: "In Progress",
-        CreatedBy: "Charlie",
-        Location: "Austin",
-        Agileid: "A003"
-      }
-    ]
   }
 
   applyFilter(value: any, field: string, mode: string) {
     this.dt.filter(value, field, mode);
   }
- 
-}
+  allDetails(event : any , op : OverlayPanel , data : any){
+    this.jsonData = this.formatJson(data);
+    op.toggle(event);
+  }
+  formatJson(json: any): string {
+    const jsonString = JSON.stringify(json, null, 2);
+    return jsonString
+      .replace(/\"([^(\")"]+)\":/g, '<span class="json-key">"$1"</span>:')
+      .replace(/: \"([^\"]*)\"/g, ': <span class="json-value">"$1"</span>')
+      .replace(/: (\d+)/g, ': <span class="json-value">$1</span>');
+  }
+} 

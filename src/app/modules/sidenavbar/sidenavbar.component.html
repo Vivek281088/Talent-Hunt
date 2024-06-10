@@ -51,10 +51,10 @@
                   stroke-opacity="0.6"
                 />
               </svg>
- 
+
               <a >Manage Schedule</a>
             </li>
- 
+
             <li
               id="manageAssessment"
               [class.active]="activeSublist === 'manageAssessment'"
@@ -119,10 +119,10 @@
                   stroke-opacity="0.6"
                 />
               </svg>
- 
+
               <a >Manage Managers</a>
             </li>
- 
+
             <li
               id="manageCandidates"
               [class.active]="activeSublist === 'manageCandidates'"
@@ -150,7 +150,7 @@
             </li>
           </ul>
         </span>
- 
+
         <li
           id="question_bank"
           [class.active]="activeSection === 'question_bank'"
@@ -186,11 +186,11 @@
                   stroke-opacity="0.6"
                 />
               </svg>
- 
+
               <a >Manage Questions</a>
             </li>
- 
- 
+
+
           </ul>
         </span>
 
@@ -200,14 +200,14 @@
         <li
         id="pcr"
         [class.active]="activeSection === 'pcr'"
-        (click)="changeStyle('pcr'); toggleQuestionBankRotation(); changeStyle5()"
-        [routerLink]="['/mtalent/manage-skills']"
+        (click)="changeStyle('pcr'); togglePcrRotation(); changeStyle5()"
+        [routerLink]="['/mtalent/manage-pcr']"
       >
         <i class="pi pi-book"></i>
         <p>PCR</p>
-        <span><i class="pi pi-angle-up" [class.rotated]="questionBankIconRotated"></i></span>
+        <span><i class="pi pi-angle-up" [class.rotated]="pcrRotated"></i></span>
       </li>
-      <span *ngIf="pcrSchow" >
+      <span *ngIf="pcrShow" >
         <ul class="sub-list">
           <li
             id="managePCR"
@@ -235,13 +235,39 @@
 
             <a >ManagePCR</a>
           </li>
+          <li
+            id="pcrMapping"
+            [class.active]="activeSublist === 'pcrMapping'"
+            (click)="changeSublist('pcrMapping','pcr')"
+            [routerLink]="['/mtalent/pcr-mapping']"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                x="17.5"
+                y="9.5"
+                width="5"
+                height="5"
+                rx="2.5"
+                stroke="black"
+                stroke-opacity="0.6"
+              />
+            </svg>
+
+            <a >PCR Mapping</a>
+          </li>
 
 
         </ul>
       </span>
- 
+
       </ul>
- 
+
       <ul class="ul2">
         <li>
           <i class="pi pi-question-circle"></i>
@@ -253,11 +279,11 @@
         </li>
       </ul>
     </div>
- 
-   
+
+
   </div>
   <div class="toggleBtn">
-     
+
     <svg
       width="44"
       height="44"
@@ -355,4 +381,3 @@
     </svg>
   </div>
  </div>
- 

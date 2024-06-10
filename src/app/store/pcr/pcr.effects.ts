@@ -28,8 +28,8 @@ export const getPcr$ = createEffect(
     (action$=inject(Actions),addPCRService=inject(PcrService))=>{
         return action$.pipe(
             ofType(PcrActions.addPCR),
-           
-            switchMap((pcr) => 
+
+            switchMap((pcr) =>
                 addPCRService.addpcr(pcr.pcr).pipe(
                     tap((pcr) =>{
                         console.log("add pcr.................." , pcr);
@@ -42,12 +42,14 @@ export const getPcr$ = createEffect(
                 )
             )
         )
-        
-        
+
+
 
     }
 ,{functional:true}
   )
+
+
 export const updatePcr$ = createEffect(
     (actions$ = inject(Actions) , updatePCRservice = inject(PcrService)) => {
         return actions$.pipe(
@@ -70,7 +72,7 @@ export class pcrEffects{
     getpcrDetails$ = createEffect(()=>{
         return this.actions$.pipe(
             ofType(PcrActions.getPCR),
-            exhaustMap((pcr)=> 
+            exhaustMap((pcr)=>
                 this.pcrService.getPcr().pipe(
                     tap((pcr) => console.log(pcr)),
                     map((pcr) => PcrActions.getPCRSuccess({pcr})),
@@ -83,7 +85,7 @@ export class pcrEffects{
     addMultiPCR$ = createEffect(()=> {
         return this.actions$.pipe(
             ofType(PcrActions.addMultiPCR),
-            exhaustMap((pcr)=> 
+            exhaustMap((pcr)=>
                 this.pcrService.addMuiltPCR(pcr.pcr).pipe(
                     tap(pcr => console.log("add multi pcr .........." , pcr)),
                     map((pcr) => PcrActions.addMultiPCRSuccess({pcr})),
