@@ -1,5 +1,5 @@
 
-.manageManagers-header {
+.pcr-emp-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -51,41 +51,31 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 16px;
-  }
-  ::ng-deep {
-    .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-      border-color: #652d90;
-      color: #652d90;
-      padding: 1rem;
-    }
-    .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-      font-family: "Roboto", sans-serif;
-      font-size: 14px;
-      padding: 1rem;
-    }
-    .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
-      box-shadow: none;
-    }
-    .p-datatable .p-datatable-thead > tr > th {
-      padding: 1rem 1rem 1rem 1rem;
-    }
-    .p-tabview .p-tabview-panels {
+    ::ng-deep {
+      
+      .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+        border-color: #652d90;
+        color: #652d90;
         padding: 1rem;
+      }
+      .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+        padding: 1rem;
+      }
+      .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+        box-shadow: none;
+      }
+      .p-datatable .p-datatable-thead > tr > th {
+        padding: 1rem 1rem 1rem 1rem;
+      }
+      .p-tabview .p-tabview-panels {
+          padding: 1rem;
+      }
     }
   }
+ 
 
-  
-  // .pcrdetails-body{
-  // display: flex;
-  // flex-direction: column;
-
-  // }
-//   .pcrdetails input {
-//     padding: 0.5rem;
-//     border: 1px solid #ccc;
-//     border-radius: 4px;
-//     width: 35%;
-// }
 .small-input {
   width: 100%; /* Adjust width as needed */
   padding: 0.5rem; /* Adjust padding as needed */

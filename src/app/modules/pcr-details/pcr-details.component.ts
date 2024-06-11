@@ -42,13 +42,13 @@ jsonData: any;
         filterMode: "contains",
         filterType: "input"
       },
-      {
-        title: "Candidate Name",
-        sortable: true,
-        filterable: true,
-        filterMode: "contains",
-        filterType: "input"
-      },
+      // {
+      //   title: "Created By",
+      //   sortable: true,
+      //   filterable: true,
+      //   filterMode: "contains",
+      //   filterType: "input"
+      // },
       {
         title: "Test Status",
         sortable: false,
