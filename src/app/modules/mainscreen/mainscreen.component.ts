@@ -15,6 +15,7 @@ import { getMappingData } from 'src/app/store/PCR-Mapping/pcr-mapping.selector';
   providers: [ConfirmationService, MessageService],
 })
 export class MainscreenComponent implements OnInit {
+
   items: MenuItem[] | undefined;
   todayDate!: Date;
   date: Date | undefined;
@@ -255,4 +256,8 @@ onStatusChange(l1: any) {
   // }
   this.updateCurrentBindings(l1);
 }
+individualPCR(id: any) {
+  sessionStorage.setItem("currentResourceId",id)
+    this.router.navigate(['/mtalent/candidatedetails'])
+  }
 }

@@ -3,8 +3,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { PcrService } from 'src/app/services/pcr.service';
-import { transformDataToInputFields } from '../candidate-details/candidate-details.component';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { transformDataToInputFields } from 'src/app/shared/utils/transformDataToInputFields';
+import { formatJson } from 'src/app/shared/utils/formatJson';
 
 @Component({
   selector: 'app-pcr-details',
@@ -12,7 +13,7 @@ import { OverlayPanel } from 'primeng/overlaypanel';
   styleUrls: ['./pcr-details.component.scss'],
 })
 export class PcrDetailsComponent implements OnInit{
-jsonData: any;
+  jsonData: any;
   constructor(private pcrService:PcrService){}
   @ViewChild('dt') dt !: Table;
   todayDate!: string | number | Date;
@@ -26,10 +27,8 @@ jsonData: any;
     const id = sessionStorage.getItem("currentPCRid") ? sessionStorage.getItem("currentPCRid")  : "" ;
     this.pcrService.getIndividualPCR(id).subscribe(data => {
       this.mappingDetails = data.mappingDetails
-      console.log("data....................................",data)
       this.inputFields = transformDataToInputFields(data.pcr)
     })
-
   }
 
 
@@ -37,13 +36,6 @@ jsonData: any;
     headers: [
       {
         title: "Candidate Id",
-        sortable: true,
-        filterable: true,
-        filterMode: "contains",
-        filterType: "input"
-      },
-      {
-        title: "Candidate Name",
         sortable: true,
         filterable: true,
         filterMode: "contains",
@@ -71,14 +63,8 @@ jsonData: any;
     this.dt.filter(value, field, mode);
   }
   allDetails(event : any , op : OverlayPanel , data : any){
-    this.jsonData = this.formatJson(data);
+    this.jsonData = formatJson(data);
     op.toggle(event);
   }
-  formatJson(json: any): string {
-    const jsonString = JSON.stringify(json, null, 2);
-    return jsonString
-      .replace(/\"([^(\")"]+)\":/g, '<span class="json-key">"$1"</span>:')
-      .replace(/: \"([^\"]*)\"/g, ': <span class="json-value">"$1"</span>')
-      .replace(/: (\d+)/g, ': <span class="json-value">$1</span>');
-  }
+ 
 } 

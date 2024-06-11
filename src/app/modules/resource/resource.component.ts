@@ -9,17 +9,17 @@ import { response } from 'express';
 import { NewScheduleService } from 'src/app/services/new-schedule.service';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
-import { checkCandidateAddStaus, checkCandidateDeleteStaus, getCandidate, getCandidateError } from 'src/app/store/candidate/candidate.selector';
 import { Observable, Subject, Subscription, debounceTime, skip, switchMap, take, takeUntil, tap } from 'rxjs';
 import { CalendarModule } from 'primeng/calendar';
+import { Candidates, resourceActions } from 'src/app/store/resource/resource.action';
+import { getResource, getResourceError } from 'src/app/store/resource/resource.selector';
 @Component({
   selector: 'app-resource',
   templateUrl: './resource.component.html',
   styleUrls: ['./resource.component.scss'],
   providers: [MessageService],
- 
-  
+
+
 })
 export class ResourceComponent implements OnDestroy{
   private submit$ =new Subject<void>();
@@ -39,24 +39,24 @@ export class ResourceComponent implements OnDestroy{
   showUpload: boolean = false;
   uploadedFileData: any;
   error$!: Observable<string>;
-  candidates$!: Observable<Candidate[]>;
-  candidateId: string = "2528625";
-  candidateName: string = "Aishwarya Rajagopal";
-  role: string[] = ['Full Stack Developer'];
-  skillSet: string = "Angular, Nodejs";
-  experience: string = "2 Years";
-  source: string= "TFG";
-  spoc: string = "Nirmala"
-  location: string = "Offshore";
+  Resource$!: Observable<Candidates[]>;
+  candidateId!: string;
+  candidateName!: string;
+  role: string[] = [];
+  skillSet: string[] = [];
+  experience!: string ;
+  source!: string;
+  spoc!: string ;
+  location!: string ;
   locations: any = ['Onsite', 'Offshore'];
-  sourceOptions: any = ['TFG', 'TAG', 'Refferal'];
-  visaType:string[] = ['H1B', 'F-1', 'L-1A', 'L-1B'];
+  sourceOptions: any = ['TFG', 'TAG', 'Referral'];
+  visasType:string[] = ['H1B', 'F-1', 'L-1A', 'L-1B'];
   date: Date | undefined;
-  visaStamped: string[] = ['Yes', 'No']
+  visasStamped: string[] = ['Yes', 'No']
   private errorSubscription!: Subscription;
   rolesForm: any;
-  
- 
+
+
     constructor(
     private managerService: ManagernameService,
     private fb: FormBuilder,
@@ -66,49 +66,36 @@ export class ResourceComponent implements OnDestroy{
     private store : Store
   ) {
     this.addCandidateForm = this.fb.group({
-      candidateId: [null, [Validators.required,Validators.minLength(6)]],
+      candidateId: [null, [Validators.required,Validators.minLength(7)]],
       candidateName: ['', [Validators.required,Validators.minLength(3)]],
       email: ['', [Validators.required,  Validators.email, Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$')]],
       phone: [null, [Validators.required,Validators.minLength(10)]],
       location: ['', Validators.required],
       experience: [null, [Validators.required,Validators.minLength(1)]],
-      department: ['',[Validators.required,Validators.minLength(3)]],
       locationDetails:['', Validators.required],
       sourceDetail:['', Validators.required],
       spoc:['', Validators.required],
       primarySkill: ['', Validators.required],
       secondarySkill: ['', Validators.required],
       roles: ['', Validators.required],
-      validUntil: ['', Validators.required],
-      visaType: ['', Validators.required],
-      visaStamped: ['', Validators.required]
+      validUntil: [''],
+      visaType: [''],
+      visaStamped: ['']
     });
 
-    this.error$ = this.store.select(getCandidateError);
-    this.candidates$ = this.store.select(getCandidate);
-    this.multiClickPreventSetUp();
+    this.error$ = this.store.select(getResourceError);
+    this.Resource$ = this.store.select(getResource);
   }
   ngOnDestroy(): void {
     this.submit$.complete()
-    this.errorSubscription ? this.errorSubscription.unsubscribe() : null 
+    this.errorSubscription ? this.errorSubscription.unsubscribe() : null
   }
   ngOnInit() {
-    this.store.dispatch(candidateActions.getCandidate());
-    this.candidates$.subscribe((candidates) => 
-      this.candidateData = candidates
-  )
-    //  this.errorSubscription = this.error$.subscribe(error =>{
-    //      if (error) {
-    //     console.log('Mail already exists',error);
-    //       this.messageService.add({
-    //         severity: 'error',
-    //         summary: error,
-    //         detail: 'Check Employee ID or Email !',
-    //       });
-    //     this.cancelButton();
-    //     this.store.dispatch(candidateActions.clearCandidateError())
-    //   }
-    // })
+    this.store.dispatch(resourceActions.getResource());
+    this.Resource$.subscribe((candidates) =>
+      this.candidateData = candidates)
+    console.log("This is Candidate Data", this.candidateData)
+
     sessionStorage.setItem('Component-Name', 'user');
     this.managerService.getclientManagerData().subscribe((response) => {
     console.log('Client Manager Details', response);
@@ -210,103 +197,118 @@ export class ResourceComponent implements OnDestroy{
       detail: 'Check Employee ID or Email !',
     });
   }
-  saveCandidateSub(){
-    this.submit$.next()
-  }
+
   saveCandidate() {
     this.formSubmitted = true;
+    console.log('Form Data:', this.addCandidateForm);
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
-      const candidate : Candidate = {
-        id: '',
-        empid:  formData.empid,
-        candidateEmail: formData.email,
-        candidate_location: formData?.location,
-        candidateName:  formData.candidateName,
-        candidatePhone: formData.phone,
-        department: formData?.department,
-       
+      const candidate : Candidates = {
+
+        candidateId : formData.candidateId,
+        candidateName:formData.candidateName,
+        currentLocation : formData.location,
+        emailId : formData.email,
+        experience : formData.experience,
+        location : formData.locationDetails,
+        phoneNumber : formData.phone,
+        skillSet : {
+          primarySkills :formData.primarySkill,
+          secondarySkills: formData.secondarySkill
+        },
+        roles: formData.roles,
+        source: formData.sourceDetail,
+        SPOC: formData.spoc,
+        visaDetails: {
+          validUntil:formData.validUntil,
+          visaType: formData.visaType,
+          visaStamped: formData.visaStamped
+        }
       }
-      this.store.dispatch(candidateActions.addCandidate({candidate}))
+      console.log('Candidate details are:', candidate);
+      this.store.dispatch(resourceActions.addResource({candidate}));
+      // this.isAddCandidate = false;
+      this.addCandidatevisible = true;
+
     }
   }
-  multiClickPreventSetUp(){
-    this.submit$.pipe(
-      debounceTime(800),
-      tap((candidate) => console.log("asfhbahvbva",candidate)),
-      switchMap(() => {
-        this.saveCandidate();
-        return this.store.pipe(select(checkCandidateAddStaus), skip(1),takeUntil(this.submit$));
-      })
-    ).subscribe(status => {
-      if (status) {
-        console.log("astatu s s " , status)
-        this.addSuccessMessage();
-        this.cancelButton();
-        this.store.dispatch(candidateActions.clearNewcandidate());
-      }
-    });
-    this.submit$.pipe(
-      debounceTime(800),
-      tap((candidate) => console.log("asfhbahvbva",candidate)),
-      switchMap(() => {
-        return this.store.pipe(select(getCandidateError), skip(1),takeUntil(this.submit$));
-      })
-    ).subscribe(error => {
-      if (error) {
-        console.log('Mail already exists', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: error,
-          detail: 'Check Employee ID or Email!',
-        });
-        this.cancelButton();
-        this.store.dispatch(candidateActions.clearCandidateError());
-      }
-    });
-  }
+  // multiClickPreventSetUp(){
+  //   this.submit$.pipe(
+  //     debounceTime(800),
+  //     tap((candidate) => console.log("asfhbahvbva",candidate)),
+  //     switchMap(() => {
+  //       this.saveCandidate();
+  //       return this.store.pipe(select(checkCandidateAddStaus), skip(1),takeUntil(this.submit$));
+  //     })
+  //   ).subscribe(status => {
+  //     if (status) {
+  //       console.log("astatu s s " , status)
+  //       this.addSuccessMessage();
+  //       this.cancelButton();
+  //       this.store.dispatch(candidateActions.clearNewcandidate());
+  //     }
+  //   });
+  //   this.submit$.pipe(
+  //     debounceTime(800),
+  //     tap((candidate) => console.log("asfhbahvbva",candidate)),
+  //     switchMap(() => {
+  //       return this.store.pipe(select(getCandidateError), skip(1),takeUntil(this.submit$));
+  //     })
+  //   ).subscribe(error => {
+  //     if (error) {
+  //       console.log('Mail already exists', error);
+  //       this.messageService.add({
+  //         severity: 'error',
+  //         summary: error,
+  //         detail: 'Check Employee ID or Email!',
+  //       });
+  //       this.cancelButton();
+  //       this.store.dispatch(candidateActions.clearCandidateError());
+  //     }
+  //   });
+  // }
 
   downloadCsvTemplate() {
     const csvTemplate = `Candidate Id, Candidate Name, Email Id, Role(s), Experience, Primary Skills, Secondary Skills, Source, SPOC, Phone Number, Onsite/Offshore, Current Location, Visa Type, Valid Until, Visa Stamped \n`;
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'Candidate-template.csv');
   }
-  updateCandidate() {
-    this.formSubmitted = true;
-    if (this.addCandidateForm.valid) {
-      const formData = this.addCandidateForm.value;
-      console.log('Form Data:', formData);
-      const candidate : Candidate= {
-        id: "",
-        candidateName: formData.candidateName,
-        candidateEmail: formData.email,
-        candidatePhone: formData.phone,
-        empid: formData.empid,
-        department: formData?.department,
-        candidate_location: formData?.location,
-      }
-      this.store.dispatch(candidateActions.updateCandidate({candidate}))
-      // this.managerService
-      //   .updateCandidate(
-      //     formData.candidateName,
-      //     formData.email,
-      //     formData.phone,
-      //     formData.empid,
-      //     formData?.department,
-      //     formData?.location
-      //   )
-      //   .subscribe((response) => {
-      //     console.log('Candidate Updated....');
-      //   });
+  // updateCandidate() {
+  //   this.formSubmitted = true;
+  //   if (this.addCandidateForm.valid) {
+  //     const formData = this.addCandidateForm.value;
+  //     console.log('Form Data:', formData);
+  //     const candidate : Candidate= {
+  //       id: "",
+  //       candidateName: formData.candidateName,
+  //       candidateEmail: formData.email,
+  //       candidatePhone: formData.phone,
+  //       empid: formData.empid,
+  //       department: formData?.department,
+  //       candidate_location: formData?.location,
+  //     }
+  //     this.store.dispatch(candidateActions.updateCandidate({candidate}))
+  //     // this.managerService
+  //     //   .updateCandidate(
+  //     //     formData.candidateName,
+  //     //     formData.email,
+  //     //     formData.phone,
+  //     //     formData.empid,
+  //     //     formData?.department,
+  //     //     formData?.location
+  //     //   )
+  //     //   .subscribe((response) => {
+  //     //     console.log('Candidate Updated....');
+  //     //   });
 
-      setTimeout(() => {
-        this.UpdateMessage();
-        this.cancelButton();
-       // this.getUniqueCandidatedata();
-      }, 1000);
-    }
-  }
+  //     setTimeout(() => {
+  //       this.UpdateMessage();
+  //       this.cancelButton();
+  //      // this.getUniqueCandidatedata();
+  //     }, 1000);
+  //   }
+  // }
   UpdateMessage() {
     this.messageService.add({
       severity: 'success',
@@ -391,7 +393,7 @@ export class ResourceComponent implements OnDestroy{
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
     const candidates = this.selectedDeleteCandidate.map((candidate: { id: string , candidateEmail :string }) => ({id : candidate.id , candidateEmail : candidate.candidateEmail}))
     console.log("candidates to be deleted" , candidates)
-    this.store.dispatch(candidateActions.deleteCandidates({candidates}))
+    this.store.dispatch(resourceActions.deleteResource({candidates}))
     setTimeout(() => {
       this.deleteMessage();
       this.selectedDeleteCandidate = [];
@@ -462,6 +464,5 @@ addVisa(): void {
 removeVisa(index: number): void {
   this.visas.removeAt(index);
 }
-
 
 }

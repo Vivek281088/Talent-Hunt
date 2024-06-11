@@ -78,7 +78,7 @@ import {
 import { CandidateFeature } from './store/candidate/candidate.selector';
 import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
 // import { pcrFeature } from './store/pcr/pcr.selector';
-import { addpcr$,  updatePcr$ } from './store/pcr/pcr.effects';
+import { addpcr$,  deletepcr$,  updatePcr$ } from './store/pcr/pcr.effects';
 // import { addpcr$, } from './store/pcr/pcr.effects';
 // import { getPcr$ } from './store/pcr/pcr.effects';
 
@@ -102,7 +102,9 @@ import { ResourceComponent } from './modules/resource/resource.component';
 
 
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
+import { ResourceFeature } from './store/resource/resource.selector';
 import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
+import { AddResource$, getResources$ } from './store/Resource/resource.effects';
 
 @NgModule({
   declarations: [
@@ -171,6 +173,8 @@ import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
     provideState(managerFeature),
     provideState(mappingFeature),
     provideState(pcrFeature),
+    provideState(ResourceFeature),
+
     provideState(mappingPcrCandidateFeature),
    // provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$}]),
     provideEffects([
@@ -187,13 +191,15 @@ import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
       { deleteManager$ },
       {loadMappedData$},
       {getPcr$},
+      {getResources$},
+      {AddResource$},
       {MapPcrCandidate$},
       {MailTheMappedData$},
       {addpcr$},
-      {updatePcr$}
+      {updatePcr$},
+      {deletepcr$}
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    // {
     //   provide : ErrorHandler,
     //   useClass : CustomHttpException
     // },

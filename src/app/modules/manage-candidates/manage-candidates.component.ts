@@ -3,7 +3,6 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import * as Papa from 'papaparse';
 import { saveAs } from 'file-saver';
 import { response } from 'express';
@@ -40,7 +39,7 @@ export class ManageCandidatesComponent implements OnDestroy{
   error$!: Observable<string>;
   candidates$!: Observable<Candidate[]>;
   private errorSubscription!: Subscription;
- 
+
 
 
   constructor(
@@ -104,7 +103,7 @@ export class ManageCandidatesComponent implements OnDestroy{
       { label: 'Candidates', routerLink: '/manage-candidates' },
     ];
   }
-  
+
   clear(table: Table) {
     table.clear();
     this.globalSearchValue = '';
@@ -286,7 +285,7 @@ export class ManageCandidatesComponent implements OnDestroy{
       }, 1000);
     }
   }
- 
+
   UpdateMessage() {
     this.messageService.add({
       severity: 'success',

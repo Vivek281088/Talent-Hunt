@@ -1,7 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { OverlayPanel } from 'primeng/overlaypanel';
 import { Table } from 'primeng/table';
 import { PcrService } from 'src/app/services/pcr.service';
+import { formatJson } from 'src/app/shared/utils/formatJson';
+import { transformDataToInputFields } from 'src/app/shared/utils/transformDataToInputFields';
 
 @Component({
   selector: 'app-candidate-details',
@@ -9,9 +12,12 @@ import { PcrService } from 'src/app/services/pcr.service';
   styleUrls: ['./candidate-details.component.scss']
 })
 export class CandidateDetailsComponent {
+  jsonData: any;
+  activeIndex: number=0;
   constructor(private pcrService : PcrService){}
   @ViewChild('dt') dt !: Table;
   todayDate!: string | number | Date;
+  candidateMappingDetails !: any;
   items: MenuItem[] = [
     { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
     { label: 'Candidate details', routerLink: '/mtalent/candidatedetails' },
@@ -32,109 +38,50 @@ export class CandidateDetailsComponent {
     const id = sessionStorage.getItem("currentResourceId") ? sessionStorage.getItem("currentResourceId")  : "" ;
     this.pcrService.getCandidate(id).subscribe(data => {
       this.inputFields = transformDataToInputFields(data);
-      console.log("this input fieldssssssssss",this.inputFields)
+    })
+    this.pcrService.getCandidatePcrMapping(id).subscribe(data => {
+      console.log(data);
+      this.candidateMappingDetails = data
     })
   }
-
- 
-  pcrTableData = {
+  candidateTableData = {
     headers: [
       {
-        title: "Emp Id",
+        title: "PCR ID",
         sortable: true,
         filterable: true,
         filterMode: "contains",
         filterType: "input"
       },
       {
-        title: "Employee Name",
+        title: "Test Status",
         sortable: true,
         filterable: true,
         filterMode: "contains",
         filterType: "input"
       },
       {
-        title: "Schedule Name",
+        title: "Current Status",
         sortable: false,
         filterable: true,
         filterMode: "contains",
         filterType: "input"
       },
       {
-        title: "Current Staus",
+        title: "All Details",
         sortable: true,
         filterable: false
       }
-    ],
-    data: [
-      {
-        PCRid: "1",
-        Jobtitle: "Software Developer",
-        Requestresource: "John Doe",
-        CreatedDate: "2023-01-15",
-        Project_id: "P001",
-        Skills: [
-          "JavaScript",
-          "React"
-        ],
-        PCRstatus: "Open",
-        CreatedBy: "Alice",
-        Location: "New York",
-        Agileid: "A001"
-      },
-      {
-        PCRid: "2",
-        Jobtitle: "Project Manager",
-        Requestresource: "Jane Smith",
-        CreatedDate: "2023-02-20",
-        Project_id: "P002",
-        Skills: [
-          "Project Management",
-          "Agile"
-        ],
-        PCRstatus: "Closed",
-        CreatedBy: "Bob",
-        Location: "San Francisco",
-        Agileid: "A002"
-      },
     ]
   }
 
   applyFilter(value: any, field: string, mode: string) {
     this.dt.filter(value, field, mode);
   }
-}
-
-// utils.ts
-// utils.ts
-export function transformDataToInputFields(data: any, parentKey: string = ''): any[] {
-  const inputFields: any = [];
-
-  function processObject(obj: any, parentKey: string) {
-    for (const key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        let value = obj[key];
-        const newKey = parentKey ? `${parentKey}. - ${key}` : key;
-
-        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-          processObject(value, newKey);
-        } else {
-          if (Array.isArray(value)) {
-            value = value.join(', ');
-          } else if (typeof value === 'object' && value !== null) {
-            value = JSON.stringify(value);
-          }
-          inputFields.push({ 
-            label: newKey.replace(/([A-Z])/g, ' $1').replace(/\./g, ' ').replace(/^./, str => str.toUpperCase()), 
-            id: newKey, 
-            value 
-          });
-        }
-      }
-    }
+  allDetails(event : any , op : OverlayPanel , data : any){
+    this.jsonData = formatJson(data);
+    op.toggle(event);
   }
-
-  processObject(data, parentKey);
-  inputFields.sort((a: { label: string; }, b: { label: any; }) => a.label.localeCompare(b.label));
-  return inputFields;
 }
+
+
