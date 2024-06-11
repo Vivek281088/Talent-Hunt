@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { PCR } from 'src/app/store/pcr/pcr.action';
 import { getPcr } from 'src/app/store/pcr/pcr.selector';
+import * as saveAs from 'file-saver';
 @Component({
   selector: 'app-manage-pcr',
   templateUrl: './manage-pcr.component.html',
@@ -217,5 +218,10 @@ export class ManagePcrComponent {
     const pcrIds = this.selectedDeletePcr.map((pcr : any) => pcr.pcrId)
         this.store.dispatch(PcrActions.deletePCR({pcrIds :pcrIds }))
 
+  }
+  downloadCsvTemplate(){
+    const csvTemplate = `PCRId,AgileId,JobTitle,Created Date,Project Id,Skills,PcrStatus,Created By,Location,RequestSource\n`;
+    const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
+    saveAs(blob, 'manage-pcr.csv');
   }
 }
