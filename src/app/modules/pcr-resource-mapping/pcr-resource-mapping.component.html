@@ -23,11 +23,11 @@
     <p-table
       #dt2
       dataKey="uniqueId"
-      [rows]="5"
+      [rows]="4"
       [showCurrentPageReport]="true"
       [value]="mappingData"
       [(selection)]="selectedMappedData"
-      [rowsPerPageOptions]="[5, 10, 25, 50]"
+      [rowsPerPageOptions]="[4, 10, 25, 50]"
       [loading]=""
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -74,7 +74,12 @@
                 <button pButton label="Map PCR" (click)="mappingPCR()"></button>
               </div>
               <div class="mapPcr">
-                <button pButton label="Send Mail"></button>
+                <button
+                  pButton
+                  label="Send Mail"
+                  (click)="sendEmail()"
+                  [disabled]="!mailData || mailData.length == 0"
+                ></button>
               </div>
             </div>
           </th>
@@ -84,14 +89,14 @@
           <th style="width: 4rem">
             <p-tableHeaderCheckbox
               [value]="mappingData"
+              (click)="toggleSelectAll()"
             ></p-tableHeaderCheckbox>
           </th>
           <th class="customId">PCR ID</th>
           <th class="customId">Candidate ID</th>
           <th>Candidate Name</th>
-          <th>Job Description</th>
-          <th>Schedule Name</th>
-          <th>Status</th>
+          <th>Skills</th>
+          <th>Test Status</th>
           <th>Submission time</th>
           <th>Score</th>
         </tr>
@@ -107,14 +112,49 @@
             <p-tableCheckbox
               [value]="rowData"
               [checked]="rowData.selection"
-              (click)="toggleSelection(rowData)"
+              (click)="handleClick($event, rowData)"
+              [disabled]="rowData.mappedData.mailSend"
+              pTooltip="It is Mapped Already"
+              [tooltipDisabled]="!rowData.mappedData.mailSend"
             ></p-tableCheckbox>
           </td>
           <td>{{ rowData.pcrData.pcrId }}</td>
           <td>{{ rowData.candidateData.candidateId }}</td>
           <td>{{ rowData.candidateData.candidateName }}</td>
-          <td>{{ rowData.pcrData.jobTitle }}</td>
-          <td>{{ rowData.pcrData.scheduleName }}</td>
+          <td class="skills">
+            <span *ngFor="let item of getFormattedSkills(rowData.pcrData.skills).skills">
+              <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
+            </span>
+            <span
+              *ngIf="getFormattedSkills(rowData.pcrData.skills).remainingCount > 0"
+              class="plusIcon"
+            >
+              +
+              <p-overlayPanel #op>
+                <ul
+                  style="list-style-type: none"
+                  *ngFor="
+                    let skill of remainaingSkills(
+                      rowData.pcrData.skills,
+                      getFormattedSkills(rowData.pcrData.skills).remainingCount
+                    )
+                  "
+                >
+                  <li>
+                    <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
+                  </li>
+                </ul>
+              </p-overlayPanel>
+              <p-badge
+                class="cursor-design"
+                (mouseenter)="op.toggle($event)"
+                (mouseleave)="op.toggle($event)"
+                [value]="
+                  getFormattedSkills(rowData.pcrData.skills).remainingCount.toString()
+                "
+              ></p-badge>
+            </span>
+          </td>
           <td>{{ rowData.mappedData.testStatus }}</td>
           <td>{{ rowData.mappedData.submitTime }}</td>
           <td>{{ rowData.mappedData.testScore }}</td>

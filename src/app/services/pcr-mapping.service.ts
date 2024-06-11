@@ -26,7 +26,29 @@ export class PcrMappingService {
     )
     .pipe(
       tap((responsedata) => {
-        console.log('Mail updated successfully', responsedata);
+        console.log('Mapped Successfully', responsedata);
+      }),
+      catchError((error) => {
+        console.log('Inside Catch Error');
+        if (error.status == 401) {
+          console.log(error.status, 'error 1');
+          return throwError(() => error);
+        }
+        return throwError(() => error);
+      })
+    );
+  }
+  mailMappedData(data: any): Observable<any> {
+    console.log("Service Body", data
+  )
+
+    return this.http.post<any>(
+      `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/sendmailaftermapping`,
+      data,
+    )
+    .pipe(
+      tap((responsedata) => {
+        console.log('Mapped Successfully', responsedata);
       }),
       catchError((error) => {
         console.log('Inside Catch Error');

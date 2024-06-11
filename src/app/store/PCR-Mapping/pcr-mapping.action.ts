@@ -31,12 +31,19 @@ export interface CandidateData {
   currentLocation: string;
 }
 export interface AggregatedData {
+  mappedData: any;
   pcrData: PcrData;
   candidateData: CandidateData;
 }
 export interface MappingPCRCandidateData {
   pcrId: string;
   candidateId: string;
+}
+export interface MailDetails {
+  candidateName: string;
+  emailId: string;
+  candidateId: string;
+  pcrId: string;
 }
 
 export const PcrCandidateActions = createActionGroup({
@@ -47,6 +54,9 @@ export const PcrCandidateActions = createActionGroup({
     'Get PcrMapping Data Failure': props<{ error: string }>(),
     'Map PCR and Candidate' : props<{mappingPcrCandidateData :MappingPCRCandidateData[]}>(),
     'Map PCR and Candidate Success' : props<{mappingPcrCandidateData :MappingPCRCandidateData[]}>(),
-    'Map PCR and Candidate failure' : props<{error :string}>()
+    'Map PCR and Candidate failure' : props<{error :string}>(),
+    'Mail Mapped Data' : props<{mailData : MailDetails[]}>(),
+    'Mail Mapped Data Success' : props<{mailData : MailDetails[]}>(),
+    'Mail Mapped Data failure' : props<{error :string}>(),
   }
 });

@@ -33,17 +33,19 @@
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
-        'candidateName',
-        'department',
-        'email',
-        'empid',
-        'location',
-        'candidatePhone'
-      ]"
+        'candidateId',
+  'candidateName',
+  'roles',
+  'skillSet.primarySkills',
+  'experience',
+  'location',
+  'source',
+  'SPOC'
+   ]"
     >
       <ng-template pTemplate="header">
         <tr>
-          <th colspan="8">
+          <th colspan="12">
             <div class="manager-header">
               <div class="manager-header1">
                 <div class="p-input-icon-right">
@@ -59,7 +61,7 @@
                     placeholder="Search"
                   />
                 </div>
-                
+
                 <div class="ml-3">
                   <button
                     pButton
@@ -90,7 +92,7 @@
           <th style="width: 4rem">
             <p-tableHeaderCheckbox [value]="candidateData" (click)="selectAll()"></p-tableHeaderCheckbox>
           </th>
-          <th>Candidate Id</th>
+          <th>Candidate ID</th>
           <th>Candidate Name</th>
           <th>Role</th>
           <th>Skill Set</th>
@@ -98,7 +100,7 @@
           <th>Location</th>
           <th>Source</th>
           <th>SPOC</th>
-        
+
         </tr>
       </ng-template>
       <ng-template
@@ -111,21 +113,21 @@
           <td>
             <p-tableCheckbox [value]="rowData" [checked]="rowData.selection" (click)="toggleSelection(rowData)"></p-tableCheckbox>
           </td>
-          <td class="resource-link"> 
-            <a (click)="individualResource(candidateId)">{{
-            candidateId
+          <td class="resource-link">
+            <a (click)="individualResource(rowData.candidateId)">{{
+            rowData.candidateId
           }}</a></td>
-          <td class="candidatenamedesign">
-            <a (click)="gotoCandidateProfile(rowData)">{{
-              candidateName
-            }}</a>
+          <td >
+          {{
+              rowData.candidateName
+            }}
           </td>
-          <td>{{ role}}</td>
-          <td>{{ skillSet}}</td>
-          <td>{{ experience}}</td>
-          <td>{{ location }}</td>
-          <td>{{source}} </td>
-          <td>{{spoc}}</td>
+          <td>{{ rowData.roles}}</td>
+          <td>{{ rowData.skillSet.primarySkills}}</td>
+          <td>{{ rowData.experience}}</td>
+          <td>{{ rowData.location }}</td>
+          <td>{{rowData.source}} </td>
+          <td>{{rowData.SPOC}}</td>
           <td>
             <div class="icons">
               <a (click)="handleEditIconClick(rowData)" title="Edit">
@@ -148,7 +150,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="8">No Candidate found.</td>
+          <td colspan="12">No Candidate found.</td>
         </tr>
       </ng-template>
     </p-table>
@@ -182,7 +184,7 @@
               <input
               pInputText
                 formControlName="candidateId"
-                appAllowDigits ="7"
+
               >
               <div
                 *ngIf="
@@ -295,7 +297,7 @@
               </div>
             </div>
           </div>
-         
+
       <!--  Current Location-->
       <div class="labelvalue">
         <div class="label">
@@ -435,7 +437,7 @@
         class="error-message"
         *ngIf="addCandidateForm.get('primarySkill')?.hasError('required')"
       >
-        Primary Skill is required! 
+        Primary Skill is required!
       </div>
     </div>
     </div>
@@ -461,7 +463,7 @@
         class="error-message"
         *ngIf="addCandidateForm.get('secondarySkill')?.hasError('required')"
       >
-        Secondary Skill is required! 
+        Secondary Skill is required!
       </div>
     </div>
     </div>
@@ -489,7 +491,7 @@
       class="error-message"
       *ngIf="addCandidateForm.get('roles')?.hasError('required')"
     >
-     Role required! 
+     Role required!
     </div>
   </div>
   </div>
@@ -532,9 +534,9 @@
       </div>
       <div class="value">
         <p-dropdown
-          [options]="visaType"
+          [options]="visasType"
           placeholder="--Select Visa Type--"
-          formControlName="locationDetails"
+          formControlName="visaType"
           appendTo="body"
           class="w-full table_dropdown"
         ></p-dropdown>
@@ -548,8 +550,9 @@
     <span class="important-symbol">&#42;</span>
   </div>
 <div  class="calender-field">
-  <p-calendar [appendTo]="'body'" 
+  <p-calendar [appendTo]="'body'"
   [showIcon]="true"
+  formControlName= "validUntil"
   ></p-calendar>
 </div>
 </div>
@@ -562,9 +565,9 @@
 </div>
 <div class="value">
   <p-dropdown
-    [options]="visaStamped"
+    [options]="visasStamped"
     placeholder="--Select --"
-    formControlName="locationDetails"
+    formControlName=" visaStamped"
     appendTo="body"
     class="w-full table_dropdown"
   ></p-dropdown>
@@ -586,7 +589,7 @@
               <p-button label="Save" (onClick)="saveCandidate()" > </p-button>
             </div>
             <div class="Createbutton" *ngIf="isEditCandidate">
-              <p-button label="Update" (onClick)="updateCandidate()" >
+              <p-button label="Update" >
               </p-button>
             </div>
           </div>
@@ -770,10 +773,10 @@
               </p-button>
             </div>
             <div class="Createbutton" *ngIf="isAddCandidate">
-              <p-button label="Save" (onClick)="saveCandidate()"> </p-button>
+              <p-button label="Save" > </p-button>
             </div>
             <div class="Createbutton" *ngIf="isEditCandidate">
-              <p-button label="Update" (onClick)="updateCandidate()" [disabled]=(addCandidateForm.pristine)>
+              <p-button label="Update"  [disabled]=(addCandidateForm.pristine)>
               </p-button>
             </div>
           </div>

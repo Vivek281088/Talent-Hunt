@@ -29,17 +29,14 @@ export class CandidateDetailsComponent {
         { label: 'Secondary Skills', id: 'secondaryskills', value:"ufhkef" },
       ];
   ngOnInit(): void {
-    console.log("data from pcr details")
     const id = sessionStorage.getItem("currentResourceId") ? sessionStorage.getItem("currentResourceId")  : "" ;
-    console.log("get items" , id)
     this.pcrService.getCandidate(id).subscribe(data => {
-      console.log("data??????????????????????????????????????" , data)
       this.inputFields = transformDataToInputFields(data);
       console.log("this input fieldssssssssss",this.inputFields)
     })
   }
 
- 
+
   pcrTableData = {
     headers: [
       {
@@ -127,10 +124,10 @@ export function transformDataToInputFields(data: any, parentKey: string = ''): a
           } else if (typeof value === 'object' && value !== null) {
             value = JSON.stringify(value);
           }
-          inputFields.push({ 
-            label: newKey.replace(/([A-Z])/g, ' $1').replace(/\./g, ' ').replace(/^./, str => str.toUpperCase()), 
-            id: newKey, 
-            value 
+          inputFields.push({
+            label: newKey.replace(/([A-Z])/g, ' $1').replace(/\./g, ' ').replace(/^./, str => str.toUpperCase()),
+            id: newKey,
+            value
           });
         }
       }
