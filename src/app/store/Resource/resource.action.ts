@@ -41,8 +41,8 @@ export const resourceActions = createActionGroup({
         // 'Clear Candidate Error' : emptyProps,
         // 'Clear Newcandidate' : emptyProps,
         // 'Clear DeleteCamdidateStatus' : emptyProps,
-        'Delete Resource' : props<{candidates:{id : string, candidateEmail : string}[]}>(),
-        'Delete Resource Success' : props<{candidates:{id : string, candidateEmail : string}[]}>(),
+        'Delete Resource' : props<{candidates:{id : string}[]}>(),
+        'Delete Resource Success' : props<{candidates:{id : string}[]}>(),
         'Delete Resource Failure' : props<{error : string}>()
 
     }

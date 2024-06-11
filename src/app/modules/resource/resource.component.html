@@ -23,11 +23,10 @@
     <p-table
       #dt2
       [value]="candidateData"
-      dataKey="id"
+      dataKey="candidateId"
       [rows]="5"
       [showCurrentPageReport]="true"
       [rowsPerPageOptions]="[5, 10, 25, 50]"
-      dataKey="empid"
       [(selection)]="selectedDeleteCandidate"
       [loading]=""
       [paginator]="true"

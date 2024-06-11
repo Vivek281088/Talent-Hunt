@@ -45,6 +45,23 @@ export const AddResource$ = createEffect(
   {functional:true}
 )
 
+export const deleteCandidate$ = createEffect(
+  (action$ = inject(Actions) , resourceService = inject(ResourceService)) => {
+      return action$.pipe(
+          ofType(resourceActions.deleteResource),
+          exhaustMap((candidates) =>
+            resourceService.deleteResource(candidates.candidates).pipe(
+                  tap((candidates) => console.log("Deleting Candidatessss",candidates)),
+                  map((candidates : any) => resourceActions.deleteResourceSuccess({candidates})),
+                  catchError((error) => of(resourceActions.deleteResourceFailure({error : error.message})))
+              )
+          )
+      )
+  },
+  {functional :true}
+)
+
+
 // export const updateCandidate$ = createEffect(
 //     (action$ = inject(Actions) , candidateService = inject(ManagernameService)) =>{
 //         return action$.pipe(
@@ -64,18 +81,4 @@ export const AddResource$ = createEffect(
 
 
 
-// export const deleteCandidate$ = createEffect(
-//     (action$ = inject(Actions) , candidateService = inject(ManagernameService)) => {
-//         return action$.pipe(
-//             ofType(candidateActions.deleteCandidates),
-//             exhaustMap((candidates) =>
-//                 candidateService.deleteCandidates(candidates.candidates).pipe(
-//                     tap((candidates) => console.log("sdfbv bg r",candidates)),
-//                     map((candidates : any) => candidateActions.deleteCandidateSuccess({candidates})),
-//                     catchError((error) => of(candidateActions.deleteCandidateFailure({error : error.message})))
-//                 )
-//             )
-//         )
-//     },
-//     {functional :true}
-// )
+
