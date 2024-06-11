@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Table} from 'primeng/table';
 import { L1ScreenService } from 'src/app/services/l1-screen.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mainscreen',
@@ -12,6 +13,7 @@ import { L1ScreenService } from 'src/app/services/l1-screen.service';
   providers: [ConfirmationService, MessageService],
 })
 export class MainscreenComponent implements OnInit {
+
   items: MenuItem[] | undefined;
   todayDate!: Date;
   date: Date | undefined;
@@ -30,6 +32,7 @@ export class MainscreenComponent implements OnInit {
   constructor(private L1ScreenService: L1ScreenService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
+    private router:Router
   ){}
 
 
@@ -219,4 +222,8 @@ onStatusChange(l1: any) {
   // }
   this.updateCurrentBindings(l1);
 }
+individualPCR(id: any) {
+  sessionStorage.setItem("currentResourceId",id)
+    this.router.navigate(['/mtalent/candidatedetails'])
+  }
 }

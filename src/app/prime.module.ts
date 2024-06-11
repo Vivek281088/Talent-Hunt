@@ -38,6 +38,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { MenuModule } from 'primeng/menu';
 import { KnobModule } from 'primeng/knob';
 import { SkeletonModule } from 'primeng/skeleton';
+import { RippleModule } from 'primeng/ripple';
 
 
 // import { DialogModule } from 'primeng/dialog';
@@ -85,7 +86,8 @@ import { SkeletonModule } from 'primeng/skeleton';
     MenuModule,
     KnobModule,
     CalendarModule,
-    SkeletonModule
+    SkeletonModule,
+    RippleModule
   ],
   exports: [
     MultiSelectModule,
@@ -129,7 +131,8 @@ import { SkeletonModule } from 'primeng/skeleton';
     MenuModule,
     KnobModule,
     CalendarModule,
-    SkeletonModule
+    SkeletonModule,
+    RippleModule
   ],
 })
 export class PrimeModule {}

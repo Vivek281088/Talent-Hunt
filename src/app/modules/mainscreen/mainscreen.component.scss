@@ -152,32 +152,6 @@ padding-right: 30px;
   }
 }
 
-// .multiselect{
-// ::ng-deep{
-//   .p-multiselect .p-multiselect-label.p-placeholder {
-//  display:flex;
-//  justify-content: center;
-//     height: 32px;
-
-// }
-// .p-multiselect-label{
-//   align-items: center;
-// }
-
-// .p-multiselect{
-//   height:32px;
-//   width:120px
-// }
-// .p-multiselect:not(.p-disabled):hover {
-//   border-color: #ced4da;
-// }
-// .p-multiselect .p-multiselect-label {
-//   display: flex;
-//   justify-content: center;
-// }
-// }
-
-// }
 ::ng-deep{
   .p-multiselect {
     height: 32px;
@@ -309,4 +283,8 @@ padding-right: 30px;
   box-shadow: none
 }
 }
+}
+.pcr-link{
+  cursor: pointer;
+  color: #1666dc !important;
 }

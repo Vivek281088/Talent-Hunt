@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="candidate-tab">
-      <p-tabView styleClass="candiate-tab">
+      <p-tabView [(activeIndex)]="activeIndex" styleClass="candiate-tab">
         <p-tabPanel>
           <ng-template pTemplate="header">
             <span class="pl-2">Candidate details</span>
@@ -47,7 +47,9 @@
         <ng-template pTemplate="content">
           
   <div class="card">
-      <p-table  [value]="candidateMappingDetails" #dt1 styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+      <p-table  [value]="candidateMappingDetails" #dt1 styleClass="p-datatable-striped"
+      [globalFilterFields]="['pcrId', 'currentStatus', 'testStatus']"
+      [tableStyle]="{'min-width': '50rem'}">
           <ng-template pTemplate="header" >
               <tr>
                   <th colspan="8">
@@ -65,9 +67,7 @@
                             placeholder="Search"
                           />
                         </div>
-                       
                       </div>
-                      
                     </div>
                   </th>
                 </tr>
@@ -80,7 +80,7 @@
                   <td>{{candidate.pcrId}}</td>
                   <td>{{candidate.testStatus}}</td>
                   <td>{{candidate.currentStatus}}</td>
-                  <td><i class="pi pi-info-circle details-icon" (click)="allDetails($event,op,candidate)" ></i></td>
+                  <td><i class="pi pi-info-circle cursor-pointer details-icon" (click)="allDetails($event,op,candidate)" ></i></td>
               </tr>
               <p-overlayPanel #op>
                 <pre [innerHTML]="jsonData"></pre>
