@@ -23,7 +23,7 @@
   <div class="l1-table">
     <p-table
       #dt2
-      [value]="mappingData"
+      [value]="l1Screen"
       editMode="row"
       dataKey="uniqueId"
       [rows]="5"
@@ -37,7 +37,6 @@
         'mappedData.candidateId',
         'screeningDate',
         'mappedData.testStatus',
-
         'pcrData.agileId'
       ]"
       [tableStyle]="{ 'min-width': '50rem' }"
@@ -68,7 +67,7 @@
 
       <ng-template pTemplate="header">
         <tr [pEditableRow]="l1Screen">
-          <th style="min-width: 10rem">
+          <th>
             <div class="filter-design">
               PCR ID
               <p-columnFilter
@@ -79,7 +78,17 @@
               ></p-columnFilter>
             </div>
           </th>
-          <th style="min-width: 10rem">
+          <th>
+            <div class="filter-design">
+              AGILE ID
+              <p-columnFilter
+                type="text"
+                field="candidateId"
+                display="menu"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th>
             <div class="filter-design">
               EMP ID
               <p-columnFilter
@@ -89,10 +98,10 @@
               ></p-columnFilter>
             </div>
           </th>
-          <th style="min-width: 10rem">
+          <th>
             <div class="filter-design">SCREENING DATE</div>
           </th>
-          <th style="min-width: 10rem">
+          <th>
             <div class="filter-design">
               TEST RESULT
               <p-columnFilter
@@ -102,7 +111,7 @@
               ></p-columnFilter>
             </div>
           </th>
-          <th style="min-width: 10rem">
+          <th>
             <div class="filter-design">CURRENT STATUS</div>
           </th>
           <th>PANEL MEMBERS</th>
@@ -118,9 +127,10 @@
                 {{ l1.mappedData.pcrId }}
               </td>
               <td>
-                <span class="vertical-align-middle">{{ l1.mappedData.candidateId }}</span>
+                {{ l1.pcrData.agileId }}
+              </td>
               <td class="pcr-link">
-                <a (click)="individualPCR(l1.candidateId)">{{l1.candidateId }}</a>
+                <a (click)="individualPCR(l1.mappedData.candidateId)">{{l1.mappedData.candidateId}}</a>
               </td>
               <td>
                 {{ l1.screeningDate }}
@@ -182,7 +192,7 @@
                       </div>
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{l1.currentInterviewDate  | date: 'MM/dd/yyyy'}}
+                        {{l1.mappedData.currentInterviewDate  | date: 'MM/dd/yyyy'}}
                     </ng-template>
                 </p-cellEditor>
             </td>
@@ -208,8 +218,8 @@
               </td>
               <td>
                   <div class="flex align-items-center justify-content-center gap-2">
-                      <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(l1)" class="p-button-rounded p-button-text"></button>
-                      <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(l1)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                      <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(l1.mappedData)" class="p-button-rounded p-button-text"></button>
+                      <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(l1.mappedData)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
                       <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(l1, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
                   </div>
               </td>
