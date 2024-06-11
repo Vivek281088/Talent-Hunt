@@ -91,10 +91,10 @@ import {
   loadAssessment$,
   sendAssessments$,
 } from './store/Assessment/assessment.effects';
-import { MapPcrCandidate$, loadMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
+import { MapPcrCandidate$, loadMappedData$,MailTheMappedData$ } from './store/PCR-Mapping/pcr-mapping.effects';
 import { mappingFeature, mappingPcrCandidateFeature } from './store/PCR-Mapping/pcr-mapping.selector';
 import { getPcr$ } from './store/pcr/pcr.effects';
-import { PCRState, pcrFeature } from './store/pcr/pcr.selector';
+import {  pcrFeature } from './store/pcr/pcr.selector';
 import { ResourceComponent } from './modules/resource/resource.component';
 
 
@@ -105,6 +105,7 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
 import { ResourceFeature } from './store/resource/resource.selector';
 import { getResources$  ,
   AddResource$ } from './store/resource/resource.effects';
+import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
 
 @NgModule({
   declarations: [
@@ -142,7 +143,8 @@ import { getResources$  ,
       ManagePcrComponent,
       PcrDetailsComponent,
       CandidateDetailsComponent,
-      L1screenComponent
+      L1screenComponent,
+      MainscreenComponent
   ],
   imports: [
     BrowserModule,
@@ -193,6 +195,7 @@ import { getResources$  ,
       {getResources$},
       {AddResource$},
       {MapPcrCandidate$},
+      {MailTheMappedData$},
       {addpcr$},
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
