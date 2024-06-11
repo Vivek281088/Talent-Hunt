@@ -13,6 +13,7 @@ import { transformDataToInputFields } from 'src/app/shared/utils/transformDataTo
 })
 export class CandidateDetailsComponent {
   jsonData: any;
+  activeIndex: number=0;
   constructor(private pcrService : PcrService){}
   @ViewChild('dt') dt !: Table;
   todayDate!: string | number | Date;

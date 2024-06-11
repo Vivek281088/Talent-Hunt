@@ -116,8 +116,8 @@
               <td>
                 {{ l1.pcrId }}
               </td>
-              <td>
-                <span class="vertical-align-middle">{{ l1.candidateId }}</span>
+              <td class="pcr-link">
+                <a (click)="individualPCR(l1.candidateId)">{{l1.candidateId }}</a>
               </td>
               <td>
                 {{ l1.screeningDate }}
