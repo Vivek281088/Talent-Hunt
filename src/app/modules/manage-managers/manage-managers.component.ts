@@ -438,9 +438,9 @@ export class ManageManagersComponent {
     if (data.selection) {
       console.log('Selected Manager:', this.selectedDeleteManager);
     } else {
-      this.selectedDeleteManager = this.selectedDeleteManager.filter(
-        (selected: any) => selected.empid !== data.empid
-      );
+      // this.selectedDeleteManager = this.selectedDeleteManager.filter(
+      //   (selected: any) => selected.empid !== data.empid
+      // );
       console.log('Selected ----Manager :', this.selectedDeleteManager);
     }
   }

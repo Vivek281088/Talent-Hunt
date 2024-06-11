@@ -78,7 +78,7 @@ import {
 import { CandidateFeature } from './store/candidate/candidate.selector';
 import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
 // import { pcrFeature } from './store/pcr/pcr.selector';
-import { addpcr$,  updatePcr$ } from './store/pcr/pcr.effects';
+import { addpcr$,  deletepcr$,  updatePcr$ } from './store/pcr/pcr.effects';
 // import { addpcr$, } from './store/pcr/pcr.effects';
 // import { getPcr$ } from './store/pcr/pcr.effects';
 
@@ -103,9 +103,8 @@ import { ResourceComponent } from './modules/resource/resource.component';
 
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
 import { ResourceFeature } from './store/resource/resource.selector';
-import { getResources$  ,
-  AddResource$ } from './store/resource/resource.effects';
 import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
+import { AddResource$, getResources$ } from './store/Resource/resource.effects';
 
 @NgModule({
   declarations: [
@@ -197,6 +196,8 @@ import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
       {MapPcrCandidate$},
       {MailTheMappedData$},
       {addpcr$},
+      {updatePcr$},
+      {deletepcr$}
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     //   provide : ErrorHandler,

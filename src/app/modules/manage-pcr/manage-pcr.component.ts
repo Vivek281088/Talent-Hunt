@@ -32,6 +32,8 @@ export class ManagePcrComponent {
   isAgileId: boolean = false;
   isPcrId: boolean = false;
   isProjectId: boolean = false;
+  selectedDeletePcr:any;
+
 
   constructor(
     private router: Router,
@@ -41,20 +43,15 @@ export class ManagePcrComponent {
     this.addPCRForm = this.fb.group({
       agileId: [
         null,
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(10),
-          this.validateId,
-        ],
+        []
+        ,
       ],
       pcrId: [
         null,
         [
           Validators.required,
           Validators.minLength(6),
-          Validators.maxLength(10),
-          this.validateId,
+          Validators.maxLength(10)
         ],
       ],
       jobTitle: ['', [Validators.required, Validators.minLength(3)]],
@@ -64,8 +61,7 @@ export class ManagePcrComponent {
         [
           Validators.required,
           Validators.minLength(6),
-          Validators.maxLength(10),
-          this.validateId,
+          Validators.maxLength(10)
         ],
       ],
       skills: ['', [Validators.required]],
@@ -76,18 +72,18 @@ export class ManagePcrComponent {
     });
     this.pcr$ = this.store.select(getPcr);
   }
-  validateId(control: { value: any }) {
-    const value = control.value;
-    if (
-      !(
-        (typeof value === 'string' || typeof value === 'number') &&
-        /^[a-zA-Z0-9]{6,10}$/.test(String(value))
-      )
-    ) {
-      return { invalidInput: true };
-    }
-    return false;
-  }
+  // validateId(control: { value: any }) {
+  //   const value = control.value;
+  //   if (
+  //     !(
+  //       (typeof value === 'string' || typeof value === 'number') &&
+  //       /^[a-zA-Z0-9]{6,10}$/.test(String(value))
+  //     )
+  //   ) {
+  //     return { invalidInput: true };
+  //   }
+  //   return null;
+  // }
 
   onKeyPress(event: KeyboardEvent) {
     const inputLength = (event.target as HTMLInputElement).value.length;
@@ -116,6 +112,7 @@ export class ManagePcrComponent {
   }
   addPcr() {
     this.addPCR = true;
+
   }
 
   clear(table: Table) {
@@ -127,6 +124,8 @@ export class ManagePcrComponent {
     this.formSubmitted = false;
     this.editPCR = false;
     this.addPCRForm.reset();
+    this.addPCRForm.markAsPristine();
+    this.addPCRForm.markAsUntouched();
   }
   saveButton() {
     this.formSubmitted = true;
@@ -139,7 +138,7 @@ export class ManagePcrComponent {
         pcrId: formdata.pcrId,
         agileId: formdata.agileId,
         createdBy: formdata.createdBy,
-        createdDate: formdata.createdDate.toLocaleDateString('en-US'),
+       createdDate: formdata.createdDate.toLocaleDateString(),
         jobTitle: formdata.jobTitle,
         location: formdata.location,
         pcrStatus: formdata?.pcrStatus,
@@ -151,6 +150,8 @@ export class ManagePcrComponent {
       this.store.dispatch(PcrActions.addPCR({ pcr }));
       this.addPCR = false;
     }
+  this.cancelButton();
+
   }
   editData(data: any) {
     this.editPCR = true;
@@ -163,7 +164,7 @@ export class ManagePcrComponent {
         agileId: data.agileId,
         pcrId: data.pcrId,
         jobTitle: data.jobTitle,
-        createdDate: data.createdDate,
+        createdDate: new Date(data.createdDate),
         projectId: data.projectId,
         skills: data.skills,
         pcrStatus: data.pcrStatus,
@@ -181,7 +182,7 @@ export class ManagePcrComponent {
       pcrId: formdata.pcrId,
       agileId: formdata.agileId,
       createdBy: formdata.createdBy,
-      createdDate: formdata.createdDate.toLocaleDateString('en-US'),
+      createdDate: formdata.createdDate.toLocaleDateString(),
       jobTitle: formdata.jobTitle,
       location: formdata.location,
       pcrStatus: formdata?.pcrStatus,
@@ -191,5 +192,30 @@ export class ManagePcrComponent {
     };
     this.store.dispatch(PcrActions.updatePCR({ pcr }));
     this.editPCR = false;
+
+  this.cancelButton();
+  }
+  toggleSelection(data: any) {
+    if (!data || !data.id) {
+      return;
+    }
+    data.selection = !data.selection;
+
+    if (data.selection) {
+      console.log('Selected schedule:', this.selectedDeletePcr);
+    } else {
+      // this.selectedDeleteSchedule = this.selectedDeleteSchedule.filter(
+      //   (selected: any) => selected.id !== data.id
+      // );
+      console.log('Selected ----schedule :', this.selectedDeletePcr);
+    }
+  }
+  selectAll(){
+    console.log("select all pcr ---->",this.selectedDeletePcr)
+  }
+  Deletepcr(){
+    const pcrIds = this.selectedDeletePcr.map((pcr : any) => pcr.pcrId)
+        this.store.dispatch(PcrActions.deletePCR({pcrIds :pcrIds }))
+
   }
 }
