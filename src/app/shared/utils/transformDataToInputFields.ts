@@ -7,7 +7,7 @@ export function transformDataToInputFields(data: any, parentKey: string = ''): a
         if (obj.hasOwnProperty(key)) {
           let value = obj[key];
           const newKey = parentKey ? `${parentKey}. - ${key}` : key;
-          if (key === 'deleted') {
+          if (key === 'deleted' || value == "") {
             continue;
           }
           if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
@@ -19,7 +19,10 @@ export function transformDataToInputFields(data: any, parentKey: string = ''): a
               value = JSON.stringify(value);
             }
             inputFields.push({
-              label: newKey.replace(/([A-Z])/g, ' $1').replace(/\./g, ' ').replace(/^./, str => str.toUpperCase()),
+              label: newKey.replace(/\b([A-Z]+)\b/g, match => match.charAt(0) + match.slice(1).toLowerCase())
+              .replace(/([A-Z])/g, ' $1')
+              .replace(/\./g, ' ')
+              .replace(/\b\w/g, str => str.toUpperCase()),
               id: newKey,
               value
             });

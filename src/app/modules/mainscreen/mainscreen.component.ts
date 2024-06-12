@@ -170,7 +170,7 @@ addL1Details(l1:any){
       screeningDate:l1.mappedData.screeningDate,
       testStatus:l1.mappedData.testStatus,
       L1:L1 ,
-      L2 : l1.L2,
+      L2 : l1.mappedData.L2,
       currentStatus:l1.mappedData.currentStatus,
       uniqueId : l1.mappedData.uniqueId
     }
@@ -185,7 +185,7 @@ addL1Details(l1:any){
       candidateId:l1.mappedData.candidateId,
       screeningDate:l1.mappedData.screeningDate,
       testStatus:l1.mappedData.testStatus,
-      L1:l1.L1,
+      L1:l1.mappedData.L1,
       L2 : L2,
       currentStatus:l1.mappedData.currentStatus,
       uniqueId : l1.mappedData.uniqueId
@@ -196,8 +196,8 @@ addL1Details(l1:any){
       candidateId:l1.mappedData.candidateId,
       screeningDate:l1.mappedData.screeningDate,
       testStatus:l1.mappedData.testStatus,
-      L1:l1.L1,
-      L2 : l1.L2,
+      L1:l1.mappedData.L1,
+      L2 : l1.mappedData.L2,
       currentStatus:l1.mappedData.currentStatus,
       uniqueId : l1.mappedData.uniqueId
     }
@@ -218,6 +218,7 @@ onRowEditCancel(product: any, index: number) {
 
 }
 updateCurrentBindings(l1: any) {
+  console.log("????????????????????????????????????????????",l1.mappedData)
   if (l1.mappedData.currentStatus === 'L1') {
     l1.mappedData.currentPanel = l1.mappedData.L1.l1Panel;
     l1.mappedData.currentInterviewDate = l1.mappedData.L1.l1InterviewDate;
