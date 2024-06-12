@@ -79,4 +79,16 @@ on(PcrActions.deletePCRFailure, (state,action) => {
       error : action.error
   }
 }),
+on(PcrActions.addMultiPCRSuccess, (state, action) => {
+
+  return {
+    ...state,
+    pcr: [...state.pcr, ...action.pcr],
+    pcrCount: state.pcrCount + action.pcr.length,
+    newPcrAdded: true
+  };
+})
+
+
 )
+

@@ -20,7 +20,13 @@ export class PcrService {
     return this.http.post<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr`, pcr);
   }
   addMuiltPCR(pcr: PCR[]): Observable<PCR[]> {
-    return this.http.post<PCR[]>(`${process.env.BASE_URL_PRIVATE}/pcr`, pcr);
+
+    console.log("from pcr service",pcr)
+    return this.http.post<PCR[]>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/addMultiPcrId',
+      pcr,
+
+    );
   }
   updatepcr(pcr: PCR): Observable<PCR> {
     return this.http.put<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr`, pcr);

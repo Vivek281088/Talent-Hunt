@@ -96,7 +96,6 @@
           <th>Job Title</th>
           <th>Created Date</th>
           <th>Project Id</th>
-          <th>Skills</th>
           <th>PcrStatus</th>
           <th>Created By</th>
           <th>Onsite/Offsshore</th>
@@ -126,7 +125,6 @@
           </td>
           <td>{{ rowData.createdDate }}</td>
           <td>{{ rowData.projectId }}</td>
-          <td>{{ rowData.skills }}</td>
           <td>{{ rowData.pcrStatus }}</td>
           <td>{{ rowData.createdBy }}</td>
           <td>{{ rowData.location }}</td>
@@ -551,7 +549,7 @@
 
               <label class="custom-file-input">
                 Upload File
-                <input type="file" style="display: none" /> </label
+                <input type="file" style="display: none" (change)="uploadCSV($event)"/> </label
               >`
 
               <div class="Createbutton">

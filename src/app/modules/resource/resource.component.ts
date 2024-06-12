@@ -228,7 +228,7 @@ export class ResourceComponent implements OnDestroy{
       }
       console.log('Candidate details are:', candidate);
       this.store.dispatch(resourceActions.addResource({candidate}));
-      // this.isAddCandidate = false;
+      this.isAddCandidate = false;
       this.addCandidatevisible = true;
 
     }
@@ -389,17 +389,43 @@ export class ResourceComponent implements OnDestroy{
     this.router.navigate(['/mtalent/candidateProfile']);
   }
   selectedDeleteCandidate: any;
-  deleteCandidate() {
+
+
+  // deleteCandidate() {
+  //   console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
+  //   const candidates = this.selectedDeleteCandidate.map((candidate: { id: string , candidateEmail :string }) => ({id : candidate.id , candidateEmail : candidate.candidateEmail}))
+  //   console.log("candidates to be deleted" , candidates)
+  //   this.store.dispatch(resourceActions.deleteResource({candidates}))
+  //   setTimeout(() => {
+  //     this.deleteMessage();
+  //     this.selectedDeleteCandidate = [];
+  //     // this.getUniqueCandidatedata();
+  //   }, 1500);
+  // }
+
+  deleteCandidate(){
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
-    const candidates = this.selectedDeleteCandidate.map((candidate: { id: string , candidateEmail :string }) => ({id : candidate.id , candidateEmail : candidate.candidateEmail}))
-    console.log("candidates to be deleted" , candidates)
-    this.store.dispatch(resourceActions.deleteResource({candidates}))
-    setTimeout(() => {
+    const candidateId = this.selectedDeleteCandidate.map((candidates : any) => candidates.candidateId)
+    console.log('candidate id to be deleted', candidateId)
+    this.store.dispatch(resourceActions.deleteResource({candidateId :candidateId }))
+
+   setTimeout(() => {
       this.deleteMessage();
       this.selectedDeleteCandidate = [];
+      this.refreshPage();
       // this.getUniqueCandidatedata();
     }, 1500);
+
+
+
+
   }
+
+
+  refreshPage(){
+    window.location.reload();
+  }
+
   deleteMessage() {
     this.messageService.add({
       severity: 'success',
@@ -407,17 +433,18 @@ export class ResourceComponent implements OnDestroy{
       detail: 'Candidate Deleted successfully',
     });
   }
+
   toggleSelection(data: any) {
-    if (!data || !data.empid) {
+    if (!data || !data.id) {
       return;
     }
     data.selection = !data.selection;
     if (data.selection) {
       console.log('Selected Candidate:', this.selectedDeleteCandidate);
     } else {
-      this.selectedDeleteCandidate = this.selectedDeleteCandidate.filter(
-        (selected: any) => selected.empid !== data.empid
-      );
+      // this.selectedDeleteCandidate = this.selectedDeleteCandidate.filter(
+      //   (selected: any) => selected.candidateId !== data.candidateId
+      // );
       console.log('Selected ----Candidate :', this.selectedDeleteCandidate);
     }
   }
