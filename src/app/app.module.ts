@@ -104,7 +104,8 @@ import { ResourceComponent } from './modules/resource/resource.component';
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
 import { ResourceFeature } from './store/resource/resource.selector';
 import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
-import { AddResource$, getResources$ } from './store/Resource/resource.effects';
+import { AddResource$, getResources$, deleteResource$ } from './store/resource/resource.effects';
+// import { AddResource$, getResources$ , deleteResource$} from './store/Resource/resource.effects';
 
 @NgModule({
   declarations: [
@@ -197,7 +198,8 @@ import { AddResource$, getResources$ } from './store/Resource/resource.effects';
       {MailTheMappedData$},
       {addpcr$},
       {updatePcr$},
-      {deletepcr$}
+      {deletepcr$},
+      {deleteResource$}
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     //   provide : ErrorHandler,

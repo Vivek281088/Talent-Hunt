@@ -63,24 +63,40 @@ export const candidateReducer = createReducer(
     //         newUserAdded : false
     //     }
     // }),
-    // on(resourceActions.clearDeleteCamdidateStatus,(state,action)=> {
+    // on(candidateActions.clearDeleteCamdidateStatus,(state,action)=> {
     //     return {
     //         ...state,
     //         candidateDeleted : false
     //     }
     // }),
-    on(resourceActions.deleteResourceSuccess,(state,action) => {
-        const deleteSet = new Set(action.candidates.map(can => can.id));
-        return {
-            ...state,
-            candidates : state.candidates.filter(candidate => !deleteSet.has(candidate.candidateId)),
-            candidateDeleted : true
-        }
+    // on(candidateActions.deleteCandidateSuccess,(state,action) => {
+    //     const deleteSet = new Set(action.candidates.map(can => can.id));
+    //     return {
+    //         ...state,
+    //         candidates : state.candidates.filter(candidate => !deleteSet.has(candidate.id)),
+    //         candidateDeleted : true
+    //     }
+    // }),
+    // on(candidateActions.deleteCandidateFailure,(state,action)=> {
+    //     return {
+    //         ...state,
+    //         error : action.error
+    //     }
+    // })
+
+    on(resourceActions.deleteResourceSuccess, (state,action) => {
+      console.log('Actions', action.candidateId, state.candidates)
+      return {
+          ...state,
+          candidates : state.candidates.filter(candidate => !action.candidateId.includes(candidate.candidateId)),
+          candidateDeleted : true
+      }
     }),
-    on(resourceActions.deleteResourceFailure,(state,action)=> {
-        return {
-            ...state,
-            error : action.error
-        }
-    })
+    on(resourceActions.deleteResourceFailure, (state,action) => {
+      return {
+          ...state,
+          error : action.error
+      }
+    }),
+
 )

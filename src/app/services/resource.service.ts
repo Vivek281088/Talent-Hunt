@@ -21,19 +21,20 @@ addSingleCandidate(candidate : any) : Observable<Candidates>{
   return this.http.post<Candidates>(`${process.env.BASE_URL_DEV}/TH-postCandidates`,candidate)
 }
 
-deleteResource(candidates : {id:string}[]){
-  // return this.http.delete(`${process.env.BASE_URL_PRIVATE}/resource`,candidates)
 
-const endpoint = `${process.env.BASE_URL_PRIVATE}/resource`;
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-  body: { candidateId: candidates }
-};
 
-return this.http.request('delete', endpoint, httpOptions);
 
+deleteResource(candidateId: string[]): Observable<any> {
+  console.log("pcrIds  .....................................", candidateId);
+  const endpoint = `${process.env.BASE_URL_DEV}/resource`;
+
+  const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    body: { candidateId: candidateId }
+  };
+
+  return this.http.request('delete', endpoint, httpOptions);
 }
-
 
 
 
