@@ -1,4 +1,3 @@
-import { getCandidate } from './../../store/Resource/resource.selector';
 import { Component } from '@angular/core';
 import { MenuItem, Message } from 'primeng/api';
 import { Table } from 'primeng/table';

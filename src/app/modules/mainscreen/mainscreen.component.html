@@ -39,7 +39,7 @@
         'mappedData.testStatus',
         'pcrData.agileId'
       ]"
-      [tableStyle]="{ 'min-width': '50rem' }"
+      [tableStyle]="{ 'min-width': '90rem' }"
     >
       <ng-template pTemplate="caption">
         <div class="totalSearch">
@@ -68,51 +68,22 @@
       <ng-template pTemplate="header">
         <tr [pEditableRow]="l1Screen">
           <th>
-            <div class="filter-design">
               PCR ID
-              <p-columnFilter
-                type="text"
-                class="button-design"
-                field="pcrId"
-                display="menu"
-              ></p-columnFilter>
-            </div>
           </th>
           <th>
-            <div class="filter-design">
-              AGILE ID
-              <p-columnFilter
-                type="text"
-                field="candidateId"
-                display="menu"
-              ></p-columnFilter>
-            </div>
+            AGILE ID
           </th>
           <th>
-            <div class="filter-design">
-              EMP ID
-              <p-columnFilter
-                type="text"
-                field="candidateId"
-                display="menu"
-              ></p-columnFilter>
-            </div>
+            EMP ID
           </th>
           <th>
-            <div class="filter-design">SCREENING DATE</div>
+            SCREENING DATE
           </th>
           <th>
-            <div class="filter-design">
-              TEST RESULT
-              <p-columnFilter
-                type="text"
-                field="testStatus"
-                display="menu"
-              ></p-columnFilter>
-            </div>
+            TEST RESULT
           </th>
           <th>
-            <div class="filter-design">CURRENT STATUS</div>
+            CURRENT STATUS
           </th>
           <th>PANEL MEMBERS</th>
           <th>SCHEDULE DATE</th>
