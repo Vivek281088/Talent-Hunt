@@ -26,7 +26,6 @@
       [rows]="4"
       [showCurrentPageReport]="true"
       [value]="mappingData"
-      [(selection)]="selectedMappedData"
       [rowsPerPageOptions]="[4, 10, 25, 50]"
       [loading]=""
       [paginator]="true"
@@ -60,45 +59,45 @@
                     placeholder="Search"
                   />
                 </div>
-
-                <div class="ml-3">
-                  <button
-                    pButton
-                    label="Clear Search"
-                    class="clear-button cursor-pointer"
-                    (click)="clear(dt2)"
-                  ></button>
-                </div>
+              </div>
+              <div class="ml-3">
+                <button
+                  pButton
+                  label="Clear Search"
+                  class="clear-button cursor-pointer"
+                  (click)="clear(dt2)"
+                ></button>
               </div>
               <div class="mapPcr">
                 <button pButton label="Map PCR" (click)="mappingPCR()"></button>
               </div>
-              <div class="mapPcr">
+              <!-- <div class="mapPcr">
                 <button
                   pButton
                   label="Send Mail"
                   (click)="sendEmail()"
                   [disabled]="!mailData || mailData.length == 0"
                 ></button>
-              </div>
+              </div> -->
             </div>
           </th>
         </tr>
 
         <tr>
-          <th style="width: 4rem">
+          <!-- <th style="width: 4rem">
             <p-tableHeaderCheckbox
               [value]="mappingData"
               (click)="toggleSelectAll()"
             ></p-tableHeaderCheckbox>
-          </th>
-          <th class="customId">PCR ID</th>
-          <th class="customId">Candidate ID</th>
+          </th> -->
+          <th>PCR ID</th>
+          <th>Candidate ID</th>
           <th>Candidate Name</th>
-          <th>Skills</th>
+          <th>PCR Skills</th>
           <th>Test Status</th>
           <th>Submission time</th>
           <th>Score</th>
+          <th>Mail</th>
         </tr>
       </ng-template>
       <ng-template
@@ -108,25 +107,39 @@
         class="tableBody"
       >
         <tr>
-          <td>
+          <!-- <td>
             <p-tableCheckbox
               [value]="rowData"
               [checked]="rowData.selection"
-              (click)="handleClick($event, rowData)"
+              (click)="toggleSelection(rowData)"
               [disabled]="rowData.mappedData.mailSend"
               pTooltip="It is Mapped Already"
               [tooltipDisabled]="!rowData.mappedData.mailSend"
             ></p-tableCheckbox>
+          </td> -->
+          <td class="custom_link">
+            <a (click)="individualPCR(rowData.pcrData.pcrId)">{{
+              rowData.pcrData.pcrId
+            }}</a>
           </td>
-          <td>{{ rowData.pcrData.pcrId }}</td>
-          <td>{{ rowData.candidateData.candidateId }}</td>
+          <td class="custom_link">
+            <a (click)="individualResource(rowData.candidateData.candidateId)">
+              {{ rowData.candidateData.candidateId }}</a
+            >
+          </td>
           <td>{{ rowData.candidateData.candidateName }}</td>
           <td class="skills">
-            <span *ngFor="let item of getFormattedSkills(rowData.pcrData.skills).skills">
+            <span
+              *ngFor="
+                let item of getFormattedSkills(rowData.pcrData.skills).skills
+              "
+            >
               <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
             </span>
             <span
-              *ngIf="getFormattedSkills(rowData.pcrData.skills).remainingCount > 0"
+              *ngIf="
+                getFormattedSkills(rowData.pcrData.skills).remainingCount > 0
+              "
               class="plusIcon"
             >
               +
@@ -150,7 +163,9 @@
                 (mouseenter)="op.toggle($event)"
                 (mouseleave)="op.toggle($event)"
                 [value]="
-                  getFormattedSkills(rowData.pcrData.skills).remainingCount.toString()
+                  getFormattedSkills(
+                    rowData.pcrData.skills
+                  ).remainingCount.toString()
                 "
               ></p-badge>
             </span>
@@ -158,6 +173,16 @@
           <td>{{ rowData.mappedData.testStatus }}</td>
           <td>{{ rowData.mappedData.submitTime }}</td>
           <td>{{ rowData.mappedData.testScore }}</td>
+          <td>
+            <i
+              class="pi pi-envelope"
+              style="color: #652d7f; cursor: pointer"
+              (click)="openInviteDialog($event,rowData)"
+              [disabled]="rowData.mappedData.mailSend"
+              pTooltip="Mail Sent"
+              [tooltipDisabled]="!rowData.mappedData.mailSend"
+            ></i>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
@@ -237,5 +262,41 @@
         </div>
       </div>
     </ng-template>
+  </p-dialog>
+</div>
+
+<p-toast></p-toast>
+<div class="sendinvite">
+  <p-dialog
+    [visible]="sendMailCardVisible"
+    [modal]="true"
+    [style]="{ width: '47VW' }"
+    header="Send Mail"
+    [closable]="false"
+  >
+    <div class="wholedialog">
+      <div class="dialogcontent">
+        <p-dropdown
+          [options]="scheduledata"
+          placeholder="--Select Schedule--"
+          appendTo="body"
+          optionLabel="JobDescription"
+          [(ngModel)]="selectedSchedule"
+          (onChange)="scheduleSelected()"
+        ></p-dropdown>
+      </div>
+      <div class="btnfooter">
+        <div class="Cancelbutton">
+          <p-button label="Cancel" (onClick)="closeInviteDialog()"></p-button>
+        </div>
+        <div class="mapButton">
+          <p-button
+            label="Send"
+            (onClick)="sendEmail()"
+            [disabled]="!selectedSchedule"
+          ></p-button>
+        </div>
+      </div>
+    </div>
   </p-dialog>
 </div>
