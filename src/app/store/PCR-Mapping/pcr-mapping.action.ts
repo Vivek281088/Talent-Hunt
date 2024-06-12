@@ -55,8 +55,8 @@ export const PcrCandidateActions = createActionGroup({
     'Map PCR and Candidate' : props<{mappingPcrCandidateData :MappingPCRCandidateData[]}>(),
     'Map PCR and Candidate Success' : props<{mappingPcrCandidateData :MappingPCRCandidateData[]}>(),
     'Map PCR and Candidate failure' : props<{error :string}>(),
-    'Mail Mapped Data' : props<{mailData : MailDetails[]}>(),
-    'Mail Mapped Data Success' : props<{mailData : MailDetails[]}>(),
+    'Mail Mapped Data' : props<{mailData : MailDetails}>(),
+    'Mail Mapped Data Success' : props<{mailData : MailDetails}>(),
     'Mail Mapped Data failure' : props<{error :string}>(),
   }
 });

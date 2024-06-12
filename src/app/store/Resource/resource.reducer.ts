@@ -83,4 +83,19 @@ export const candidateReducer = createReducer(
     //         error : action.error
     //     }
     // })
+
+    on(resourceActions.deleteResourceSuccess, (state,action) => {
+      console.log('Actions', action.candidateId, state.candidates)
+      return {
+          ...state,
+          candidates : state.candidates.filter(candidate => !action.candidateId.includes(candidate.candidateId)),
+          candidateDeleted : true
+      }
+    }),
+    on(resourceActions.deleteResourceFailure, (state,action) => {
+      return {
+          ...state,
+          error : action.error
+      }
+    }),
 )

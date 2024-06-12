@@ -44,12 +44,10 @@ export const getMappingDataReducer = createReducer(
     console.log(state, action);
 
     const updatedMappingData = state.mappingData.map(item => {
-      const mailMatch = action.mailData.find(data =>
-        data.pcrId === item.pcrData.pcrId && data.candidateId === item.candidateData.candidateId
-      );
+      const mailMatch = action.mailData.pcrId === item.pcrData.pcrId && action.mailData.candidateId === item.candidateData.candidateId
 
       if (mailMatch) {
-        return { ...item, mappedData: { ...item.mappedData, mailSend: true } };
+        return { ...item, mappedData: { ...item.mappedData, mailSend: true, testStatus : "Scheduled" } };
       }
 
       return item;
@@ -74,7 +72,8 @@ export const MapPcrCandidateReducer = createReducer(
   on(PcrCandidateActions.mapPCRAndCandidateSuccess, (state, action) => {
     console.log(state, action);
     return {
-      mappingPcrCandidateData: action.mappingPcrCandidateData,
+      ...state,
+      mappingPcrCandidateData: [...state.mappingPcrCandidateData,...action.mappingPcrCandidateData],
       error: '',
     };
   }),
