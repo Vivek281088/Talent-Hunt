@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="candidate-tab">
-      <p-tabView styleClass="candiate-tab">
+      <p-tabView [(activeIndex)]="activeIndex" styleClass="candiate-tab">
         <p-tabPanel>
           <ng-template pTemplate="header">
             <span class="pl-2">Candidate details</span>
@@ -47,7 +47,9 @@
         <ng-template pTemplate="content">
           
   <div class="card">
-      <p-table  [value]="pcrTableData.data" #dt1 styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+      <p-table  [value]="candidateMappingDetails" #dt1 styleClass="p-datatable-striped"
+      [globalFilterFields]="['pcrId', 'currentStatus', 'testStatus']"
+      [tableStyle]="{'min-width': '50rem'}">
           <ng-template pTemplate="header" >
               <tr>
                   <th colspan="8">
@@ -65,23 +67,24 @@
                             placeholder="Search"
                           />
                         </div>
-                       
                       </div>
-                      
                     </div>
                   </th>
                 </tr>
               <tr >
-                  <th *ngFor="let header of pcrTableData.headers">{{header.title}}</th>
+                  <th *ngFor="let header of candidateTableData.headers">{{header.title}}</th>
               </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-emp>
+          <ng-template pTemplate="body" let-candidate>
               <tr>
-                  <td>{{emp.Project_id}}</td>
-                  <td>{{emp.CreatedBy}}</td>
-                  <td>{{emp.Jobtitle}}</td>
-                  <td>{{emp.PCRstatus}}</td>
+                  <td>{{candidate.pcrId}}</td>
+                  <td>{{candidate.testStatus}}</td>
+                  <td>{{candidate.currentStatus}}</td>
+                  <td><i class="pi pi-info-circle cursor-pointer details-icon" (click)="allDetails($event,op,candidate)" ></i></td>
               </tr>
+              <p-overlayPanel #op>
+                <pre [innerHTML]="jsonData"></pre>
+              </p-overlayPanel>
           </ng-template>
       </p-table>
   </div>

@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="addcandidate">
-                  <p-button label="Delete" (click)="Deletepcr()"> </p-button>
+                  <p-button label="Delete PCR" (click)="Deletepcr()" [disabled]="!selectedDeletePcr|| selectedDeletePcr.length==0"> </p-button>
                 </div>
               </div>
             </div>
@@ -546,7 +546,7 @@
           <ng-template pTemplate="footer">
             <div class="tabview-button-upload">
               <div class="Cancelbutton">
-                <p-button label="Cancel" [outlined]="true"> </p-button>
+                <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()"> </p-button>
               </div>
 
               <label class="custom-file-input">
@@ -555,7 +555,8 @@
               >`
 
               <div class="Createbutton">
-                <p-button label="Download Template"></p-button>
+                <p-button label="Download Template"
+                (click)="downloadCsvTemplate()"></p-button>
               </div>
             </div>
           </ng-template>

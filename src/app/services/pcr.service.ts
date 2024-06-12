@@ -43,15 +43,18 @@ export class PcrService {
 
 
   getIndividualPCR(id: string | null): Observable<PcrDetails> {
-    console.log('sdfvbsdfv', id);
     return this.http.get<PcrDetails>(
       `${process.env.BASE_URL_PRIVATE}/pcr?id=${id}`
     );
   }
   getCandidate(id: string | null) {
-    console.log(id);
     return this.http.get<any>(
       `${process.env.BASE_URL_PRIVATE}/resource?id=${id}`
+    );
+  }
+  getCandidatePcrMapping(id: string | null){
+    return this.http.get<PcrDetails>(
+      `${process.env.BASE_URL_PRIVATE}/emp-pcr?id=${id}`
     );
   }
 }
