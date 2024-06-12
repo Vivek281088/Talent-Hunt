@@ -28,8 +28,26 @@ export class MainscreenComponent implements OnInit {
 
 
   selectedCurrentStatus!:string;
-  currentStatus:any = [{name:"L1",value:"L1"},{name:"L2",value:"L2"},{name:"Rejected at Screening",value:"Rejected at Screening"},
-    {name:"Rejected at Test",value:"Rejected at Test"},{name:"Mapped",value:"Mapped"},{name:"Onboarding",value:"Onboarding"}]
+  currentStatus:any = [{name:"Screen Pending",value:"Screen Pending"},
+    {name:"Screen Reject",value:"Screen Reject"},
+    {name:"Test Scheduled",value:"Test Scheduled"},
+    {name:"Test Pass",value:"Test Pass"},
+    {name:"Test Fail",value:"Test Fail"},
+    {name:"L1 TBS",value:"L1 TBS"},
+    {name:"L1 Scheduled",value:"L1 Scheduled"},
+    {name:"L1 Select",value:"L1 Select"},
+    {name:"L1 Reject",value:"L1 Reject"},
+    {name:"L2 TBS",value:"L2 TBS"},
+    {name:"L2 Scheduled",value:"L2 Scheduled"},
+    {name:"L2 Select",value:"L2 Select"},
+    {name:"L2 Reject",value:"L2 Reject"},
+    {name:"Client TBS",value:"Client TBS"},
+    {name:"Client Scheduled",value:"Client Scheduled"},
+    {name:"Client Select",value:"Client Select"},
+    {name:"Client Reject",value:"Client Reject"},
+    {name:"L2",value:"L2"},
+    {name:"Client Feedback Awaited",value:"Client Feedback Awaited"},
+    {name:"Not Available",value:"Not Available"},{name:"BGV Failure",value:"BGV Failure"},{name:"Onboarding",value:"Onboarding"},   {name:"Offered",value:"Offered"},   {name:"Offer Reject",value:"Offer Reject"},   {name:"Joined",value:"Joined"},]
   panelMembers:any=[{names:"Indhu", value :"Indhu"},{names:"Vairavan",value :"Vairavan"},{names:"Suresh",value:"Suresh"},{names:"Alamelu",value:"Alamelu"}]
   interviewStatus:any=[{names:"Selected",value:"Selected"},{names:"Rejected",value:"Rejected"},{names:"Pending",value:"Pending"},];
 
@@ -63,7 +81,7 @@ getPcrMappingData() {
     console.log('Client Manager Details From Store', data);
     this.mappingData = data;
 
-      // this.mappingData = data.map((item: any) => { 
+      // this.mappingData = data.map((item: any) => {
       //   if (!item.mappedData.L1) {
       //     item.mappedData.L1 = { l1Panel: [], l1InterviewDate: null, l1Status: '' };
       //   }
@@ -118,7 +136,7 @@ getPcrMappingData() {
               if (!item.mappedData.currentLStatus) {
                 item.mappedData.currentLStatus = item.mappedData.currentStatus === 'L1' ? item.mappedData.L1.l1Status : item.mappedData.L2.l2Status;
               }
-        
+
               return item;
             });
             console.log("l1 screennnnn..................", this.l1Screen)
