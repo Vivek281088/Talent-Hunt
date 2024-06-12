@@ -53,7 +53,8 @@ export const deleteSchedule$ = createEffect(
     return actions$.pipe(
       ofType(ScheduleActions.deleteSchedule),
       tap((scheduleIds) => console.log(scheduleIds)),
-      exhaustMap((scheduleIds) =>{
+      exhaustMap((scheduleIds) =>
+        {
         console.log("Schedule Idssssssssssssss" , scheduleIds)
         return scheduleService.deleteSchedules(scheduleIds.scheduleIds).pipe(
           tap((schedules) => console.log(schedules)),

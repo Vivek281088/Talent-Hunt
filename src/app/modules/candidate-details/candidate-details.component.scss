@@ -1,4 +1,8 @@
 
+@import 'src/app/shared/css/shared';
+.details-icon{
+  @include circle-info
+}
 .candidatedetails-header {
     display: flex;
     flex-direction: row;
