@@ -104,7 +104,7 @@ import { ResourceComponent } from './modules/resource/resource.component';
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
 import { ResourceFeature } from './store/resource/resource.selector';
 import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
-import { AddResource$, getResources$, deleteResource$ } from './store/Resource/resource.effects';
+import { AddResource$, getResources$, deleteResource$, updateResource$ } from './store/resource/resource.effects';
 // import { AddResource$, getResources$ , deleteResource$} from './store/Resource/resource.effects';
 
 @NgModule({
@@ -199,8 +199,10 @@ import { AddResource$, getResources$, deleteResource$ } from './store/Resource/r
       {addpcr$},
       {updatePcr$},
       {deletepcr$},
+      {deleteResource$},
+      {updateResource$},
       {addMultipcr$},
-      {deleteResource$}
+    
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     //   provide : ErrorHandler,

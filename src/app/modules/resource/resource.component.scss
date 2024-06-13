@@ -40,7 +40,11 @@
     }
   }
 }
-
+::ng-deep {
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+  border-color: #652d90;
+  color: #652d90;
+}}
 .manageManagers-header {
   display: flex;
   flex-direction: row;
