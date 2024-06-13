@@ -66,7 +66,7 @@ export class ResourceComponent implements OnDestroy{
     private store : Store
   ) {
     this.addCandidateForm = this.fb.group({
-      candidateId: [null, [Validators.required,Validators.minLength(7)]],
+      candidateId: [null, [Validators.required,Validators.minLength(5)]],
       candidateName: ['', [Validators.required,Validators.minLength(3)]],
       email: ['', [Validators.required,  Validators.email, Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$')]],
       phone: [null, [Validators.required,Validators.minLength(10)]],
@@ -111,7 +111,7 @@ export class ResourceComponent implements OnDestroy{
     console.log('Date--------', this.todayDate);
     this.items = [
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
-      { label: 'Manage Candidates', routerLink: '/mtalent/manage-candidates' },
+      { label: 'Manage Candidates', routerLink: '/mtalent/resource' },
     ];
   }
   individualResource(id: any) {
@@ -157,17 +157,26 @@ export class ResourceComponent implements OnDestroy{
   populateFormControls() {
     if (this.selectedRowData) {
       this.addCandidateForm.patchValue({
-        empid: this.selectedRowData.empid,
-        candidateName: this.selectedRowData.candidateName,
-        email: this.selectedRowData.candidateEmail,
-        phone: this.selectedRowData.candidatePhone,
-        location: this.selectedRowData.candidate_location,
-        department: this.selectedRowData.department,
+        candidateId: this.selectedRowData.candidateId || '',
+        candidateName: this.selectedRowData.candidateName || '',
+        email: this.selectedRowData.emailId || '',
+        phone: this.selectedRowData.phoneNumber || '',
+        location: this.selectedRowData.currentLocation || '',
+        experience: this.selectedRowData.experience || '',
+        locationDetails: this.selectedRowData.location || '',
+        sourceDetail: this.selectedRowData.source || '',
+        spoc: this.selectedRowData.SPOC || '',
+        primarySkill: this.selectedRowData.skillSet?.primarySkills || '',
+        secondarySkill: this.selectedRowData.skillSet?.secondarySkills || '',
+        roles: this.selectedRowData.roles || '',
+        validUntil: this.selectedRowData.visaDetails?.validUntil || '',
+        visaType: this.selectedRowData.visaDetails?.visaType || '',
+        visaStamped: this.selectedRowData.visaDetails?.visaStamped || ''
       });
     }
-    console.log('Edit Data', this.addCandidateForm);
-    // this.formSubmitted = true;
+    console.log('Edit Data', this.addCandidateForm.value);
   }
+
   onViewClick(data: any) {}
   addCandidate() {
     this.isAddCandidate = true;
@@ -229,7 +238,7 @@ export class ResourceComponent implements OnDestroy{
       console.log('Candidate details are:', candidate);
       this.store.dispatch(resourceActions.addResource({candidate}));
       this.isAddCandidate = false;
-      this.addCandidatevisible = true;
+      this.addCandidatevisible = false;
 
     }
   }
@@ -274,41 +283,54 @@ export class ResourceComponent implements OnDestroy{
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'Candidate-template.csv');
   }
-  // updateCandidate() {
-  //   this.formSubmitted = true;
-  //   if (this.addCandidateForm.valid) {
-  //     const formData = this.addCandidateForm.value;
-  //     console.log('Form Data:', formData);
-  //     const candidate : Candidate= {
-  //       id: "",
-  //       candidateName: formData.candidateName,
-  //       candidateEmail: formData.email,
-  //       candidatePhone: formData.phone,
-  //       empid: formData.empid,
-  //       department: formData?.department,
-  //       candidate_location: formData?.location,
-  //     }
-  //     this.store.dispatch(candidateActions.updateCandidate({candidate}))
-  //     // this.managerService
-  //     //   .updateCandidate(
-  //     //     formData.candidateName,
-  //     //     formData.email,
-  //     //     formData.phone,
-  //     //     formData.empid,
-  //     //     formData?.department,
-  //     //     formData?.location
-  //     //   )
-  //     //   .subscribe((response) => {
-  //     //     console.log('Candidate Updated....');
-  //     //   });
+  updateCandidate() {
+    this.formSubmitted = true;
+    if (this.addCandidateForm.valid) {
+      const formData = this.addCandidateForm.value;
+      console.log('Form Data:', formData);
+      const candidate : Candidates = {
 
-  //     setTimeout(() => {
-  //       this.UpdateMessage();
-  //       this.cancelButton();
-  //      // this.getUniqueCandidatedata();
-  //     }, 1000);
-  //   }
-  // }
+        candidateId : formData.candidateId,
+        candidateName:formData.candidateName,
+        currentLocation : formData.location,
+        emailId : formData.email,
+        experience : formData.experience,
+        location : formData.locationDetails,
+        phoneNumber : formData.phone,
+        skillSet : {
+          primarySkills :formData.primarySkill,
+          secondarySkills: formData.secondarySkill
+        },
+        roles: formData.roles,
+        source: formData.sourceDetail,
+        SPOC: formData.spoc,
+        visaDetails: {
+          validUntil:formData.validUntil,
+          visaType: formData.visaType,
+          visaStamped: formData.visaStamped
+        }
+      }
+      this.store.dispatch(resourceActions.updateResource({candidate}))
+      // this.managerService
+      //   .updateCandidate(
+      //     formData.candidateName,
+      //     formData.email,
+      //     formData.phone,
+      //     formData.empid,
+      //     formData?.department,
+      //     formData?.location
+      //   )
+      //   .subscribe((response) => {
+      //     console.log('Candidate Updated....');
+      //   });
+
+      setTimeout(() => {
+        this.UpdateMessage();
+        this.cancelButton();
+       // this.getUniqueCandidatedata();
+      }, 1000);
+    }
+  }
   UpdateMessage() {
     this.messageService.add({
       severity: 'success',

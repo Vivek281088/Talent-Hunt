@@ -19,6 +19,7 @@ export class PcrDetailsComponent implements OnInit{
   todayDate!: string | number | Date;
   items: MenuItem[] = [
     { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+    { label: 'PCR', routerLink: '/mtalent/manage-pcr' },
     { label: 'PCR details', routerLink: '/mtalent/pcrdetails' },
   ];
   inputFields : any = [];

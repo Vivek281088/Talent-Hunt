@@ -98,4 +98,24 @@ export const candidateReducer = createReducer(
           error : action.error
       }
     }),
+
+    on(resourceActions.updateResourceSuccess, (state, action) => {
+      return {
+          ...state,
+          candidates: state.candidates.map(candidate =>
+              candidate.candidateId === action.candidate.candidateId
+              ? { ...candidate, ...((({ candidateId, ...rest }) => rest)(action.candidate)) }
+              : candidate
+          )
+      }
+  }),
+
+  on(resourceActions.updateResourceFailure,(state,action)=>{
+      return{
+          ...state,
+          error:action.error
+      }
+
+  }),
+
 )

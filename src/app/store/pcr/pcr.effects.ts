@@ -46,7 +46,35 @@ export const getPcr$ = createEffect(
 
 
 
-        
+
+    }
+,{functional:true}
+  )
+
+
+  export const addMultipcr$=createEffect(
+    (action$=inject(Actions),addPCRService=inject(PcrService))=>{
+        return action$.pipe(
+            ofType(PcrActions.addMultiPCR),
+
+            switchMap((pcr) =>
+                addPCRService.addMuiltPCR(pcr.pcr).pipe(
+                    tap((pcr) =>{
+                        console.log("add Multi pcr.................." , pcr);
+                    }),
+                    map((pcr) => PcrActions.addMultiPCRSuccess({pcr})),
+                    catchError((error) => {
+                        console.log(error)
+                        return of(PcrActions.addMultiPCRFailure({error : error.error}))
+                    } )
+                )
+            )
+        )
+
+
+
+
+
     }
 ,{functional:true}
   )
