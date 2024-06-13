@@ -28,6 +28,8 @@ export class ManagePcrComponent {
   formSubmitted: boolean = false;
   pcrData: any;
   status: string[] = ['open', 'closed', 'Available'];
+  Location:string[]=['Onsite','OffShore'];
+  requestResource:string[]=['Agile1','Sow']
   pcr$!: Observable<PCR[]>;
   editPCR: boolean = false;
   globalSearchValue!: string;
@@ -62,31 +64,18 @@ export class ManagePcrComponent {
       projectId: [
         null,
         [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(10)
+
         ],
       ],
       skills: ['', [Validators.required]],
       pcrStatus: ['', [Validators.required]],
       createdBy: ['', [Validators.required, Validators.minLength(3)]],
-      location: ['', [Validators.required, Validators.minLength(3)]],
-      requestResource: ['', [Validators.required, Validators.minLength(3)]],
+      location: ['', [Validators.required, Validators.required]],
+      requestResource: ['', [Validators.required, Validators.required]],
     });
     this.pcr$ = this.store.select(getPcr);
   }
-  // validateId(control: { value: any }) {
-  //   const value = control.value;
-  //   if (
-  //     !(
-  //       (typeof value === 'string' || typeof value === 'number') &&
-  //       /^[a-zA-Z0-9]{6,10}$/.test(String(value))
-  //     )
-  //   ) {
-  //     return { invalidInput: true };
-  //   }
-  //   return null;
-  // }
+
 
   onKeyPress(event: KeyboardEvent) {
     const inputLength = (event.target as HTMLInputElement).value.length;
@@ -98,8 +87,8 @@ export class ManagePcrComponent {
   ngOnInit() {
     this.todayDate = new Date();
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi-pi-home' },
-      { label: 'PCR', routerLink: '/manage-pcr' },
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'PCR', routerLink: '/mtalent/manage-pcr' },
     ];
 
     this.store.dispatch(PcrActions.getPCR());
@@ -268,7 +257,7 @@ export class ManagePcrComponent {
             "pcrStatus": data.PcrStatus,
             "projectId": data["Project Id"],
             "requestResource": data.RequestSource,
-            "scheduleName": "", 
+            "scheduleName": "",
             "skills": data.Skills
         };
         result1.push(obj);
