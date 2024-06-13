@@ -7,7 +7,7 @@ export function transformDataToInputFields(data: any, parentKey: string = ''): a
         if (obj.hasOwnProperty(key)) {
           let value = obj[key];
           const newKey = parentKey ? `${parentKey}. - ${key}` : key;
-          if (key === 'deleted' || value == "") {
+          if (key === 'deleted' || value == "" || value == null) {
             continue;
           }
           if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
