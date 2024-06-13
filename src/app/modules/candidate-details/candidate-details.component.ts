@@ -20,6 +20,7 @@ export class CandidateDetailsComponent {
   candidateMappingDetails !: any;
   items: MenuItem[] = [
     { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+    { label: 'Manage Candidates', routerLink: '/mtalent/resource' },
     { label: 'Candidate details', routerLink: '/mtalent/candidatedetails' },
   ];
     inputFields = [

@@ -39,7 +39,7 @@ export const pcrReducer = createReducer(
     console.log("candidate action" , action)
     return {
         ...state,
-        pcr : [...state.pcr , action.pcr],
+        pcr : [action.pcr,...state.pcr],
         pcrCount : state.pcrCount + 1,
         newPcrAdded : true
     }
@@ -79,4 +79,16 @@ on(PcrActions.deletePCRFailure, (state,action) => {
       error : action.error
   }
 }),
+on(PcrActions.addMultiPCRSuccess, (state, action) => {
+
+  return {
+    ...state,
+    pcr: [...state.pcr, ...action.pcr],
+    pcrCount: state.pcrCount + action.pcr.length,
+    newPcrAdded: true
+  };
+})
+
+
 )
+

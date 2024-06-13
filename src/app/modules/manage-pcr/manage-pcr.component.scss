@@ -37,6 +37,7 @@
     }
     .p-datatable .p-datatable-thead > tr > th {
       padding: 1rem 1rem 1rem 1rem;
+      color: rgba(0, 0, 0, 0.3803921569);
     }
   }
 }
@@ -79,6 +80,14 @@
       width: 8px;
       color: #00000061;
     }
+    .p-icon-wrapper {
+      display: inline-flex;
+      padding-top: 3px;
+  }
+  .pi-home:before {
+    content: "\e925";
+    padding-right: 5px;
+}
   }
 }
 ::ng-deep
@@ -132,7 +141,7 @@
 .searchIcon {
   height: 92%;
   border-radius: 7px;
- 
+
 }
 .icons {
   display: flex;

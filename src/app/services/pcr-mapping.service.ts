@@ -39,8 +39,8 @@ export class PcrMappingService {
     );
   }
   mailMappedData(data: any): Observable<any> {
-    console.log("Service Body", data
-  )
+
+    console.log("Service Body", data)
 
     return this.http.post<any>(
       `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/sendmailaftermapping`,
@@ -59,5 +59,10 @@ export class PcrMappingService {
         return throwError(() => error);
       })
     );
+  }
+
+  getAllResource():Observable<any>{
+    const endPoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-getUniqueCandidatesdata`;
+    return this.http.get<any>(endPoint);
   }
 }

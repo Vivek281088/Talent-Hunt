@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 import { PCR } from 'src/app/store/pcr/pcr.action';
 import { getPcr } from 'src/app/store/pcr/pcr.selector';
 import * as saveAs from 'file-saver';
+import * as Papa from 'papaparse';
 @Component({
   selector: 'app-manage-pcr',
   templateUrl: './manage-pcr.component.html',
@@ -27,6 +28,8 @@ export class ManagePcrComponent {
   formSubmitted: boolean = false;
   pcrData: any;
   status: string[] = ['open', 'closed', 'Available'];
+  Location:string[]=['Onsite','OffShore'];
+  requestResource:string[]=['Agile1','Sow']
   pcr$!: Observable<PCR[]>;
   editPCR: boolean = false;
   globalSearchValue!: string;
@@ -34,6 +37,7 @@ export class ManagePcrComponent {
   isPcrId: boolean = false;
   isProjectId: boolean = false;
   selectedDeletePcr:any;
+
 
 
   constructor(
@@ -60,31 +64,18 @@ export class ManagePcrComponent {
       projectId: [
         null,
         [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(10)
+
         ],
       ],
       skills: ['', [Validators.required]],
       pcrStatus: ['', [Validators.required]],
       createdBy: ['', [Validators.required, Validators.minLength(3)]],
-      location: ['', [Validators.required, Validators.minLength(3)]],
-      requestResource: ['', [Validators.required, Validators.minLength(3)]],
+      location: ['', [Validators.required, Validators.required]],
+      requestResource: ['', [Validators.required, Validators.required]],
     });
     this.pcr$ = this.store.select(getPcr);
   }
-  // validateId(control: { value: any }) {
-  //   const value = control.value;
-  //   if (
-  //     !(
-  //       (typeof value === 'string' || typeof value === 'number') &&
-  //       /^[a-zA-Z0-9]{6,10}$/.test(String(value))
-  //     )
-  //   ) {
-  //     return { invalidInput: true };
-  //   }
-  //   return null;
-  // }
+
 
   onKeyPress(event: KeyboardEvent) {
     const inputLength = (event.target as HTMLInputElement).value.length;
@@ -96,8 +87,8 @@ export class ManagePcrComponent {
   ngOnInit() {
     this.todayDate = new Date();
     this.items = [
-      { label: 'Home', routerLink: '/login', icon: 'pi-pi-home' },
-      { label: 'PCR', routerLink: '/manage-pcr' },
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'PCR', routerLink: '/mtalent/manage-pcr' },
     ];
 
     this.store.dispatch(PcrActions.getPCR());
@@ -205,9 +196,7 @@ export class ManagePcrComponent {
     if (data.selection) {
       console.log('Selected schedule:', this.selectedDeletePcr);
     } else {
-      // this.selectedDeleteSchedule = this.selectedDeleteSchedule.filter(
-      //   (selected: any) => selected.id !== data.id
-      // );
+
       console.log('Selected ----schedule :', this.selectedDeletePcr);
     }
   }
@@ -223,5 +212,70 @@ export class ManagePcrComponent {
     const csvTemplate = `PCRId,AgileId,JobTitle,Created Date,Project Id,Skills,PcrStatus,Created By,Location,RequestSource\n`;
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'manage-pcr.csv');
+  }
+
+  uploadCSV(event:any){
+    const file: File = event.target.files[0];
+
+    if (file) {
+      const reader: FileReader = new FileReader();
+      reader.onload = () => {
+        const csvData: string = reader.result as string;
+        this.processCsvData(csvData);
+      };
+
+      reader.readAsText(file);
+    }
+
+  }
+  processCsvData(csvData: string) {
+    Papa.parse(csvData, {
+      complete: (result: { data: any }) => {
+        const csvRows = result.data.filter((row: { [row: string]: string }) =>
+          Object.keys(row).some((key) => row[key] !== '')
+        );
+
+        if (csvRows.length === 0) {
+          // this.fileUploadErrorMessage();
+          this.cancelButton();
+          return;
+        }
+        console.log('CSV Data:', csvRows);
+        let result1 :any []=[];
+
+        for (let data of csvRows) {
+          console.log('Csv File datum--', data);
+
+          let obj = {
+            "pcrId": data.PCRId,
+            "agileId": data.AgileId,
+            "createdBy": data["Created By"],
+            "createdDate": data["Created Date"],
+            "deleted": data.deleted || false,
+            "jobTitle": data.JobTitle,
+            "location": data.Location,
+            "pcrStatus": data.PcrStatus,
+            "projectId": data["Project Id"],
+            "requestResource": data.RequestSource,
+            "scheduleName": "",
+            "skills": data.Skills
+        };
+        result1.push(obj);
+
+
+
+        }
+        console.log("data1--------->",result1)
+
+        this.store.dispatch(PcrActions.addMultiPCR({ pcr: result1 }));
+
+        setTimeout(() => {
+          // this.fileUploadMessage();
+          this.cancelButton();
+          // this.loadManagerData();
+        }, 1000);
+      },
+      header: true,
+    });
   }
 }

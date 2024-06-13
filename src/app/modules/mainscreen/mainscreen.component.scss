@@ -87,6 +87,7 @@
       color: #000000de;
       font-size: 14px;
       font-weight: 400;
+      padding: 3px 10px !important;
     }
     .p-datatable .p-datatable-thead > tr > th {
       background: white;
@@ -149,6 +150,17 @@ padding-right: 30px;
     overflow-x: auto;
     background: transparent;
     padding-left: 0;
+  }
+  ::ng-deep {
+    .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+      color: #1e22aa;
+    }
+    .p-icon {
+      display: inline-block;
+      height: 13px;
+      width: 8px;
+      color: #00000061;
+    }
   }
 }
 
@@ -246,7 +258,7 @@ padding-right: 30px;
   color: #ffffff;
   background: #652D70;
   border: 1px solid #652D70;
-  padding: 0.75rem 1.25rem;
+  // padding: 0.75rem 1.25rem;
   font-size: 1rem;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   border-radius: 6px;
