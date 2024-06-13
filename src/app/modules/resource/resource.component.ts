@@ -66,7 +66,7 @@ export class ResourceComponent implements OnDestroy{
     private store : Store
   ) {
     this.addCandidateForm = this.fb.group({
-      candidateId: [null, [Validators.required,Validators.minLength(7)]],
+      candidateId: [null, [Validators.required,Validators.minLength(5)]],
       candidateName: ['', [Validators.required,Validators.minLength(3)]],
       email: ['', [Validators.required,  Validators.email, Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$')]],
       phone: [null, [Validators.required,Validators.minLength(10)]],
@@ -111,7 +111,7 @@ export class ResourceComponent implements OnDestroy{
     console.log('Date--------', this.todayDate);
     this.items = [
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
-      { label: 'Manage Candidates', routerLink: '/mtalent/manage-candidates' },
+      { label: 'Manage Candidates', routerLink: '/mtalent/resource' },
     ];
   }
   individualResource(id: any) {
@@ -238,7 +238,7 @@ export class ResourceComponent implements OnDestroy{
       console.log('Candidate details are:', candidate);
       this.store.dispatch(resourceActions.addResource({candidate}));
       this.isAddCandidate = false;
-      this.addCandidatevisible = true;
+      this.addCandidatevisible = false;
 
     }
   }

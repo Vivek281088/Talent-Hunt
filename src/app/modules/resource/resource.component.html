@@ -72,13 +72,13 @@
               </div>
               <div class="manager-header-2">
                 <div class="addcandidate">
-                  <p-button label="Add candidate" (onClick)="addCandidate()">
+                  <p-button label="Add Candidate" (onClick)="addCandidate()">
                   </p-button>
                 </div>
                 <div class="addcandidate">
                   <p-button
                   [disabled]="!selectedDeleteCandidate || selectedDeleteCandidate.length==0"
-                    label="Delete candidate"
+                    label="Delete Candidate"
                     (onClick)="deleteCandidate()"
                   >
                   </p-button>
@@ -99,7 +99,7 @@
           <th>Location</th>
           <th>Source</th>
           <th>SPOC</th>
-
+<th></th>
         </tr>
       </ng-template>
       <ng-template
