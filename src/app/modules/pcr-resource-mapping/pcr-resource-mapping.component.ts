@@ -1,4 +1,3 @@
-import { getCandidate } from './../../store/Resource/resource.selector';
 import { Component } from '@angular/core';
 import { MenuItem, Message } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -42,6 +41,7 @@ export class PcrResourceMappingComponent {
   sendMailCardVisible: boolean = false;
   scheduledata !:any;
   selectedSchedule !: any;
+  deleteData!: any;
 
   constructor(
     private MappingService: PcrMappingService,
@@ -267,5 +267,18 @@ export class PcrResourceMappingComponent {
 
       detail: 'Email Sent Successfully',
     });
+  }
+  deleteMappedData(){
+    console.log(this.deleteData)
+
+    const deleteData = this.deleteData.map((data: { uniqueId: string; })=> data.uniqueId)
+    console.log(deleteData);
+    this.store.dispatch(PcrCandidateActions.deleteMappedData({deleteData}));
+  }
+  toggleSelectAll(){
+    console.log("Select all :",this.deleteData)
+  }
+  toggle(data: any){
+console.log("Toggle :",this.deleteData)
   }
 }

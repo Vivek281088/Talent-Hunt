@@ -154,11 +154,15 @@
       border: 1px solid #0000001f;
       border-radius: 8px;
     }
+    .p-datatable-table {
+      cursor: default;
+    }
   }
   .custom_link{
     cursor: pointer;
     color: #1666dc !important;
   }
+
 }
 
 .mappingPage-header {

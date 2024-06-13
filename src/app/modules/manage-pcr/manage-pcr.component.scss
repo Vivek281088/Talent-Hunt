@@ -107,6 +107,9 @@
       border: 1px solid #0000001f;
       border-radius: 8px;
     }
+    .p-datatable-table {
+      cursor: default;
+    }
   }
 }
 
@@ -132,7 +135,7 @@
 .searchIcon {
   height: 92%;
   border-radius: 7px;
- 
+
 }
 .icons {
   display: flex;

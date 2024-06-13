@@ -294,6 +294,9 @@
       font-size: 14px;
       padding: 1% 2% 2% 0;
     }
+    .p-datatable-table {
+      cursor: default;
+    }
   }
   .labelvalue {
     display: flex;
@@ -466,8 +469,7 @@
     .p-dialog.p-confirm-dialog .p-confirm-dialog-icon {
       font-size: 20px;
   }
-  
+
   }
   }
 
-  

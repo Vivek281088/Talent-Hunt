@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { AggregatedData, MappingPCRCandidateData } from '../store/PCR-Mapping/pcr-mapping.action';
@@ -59,6 +59,15 @@ export class PcrMappingService {
         return throwError(() => error);
       })
     );
+  }
+  deleteMappedData(data: string[]) :Observable<any>{
+    console.log("Deleted Data  ", data);
+    const endpoint = `${process.env.BASE_URL_DEV}/Th-PCR-Mapping`;
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      body : data
+    };
+    return this.http.request('delete', endpoint, httpOptions);
   }
 
   getAllResource():Observable<any>{

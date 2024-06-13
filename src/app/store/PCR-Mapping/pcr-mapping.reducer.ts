@@ -59,7 +59,23 @@ export const getMappingDataReducer = createReducer(
       error: ''
     };
   }),
-  on(PcrCandidateActions.getPcrMappingDataFailure, (state, action) => {
+  on(PcrCandidateActions.mailMappedDataFailure, (state, action) => {
+    console.log(state, action);
+    return {
+      ...state,
+      error: action.error,
+    };
+  }),
+  on(PcrCandidateActions.deleteMappedDataSuccess, (state, action) => {
+    console.log("Effect--",state, action);
+
+    return {
+      ...state,
+      mappingData: state.mappingData.filter(data => !action.deleteData.includes(data.mappedData.uniqueId)),
+      error: ''
+    };
+  }),
+  on(PcrCandidateActions.deleteMappedDataFailure, (state, action) => {
     console.log(state, action);
     return {
       ...state,

@@ -114,6 +114,9 @@
       border: 1px solid #0000001f;
       border-radius: 8px;
     }
+    .p-datatable-table {
+      cursor: default;
+    }
   }
 }
 .searchIcon {
@@ -165,7 +168,7 @@
     .p-multiselect .p-multiselect-label {
       padding: 5% 2% 2% 5%;
     }
-    
+
   }
 }
 
@@ -409,7 +412,7 @@
       .p-inputtext.ng-dirty.ng-invalid {
         border-color: none;
       }
-      
+
     }
 
     .label {
