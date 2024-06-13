@@ -91,15 +91,16 @@
             <p-tableHeaderCheckbox
             [value]="pcrData" (click)="selectAll()"></p-tableHeaderCheckbox>
           </th>
-          <th>PCR ID</th>
-          <th>Agile Id</th>
-          <th>Job Title</th>
-          <th>Created Date</th>
-          <th>Project Id</th>
+          <th>PCRID</th>
+          <th>AgileId</th>
+          <th>JobTitle</th>
+          <th>CreatedDate</th>
+          <th>ProjectId</th>
           <th>PcrStatus</th>
-          <th>Created By</th>
-          <th>Onsite/Offsshore</th>
+          <th>CreatedBy</th>
+          <th>Location</th>
           <th>RequestSource</th>
+          <th></th>
         </tr>
       </ng-template>
       <ng-template
@@ -224,19 +225,19 @@
                     *ngIf="addPCRForm.get('pcrId')?.hasError('required')"
                     class="error-message"
                   >
-                    PcrId is required.
+                    Pcr Id is required.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('pcrId')?.hasError('minlength')"
                     class="error-message"
                   >
-                    PcrId must be at least 6 characters long.
+                    Pcr Id must be at least 6 characters long.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('pcrId')?.hasError('maxlength')"
                     class="error-message"
                   >
-                    PcrId cannot be more than 10 characters long.
+                    Pcr Id cannot be more than 10 characters long.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('pcrId')?.hasError('invalidInput')"
@@ -277,7 +278,7 @@
                     class="error-message"
                     *ngIf="addPCRForm.get('jobTitle')?.hasError('minlength')"
                   >
-                    Enter a valid Job Title !
+                    Job Title must be at least 6 characters long !
                   </div>
                 </div>
               </div>
@@ -306,7 +307,7 @@
             <div class="labelvalue">
               <div class="label">
                 <label> Project Id</label>
-                <span class="important-symbol">&#42;</span>
+
               </div>
               <div class="value">
                 <input
@@ -318,49 +319,14 @@
                   [readonly]="editPCR"
                 />
 
-                <div
-                  *ngIf="
-                    addPCRForm.get('projectId')?.errors &&
-                    (addPCRForm.get('projectId')?.dirty ||
-                      addPCRForm.get('projectId')?.touched ||
-                      formSubmitted)
-                  "
-                >
-                  <div
-                    *ngIf="addPCRForm.get('projectId')?.hasError('required')"
-                    class="error-message"
-                  >
-                    ProjectId is required.
-                  </div>
-                  <div
-                    *ngIf="addPCRForm.get('projectId')?.hasError('minlength')"
-                    class="error-message"
-                  >
-                    ProjectId must be at least 6 characters long.
-                  </div>
-                  <div
-                    *ngIf="addPCRForm.get('projectId')?.hasError('maxlength')"
-                    class="error-message"
-                  >
-                    ProjectId cannot be more than 10 characters long.
-                  </div>
-                  <div
-                    *ngIf="
-                      addPCRForm.get('projectId')?.hasError('invalidInput')
-                    "
-                    class="error-message"
-                  >
-                    Please enter a valid ProjectId (6 to 10 characters, letters,
-                    and numbers only).
-                  </div>
-                </div>
+
               </div>
             </div>
           </div>
 
           <div class="labelvalue">
             <div class="label">
-              <label>skills</label>
+              <label>Skills</label>
             </div>
             <div class="value">
               <input type="text" formControlName="skills" pInputText />
@@ -381,14 +347,14 @@
                 class="error-message"
                 *ngIf="addPCRForm.get('skills')?.hasError('minlength')"
               >
-                Skills Project Id !
+                Skills Id must be at least 6 characters long. !
               </div>
             </div>
           </div>
 
           <div class="labelvalue">
             <div class="label">
-              <label>PcrStatus</label>
+              <label>Pcr Status</label>
               <span class="important-symbol">&#42;</span>
             </div>
             <div class="value">
@@ -409,7 +375,7 @@
                   class="error-message"
                   *ngIf="addPCRForm.get('pcrStatus')?.hasError('required')"
                 >
-                  PcrStatus is required !
+                  Pcr Status is required !
                 </div>
               </div>
             </div>
@@ -417,7 +383,7 @@
 
           <div class="labelvalue">
             <div class="label">
-              <label>CreatedBy</label>
+              <label>Created By</label>
             </div>
             <div class="value">
               <input type="text" formControlName="createdBy" pInputText />
@@ -431,13 +397,13 @@
                   class="error-message"
                   *ngIf="addPCRForm.get('createdBy')?.hasError('required')"
                 >
-                  CReatedBy is required !
+                  Created By is required !
                 </div>
                 <div
                   class="error-message"
                   *ngIf="addPCRForm.get('createdBy')?.hasError('minlength')"
                 >
-                  CreatedBy must be at least 3 characters long.
+                  Created By must be at least 3 characters long.
                 </div>
               </div>
             </div>
@@ -448,58 +414,54 @@
               <label>Location</label>
             </div>
             <div class="value">
-              <input type="text" formControlName="location" pInputText />
-              <div
-                *ngIf="
-                  addPCRForm.get('location')?.invalid &&
-                  (addPCRForm.get('location')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addPCRForm.get('location')?.hasError('required')"
-                >
-                  Location is required !
-                </div>
-                <div
-                  class="error-message"
-                  *ngIf="addPCRForm.get('location')?.hasError('minlength')"
-                >
-                  location must be at least 3 characters long.
-                </div>
-              </div>
+
+              <p-dropdown
+              appendTo="body"
+              [options]="Location"
+              placeholder="--Select--"
+              formControlName="location"
+            ></p-dropdown>
+            <div
+            *ngIf="
+              addPCRForm.get('location')?.invalid &&
+              (addPCRForm.get('location')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addPCRForm.get('location')?.hasError('required')"
+            >
+            location is required !
             </div>
+
+              </div>
+              </div>
           </div>
 
           <div class="labelvalue">
             <div class="label">
-              <label>RequestResource</label>
+              <label>Request Resource</label>
             </div>
             <div class="value">
-              <input type="text" formControlName="requestResource" pInputText />
-              <div
-                *ngIf="
-                  addPCRForm.get('requestResource')?.invalid &&
-                  (addPCRForm.get('requestResource')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="
-                    addPCRForm.get('requestResource')?.hasError('required')
-                  "
-                >
-                  requestResource is required !
-                </div>
-                <div
-                  class="error-message"
-                  *ngIf="
-                    addPCRForm.get('requestResource')?.hasError('minlength')
-                  "
-                >
-                  requestResource must be at least 3 characters long.
-                </div>
-              </div>
+              <p-dropdown
+              appendTo="body"
+              [options]="requestResource"
+              placeholder="--Select--"
+              formControlName="requestResource"
+            ></p-dropdown>
+            <div
+            *ngIf="
+              addPCRForm.get('requestResource')?.invalid &&
+              (addPCRForm.get('requestResource')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addPCRForm.get('requestResource')?.hasError('required')"
+            >
+            Request Resource is required !
+            </div>
+            </div>
             </div>
           </div>
 
@@ -523,22 +485,15 @@
           </ng-template>
         </p-tabPanel>
 
-        <p-tabPanel header="Add Multiple PCRID" *ngIf="addPCR">
+        <p-tabPanel header="Add Multiple PCR" *ngIf="addPCR">
           <div class="quiz-instruction">
             <p class="instruction">Upload Instructions</p>
             <ul class="points">
               <li>Download the provided template.</li>
               <li>Provide the correct value for each specific field.</li>
               <li>Do not alter the heading in any way.</li>
-              <!-- <li>
-              Specify the correct employee Id for each pcrid which must be
-              unique.
-            </li>
-            <li>
-              Specify the correct email Id for each pcri which must be
-              unique.
-            </li> -->
-            </ul>
+
+          </ul>
           </div>
 
           <ng-template pTemplate="footer">
@@ -550,7 +505,7 @@
               <label class="custom-file-input">
                 Upload File
                 <input type="file" style="display: none" (change)="uploadCSV($event)"/> </label
-              >`
+              >
 
               <div class="Createbutton">
                 <p-button label="Download Template"
