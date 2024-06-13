@@ -27,9 +27,9 @@ export class ManagePcrComponent {
   addPCRForm!: FormGroup;
   formSubmitted: boolean = false;
   pcrData: any;
-  status: string[] = ['open', 'closed', 'Available'];
+  status: string[] = ['Open', 'Closed', 'Available'];
   Location:string[]=['Onsite','OffShore'];
-  requestResource:string[]=['Agile1','Sow']
+  requestResource:string[]=['Agile1','SOW']
   pcr$!: Observable<PCR[]>;
   editPCR: boolean = false;
   globalSearchValue!: string;
