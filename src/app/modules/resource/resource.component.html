@@ -653,114 +653,384 @@
     [resizable]="false"
     [closable]="false"
   >
-        <div class="NewSchedule-content">
-          <div class="labelvalue">
-            <div class="label">
-              <label> Candidate Id</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <p-inputNumber
-                formControlName="empid"
-                mode="decimal"
-                inputId="withoutgrouping"
-                [useGrouping]="false"
-              >
-              </p-inputNumber>
-            </div>
+
+  <div class="NewSchedule-content">
+    <!-- Edit Candidate Id -->
+    <div class="labelvalue">
+      <div class="label">
+        <label> Candidate Id</label>
+        <span class="important-symbol">&#42;</span>
+      </div>
+      <div class="value">
+        <input
+        pInputText
+          formControlName="candidateId"
+        >
+      </div>
+    </div>
+    <!-- Edit Candidate Name -->
+    <div class="labelvalue">
+      <div class="label">
+        <label>Candidate Name</label>
+        <span class="important-symbol">&#42;</span>
+      </div>
+      <div class="value">
+        <input type="text" appNameInput formControlName="candidateName" pInputText />
+        <div
+          *ngIf="
+            addCandidateForm.get('candidateName')?.invalid &&
+            (addCandidateForm.get('candidateName')?.touched ||
+              formSubmitted)
+          "
+        >
+          <div
+            class="error-message"
+            *ngIf="
+              addCandidateForm.get('candidateName')?.hasError('required')
+            "
+          >
+            Candidate Name is required !
           </div>
-          <div class="labelvalue">
-            <div class="label">
-              <label>Candidate Name</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <input type="text" formControlName="candidateName" pInputText />
-              <div
-                *ngIf="
-                  addCandidateForm.get('candidateName')?.invalid &&
-                  (addCandidateForm.get('candidateName')?.touched ||
-                    formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="
-                    addCandidateForm.get('candidateName')?.hasError('required')
-                  "
-                >
-                  Candidate Name is required !
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="labelvalue">
-            <div class="label">
-              <label>Email</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <input type="email" formControlName="email" pInputText />
-              <div
-                *ngIf="
-                  addCandidateForm.get('email')?.invalid &&
-                  (addCandidateForm.get('email')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addCandidateForm.get('email')?.hasError('required')"
-                >
-                  Email is required !
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="labelvalue">
-            <div class="label">
-              <label> Phone No</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <p-inputNumber
-                formControlName="phone"
-                mode="decimal"
-                inputId="withoutgrouping"
-                [useGrouping]="false"
-              >
-              </p-inputNumber>
-              <div
-                *ngIf="
-                  addCandidateForm.get('phone')?.invalid &&
-                  (addCandidateForm.get('phone')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addCandidateForm.get('phone')?.hasError('required')"
-                >
-                  Phone No is required !
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="labelvalue">
-            <div class="label">
-              <label>Location</label>
-            </div>
-            <div class="value">
-              <input type="text" formControlName="location" pInputText />
-            </div>
-          </div>
-          <div class="labelvalue">
-            <div class="label">
-              <label>department</label>
-            </div>
-            <div class="value">
-              <input type="text" formControlName="department" pInputText />
-            </div>
+          <div
+            class="error-message"
+            *ngIf="
+              addCandidateForm.get('candidateName')?.hasError('minlength')
+            "
+          >
+            Enter a valid Candidate Name !
           </div>
         </div>
+      </div>
+    </div>
+<!-- Edit Email -->
+  <div class="labelvalue">
+      <div class="label">
+        <label>Email Id</label>
+        <span class="important-symbol">&#42;</span>
+      </div>
+      <div class="value">
+        <input type="email" formControlName="email" pInputText />
+        <div
+          *ngIf="
+            addCandidateForm.get('email')?.invalid &&
+            (addCandidateForm.get('email')?.touched || formSubmitted)
+          "
+        >
+        <div
+        class="error-message"
+        *ngIf="addCandidateForm.get('email')?.hasError('required')"
+      >
+        Email Id is required !
+      </div>
+      <div
+        class="error-message"
+        *ngIf="addCandidateForm.get('email')?.hasError('pattern')"
+      >
+     Enter a valid Email Id !
+      </div>
+        </div>
+      </div>
+    </div>
+    <!-- Edit Phone Number -->
+    <div class="labelvalue">
+      <div class="label">
+        <label> Phone Number</label>
+        <span class="important-symbol">&#42;</span>
+      </div>
+      <div class="value">
+        <input
+        formControlName="phone"
+        appAllowDigits="10"
+        pInputText
+      >
+        <div
+          *ngIf="
+            addCandidateForm.get('phone')?.invalid &&
+            (addCandidateForm.get('phone')?.touched || formSubmitted)
+          "
+        >
+          <div
+            class="error-message"
+            *ngIf="addCandidateForm.get('phone')?.hasError('required')"
+          >
+            Phone Number is required !
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Edit Current Location -->
+    <div class="labelvalue">
+      <div class="label">
+        <label> Current Location</label>
+        <span class="important-symbol">&#42;</span>
+      </div>
+      <div class="value">
+        <input
+        pInputText
+          formControlName="location"
+        >
+        <div
+        *ngIf="
+          addCandidateForm.get('location')?.invalid &&
+          (addCandidateForm.get('location')?.touched || formSubmitted)
+        "
+      >
+        <div
+          class="error-message"
+          *ngIf="addCandidateForm.get('location')?.hasError('required')"
+        >
+          Location is required !
+        </div>
+      </div>
+      </div>
+    </div>
+  <!-- Edit Experience -->
+  <div class="labelvalue">
+    <div class="label">
+      <label> Experience(In years)</label>
+      <span class="important-symbol">&#42;</span>
+    </div>
+    <div class="value">
+      <input
+      formControlName="experience"
+      appAllowDigits="3"
+      pInputText
+    >
+    <div
+    *ngIf="
+      addCandidateForm.get('experience')?.invalid &&
+      (addCandidateForm.get('experience')?.touched || formSubmitted)
+    "
+  >
+    <div
+      class="error-message"
+      *ngIf="addCandidateForm.get('experience')?.hasError('required')"
+    >
+      Experience is required !
+    </div>
+  </div>
+    </div>
+
+
+
+  </div>
+  <!-- Edit Source-->
+  <div class="labelvalue">
+    <div class="label">
+      <label>Source</label>
+      <span class="important-symbol">&#42;</span>
+    </div>
+    <div class="value">
+      <p-dropdown
+        [options]="sourceOptions"
+        placeholder="--Select Source--"
+        formControlName="sourceDetail"
+        appendTo="body"
+        class="w-full table_dropdown"
+      ></p-dropdown>
+    </div>
+    <div
+    *ngIf="
+      addCandidateForm.get('sourceDetail')?.invalid &&
+      (addCandidateForm.get('sourceDetail')?.touched || formSubmitted)
+    "
+  >
+    <div
+      class="error-message"
+      *ngIf="addCandidateForm.get('sourceDetail')?.hasError('required')"
+    >
+      Please select the Source !
+    </div>
+  </div>
+  </div>
+  <!-- Edit SPOC -->
+  <div class="labelvalue">
+    <div class="label">
+      <label> SPOC</label>
+      <span class="important-symbol">&#42;</span>
+    </div>
+    <div class="value">
+      <input
+      pInputText
+        formControlName="spoc"
+      >
+    </div>
+    <div
+    *ngIf="
+      addCandidateForm.get('spoc')?.invalid &&
+      (addCandidateForm.get('spoc')?.touched || formSubmitted)
+    "
+  >
+    <div
+      class="error-message"
+      *ngIf="addCandidateForm.get('spoc')?.hasError('required')"
+    >
+      SPOC name is required!
+    </div>
+  </div>
+  </div>
+  <!-- Edit Skills -->
+  <div>
+    <!-- Primary Skills -->
+      <div class="labelvalue">
+        <div class="label">
+          <label> Primary Skills</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input
+          pInputText
+            formControlName="primarySkill"
+          >
+        </div>
+        <div
+        *ngIf="
+          addCandidateForm.get('primarySkill')?.invalid &&
+          (addCandidateForm.get('primarySkill')?.touched || formSubmitted)
+        "
+      >
+        <div
+          class="error-message"
+          *ngIf="addCandidateForm.get('primarySkill')?.hasError('required')"
+        >
+          Primary Skill is required!
+        </div>
+      </div>
+      </div>
+      <!-- Secondary Skills -->
+      <div class="labelvalue">
+        <div class="label">
+          <label> Secondary Skills</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input
+          pInputText
+            formControlName="secondarySkill"
+          >
+        </div>
+        <div
+        *ngIf="
+          addCandidateForm.get('secondarySkill')?.invalid &&
+          (addCandidateForm.get('secondarySkill')?.touched || formSubmitted)
+        "
+      >
+        <div
+          class="error-message"
+          *ngIf="addCandidateForm.get('secondarySkill')?.hasError('required')"
+        >
+          Secondary Skill is required!
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- Edit Roles -->
+    <div class="labelvalue">
+      <div class="label">
+        <label> Role(s)</label>
+        <span class="important-symbol">&#42;</span>
+      </div>
+      <div class="value">
+        <input
+        pInputText
+          formControlName="roles"
+        >
+      </div>
+      <div
+      *ngIf="
+        addCandidateForm.get('roles')?.invalid &&
+        (addCandidateForm.get('roles')?.touched || formSubmitted)
+      "
+    >
+      <div
+        class="error-message"
+        *ngIf="addCandidateForm.get('roles')?.hasError('required')"
+      >
+       Role required!
+      </div>
+    </div>
+    </div>
+    <!-- Edit Candidate Location -->
+    <div class="labelvalue">
+      <div class="label">
+        <label>Location</label>
+        <span class="important-symbol">&#42;</span>
+      </div>
+      <div class="value">
+        <p-dropdown
+          [options]="locations"
+          placeholder="--Select Location--"
+          formControlName="locationDetails"
+          appendTo="body"
+          class="w-full table_dropdown"
+        ></p-dropdown>
+        <div
+        *ngIf="
+          addCandidateForm.get('locationDetails')?.invalid &&
+          (addCandidateForm.get('locationDetails')?.touched || formSubmitted)
+        "
+      >
+        <div
+          class="error-message"
+          *ngIf="addCandidateForm.get('locationDetails')?.hasError('required')"
+        >
+        Location is required!
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- Edit Visa details -->
+    <div>
+      <!-- Visa Details -->
+      <div *ngIf="addCandidateForm.get('locationDetails')?.value === 'Onsite'">
+      <div class="labelvalue" >
+        <div class="label">
+          <label>Visa Type</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <p-dropdown
+            [options]="visasType"
+            placeholder="--Select Visa Type--"
+            formControlName="visaType"
+            appendTo="body"
+            class="w-full table_dropdown"
+          ></p-dropdown>
+        </div>
+      </div>
+      </div>
+  <!-- Valid Until -->
+  <div *ngIf="addCandidateForm.get('locationDetails')?.value === 'Onsite'">
+    <div class="label" >
+      <label>Valid Until</label>
+      <span class="important-symbol">&#42;</span>
+    </div>
+  <div  class="calender-field">
+    <p-calendar [appendTo]="'body'"
+    [showIcon]="true"
+    formControlName= "validUntil"
+    ></p-calendar>
+  </div>
+  </div>
+  <!--  Visa Stamped-->
+  <div *ngIf="addCandidateForm.get('locationDetails')?.value === 'Onsite'">
+  <div class="label" >
+    <label>Visa Stamped</label>
+    <span class="important-symbol">&#42;</span>
+  </div>
+  <div class="value">
+    <p-dropdown
+      [options]="visasStamped"
+      placeholder="--Select --"
+      formControlName=" visaStamped"
+      appendTo="body"
+      class="w-full table_dropdown"
+    ></p-dropdown>
+  </div>
+  </div>
+  </div>
+  </div>
+
         <ng-template pTemplate="footer">
           <div class="Newschedule-button">
             <div class="Cancelbutton">
@@ -775,7 +1045,9 @@
               <p-button label="Save" > </p-button>
             </div>
             <div class="Createbutton" *ngIf="isEditCandidate">
-              <p-button label="Update"  [disabled]=(addCandidateForm.pristine)>
+              <p-button label="Update"
+              (onClick)="updateCandidate()"
+              [disabled]=(addCandidateForm.pristine)>
               </p-button>
             </div>
           </div>

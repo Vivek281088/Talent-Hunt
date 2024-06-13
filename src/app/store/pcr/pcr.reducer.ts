@@ -64,8 +64,8 @@ on(PcrActions.updatePCRFailure,(state,action)=>{
         error:action.error
     }
 
-})
-,
+}),
+
 on(PcrActions.deletePCRSuccess, (state,action) => {
   return {
       ...state,

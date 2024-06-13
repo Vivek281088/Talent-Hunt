@@ -63,6 +63,22 @@ export const deleteResource$ =createEffect(
   },{functional:true}
 )
 
+export const updateResource$ = createEffect(
+  (actions$ = inject(Actions) , updatePCRservice = inject(ResourceService)) => {
+      return actions$.pipe(
+          ofType(resourceActions.updateResource),
+          exhaustMap((candidate) => updatePCRservice.updateResource(candidate.candidate).pipe(
+              tap(candidate=>console.log("pcr data",candidate)),
+              map((candidate)=>resourceActions.updateResourceSuccess({candidate})),
+              catchError((error:{message:string})=>
+              of(resourceActions.updateResourceFailure({error:error.message})))
+
+          ) )
+      )
+  },
+  {functional:true}
+)
+
 
 
 
