@@ -17,7 +17,10 @@ import { Router } from '@angular/router';
 })
 export class MainscreenComponent implements OnInit {
 
-  items: MenuItem[] | undefined;
+  items: MenuItem[] = [
+    { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+    { label: 'Main Screen', routerLink: '/mtalent/mainscreen' },
+  ];
   todayDate!: Date;
   date: Date | undefined;
   globalSearchValue!: string;
@@ -63,10 +66,6 @@ export class MainscreenComponent implements OnInit {
 ngOnInit(): void {
   this.getPcrMappingData();
   //this.getl1ScreenDetails();
-  this.items = [
-    { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
-     { label: 'MAIN SCREEN', routerLink: '/mtalent/mainscreen' },
-  ];
 }
 
 

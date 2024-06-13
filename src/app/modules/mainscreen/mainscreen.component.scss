@@ -151,6 +151,17 @@ padding-right: 30px;
     background: transparent;
     padding-left: 0;
   }
+  ::ng-deep {
+    .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+      color: #1e22aa;
+    }
+    .p-icon {
+      display: inline-block;
+      height: 13px;
+      width: 8px;
+      color: #00000061;
+    }
+  }
 }
 
 ::ng-deep{
