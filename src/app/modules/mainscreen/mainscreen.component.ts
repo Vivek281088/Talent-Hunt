@@ -49,7 +49,6 @@ export class MainscreenComponent implements OnInit {
     {name:"Client Feedback Awaited",value:"Client Feedback Awaited"},
     {name:"Not Available",value:"Not Available"},{name:"BGV Failure",value:"BGV Failure"},{name:"Onboarding",value:"Onboarding"},   {name:"Offered",value:"Offered"},   {name:"Offer Reject",value:"Offer Reject"},   {name:"Joined",value:"Joined"},]
   panelMembers:any=[{names:"Indhu", value :"Indhu"},{names:"Vairavan",value :"Vairavan"},{names:"Suresh",value:"Suresh"},{names:"Alamelu",value:"Alamelu"}]
-  interviewStatus:any=[{names:"Selected",value:"Selected"},{names:"Rejected",value:"Rejected"},{names:"Pending",value:"Pending"},];
 
   constructor(private L1ScreenService: L1ScreenService,
     private confirmationService: ConfirmationService,
@@ -65,8 +64,8 @@ ngOnInit(): void {
   this.getPcrMappingData();
   //this.getl1ScreenDetails();
   this.items = [
-    { label: 'Home', routerLink: '/login', icon: 'pi pi-home' },
-     { label: 'L1SCREEN', routerLink: '/manage-managers' },
+    { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+     { label: 'MAIN SCREEN', routerLink: '/mtalent/mainscreen' },
   ];
 }
 
@@ -80,47 +79,17 @@ getPcrMappingData() {
   this.store.select(getMappingData).subscribe((data) => {
     console.log('Client Manager Details From Store', data);
     this.mappingData = data;
-
-      // this.mappingData = data.map((item: any) => {
-      //   if (!item.mappedData.L1) {
-      //     item.mappedData.L1 = { l1Panel: [], l1InterviewDate: null, l1Status: '' };
-      //   }
-      //   if (item.mappedData.L1.l1InterviewDate) {
-      //     item.mappedData.L1.l1InterviewDate = new Date(item.mappedData.L1.l1InterviewDate).toDateString();
-      //   }
-      //   // Initialize missing L2 properties
-      //   if (!item.mappedData.L2) {
-      //     item.mappedData.L2 = { l2Panel: [], l2InterviewDate: null, l2Status: '' };
-      //   }
-      //   if (item.mappedData.L2.l2InterviewDate) {
-      //     item.mappedData.L2.l2InterviewDate = new Date(item.mappedData.L2.l2InterviewDate).toDateString();
-      //   }
-      //   // Initialize current bindings
-      //   this.updateCurrentBindings(item);
-      //   // Set initial values for currentPanel, currentInterviewDate, and currentLStatus if they're empty
-      //   if (!item.mappedData.currentPanel) {
-      //     item.mappedData.currentPanel = item.mappedData.currentStatus === 'L1' ? item.mappedData.L1.l1Panel : item.mappedData.L2.l2Panel;
-      //   }
-      //   if (!item.mappedData.currentInterviewDate) {
-      //     item.mappedData.currentInterviewDate = item.mappedData.currentStatus === 'L1' ? item.mappedData.L1.l1InterviewDate : item.mappedData.L2.l2InterviewDate;
-      //   }
-      //   if (!item.mappedData.currentLStatus) {
-      //     item.mappedData.currentLStatus = item.mappedData.currentStatus === 'L1' ? item.mappedData.L1.l1Status : item.mappedData.L2.l2Status;
-      //   }
-
-      //   return item;
-      // });
-      const sample = structuredClone(data);
+    const sample = structuredClone(data);
       this.l1Screen = sample.map((item: any) => {
               if (!item.mappedData.L1) {
-                item.mappedData.L1 = { l1Panel: [], l1InterviewDate: null, l1Status: '' };
+                item.mappedData.L1 = { l1Panel: [], l1InterviewDate: null };
               }
               if (item.mappedData.L1.l1InterviewDate) {
                 console.log("dfnajnajkgn", item.mappedData.L1.l1InterviewDate)
                 item.mappedData.L1.l1InterviewDate = new Date(item.mappedData.L1.l1InterviewDate);
               }
               if (!item.mappedData.L2) {
-                item.mappedData.L2 = { l2Panel: [], l2InterviewDate: null, l2Status: '' };
+                item.mappedData.L2 = { l2Panel: [], l2InterviewDate: null };
               }
               if (item.mappedData.L2.l2InterviewDate) {
                 item.mappedData.L2.l2InterviewDate = new Date(item.mappedData.L2.l2InterviewDate);
@@ -128,15 +97,11 @@ getPcrMappingData() {
               this.updateCurrentBindings(item);
               // Set initial values for currentPanel, currentInterviewDate, and currentLStatus if they're empty
               if (!item.currentPanel) {
-                item.mappedData.currentPanel = item.mappedData.currentStatus === 'L1' ? item.mappedData.L1.l1Panel : item.mappedData.L2.l2Panel;
+                item.mappedData.currentPanel = (item.mappedData.currentStatus == "L1 TBS" || item.mappedData.currentStatus == "L1 Scheduled"||item.mappedData.currentStatus == "L1 Select"||item.mappedData.currentStatus == "L1 Reject") ? item.mappedData.L1.l1Panel : item.mappedData.L2.l2Panel;
               }
               if (!item.mappedData.currentInterviewDate) {
-                item.mappedData.currentInterviewDate = item.mappedData.currentStatus === 'L1' ? item.mappedData.L1.l1InterviewDate : item.mappedData.L2.l2InterviewDate;
+                item.mappedData.currentInterviewDate = (item.mappedData.currentStatus == "L1 TBS" || item.mappedData.currentStatus == "L1 Scheduled"||item.mappedData.currentStatus == "L1 Select"||item.mappedData.currentStatus == "L1 Reject") ? item.mappedData.L1.l1InterviewDate : item.mappedData.L2.l2InterviewDate;
               }
-              if (!item.mappedData.currentLStatus) {
-                item.mappedData.currentLStatus = item.mappedData.currentStatus === 'L1' ? item.mappedData.L1.l1Status : item.mappedData.L2.l2Status;
-              }
-
               return item;
             });
             console.log("l1 screennnnn..................", this.l1Screen)
@@ -176,11 +141,10 @@ confirmPosition(l1: any) {
 }
 addL1Details(l1:any){
    let l1Details = {}
-  if(l1.mappedData.currentStatus == "L1"){
+  if(l1.mappedData.currentStatus == "L1 TBS" || l1.mappedData.currentStatus == "L1 Scheduled"||l1.mappedData.currentStatus == "L1 Select"||l1.mappedData.currentStatus == "L1 Reject" ){
     const L1 = {
       l1InterviewDate : l1.mappedData.currentInterviewDate,
       l1Panel : l1.mappedData.currentPanel,
-      l1Status : l1.mappedData.currentLStatus
     }
      l1Details = {
       pcrId:l1.mappedData.pcrId,
@@ -192,11 +156,10 @@ addL1Details(l1:any){
       currentStatus:l1.mappedData.currentStatus,
       uniqueId : l1.mappedData.uniqueId
     }
-  }else if(l1.currentStatus == "L2"){
+  }else if(l1.mappedData.currentStatus == "L2 TBS"|| l1.mappedData.currentStatus == "L2 Scheduled"||l1.mappedData.currentStatus == "L2 Select" ||l1.mappedData.currentStatus == "L2 Reject"){
     const L2 = {
       l2InterviewDate : l1.mappedData.currentInterviewDate,
       l2Panel : l1.mappedData.currentPanel,
-      l2Status : l1.mappedData.currentLStatus
     }
     l1Details = {
       pcrId:l1.mappedData.pcrId,
@@ -237,18 +200,15 @@ onRowEditCancel(product: any, index: number) {
 }
 updateCurrentBindings(l1: any) {
   console.log("????????????????????????????????????????????",l1.mappedData)
-  if (l1.mappedData.currentStatus === 'L1') {
+  if (l1.mappedData.currentStatus == "L1 TBS" || l1.mappedData.currentStatus == "L1 Scheduled"||l1.mappedData.currentStatus == "L1 Select"||l1.mappedData.currentStatus == "L1 Reject") {
     l1.mappedData.currentPanel = l1.mappedData.L1.l1Panel;
     l1.mappedData.currentInterviewDate = l1.mappedData.L1.l1InterviewDate;
-    l1.mappedData.currentLStatus = l1.mappedData.L1.l1Status;
-  } else if (l1.mappedData.currentStatus === 'L2') {
+  } else if (l1.mappedData.currentStatus == "L2 TBS"|| l1.mappedData.currentStatus == "L2 Scheduled"||l1.mappedData.currentStatus == "L2 Select" ||l1.mappedData.currentStatus == "L2 Reject") {
     l1.mappedData.currentPanel = l1.mappedData.L2.l2Panel;
     l1.mappedData.currentInterviewDate = l1.mappedData.L2.l2InterviewDate;
-    l1.mappedData.currentLStatus = l1.mappedData.L2.l2Status;
   }else{
     l1.mappedData.currentPanel = "";
     l1.mappedData.currentInterviewDate = "";
-    l1.mappedData.currentLStatus = "";
   }
 }
 onStatusChange(l1: any) {

@@ -2,7 +2,7 @@
   <div class="l1Screen-header">
     <div class="l1Screen-header-1">
       <div class="title">
-        <p>L1 SCREEN</p>
+        <p>MAIN SCREEN</p>
       </div>
       <div class="header-breadcrumb">
         <p-breadcrumb
@@ -39,7 +39,7 @@
         'mappedData.testStatus',
         'pcrData.agileId'
       ]"
-      [tableStyle]="{ 'min-width': '90rem' }"
+      [tableStyle]="{ 'min-width': '80rem' }"
     >
       <ng-template pTemplate="caption">
         <div class="totalSearch">
@@ -83,11 +83,11 @@
             TEST RESULT
           </th>
           <th>
-            CURRENT STATUS
+            OVERALL STATUS
           </th>
           <th>PANEL MEMBERS</th>
           <th>SCHEDULE DATE</th>
-          <th>INTERVIEW STATUS</th>
+
           <th></th>
           <th></th>
         </tr>
@@ -167,26 +167,7 @@
                     </ng-template>
                 </p-cellEditor>
             </td>
-              <td>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <div class="dropdowns">
-                      <p-dropdown
-                        [options]="interviewStatus"
-                        appendTo="body"
-                        optionValue="value"
-                        [(ngModel)]="l1.mappedData.currentLStatus"
-                        optionLabel="names"
-                        [showClear]="true"
-                        placeholder="Status"
-                      ></p-dropdown>
-                    </div>
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                      {{l1.mappedData.currentLStatus}}
-                  </ng-template>
-              </p-cellEditor>
-              </td>
+
               <td>
                   <div class="flex align-items-center justify-content-center gap-2">
                       <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(l1.mappedData)" class="p-button-rounded p-button-text"></button>
