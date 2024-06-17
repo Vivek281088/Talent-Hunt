@@ -105,6 +105,7 @@ import { CandidateDetailsComponent } from './modules/candidate-details/candidate
 import { ResourceFeature } from './store/resource/resource.selector';
 import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
 import { AddResource$, getResources$, deleteResource$, updateResource$ } from './store/resource/resource.effects';
+import { OnboardComponent } from './modules/onboard/onboard.component';
 // import { AddResource$, getResources$ , deleteResource$} from './store/Resource/resource.effects';
 
 @NgModule({
@@ -144,7 +145,8 @@ import { AddResource$, getResources$, deleteResource$, updateResource$ } from '.
       PcrDetailsComponent,
       CandidateDetailsComponent,
       L1screenComponent,
-      MainscreenComponent
+      MainscreenComponent,
+      OnboardComponent
   ],
   imports: [
     BrowserModule,
