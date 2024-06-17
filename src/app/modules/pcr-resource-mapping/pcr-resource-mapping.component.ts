@@ -268,12 +268,24 @@ export class PcrResourceMappingComponent {
       detail: 'Email Sent Successfully',
     });
   }
+  showDeleted() {
+    this.messageService.add({
+      severity: 'success',
+
+      summary: 'Success',
+
+      detail: 'Data deleted Successfully',
+    });
+  }
   deleteMappedData(){
     console.log(this.deleteData)
 
     const deleteData = this.deleteData.map((data: { uniqueId: string; })=> data.uniqueId)
     console.log(deleteData);
+    this.showDeleted()
     this.store.dispatch(PcrCandidateActions.deleteMappedData({deleteData}));
+    this.deleteData=[];
+
   }
   toggleSelectAll(){
     console.log("Select all :",this.deleteData)
