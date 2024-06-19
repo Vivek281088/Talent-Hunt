@@ -40,7 +40,7 @@ export const candidateReducer = createReducer(
         console.log("candidate action" , action)
         return {
             ...state,
-            candidates : [...state.candidates , action.candidate],
+            candidates : [ action.candidate,...state.candidates ],
             candidateCount : state.candidateCount + 1,
             newUserAdded : true
         }

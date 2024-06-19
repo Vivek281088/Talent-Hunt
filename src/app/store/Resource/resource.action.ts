@@ -38,12 +38,16 @@ export const resourceActions = createActionGroup({
         'Add Resource' : props<{candidate:Candidates}>(),
         'Add Resource Success' : props<{candidate:Candidates}>(),
         'Add Resource Failure' : props<{error : string}>(),
+        'Add Multi Resource' : props<{candidate : Candidates[]}>(),
+        'Add Multi Resource Success' : props<{candidate : Candidates[]}>(),
+        'Add Multi Resource Failure' : props<{error : string}>(),
         // 'Clear Candidate Error' : emptyProps,
         // 'Clear Newcandidate' : emptyProps,
         // 'Clear DeleteCamdidateStatus' : emptyProps,
         'Delete Resource' : props<{candidateId : string[]}>(),
         'Delete Resource Success' : props<{candidateId : string[]}>(),
         'Delete Resource Failure' : props<{error : string}>(),
+
 
 
     }

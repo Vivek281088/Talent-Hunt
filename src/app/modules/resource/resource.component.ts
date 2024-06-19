@@ -55,7 +55,7 @@ export class ResourceComponent implements OnDestroy{
   visasStamped: string[] = ['Yes', 'No']
   private errorSubscription!: Subscription;
   rolesForm: any;
-
+  isEdit: boolean = false;
 
     constructor(
     private managerService: ManagernameService,
@@ -153,6 +153,7 @@ export class ResourceComponent implements OnDestroy{
     this.selectedRowData = data;
     console.log(' Selected Edit Data', this.selectedRowData);
     this.populateFormControls();
+    this.isEdit = true;
   }
   populateFormControls() {
     if (this.selectedRowData) {
@@ -230,7 +231,7 @@ export class ResourceComponent implements OnDestroy{
         source: formData.sourceDetail,
         SPOC: formData.spoc,
         visaDetails: {
-          validUntil:formData.validUntil,
+          validUntil:formData.validUntil.toLocaleDateString(),
           visaType: formData.visaType,
           visaStamped: formData.visaStamped
         }
@@ -279,7 +280,7 @@ export class ResourceComponent implements OnDestroy{
   // }
 
   downloadCsvTemplate() {
-    const csvTemplate = `Candidate Id, Candidate Name, Email Id, Role(s), Experience, Primary Skills, Secondary Skills, Source, SPOC, Phone Number, Onsite/Offshore, Current Location, Visa Type, Valid Until, Visa Stamped \n`;
+    const csvTemplate = `Candidate Id,Candidate Name,Email Id,Role(s),Experience,Primary Skills,Secondary Skills,Source,SPOC,Phone Number,Onsite/Offshore,Current Location,Visa Type,Valid Until,Visa Stamped \n`;
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'Candidate-template.csv');
   }
@@ -305,7 +306,7 @@ export class ResourceComponent implements OnDestroy{
         source: formData.sourceDetail,
         SPOC: formData.spoc,
         visaDetails: {
-          validUntil:formData.validUntil,
+          validUntil:formData.validUntil.toLocaleDateString(),
           visaType: formData.visaType,
           visaStamped: formData.visaStamped
         }
@@ -370,26 +371,41 @@ export class ResourceComponent implements OnDestroy{
           Object.keys(row).some((key) => row[key] !== '')
         );
         if (csvRows.length === 0) {
-          this.fileUploadErrorMessage();
+          // this.fileUploadErrorMessage();
           this.cancelButton();
           return;
         }
         console.log('CSV Data:', csvRows);
-        for (let data of csvRows) {
-          console.log('Csv File datum--', data);
-          this.managerService
-            .addCandidate(
-              data.candidateName,
-              data.email,
-              data.phone,
-              data.empid,
-              data?.Department,
-              data?.Location
-            )
-            .subscribe((response) => {
-              console.log('Candidate Saved....');
-            });
-        }
+let csvResult : any [] = [];
+
+for(let data of csvRows){
+  console.log('CSV file data', data);
+  let obj = {
+    "candidateId": data["Candidate Id"],
+      "candidateName" : data["Candidate Name"],
+      "emailId": data["Email Id"],
+      "roles": data["Role(s)"],
+      "experience": data["Experience"],
+      "skillSet" : {
+        "primarySkills" : data["Primary Skills"],
+        "secondarySkills": data["Secondary Skills"],
+      },
+      "source": data.Source,
+      "SPOC": data.SPOC,
+     "phoneNumber": data["Phone Number"],
+     "location": data["Onsite/Offshore"],
+     "currentLocation": data["Current Location"],
+     "visaDetails": {
+      validUntil: data[ "Visa Type"],
+      visaType:data[ "Valid Until"],
+      visaStamped:[ "Visa Stamped"]
+    }
+
+  };
+  csvResult.push(obj);
+}
+this.store.dispatch(resourceActions.addMultiResource({candidate: csvResult}));
+
         setTimeout(() => {
           this.fileUploadMessage();
           this.cancelButton();
@@ -399,17 +415,7 @@ export class ResourceComponent implements OnDestroy{
       header: true,
     });
   }
-  gotoCandidateProfile(data: any) {
-    console.log('Candidate data', data);
-    // this.newScheduleService.setCandidateProfileData(data);
-    sessionStorage.setItem('CandiateProfileId', data.empid);
-    sessionStorage.setItem('CandiateProfileName', data.candidateName);
-    sessionStorage.setItem('CandiateProfileEmail', data.candidateEmail);
-    sessionStorage.setItem('CandiateProfilePhone', data.candidatePhone);
-    sessionStorage.setItem('CandiateProfileDepartment', data.department);
-    sessionStorage.setItem('CandiateProfileLocation', data.candidate_location);
-    this.router.navigate(['/mtalent/candidateProfile']);
-  }
+
   selectedDeleteCandidate: any;
 
 
