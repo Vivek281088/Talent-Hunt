@@ -286,8 +286,9 @@ export class PcrResourceMappingComponent {
     console.log('Filtered Candidate--', filtrredCandidate);
 
     this.MappingService.getAllResource().subscribe((data) => {
+      console.log(data)
       this.candidateData = data
-        .map((item: { candidateId: string }) => item.candidateId)
+        .map((item: { candidateId: string; candidateName: string; }) => ({ID: item.candidateId+" - "+item.candidateName}))
         .filter((id: string) => !filtrredCandidate.includes(id));
       console.log('Candidate Data :', this.candidateData);
     });

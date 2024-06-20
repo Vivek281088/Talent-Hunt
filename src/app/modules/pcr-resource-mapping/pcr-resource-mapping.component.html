@@ -237,6 +237,7 @@
                 style="color: #3B82F6; cursor: pointer"
                 (click)="openInviteDialog($event, rowData)"
                 pTooltip="Mail"
+
               ></i>
             </div>
 
@@ -325,6 +326,8 @@
         <div class="candidateMultiselect">
           <p-multiSelect
             [options]="candidateData"
+            optionLabel="ID"
+            optionValue="candidateId"
             placeholder="--Select candidate--"
             [filter]="true"
             [resetFilterOnHide]="true"
@@ -332,8 +335,6 @@
             display="chip"
             [showClear]="false"
             [(ngModel)]="selectedCandidates"
-            optionLabel=""
-            optionValue=""
             [disabled]="!pcrSelected"
             (onChange)="selected()"
             (onClick)="showTooltip()"
