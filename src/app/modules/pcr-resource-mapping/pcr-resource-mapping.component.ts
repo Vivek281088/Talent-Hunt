@@ -38,6 +38,7 @@ export class PcrResourceMappingComponent {
   mappingData!: AggregatedData[];
   mappingDialogVisible: boolean = false;
   selectedPcrId!: string;
+  selectedAgileId!: string;
   selectedCandidates = [];
   messages: Message[] = [];
   mailData!: MailDetails;
@@ -46,6 +47,7 @@ export class PcrResourceMappingComponent {
   scheduledata!: any;
   selectedSchedule!: any;
   deleteData!: any;
+  agileData = ["AGL002"];
   currentStatus: any = [
     { name: 'Screen Pending', value: 'Screen Pending' },
     { name: 'Screen Reject', value: 'Screen Reject' },
@@ -93,7 +95,7 @@ export class PcrResourceMappingComponent {
     this.getPcrMappingData();
 
     this.getPcrData();
-    this.currentstatus();
+
     this.getCandidateData();
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
@@ -291,6 +293,10 @@ export class PcrResourceMappingComponent {
         .filter((id: string) => !filtrredCandidate.includes(id));
       console.log('Candidate Data :', this.candidateData);
     });
+  }
+  agileChange(){
+    this.pcrSelected = true;
+    console.log(this.selectedAgileId)
   }
   showTooltip() {
     if (!this.pcrSelected) {
@@ -506,14 +512,5 @@ export class PcrResourceMappingComponent {
       console.log(data);
     });
   }
-  currentstatus() {
-    {
-      for (let i = 0; i < this.l1Screen.length; i++) {
-        if (this.l1Screen[i].mappedData.currentStatus == 'Onboarding') {
-          this.l1Screen[i].mappedData.currentStatus =
-            '<a href=login>Onboarding</a>';
-        }
-      }
-    }
-  }
+
 }

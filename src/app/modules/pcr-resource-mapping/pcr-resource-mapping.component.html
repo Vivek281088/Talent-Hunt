@@ -304,7 +304,7 @@
     header="PCR-Candidate Mapping"
     [(visible)]="mappingDialogVisible"
     [modal]="true"
-    [style]="{ width: '47VW' }"
+    [style]="{ width: '60VW' }"
     [draggable]="false"
     [resizable]="false"
     [closable]="false"
@@ -320,6 +320,15 @@
             [(ngModel)]="selectedPcrId"
             optionValue="pcrId"
             (onChange)="candidateFiltering()"
+          ></p-dropdown>
+        </div>
+        <div class="agileDropdown">
+          <p-dropdown
+            [options]="agileData"
+            placeholder="--Select Agile--"
+            appendTo="body"
+            [(ngModel)]="selectedAgileId"
+            (onChange)="agileChange()"
           ></p-dropdown>
         </div>
         <div class="candidateMultiselect">

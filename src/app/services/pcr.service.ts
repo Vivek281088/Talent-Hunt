@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { PCR } from '../store/pcr/pcr.action';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PcrDetails } from '../shared/interface/pcrdetails';
+import { agileDetails } from '../store/Agile1/Agile1.action';
 
 
 @Injectable({
@@ -14,6 +15,8 @@ export class PcrService {
   getPcr(): Observable<PCR[]> {
     return this.http.get<PCR[]>(`${process.env.BASE_URL_PRIVATE}/pcr`);
   }
+
+
 
   addpcr(pcr: PCR): Observable<PCR> {
     console.log('pcr service', pcr);
@@ -66,5 +69,10 @@ export class PcrService {
 
   addAgile1Details(data : any){
     return this.http.post(`${process.env.BASE_URL_PRIVATE}/agile1`,data);
+  }
+
+
+  getAgile(): Observable<agileDetails[]> {
+    return this.http.get<agileDetails[]>(`${process.env.BASE_URL_PRIVATE}/agile1`);
   }
 }

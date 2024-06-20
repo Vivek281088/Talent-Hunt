@@ -15,6 +15,8 @@ import { PCR } from 'src/app/store/pcr/pcr.action';
 import { getPcr } from 'src/app/store/pcr/pcr.selector';
 import * as saveAs from 'file-saver';
 import * as Papa from 'papaparse';
+import { agileActions, agileDetails } from 'src/app/store/Agile1/Agile1.action';
+import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 @Component({
   selector: 'app-manage-pcr',
   templateUrl: './manage-pcr.component.html',
@@ -37,6 +39,7 @@ export class ManagePcrComponent {
   isPcrId: boolean = false;
   isProjectId: boolean = false;
   selectedDeletePcr:any;
+  agileData!:agileDetails[]
 
 
 
@@ -276,6 +279,14 @@ export class ManagePcrComponent {
         }, 1000);
       },
       header: true,
+    });
+  }
+
+  getAgileData() {
+    this.store.dispatch(agileActions.getAgileDetails());
+    this.store.select(getAgile).subscribe((data) => {
+      console.log('Agile Details', data);
+      //this.agileData = data;
     });
   }
 }
