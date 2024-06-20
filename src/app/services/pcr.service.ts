@@ -63,4 +63,8 @@ export class PcrService {
       `${process.env.BASE_URL_PRIVATE}/emp-pcr?id=${id}`
     );
   }
+
+  addAgile1Details(data : any){
+    return this.http.post(`${process.env.BASE_URL_PRIVATE}/agile1`,data);
+  }
 }
