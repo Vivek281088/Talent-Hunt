@@ -23,7 +23,7 @@
   <div class="mappingTable">
     <p-table
       #dt2
-      dataKey="uniqueId"
+      dataKey="mappedData.uniqueId"
       [rows]="4"
       editMode="row"
       [showCurrentPageReport]="true"
@@ -183,7 +183,8 @@
                   ></p-dropdown>
                 </div>
               </ng-template>
-              <ng-template pTemplate="output">
+              <ng-template pTemplate="output" ngIf="rowData.mappedData.currentStatus=='Onboarding'">
+                <a href="/login"></a>
                 {{ rowData.mappedData.currentStatus }}
               </ng-template>
             </p-cellEditor>
@@ -235,9 +236,7 @@
                 class="pi pi-envelope"
                 style="color: #3B82F6; cursor: pointer"
                 (click)="openInviteDialog($event, rowData)"
-                [disabled]="rowData.mappedData.mailSend"
-                pTooltip="Mail Sent"
-                [tooltipDisabled]="!rowData.mappedData.mailSend"
+                pTooltip="Mail"
               ></i>
             </div>
 
@@ -252,6 +251,7 @@
                 icon="pi pi-pencil"
                 (click)="onRowEditInit(rowData.mappedData)"
                 class="p-button-rounded p-button-text"
+                pTooltip="Edit"
               ></button>
               <button
                 *ngIf="editing"
@@ -276,7 +276,7 @@
             </div>
 
             <!-- Save -->
-            <div class="pi-pi">
+            <div class="pi-pi" pTooltip="Save" tooltipPosition="top">
               <i class="pi pi-save" (click)="confirmPosition(rowData)"></i>
             </div>
           </td>
