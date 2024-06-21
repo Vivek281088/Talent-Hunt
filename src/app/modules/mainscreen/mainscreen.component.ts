@@ -42,7 +42,7 @@ export class MainscreenComponent implements OnInit {
     {name:"L1 Reject",value:"L1 Reject"},
     {name:"L2 TBS",value:"L2 TBS"},
     {name:"L2 Scheduled",value:"L2 Scheduled"},
-    {name:"L2 Select",value:"L2 Select"},
+    {name:"L2 Selects",value:"L2 Select"},
     {name:"L2 Reject",value:"L2 Reject"},
     {name:"Client TBS",value:"Client TBS"},
     {name:"Client Scheduled",value:"Client Scheduled"},
