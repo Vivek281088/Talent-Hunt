@@ -20,6 +20,7 @@
       color: #000000de;
       font-size: 14px;
       font-weight: 400;
+      padding: 3px 10px !important;
     }
     .p-datatable .p-datatable-thead > tr > th {
       background: white;
@@ -37,47 +38,48 @@
     }
   }
 }
-.customdisplay{
-  ::ng-deep
-  {
+.customdisplay {
+  ::ng-deep {
     .p-message .p-icon {
       width: 23px;
       height: 20px;
-  }
-  .p-message.p-message-info .p-message-icon {
-    color: #652d90;
-}
-.p-message .p-message-icon {
-  font-size: 0px;
-  margin-right: 0.5rem;
-}
-.p-message.p-message-info {
-  background: #e9e9ff;
-  border: solid #652D7F;
-  border-width: 0 0 0 6px;
-  color: #652d90;
-}
-.p-message.p-message-info .p-message-icon {
-  color: #652d90;
-}
-.p-message .p-icon {
-  width: 23px;
-  height: 20px;
-}
-.p-message .p-message-wrapper {
-  padding: 8px;
-}
-.p-message.p-message-info .p-message-close {
-  display: none;
-}
-.p-message .p-message-close {
-  height: 18px;
-  width: 18px;
-}
-.p-component {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 14px;
-}
+    }
+    .p-message.p-message-info .p-message-icon {
+      color: #652d90;
+    }
+    .p-message .p-message-icon {
+      font-size: 0px;
+      margin-right: 0.5rem;
+    }
+    .p-message.p-message-info {
+      background: #e9e9ff;
+      border: solid #652d7f;
+      border-width: 0 0 0 6px;
+      color: #652d90;
+    }
+    .p-message.p-message-info .p-message-icon {
+      color: #652d90;
+    }
+    .p-message .p-icon {
+      width: 23px;
+      height: 20px;
+    }
+    .p-message .p-message-wrapper {
+      padding: 8px;
+    }
+    .p-message.p-message-info .p-message-close {
+      display: none;
+    }
+    .p-message .p-message-close {
+      height: 18px;
+      width: 18px;
+    }
+    .p-component {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol";
+      font-size: 14px;
+    }
   }
 }
 
@@ -154,8 +156,24 @@
       border: 1px solid #0000001f;
       border-radius: 8px;
     }
+    .p-datatable-table {
+      cursor: default;
+    }
+
+    .pi-pi {
+      .pi {
+        color: #3B82F6;
+        cursor: pointer;
+      }
+
+      .p-button:enabled:hover {
+        background: #652d70;
+        color: #ffffff;
+        border-color: #652d70;
+      }
+    }
   }
-  .custom_link{
+  .custom_link {
     cursor: pointer;
     color: #1666dc !important;
   }
@@ -261,7 +279,6 @@
     .p-dialog .p-dialog-footer {
       padding: 12px;
     }
-
   }
 
   .customButtons {
@@ -286,6 +303,42 @@
     }
     .p-button:focus {
       box-shadow: none;
+    }
+  }
+}
+.dropdowns {
+  ::ng-deep {
+    .p-dropdown {
+      height: 32px;
+      justify-content: center;
+      width: 120px;
+
+      display: flex;
+    }
+    .p-dropdown-label {
+      display: flex;
+      align-items: center;
+    }
+
+    .p-dropdown .p-dropdown-clear-icon {
+      color: #6c757d;
+      right: 3rem;
+      display: none;
+    }
+    .p-dropdown:not(.p-disabled):hover {
+      border-color: #ced4da !important ;
+    }
+  }
+}
+.multiselect {
+  ::ng-deep {
+    .p-multiselect {
+      height: 32px;
+      width: 110px;
+    }
+    .p-multiselect-label-container {
+      display: flex;
+      align-items: center;
     }
   }
 }
@@ -351,7 +404,79 @@
       -webkit-user-select: none;
       width: 100%;
       user-select: none;
+    }
+  }
+}
+.calender-field {
+  ::ng-deep {
+    .p-calendar .p-inputtext {
+      flex: 1 1 auto;
+      height: 32px;
+      width: 110px;
+    }
+
+    .p-button {
+      background: #652d90;
+      border: 1px solid #652d90;
+    }
+
+    .p-button:focus {
+      box-shadow: none;
+    }
+
+    .p-button.p-button-icon-only {
+      width: 2rem;
+      padding: 0.75rem 0;
+      height: 2rem;
+    }
+
+    .p-inputtext:enabled:hover {
+      border-color: #ced4da;
+    }
+  }
+}
+.customIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  ::ng-deep {
+    .p-button.p-button-icon-only {
+      width: 2rem;
+      padding: 0 0;
+    }
+    .p-button.p-button-text:enabled:hover {
+      background: none;
+      // color: #652d7f;
+    }
+    .p-button.p-button-text {
+      background-color: none;
+      // color: #652d7f;
+    }
+    .p-button:focus {
+      box-shadow: none;
+    }
+  }
+}
+::ng-deep{
+  .confirm-design{
+    .p-button:enabled:hover {
+      background: #652D70;
+      color: #ffffff;
+      border-color: #652D70;
+  }
+  .p-button:focus {
+    box-shadow: none
+  }
+  .p-button {
+    background: #652D70;
+    border: 1px solid #652D70;
+}
+  }
   }
 
-  }
+.p-datepicker {
+  width: 30px;
+  height: 30px;
 }

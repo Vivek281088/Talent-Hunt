@@ -37,7 +37,16 @@
 
 
  .l1-table{
-
+  ::ng-deep{
+    .p-multiselect {
+      height: 32px;
+      width:110px;
+  }
+  .p-multiselect-label-container {
+    display: flex;
+    align-items: center;
+  }
+  }
 
   ::ng-deep{
   .p-datatable .p-datatable-thead > tr > th {
@@ -164,16 +173,7 @@ padding-right: 30px;
   }
 }
 
-::ng-deep{
-  .p-multiselect {
-    height: 32px;
-    width:110px;
-}
-.p-multiselect-label-container {
-  display: flex;
-  align-items: center;
-}
-}
+
 
 .dropdowns{
   ::ng-deep{

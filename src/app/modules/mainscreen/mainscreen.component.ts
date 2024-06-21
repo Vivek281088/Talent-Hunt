@@ -42,7 +42,7 @@ export class MainscreenComponent implements OnInit {
     {name:"L1 Reject",value:"L1 Reject"},
     {name:"L2 TBS",value:"L2 TBS"},
     {name:"L2 Scheduled",value:"L2 Scheduled"},
-    {name:"L2 Select",value:"L2 Select"},
+    {name:"L2 Selects",value:"L2 Select"},
     {name:"L2 Reject",value:"L2 Reject"},
     {name:"Client TBS",value:"Client TBS"},
     {name:"Client Scheduled",value:"Client Scheduled"},
@@ -153,7 +153,8 @@ addL1Details(l1:any){
       L1:L1 ,
       L2 : l1.mappedData.L2,
       currentStatus:l1.mappedData.currentStatus,
-      uniqueId : l1.mappedData.uniqueId
+      uniqueId : l1.mappedData.uniqueId,
+      deleted : l1.mappedData.deleted
     }
   }else if(l1.mappedData.currentStatus == "L2 TBS"|| l1.mappedData.currentStatus == "L2 Scheduled"||l1.mappedData.currentStatus == "L2 Select" ||l1.mappedData.currentStatus == "L2 Reject"){
     const L2 = {
@@ -168,7 +169,8 @@ addL1Details(l1:any){
       L1:l1.mappedData.L1,
       L2 : L2,
       currentStatus:l1.mappedData.currentStatus,
-      uniqueId : l1.mappedData.uniqueId
+      uniqueId : l1.mappedData.uniqueId,
+      deleted : l1.mappedData.deleted
     }
   }else{
     l1Details = {
@@ -179,9 +181,11 @@ addL1Details(l1:any){
       L1:l1.mappedData.L1,
       L2 : l1.mappedData.L2,
       currentStatus:l1.mappedData.currentStatus,
-      uniqueId : l1.mappedData.uniqueId
+      uniqueId : l1.mappedData.uniqueId,
+      deleted : l1.mappedData.deleted
     }
   }
+  console.log(l1Details)
    this.L1ScreenService.updateL1Details(l1Details).subscribe((data:any)=>{
     console.log(data);
    })

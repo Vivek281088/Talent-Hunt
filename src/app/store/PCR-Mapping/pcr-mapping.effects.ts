@@ -1,4 +1,3 @@
-
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
@@ -16,7 +15,11 @@ export const loadMappedData$ = createEffect(
             PcrCandidateActions.getPcrMappingDataSuccess({ mappingData })
           ),
           catchError((error: { message: string }) =>
-            of(PcrCandidateActions.getPcrMappingDataFailure({ error: error.message }))
+            of(
+              PcrCandidateActions.getPcrMappingDataFailure({
+                error: error.message,
+              })
+            )
           )
         )
       )
@@ -30,12 +33,43 @@ export const MapPcrCandidate$ = createEffect(
       ofType(PcrCandidateActions.mapPCRAndCandidate),
       exhaustMap((mappingPcrCandidateData) =>
         mappingService.MapPCRData(mappingPcrCandidateData).pipe(
-          tap((mappingPcrCandidateData) => console.log(mappingPcrCandidateData)),
+          tap((mappingPcrCandidateData) =>
+            console.log(mappingPcrCandidateData)
+          ),
           map((mappingPcrCandidateData) =>
-            PcrCandidateActions.mapPCRAndCandidateSuccess({ mappingPcrCandidateData })
+            PcrCandidateActions.mapPCRAndCandidateSuccess({
+              mappingPcrCandidateData,
+            })
           ),
           catchError((error: { message: string }) =>
-            of(PcrCandidateActions.mapPCRAndCandidateFailure({ error: error.message }))
+            of(
+              PcrCandidateActions.mapPCRAndCandidateFailure({
+                error: error.message,
+              })
+            )
+          )
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+export const deleteMappedData$ = createEffect(
+  (actions$ = inject(Actions), mappingService = inject(PcrMappingService)) => {
+    return actions$.pipe(
+      ofType(PcrCandidateActions.deleteMappedData),
+      exhaustMap((action) =>
+        mappingService.deleteMappedData(action.deleteData).pipe(
+          tap((deleteData) => console.log(deleteData)),
+          map((deleteData) =>
+            PcrCandidateActions.deleteMappedDataSuccess({ deleteData })
+          ),
+          catchError((error: { message: string }) =>
+            of(
+              PcrCandidateActions.deleteMappedDataFailure({
+                error: error.message,
+              })
+            )
           )
         )
       )
@@ -54,7 +88,11 @@ export const MailTheMappedData$ = createEffect(
             PcrCandidateActions.mailMappedDataSuccess({ mailData })
           ),
           catchError((error: { message: string }) =>
-            of(PcrCandidateActions.mailMappedDataFailure({ error: error.message }))
+            of(
+              PcrCandidateActions.mailMappedDataFailure({
+                error: error.message,
+              })
+            )
           )
         )
       )

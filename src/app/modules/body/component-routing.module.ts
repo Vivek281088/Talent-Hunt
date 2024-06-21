@@ -26,6 +26,7 @@ import { PcrDetailsComponent } from '../pcr-details/pcr-details.component';
 import { PcrResourceMappingComponent } from '../pcr-resource-mapping/pcr-resource-mapping.component';
 import { CandidateDetailsComponent } from '../candidate-details/candidate-details.component';
 import { MainscreenComponent } from '../mainscreen/mainscreen.component';
+import { OnboardComponent } from '../onboard/onboard.component';
 
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
@@ -53,7 +54,8 @@ const routes:Routes=[{path:'',component:BodyComponent,
     {path: 'resource', component:ResourceComponent},
     {path:'manage-pcr',component:ManagePcrComponent},
     { path: 'candidatedetails', component: CandidateDetailsComponent },
-    {path:'mainscreen',component:MainscreenComponent}
+    {path:'mainscreen',component:MainscreenComponent},
+    {path:'onboard',component:OnboardComponent},
 
   ]
 }]
