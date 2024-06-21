@@ -19,20 +19,22 @@
     </div>
   </div>
 
+  <p-toast></p-toast>
   <div class="mappingTable">
     <p-table
       #dt2
-      dataKey="uniqueId"
+      dataKey="mappedData.uniqueId"
       [rows]="4"
+      editMode="row"
       [showCurrentPageReport]="true"
-      [value]="mappingData"
+      [value]="l1Screen"
       [(selection)]="deleteData"
       [rowsPerPageOptions]="[4, 10, 25, 50]"
       [loading]=""
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
-        'pcrData.pcrId',
+        'pcrData.agileId',
         'candidateData.candidateId',
         'candidateData.candidateName',
         'pcrData.jobTitle',
@@ -44,7 +46,7 @@
     >
       <ng-template pTemplate="header">
         <tr>
-          <th colspan="9">
+          <th colspan="13">
             <div class="mappingPage-header-details">
               <div class="mappingPage-header1">
                 <div class="p-input-icon-right">
@@ -61,7 +63,7 @@
                   />
                 </div>
               </div>
-              <div class="ml-3">
+              <div>
                 <button
                   pButton
                   label="Clear Search"
@@ -84,30 +86,32 @@
           </th>
         </tr>
 
-        <tr>
+        <tr [pEditableRow]="l1Screen">
           <th style="width: 4rem">
             <p-tableHeaderCheckbox
-              [value]="mappingData"
+              [value]="l1Screen"
               (click)="toggleSelectAll()"
             ></p-tableHeaderCheckbox>
           </th>
-          <th>PCR ID</th>
-          <th>Candidate ID</th>
+          <th>Agile ID</th>
+          <th>Job Title</th>
           <th>Candidate Name</th>
           <th>PCR Skills</th>
           <th>Test Status</th>
-          <th>Submission time</th>
-          <th>Score</th>
-          <th>Mail</th>
+          <th>Overall Status</th>
+          <th>Panel Members</th>
+          <th>Schedule Date</th>
+          <th>Actions</th>
         </tr>
       </ng-template>
       <ng-template
         pTemplate="body"
         let-rowData
         let-i="rowIndex"
+        let-editing="editing"
         class="tableBody"
       >
-        <tr>
+        <tr [pEditableRow]="rowData">
           <td>
             <p-tableCheckbox
               [value]="rowData"
@@ -115,15 +119,9 @@
               (click)="toggle(rowData)"
             ></p-tableCheckbox>
           </td>
+          <td class="custom_link">{{ rowData.pcrData.agileId }}</td>
           <td class="custom_link">
-            <a (click)="individualPCR(rowData.pcrData.pcrId)">{{
-              rowData.pcrData.pcrId
-            }}</a>
-          </td>
-          <td class="custom_link">
-            <a (click)="individualResource(rowData.candidateData.candidateId)">
-              {{ rowData.candidateData.candidateId }}</a
-            >
+            {{ rowData.pcrData.jobTitle }}
           </td>
           <td>{{ rowData.candidateData.candidateName }}</td>
           <td class="skills">
@@ -169,27 +167,136 @@
             </span>
           </td>
           <td>{{ rowData.mappedData.testStatus }}</td>
-          <td>{{ rowData.mappedData.submitTime }}</td>
-          <td>{{ rowData.mappedData.testScore }}</td>
           <td>
-            <i
-              class="pi pi-envelope"
-              style="color: #652d7f; cursor: pointer"
-              (click)="openInviteDialog($event,rowData)"
-              [disabled]="rowData.mappedData.mailSend"
-              pTooltip="Mail Sent"
-              [tooltipDisabled]="!rowData.mappedData.mailSend"
-            ></i>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <div class="dropdowns">
+                  <p-dropdown
+                    [options]="currentStatus"
+                    appendTo="body"
+                    optionValue="value"
+                    [(ngModel)]="rowData.mappedData.currentStatus"
+                    optionLabel="name"
+                    [showClear]="true"
+                    placeholder="Status"
+                    (onChange)="onStatusChange(rowData)"
+                  ></p-dropdown>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="output" ngIf="rowData.mappedData.currentStatus=='Onboarding'">
+                <a href="/login"></a>
+                {{ rowData.mappedData.currentStatus }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <div class="multiselect">
+                  <p-multiSelect
+                    [options]="panelMembers"
+                    [(ngModel)]="rowData.mappedData.currentPanel"
+                    optionValue="value"
+                    appendTo="body"
+                    [filter]="true"
+                    optionLabel="names"
+                    placeholder="Select Panel"
+                  ></p-multiSelect>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ rowData.mappedData.currentPanel }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <div class="calender-field">
+                  <p-calendar
+                    [appendTo]="'body'"
+                    dateFormat="mm/dd/yy"
+                    [(ngModel)]="rowData.mappedData.currentInterviewDate"
+                    [showIcon]="true"
+                  ></p-calendar>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  rowData.mappedData.currentInterviewDate | date : "MM/dd/yyyy"
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td class="customIcon">
+            <!-- Mail -->
+            <div>
+              <i
+                class="pi pi-envelope"
+                style="color: #3B82F6; cursor: pointer"
+                (click)="openInviteDialog($event, rowData)"
+                pTooltip="Mail"
+
+              ></i>
+            </div>
+
+            <!-- edit -->
+            <div class="flex align-items-center justify-content-center gap-2">
+              <button
+                *ngIf="!editing"
+                pButton
+                pRipple
+                type="button"
+                pInitEditableRow
+                icon="pi pi-pencil"
+                (click)="onRowEditInit(rowData.mappedData)"
+                class="p-button-rounded p-button-text"
+                pTooltip="Edit"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pSaveEditableRow
+                icon="pi pi-check"
+                (click)="onRowEditSave(rowData.mappedData)"
+                class="p-button-rounded p-button-text p-button-success mr-2"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pCancelEditableRow
+                icon="pi pi-times"
+                (click)="onRowEditCancel(rowData, i)"
+                class="p-button-rounded p-button-text p-button-danger"
+              ></button>
+            </div>
+
+            <!-- Save -->
+            <div class="pi-pi" pTooltip="Save" tooltipPosition="top">
+              <i class="pi pi-save" (click)="confirmPosition(rowData)"></i>
+            </div>
           </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="9">No Data found.</td>
+          <td colspan="13">No Data found.</td>
         </tr>
       </ng-template>
     </p-table>
   </div>
+  <p-confirmDialog
+    class="confirm-design"
+    [style]="{ width: '40vw' }"
+    key="positionDialog"
+    [position]="position"
+    rejectButtonStyleClass=""
+  ></p-confirmDialog>
 </div>
 
 <p-toast></p-toast>
@@ -219,6 +326,8 @@
         <div class="candidateMultiselect">
           <p-multiSelect
             [options]="candidateData"
+            optionLabel="ID"
+            optionValue="candidateId"
             placeholder="--Select candidate--"
             [filter]="true"
             [resetFilterOnHide]="true"
@@ -226,8 +335,6 @@
             display="chip"
             [showClear]="false"
             [(ngModel)]="selectedCandidates"
-            optionLabel=""
-            optionValue=""
             [disabled]="!pcrSelected"
             (onChange)="selected()"
             (onClick)="showTooltip()"
