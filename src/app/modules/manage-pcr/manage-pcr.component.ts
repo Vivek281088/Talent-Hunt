@@ -88,6 +88,7 @@ export class ManagePcrComponent {
   }
 
   ngOnInit() {
+    this. getAgileData();
     this.todayDate = new Date();
     this.items = [
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },

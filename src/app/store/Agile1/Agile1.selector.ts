@@ -3,7 +3,7 @@ import { agileReducer, agileState } from "./Agile1.reducer";
 
 const agileFeatureKey = "agile";
 export const State = createFeatureSelector<agileState>(agileFeatureKey);
-export const pcrFeature = createFeature({
+export const agileFeature = createFeature({
     name : agileFeatureKey,
     reducer : agileReducer
 });
