@@ -2,13 +2,13 @@ import { createFeature, createFeatureSelector, createSelector } from "@ngrx/stor
 import { agileReducer, agileState } from "./Agile1.reducer";
 
 const agileFeatureKey = "agile";
-export const State = createFeatureSelector<agileState>(agileFeatureKey);
+export const agileFeatureState = createFeatureSelector<agileState>(agileFeatureKey);
 export const pcrFeature = createFeature({
     name : agileFeatureKey,
     reducer : agileReducer
 });
 
 export const getAgile = createSelector(
-  State,
+    agileFeatureState,
     (state) => state.agileDetails
 )
