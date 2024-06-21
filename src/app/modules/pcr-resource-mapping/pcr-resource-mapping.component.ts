@@ -22,6 +22,8 @@ import {
 } from 'src/app/store/schedule/schedule.action';
 import { getSchedules } from 'src/app/store/schedule/schedule.selector';
 import { L1ScreenService } from 'src/app/services/l1-screen.service';
+import { agileActions } from 'src/app/store/Agile1/Agile1.action';
+import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 
 @Component({
   selector: 'app-pcr-resource-mapping',
@@ -47,7 +49,7 @@ export class PcrResourceMappingComponent {
   scheduledata!: any;
   selectedSchedule!: any;
   deleteData!: any;
-  agileData = ["AGL002"];
+  agileData = ['AGL002'];
   currentStatus: any = [
     { name: 'Screen Pending', value: 'Screen Pending' },
     { name: 'Screen Reject', value: 'Screen Reject' },
@@ -93,13 +95,11 @@ export class PcrResourceMappingComponent {
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'user');
     this.getPcrMappingData();
-
     this.getPcrData();
-
+    this.getAgileData();
     this.getCandidateData();
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
-
     this.items = [
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
       { label: 'PCR-Emp Mapping', routerLink: '/mtalent/pcr-mapping' },
@@ -115,6 +115,12 @@ export class PcrResourceMappingComponent {
     this.store.select(getPcr).subscribe((data) => {
       console.log('Pcr Details', data);
       this.pcrData = data;
+    });
+  }
+  getAgileData() {
+    this.store.dispatch(agileActions.getAgileDetails());
+    this.store.select(getAgile).subscribe((data) => {
+      console.log('Agile Data', data);
     });
   }
   getCandidateData() {
@@ -218,6 +224,7 @@ export class PcrResourceMappingComponent {
     this.mappingDialogVisible = false;
     this.selectedCandidates = [];
     this.selectedPcrId = '';
+    this.selectedAgileId = '';
     this.getCandidateData();
     this.pcrSelected = false;
   }
@@ -283,21 +290,27 @@ export class PcrResourceMappingComponent {
   candidateFiltering() {
     this.pcrSelected = true;
     const filtrredCandidate = this.mappingData
-      .filter((item) => item.mappedData.pcrId === this.selectedPcrId)
+      .filter(
+        (item) =>
+          item.mappedData.pcrId === this?.selectedPcrId ||
+          item.mappedData.agileId === this?.selectedAgileId
+      )
       .map((item) => item.candidateData.candidateId);
     console.log('Filtered Candidate--', filtrredCandidate);
 
     this.MappingService.getAllResource().subscribe((data) => {
-      console.log(data)
+      console.log(data);
       this.candidateData = data
-        .map((item: { candidateId: string; candidateName: string; }) => ({ID: item.candidateId+" - "+item.candidateName}))
+        .map((item: { candidateId: string; candidateName: string }) => ({
+          ID: item.candidateId + ' - ' + item.candidateName,
+        }))
         .filter((id: string) => !filtrredCandidate.includes(id));
       console.log('Candidate Data :', this.candidateData);
     });
   }
-  agileChange(){
+  agileChange() {
     this.pcrSelected = true;
-    console.log(this.selectedAgileId)
+    console.log(this.selectedAgileId);
   }
   showTooltip() {
     if (!this.pcrSelected) {
@@ -513,5 +526,4 @@ export class PcrResourceMappingComponent {
       console.log(data);
     });
   }
-
 }
