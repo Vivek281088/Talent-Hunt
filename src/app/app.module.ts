@@ -104,8 +104,10 @@ import { ResourceComponent } from './modules/resource/resource.component';
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
 import { ResourceFeature } from './store/resource/resource.selector';
 import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
-import { AddResource$, getResources$, deleteResource$, updateResource$ } from './store/resource/resource.effects';
+import { AddResource$, getResources$, deleteResource$, updateResource$ } from './store/Resource/resource.effects';
 import { OnboardComponent } from './modules/onboard/onboard.component';
+import { agileDetails$ } from './store/Agile1/Agile1.effects';
+import { agileFeature } from './store/Agile1/Agile1.selector';
 // import { AddResource$, getResources$ , deleteResource$} from './store/Resource/resource.effects';
 
 @NgModule({
@@ -177,6 +179,7 @@ import { OnboardComponent } from './modules/onboard/onboard.component';
     provideState(mappingFeature),
     provideState(pcrFeature),
     provideState(ResourceFeature),
+    provideState(agileFeature),
 
     provideState(mappingPcrCandidateFeature),
    // provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$}]),
@@ -205,6 +208,7 @@ import { OnboardComponent } from './modules/onboard/onboard.component';
       {deleteMappedData$},
       {updateResource$},
       {addMultipcr$},
+      {agileDetails$}
 
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
