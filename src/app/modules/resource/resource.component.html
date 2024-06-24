@@ -708,14 +708,14 @@
               Upload File
               <input
                 type="file"
-                (change)="uploadCsv($event)"
+                (change)="uploadXlsx($event)"
                 style="display: none"
               /> </label
             >
             <div class="Createbutton" *ngIf="isAddCandidate">
               <p-button
                 label="Download Template"
-                (click)="downloadCsvTemplate()"
+                (click)="downloadXlsxTemplate()"
               ></p-button>
             </div>
           </div>
