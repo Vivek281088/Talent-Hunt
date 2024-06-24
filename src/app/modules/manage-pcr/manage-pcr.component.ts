@@ -88,7 +88,7 @@ export class ManagePcrComponent {
   }
 
   ngOnInit() {
-    this. getAgileData();
+
     this.todayDate = new Date();
     this.items = [
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
@@ -283,11 +283,4 @@ export class ManagePcrComponent {
     });
   }
 
-  getAgileData() {
-    this.store.dispatch(agileActions.getAgileDetails());
-    this.store.select(getAgile).subscribe((data) => {
-      console.log('Agile Details', data);
-      //this.agileData = data;
-    });
-  }
 }
