@@ -118,4 +118,14 @@ export const candidateReducer = createReducer(
 
   }),
 
+  on(resourceActions.addMultiResourceSuccess, (state, action) => {
+
+    return {
+      ...state,
+      candidates: [...action.candidate, ...state.candidates ],
+      candidateCount: state.candidateCount + action.candidate.length,
+      newCandidateAdded: true
+    };
+  })
+
 )

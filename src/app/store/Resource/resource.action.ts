@@ -4,6 +4,7 @@ export interface Candidates{
     candidateId : string,
     candidateName:string,
     currentLocation : string,
+    preferredLocation?: string,
     emailId : string,
     experience : string,
     location : string,
@@ -12,7 +13,13 @@ export interface Candidates{
     roles: string[],
     source: string,
     SPOC: string,
-    visaDetails: VisaDetails
+    visaDetails: VisaDetails,
+    noticePeriod?: number,
+    buyout?: boolean,
+    currentCtc?: string,
+    expectedCtc?: string
+
+
 
 }
 export interface Skill {
