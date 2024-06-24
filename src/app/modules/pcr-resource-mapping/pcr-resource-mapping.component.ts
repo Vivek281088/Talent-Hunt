@@ -22,7 +22,7 @@ import {
 } from 'src/app/store/schedule/schedule.action';
 import { getSchedules } from 'src/app/store/schedule/schedule.selector';
 import { L1ScreenService } from 'src/app/services/l1-screen.service';
-import { agileActions } from 'src/app/store/Agile1/Agile1.action';
+import { agileActions,agileDetails } from 'src/app/store/Agile1/Agile1.action';
 import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 
 @Component({
@@ -49,7 +49,7 @@ export class PcrResourceMappingComponent {
   scheduledata!: any;
   selectedSchedule!: any;
   deleteData!: any;
-  agileData = ['AGL002'];
+  agileData !: agileDetails[]
   currentStatus: any = [
     { name: 'Screen Pending', value: 'Screen Pending' },
     { name: 'Screen Reject', value: 'Screen Reject' },
@@ -121,6 +121,7 @@ export class PcrResourceMappingComponent {
     this.store.dispatch(agileActions.getAgileDetails());
     this.store.select(getAgile).subscribe((data) => {
       console.log('Agile Data', data);
+      this.agileData=data;
     });
   }
   getCandidateData() {
@@ -233,7 +234,8 @@ export class PcrResourceMappingComponent {
   }
   mapPCR() {
     const mappingPcrCandidateData: MappingPCRCandidateData[] =
-      this.selectedCandidates.map((id) => ({
+      this.transformedCandidates.map((id: any) => ({
+        agileId: this.selectedAgileId,
         pcrId: this.selectedPcrId,
         candidateId: id,
       }));
@@ -245,9 +247,12 @@ export class PcrResourceMappingComponent {
     this.showPcrMapped();
     this.cancelButton();
   }
+  transformedCandidates : any;
   selected() {
     console.log('Selected ----', this.selectedPcrId);
     console.log('Selected Candidate---', this.selectedCandidates);
+    this.transformedCandidates= this.selectedCandidates.map((candidate: string)=> candidate.split('_')[0]);
+    console.log(this.transformedCandidates)
     this.messages = this.selectedCandidates.map((candidateId) => ({
       severity: 'info',
       detail: `Selected PCR ID: ${this.selectedPcrId}, Candidate ID: ${candidateId}`,
@@ -301,9 +306,13 @@ export class PcrResourceMappingComponent {
     this.MappingService.getAllResource().subscribe((data) => {
       console.log(data);
       this.candidateData = data
-        .map((item: { candidateId: string; candidateName: string }) => ({
-          ID: item.candidateId + ' - ' + item.candidateName,
-        }))
+        .map((item: { candidateId: string; candidateName: string }) => {
+          if(item.candidateId.includes("_")) return { ID: item.candidateId}
+          else{
+            return {ID: item.candidateId + '_' + item.candidateName}
+          }
+
+        })
         .filter((id: string) => !filtrredCandidate.includes(id));
       console.log('Candidate Data :', this.candidateData);
     });
