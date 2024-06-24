@@ -119,11 +119,12 @@
               (click)="toggle(rowData)"
             ></p-tableCheckbox>
           </td>
-          <td class="custom_link">{{ rowData.pcrData.agileId }}</td>
+          <td class="custom_link">{{ rowData.agileData.ID }}</td>
           <td class="custom_link">
             {{ rowData.pcrData.jobTitle }}
           </td>
-          <td>{{ rowData.candidateData.candidateName }}</td>
+          <td>
+            {{ rowData.candidateData.candidateName }}</td>
           <td class="skills">
             <span
               *ngFor="
