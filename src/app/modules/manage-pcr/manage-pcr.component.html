@@ -21,7 +21,6 @@
 
   <div class="PCR">
     <p-tabView>
-
       <p-tabPanel>
         <ng-template pTemplate="header">PCR</ng-template>
         <ng-template pTemplate="content">
@@ -56,7 +55,6 @@
                   <th colspan="11">
                     <div class="manager-header">
                       <div class="manager-header1">
-
                         <div class="p-input-icon-left-right">
                           <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
@@ -66,23 +64,30 @@
                             pInputText
                             type="text"
                             [(ngModel)]="globalSearchValue"
-                            (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
+                            (input)="
+                              dt2.filterGlobal(
+                                $any($event.target).value,
+                                'contains'
+                              )
+                            "
                             placeholder="Search"
                           />
-                          <span class="p-input-icon-right" (click)="globalSearchValue = ''">
+                          <span
+                            class="p-input-icon-right"
+                            (click)="globalSearchValue = ''"
+                          >
                             <i class="pi pi-times-circle"></i>
                           </span>
                         </div>
 
-
                         <!-- <div class="ml-3"> -->
-                          <!-- <button
+                        <!-- <button
                             pButton
                             label="Clear Search"
                             class="clear-button cursor-pointer"
                             (click)="clear(dt2)"
                           ></button> -->
-                          <!-- <i class="pi pi-refresh"></i> -->
+                        <!-- <i class="pi pi-refresh"></i> -->
                         <!-- </div> -->
                       </div>
                       <div class="manager-header-2">
@@ -94,7 +99,10 @@
                         ></i> -->
                         </div>
                         <div class="addcandidate">
-                          <p-button label="Extract PCR" (onClick)="addPcr()">
+                          <p-button
+                            label="Extract PCR"
+                            (onClick)="extractPCR(pcrData)"
+                          >
                           </p-button>
                           <!-- pi-file-plus -->
                           <!-- <i class="pi pi-upload add-icon" (click)="addPcr()"
@@ -103,9 +111,13 @@
 
                         <div class="addcandidate">
                           <p-button
-                            label="Delete PCR" (click)="Deletepcr()" [disabled]="
-                            !selectedDeletePcr || selectedDeletePcr.length == 0
-                          ">
+                            label="Delete PCR"
+                            (click)="Deletepcr()"
+                            [disabled]="
+                              !selectedDeletePcr ||
+                              selectedDeletePcr.length == 0
+                            "
+                          >
                           </p-button>
 
                           <!-- <i class="pi pi-trash trash-icon" (click)="Deletepcr()"
@@ -197,12 +209,13 @@
             </p-table>
           </div>
         </ng-template>
-
       </p-tabPanel>
-      <p-tabPanel >
+      <p-tabPanel>
         <ng-template pTemplate="header">Agile1</ng-template>
-        <ng-template pTemplate="content"><app-manage-agile1></app-manage-agile1></ng-template>
-         </p-tabPanel>
+        <ng-template pTemplate="content">
+          <app-manage-agile1></app-manage-agile1
+        ></ng-template>
+      </p-tabPanel>
     </p-tabView>
   </div>
 
@@ -270,20 +283,20 @@
                     *ngIf="addPCRForm.get('pcrId')?.hasError('minlength')"
                     class="error-message"
                   >
-                  PCR Id must be at least 6 characters long.
+                    PCR Id must be at least 6 characters long.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('pcrId')?.hasError('maxlength')"
                     class="error-message"
                   >
-                  PCR Id cannot be more than 10 characters long.
+                    PCR Id cannot be more than 10 characters long.
                   </div>
                   <div
                     *ngIf="addPCRForm.get('pcrId')?.hasError('invalidInput')"
                     class="error-message"
                   >
-                    Please enter a valid PCR ID (6 to 10 characters, letters, and
-                    numbers only).
+                    Please enter a valid PCR ID (6 to 10 characters, letters,
+                    and numbers only).
                   </div>
                 </div>
               </div>
@@ -411,7 +424,7 @@
                   class="error-message"
                   *ngIf="addPCRForm.get('pcrStatus')?.hasError('required')"
                 >
-                PCR Status is required !
+                  PCR Status is required !
                 </div>
               </div>
             </div>
@@ -451,24 +464,23 @@
             </div>
             <div class="value">
               <p-dropdown
-              appendTo="body"
-              [options]="Location"
-              placeholder="--Select--"
-              formControlName="location"
-            ></p-dropdown>
-            <div
-            *ngIf="
-              addPCRForm.get('location')?.invalid &&
-              (addPCRForm.get('location')?.touched || formSubmitted)
-            "
-          >
-            <div
-              class="error-message"
-              *ngIf="addPCRForm.get('location')?.hasError('required')"
-            >
-            Location is required !
-            </div>
-
+                appendTo="body"
+                [options]="Location"
+                placeholder="--Select--"
+                formControlName="location"
+              ></p-dropdown>
+              <div
+                *ngIf="
+                  addPCRForm.get('location')?.invalid &&
+                  (addPCRForm.get('location')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addPCRForm.get('location')?.hasError('required')"
+                >
+                  Location is required !
+                </div>
               </div>
             </div>
           </div>
@@ -479,24 +491,26 @@
             </div>
             <div class="value">
               <p-dropdown
-              appendTo="body"
-              [options]="requestResource"
-              placeholder="--Select--"
-              formControlName="requestResource"
-            ></p-dropdown>
-            <div
-            *ngIf="
-              addPCRForm.get('requestResource')?.invalid &&
-              (addPCRForm.get('requestResource')?.touched || formSubmitted)
-            "
-          >
-            <div
-              class="error-message"
-              *ngIf="addPCRForm.get('requestResource')?.hasError('required')"
-            >
-            Request Source is required !
-            </div>
-            </div>
+                appendTo="body"
+                [options]="requestResource"
+                placeholder="--Select--"
+                formControlName="requestResource"
+              ></p-dropdown>
+              <div
+                *ngIf="
+                  addPCRForm.get('requestResource')?.invalid &&
+                  (addPCRForm.get('requestResource')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="
+                    addPCRForm.get('requestResource')?.hasError('required')
+                  "
+                >
+                  Request Source is required !
+                </div>
+              </div>
             </div>
           </div>
 
@@ -533,7 +547,12 @@
           <ng-template pTemplate="footer">
             <div class="tabview-button-upload">
               <div class="Cancelbutton">
-                <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()"> </p-button>
+                <p-button
+                  label="Cancel"
+                  [outlined]="true"
+                  (onClick)="cancelButton()"
+                >
+                </p-button>
               </div>
 
               <label class="custom-file-input">
@@ -541,13 +560,15 @@
                 <input
                   type="file"
                   style="display: none"
-                  (change)="uploadCSV($event)"
+                  (change)="PCRUpload($event)"
                 />
               </label>
 
               <div class="Createbutton">
-                <p-button label="Download Template"
-                (click)="downloadCsvTemplate()"></p-button>
+                <p-button
+                  label="Download Template"
+                  (click)="downloadCsvTemplate()"
+                ></p-button>
               </div>
             </div>
           </ng-template>
@@ -556,6 +577,3 @@
     </p-dialog>
   </div>
 </div>
-
-
-
