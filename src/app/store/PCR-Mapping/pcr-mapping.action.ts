@@ -1,3 +1,4 @@
+import { error } from 'console';
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
 
 export interface PcrData {
@@ -55,6 +56,9 @@ export const PcrCandidateActions = createActionGroup({
     'Map PCR and Candidate' : props<{mappingPcrCandidateData :MappingPCRCandidateData[]}>(),
     'Map PCR and Candidate Success' : props<{mappingPcrCandidateData :MappingPCRCandidateData[]}>(),
     'Map PCR and Candidate failure' : props<{error :string}>(),
+    'Delete Mapped Data' : props<{deleteData : string[]}>(),
+    'Delete Mapped Data Success' : props<{deleteData : string[]}>(),
+    'Delete Mapped Data Failure' : props<{error : string}>(),
     'Mail Mapped Data' : props<{mailData : MailDetails}>(),
     'Mail Mapped Data Success' : props<{mailData : MailDetails}>(),
     'Mail Mapped Data failure' : props<{error :string}>(),

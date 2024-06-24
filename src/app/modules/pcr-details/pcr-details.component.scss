@@ -1,4 +1,7 @@
-
+@import 'src/app/shared/css/shared';
+.file-upload{
+  @include upload-button
+}
 .pcr-emp-header {
     display: flex;
     flex-direction: row;

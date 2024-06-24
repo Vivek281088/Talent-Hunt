@@ -130,7 +130,7 @@
 .searchIcon {
   height: 92%;
   border-radius: 4px;
- 
+
 }
 .icons {
   display: flex;
@@ -293,6 +293,9 @@
       //   padding-left: 1%;
       font-size: 14px;
       padding: 1% 2% 2% 0;
+    }
+    .p-datatable-table {
+      cursor: default;
     }
   }
   .labelvalue {
