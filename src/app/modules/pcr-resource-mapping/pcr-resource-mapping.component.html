@@ -119,11 +119,12 @@
               (click)="toggle(rowData)"
             ></p-tableCheckbox>
           </td>
-          <td class="custom_link">{{ rowData.pcrData.agileId }}</td>
+          <td class="custom_link">{{ rowData.agileData.ID }}</td>
           <td class="custom_link">
             {{ rowData.pcrData.jobTitle }}
           </td>
-          <td>{{ rowData.candidateData.candidateName }}</td>
+          <td>
+            {{ rowData.candidateData.candidateName }}</td>
           <td class="skills">
             <span
               *ngFor="
@@ -326,17 +327,19 @@
         <div class="agileDropdown">
           <p-dropdown
             [options]="agileData"
+            optionValue="ID"
+            optionLabel="ID"
             placeholder="--Select Agile--"
             appendTo="body"
             [(ngModel)]="selectedAgileId"
-            (onChange)="agileChange()"
+            (onChange)="candidateFiltering()"
           ></p-dropdown>
         </div>
         <div class="candidateMultiselect">
           <p-multiSelect
             [options]="candidateData"
             optionLabel="ID"
-            optionValue="candidateId"
+            optionValue="ID"
             placeholder="--Select candidate--"
             [filter]="true"
             [resetFilterOnHide]="true"
@@ -371,7 +374,7 @@
           <p-button
             label="Map PCR"
             (click)="mapPCR()"
-            [disabled]="!selectedPcrId || selectedCandidates.length == 0"
+            [disabled]="!pcrSelected || selectedCandidates.length == 0 "
           ></p-button>
         </div>
       </div>

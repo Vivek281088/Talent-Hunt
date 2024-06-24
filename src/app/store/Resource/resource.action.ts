@@ -4,6 +4,7 @@ export interface Candidates{
     candidateId : string,
     candidateName:string,
     currentLocation : string,
+    preferredLocation?: string,
     emailId : string,
     experience : string,
     location : string,
@@ -12,7 +13,13 @@ export interface Candidates{
     roles: string[],
     source: string,
     SPOC: string,
-    visaDetails: VisaDetails
+    visaDetails: VisaDetails,
+    noticePeriod?: number,
+    buyout?: boolean,
+    currentCtc?: string,
+    expectedCtc?: string
+
+
 
 }
 export interface Skill {
@@ -38,12 +45,16 @@ export const resourceActions = createActionGroup({
         'Add Resource' : props<{candidate:Candidates}>(),
         'Add Resource Success' : props<{candidate:Candidates}>(),
         'Add Resource Failure' : props<{error : string}>(),
+        'Add Multi Resource' : props<{candidate : Candidates[]}>(),
+        'Add Multi Resource Success' : props<{candidate : Candidates[]}>(),
+        'Add Multi Resource Failure' : props<{error : string}>(),
         // 'Clear Candidate Error' : emptyProps,
         // 'Clear Newcandidate' : emptyProps,
         // 'Clear DeleteCamdidateStatus' : emptyProps,
         'Delete Resource' : props<{candidateId : string[]}>(),
         'Delete Resource Success' : props<{candidateId : string[]}>(),
         'Delete Resource Failure' : props<{error : string}>(),
+
 
 
     }

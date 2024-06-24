@@ -1,5 +1,5 @@
 import { resourceActions } from 'src/app/store/resource/resource.action';
-import { getCandidate } from '../candidate/candidate.selector';
+// import { getCandidate } from '../candidate/candidate.selector';
 import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, debounceTime, exhaustMap, map, of, switchMap, tap } from "rxjs";
@@ -64,10 +64,10 @@ export const deleteResource$ =createEffect(
 )
 
 export const updateResource$ = createEffect(
-  (actions$ = inject(Actions) , updatePCRservice = inject(ResourceService)) => {
+  (actions$ = inject(Actions) , updateResourceservice = inject(ResourceService)) => {
       return actions$.pipe(
           ofType(resourceActions.updateResource),
-          exhaustMap((candidate) => updatePCRservice.updateResource(candidate.candidate).pipe(
+          exhaustMap((candidate) => updateResourceservice.updateResource(candidate.candidate).pipe(
               tap(candidate=>console.log("pcr data",candidate)),
               map((candidate)=>resourceActions.updateResourceSuccess({candidate})),
               catchError((error:{message:string})=>
@@ -79,40 +79,28 @@ export const updateResource$ = createEffect(
   {functional:true}
 )
 
+export const addMultiResource$ = createEffect(
+  (action$=inject(Actions),addMultiResourceService=inject(ResourceService))=>{
+      return action$.pipe(
+          ofType(resourceActions.addMultiResource),
+
+          switchMap((candidate) =>
+            addMultiResourceService.addMultiResource(candidate.candidate).pipe(
+                  tap((candidate) =>{
+                      console.log("add Multi .................." , candidate);
+                  }),
+                  map((candidate) => resourceActions.addMultiResourceSuccess({candidate})),
+                  catchError((error) => {
+                      console.log(error)
+                      return of(resourceActions.addMultiResourceFailure({error : error.error}))
+                  } )
+              )
+          )
+      )
+
+  }
+,{functional:true}
+)
 
 
 
-// export const updateCandidate$ = createEffect(
-//     (action$ = inject(Actions) , candidateService = inject(ManagernameService)) =>{
-//         return action$.pipe(
-//             ofType(candidateActions.updateCandidate),
-//             exhaustMap((candidate) =>
-//                     candidateService.updateSingleCandidate(candidate.candidate).pipe(
-//                         tap(candidate => console.log(candidate)),
-//                         map((candidate) => candidateActions.updateCandidateSuccess({candidate})),
-//                         catchError((error : {message : string}) =>
-//                             of(candidateActions.updateCandidateFailure({error: error.message}))
-//                         )
-//                     )
-//             )
-//         )
-//     },{functional:true}
-// )
-
-
-
-// export const deleteCandidate$ = createEffect(
-//     (action$ = inject(Actions) , candidateService = inject(ManagernameService)) => {
-//         return action$.pipe(
-//             ofType(candidateActions.deleteCandidates),
-//             exhaustMap((candidates) =>
-//                 candidateService.deleteCandidates(candidates.candidates).pipe(
-//                     tap((candidates) => console.log("sdfbv bg r",candidates)),
-//                     map((candidates : any) => candidateActions.deleteCandidateSuccess({candidates})),
-//                     catchError((error) => of(candidateActions.deleteCandidateFailure({error : error.message})))
-//                 )
-//             )
-//         )
-//     },
-//     {functional :true}
-// )

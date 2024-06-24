@@ -74,13 +74,10 @@ import {
   loadCandidate$,
   updateCandidate$,
 } from './store/candidate/candidate.effects';
-
 import { CandidateFeature } from './store/candidate/candidate.selector';
 import { ManagePcrComponent } from './modules/manage-pcr/manage-pcr.component';
-// import { pcrFeature } from './store/pcr/pcr.selector';
 import { addMultipcr$, addpcr$,  deletepcr$,  updatePcr$ } from './store/pcr/pcr.effects';
-// import { addpcr$, } from './store/pcr/pcr.effects';
-// import { getPcr$ } from './store/pcr/pcr.effects';
+
 
 
 
@@ -104,7 +101,7 @@ import { ResourceComponent } from './modules/resource/resource.component';
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
 import { ResourceFeature } from './store/resource/resource.selector';
 import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
-import { AddResource$, getResources$, deleteResource$, updateResource$ } from './store/Resource/resource.effects';
+import { AddResource$, getResources$, deleteResource$, updateResource$, addMultiResource$ } from './store/resource/resource.effects';
 import { OnboardComponent } from './modules/onboard/onboard.component';
 import { agileDetails$ } from './store/Agile1/Agile1.effects';
 import { agileFeature } from './store/Agile1/Agile1.selector';
@@ -184,8 +181,7 @@ import { ManageAgile1Component } from './modules/manage-agile1/manage-agile1.com
     provideState(agileFeature),
 
     provideState(mappingPcrCandidateFeature),
-   // provideEffects([{loadSchedule$},{addSchedule$},{deleteSchedule$},{loadCandidate$},{updateCandidate$},{addSchedule$},{AddCandidate$},{deleteCandidate$},{getPcr$},{addpcr$}]),
-    provideEffects([
+   provideEffects([
       { loadSchedule$ },
       { addSchedule$ },
       { deleteSchedule$ },
@@ -210,23 +206,18 @@ import { ManageAgile1Component } from './modules/manage-agile1/manage-agile1.com
       {deleteMappedData$},
       {updateResource$},
       {addMultipcr$},
+      {addMultiResource$},
       {agileDetails$}
 
     ]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
-    //   provide : ErrorHandler,
-    //   useClass : CustomHttpException
-    // },
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthkeyInterceptor,
       multi: true,
     },
-    // {
-    //   provide : HTTP_INTERCEPTORS,
-    //   useClass : GlobalErrorInterceptor,
-    //   multi : true
-    // },
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
