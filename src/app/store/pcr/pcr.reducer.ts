@@ -67,6 +67,7 @@ on(PcrActions.updatePCRFailure,(state,action)=>{
 }),
 
 on(PcrActions.deletePCRSuccess, (state,action) => {
+  console.log("ddele",action.pcrIds)
   return {
       ...state,
       pcr : state.pcr.filter(pcr => ! action.pcrIds.includes(pcr.pcrId)),

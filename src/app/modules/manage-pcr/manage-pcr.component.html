@@ -54,48 +54,56 @@
                 <th colspan="11">
                   <div class="manager-header">
                     <div class="manager-header1">
-                      <div class="p-input-icon-right">
-                        <i class="pi pi-search"></i>
+
+                      <div class="p-input-icon-left-right">
+                        <span class="p-input-icon-left">
+                          <i class="pi pi-search"></i>
+                        </span>
                         <input
                           class="searchIcon"
                           pInputText
                           type="text"
                           [(ngModel)]="globalSearchValue"
-                          (input)="
-                            dt2.filterGlobal(
-                              $any($event.target).value,
-                              'contains'
-                            )
-                          "
+                          (input)="dt2.filterGlobal($any($event.target).value, 'contains')"
                           placeholder="Search"
                         />
+                        <span class="p-input-icon-right" (click)="globalSearchValue = ''">
+                          <i class="pi pi-times-circle"></i>
+                        </span>
                       </div>
 
-                      <div class="ml-3">
-                        <button
+
+                      <!-- <div class="ml-3"> -->
+                        <!-- <button
                           pButton
                           label="Clear Search"
                           class="clear-button cursor-pointer"
                           (click)="clear(dt2)"
-                        ></button>
-                      </div>
+                        ></button> -->
+                        <!-- <i class="pi pi-refresh"></i> -->
+                      <!-- </div> -->
                     </div>
                     <div class="manager-header-2">
                       <div class="addcandidate">
                         <p-button label="Add PCR" (onClick)="addPcr()">
                         </p-button>
+                        <!-- pi-file-plus -->
+                        <!-- <i class="pi pi-upload add-icon" (click)="addPcr()"
+                      ></i> -->
                       </div>
 
                       <div class="addcandidate">
-                        <!-- <p-button
-                          label="Delete PCR"
-                          (click)="Deletepcr()"
-                          [disabled]="
-                            !selectedDeletePcr || selectedDeletePcr.length == 0
-                          "
-                        >
-                        </p-button> -->
-                        <i class="pi pi-trash" style="font-size: 2rem" ></i>
+                        <p-button
+                          label="Delete PCR" (click)="Deletepcr()" [disabled]="
+                          !selectedDeletePcr || selectedDeletePcr.length == 0
+                        ">
+                        </p-button>
+
+                        <!-- <i class="pi pi-trash trash-icon" (click)="Deletepcr()"
+                        [disabled]="
+                          !selectedDeletePcr || selectedDeletePcr.length == 0
+                        "
+                      ></i> -->
                       </div>
                     </div>
                   </div>
@@ -180,7 +188,7 @@
           </p-table>
         </div>
       </p-tabPanel>
-      <p-tabPanel header="Agile1"> <app-login></app-login> </p-tabPanel>
+      <p-tabPanel header="Agile1"><app-manage-agile1></app-manage-agile1> </p-tabPanel>
     </p-tabView>
   </div>
 
