@@ -52,10 +52,10 @@ export class ResourceComponent implements OnDestroy{
   sourceOptions: any = ['TFG', 'TAG', 'Referral'];
   visasType:string[] = ['H1B', 'F-1', 'L-1A', 'L-1B'];
   date: Date | undefined;
-  visasStamped: string[] = ['Yes', 'No']
+  booleanOptions: string[] = ['Yes', 'No']
   private errorSubscription!: Subscription;
   rolesForm: any;
-
+  isEdit: boolean = false;
 
     constructor(
     private managerService: ManagernameService,
@@ -78,6 +78,11 @@ export class ResourceComponent implements OnDestroy{
       primarySkill: ['', Validators.required],
       secondarySkill: ['', Validators.required],
       roles: ['', Validators.required],
+      noticePeriod:[''],
+      buyout:[''],
+      preferredLocation: [''],
+      currentCTC: [''],
+      expectedCTC:[''],
       validUntil: [''],
       visaType: [''],
       visaStamped: ['']
@@ -153,6 +158,7 @@ export class ResourceComponent implements OnDestroy{
     this.selectedRowData = data;
     console.log(' Selected Edit Data', this.selectedRowData);
     this.populateFormControls();
+    this.isEdit = true;
   }
   populateFormControls() {
     if (this.selectedRowData) {
@@ -171,7 +177,12 @@ export class ResourceComponent implements OnDestroy{
         roles: this.selectedRowData.roles || '',
         validUntil: this.selectedRowData.visaDetails?.validUntil || '',
         visaType: this.selectedRowData.visaDetails?.visaType || '',
-        visaStamped: this.selectedRowData.visaDetails?.visaStamped || ''
+        visaStamped: this.selectedRowData.visaDetails?.visaStamped || '',
+        noticePeriod: this.selectedRowData.noticePeriod || '',
+        buyout: this.selectedRowData.buyout || '',
+        preferredLocation: this.selectedRowData.preferredLocation || '',
+        currentCTC: this.selectedRowData.currentCTC || '',
+        expectedCTC: this.selectedRowData.expectedCTC || '',
       });
     }
     console.log('Edit Data', this.addCandidateForm.value);
@@ -230,7 +241,7 @@ export class ResourceComponent implements OnDestroy{
         source: formData.sourceDetail,
         SPOC: formData.spoc,
         visaDetails: {
-          validUntil:formData.validUntil,
+          validUntil:formData.validUntil?formData.validUntil.toLocaleDateString():null,
           visaType: formData.visaType,
           visaStamped: formData.visaStamped
         }
@@ -279,56 +290,51 @@ export class ResourceComponent implements OnDestroy{
   // }
 
   downloadCsvTemplate() {
-    const csvTemplate = `Candidate Id, Candidate Name, Email Id, Role(s), Experience, Primary Skills, Secondary Skills, Source, SPOC, Phone Number, Onsite/Offshore, Current Location, Visa Type, Valid Until, Visa Stamped \n`;
+    const csvTemplate = `Candidate Id,Candidate Name,Email Id,Title,Total Experience,Notice Period(In Days),Buyout(Yes/No),Primary Skills,Secondary Skills,Source,SPOC,Phone Number,Onsite/Offshore,Current Location,Preferred Location,Current CTC(In INR),Expected CTC(In INR),Visa Type,Valid Until,Visa Stamped \n`;
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'Candidate-template.csv');
   }
+
   updateCandidate() {
     this.formSubmitted = true;
     if (this.addCandidateForm.valid) {
       const formData = this.addCandidateForm.value;
       console.log('Form Data:', formData);
       const candidate : Candidates = {
-
         candidateId : formData.candidateId,
         candidateName:formData.candidateName,
-        currentLocation : formData.location,
         emailId : formData.email,
+        roles: formData.roles,
         experience : formData.experience,
+        noticePeriod: formData.noticePeriod,
+        buyout: formData.buyout,
+        currentLocation : formData.location,
+        preferredLocation: formData.preferredLocation,
         location : formData.locationDetails,
         phoneNumber : formData.phone,
         skillSet : {
           primarySkills :formData.primarySkill,
           secondarySkills: formData.secondarySkill
         },
-        roles: formData.roles,
         source: formData.sourceDetail,
         SPOC: formData.spoc,
         visaDetails: {
-          validUntil:formData.validUntil,
+          validUntil:formData.validUntil?formData.validUntil.toLocaleDateString():null,
           visaType: formData.visaType,
           visaStamped: formData.visaStamped
         }
       }
       this.store.dispatch(resourceActions.updateResource({candidate}))
-      // this.managerService
-      //   .updateCandidate(
-      //     formData.candidateName,
-      //     formData.email,
-      //     formData.phone,
-      //     formData.empid,
-      //     formData?.department,
-      //     formData?.location
-      //   )
-      //   .subscribe((response) => {
-      //     console.log('Candidate Updated....');
-      //   });
+
 
       setTimeout(() => {
         this.UpdateMessage();
         this.cancelButton();
        // this.getUniqueCandidatedata();
       }, 1000);
+    }
+    else{
+      console.log("form is not valid")
     }
   }
   UpdateMessage() {
@@ -370,26 +376,46 @@ export class ResourceComponent implements OnDestroy{
           Object.keys(row).some((key) => row[key] !== '')
         );
         if (csvRows.length === 0) {
-          this.fileUploadErrorMessage();
+          // this.fileUploadErrorMessage();
           this.cancelButton();
           return;
         }
         console.log('CSV Data:', csvRows);
-        for (let data of csvRows) {
-          console.log('Csv File datum--', data);
-          this.managerService
-            .addCandidate(
-              data.candidateName,
-              data.email,
-              data.phone,
-              data.empid,
-              data?.Department,
-              data?.Location
-            )
-            .subscribe((response) => {
-              console.log('Candidate Saved....');
-            });
-        }
+let csvResult : any [] = [];
+
+for(let data of csvRows){
+  console.log('CSV file data', data);
+  let obj = {
+    "candidateId": data["Candidate Id"],
+      "candidateName" : data["Candidate Name"],
+      "emailId": data["Email Id"],
+      "roles": data["Title"],
+      "experience": data["Total Experience"],
+      "noticePeriod": data["Notice Period(In Days)"],
+      "buyout":data["Buyout(Yes/No)"],
+      "skillSet" : {
+        "primarySkills" : data["Primary Skills"],
+        "secondarySkills": data["Secondary Skills"],
+      },
+      "source": data.Source,
+      "SPOC": data.SPOC,
+     "phoneNumber": data["Phone Number"],
+     "location": data["Onsite/Offshore"],
+     "currentLocation": data["Current Location"],
+     "preferredLocation": data["Preferred Location"],
+     "currentCTC": data["Current CTC(In INR)"],
+     "expectedCTC": data["Expected CTC(In INR)"],
+     "visaDetails": {
+      validUntil: data[ "Valid Until"],
+      visaType:data["Visa Type" ],
+      visaStamped:data[ "Visa Stamped"]
+    }
+
+  };
+  csvResult.push(obj);
+}
+this.store.dispatch(resourceActions.addMultiResource({candidate: csvResult}));
+
         setTimeout(() => {
           this.fileUploadMessage();
           this.cancelButton();
@@ -399,31 +425,9 @@ export class ResourceComponent implements OnDestroy{
       header: true,
     });
   }
-  gotoCandidateProfile(data: any) {
-    console.log('Candidate data', data);
-    // this.newScheduleService.setCandidateProfileData(data);
-    sessionStorage.setItem('CandiateProfileId', data.empid);
-    sessionStorage.setItem('CandiateProfileName', data.candidateName);
-    sessionStorage.setItem('CandiateProfileEmail', data.candidateEmail);
-    sessionStorage.setItem('CandiateProfilePhone', data.candidatePhone);
-    sessionStorage.setItem('CandiateProfileDepartment', data.department);
-    sessionStorage.setItem('CandiateProfileLocation', data.candidate_location);
-    this.router.navigate(['/mtalent/candidateProfile']);
-  }
+
   selectedDeleteCandidate: any;
 
-
-  // deleteCandidate() {
-  //   console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
-  //   const candidates = this.selectedDeleteCandidate.map((candidate: { id: string , candidateEmail :string }) => ({id : candidate.id , candidateEmail : candidate.candidateEmail}))
-  //   console.log("candidates to be deleted" , candidates)
-  //   this.store.dispatch(resourceActions.deleteResource({candidates}))
-  //   setTimeout(() => {
-  //     this.deleteMessage();
-  //     this.selectedDeleteCandidate = [];
-  //     // this.getUniqueCandidatedata();
-  //   }, 1500);
-  // }
 
   deleteCandidate(){
     console.log('Deleteting Candidate.....', this.selectedDeleteCandidate);
@@ -437,12 +441,7 @@ export class ResourceComponent implements OnDestroy{
       this.refreshPage();
       // this.getUniqueCandidatedata();
     }, 1500);
-
-
-
-
   }
-
 
   refreshPage(){
     window.location.reload();

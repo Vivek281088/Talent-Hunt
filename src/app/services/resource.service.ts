@@ -40,6 +40,14 @@ updateResource(candidate: Candidates): Observable<Candidates> {
 }
 
 
+addMultiResource(candidate: Candidates[]): Observable<Candidates[]> {
+
+  console.log("from canddddddd service",candidate)
+  return this.http.post<Candidates[]>(
+    'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resource',
+    candidate,
+  );
+}
 
 
 }
