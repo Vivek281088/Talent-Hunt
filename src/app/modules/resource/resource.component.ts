@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject, Subscription, debounceTime, skip, switchMap, take, takeUntil, tap } from 'rxjs';
 import { CalendarModule } from 'primeng/calendar';
-import { Candidates, resourceActions } from 'src/app/store/resource/resource.action';
-import { getResource, getResourceError } from 'src/app/store/resource/resource.selector';
+import { Candidates, resourceActions } from 'src/app/store/Resource/resource.action';
+import { getResource, getResourceError } from 'src/app/store/Resource/resource.selector';
 @Component({
   selector: 'app-resource',
   templateUrl: './resource.component.html',

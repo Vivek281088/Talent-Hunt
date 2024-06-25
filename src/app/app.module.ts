@@ -102,7 +102,7 @@ import { ResourceComponent } from './modules/resource/resource.component';
 
 
 import { CandidateDetailsComponent } from './modules/candidate-details/candidate-details.component';
-import { ResourceFeature } from './store/resource/resource.selector';
+import { ResourceFeature } from './store/Resource/resource.selector';
 import { MainscreenComponent } from './modules/mainscreen/mainscreen.component';
 import { AddResource$, getResources$, deleteResource$, updateResource$ } from './store/Resource/resource.effects';
 import { OnboardComponent } from './modules/onboard/onboard.component';
