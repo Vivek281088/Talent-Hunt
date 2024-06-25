@@ -87,4 +87,10 @@ export class ManageAgile1Component {
       []
     );
   }
+  extractAgile(agileData: any) {
+    const worksheet = XLSX.utils.json_to_sheet(agileData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Agile details');
+    XLSX.writeFile(workbook, 'Agile details.xlsx', { compression: true });
+  }
 }
