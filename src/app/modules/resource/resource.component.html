@@ -93,8 +93,8 @@
           </th>
           <th>Candidate ID</th>
           <th>Candidate Name</th>
-          <th>Role</th>
-          <th>Skill Set</th>
+          <th>Title</th>
+          <th>Primary Skils</th>
           <th>Exp(In years)</th>
           <th>Location</th>
           <th>Source</th>
@@ -359,7 +359,7 @@
 <div class="labelvalue">
   <div class="label">
     <label> Notice Period(In days)</label>
-    <span class="important-symbol">&#42;</span>
+    <!-- <span class="important-symbol">&#42;</span> -->
   </div>
   <div class="value">
     <input
@@ -367,20 +367,7 @@
     appAllowDigits="3"
     pInputText
   >
-  <div
-  *ngIf="
-    addCandidateForm.get('experience')?.invalid &&
-    (addCandidateForm.get('experience')?.touched || formSubmitted)
-  "
->
-  <div
-    class="error-message"
-    *ngIf="addCandidateForm.get('experience')?.hasError('required')"
-  >
-    Experience is required !
-  </div>
-</div>
-  </div>
+    </div>
 
 
 
@@ -391,7 +378,7 @@
 <div class="labelvalue">
   <div class="label" >
     <label>Buyout</label>
-    <span class="important-symbol">&#42;</span>
+    <!-- <span class="important-symbol">&#42;</span> -->
   </div>
   <div class="value">
     <p-dropdown
@@ -466,7 +453,7 @@
   <!-- Primary Skills -->
     <div class="labelvalue">
       <div class="label">
-        <label> Primary Skills</label>
+        <label> Primary Skills (You may add multiple skills by separating each skill with a comma)</label>
         <span class="important-symbol">&#42;</span>
       </div>
       <div class="value">
@@ -492,7 +479,7 @@
     <!-- Secondary Skills -->
     <div class="labelvalue">
       <div class="label">
-        <label> Secondary Skills</label>
+        <label> Secondary Skills (You may add multiple skills by separating each skill with a comma)</label>
         <span class="important-symbol">&#42;</span>
       </div>
       <div class="value">
@@ -748,8 +735,7 @@
         <input
         pInputText
           formControlName="candidateId"
-
-          [readOnly]="true"
+           [readOnly]="true"
         >
       </div>
     </div>
@@ -911,9 +897,6 @@
     </div>
   </div>
     </div>
-
-
-
   </div>
 
   <!-- Notice Period -->
@@ -1165,20 +1148,24 @@
       </div>
   <!-- Valid Until -->
   <div *ngIf="addCandidateForm.get('locationDetails')?.value === 'Onsite'">
+    <div class="labelvalue">
     <div class="label" >
       <label>Valid Until</label>
       <span class="important-symbol">&#42;</span>
     </div>
+
   <div  class="calender-field">
     <p-calendar [appendTo]="'body'"
     [showIcon]="true"
     formControlName= "validUntil"
     ></p-calendar>
   </div>
+</div>
   </div>
   <!--  Visa Stamped-->
   <div *ngIf="addCandidateForm.get('locationDetails')?.value === 'Onsite'">
-  <div class="label" >
+    <div class="labelvalue">
+    <div class="label" >
     <label>Visa Stamped</label>
     <span class="important-symbol">&#42;</span>
   </div>
@@ -1190,6 +1177,7 @@
       appendTo="body"
       class="w-full table_dropdown"
     ></p-dropdown>
+  </div>
   </div>
   </div>
   </div>
