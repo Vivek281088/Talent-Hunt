@@ -1,4 +1,5 @@
-import { resourceActions } from 'src/app/store/resource/resource.action';
+import { resourceActions } from 'src/app/store/Resource/resource.action';
+import { getCandidate } from '../candidate/candidate.selector';
 // import { getCandidate } from '../candidate/candidate.selector';
 import { inject } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";

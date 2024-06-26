@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
-import { Candidates } from '../store/resource/resource.action';
+import { Candidates } from '../store/Resource/resource.action';
 
 @Injectable({
   providedIn: 'root'
