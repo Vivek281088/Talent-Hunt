@@ -47,6 +47,34 @@
           <th colspan="12">
             <div class="manager-header">
               <div class="manager-header1">
+                <div class="p-input-icon-left-right">
+                  <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                  </span>
+                  <input
+                    class="searchIcon"
+                    pInputText
+                    type="text"
+                    [(ngModel)]="globalSearchValue"
+                    (input)="
+                      dt2.filterGlobal(
+                        $any($event.target).value,
+                        'contains'
+                      )
+                    "
+                    placeholder="Search"
+                  />
+                  <span
+                    class="p-input-icon-right"
+                    (click)="clear(dt2)"
+                    *ngIf="globalSearchValue!='' && globalSearchValue!=null"
+                  >
+                    <i class="pi pi-times-circle" ></i>
+                  </span>
+                </div>
+
+              </div>
+              <!-- <div class="manager-header1">
                 <div class="p-input-icon-right">
                   <i class="pi pi-search"></i>
                   <input
@@ -59,6 +87,7 @@
                     "
                     placeholder="Search"
                   />
+
                 </div>
 
                 <div class="ml-3">
@@ -69,7 +98,7 @@
                     (click)="clear(dt2)"
                   ></button>
                 </div>
-              </div>
+              </div> -->
               <div class="manager-header-2">
                 <div class="addcandidate">
                   <p-button label="Add Candidate" (onClick)="addCandidate()">
