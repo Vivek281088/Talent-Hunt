@@ -119,54 +119,48 @@
               (click)="toggle(rowData)"
             ></p-tableCheckbox>
           </td>
-          <td class="custom_link">{{ rowData.agileData.ID }}</td>
           <td class="custom_link">
-            {{ rowData.pcrData.jobTitle }}
+            {{ rowData.agileData.ID }} </td>
+          <td class="custom_link">
+            <ng-container *ngIf="!isEmptyObject(rowData.pcrData); else jobtitle">
+              {{ rowData.pcrData.jobTitle }}
+            </ng-container>
+            <ng-template #jobtitle>
+              {{ rowData.agileData.Title }}
+            </ng-template>
+
           </td>
           <td>
             {{ rowData.candidateData.candidateName }}</td>
-          <td class="skills">
-            <span
-              *ngFor="
-                let item of getFormattedSkills(rowData.pcrData.skills).skills
-              "
-            >
-              <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
-            </span>
-            <span
-              *ngIf="
-                getFormattedSkills(rowData.pcrData.skills).remainingCount > 0
-              "
-              class="plusIcon"
-            >
-              +
-              <p-overlayPanel #op>
-                <ul
-                  style="list-style-type: none"
-                  *ngFor="
-                    let skill of remainaingSkills(
-                      rowData.pcrData.skills,
-                      getFormattedSkills(rowData.pcrData.skills).remainingCount
-                    )
-                  "
-                >
-                  <li>
-                    <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
-                  </li>
-                </ul>
-              </p-overlayPanel>
-              <p-badge
-                class="cursor-design"
-                (mouseenter)="op.toggle($event)"
-                (mouseleave)="op.toggle($event)"
-                [value]="
-                  getFormattedSkills(
-                    rowData.pcrData.skills
-                  ).remainingCount.toString()
-                "
-              ></p-badge>
-            </span>
-          </td>
+            <td class="skills">
+              <ng-container *ngIf="rowData.pcrData.skills && rowData.pcrData.skills.length > 0">
+                <ng-container *ngIf="isArray(rowData.pcrData.skills)"> <!-- Check if skills is an array -->
+                  <span *ngFor="let item of getFormattedSkills(rowData.pcrData.skills).skills">
+                    <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
+                  </span>
+                  <span *ngIf="getFormattedSkills(rowData.pcrData.skills).remainingCount > 0" class="plusIcon">
+                    +
+                    <p-overlayPanel #op>
+                      <ul
+                        style="list-style-type: none"
+                        *ngFor="let skill of remainaingSkills(rowData.pcrData.skills, getFormattedSkills(rowData.pcrData.skills).remainingCount)"
+                      >
+                        <li>
+                          <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
+                        </li>
+                      </ul>
+                    </p-overlayPanel>
+                    <p-badge
+                      class="cursor-design"
+                      (mouseenter)="op.toggle($event)"
+                      (mouseleave)="op.toggle($event)"
+                      [value]="getFormattedSkills(rowData.pcrData.skills).remainingCount.toString()"
+                    ></p-badge>
+                  </span>
+                </ng-container>
+              </ng-container>
+            </td>
+
           <td>{{ rowData.mappedData.testStatus }}</td>
           <td>
             <p-cellEditor>
@@ -238,7 +232,7 @@
                 style="color: #3B82F6; cursor: pointer"
                 (click)="openInviteDialog($event, rowData)"
                 pTooltip="Mail"
-
+                tooltipPosition="top"
               ></i>
             </div>
 
@@ -254,6 +248,7 @@
                 (click)="onRowEditInit(rowData.mappedData)"
                 class="p-button-rounded p-button-text"
                 pTooltip="Edit"
+                tooltipPosition="top"
               ></button>
               <button
                 *ngIf="editing"
@@ -353,12 +348,16 @@
             pTooltip="Please select a PCR first."
             tooltipPosition="top"
             [tooltipDisabled]="pcrSelected"
-          ></p-multiSelect>
+            selectedItemsLabel="{{selectedCandidates.length}} candidates selected"
+          >
+
+        </p-multiSelect>
         </div>
+
       </div>
       <div
         class="customdisplay"
-        *ngIf="selectedPcrId && selectedCandidates.length > 0"
+        *ngIf="pcrSelected && selectedCandidates.length > 0"
       >
         <p-messages [(value)]="messages" [enableService]="false" />
       </div>
