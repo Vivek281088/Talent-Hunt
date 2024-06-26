@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
-import { Candidates } from '../store/resource/resource.action';
+import { Candidates } from '../store/Resource/resource.action';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +40,14 @@ updateResource(candidate: Candidates): Observable<Candidates> {
 }
 
 
+addMultiResource(candidate: Candidates[]): Observable<Candidates[]> {
+
+  console.log("from canddddddd service",candidate)
+  return this.http.post<Candidates[]>(
+    'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resource',
+    candidate,
+  );
+}
 
 
 }

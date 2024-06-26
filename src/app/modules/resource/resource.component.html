@@ -24,7 +24,7 @@
       #dt2
       [value]="candidateData"
       dataKey="candidateId"
-      [rows]="5"
+      [rows]="25"
       [showCurrentPageReport]="true"
       [rowsPerPageOptions]="[5, 10, 25, 50]"
       [(selection)]="selectedDeleteCandidate"
@@ -122,7 +122,7 @@
             }}
           </td>
           <td>{{ rowData.roles}}</td>
-          <td>{{ rowData.skillSet.primarySkills}}</td>
+          <td>{{ rowData.skillSet?.primarySkills}}</td>
           <td>{{ rowData.experience}}</td>
           <td>{{ rowData.location }}</td>
           <td>{{rowData.source}} </td>
@@ -326,7 +326,7 @@
 <!-- Experience -->
 <div class="labelvalue">
   <div class="label">
-    <label> Experience(In years)</label>
+    <label> Total Experience(In years)</label>
     <span class="important-symbol">&#42;</span>
   </div>
   <div class="value">
@@ -355,6 +355,55 @@
 
 </div>
 
+<!-- Notice Period -->
+<div class="labelvalue">
+  <div class="label">
+    <label> Notice Period(In days)</label>
+    <span class="important-symbol">&#42;</span>
+  </div>
+  <div class="value">
+    <input
+    formControlName="experience"
+    appAllowDigits="3"
+    pInputText
+  >
+  <div
+  *ngIf="
+    addCandidateForm.get('experience')?.invalid &&
+    (addCandidateForm.get('experience')?.touched || formSubmitted)
+  "
+>
+  <div
+    class="error-message"
+    *ngIf="addCandidateForm.get('experience')?.hasError('required')"
+  >
+    Experience is required !
+  </div>
+</div>
+  </div>
+
+
+
+
+</div>
+
+<!-- Buyout -->
+<div class="labelvalue">
+  <div class="label" >
+    <label>Buyout</label>
+    <span class="important-symbol">&#42;</span>
+  </div>
+  <div class="value">
+    <p-dropdown
+      [options]="booleanOptions"
+      placeholder="--Select --"
+      formControlName="visaStamped"
+      appendTo="body"
+      class="w-full table_dropdown"
+    ></p-dropdown>
+  </div>
+
+</div>
 <!-- Source -->
 <div class="labelvalue">
   <div class="label">
@@ -467,11 +516,10 @@
     </div>
     </div>
   </div>
-
   <!-- Roles -->
   <div class="labelvalue">
     <div class="label">
-      <label> Role(s)</label>
+      <label>Title</label>
       <span class="important-symbol">&#42;</span>
     </div>
     <div class="value">
@@ -494,6 +542,36 @@
     </div>
   </div>
   </div>
+    <!-- Current CTC -->
+    <div class="labelvalue">
+      <div class="label">
+        <label> Current CTC</label>
+        <!-- <span class="important-symbol">&#42;</span> -->
+      </div>
+      <div class="value">
+        <input
+        pInputText
+          formControlName="currentCTC"
+        >
+      </div>
+
+    </div>
+    <!-- Expected CTC -->
+    <div class="labelvalue">
+      <div class="label">
+        <label> Expected CTC</label>
+        <!-- <span class="important-symbol">&#42;</span> -->
+      </div>
+      <div class="value">
+        <input
+        pInputText
+          formControlName="expectedCTC"
+        >
+      </div>
+
+    </div>
+
+
      <!-- Candidate Location -->
      <div class="labelvalue">
       <div class="label">
@@ -544,6 +622,7 @@
     </div>
 <!-- Valid Until -->
 <div *ngIf="addCandidateForm.get('locationDetails')?.value === 'Onsite'">
+  <div class="labelvalue" >
   <div class="label" >
     <label>Valid Until</label>
     <span class="important-symbol">&#42;</span>
@@ -552,24 +631,28 @@
   <p-calendar [appendTo]="'body'"
   [showIcon]="true"
   formControlName= "validUntil"
+  dateFormat="mm/dd/yy"
+
   ></p-calendar>
+</div>
 </div>
 </div>
 <!--  Visa Stamped-->
 <div *ngIf="addCandidateForm.get('locationDetails')?.value === 'Onsite'">
-
+  <div class="labelvalue" >
 <div class="label" >
   <label>Visa Stamped</label>
   <span class="important-symbol">&#42;</span>
 </div>
 <div class="value">
   <p-dropdown
-    [options]="visasStamped"
+    [options]="booleanOptions"
     placeholder="--Select --"
-    formControlName=" visaStamped"
+    formControlName="visaStamped"
     appendTo="body"
     class="w-full table_dropdown"
   ></p-dropdown>
+</div>
 </div>
 </div>
 </div>
@@ -665,6 +748,8 @@
         <input
         pInputText
           formControlName="candidateId"
+
+          [readOnly]="true"
         >
       </div>
     </div>
@@ -709,7 +794,9 @@
         <span class="important-symbol">&#42;</span>
       </div>
       <div class="value">
-        <input type="email" formControlName="email" pInputText />
+        <input type="email" formControlName="email"
+
+        pInputText />
         <div
           *ngIf="
             addCandidateForm.get('email')?.invalid &&
@@ -784,10 +871,24 @@
       </div>
       </div>
     </div>
+   <!-- Edit preferred Location -->
+   <div class="labelvalue">
+    <div class="label">
+      <label> Preferred Location</label>
+      <!-- <span class="important-symbol">&#42;</span> -->
+    </div>
+    <div class="value">
+      <input
+      pInputText
+        formControlName="preferredLocation"
+      >
+    </div>
+  </div>
+
   <!-- Edit Experience -->
   <div class="labelvalue">
     <div class="label">
-      <label> Experience(In years)</label>
+      <label> Total Experience(In years)</label>
       <span class="important-symbol">&#42;</span>
     </div>
     <div class="value">
@@ -814,6 +915,41 @@
 
 
   </div>
+
+  <!-- Notice Period -->
+<div class="labelvalue">
+  <div class="label">
+    <label> Notice Period(In days)</label>
+    <!-- <span class="important-symbol">&#42;</span> -->
+  </div>
+  <div class="value">
+    <input
+    formControlName="noticePeriod"
+    appAllowDigits="3"
+    pInputText
+  >
+  </div>
+
+
+
+
+</div>
+<!-- Buyout -->
+<div class="labelvalue">
+  <div class="label" >
+    <label>Buyout</label>
+    <span class="important-symbol">&#42;</span>
+  </div>
+  <div class="value">
+    <p-dropdown
+      [options]="booleanOptions"
+      placeholder="--Select --"
+      formControlName="visaStamped"
+      appendTo="body"
+      class="w-full table_dropdown"
+    ></p-dropdown>
+  </div>
+</div>
   <!-- Edit Source-->
   <div class="labelvalue">
     <div class="label">
@@ -927,7 +1063,7 @@
     <!-- Edit Roles -->
     <div class="labelvalue">
       <div class="label">
-        <label> Role(s)</label>
+        <label>Title </label>
         <span class="important-symbol">&#42;</span>
       </div>
       <div class="value">
@@ -946,10 +1082,38 @@
         class="error-message"
         *ngIf="addCandidateForm.get('roles')?.hasError('required')"
       >
-       Role required!
+       Title required!
       </div>
     </div>
     </div>
+    <!-- Edit Current CTC -->
+  <div class="labelvalue">
+    <div class="label">
+      <label> Current CTC</label>
+      <!-- <span class="important-symbol">&#42;</span> -->
+    </div>
+    <div class="value">
+      <input
+      pInputText
+        formControlName="currentCTC"
+      >
+    </div>
+
+  </div>
+  <!-- Edit Expected CTC -->
+  <div class="labelvalue">
+    <div class="label">
+      <label> Expected CTC</label>
+      <!-- <span class="important-symbol">&#42;</span> -->
+    </div>
+    <div class="value">
+      <input
+      pInputText
+        formControlName="expectedCTC"
+      >
+    </div>
+
+  </div>
     <!-- Edit Candidate Location -->
     <div class="labelvalue">
       <div class="label">
@@ -1020,9 +1184,9 @@
   </div>
   <div class="value">
     <p-dropdown
-      [options]="visasStamped"
+      [options]="booleanOptions"
       placeholder="--Select --"
-      formControlName=" visaStamped"
+      formControlName="visaStamped"
       appendTo="body"
       class="w-full table_dropdown"
     ></p-dropdown>
@@ -1046,7 +1210,7 @@
             </div>
             <div class="Createbutton" *ngIf="isEditCandidate">
               <p-button label="Update"
-              (onClick)="updateCandidate()"
+              (click)="updateCandidate()"
               [disabled]=(addCandidateForm.pristine)>
               </p-button>
             </div>
