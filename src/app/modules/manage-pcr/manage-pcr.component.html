@@ -326,16 +326,18 @@
                 <span class="important-symbol">&#42;</span>
               </div>
 
-              <div class="card flex flex-wrap gap-3 p-fluid">
-                <div class="flex-auto">
+              <div class="card flex flex-wrap gap-3 p-fluid ">
+                <div class="flex-auto ">
+                  <div class="calendar-field">
                   <p-calendar
                     formControlName="createdDate"
                     appendTo="body"
                     [showIcon]="true"
                     inputId="buttondisplay"
-                    [showOnFocus]="false"
+
                     dateFormat="mm/dd/yy"
-                  />
+                  ></p-calendar>
+                </div>
                 </div>
               </div>
             </div>
