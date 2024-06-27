@@ -403,7 +403,11 @@
     }
     .p-calendar {
       width: 100%;
-    }
+      }
+      .p-calendar-w-btn .p-datepicker-trigger{
+        background: #652d90;
+        border: #652d90;
+       }
     .p-dialog .p-dialog-footer {
       padding: 12px;
     }
@@ -429,6 +433,8 @@
         color: #ee4555;
       }
     }
+
+
   }
 }
 
@@ -572,24 +578,9 @@
 }
 
 
-.calender-field {
-  ::ng-deep {
-    .p-button {
-      background: #652d90;
-      border: 1px solid #652d90;
-
-    }
-
-    .p-button:focus {
-      box-shadow: none;
-    }
-
-    .p-button.p-button-icon-only {
-      width: 2rem;
-      padding: 0.75rem 0;
-      height: 3rem;
-    }
 
 
-  }
-}
+
+
+
+
