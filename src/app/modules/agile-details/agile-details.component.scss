@@ -1,0 +1,109 @@
+@import 'src/app/shared/css/shared';
+.file-upload{
+  @include upload-button
+}
+.pcr-emp-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .manageManagers-header-1 {
+    display: flex;
+    flex-direction: column;
+
+    .title {
+      p {
+        font-family: "Poppins", sans-serif;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 30px;
+        letter-spacing: 0.15000000596046448px;
+        text-align: left;
+      }
+    }
+  }
+
+  .BreadCrumb {
+    ::ng-deep .p-breadcrumb {
+      overflow-x: auto;
+      background: transparent;
+      padding-left: 0;
+    }
+    ::ng-deep {
+      .p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+        color: #1e22aa;
+      }
+      .p-icon {
+        display: inline-block;
+        height: 13px;
+        width: 8px;
+        color: #00000061;
+      }
+    }
+  }
+  ::ng-deep
+    .p-breadcrumb
+    .p-breadcrumb-list
+    li
+    .p-menuitem-link
+    .p-menuitem-icon {
+    color: #6c757d;
+  }
+  .pcrdetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    ::ng-deep {
+
+      .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+        border-color: #652d90;
+        color: #652d90;
+        padding: 1rem;
+      }
+      .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+        padding: 1rem;
+      }
+      .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus {
+        box-shadow: none;
+      }
+      .p-datatable .p-datatable-thead > tr > th {
+        padding: 1rem 1rem 1rem 1rem;
+      }
+      .p-tabview .p-tabview-panels {
+          padding: 1rem;
+      }
+    }
+  }
+
+
+.small-input {
+  width: 100%; /* Adjust width as needed */
+  padding: 0.5rem; /* Adjust padding as needed */
+}
+.pcr-field-label{
+  font-weight: 600;
+}
+.pcr-field-input{
+  color: rgb(17, 16, 16) !important;
+  font-weight: 600;
+}
+.details-icon{
+    color:rgb(17, 150, 17)
+}
+
+.json-key {
+  color: green;
+}
+
+.json-value {
+  color: blue;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: rgb(6, 128, 6);
+}

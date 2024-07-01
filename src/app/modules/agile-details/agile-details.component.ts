@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 import {
-  Component,
+
   Injector,
   OnInit,
   Signal,
@@ -13,14 +13,14 @@ import { PcrService } from 'src/app/services/pcr.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { transformDataToInputFields } from 'src/app/shared/utils/transformDataToInputFields';
 import { formatJson } from 'src/app/shared/utils/formatJson';
-import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-pcr-details',
-  templateUrl: './pcr-details.component.html',
-  styleUrls: ['./pcr-details.component.scss'],
+  selector: 'app-agile-details',
+  templateUrl: './agile-details.component.html',
+  styleUrls: ['./agile-details.component.scss']
 })
-export class PcrDetailsComponent implements OnInit {
+export class AgileDetailsComponent {
+
   jsonData: any;
   constructor(private pcrService: PcrService, private injector: Injector) {}
   @ViewChild('dt') dt!: Table;
@@ -33,8 +33,10 @@ export class PcrDetailsComponent implements OnInit {
   inputFields: any = [];
   mappingDetails: any = [];
   ngOnInit(): void {
-    let id = sessionStorage.getItem('currentPCRid')
-      ? sessionStorage.getItem('currentPCRid')
+    let agileId=sessionStorage.getItem('AgileId')
+    let id = sessionStorage.getItem('currentAgileId')
+
+      ? sessionStorage.getItem('currentAgileId')
       : '';
     this.pcrService.getIndividualPCR(id).subscribe((data) => {
       this.mappingDetails = data.mappingDetails;

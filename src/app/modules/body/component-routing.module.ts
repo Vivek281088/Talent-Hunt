@@ -27,6 +27,7 @@ import { PcrResourceMappingComponent } from '../pcr-resource-mapping/pcr-resourc
 import { CandidateDetailsComponent } from '../candidate-details/candidate-details.component';
 import { MainscreenComponent } from '../mainscreen/mainscreen.component';
 import { OnboardComponent } from '../onboard/onboard.component';
+import { AgileDetailsComponent } from '../agile-details/agile-details.component';
 
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
@@ -56,6 +57,7 @@ const routes:Routes=[{path:'',component:BodyComponent,
     { path: 'candidatedetails', component: CandidateDetailsComponent },
     {path:'mainscreen',component:MainscreenComponent},
     {path:'onboard',component:OnboardComponent},
+    {path:'agiledetails',component:AgileDetailsComponent}
 
   ]
 }]

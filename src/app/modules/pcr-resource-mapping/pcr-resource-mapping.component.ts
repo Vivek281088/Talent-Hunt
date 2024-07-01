@@ -25,6 +25,7 @@ import { L1ScreenService } from 'src/app/services/l1-screen.service';
 import { agileActions,agileDetails } from 'src/app/store/Agile1/Agile1.action';
 import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 
+
 @Component({
   selector: 'app-pcr-resource-mapping',
   templateUrl: './pcr-resource-mapping.component.html',
@@ -535,4 +536,12 @@ export class PcrResourceMappingComponent {
       console.log(data);
     });
   }
+  individualPcr(pcr:string){
+    console.log("pcriddd",pcr);
+
+    sessionStorage.setItem('currentPCRid', pcr);
+    this.router.navigate(['/mtalent/pcrdetails']);
+
+  }
+
 }

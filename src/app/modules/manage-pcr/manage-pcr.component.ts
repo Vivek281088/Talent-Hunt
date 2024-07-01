@@ -96,6 +96,13 @@ export class ManagePcrComponent {
     sessionStorage.setItem('currentPCRid', id);
     this.router.navigate(['/mtalent/pcrdetails']);
   }
+  individualAgile(id:string){
+    sessionStorage.setItem('AgileId', id);
+    this.router.navigate(['/mtalent/agiledetails']);
+  }
+
+
+
   addPcr() {
     this.addPCR = true;
   }

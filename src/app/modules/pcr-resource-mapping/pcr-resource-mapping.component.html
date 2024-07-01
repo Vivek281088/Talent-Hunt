@@ -34,7 +34,7 @@
       [paginator]="true"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       [globalFilterFields]="[
-        'pcrData.agileId',
+        'pcrData.pcrId',
         'candidateData.candidateId',
         'candidateData.candidateName',
         'pcrData.jobTitle',
@@ -93,7 +93,7 @@
               (click)="toggleSelectAll()"
             ></p-tableHeaderCheckbox>
           </th>
-          <th>Agile ID</th>
+          <th>PCR ID</th>
           <th>Job Title</th>
           <th>Candidate Name</th>
           <th>PCR Skills</th>
@@ -119,12 +119,15 @@
               (click)="toggle(rowData)"
             ></p-tableCheckbox>
           </td>
-          <td class="custom_link">{{ rowData.agileData.ID }}</td>
-          <td class="custom_link">
+          <td>{{ rowData.pcrData.pcrId }}</td>
+          <td >
             {{ rowData.pcrData.jobTitle }}
           </td>
-          <td>
-            {{ rowData.candidateData.candidateName }}</td>
+          <td class="custom_link">
+            <a (click)="individualPcr(rowData.pcrData.pcrId)">{{
+              rowData.candidateData.candidateName
+            }}</a>
+          </td>
           <td class="skills">
             <span
               *ngFor="
