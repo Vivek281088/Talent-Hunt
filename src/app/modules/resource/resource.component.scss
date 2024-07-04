@@ -41,10 +41,11 @@
   }
 }
 ::ng-deep {
-.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-  border-color: #652d90;
-  color: #652d90;
-}}
+  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    border-color: #652d90;
+    color: #652d90;
+  }
+}
 .manageManagers-header {
   display: flex;
   flex-direction: row;
@@ -262,6 +263,12 @@
   color: #1666dc !important;
 }
 
+::ng-deep.p-datepicker{
+
+    min-width: 380px !important;
+
+}
+
 .newSchedule-Dialog {
   ::ng-deep {
     .p-dialog .p-dialog-header .p-dialog-title {
@@ -269,6 +276,7 @@
       font-weight: 500;
       color: #1e22aa;
     }
+
     .p-tabview .p-tabview-panels {
       padding: 0;
     }
@@ -294,7 +302,7 @@
     .p-dropdown {
       width: 100%;
     }
-    .p-calendar{
+    .p-calendar {
       width: 100%;
     }
 
@@ -323,6 +331,27 @@
         color: #ee4555;
       }
     }
+  }
+}
+
+.calender-field {
+  ::ng-deep {
+    .p-button {
+      background: #652d90;
+      border: 1px solid #652d90;
+    }
+
+    .p-button:focus {
+      box-shadow: none;
+    }
+
+    .p-button.p-button-icon-only {
+      width: 2rem;
+      padding: 0.75rem 0;
+      height: 3rem;
+    }
+
+
   }
 }
 
@@ -465,7 +494,7 @@
   margin-left: 25%;
 }
 
-.resource-link{
+.resource-link {
   cursor: pointer;
   color: #1666dc !important;
 }

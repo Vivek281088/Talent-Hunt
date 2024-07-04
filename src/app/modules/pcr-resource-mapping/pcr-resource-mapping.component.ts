@@ -254,9 +254,9 @@ export class PcrResourceMappingComponent {
     console.log('Selected Candidate---', this.selectedCandidates);
     this.transformedCandidates= this.selectedCandidates.map((candidate: string)=> candidate.split('_')[0]);
     console.log(this.transformedCandidates)
-    this.messages = this.selectedCandidates.map((candidateId) => ({
+    this.messages = this.transformedCandidates.map((candidateId: string) => ({
       severity: 'info',
-      detail: `Selected PCR ID: ${this.selectedPcrId}, Candidate ID: ${candidateId}`,
+      detail: `Candidate ID: ${candidateId} has been mapped`,
     }));
   }
 
@@ -536,12 +536,10 @@ export class PcrResourceMappingComponent {
       console.log(data);
     });
   }
-  individualPcr(pcr:string){
-    console.log("pcriddd",pcr);
-
-    sessionStorage.setItem('currentPCRid', pcr);
-    this.router.navigate(['/mtalent/pcrdetails']);
-
+  isEmptyObject(obj: any): boolean {
+    return obj && Object.keys(obj).length === 0;
   }
-
+  isArray(obj: any): boolean {
+    return Array.isArray(obj);
+  }
 }

@@ -74,29 +74,19 @@
                           />
                           <span
                             class="p-input-icon-right"
-                            (click)="globalSearchValue = ''"
+                            (click)="clear(dt2)"
+                            *ngIf="globalSearchValue!='' && globalSearchValue!=null"
                           >
-                            <i class="pi pi-times-circle"></i>
+                            <i class="pi pi-times-circle" ></i>
                           </span>
                         </div>
 
-                        <!-- <div class="ml-3"> -->
-                        <!-- <button
-                            pButton
-                            label="Clear Search"
-                            class="clear-button cursor-pointer"
-                            (click)="clear(dt2)"
-                          ></button> -->
-                        <!-- <i class="pi pi-refresh"></i> -->
-                        <!-- </div> -->
                       </div>
                       <div class="manager-header-2">
                         <div class="addcandidate">
                           <p-button label="Add PCR" (onClick)="addPcr()">
                           </p-button>
-                          <!-- pi-file-plus -->
-                          <!-- <i class="pi pi-upload add-icon" (click)="addPcr()"
-                        ></i> -->
+
                         </div>
                         <div class="addcandidate">
                           <p-button
@@ -104,9 +94,7 @@
                             (onClick)="extractPCR(pcrData)"
                           >
                           </p-button>
-                          <!-- pi-file-plus -->
-                          <!-- <i class="pi pi-upload add-icon" (click)="addPcr()"
-                        ></i> -->
+
                         </div>
 
                         <div class="addcandidate">
@@ -120,11 +108,7 @@
                           >
                           </p-button>
 
-                          <!-- <i class="pi pi-trash trash-icon" (click)="Deletepcr()"
-                          [disabled]="
-                            !selectedDeletePcr || selectedDeletePcr.length == 0
-                          "
-                        ></i> -->
+
                         </div>
                       </div>
                     </div>

@@ -4,6 +4,8 @@ import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 import { Store } from '@ngrx/store';
 import * as XLSX from 'xlsx';
 import { PcrService } from 'src/app/services/pcr.service';
+import { Table } from 'primeng/table';
+
 
 @Component({
   selector: 'app-manage-agile1',
@@ -12,6 +14,7 @@ import { PcrService } from 'src/app/services/pcr.service';
 })
 export class ManageAgile1Component {
   agileData: any;
+  globalSearchValue!: string;
   constructor(private store: Store, private pcrService: PcrService) {}
   ngOnInit() {
     this.getAgileData();
@@ -51,6 +54,10 @@ export class ManageAgile1Component {
         });
       };
     }
+  }
+  clear(table: Table) {
+    table.clear();
+    this.globalSearchValue = '';
   }
   agileFormatData(data: any) {
     let lastEntryWithId: any;

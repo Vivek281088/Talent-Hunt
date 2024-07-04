@@ -1,6 +1,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+.custom-file-input {
+  position: relative;
+  overflow: hidden;
+  color: #ffffff;
+  background: #652d90;
+  border: 1px solid #652d90;
+  height: 95%;
+  border-radius: 8px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.custom-file-input input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-upload-button {
+  color: #ffffff;
+  background: #652d90;
+  border: 1px solid #652d90;
+  height: 80%;
+  border-radius: 0.5rem;
+  text-align: center;
+  width: 130px;
+  padding-top: 8px;
+  font-weight: bold;
+}
+
+
+
 
 .add-icon {
   color: #1666dc;
@@ -200,7 +235,7 @@
         box-shadow 0.2s;
       -webkit-appearance: none;
       appearance: none;
-      border-radius: 40px;
+      border-radius: 6px;
     }
   }
   ::ng-deep {
@@ -221,10 +256,8 @@
 .manager-header-2 {
   display: flex;
   flex-direction: row;
-  gap: 15%;
-  width: 108%;
-  align-items: center;
-  justify-content: end;
+  justify-content: space-between;
+  gap: 30px;
   // display: flex;
   // flex-direction: row;
   // justify-content: space-between;
@@ -334,9 +367,11 @@
     color: #ffffff;
     background: #652d90;
     border: 1px solid #652d90;
-    height: 95%;
-    border-radius: 8px;
+    height: 80%;
+    border-radius: 0.5rem;
     text-align: center;
+    box-shadow: 0 0.25rem 0.5rem #e6edef;
+    width: 130px;
     &:hover {
       color: #ffffff;
       background: #652d90;
@@ -541,7 +576,7 @@
   border: 1px solid #652d90;
   border-radius: 8px;
   // padding: 1.5% 1% 1.5% 2%;
-  height: 32px;
+  height: 41px;
   // background: #652d90;
   // color: white;
   // font-weight: 700;

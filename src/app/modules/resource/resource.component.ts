@@ -11,8 +11,10 @@ import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject, Subscription, debounceTime, skip, switchMap, take, takeUntil, tap } from 'rxjs';
 import { CalendarModule } from 'primeng/calendar';
-import { Candidates, resourceActions } from 'src/app/store/Resource/resource.action';
-import { getResource, getResourceError } from 'src/app/store/Resource/resource.selector';
+// import { Candidates, resourceActions } from 'src/app/store/resource/resource.action';
+import { getResource, getResourceError } from 'src/app/store/resource/resource.selector';
+import * as XLSX from 'xlsx';
+import { Candidates, resourceActions } from 'src/app/store/resource/resource.action';
 @Component({
   selector: 'app-resource',
   templateUrl: './resource.component.html',
@@ -289,11 +291,38 @@ export class ResourceComponent implements OnDestroy{
   //   });
   // }
 
-  downloadCsvTemplate() {
-    const csvTemplate = `Candidate Id,Candidate Name,Email Id,Title,Total Experience,Notice Period(In Days),Buyout(Yes/No),Primary Skills,Secondary Skills,Source,SPOC,Phone Number,Onsite/Offshore,Current Location,Preferred Location,Current CTC(In INR),Expected CTC(In INR),Visa Type,Valid Until,Visa Stamped \n`;
-    const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
-    saveAs(blob, 'Candidate-template.csv');
+  // downloadCsvTemplate() {
+  //   const csvTemplate = `Candidate Id,Candidate Name,Email Id,Title,Total Experience,Notice Period(In Days),Buyout(Yes/No),Primary Skills,Secondary Skills,Source,SPOC,Phone Number,Onsite/Offshore,Current Location,Preferred Location,Current CTC(In INR),Expected CTC(In INR),Visa Type,Valid Until,Visa Stamped \n`;
+  //   const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
+  //   saveAs(blob, 'Candidate-template.csv');
+  // }
+
+  downloadXlsxTemplate() {
+    // Define the headers for the XLSX file
+    const headers = [
+      "Candidate Id", "Candidate Name", "Email Id", "Title", "Total Experience",
+      "Notice Period(In Days)", "Buyout(Yes/No)", "Primary Skills", "Secondary Skills",
+      "Source", "SPOC", "Phone Number", "Onsite/Offshore", "Current Location",
+      "Preferred Location", "Current CTC(In INR)", "Expected CTC(In INR)",
+      "Visa Type", "Valid Until", "Visa Stamped"
+    ];
+
+    const worksheet = XLSX.utils.aoa_to_sheet([headers]);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Template');
+    const workbookBinary = XLSX.write(workbook, { bookType: 'xlsx', type: 'binary' });
+    const blob = new Blob([this.s2ab(workbookBinary)], { type: 'application/octet-stream' });
+    saveAs(blob, 'Candidate-template.xlsx');
   }
+  s2ab(s: string) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i < s.length; i++) {
+      view[i] = s.charCodeAt(i) & 0xFF;
+    }
+    return buf;
+  }
+
 
   updateCandidate() {
     this.formSubmitted = true;
@@ -312,6 +341,8 @@ export class ResourceComponent implements OnDestroy{
         preferredLocation: formData.preferredLocation,
         location : formData.locationDetails,
         phoneNumber : formData.phone,
+        currentCTC: formData.currentCTC,
+        expectedCTC: formData.expectedCTC,
         skillSet : {
           primarySkills :formData.primarySkill,
           secondarySkills: formData.secondarySkill
@@ -358,73 +389,141 @@ export class ResourceComponent implements OnDestroy{
       detail: 'File is Empty',
     });
   }
-  uploadCsv(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      const reader: FileReader = new FileReader();
-      reader.onload = () => {
-        const csvData: string = reader.result as string;
-        this.processCsvData(csvData);
-      };
-      reader.readAsText(file);
-    }
-  }
-  processCsvData(csvData: string) {
-    Papa.parse(csvData, {
-      complete: (result: { data: any }) => {
-        const csvRows = result.data.filter((row: { [row: string]: string }) =>
-          Object.keys(row).some((key) => row[key] !== '')
-        );
-        if (csvRows.length === 0) {
-          // this.fileUploadErrorMessage();
-          this.cancelButton();
-          return;
-        }
-        console.log('CSV Data:', csvRows);
-let csvResult : any [] = [];
+//   uploadCsv(event: any) {
+//     const file: File = event.target.files[0];
+//     if (file) {
+//       const reader: FileReader = new FileReader();
+//       reader.onload = () => {
+//         const csvData: string = reader.result as string;
+//         this.processCsvData(csvData);
+//       };
+//       reader.readAsText(file);
+//     }
+//   }
+//   processCsvData(csvData: string) {
+//     Papa.parse(csvData, {
+//       complete: (result: { data: any }) => {
+//         const csvRows = result.data.filter((row: { [row: string]: string }) =>
+//           Object.keys(row).some((key) => row[key] !== '')
+//         );
+//         if (csvRows.length === 0) {
+//           // this.fileUploadErrorMessage();
+//           this.cancelButton();
+//           return;
+//         }
+//         console.log('CSV Data:', csvRows);
+// let csvResult : any [] = [];
 
-for(let data of csvRows){
-  console.log('CSV file data', data);
-  let obj = {
-    "candidateId": data["Candidate Id"],
-      "candidateName" : data["Candidate Name"],
+// for(let data of csvRows){
+//   console.log('CSV file data', data);
+//   let obj = {
+//     "candidateId": data["Candidate Id"],
+//       "candidateName" : data["Candidate Name"],
+//       "emailId": data["Email Id"],
+//       "roles": data["Title"],
+//       "experience": data["Total Experience"],
+//       "noticePeriod": data["Notice Period(In Days)"],
+//       "buyout":data["Buyout(Yes/No)"],
+//       "skillSet" : {
+//         "primarySkills" : data["Primary Skills"],
+//         "secondarySkills": data["Secondary Skills"],
+//       },
+//       "source": data.Source,
+//       "SPOC": data.SPOC,
+//      "phoneNumber": data["Phone Number"],
+//      "location": data["Onsite/Offshore"],
+//      "currentLocation": data["Current Location"],
+//      "preferredLocation": data["Preferred Location"],
+//      "currentCTC": data["Current CTC(In INR)"],
+//      "expectedCTC": data["Expected CTC(In INR)"],
+//      "visaDetails": {
+//       validUntil: data[ "Valid Until"],
+//       visaType:data["Visa Type" ],
+//       visaStamped:data[ "Visa Stamped"]
+//     }
+
+//   };
+//   csvResult.push(obj);
+// }
+// this.store.dispatch(resourceActions.addMultiResource({candidate: csvResult}));
+
+//         setTimeout(() => {
+//           this.fileUploadMessage();
+//           this.cancelButton();
+//           // this.getUniqueCandidatedata();
+//         }, 1000);
+//       },
+//       header: true,
+//     });
+//   }
+
+uploadXlsx(event: any) {
+  const file: File = event.target.files[0];
+  if (file) {
+    const reader: FileReader = new FileReader();
+    reader.onload = (event) => {
+      const binaryData = event.target?.result;
+      const workbook = XLSX.read(binaryData, { type: 'binary' });
+      workbook.SheetNames.forEach((sheet) => {
+        const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+        this.processXlsxData(data);
+      });
+    };
+    reader.readAsBinaryString(file);
+  }
+}
+
+processXlsxData(data: any) {
+  const xlsxRows = data.filter((row: { [key: string]: any }) =>
+    Object.keys(row).some((key) => row[key] !== '')
+  );
+  if (xlsxRows.length === 0) {
+    this.cancelButton();
+    return;
+  }
+  console.log('XLSX Data:', xlsxRows);
+
+  let xlsxResult: any[] = [];
+
+  for (let data of xlsxRows) {
+    console.log('XLSX file data', data);
+    let obj = {
+      "candidateId": data["Candidate Id"].toString(),
+      "candidateName": data["Candidate Name"],
       "emailId": data["Email Id"],
       "roles": data["Title"],
       "experience": data["Total Experience"],
       "noticePeriod": data["Notice Period(In Days)"],
-      "buyout":data["Buyout(Yes/No)"],
-      "skillSet" : {
-        "primarySkills" : data["Primary Skills"],
+      "buyout": data["Buyout(Yes/No)"],
+      "skillSet": {
+        "primarySkills": data["Primary Skills"],
         "secondarySkills": data["Secondary Skills"],
       },
-      "source": data.Source,
-      "SPOC": data.SPOC,
-     "phoneNumber": data["Phone Number"],
-     "location": data["Onsite/Offshore"],
-     "currentLocation": data["Current Location"],
-     "preferredLocation": data["Preferred Location"],
-     "currentCTC": data["Current CTC(In INR)"],
-     "expectedCTC": data["Expected CTC(In INR)"],
-     "visaDetails": {
-      validUntil: data[ "Valid Until"],
-      visaType:data["Visa Type" ],
-      visaStamped:data[ "Visa Stamped"]
-    }
-
-  };
-  csvResult.push(obj);
-}
-this.store.dispatch(resourceActions.addMultiResource({candidate: csvResult}));
-
-        setTimeout(() => {
-          this.fileUploadMessage();
-          this.cancelButton();
-          // this.getUniqueCandidatedata();
-        }, 1000);
-      },
-      header: true,
-    });
+      "source": data["Source"],
+      "SPOC": data["SPOC"],
+      "phoneNumber": data["Phone Number"],
+      "location": data["Onsite/Offshore"],
+      "currentLocation": data["Current Location"],
+      "preferredLocation": data["Preferred Location"],
+      "currentCTC": data["Current CTC(In INR)"],
+      "expectedCTC": data["Expected CTC(In INR)"],
+      "visaDetails": {
+        validUntil: data["Valid Until"],
+        visaType: data["Visa Type"],
+        visaStamped: data["Visa Stamped"]
+      }
+    };
+    xlsxResult.push(obj);
   }
+
+  this.store.dispatch(resourceActions.addMultiResource({ candidate: xlsxResult }));
+
+  setTimeout(() => {
+    this.fileUploadMessage();
+    this.cancelButton();
+  }, 1000);
+}
+
 
   selectedDeleteCandidate: any;
 

@@ -19,6 +19,13 @@ export class PcrService {
     console.log('pcr service', pcr);
     return this.http.post<PCR>(`${process.env.BASE_URL_PRIVATE}/pcr`, pcr);
   }
+  //* creating a new addmultiplePCR() because of type structure change
+  addMultiplePCR(data: any): Observable<any> {
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/addMultiPcrId',
+      data
+    );
+  }
   addMuiltPCR(pcr: PCR[]): Observable<PCR[]> {
     console.log('from pcr service', pcr);
     return this.http.post<PCR[]>(

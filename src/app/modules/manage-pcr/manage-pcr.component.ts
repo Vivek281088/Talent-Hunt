@@ -210,66 +210,66 @@ export class ManagePcrComponent {
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'manage-pcr.csv');
   }
+  //! Unused code uploadCSV() and processCsvData()
+  // uploadCSV(event: any) {
+  //   const file: File = event.target.files[0];
+  //   if (file) {
+  //     const reader: FileReader = new FileReader();
+  //     reader.onload = () => {
+  //       const csvData: string = reader.result as string;
+  //       this.processCsvData(csvData);
+  //     };
 
-  uploadCSV(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      const reader: FileReader = new FileReader();
-      reader.onload = () => {
-        const csvData: string = reader.result as string;
-        this.processCsvData(csvData);
-      };
+  //     reader.readAsText(file);
+  //   }
+  // }
+  // processCsvData(csvData: string) {
+  //   Papa.parse(csvData, {
+  //     complete: (result: { data: any }) => {
+  //       const csvRows = result.data.filter((row: { [row: string]: string }) =>
+  //         Object.keys(row).some((key) => row[key] !== '')
+  //       );
 
-      reader.readAsText(file);
-    }
-  }
-  processCsvData(csvData: string) {
-    Papa.parse(csvData, {
-      complete: (result: { data: any }) => {
-        const csvRows = result.data.filter((row: { [row: string]: string }) =>
-          Object.keys(row).some((key) => row[key] !== '')
-        );
+  //       if (csvRows.length === 0) {
+  //         // this.fileUploadErrorMessage();
+  //         this.cancelButton();
+  //         return;
+  //       }
+  //       console.log('CSV Data:', csvRows);
+  //       let result1: any[] = [];
 
-        if (csvRows.length === 0) {
-          // this.fileUploadErrorMessage();
-          this.cancelButton();
-          return;
-        }
-        console.log('CSV Data:', csvRows);
-        let result1: any[] = [];
+  //       for (let data of csvRows) {
+  //         console.log('Csv File datum--', data);
 
-        for (let data of csvRows) {
-          console.log('Csv File datum--', data);
+  //         let obj = {
+  //           pcrId: data.PCRId,
+  //           agileId: data.AgileId,
+  //           createdBy: data['Created By'],
+  //           createdDate: data['Created Date'],
+  //           deleted: data.deleted || false,
+  //           jobTitle: data.JobTitle,
+  //           location: data.Location,
+  //           pcrStatus: data.PcrStatus,
+  //           projectId: data['Project Id'],
+  //           requestResource: data.RequestSource,
+  //           scheduleName: '',
+  //           skills: data.Skills,
+  //         };
+  //         result1.push(obj);
+  //       }
+  //       console.log('data1--------->', result1);
 
-          let obj = {
-            pcrId: data.PCRId,
-            agileId: data.AgileId,
-            createdBy: data['Created By'],
-            createdDate: data['Created Date'],
-            deleted: data.deleted || false,
-            jobTitle: data.JobTitle,
-            location: data.Location,
-            pcrStatus: data.PcrStatus,
-            projectId: data['Project Id'],
-            requestResource: data.RequestSource,
-            scheduleName: '',
-            skills: data.Skills,
-          };
-          result1.push(obj);
-        }
-        console.log('data1--------->', result1);
+  //       this.store.dispatch(PcrActions.addMultiPCR({ pcr: result1 }));
 
-        this.store.dispatch(PcrActions.addMultiPCR({ pcr: result1 }));
-
-        setTimeout(() => {
-          // this.fileUploadMessage();
-          this.cancelButton();
-          // this.loadManagerData();
-        }, 1000);
-      },
-      header: true,
-    });
-  }
+  //       setTimeout(() => {
+  //         // this.fileUploadMessage();
+  //         this.cancelButton();
+  //         // this.loadManagerData();
+  //       }, 1000);
+  //     },
+  //     header: true,
+  //   });
+  // }
   PCRUpload(event: any) {
     console.log('event object', event);
     const file = event.target.files[0];
@@ -284,9 +284,9 @@ export class ManagePcrComponent {
         const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
         console.log('data from the excel', data);
         const pcrData = data.map((pcr: any) => ({
-          pcrId: pcr['BPM ID'],
+          pcrId: pcr['BPM ID'].toString(),
           createdBy: pcr['APPROVED BY'],
-          createdData: pcr['APPROVED DATE'],
+          createdDate: pcr['APPROVED DATE'],
           jobTitle: pcr['ROLE'],
           location: pcr['ONSITE/OFFSHORE'],
           pcrStatus: pcr['POSITION STATUS'],
@@ -305,9 +305,16 @@ export class ManagePcrComponent {
                     .split(',')
                     .map((skill: string) => skill.trim()),
           },
+          deleted: false,
         }));
-        console.log('data from excel sheet', data);
-        console.log('modified data', pcrData);
+        console.log('data from excel sheet', pcrData);
+        if (pcrData) {
+          this.pcrService
+            .addMultiplePCR(pcrData)
+            .subscribe((data) =>
+              console.log('data after upload pcr success', data)
+            );
+        }
       });
     };
   }
