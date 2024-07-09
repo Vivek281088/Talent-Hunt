@@ -71,7 +71,7 @@ export class PcrMappingService {
   }
 
   getAllResource():Observable<any>{
-    const endPoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-getUniqueCandidatesdata`;
+    const endPoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resource`;
     return this.http.get<any>(endPoint);
   }
 }

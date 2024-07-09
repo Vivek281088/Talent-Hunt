@@ -1,3 +1,4 @@
+import { ResourceService } from 'src/app/services/resource.service';
 import { Component, OnDestroy } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
@@ -15,6 +16,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { getResource, getResourceError } from 'src/app/store/resource/resource.selector';
 import * as XLSX from 'xlsx';
 import { Candidates, resourceActions } from 'src/app/store/resource/resource.action';
+// import { ResourceService } from 'src/app/services/resource.service';
 @Component({
   selector: 'app-resource',
   templateUrl: './resource.component.html',
@@ -61,6 +63,7 @@ export class ResourceComponent implements OnDestroy{
 
     constructor(
     private managerService: ManagernameService,
+    private resourceService: ResourceService,
     private fb: FormBuilder,
     private messageService: MessageService,
     private newScheduleService: NewScheduleService,
@@ -98,6 +101,10 @@ export class ResourceComponent implements OnDestroy{
     this.errorSubscription ? this.errorSubscription.unsubscribe() : null
   }
   ngOnInit() {
+    // this.resourceService.getResourceData();
+    console.log("first")
+    console.log('normal service coming',  this.resourceService.getResourceData());
+    console.log("second")
     this.store.dispatch(resourceActions.getResource());
     this.Resource$.subscribe((candidates) =>
       this.candidateData = candidates)
