@@ -4,6 +4,8 @@ import { Table } from 'primeng/table';
 import { Store } from '@ngrx/store';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PcrMappingService } from 'src/app/services/pcr-mapping.service';
+import { PcrService } from 'src/app/services/pcr.service';
+
 import {
   AggregatedData,
   PcrCandidateActions,
@@ -48,8 +50,12 @@ export class PcrResourceMappingComponent {
   sendMailCardVisible: boolean = false;
   scheduledata!: any;
   selectedSchedule!: any;
+  candidateMappingDetails !: any;
+
   deleteData!: any;
-  agileData !: agileDetails[]
+  agileData !: agileDetails[];
+  selectedCandidate: any;
+  candidateDialogVisible = false;
   currentStatus: any = [
     { name: 'Screen Pending', value: 'Screen Pending' },
     { name: 'Screen Reject', value: 'Screen Reject' },
@@ -90,14 +96,17 @@ export class PcrResourceMappingComponent {
     private router: Router,
     private messageService: MessageService,
     private L1ScreenService: L1ScreenService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private pcrService : PcrService
   ) {}
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'user');
+
     this.getPcrMappingData();
     this.getPcrData();
     this.getAgileData();
     this.getCandidateData();
+
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
     this.items = [
@@ -183,6 +192,26 @@ export class PcrResourceMappingComponent {
       });
       console.log('l1 screennnnn..................', this.l1Screen);
     });
+  }
+
+  showCandidateDetails(rowData: any) {
+    this.selectedCandidate = rowData.candidateData;
+    this.candidateDialogVisible = true;
+        // const id = sessionStorage.getItem("currentResourceId") ? sessionStorage.getItem("currentResourceId")  : "" ;
+    this.pcrService.getCandidatePcrMapping(this.selectedCandidate.candidateId).subscribe(data => {
+      console.log('data from emp-pcr ',data);
+      this.candidateMappingDetails = data;
+    })
+  }
+
+  getPcrIds(): string {
+    if (!this.candidateMappingDetails || !Array.isArray(this.candidateMappingDetails)) {
+      return '';
+    }
+    return this.candidateMappingDetails
+      .filter((mapping: { pcrId: any; }) => mapping.pcrId)
+      .map((mapping: { pcrId: any; }) => mapping.pcrId)
+      .join(', ');
   }
 
   selectedDataforMail(data: any) {

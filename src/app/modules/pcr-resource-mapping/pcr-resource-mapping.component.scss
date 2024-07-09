@@ -260,7 +260,7 @@
       border-bottom: 1px solid #0000001f;
     }
     .p-dialog .p-dialog-content {
-      padding: 2rem 1.5rem 2rem 1.5rem;
+      // padding: 2rem 1.5rem 2rem 1.5rem;
       border-bottom: 2px solid #0000001f;
     }
 
@@ -327,6 +327,21 @@
     }
     .p-dropdown:not(.p-disabled):hover {
       border-color: #ced4da !important ;
+    }
+  }
+}
+.labelvalue {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto";
+  font-weight: 400;
+  color: #00000099;
+
+  .label {
+    padding: 2% 0 2% 0;
+
+    span {
+      color: #ee4555;
     }
   }
 }

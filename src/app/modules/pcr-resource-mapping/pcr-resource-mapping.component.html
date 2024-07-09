@@ -130,8 +130,9 @@
             </ng-template>
 
           </td>
-          <td>
-            {{ rowData.candidateData.candidateName }}</td>
+          <td class="custom_link" (click)="showCandidateDetails(rowData)">
+            {{ rowData.candidateData.candidateName }}
+          </td>
             <td class="skills">
               <ng-container *ngIf="rowData.pcrData.skills && rowData.pcrData.skills.length > 0">
                 <ng-container *ngIf="isArray(rowData.pcrData.skills)"> <!-- Check if skills is an array -->
@@ -416,3 +417,122 @@
     </div>
   </p-dialog>
 </div>
+
+<div class="newSchedule-Dialog">
+<p-dialog
+header="Candidate Details"
+[(visible)]="candidateDialogVisible"
+ [modal]="true"
+ [closable]="true"
+ [style]="{ width: '47VW' }"
+ [draggable]="false"
+ [resizable]="false"
+ >
+ <div class="NewSchedule-content">
+  <div *ngIf="selectedCandidate">
+    <!-- Candidate Id -->
+    <div class="labelvalue">
+      <div class="label">
+        <label> Candidate Id</label>
+      </div>
+      <div class="value">
+        <input pInputText [(ngModel)]="selectedCandidate.candidateId" disabled />
+      </div>
+    </div>
+
+    <!-- Candidate Name -->
+    <div class="labelvalue">
+      <div class="label">
+        <label> Candidate Name</label>
+      </div>
+      <div class="value">
+        <input pInputText [(ngModel)]="selectedCandidate.candidateName" disabled />
+      </div>
+    </div>
+
+
+<!-- Email Id -->
+<div class="labelvalue">
+  <div class="label">
+    <label> Email Id</label>
+  </div>
+  <div class="value">
+    <input pInputText [(ngModel)]="selectedCandidate.emailId" disabled />
+  </div>
+</div>
+
+<!-- Title -->
+<div class="labelvalue">
+  <div class="label">
+    <label>Title</label>
+  </div>
+  <div class="value">
+    <input pInputText [(ngModel)]="selectedCandidate.roles" disabled />
+  </div>
+</div>
+
+<!-- Total Experience -->
+<div class="labelvalue">
+  <div class="label">
+    <label>Total Experience</label>
+  </div>
+  <div class="value">
+    <input pInputText [(ngModel)]="selectedCandidate.experience" disabled />
+  </div>
+</div>
+
+<!-- Primary Skills -->
+<div class="labelvalue">
+  <div class="label">
+    <label>Primary Skills</label>
+  </div>
+  <div class="value">
+    <input pInputText [(ngModel)]="selectedCandidate.skillSet.primarySkills" disabled />
+  </div>
+</div>
+
+<!-- Secondary Skills -->
+<div class="labelvalue">
+  <div class="label">
+    <label>Secondary Skills</label>
+  </div>
+  <div class="value">
+    <input pInputText [(ngModel)]="selectedCandidate.skillSet.secondarySkills" disabled />
+  </div>
+</div>
+
+<!-- Phone Number -->
+<div class="labelvalue">
+  <div class="label">
+    <label>Phone Number</label>
+  </div>
+  <div class="value">
+    <input pInputText [(ngModel)]="selectedCandidate.phoneNumber" disabled />
+  </div>
+</div>
+
+<!-- Current Location -->
+<div class="labelvalue">
+  <div class="label">
+    <label>Current Location</label>
+  </div>
+  <div class="value">
+    <input pInputText [(ngModel)]="selectedCandidate.currentLocation" disabled />
+  </div>
+</div>
+
+<!-- Mapped PCR list -->
+<div class="labelvalue">
+  <div class="label">
+    <label>Mapped PCRs</label>
+  </div>
+  <div class="value">
+    <input pInputText [value]="getPcrIds()" disabled />  </div>
+</div>
+
+
+</div>
+</div>
+</p-dialog>
+</div>
+

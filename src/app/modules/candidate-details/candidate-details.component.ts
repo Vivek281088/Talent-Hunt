@@ -43,7 +43,8 @@ export class CandidateDetailsComponent {
     })
     this.pcrService.getCandidatePcrMapping(id).subscribe(data => {
       console.log(data);
-      this.candidateMappingDetails = data
+      this.candidateMappingDetails = data;
+
     })
   }
   candidateTableData = {
