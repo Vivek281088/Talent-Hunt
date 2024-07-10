@@ -38,11 +38,13 @@ export class CandidateDetailsComponent {
   ngOnInit(): void {
     const id = sessionStorage.getItem("currentResourceId") ? sessionStorage.getItem("currentResourceId")  : "" ;
     this.pcrService.getCandidate(id).subscribe(data => {
+      console.log('data and id', id)
       this.inputFields = transformDataToInputFields(data);
     })
     this.pcrService.getCandidatePcrMapping(id).subscribe(data => {
       console.log(data);
-      this.candidateMappingDetails = data
+      this.candidateMappingDetails = data;
+
     })
   }
   candidateTableData = {

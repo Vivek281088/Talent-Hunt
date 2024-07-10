@@ -47,6 +47,34 @@
           <th colspan="12">
             <div class="manager-header">
               <div class="manager-header1">
+                <div class="p-input-icon-left-right">
+                  <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                  </span>
+                  <input
+                    class="searchIcon"
+                    pInputText
+                    type="text"
+                    [(ngModel)]="globalSearchValue"
+                    (input)="
+                      dt2.filterGlobal(
+                        $any($event.target).value,
+                        'contains'
+                      )
+                    "
+                    placeholder="Search"
+                  />
+                  <span
+                    class="p-input-icon-right"
+                    (click)="clear(dt2)"
+                    *ngIf="globalSearchValue!='' && globalSearchValue!=null"
+                  >
+                    <i class="pi pi-times-circle" ></i>
+                  </span>
+                </div>
+
+              </div>
+              <!-- <div class="manager-header1">
                 <div class="p-input-icon-right">
                   <i class="pi pi-search"></i>
                   <input
@@ -59,6 +87,7 @@
                     "
                     placeholder="Search"
                   />
+
                 </div>
 
                 <div class="ml-3">
@@ -69,7 +98,7 @@
                     (click)="clear(dt2)"
                   ></button>
                 </div>
-              </div>
+              </div> -->
               <div class="manager-header-2">
                 <div class="addcandidate">
                   <p-button label="Add Candidate" (onClick)="addCandidate()">
@@ -93,8 +122,8 @@
           </th>
           <th>Candidate ID</th>
           <th>Candidate Name</th>
-          <th>Role</th>
-          <th>Skill Set</th>
+          <th>Title</th>
+          <th>Primary Skils</th>
           <th>Exp(In years)</th>
           <th>Location</th>
           <th>Source</th>
@@ -359,7 +388,7 @@
 <div class="labelvalue">
   <div class="label">
     <label> Notice Period(In days)</label>
-    <span class="important-symbol">&#42;</span>
+    <!-- <span class="important-symbol">&#42;</span> -->
   </div>
   <div class="value">
     <input
@@ -367,20 +396,7 @@
     appAllowDigits="3"
     pInputText
   >
-  <div
-  *ngIf="
-    addCandidateForm.get('experience')?.invalid &&
-    (addCandidateForm.get('experience')?.touched || formSubmitted)
-  "
->
-  <div
-    class="error-message"
-    *ngIf="addCandidateForm.get('experience')?.hasError('required')"
-  >
-    Experience is required !
-  </div>
-</div>
-  </div>
+    </div>
 
 
 
@@ -391,7 +407,7 @@
 <div class="labelvalue">
   <div class="label" >
     <label>Buyout</label>
-    <span class="important-symbol">&#42;</span>
+    <!-- <span class="important-symbol">&#42;</span> -->
   </div>
   <div class="value">
     <p-dropdown
@@ -466,7 +482,7 @@
   <!-- Primary Skills -->
     <div class="labelvalue">
       <div class="label">
-        <label> Primary Skills</label>
+        <label> Primary Skills (You may add multiple skills by separating each skill with a comma)</label>
         <span class="important-symbol">&#42;</span>
       </div>
       <div class="value">
@@ -492,7 +508,7 @@
     <!-- Secondary Skills -->
     <div class="labelvalue">
       <div class="label">
-        <label> Secondary Skills</label>
+        <label> Secondary Skills (You may add multiple skills by separating each skill with a comma)</label>
         <span class="important-symbol">&#42;</span>
       </div>
       <div class="value">
@@ -708,14 +724,14 @@
               Upload File
               <input
                 type="file"
-                (change)="uploadCsv($event)"
+                (change)="uploadXlsx($event)"
                 style="display: none"
               /> </label
             >
             <div class="Createbutton" *ngIf="isAddCandidate">
               <p-button
                 label="Download Template"
-                (click)="downloadCsvTemplate()"
+                (click)="downloadXlsxTemplate()"
               ></p-button>
             </div>
           </div>
@@ -748,8 +764,7 @@
         <input
         pInputText
           formControlName="candidateId"
-
-          [readOnly]="true"
+           [readOnly]="true"
         >
       </div>
     </div>
@@ -911,9 +926,6 @@
     </div>
   </div>
     </div>
-
-
-
   </div>
 
   <!-- Notice Period -->
@@ -1165,20 +1177,24 @@
       </div>
   <!-- Valid Until -->
   <div *ngIf="addCandidateForm.get('locationDetails')?.value === 'Onsite'">
+    <div class="labelvalue">
     <div class="label" >
       <label>Valid Until</label>
       <span class="important-symbol">&#42;</span>
     </div>
+
   <div  class="calender-field">
     <p-calendar [appendTo]="'body'"
     [showIcon]="true"
     formControlName= "validUntil"
     ></p-calendar>
   </div>
+</div>
   </div>
   <!--  Visa Stamped-->
   <div *ngIf="addCandidateForm.get('locationDetails')?.value === 'Onsite'">
-  <div class="label" >
+    <div class="labelvalue">
+    <div class="label" >
     <label>Visa Stamped</label>
     <span class="important-symbol">&#42;</span>
   </div>
@@ -1190,6 +1206,7 @@
       appendTo="body"
       class="w-full table_dropdown"
     ></p-dropdown>
+  </div>
   </div>
   </div>
   </div>

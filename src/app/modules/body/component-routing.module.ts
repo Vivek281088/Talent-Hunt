@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BodyComponent } from './component/body.component';
 import { THDashboardComponent } from '../th-dashboard/th-dashboard.component';
@@ -27,6 +27,7 @@ import { PcrResourceMappingComponent } from '../pcr-resource-mapping/pcr-resourc
 import { CandidateDetailsComponent } from '../candidate-details/candidate-details.component';
 import { MainscreenComponent } from '../mainscreen/mainscreen.component';
 import { OnboardComponent } from '../onboard/onboard.component';
+import { MainComponent } from '../main/main.component';
 
 const routes:Routes=[{path:'',component:BodyComponent,
   children:[
@@ -56,6 +57,7 @@ const routes:Routes=[{path:'',component:BodyComponent,
     { path: 'candidatedetails', component: CandidateDetailsComponent },
     {path:'mainscreen',component:MainscreenComponent},
     {path:'onboard',component:OnboardComponent},
+    {path:'main',component:MainComponent}
 
   ]
 }]

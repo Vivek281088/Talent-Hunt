@@ -16,8 +16,8 @@ export interface Candidates{
     visaDetails: VisaDetails,
     noticePeriod?: number,
     buyout?: boolean,
-    currentCtc?: string,
-    expectedCtc?: string
+    currentCTC?: string,
+    expectedCTC?: string
 
 
 

@@ -4,8 +4,6 @@ import { Table } from 'primeng/table';
 import { Store } from '@ngrx/store';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PcrMappingService } from 'src/app/services/pcr-mapping.service';
-import { PcrService } from 'src/app/services/pcr.service';
-
 import {
   AggregatedData,
   PcrCandidateActions,
@@ -28,12 +26,19 @@ import { agileActions,agileDetails } from 'src/app/store/Agile1/Agile1.action';
 import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 
 @Component({
-  selector: 'app-pcr-resource-mapping',
-  templateUrl: './pcr-resource-mapping.component.html',
-  styleUrls: ['./pcr-resource-mapping.component.scss'],
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss'],
   providers: [ConfirmationService, MessageService],
 })
-export class PcrResourceMappingComponent {
+
+export class MainComponent {
+candidateSelection(candidates:any,index:number) {
+  console.log("candidates....." , candidates);
+  let candidate ={candidateId:candidates[candidates.length-1], }
+  this.tableValues[index].candidateDetails.push(candidate);
+   console.log("candidate final values" ,this.tableValues)
+}
   items: MenuItem[] | undefined;
   todayDate!: Date;
   globalSearchValue!: string;
@@ -50,12 +55,9 @@ export class PcrResourceMappingComponent {
   sendMailCardVisible: boolean = false;
   scheduledata!: any;
   selectedSchedule!: any;
-  candidateMappingDetails !: any;
-
   deleteData!: any;
   agileData !: agileDetails[];
-  selectedCandidate: any;
-  candidateDialogVisible = false;
+  tableValues!:any;
   currentStatus: any = [
     { name: 'Screen Pending', value: 'Screen Pending' },
     { name: 'Screen Reject', value: 'Screen Reject' },
@@ -96,23 +98,22 @@ export class PcrResourceMappingComponent {
     private router: Router,
     private messageService: MessageService,
     private L1ScreenService: L1ScreenService,
-    private confirmationService: ConfirmationService,
-    private pcrService : PcrService
+    private confirmationService: ConfirmationService
   ) {}
   ngOnInit() {
     sessionStorage.setItem('Component-Name', 'user');
-
     this.getPcrMappingData();
     this.getPcrData();
     this.getAgileData();
-    this.getCandidateData();
-
+    // this.getCandidateData();
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
     this.items = [
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
       { label: 'PCR-Emp Mapping', routerLink: '/mtalent/pcr-mapping' },
     ];
+    this.candidateFiltering();
+    this.getMainTable();
   }
 
   clear(table: Table) {
@@ -133,14 +134,21 @@ export class PcrResourceMappingComponent {
       this.agileData=data;
     });
   }
-  getCandidateData() {
-    this.MappingService.getAllResource().subscribe((data) => {
-      this.candidateData = data.map(
-        (item: { candidateId: string }) => item.candidateId
-      );
-      console.log('Candidate Data :', this.candidateData);
-    });
-  }
+  // getCandidateData() {
+  //   console.log("before data servoce ......................")
+  //   try {
+  //     this.MappingService.getAllResource().subscribe((data) => {
+  //       console.log("data////////////////////////////////" , data);
+  //       this.candidateData = data.map(
+  //         (item: { candidateId: string }) => item.candidateId
+  //       );
+  //       console.log('Candidate Data :', this.candidateData);
+  //     });
+  //   } catch (error) {
+  //     console.log(error , "aejnfabhabvahfvuasyv")
+  //   }
+
+  // }
   l1Screen!: any;
   getPcrMappingData() {
     this.store.dispatch(PcrCandidateActions.getPcrMappingData());
@@ -194,36 +202,6 @@ export class PcrResourceMappingComponent {
     });
   }
 
-  showCandidateDetails(rowData: any) {
-    this.selectedCandidate = rowData.candidateData;
-    this.candidateDialogVisible = true;
-        // const id = sessionStorage.getItem("currentResourceId") ? sessionStorage.getItem("currentResourceId")  : "" ;
-    this.pcrService.getCandidatePcrMapping(this.selectedCandidate.candidateId).subscribe(data => {
-      console.log('data from emp-pcr ',data);
-      this.candidateMappingDetails = data;
-    })
-  }
-
-  getPcrIds(): string {
-    if (!this.candidateMappingDetails || !Array.isArray(this.candidateMappingDetails)) {
-      return '';
-    }
-    return this.candidateMappingDetails
-      .filter((mapping: { pcrId: any; }) => mapping.pcrId)
-      .map((mapping: { pcrId: any; }) => mapping.pcrId)
-      .join(', ');
-  }
-
-  getAgileIds(): string {
-    if (!this.candidateMappingDetails || !Array.isArray(this.candidateMappingDetails)) {
-      return '';
-    }
-    return this.candidateMappingDetails
-      .filter((mapping: { agileId: any; }) => mapping.agileId)
-      .map((mapping: { agileId: any; }) => mapping.agileId)
-      .join(', ');
-  }
-
   selectedDataforMail(data: any) {
     console.log('Selected Data ', data);
     const mapData = {
@@ -265,7 +243,7 @@ export class PcrResourceMappingComponent {
     this.selectedCandidates = [];
     this.selectedPcrId = '';
     this.selectedAgileId = '';
-    this.getCandidateData();
+   // this.getCandidateData();
     this.pcrSelected = false;
   }
   mappingPCR() {
@@ -286,7 +264,6 @@ export class PcrResourceMappingComponent {
     this.showPcrMapped();
     this.cancelButton();
   }
- 
   transformedCandidates : any;
   selected() {
     console.log('Selected ----', this.selectedPcrId);
@@ -366,15 +343,7 @@ export class PcrResourceMappingComponent {
       this.messages = [{ severity: 'warn', detail: 'Please select a PCR' }];
     }
   }
-  // individualPCR(id: string) {
-  //   sessionStorage.setItem('currentPCRid', id);
-  //   this.router.navigate(['/mtalent/pcrdetails']);
-  // }
-  // individualResource(id: string) {
-  //   console.log('candidate ids', id);
-  //   sessionStorage.setItem('currentResourceId', id);
-  //   this.router.navigate(['/mtalent/candidatedetails']);
-  // }
+
   openInviteDialog(event: Event, data: any) {
     if (data.mappedData.mailSend) {
       event.stopPropagation();
@@ -484,35 +453,35 @@ export class PcrResourceMappingComponent {
 
   onRowEditCancel(product: any, index: number) {}
   position: string = 'center';
-  confirmPosition(l1: any) {
-    console.log('save--', l1);
-    this.position = 'top';
-    this.confirmationService.confirm({
-      message: 'Are you Sure?Do you want to change your Interview Status?',
-      header: 'Submit Confirmation',
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        this.addL1Details(l1);
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'Submitted',
-        });
+  // confirmPosition(l1: any) {
+  //   console.log('save--', l1);
+  //   this.position = 'top';
+  //   this.confirmationService.confirm({
+  //     message: 'Are you Sure?Do you want to change your Interview Status?',
+  //     header: 'Submit Confirmation',
+  //     icon: 'pi pi-info-circle',
+  //     accept: () => {
+  //       this.addL1Details(l1);
+  //       this.messageService.add({
+  //         severity: 'info',
+  //         summary: 'Confirmed',
+  //         detail: 'Submitted',
+  //       });
 
-        console.log('Submitted');
-      },
-      reject: (type: ConfirmEventType) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            console.log('Rejected');
-            break;
-          case ConfirmEventType.CANCEL:
-            break;
-        }
-      },
-      key: 'positionDialog',
-    });
-  }
+  //       console.log('Submitted');
+  //     },
+  //     reject: (type: ConfirmEventType) => {
+  //       switch (type) {
+  //         case ConfirmEventType.REJECT:
+  //           console.log('Rejected');
+  //           break;
+  //         case ConfirmEventType.CANCEL:
+  //           break;
+  //       }
+  //     },
+  //     key: 'positionDialog',
+  //   });
+  // }
   addL1Details(l1: any) {
     let l1Details = {};
     if (
@@ -581,4 +550,19 @@ export class PcrResourceMappingComponent {
   isArray(obj: any): boolean {
     return Array.isArray(obj);
   }
+
+getMainTable(){
+  this.MappingService.getPCRAgileData().subscribe((data:any)=>
+  {
+
+    this.tableValues=data.map( (candidate : any) => ({...candidate , selectedCandidate : []}))
+    console.log("valuess...............", this.tableValues);
+  });
 }
+
+postSelectedCandidates(rowdata:any){
+console.log("rowdataaaaaaaa",rowdata)
+}
+}
+
+
