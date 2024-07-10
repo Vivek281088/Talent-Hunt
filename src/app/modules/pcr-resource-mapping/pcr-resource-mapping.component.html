@@ -419,15 +419,17 @@
 </div>
 
 <div class="cand-details-dialog">
-<p-dialog
+  <p-dialog
   header="Candidate Details"
   [(visible)]="candidateDialogVisible"
   [modal]="true"
   [closable]="true"
-  [style]="{ width: '34VW'  }"
+  [style]="{ width: '47VW', height: 'auto' }"
   [draggable]="false"
   [resizable]="false"
 >
+
+<div class="separator"></div>
   <div class="NewSchedule-content">
     <div *ngIf="selectedCandidate">
       <!-- First Row -->
@@ -438,7 +440,7 @@
             <label>Candidate Id</label>
           </div>
           <div class="value">
-            <input pInputText [(ngModel)]="selectedCandidate.candidateId" disabled />
+            <span>{{ selectedCandidate.candidateId }}</span>
           </div>
         </div>
 
@@ -448,7 +450,7 @@
             <label>Candidate Name</label>
           </div>
           <div class="value">
-            <input pInputText [(ngModel)]="selectedCandidate.candidateName" disabled />
+            <span>{{ selectedCandidate.candidateName }}</span>
           </div>
         </div>
       </div>
@@ -461,7 +463,7 @@
             <label>Email Id</label>
           </div>
           <div class="value">
-            <input pInputText [(ngModel)]="selectedCandidate.emailId" disabled />
+            <span>{{ selectedCandidate.emailId }}</span>
           </div>
         </div>
 
@@ -471,7 +473,7 @@
             <label>Title</label>
           </div>
           <div class="value">
-            <input pInputText [(ngModel)]="selectedCandidate.roles" disabled />
+            <span>{{ selectedCandidate.roles }}</span>
           </div>
         </div>
       </div>
@@ -484,7 +486,7 @@
             <label>Total Experience</label>
           </div>
           <div class="value">
-            <input pInputText [(ngModel)]="selectedCandidate.experience" disabled />
+            <span>{{ selectedCandidate.experience }}</span>
           </div>
         </div>
 
@@ -494,7 +496,7 @@
             <label>Primary Skills</label>
           </div>
           <div class="value">
-            <input pInputText [(ngModel)]="selectedCandidate.skillSet.primarySkills" disabled />
+            <span>{{ selectedCandidate.skillSet.primarySkills }}</span>
           </div>
         </div>
       </div>
@@ -507,7 +509,7 @@
             <label>Secondary Skills</label>
           </div>
           <div class="value">
-            <input pInputText [(ngModel)]="selectedCandidate.skillSet.secondarySkills" disabled />
+            <span>{{ selectedCandidate.skillSet.secondarySkills }}</span>
           </div>
         </div>
 
@@ -517,7 +519,7 @@
             <label>Phone Number</label>
           </div>
           <div class="value">
-            <input pInputText [(ngModel)]="selectedCandidate.phoneNumber" disabled />
+            <span>{{ selectedCandidate.phoneNumber }}</span>
           </div>
         </div>
       </div>
@@ -530,7 +532,7 @@
             <label>Current Location</label>
           </div>
           <div class="value">
-            <input pInputText [(ngModel)]="selectedCandidate.currentLocation" disabled />
+            <span>{{ selectedCandidate.currentLocation }}</span>
           </div>
         </div>
 
@@ -540,7 +542,7 @@
             <label>Mapped PCRs</label>
           </div>
           <div class="value">
-            <input pInputText [value]="getPcrIds()" disabled />
+            <span>{{ getPcrIds() }}</span>
           </div>
         </div>
       </div>
@@ -553,7 +555,7 @@
             <label>Mapped Agiles</label>
           </div>
           <div class="value">
-            <input pInputText [value]="getAgileIds()" disabled />
+            <span>{{ getAgileIds() }}</span>
           </div>
         </div>
       </div>
@@ -561,6 +563,7 @@
   </div>
 </p-dialog>
 </div>
+
 
 
 
