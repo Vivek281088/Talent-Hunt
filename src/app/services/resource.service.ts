@@ -11,7 +11,7 @@ export class ResourceService {
   constructor(private http: HttpClient) {}
 
 getResourceData(): Observable<Candidates[]> {
-    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-getUniqueCandidatesdata`;
+    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resource`;
 
     return this.http.get<Candidates[]>(endpoint);
 }

@@ -247,6 +247,7 @@ export class PcrResourceMappingComponent {
     this.showPcrMapped();
     this.cancelButton();
   }
+ 
   transformedCandidates : any;
   selected() {
     console.log('Selected ----', this.selectedPcrId);

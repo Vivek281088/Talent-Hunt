@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmEventType, MenuItem, Message } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
 import {
@@ -19,6 +19,8 @@ import { agileActions, agileDetails } from 'src/app/store/Agile1/Agile1.action';
 import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 import * as XLSX from 'xlsx';
 import { PcrService } from 'src/app/services/pcr.service';
+import { PcrMappingService } from 'src/app/services/pcr-mapping.service';
+import { MappingPCRCandidateData } from 'src/app/store/PCR-Mapping/pcr-mapping.action';
 @Component({
   selector: 'app-manage-pcr',
   templateUrl: './manage-pcr.component.html',
@@ -42,12 +44,15 @@ export class ManagePcrComponent {
   isProjectId: boolean = false;
   selectedDeletePcr: any;
   agileData!: agileDetails[];
+  selectedAgileId!: string;
+  expandedRows = {};
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
     private store: Store,
-    private pcrService: PcrService
+    private pcrService: PcrService,
+    private pcrAgileMappingService : PcrMappingService,
   ) {
     this.addPCRForm = this.fb.group({
       agileId: [null, []],
@@ -84,10 +89,10 @@ export class ManagePcrComponent {
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
       { label: 'PCR', routerLink: '/mtalent/manage-pcr' },
     ];
-
+    this.getAgileData();
     this.store.dispatch(PcrActions.getPCR());
     this.pcr$.subscribe((pcr) => {
-      this.pcrData = pcr;
+      this.pcrData = structuredClone(pcr);
 
       console.log('pcr data from comp', this.pcrData);
     });
@@ -316,5 +321,43 @@ export class ManagePcrComponent {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'PCR details');
     XLSX.writeFile(workbook, 'PCR details.xlsx', { compression: true });
+  }
+  getAgileData() {
+    this.store.dispatch(agileActions.getAgileDetails());
+    this.store.select(getAgile).subscribe((data) => {
+      console.log('Agile Data', data);
+      this.agileData=data;
+    });
+  }
+  agileFiltering(agileId: string,pcrId: string){
+    console.log(agileId,pcrId)
+    this.selectedAgileId = agileId;
+    this.selectedPcrId =pcrId
+
+  }
+  onRowEditInit(rowData: any) {
+    console.log("Init")
+  }
+  onRowEditSave(rowData: any) {
+    console.log("Save")
+  }
+  selectedPcrId!: string;
+  mapPcrAgileData(data: any,i : any){
+
+    const mappingData ={
+      pcrId : data.pcrId,
+      agileId : this.selectedAgileId,
+      jobDescription : data.jobTitle,
+      skills : data.skills
+
+    }
+    console.log(mappingData);
+    // this.pcrAgileMappingService.mapPcrAgile(mappingData).subscribe((data)=>{
+    //   console.log(data)
+    // })
+    setTimeout(()=>{
+      this.selectedAgileId ='';
+    },1500)
+
   }
 }

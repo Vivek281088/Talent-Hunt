@@ -8,6 +8,7 @@ import { AggregatedData, MappingPCRCandidateData } from '../store/PCR-Mapping/pc
 })
 export class PcrMappingService {
 
+
   constructor(private http: HttpClient) {}
 
   getPCRMappedData(): Observable<AggregatedData[]> {
@@ -37,6 +38,10 @@ export class PcrMappingService {
         return throwError(() => error);
       })
     );
+  }
+  mapPcrAgile(data : any):Observable<any> {
+    return this.http.post<any>('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/Th-PCR-Mapping',data);
+
   }
   mailMappedData(data: any): Observable<any> {
 
@@ -71,7 +76,7 @@ export class PcrMappingService {
   }
 
   getAllResource():Observable<any>{
-    const endPoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-getUniqueCandidatesdata`;
+    const endPoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resource`;
     return this.http.get<any>(endPoint);
   }
 }
