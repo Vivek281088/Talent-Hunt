@@ -15,6 +15,7 @@
     .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
       color: #1666dc;
     }
+
     .p-datatable .p-datatable-tbody > tr > td {
       font-family: "Roboto";
       color: #000000de;
@@ -250,6 +251,7 @@
       font-family: "Poppins";
       font-weight: 500;
       color: #1e22aa;
+      max-height: 61%;
     }
 
     .p-tabview .p-tabview-panels {
@@ -272,9 +274,7 @@
       display: inline-flex;
       width: 100%;
     }
-    .p-dialog {
-      height: 65%;
-    }
+
 
     .p-dialog .p-dialog-footer {
       padding: 12px;
@@ -495,3 +495,43 @@
   width: 30px;
   height: 30px;
 }
+
+
+.cand-details-dialog{
+  ::ng-deep{
+
+.p-dialog{
+  max-height: 93%;
+}
+
+  }
+
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.column {
+  width: 48%;
+}
+
+.labelvalue {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.value {
+  margin-bottom: 10px;
+}
+
+
+
+
