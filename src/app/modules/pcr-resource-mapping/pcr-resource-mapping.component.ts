@@ -214,6 +214,16 @@ export class PcrResourceMappingComponent {
       .join(', ');
   }
 
+  getAgileIds(): string {
+    if (!this.candidateMappingDetails || !Array.isArray(this.candidateMappingDetails)) {
+      return '';
+    }
+    return this.candidateMappingDetails
+      .filter((mapping: { agileId: any; }) => mapping.agileId)
+      .map((mapping: { agileId: any; }) => mapping.agileId)
+      .join(', ');
+  }
+
   selectedDataforMail(data: any) {
     console.log('Selected Data ', data);
     const mapData = {
