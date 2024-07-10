@@ -33,6 +33,12 @@ import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 })
 
 export class MainComponent {
+candidateSelection(candidates:any,index:number) {
+  console.log("candidates....." , candidates);
+  let candidate ={candidateId:candidates[candidates.length-1], }
+  this.tableValues[index].candidateDetails.push(candidate);
+   console.log("candidate final values" ,this.tableValues)
+}
   items: MenuItem[] | undefined;
   todayDate!: Date;
   globalSearchValue!: string;
@@ -50,7 +56,8 @@ export class MainComponent {
   scheduledata!: any;
   selectedSchedule!: any;
   deleteData!: any;
-  agileData !: agileDetails[]
+  agileData !: agileDetails[];
+  tableValues!:any;
   currentStatus: any = [
     { name: 'Screen Pending', value: 'Screen Pending' },
     { name: 'Screen Reject', value: 'Screen Reject' },
@@ -98,13 +105,15 @@ export class MainComponent {
     this.getPcrMappingData();
     this.getPcrData();
     this.getAgileData();
-    this.getCandidateData();
+    // this.getCandidateData();
     this.todayDate = new Date();
     console.log('Date--------', this.todayDate);
     this.items = [
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
       { label: 'PCR-Emp Mapping', routerLink: '/mtalent/pcr-mapping' },
     ];
+    this.candidateFiltering();
+    this.getMainTable();
   }
 
   clear(table: Table) {
@@ -125,21 +134,21 @@ export class MainComponent {
       this.agileData=data;
     });
   }
-  getCandidateData() {
-    console.log("before data servoce ......................")
-    try {
-      this.MappingService.getAllResource().subscribe((data) => {
-        console.log("data////////////////////////////////" , data);
-        this.candidateData = data.map(
-          (item: { candidateId: string }) => item.candidateId
-        );
-        console.log('Candidate Data :', this.candidateData);
-      });
-    } catch (error) {
-      console.log(error , "aejnfabhabvahfvuasyv")
-    }
+  // getCandidateData() {
+  //   console.log("before data servoce ......................")
+  //   try {
+  //     this.MappingService.getAllResource().subscribe((data) => {
+  //       console.log("data////////////////////////////////" , data);
+  //       this.candidateData = data.map(
+  //         (item: { candidateId: string }) => item.candidateId
+  //       );
+  //       console.log('Candidate Data :', this.candidateData);
+  //     });
+  //   } catch (error) {
+  //     console.log(error , "aejnfabhabvahfvuasyv")
+  //   }
 
-  }
+  // }
   l1Screen!: any;
   getPcrMappingData() {
     this.store.dispatch(PcrCandidateActions.getPcrMappingData());
@@ -234,7 +243,7 @@ export class MainComponent {
     this.selectedCandidates = [];
     this.selectedPcrId = '';
     this.selectedAgileId = '';
-    this.getCandidateData();
+   // this.getCandidateData();
     this.pcrSelected = false;
   }
   mappingPCR() {
@@ -334,15 +343,7 @@ export class MainComponent {
       this.messages = [{ severity: 'warn', detail: 'Please select a PCR' }];
     }
   }
-  // individualPCR(id: string) {
-  //   sessionStorage.setItem('currentPCRid', id);
-  //   this.router.navigate(['/mtalent/pcrdetails']);
-  // }
-  // individualResource(id: string) {
-  //   console.log('candidate ids', id);
-  //   sessionStorage.setItem('currentResourceId', id);
-  //   this.router.navigate(['/mtalent/candidatedetails']);
-  // }
+
   openInviteDialog(event: Event, data: any) {
     if (data.mappedData.mailSend) {
       event.stopPropagation();
@@ -452,35 +453,35 @@ export class MainComponent {
 
   onRowEditCancel(product: any, index: number) {}
   position: string = 'center';
-  confirmPosition(l1: any) {
-    console.log('save--', l1);
-    this.position = 'top';
-    this.confirmationService.confirm({
-      message: 'Are you Sure?Do you want to change your Interview Status?',
-      header: 'Submit Confirmation',
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        this.addL1Details(l1);
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'Submitted',
-        });
+  // confirmPosition(l1: any) {
+  //   console.log('save--', l1);
+  //   this.position = 'top';
+  //   this.confirmationService.confirm({
+  //     message: 'Are you Sure?Do you want to change your Interview Status?',
+  //     header: 'Submit Confirmation',
+  //     icon: 'pi pi-info-circle',
+  //     accept: () => {
+  //       this.addL1Details(l1);
+  //       this.messageService.add({
+  //         severity: 'info',
+  //         summary: 'Confirmed',
+  //         detail: 'Submitted',
+  //       });
 
-        console.log('Submitted');
-      },
-      reject: (type: ConfirmEventType) => {
-        switch (type) {
-          case ConfirmEventType.REJECT:
-            console.log('Rejected');
-            break;
-          case ConfirmEventType.CANCEL:
-            break;
-        }
-      },
-      key: 'positionDialog',
-    });
-  }
+  //       console.log('Submitted');
+  //     },
+  //     reject: (type: ConfirmEventType) => {
+  //       switch (type) {
+  //         case ConfirmEventType.REJECT:
+  //           console.log('Rejected');
+  //           break;
+  //         case ConfirmEventType.CANCEL:
+  //           break;
+  //       }
+  //     },
+  //     key: 'positionDialog',
+  //   });
+  // }
   addL1Details(l1: any) {
     let l1Details = {};
     if (
@@ -549,6 +550,19 @@ export class MainComponent {
   isArray(obj: any): boolean {
     return Array.isArray(obj);
   }
+
+getMainTable(){
+  this.MappingService.getPCRAgileData().subscribe((data:any)=>
+  {
+
+    this.tableValues=data.map( (candidate : any) => ({...candidate , selectedCandidate : []}))
+    console.log("valuess...............", this.tableValues);
+  });
+}
+
+postSelectedCandidates(rowdata:any){
+console.log("rowdataaaaaaaa",rowdata)
+}
 }
 
 

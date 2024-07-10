@@ -71,7 +71,20 @@ export class PcrMappingService {
   }
 
   getAllResource():Observable<any>{
-    const endPoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-getUniqueCandidatesdata`;
+    const endPoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resource`;
     return this.http.get<any>(endPoint);
   }
+
+  getPCRAgileData():Observable<any>{
+    const endpoint = `${process.env.BASE_URL_DEV}/pcragilecandidatemapping`;
+    return this.http.get<any>(endpoint);
+  }
+
+  // postCandidateSelectedDetails(candidate:any){
+  //   const endpoint =
+
+
+  // }
 }
+
+
