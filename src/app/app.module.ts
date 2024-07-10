@@ -106,6 +106,7 @@ import { OnboardComponent } from './modules/onboard/onboard.component';
 import { agileDetails$ } from './store/Agile1/Agile1.effects';
 import { agileFeature } from './store/Agile1/Agile1.selector';
 import { ManageAgile1Component } from './modules/manage-agile1/manage-agile1.component';
+import { MainComponent } from './modules/main/main.component';
 // import { AddResource$, getResources$ , deleteResource$} from './store/Resource/resource.effects';
 
 @NgModule({
@@ -147,7 +148,8 @@ import { ManageAgile1Component } from './modules/manage-agile1/manage-agile1.com
       L1screenComponent,
       MainscreenComponent,
       OnboardComponent,
-      ManageAgile1Component
+      ManageAgile1Component,
+      MainComponent
   ],
   imports: [
     BrowserModule,
