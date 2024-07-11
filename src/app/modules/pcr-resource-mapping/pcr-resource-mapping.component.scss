@@ -15,6 +15,7 @@
     .p-datatable .p-sortable-column.p-highlight .p-sortable-column-icon {
       color: #1666dc;
     }
+
     .p-datatable .p-datatable-tbody > tr > td {
       font-family: "Roboto";
       color: #000000de;
@@ -250,6 +251,7 @@
       font-family: "Poppins";
       font-weight: 500;
       color: #1e22aa;
+      max-height: 61%;
     }
 
     .p-tabview .p-tabview-panels {
@@ -260,7 +262,7 @@
       border-bottom: 1px solid #0000001f;
     }
     .p-dialog .p-dialog-content {
-      padding: 2rem 1.5rem 2rem 1.5rem;
+      // padding: 2rem 1.5rem 2rem 1.5rem;
       border-bottom: 2px solid #0000001f;
     }
 
@@ -272,9 +274,7 @@
       display: inline-flex;
       width: 100%;
     }
-    .p-dialog {
-      height: 65%;
-    }
+
 
     .p-dialog .p-dialog-footer {
       padding: 12px;
@@ -327,6 +327,21 @@
     }
     .p-dropdown:not(.p-disabled):hover {
       border-color: #ced4da !important ;
+    }
+  }
+}
+.labelvalue {
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto";
+  font-weight: 400;
+  color: #00000099;
+
+  .label {
+    padding: 2% 0 2% 0;
+
+    span {
+      color: #ee4555;
     }
   }
 }
@@ -480,3 +495,50 @@
   width: 30px;
   height: 30px;
 }
+
+
+.cand-details-dialog{
+  ::ng-deep{
+
+.p-dialog{
+  max-height: 90%;
+}
+
+  }
+
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.column {
+  width: 48%;
+}
+
+.labelvalue {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.value {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.separator {
+  border-top: 1px solid #ccc;
+  margin: 1px 0;
+}
+
+
+

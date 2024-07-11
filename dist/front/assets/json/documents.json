@@ -1,0 +1,21 @@
+[
+    {
+      "id" : "",
+      "name": "",
+      "OFCCP": "false",
+      "RTR": "false",
+      "I9": "false",
+      "E Verification": "false",
+      "SSN": "false",
+      "Drug test": "false",
+      "Criminal": "false",
+      "Employment": "false",
+      "Education": "false",
+      "Driving Licence": "false",
+      "Interim attestation": "false",
+      "Final attestation": "false",
+      "NDA": "false",
+      "COC": "false"
+    }
+  ]
+  

@@ -151,11 +151,16 @@
                 [filter]="true"
                 [resetFilterOnHide]="true"
                 appendTo="body"
-                display="chip"
                 [showClear]="false"
                 [(ngModel)]="rowData.selectedCandidate"
                 (onChange)="candidateSelection(rowData.selectedCandidate,i)"
-                tooltipPosition="top"
+                selectedItemsLabel="{0} candidates selected"
+                [maxSelectedLabels]="1"
+
+
+
+
+
                  >
                  <ng-template let-option pTemplate="item">
                   <div class="inline-block vertical-align-middle">

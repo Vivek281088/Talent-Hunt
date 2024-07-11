@@ -1,0 +1,46 @@
+
+[
+    {
+      "id": "C1",
+      "name": "Balaji",
+      "mobile": "1234567890",
+      "email": "john@example.com",
+      "dob": "1990-01-01"
+    },
+    {
+      "id": "C2",
+      "name": "Barani",
+      "mobile": "0987654321",
+      "email": "jane@example.com",
+      "dob": "1995-05-15"
+    },
+    {
+      "id": "C3",
+      "name": "Hajrul",
+      "mobile": "1234567890",
+      "email": "john@example.com",
+      "dob": "1990-01-01"
+    },
+    {
+      "id": "C4",
+      "name": "Kannan",
+      "mobile": "0987654321",
+      "email": "jane@example.com",
+      "dob": "1995-05-15"
+    },
+    {
+      "id": "C5",
+      "name": "Sapna",
+      "mobile": "0987654321",
+      "email": "jane@example.com",
+      "dob": "1995-05-15"
+    },
+    {
+      "id": "C6",
+      "name": "Aishu",
+      "mobile": "0987654321",
+      "email": "jane@example.com",
+      "dob": "1995-05-15"
+    }
+  ]
+  

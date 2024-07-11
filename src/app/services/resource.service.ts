@@ -10,10 +10,14 @@ export class ResourceService {
 
   constructor(private http: HttpClient) {}
 
-getResourceData(): Observable<Candidates[]> {
-    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resource`;
 
-    return this.http.get<Candidates[]>(endpoint);
+private baseUrl: string = 'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resource';
+getResourceData(): Observable<Candidates[]> {
+  const headers = new HttpHeaders({
+    'x-api-key': 'KdUaeZD83v1xSSPQH8Ehy7qoUvmxp3Q82tdHYrZo'  // Replace with your actual API key
+  });
+
+  return this.http.get<Candidates[]>(this.baseUrl, { headers });
 }
 
 addSingleCandidate(candidate : any) : Observable<Candidates>{

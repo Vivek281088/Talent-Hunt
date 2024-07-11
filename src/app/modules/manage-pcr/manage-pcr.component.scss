@@ -54,6 +54,11 @@
     }
   }
 }
+
+
+
+
+
 .managePCR {
   display: flex;
   flex-direction: column;
@@ -398,7 +403,11 @@
     }
     .p-calendar {
       width: 100%;
-    }
+      }
+      .p-calendar-w-btn .p-datepicker-trigger{
+        background: #652d90;
+        border: #652d90;
+       }
     .p-dialog .p-dialog-footer {
       padding: 12px;
     }
@@ -424,6 +433,8 @@
         color: #ee4555;
       }
     }
+
+
   }
 }
 
@@ -565,3 +576,11 @@
   width: 100%;
   margin-left: 25%;
 }
+
+
+
+
+
+
+
+
