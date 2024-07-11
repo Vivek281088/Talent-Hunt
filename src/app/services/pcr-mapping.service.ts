@@ -80,11 +80,12 @@ export class PcrMappingService {
     return this.http.get<any>(endpoint);
   }
 
-  // postCandidateSelectedDetails(candidate:any){
-  //   const endpoint =
+  postCandidateSelectedDetails(candidate:any){
+    const endpoint = `${process.env.BASE_URL_DEV}/pcragilecandidatemapping`;
+    return this.http.post<any>(endpoint,candidate)
 
 
-  // }
+  }
 }
 
 

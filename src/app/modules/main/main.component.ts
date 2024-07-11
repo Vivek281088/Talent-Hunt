@@ -24,6 +24,7 @@ import { getSchedules } from 'src/app/store/schedule/schedule.selector';
 import { L1ScreenService } from 'src/app/services/l1-screen.service';
 import { agileActions,agileDetails } from 'src/app/store/Agile1/Agile1.action';
 import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
+import { forEach } from 'cypress/types/lodash';
 
 @Component({
   selector: 'app-main',
@@ -35,9 +36,9 @@ import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 export class MainComponent {
 candidateSelection(candidates:any,index:number) {
   console.log("candidates....." , candidates);
-  let candidate ={candidateId:candidates[candidates.length-1], }
-  this.tableValues[index].candidateDetails.push(candidate);
-   console.log("candidate final values" ,this.tableValues)
+  // let candidate ={candidateId:candidates[candidates.length-1]}
+  // this.tableValues[index].candidateDetails.push(candidate);
+  //  console.log("candidate final values" ,this.tableValues)
 }
   items: MenuItem[] | undefined;
   todayDate!: Date;
@@ -560,8 +561,17 @@ getMainTable(){
   });
 }
 
-postSelectedCandidates(rowdata:any){
-console.log("rowdataaaaaaaa",rowdata)
+saveSelectedCandidates(rowdata:any){
+rowdata.selectedCandidate.forEach((candidate : any) => {
+  let candidateObject = { candidateId: candidate,};
+  rowdata.candidateDetails.push(candidateObject);
+
+})
+console.log("candidatedetails",rowdata)
+this.MappingService.postCandidateSelectedDetails(rowdata).subscribe((data:any)=>{
+  console.log("postSelectedCandidate",data);
+})
+
 }
 }
 

@@ -168,8 +168,8 @@
             </div>
           </td>
           <td>
-          <div class="pi-pi" pTooltip="Save" tooltipPosition="top">
-            <i class="pi pi-save" (click)="postSelectedCandidates(rowData)"></i>
+          <div class="pi-pi" pTooltip="Save" >
+            <i class="pi pi-save" (click)="saveSelectedCandidates(rowData)"></i>
           </div>
         </td>
       </tr>
@@ -179,18 +179,11 @@
         <tr>
           <td colspan="7">
             <div class="p-3">
-                <p-table [value]="l1Screen" dataKey="mappedData.uniqueId">
+                <p-table [value]="rowData.candidateDetails" dataKey="candidateId">
                   <ng-template pTemplate="header">
                     <tr>
-                      <!-- <th style="width: 4rem">
-                        <p-tableHeaderCheckbox
-                          [value]="l1Screen"
-                          (click)="toggleSelectAll()"
-                        ></p-tableHeaderCheckbox>
-                      </th> -->
-                      <th></th>
+
                       <th>Candidate Name</th>
-                      <th>PCR Skills</th>
                       <th>Test Status</th>
                       <th>Overall Status</th>
                       <th>Panel Members</th>
@@ -201,57 +194,19 @@
 
                 <ng-template
                 pTemplate="body"
-                let-rowData
+                let-candidate
                 let-expanded="expanded"
                 let-i="rowIndex"
                 let-editing="editing"
                 class="tableBody"
               >
-                <tr [pEditableRow]="rowData">
+                <tr [pEditableRow]="candidate">
                   <td>
-                    <button type="button" pButton pRipple [pRowToggler]="rowData" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                </td>
-                  <!-- <td>
-                    <p-tableCheckbox
-                      [value]="rowData"
-                      [checked]="rowData.selection"
-                      (click)="toggle(rowData)"
-                    ></p-tableCheckbox>
-                  </td> -->
+                    {{ candidate.candidateId }}</td>
 
 
-                  <td>
-                    {{ rowData.candidateData.candidateName }}</td>
-                    <td class="skills">
-                      <ng-container *ngIf="rowData.pcrData.skills && rowData.pcrData.skills.length > 0">
-                        <ng-container *ngIf="isArray(rowData.pcrData.skills)"> <!-- Check if skills is an array -->
-                          <span *ngFor="let item of getFormattedSkills(rowData.pcrData.skills).skills">
-                            <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
-                          </span>
-                          <span *ngIf="getFormattedSkills(rowData.pcrData.skills).remainingCount > 0" class="plusIcon">
-                            +
-                            <p-overlayPanel #op>
-                              <ul
-                                style="list-style-type: none"
-                                *ngFor="let skill of remainaingSkills(rowData.pcrData.skills, getFormattedSkills(rowData.pcrData.skills).remainingCount)"
-                              >
-                                <li>
-                                  <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
-                                </li>
-                              </ul>
-                            </p-overlayPanel>
-                            <p-badge
-                              class="cursor-design"
-                              (mouseenter)="op.toggle($event)"
-                              (mouseleave)="op.toggle($event)"
-                              [value]="getFormattedSkills(rowData.pcrData.skills).remainingCount.toString()"
-                            ></p-badge>
-                          </span>
-                        </ng-container>
-                      </ng-container>
-                    </td>
+                    <td>{{ candidate.candidateId }}</td>
 
-                  <td>{{ rowData.mappedData.testStatus }}</td>
                   <td>
                     <p-cellEditor>
                       <ng-template pTemplate="input">
@@ -260,7 +215,7 @@
                             [options]="currentStatus"
                             appendTo="body"
                             optionValue="value"
-                            [(ngModel)]="rowData.mappedData.currentStatus"
+
                             optionLabel="name"
                             [showClear]="true"
                             placeholder="Status"
@@ -270,7 +225,7 @@
                       </ng-template>
                       <ng-template pTemplate="output" ngIf="rowData.mappedData.currentStatus=='Onboarding'">
                         <a href="/login"></a>
-                        {{ rowData.mappedData.currentStatus }}
+                        {{ candidate.candidateId}}
                       </ng-template>
                     </p-cellEditor>
                   </td>
@@ -280,7 +235,6 @@
                         <div class="multiselect">
                           <p-multiSelect
                             [options]="panelMembers"
-                            [(ngModel)]="rowData.mappedData.currentPanel"
                             optionValue="value"
                             appendTo="body"
                             [filter]="true"
@@ -290,7 +244,7 @@
                         </div>
                       </ng-template>
                       <ng-template pTemplate="output">
-                        {{ rowData.mappedData.currentPanel }}
+                        {{candidate.candidateId}}
                       </ng-template>
                     </p-cellEditor>
                   </td>
@@ -301,14 +255,14 @@
                           <p-calendar
                             [appendTo]="'body'"
                             dateFormat="mm/dd/yy"
-                            [(ngModel)]="rowData.mappedData.currentInterviewDate"
+
                             [showIcon]="true"
                           ></p-calendar>
                         </div>
                       </ng-template>
                       <ng-template pTemplate="output">
                         {{
-                          rowData.mappedData.currentInterviewDate | date : "MM/dd/yyyy"
+                          candidate.candidateId
                         }}
                       </ng-template>
                     </p-cellEditor>
@@ -335,7 +289,7 @@
                         type="button"
                         pInitEditableRow
                         icon="pi pi-pencil"
-                        (click)="onRowEditInit(rowData.mappedData)"
+                        (click)="onRowEditInit(candidate)"
                         class="p-button-rounded p-button-text"
                         pTooltip="Edit"
                         tooltipPosition="top"
@@ -347,7 +301,7 @@
                         type="button"
                         pSaveEditableRow
                         icon="pi pi-check"
-                        (click)="onRowEditSave(rowData.mappedData)"
+                        (click)="onRowEditSave(candidate)"
                         class="p-button-rounded p-button-text p-button-success mr-2"
                       ></button>
                       <button
@@ -357,7 +311,7 @@
                         type="button"
                         pCancelEditableRow
                         icon="pi pi-times"
-                        (click)="onRowEditCancel(rowData, i)"
+                        (click)="onRowEditCancel(candidate, i)"
                         class="p-button-rounded p-button-text p-button-danger"
                       ></button>
                     </div>
