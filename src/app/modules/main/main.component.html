@@ -219,7 +219,7 @@
                 class="tableBody"
               >
                 <tr [pEditableRow]="candidate">
-                  <td>
+                  <td class="custom_link"  (click)="showCandidateDetails()">
                     {{ candidate.candidateId }}</td>
 
 
@@ -478,4 +478,151 @@
       </div>
     </div>
   </p-dialog>
+</div>
+
+
+<div class="cand-details-dialog">
+  <p-dialog
+  header="Candidate Details"
+  [(visible)]="candidateDialogVisible"
+  [modal]="true"
+  [closable]="true"
+  [style]="{ width: '47VW', height: 'auto' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+
+<div class="separator"></div>
+  <div class="NewSchedule-content">
+    <div>
+      <!-- First Row -->
+      <div class="row">
+        <!-- Candidate Id -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Candidate Id</label>
+          </div>
+          <div class="value">
+            <span>{{ "37828_Sami O Akhtar" }}</span>
+          </div>
+        </div>
+
+        <!-- Candidate Name -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Candidate Name</label>
+          </div>
+          <div class="value">
+            <span>{{ "Sami O Akhtar"}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Row -->
+      <div class="row">
+        <!-- Email Id -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Email Id</label>
+          </div>
+          <div class="value">
+            <span>{{"sami@gmail.com"}}</span>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Title</label>
+          </div>
+          <div class="value">
+            <span>{{ "Full Stack Developer" }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third Row -->
+      <div class="row">
+        <!-- Total Experience -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Total Experience</label>
+          </div>
+          <div class="value">
+            <span>{{"3" }}</span>
+          </div>
+        </div>
+
+        <!-- Primary Skills -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Primary Skills</label>
+          </div>
+          <div class="value">
+            <span>{{ "Java, Angular, Springboot" }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fourth Row -->
+      <div class="row">
+        <!-- Secondary Skills -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Secondary Skills</label>
+          </div>
+          <div class="value">
+            <span>{{ "AWS"}}</span>
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Phone Number</label>
+          </div>
+          <div class="value">
+            <span>{{ "9803792728" }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fifth Row -->
+      <div class="row">
+        <!-- Current Location -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Current Location</label>
+          </div>
+          <div class="value">
+            <span>{{ "Chennai"}}</span>
+          </div>
+        </div>
+
+        <!-- Mapped PCR list -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Mapped PCRs</label>
+          </div>
+          <div class="value">
+            <span>{{ "PC9071" }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sixth Row -->
+      <div class="row">
+        <!-- Mapped Agile list -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Mapped Agiles</label>
+          </div>
+          <div class="value">
+            <span>{{ "802833, 327937" }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>
 </div>

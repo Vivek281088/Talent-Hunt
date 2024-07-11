@@ -55,6 +55,7 @@ candidateSelection(candidates:any,index:number) {
   pcrSelected: boolean = false;
   sendMailCardVisible: boolean = false;
   scheduledata!: any;
+  candidateDialogVisible:boolean = false;
   selectedSchedule!: any;
   deleteData!: any;
   agileData !: agileDetails[];
@@ -572,6 +573,11 @@ this.MappingService.postCandidateSelectedDetails(rowdata).subscribe((data:any)=>
   console.log("postSelectedCandidate",data);
 })
 
+}
+
+
+showCandidateDetails(){
+  this.candidateDialogVisible = true;
 }
 }
 
