@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfirmEventType, MenuItem, Message } from 'primeng/api';
+import { ConfirmEventType, MenuItem, Message, MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
 import {
@@ -20,7 +20,8 @@ import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 import * as XLSX from 'xlsx';
 import { PcrService } from 'src/app/services/pcr.service';
 import { PcrMappingService } from 'src/app/services/pcr-mapping.service';
-import { MappingPCRCandidateData } from 'src/app/store/PCR-Mapping/pcr-mapping.action';
+import { transformDataToInputFields } from 'src/app/shared/utils/transformDataToInputFields';
+import { MappingPCRCandidateData, PcrCandidateActions } from 'src/app/store/PCR-Mapping/pcr-mapping.action';
 @Component({
   selector: 'app-manage-pcr',
   templateUrl: './manage-pcr.component.html',
@@ -45,7 +46,8 @@ export class ManagePcrComponent {
   selectedDeletePcr: any;
   agileData!: agileDetails[];
   selectedAgileId!: string;
-  expandedRows = {};
+  agileDetailsVisible!:boolean;
+  inputFields: any = [];
 
   constructor(
     private router: Router,
@@ -53,6 +55,7 @@ export class ManagePcrComponent {
     private store: Store,
     private pcrService: PcrService,
     private pcrAgileMappingService : PcrMappingService,
+    private messageService: MessageService,
   ) {
     this.addPCRForm = this.fb.group({
       agileId: [null, []],
@@ -84,12 +87,14 @@ export class ManagePcrComponent {
   }
 
   ngOnInit() {
+
     this.todayDate = new Date();
     this.items = [
       { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
       { label: 'PCR', routerLink: '/mtalent/manage-pcr' },
     ];
     this.getAgileData();
+    this.getPcrAgileMappedData();
     this.store.dispatch(PcrActions.getPCR());
     this.pcr$.subscribe((pcr) => {
       this.pcrData = structuredClone(pcr);
@@ -97,9 +102,19 @@ export class ManagePcrComponent {
       console.log('pcr data from comp', this.pcrData);
     });
   }
+
   individualPCR(id: string) {
     sessionStorage.setItem('currentPCRid', id);
     this.router.navigate(['/mtalent/pcrdetails']);
+  }
+  individualAgileId(id : string){
+    sessionStorage.setItem('currentAgileid', id);
+    this.agileDetailsVisible = true;
+    this.pcrService.getIndividualAgile(id).subscribe((data)=>{
+      console.log(data)
+      this.inputFields=transformDataToInputFields(data);
+    })
+
   }
   addPcr() {
     this.addPCR = true;
@@ -199,9 +214,33 @@ export class ManagePcrComponent {
   selectAll() {
     console.log('select all pcr ---->', this.selectedDeletePcr);
   }
+  //for deleting pcr id
   Deletepcr() {
     const pcrIds = this.selectedDeletePcr.map((pcr: any) => pcr.pcrId);
+    console.log(pcrIds)
     this.store.dispatch(PcrActions.deletePCR({ pcrIds: pcrIds }));
+  }
+  deleteMappedData(pcrId: string) {
+    console.log(pcrId);
+    console.log(this.selectedDeletePcr);
+
+    const deleteData = this.selectedDeletePcr.map(
+      (data: { uniqueId: string; }) => data.uniqueId
+    );
+    console.log(deleteData);
+    this.showDeleted();
+    this.store.dispatch(PcrCandidateActions.deleteMappedData({ deleteData }));
+    this.selectedDeletePcr = [];
+  
+  }
+  showDeleted() {
+    this.messageService.add({
+      severity: 'success',
+
+      summary: 'Success',
+
+      detail: 'Data deleted Successfully',
+    });
   }
   downloadCsvTemplate() {
     const csvTemplate = `PCRId,AgileId,JobTitle,Created Date,Project Id,Skills,PcrStatus,Created By,Location,RequestSource\n`;
@@ -341,6 +380,9 @@ export class ManagePcrComponent {
   onRowEditSave(rowData: any) {
     console.log("Save")
   }
+  onRowEditCancel(rowData: any,i: any){
+
+  }
   selectedPcrId!: string;
   mapPcrAgileData(data: any,i : any){
 
@@ -352,12 +394,30 @@ export class ManagePcrComponent {
 
     }
     console.log(mappingData);
-    // this.pcrAgileMappingService.mapPcrAgile(mappingData).subscribe((data)=>{
-    //   console.log(data)
-    // })
+    this.pcrAgileMappingService.mapPcrAgile(mappingData).subscribe((data)=>{
+      console.log(data)
+    })
     setTimeout(()=>{
       this.selectedAgileId ='';
+      this.getPcrAgileMappedData();
     },1500)
 
   }
+  pcrAgileMappedData : any;
+  filteredPcrAgileMappedData : any;
+  getPcrAgileMappedData(){
+    this.pcrAgileMappingService.getPCRAgileData().subscribe((data)=>{
+      console.log(data);
+      this.pcrAgileMappedData = data;
+    })
+  }
+  getIndividualPcrAgileData(pcrId : string){
+    this.filteredPcrAgileMappedData = this.pcrAgileMappedData.filter((item: any)=>{
+      return item.pcrId === pcrId
+    });
+    console.log("Filtered Data", this.filteredPcrAgileMappedData)
+
+  }
+
+
 }

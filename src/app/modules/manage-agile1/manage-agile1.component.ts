@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as XLSX from 'xlsx';
 import { PcrService } from 'src/app/services/pcr.service';
 import { Table } from 'primeng/table';
+import { transformDataToInputFields } from 'src/app/shared/utils/transformDataToInputFields';
 
 
 @Component({
@@ -15,10 +16,12 @@ import { Table } from 'primeng/table';
 export class ManageAgile1Component {
   agileData: any;
   globalSearchValue!: string;
+  inputFields: any = [];
   constructor(private store: Store, private pcrService: PcrService) {}
   ngOnInit() {
     this.getAgileData();
   }
+
 
   getAgileData() {
     this.store.dispatch(agileActions.getAgileDetails());

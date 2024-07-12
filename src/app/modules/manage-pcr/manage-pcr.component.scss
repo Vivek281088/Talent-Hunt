@@ -175,6 +175,13 @@
     }
   }
 }
+.agile-field-label{
+  font-weight: 600;
+}
+.agile-field-input{
+  color: rgb(17, 16, 16) !important;
+  font-weight: 600;
+}
 ::ng-deep
   .p-breadcrumb
   .p-breadcrumb-list
@@ -378,6 +385,26 @@
     text-align: center;
     box-shadow: 0 0.25rem 0.5rem #e6edef;
     width: 130px;
+    &:hover {
+      color: #ffffff;
+      background: #652d90;
+      border: 1px solid #652d90;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+.deleteMapButton{
+  ::ng-deep .p-button {
+    color: #ffffff;
+    background: #652d90;
+    border: 1px solid #652d90;
+    height: 40px;
+    border-radius: 0.5rem;
+    text-align: center;
+    box-shadow: 0 0.25rem 0.5rem #e6edef;
+    width: 100px;
     &:hover {
       color: #ffffff;
       background: #652d90;

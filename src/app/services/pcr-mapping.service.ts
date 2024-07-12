@@ -85,11 +85,6 @@ export class PcrMappingService {
     return this.http.get<any>(endpoint);
   }
 
-  // postCandidateSelectedDetails(candidate:any){
-  //   const endpoint =
-
-
-  // }
 }
 
 

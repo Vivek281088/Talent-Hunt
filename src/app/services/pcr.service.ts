@@ -54,6 +54,11 @@ export class PcrService {
       `${process.env.BASE_URL_PRIVATE}/pcr?id=${id}`
     );
   }
+  getIndividualAgile(id: string | null):Observable<any>{
+    return this.http.get<any>(
+      `${process.env.BASE_URL_PRIVATE}/agile1?id=${id}`
+    );
+  }
   getCandidate(id: string | null) {
     return this.http.get<any>(
       `${process.env.BASE_URL_PRIVATE}/resource?id=${id}`

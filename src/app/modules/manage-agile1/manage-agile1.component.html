@@ -1,9 +1,8 @@
 <div class="managePCR">
   <div class="PCR">
-    <!-- <p-tabView> -->
+   
 
-    <!-- <p-tabPanel header="PCR"> -->
-    <div class="managerTable">
+    <!-- <div class="managerTable">
       <p-table
         #dt2
         [value]="agileData"
@@ -48,45 +47,27 @@
                       placeholder="Search"
                     />
                     <span
-                    class="p-input-icon-right"
-                    (click)="clear(dt2)"
-                    *ngIf="globalSearchValue!='' && globalSearchValue!=null"
-                  >
-                    <i class="pi pi-times-circle" ></i>
-                  </span>
+                      class="p-input-icon-right"
+                      (click)="clear(dt2)"
+                      *ngIf="
+                        globalSearchValue != '' && globalSearchValue != null
+                      "
+                    >
+                      <i class="pi pi-times-circle"></i>
+                    </span>
                   </div>
-
-                  <!-- <div class="ml-3"> -->
-                  <!-- <button
-                          pButton
-                          label="Clear Search"
-                          class="clear-button cursor-pointer"
-                          (click)="clear(dt2)"
-                        ></button> -->
-                  <!-- <i class="pi pi-refresh"></i> -->
-                  <!-- </div> -->
                 </div>
 
                 <div class="manager-header-2">
                   <div class="addcandidate">
-                    <!-- <label class="custom-file-input">
-                      Upload File
+                    <label class="custom-file-input">
                       <input
                         type="file"
                         style="display: none"
                         (change)="agileUpload($event)"
                       />
-                    </label> -->
-                    <label class="custom-file-input">
-                      <input type="file" style="display: none" (change)="agileUpload($event)" />
-                      <div class="file-upload-button">
-                        Upload
-                      </div>
+                      <div class="file-upload-button">Upload</div>
                     </label>
-
-
-                    <!-- <i class="pi pi-upload add-icon"
-                      ></i> -->
                   </div>
 
                   <div class="addcandidate">
@@ -95,17 +76,10 @@
                       (click)="extractAgile(agileData)"
                     >
                     </p-button>
-
-                    <!-- <i class="pi pi-upload add-icon"
-                      ></i> -->
                   </div>
 
                   <div class="addcandidate">
                     <p-button label="Delete"> </p-button>
-
-                    <!-- <i class="pi pi-trash trash-icon" -->
-
-                    <!-- ></i> -->
                   </div>
                 </div>
               </div>
@@ -129,9 +103,6 @@
             <th>Status</th>
             <th>CSA Assigned</th>
             <th></th>
-            <!-- <th></th>
-            <th></th>
-            <th></th> -->
           </tr>
         </ng-template>
         <ng-template
@@ -146,7 +117,7 @@
                 [value]="rowData"
                 [checked]="rowData.selection"
               ></p-tableCheckbox>
-              <!---->
+
             </td>
             <td class="pcr-link">
               <a>{{ rowData.ID }}</a>
@@ -161,9 +132,6 @@
             <td>{{ rowData.State }}</td>
             <td>{{ rowData.No }}</td>
             <td>{{ rowData.Status }}</td>
-            <!-- <td>{{ rowData.State }}</td>
-
-            <td>{{ rowData.No }}</td> -->
             <td>{{ rowData.CSA_Assigned }}</td>
 
             <td>
@@ -193,9 +161,6 @@
           </tr>
         </ng-template>
       </p-table>
-    </div>
-    <!-- </p-tabPanel> -->
-    <!-- <p-tabPanel header="Agile1"><app-manage-agile1></app-manage-agile1> </p-tabPanel> -->
-    <!-- </p-tabView> -->
+    </div> -->
   </div>
 </div>
