@@ -1,5 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { Candidates, resourceActions } from "./resource.action";
+// import { Candidates, resourceActions } from "./resource.action";
 
 export interface CandidateState{
     candidates : Candidates[],

@@ -24,6 +24,7 @@ import { getSchedules } from 'src/app/store/schedule/schedule.selector';
 import { L1ScreenService } from 'src/app/services/l1-screen.service';
 import { agileActions,agileDetails } from 'src/app/store/Agile1/Agile1.action';
 import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
+import { forEach } from 'cypress/types/lodash';
 
 @Component({
   selector: 'app-main',
@@ -35,9 +36,9 @@ import { getAgile } from 'src/app/store/Agile1/Agile1.selector';
 export class MainComponent {
 candidateSelection(candidates:any,index:number) {
   console.log("candidates....." , candidates);
-  let candidate ={candidateId:candidates[candidates.length-1], }
-  this.tableValues[index].candidateDetails.push(candidate);
-   console.log("candidate final values" ,this.tableValues)
+  // let candidate ={candidateId:candidates[candidates.length-1]}
+  // this.tableValues[index].candidateDetails.push(candidate);
+  //  console.log("candidate final values" ,this.tableValues)
 }
   items: MenuItem[] | undefined;
   todayDate!: Date;
@@ -418,7 +419,6 @@ candidateSelection(candidates:any,index:number) {
     console.log('Toggle :', this.deleteData);
   }
   updateCurrentBindings(l1: any) {
-    console.log('????????????????????????????????????????????', l1.mappedData);
     if (
       l1.mappedData.currentStatus == 'L1 TBS' ||
       l1.mappedData.currentStatus == 'L1 Scheduled' ||
@@ -440,15 +440,38 @@ candidateSelection(candidates:any,index:number) {
       l1.mappedData.currentInterviewDate = '';
     }
   }
+  updateCurrentBindingsForCandidate(l1: any) {
+    if (
+      l1.currentStatus == 'L1 TBS' ||
+      l1.currentStatus == 'L1 Scheduled' ||
+      l1.currentStatus == 'L1 Select' ||
+      l1.currentStatus == 'L1 Reject'
+    ) {
+      l1.currentPanel = l1.L1.l1Panel;
+      l1.currentInterviewDate = l1.L1.l1InterviewDate;
+    } else if (
+      l1.currentStatus == 'L2 TBS' ||
+      l1.currentStatus == 'L2 Scheduled' ||
+      l1.currentStatus == 'L2 Select' ||
+      l1.currentStatus == 'L2 Reject'
+    ) {
+      l1.currentPanel = l1.L2.l2Panel;
+      l1.currentInterviewDate = l1.L2.l2InterviewDate;
+    } else {
+      l1.currentPanel = '';
+      l1.currentInterviewDate = '';
+    }
+  }
   onStatusChange(data: any) {
-    this.updateCurrentBindings(data);
+   // this.updateCurrentBindings(data);
+    this.updateCurrentBindingsForCandidate(data)
   }
   onRowEditInit(product: any) {
     //this.clonedProducts[product.pcrId as string] = { ...product };
   }
 
   onRowEditSave(product: any) {
-    console.log('lioasdkfnakjf', this.mappingData);
+    console.log('lioasdkfnakjf', this.tableValues);
   }
 
   onRowEditCancel(product: any, index: number) {}
@@ -554,14 +577,106 @@ candidateSelection(candidates:any,index:number) {
 getMainTable(){
   this.MappingService.getPCRAgileData().subscribe((data:any)=>
   {
-
-    this.tableValues=data.map( (candidate : any) => ({...candidate , selectedCandidate : []}))
+    this.tableValues = structuredClone(data);
+    this.tableValues=this.tableValues.map( (candidate : any) => ({...candidate , selectedCandidate : []}))
     console.log("valuess...............", this.tableValues);
+    if(this.tableValues.candidateDetails){
+      this.tableValues.candidateDetails.map((item:any)=>{
+        if (!item.L1) {
+          item.L1 = { l1Panel: [], l1InterviewDate: null };
+        }
+        if (item.L1.l1InterviewDate) {
+          item.L1.l1InterviewDate = new Date(
+            item.L1.l1InterviewDate
+          );
+        }
+        if (!item.L2) {
+          item.L2 = { l2Panel: [], l2InterviewDate: null };
+        }
+        if (item.L2.l2InterviewDate) {
+          item.L2.l2InterviewDate = new Date(
+            item.L2.l2InterviewDate
+          );
+        }
+        this.updateCurrentBindingsForCandidate(item);
+        // Set initial values for currentPanel, currentInterviewDate, and currentLStatus if they're empty
+        if (!item.currentPanel) {
+          item.currentPanel =
+            item.currentStatus == 'L1 TBS' ||
+            item.currentStatus == 'L1 Scheduled' ||
+            item.currentStatus == 'L1 Select' ||
+            item.currentStatus == 'L1 Reject'
+              ? item.L1.l1Panel
+              : item.L2.l2Panel;
+        }
+        if (!item.currentInterviewDate) {
+          item.currentInterviewDate =
+            item.currentStatus == 'L1 TBS' ||
+            item.currentStatus == 'L1 Scheduled' ||
+            item.currentStatus == 'L1 Select' ||
+            item.currentStatus == 'L1 Reject'
+              ? item.L1.l1InterviewDate
+              : item.L2.l2InterviewDate;
+        }
+        return item;
+      })
+    }
+
+
   });
+  // this.l1Screen = sample.map((item: any) => {
+  //   if (!item.mappedData.L1) {
+  //     item.mappedData.L1 = { l1Panel: [], l1InterviewDate: null };
+  //   }
+  //   if (item.mappedData.L1.l1InterviewDate) {
+  //     console.log('dfnajnajkgn', item.mappedData.L1.l1InterviewDate);
+  //     item.mappedData.L1.l1InterviewDate = new Date(
+  //       item.mappedData.L1.l1InterviewDate
+  //     );
+  //   }
+  //   if (!item.mappedData.L2) {
+  //     item.mappedData.L2 = { l2Panel: [], l2InterviewDate: null };
+  //   }
+  //   if (item.mappedData.L2.l2InterviewDate) {
+  //     item.mappedData.L2.l2InterviewDate = new Date(
+  //       item.mappedData.L2.l2InterviewDate
+  //     );
+  //   }
+  //   this.updateCurrentBindings(item);
+  //   // Set initial values for currentPanel, currentInterviewDate, and currentLStatus if they're empty
+  //   if (!item.currentPanel) {
+  //     item.mappedData.currentPanel =
+  //       item.mappedData.currentStatus == 'L1 TBS' ||
+  //       item.mappedData.currentStatus == 'L1 Scheduled' ||
+  //       item.mappedData.currentStatus == 'L1 Select' ||
+  //       item.mappedData.currentStatus == 'L1 Reject'
+  //         ? item.mappedData.L1.l1Panel
+  //         : item.mappedData.L2.l2Panel;
+  //   }
+  //   if (!item.mappedData.currentInterviewDate) {
+  //     item.mappedData.currentInterviewDate =
+  //       item.mappedData.currentStatus == 'L1 TBS' ||
+  //       item.mappedData.currentStatus == 'L1 Scheduled' ||
+  //       item.mappedData.currentStatus == 'L1 Select' ||
+  //       item.mappedData.currentStatus == 'L1 Reject'
+  //         ? item.mappedData.L1.l1InterviewDate
+  //         : item.mappedData.L2.l2InterviewDate;
+  //   }
+  //   return item;
+  // });
 }
 
-postSelectedCandidates(rowdata:any){
-console.log("rowdataaaaaaaa",rowdata)
+saveSelectedCandidates(rowdata:any){
+rowdata.selectedCandidate.forEach((candidate : any) => {
+  let candidateObject = { candidateId: candidate,testStatus:"",overAllStatus:"",panelMembers:"",scheduleDate:""};
+  rowdata.candidateDetails.push(candidateObject);
+
+})
+console.log("candidatedetails",rowdata)
+this.MappingService.postCandidateSelectedDetails(rowdata).subscribe((data:any)=>{
+  console.log("postSelectedCandidate",data);
+})
+
 }
 }
 
