@@ -87,7 +87,7 @@
           <th>PCR Skills</th>
           <th>Candidate Name</th>
           <th></th>
-          <th></th>
+
         </tr>
       </ng-template>
       <ng-template
@@ -104,13 +104,13 @@
             <button type="button" pButton pRipple [pRowToggler]="rowData" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
         </td>
 
-          <td class="custom_link">
+          <td >
             {{ rowData.agileId}} </td>
 
-            <td class="custom_link">
+            <td >
               {{ rowData.pcrId }} </td>
 
-          <td class="custom_link">
+          <td >
 
               {{ rowData.jobDescription}}
               </td>
@@ -176,18 +176,8 @@
           </div>
 
         </td>
-        <td>
-          <div>
-            <i
-              class="pi pi-envelope"
-              style="color: #3B82F6; cursor: pointer"
-              (click)="openInviteDialog($event, rowData)"
-              pTooltip="Mail"
-              tooltipPosition="top"
-            ></i>
-          </div>
 
-        </td>
+
 
 
       </tr>
@@ -195,7 +185,7 @@
 
       <ng-template pTemplate="rowexpansion" let-rowData>
         <tr>
-          <td colspan="7">
+          <td colspan="13">
             <div class="p-3">
                 <p-table  editMode="row"   [value]="rowData.candidateDetails" dataKey="candidateId">
                   <ng-template pTemplate="header">
@@ -223,7 +213,7 @@
                     {{ candidate.candidateId }}</td>
 
 
-                    <td>{{ candidate.candidateId }}</td>
+                    <td>{{ candidate.testStatus }}</td>
 
                   <td>
                     <p-cellEditor>
@@ -237,13 +227,13 @@
                             optionLabel="name"
                             [showClear]="true"
                             placeholder="Status"
-                            (onChange)="onStatusChange(rowData)"
+                            (onChange)="onStatusChange(rowData.candidateDetails)"
                           ></p-dropdown>
                         </div>
                       </ng-template>
                       <ng-template pTemplate="output" ngIf="rowData.mappedData.currentStatus=='Onboarding'">
                         <a href="/login"></a>
-                        {{ candidate.candidateId}}
+                        {{ candidate.overAllStatus}}
                       </ng-template>
                     </p-cellEditor>
                   </td>
@@ -262,7 +252,7 @@
                         </div>
                       </ng-template>
                       <ng-template pTemplate="output">
-                        {{candidate.candidateId}}
+                        {{candidate.panelMembers}}
                       </ng-template>
                     </p-cellEditor>
                   </td>
@@ -280,7 +270,7 @@
                       </ng-template>
                       <ng-template pTemplate="output">
                         {{
-                          candidate.candidateId
+                          candidate.scheduleDate
                         }}
                       </ng-template>
                     </p-cellEditor>
@@ -288,6 +278,17 @@
 
                   <td class="customIcon">
                     <!-- Mail -->
+
+                      <div>
+                        <i
+                          class="pi pi-envelope"
+                          style="color: #3B82F6; cursor: pointer"
+                          (click)="openInviteDialog($event, rowData)"
+                          pTooltip="Mail"
+                          tooltipPosition="top"
+                        ></i>
+                      </div>
+
 
 
                     <!-- edit -->

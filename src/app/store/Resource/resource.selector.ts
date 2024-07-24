@@ -1,5 +1,6 @@
 import { createFeature, createFeatureSelector, createSelector } from "@ngrx/store";
-import { CandidateState, candidateReducer } from "./resource.reducer";
+import { candidateReducer, CandidateState } from "./resource.reducer";
+// import { CandidateState, candidateReducer } from "./resource.reducer";
 
 const resourceFeatureKey = "resources";
 export const resourceState = createFeatureSelector<CandidateState>(resourceFeatureKey);
