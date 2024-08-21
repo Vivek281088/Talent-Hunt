@@ -88,8 +88,14 @@ export class PcrMappingService {
   postCandidateSelectedDetails(candidate:any){
     const endpoint = `${process.env.BASE_URL_DEV}/pcragilecandidatemapping`;
     return this.http.post<any>(endpoint,candidate)
+  }
 
-
+  getPcrCandidateMappedData(pcrId : any){
+    const data={id : pcrId}
+    console.log("Id from service:", data);
+    
+    const endpoint = `${process.env.BASE_URL_DEV}/getPcrMappedCandidates`;
+    return this.http.post<any>(endpoint,data)
   }
 }
 

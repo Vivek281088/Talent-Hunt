@@ -22,12 +22,18 @@ import { PcrService } from 'src/app/services/pcr.service';
 import { PcrMappingService } from 'src/app/services/pcr-mapping.service';
 import { transformDataToInputFields } from 'src/app/shared/utils/transformDataToInputFields';
 import { MappingPCRCandidateData, PcrCandidateActions } from 'src/app/store/PCR-Mapping/pcr-mapping.action';
+import { Candidate, candidateActions } from 'src/app/store/candidate/candidate.action';
+import { getCandidate } from 'src/app/store/candidate/candidate.selector';
+import { NewScheduleService } from 'src/app/services/new-schedule.service';
+import { ResourceService } from 'src/app/services/resource.service';
+
 @Component({
   selector: 'app-manage-pcr',
   templateUrl: './manage-pcr.component.html',
   styleUrls: ['./manage-pcr.component.scss'],
 })
 export class ManagePcrComponent {
+  isActive: boolean = false; 
   items: MenuItem[] = [];
   todayDate!: Date;
   addPCR: boolean = false;
@@ -45,9 +51,13 @@ export class ManagePcrComponent {
   isProjectId: boolean = false;
   selectedDeletePcr: any;
   agileData!: agileDetails[];
+  candidateData!: Candidate[];
   selectedAgileId!: string;
+  selectedCandidateId!:string;
   agileDetailsVisible!:boolean;
   inputFields: any = [];
+  activeIndex: number = 0;
+  candidates$!: Observable<Candidate[]>;
 
   constructor(
     private router: Router,
@@ -56,6 +66,7 @@ export class ManagePcrComponent {
     private pcrService: PcrService,
     private pcrAgileMappingService : PcrMappingService,
     private messageService: MessageService,
+    private resourceService : ResourceService
   ) {
     this.addPCRForm = this.fb.group({
       agileId: [null, []],
@@ -101,7 +112,19 @@ export class ManagePcrComponent {
 
       console.log('pcr data from comp', this.pcrData);
     });
+
+    //get all the candidate details
+  this.getUniqueCandidatedata();
   }
+  getUniqueCandidatedata() {
+      this.resourceService
+        .getResourceData()
+        .subscribe((response: any[]) => {
+          
+          this.candidateData=response;
+          console.log('Candidate Data', this.candidateData);
+        });
+    }
 
   individualPCR(id: string) {
     sessionStorage.setItem('currentPCRid', id);
@@ -162,7 +185,8 @@ export class ManagePcrComponent {
     this.isAgileId = true;
     this.isPcrId = true;
     this.isProjectId = true;
-    console.log('edit data', data);
+    console.log('edit data', data.pcrId);
+    this.getPcrCandidateMappedDetails(data.pcrId);
     if (data) {
       this.addPCRForm.patchValue({
         agileId: data.agileId,
@@ -368,11 +392,18 @@ export class ManagePcrComponent {
       this.agileData=data;
     });
   }
-  agileFiltering(agileId: string,pcrId: string){
-    console.log(agileId,pcrId)
+  agileFiltering(agileId: string,pcrId: string, candidateId: string){
+    console.log("AgileFiltering", agileId,pcrId,candidateId)
     this.selectedAgileId = agileId;
+    this.selectedCandidateId = candidateId;
     this.selectedPcrId =pcrId
 
+  }
+  getPcrCandidateMappedDetails(id: any){
+    console.log("Id--",id)
+    this.pcrAgileMappingService.getPcrCandidateMappedData(id).subscribe((data)=>{
+      console.log("Get Pcr-Candidate Mapped Data---",data)
+    })
   }
   onRowEditInit(rowData: any) {
     console.log("Init")
@@ -389,16 +420,17 @@ export class ManagePcrComponent {
     const mappingData ={
       pcrId : data.pcrId,
       agileId : this.selectedAgileId,
+      candidateId: this.selectedCandidateId,
       jobDescription : data.jobTitle,
       skills : data.skills
-
     }
-    console.log(mappingData);
+    console.log("Mapping-Data",mappingData);
     this.pcrAgileMappingService.mapPcrAgile(mappingData).subscribe((data)=>{
-      console.log(data)
+      console.log("Data",data)
     })
     setTimeout(()=>{
       this.selectedAgileId ='';
+      this.selectedCandidateId = '';
       this.getPcrAgileMappedData();
     },1500)
 
@@ -417,6 +449,88 @@ export class ManagePcrComponent {
     });
     console.log("Filtered Data", this.filteredPcrAgileMappedData)
 
+  }
+
+
+
+  agileUpload(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader: FileReader = new FileReader();
+      const tempdata = reader.readAsBinaryString(file);
+      console.log('temp data', tempdata);
+      reader.onload = (event) => {
+        console.log(event);
+        let binaryData = event.target?.result;
+        let workbook = XLSX.read(binaryData, { type: 'binary' });
+        console.log(workbook);
+        workbook.SheetNames.forEach((sheet) => {
+          const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+          const value = this.agileFormatData(data);
+          if (value.length > 0) {
+            const tempValue = value.map((temp: any) => ({
+              deleted: false,
+              ...temp,
+            }));
+            console.log(tempValue);
+            this.pcrService.addAgile1Details(tempValue).subscribe((data) => {
+              console.log('data fromt he backend ', data);
+            });
+          }
+        });
+      };
+    }
+  }
+
+  agileFormatData(data: any) {
+    let lastEntryWithId: any;
+    return data.reduce(
+      (
+        result: any[],
+        item: {
+          ID: string;
+          Job_Status: any;
+          Job_Vendor_Submitted: any;
+          Name: any;
+          Numubers: any;
+        }
+      ) => {
+        if (item.ID) {
+          const entry = {
+            ...item,
+            ID: item.ID.toString(),
+            employeeDetails: [],
+          };
+          result.push(entry);
+          lastEntryWithId = entry;
+        } else if (lastEntryWithId && item.ID === '') {
+          const additionalDetail = {
+            Job_Status: item.Job_Status,
+            Job_Vendor_Submitted: item.Job_Vendor_Submitted,
+            Name: item.Name,
+            Numubers: item.Numubers,
+          };
+          lastEntryWithId.employeeDetails.push(additionalDetail);
+        }
+        return result;
+      },
+      []
+    );
+  }
+
+  extractAgile(agileData: any) {
+    const worksheet = XLSX.utils.json_to_sheet(agileData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Agile details');
+    XLSX.writeFile(workbook, 'Agile details.xlsx', { compression: true });
+  }
+
+
+  toggleClass() {
+    this.isActive = !this.isActive;
+  }
+  toggleFalse(){
+    this.isActive = false;
   }
 
 

@@ -19,722 +19,989 @@
     </div>
   </div>
 
-  <div class="PCR">
-    <div class="managerTable">
-      <p-table
-        #dt2
-        [value]="pcrData"
-        dataKey="pcrId"
-        [rows]="5"
-        [(selection)]="selectedDeletePcr"
-        [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[5, 10, 25, 50]"
-        [loading]=""
-        editMode="row"
-        [paginator]="true"
-        rowExpandMode="single"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [globalFilterFields]="[
-          'pcrId',
-          'agileId',
-          'jobTitle',
-          'createdDate',
-          'projectId',
-          'skills',
-          'pcrStatus',
-          'createdBy',
-          'location',
-          'requestResource'
-        ]"
-        [tableStyle]="{ 'min-width': '65rem' }"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th colspan="12">
-              <div class="manager-header">
-                <div class="manager-header1">
-                  <div class="p-input-icon-left-right">
-                    <span class="p-input-icon-left">
-                      <i class="pi pi-search"></i>
-                    </span>
-                    <input
-                      class="searchIcon"
-                      pInputText
-                      type="text"
-                      [(ngModel)]="globalSearchValue"
-                      (input)="
-                        dt2.filterGlobal(
-                          $any($event.target).value,
-                          'contains'
-                        )
-                      "
-                      placeholder="Search"
-                    />
-                    <span
-                      class="p-input-icon-right"
-                      (click)="clear(dt2)"
-                      *ngIf="
-                        globalSearchValue != '' &&
-                        globalSearchValue != null
-                      "
-                    >
-                      <i class="pi pi-times-circle"></i>
-                    </span>
-                  </div>
-                </div>
-                <div class="manager-header-2">
-                  <div class="addcandidate">
-                    <p-button label="Add PCR" (onClick)="addPcr()">
-                    </p-button>
-                  </div>
-                  <div class="addcandidate">
-                    <p-button
-                      label="Extract PCR"
-                      (onClick)="extractPCR(pcrData)"
-                    >
-                    </p-button>
-                  </div>
-
-
-                </div>
-              </div>
-            </th>
-          </tr>
-
-          <tr>
-            <th style="width: 4rem">
-              <!-- <p-tableHeaderCheckbox
-                [value]="pcrData"
-                (click)="selectAll()"
-              ></p-tableHeaderCheckbox> -->
-            </th>
-            <th>PCRID</th>
-            <th>AgileId</th>
-            <th>JobTitle</th>
-            <th>PcrStatus</th>
-            <th>CreatedBy</th>
-            <th>Location</th>
-            <th>RequestSource</th>
-            <th>Actions</th>
-          </tr>
-        </ng-template>
-        <ng-template
-          pTemplate="body"
-          let-rowData
-          let-editing="editing"
-          let-i="rowIndex"
-          class="tableBody"
-          let-expanded="expanded"
-        >
-          <tr [pEditableRow]="rowData">
-            <td>
-              <button
-                type="button"
-                pButton
-                pRipple
-                [pRowToggler]="rowData"
-                (click)="getIndividualPcrAgileData(rowData.pcrId)"
-                class="p-button-text p-button-rounded p-button-plain"
-                [icon]="
-                  expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
-                "
-              ></button>
-              <!-- <p-tableCheckbox
-                [value]="rowData"
-                [checked]="rowData.selection"
-                (click)="toggleSelection(rowData)"
-              ></p-tableCheckbox> -->
-            </td>
-            <td class="pcr-link">
-              <a (click)="individualPCR(rowData.pcrId)">{{
-                rowData.pcrId
-              }}</a>
-            </td>
-            <td>
-              <p-cellEditor>
-                <ng-template pTemplate="input">
-                  <div class="dropdowns">
-                    <p-dropdown
-                      [options]="agileData"
-                      optionValue="ID"
-                      optionLabel="ID"
-                      appendTo="body"
-                      [(ngModel)]="rowData.agileId"
-                      [showClear]="true"
-                      placeholder="Select AgileId"
-                      (onChange)="
-                        agileFiltering(rowData.agileId, rowData.pcrId)
-                      "
-                    ></p-dropdown>
-                  </div>
-                </ng-template>
-                <ng-template pTemplate="output">
-                  </ng-template
-                >
-              </p-cellEditor>
-            </td>
-            <td>
-              {{ rowData.jobTitle }}
-            </td>
-            <td>{{ rowData.pcrStatus }}</td>
-            <td>{{ rowData.createdBy }}</td>
-            <td>{{ rowData.location }}</td>
-            <td>{{ rowData.requestResource }}</td>
-
-            <td>
-              <div class="actions">
-                <div
-                class="icons"
-                (click)="editData(rowData)"
-                >
-                  <a pTooltip="Edit" tooltipPosition="top">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 18 18"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M3.375 14.625H4.2L12.5062 6.31877L11.6812 5.49377L3.375 13.8V14.625ZM14.8875 5.51252L12.4875 3.11252L13.275 2.32502C13.4875 2.11252 13.7531 2.0094 14.0719 2.01565C14.3906 2.0219 14.6563 2.13127 14.8688 2.34377L15.675 3.15002C15.8875 3.36252 15.9938 3.62502 15.9938 3.93752C15.9938 4.25002 15.8875 4.51252 15.675 4.72502L14.8875 5.51252ZM2.8125 15.75C2.65 15.75 2.51563 15.6969 2.40938 15.5906C2.30313 15.4844 2.25 15.35 2.25 15.1875V13.575C2.25 13.5 2.2625 13.4313 2.2875 13.3688C2.3125 13.3063 2.35625 13.2438 2.41875 13.1813L11.7 3.90002L14.1 6.30002L4.81875 15.5813C4.75625 15.6438 4.69375 15.6875 4.63125 15.7125C4.56875 15.7375 4.5 15.75 4.425 15.75H2.8125ZM12.0938 5.90627L11.6812 5.49377L12.5062 6.31877L12.0938 5.90627Z"
-                        fill="#652D90"
-                      />
-                    </svg>
-                  </a>
-                </div>
-                <div
-                  class="icons"
-                  *ngIf="!editing"
-                  pInitEditableRow
-                  (click)="onRowEditInit(rowData)"
-                >
-                  <a pTooltip="Map" tooltipPosition="top">
-                    <i class="pi pi-link"></i>
-                  </a>
-                </div>
-                <div>
-                  <button
-                  *ngIf="editing"
-                  pButton
-                  pRipple
-                  type="button"
-                  pSaveEditableRow
-                  icon="pi pi-check"
-                  (click)="mapPcrAgileData(rowData,i)"
-                  class="p-button-rounded p-button-text p-button-success mr-2"
-                ></button>
-              </div>
-                <div>
-                  <button
-                  *ngIf="editing"
-                  pButton
-                  pRipple
-                  type="button"
-                  pCancelEditableRow
-                  icon="pi pi-times"
-                  (click)="onRowEditCancel(rowData, i)"
-                  class="p-button-rounded p-button-text p-button-danger"
-                ></button>
-                </div>
-                <!-- <div class="icons">
-                  <a
-                    ><i
-                      class="pi pi-save"
-                      pCancelEditableRow
-                      (click)="mapPcrAgileData(rowData, i)"
-                      pTooltip="Save"
-                      tooltipPosition="top"
-                    ></i
-                  ></a>
-                </div> -->
-              </div>
-            </td>
-          </tr>
-        </ng-template>
-
-        <p-toast></p-toast>
-        <ng-template pTemplate="rowexpansion" let-rowData>
-          <tr>
-            <td colspan="12">
-              <div class="p-3">
-                <p-table
-                  [value]="filteredPcrAgileMappedData"
-                  dataKey="uniqueId"
-                  [(selection)]="selectedDeletePcr"
-                  [globalFilterFields]="[
-                    'pcrId',
-                    'agileId',
-                    'jobTitle',
-                    'createdDate',
-                    'projectId',
-                    'skills',
-                    'pcrStatus',
-                    'createdBy',
-                    'location',
-                    'requestResource'
-                  ]"
-                >
-                  <ng-template pTemplate="header">
-                    <tr>
-                      <th style="width: 4rem">
-                        <p-tableHeaderCheckbox
-                          [value]="pcrData"
-                          (click)="selectAll()"
-                        ></p-tableHeaderCheckbox>
-                      </th>
-                      <th>AgileId</th>
-                      <th>JobTitle</th>
-                      <th>PcrStatus</th>
-                      <th>CreatedBy</th>
-                      <th>Location</th>
-                      <th>RequestSource</th>
-                      <th style="padding: 0%;">
-                        <div class="deleteMapButton">
-                          <p-button
-                            label="Delete"
-                            (click)="deleteMappedData(rowData.pcrId)"
-                            [disabled]="
-                              !selectedDeletePcr ||
-                              selectedDeletePcr.length == 0
+  <div class="card">
+    <p-tabView [(activeIndex)]="activeIndex">
+      <p-tabPanel header="PCR">
+        <div class="PCR">
+          <div [ngClass]="isActive ? 'tableView' : 'managerTable'">
+            <p-table
+              #dt2
+              [value]="pcrData"
+              dataKey="pcrId"
+              [rows]="5"
+              [(selection)]="selectedDeletePcr"
+              [showCurrentPageReport]="true"
+              [rowsPerPageOptions]="[5, 10, 25, 50]"
+              [loading]=""
+              editMode="row"
+              [paginator]="true"
+              rowExpandMode="single"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              [globalFilterFields]="[
+                'pcrId',
+                'agileId',
+                'jobTitle',
+                'createdDate',
+                'projectId',
+                'skills',
+                'pcrStatus',
+                'createdBy',
+                'location',
+                'requestResource'
+              ]"
+              [tableStyle]="{ 'min-width': '65rem' }"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th colspan="12">
+                    <div class="manager-header">
+                      <div class="manager-header1">
+                        <div class="p-input-icon-left-right">
+                          <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                          </span>
+                          <input
+                            class="searchIcon"
+                            pInputText
+                            type="text"
+                            [(ngModel)]="globalSearchValue"
+                            (input)="
+                              dt2.filterGlobal(
+                                $any($event.target).value,
+                                'contains'
+                              )
                             "
+                            placeholder="Search"
+                          />
+                          <span
+                            class="p-input-icon-right"
+                            (click)="clear(dt2)"
+                            *ngIf="
+                              globalSearchValue != '' &&
+                              globalSearchValue != null
+                            "
+                          >
+                            <i class="pi pi-times-circle"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="manager-header-2">
+                        <div class="addcandidate">
+                          <p-button label="Add PCR" (onClick)="addPcr()">
+                          </p-button>
+                        </div>
+                        <div class="addcandidate">
+                          <p-button
+                            label="Extract PCR"
+                            (onClick)="extractPCR(pcrData)"
                           >
                           </p-button>
                         </div>
-                      </th>
-                    </tr>
-                  </ng-template>
-                  <ng-template
-                    pTemplate="body"
-                    let-expandedRowData
-                    class="tableBody"
-                  >
-                    <tr>
-                      <td>
-                        <p-tableCheckbox
-                          [value]="expandedRowData"
-                          [checked]="expandedRowData.selection"
-                          (click)="toggleSelection(expandedRowData)"
-                        ></p-tableCheckbox>
-                      </td>
-                      <td class="pcr-link">
-                        <a (click)="individualAgileId(expandedRowData.agileId)">{{ expandedRowData.agileId }}</a>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
 
-                      </td>
-                      <td>{{ rowData.jobTitle }}</td>
-                      <td>{{ rowData.pcrStatus }}</td>
-                      <td>{{ rowData.createdBy }}</td>
-                      <td>{{ rowData.location }}</td>
-                      <td>{{ rowData.requestResource }}</td>
-                      <td></td>
-                    </tr>
-                  </ng-template>
-                </p-table>
-              </div>
-            </td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="12">No data found.</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-    <!-- <p-tabView>
-      <p-tabPanel>
-        <ng-template pTemplate="header">PCR</ng-template>
-        <ng-template pTemplate="content">
+                <tr>
+                  <th style="width: 4rem">
+                    <!-- <p-tableHeaderCheckbox
+                      [value]="pcrData"
+                      (click)="selectAll()"
+                    ></p-tableHeaderCheckbox> -->
+                  </th>
+                  <th>PCRID</th>
+                  <th>AgileId</th>
+                  <th>CandidateId</th>
+                  <th>JobTitle</th>
+                  <th>PcrStatus</th>
+                  <th>CreatedBy</th>
+                  <th>Location</th>
+                  <th>RequestSource</th>
+                  <th>Actions</th>
+                </tr>
+              </ng-template>
+              <ng-template
+                pTemplate="body"
+                let-rowData
+                let-editing="editing"
+                let-i="rowIndex"
+                class="tableBody"
+                let-expanded="expanded"
+              >
+                <tr [pEditableRow]="rowData">
+                  <td>
+                    <button
+                      type="button"
+                      pButton
+                      pRipple
+                      [pRowToggler]="rowData"
+                      (click)="getIndividualPcrAgileData(rowData.pcrId)"
+                      class="p-button-text p-button-rounded p-button-plain"
+                      [icon]="
+                        expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
+                      "
+                    ></button>
+                    <!-- <p-tableCheckbox
+                      [value]="rowData"
+                      [checked]="rowData.selection"
+                      (click)="toggleSelection(rowData)"
+                    ></p-tableCheckbox> -->
+                  </td>
+                  <td class="pcr-link">
+                    <a (click)="individualPCR(rowData.pcrId)">{{
+                      rowData.pcrId
+                    }}</a>
+                  </td>
+                  <td>
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <div class="dropdowns">
+                          <p-dropdown
+                            [options]="agileData"
+                            optionValue="ID"
+                            optionLabel="ID"
+                            appendTo="body"
+                            [(ngModel)]="rowData.agileId"
+                            [showClear]="true"
+                            placeholder="Select AgileId"
+                            (onChange)="
+                              agileFiltering(
+                                rowData.agileId,
+                                rowData.pcrId,
+                                rowData.candidateId
+                              )
+                            "
+                          ></p-dropdown>
+                        </div>
+                      </ng-template>
+                      <ng-template pTemplate="output"> </ng-template>
+                    </p-cellEditor>
+                  </td>
+                  <td>
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <div class="multiselect">
+                          <p-multiSelect
+                            [options]="candidateData"
+                            optionValue="candidateId"
+                            optionLabel="candidateName"
+                            [(ngModel)]="rowData.candidateId"
+                            [showClear]="true"
+                            placeholder="Select candidateId"
+                            (onChange)="
+                              agileFiltering(
+                                rowData.agileId,
+                                rowData.pcrId,
+                                rowData.candidateId
+                              )
+                            "
+                          ></p-multiSelect>
+                        </div>
+                      </ng-template>
+                    </p-cellEditor>
+                  </td>
 
-        </ng-template>
-      </p-tabPanel>
-      <p-tabPanel>
-        <ng-template pTemplate="header">Agile1</ng-template>
-        <ng-template pTemplate="content">
-          <app-manage-agile1></app-manage-agile1
-        ></ng-template>
-      </p-tabPanel>
-    </p-tabView> -->
-  </div>
+                  <td>
+                    {{ rowData.jobTitle }}
+                  </td>
+                  <td>{{ rowData.pcrStatus }}</td>
+                  <td>{{ rowData.createdBy }}</td>
+                  <td>{{ rowData.location }}</td>
+                  <td>{{ rowData.requestResource }}</td>
 
-  <div class="newSchedule-Dialog">
-    <p-dialog
-      [header]="addPCR ? 'Add PCR' : editPCR ? 'Edit PCR' : ''"
-      [visible]="addPCR || editPCR"
-      [formGroup]="addPCRForm"
-      [modal]="true"
-      [style]="{ width: '47VW' }"
-      [draggable]="false"
-      [resizable]="false"
-      [closable]="false"
-    >
-      <p-tabView>
-        <p-tabPanel
-          [header]="
-            addPCR ? 'Add a Single PCR' : editPCR ? 'Edit a Single PCR' : ''
-          "
-        >
-          <div class="NewSchedule-content">
-            <div class="labelvalue">
-              <div class="label">
-                <label> Agile Id</label>
-              </div>
-              <div class="value">
-                <input
-                  pInputText
-                  pKeyFilter="alphanum"
-                  formControlName="agileId"
-                  (keypress)="onKeyPress($event)"
-                  [readonly]="editPCR"
-                />
-              </div>
-            </div>
-            <div class="labelvalue">
-              <div class="label">
-                <label> PCR ID</label>
-                <span class="important-symbol">&#42;</span>
-              </div>
-              <div class="value">
-                <input
-                  pInputText
-                  type="text"
-                  formControlName="pcrId"
-                  (keypress)="onKeyPress($event)"
-                  [disabled]="isPcrId"
-                  [readonly]="editPCR"
-                />
+                  <td>
+                    <div class="actions">
+                      <div class="icons" (click)="editData(rowData)">
+                        <a pTooltip="Edit" tooltipPosition="top">
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 18 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M3.375 14.625H4.2L12.5062 6.31877L11.6812 5.49377L3.375 13.8V14.625ZM14.8875 5.51252L12.4875 3.11252L13.275 2.32502C13.4875 2.11252 13.7531 2.0094 14.0719 2.01565C14.3906 2.0219 14.6563 2.13127 14.8688 2.34377L15.675 3.15002C15.8875 3.36252 15.9938 3.62502 15.9938 3.93752C15.9938 4.25002 15.8875 4.51252 15.675 4.72502L14.8875 5.51252ZM2.8125 15.75C2.65 15.75 2.51563 15.6969 2.40938 15.5906C2.30313 15.4844 2.25 15.35 2.25 15.1875V13.575C2.25 13.5 2.2625 13.4313 2.2875 13.3688C2.3125 13.3063 2.35625 13.2438 2.41875 13.1813L11.7 3.90002L14.1 6.30002L4.81875 15.5813C4.75625 15.6438 4.69375 15.6875 4.63125 15.7125C4.56875 15.7375 4.5 15.75 4.425 15.75H2.8125ZM12.0938 5.90627L11.6812 5.49377L12.5062 6.31877L12.0938 5.90627Z"
+                              fill="#652D90"
+                            />
+                          </svg>
+                        </a>
+                      </div>
+                      <div
+                        class="icons"
+                        *ngIf="!editing"
+                        pInitEditableRow
+                        (click)="onRowEditInit(rowData);toggleClass();getPcrCandidateMappedDetails(rowData.pcrId)"
+                      >
+                        <a pTooltip="Map" tooltipPosition="top">
+                          <i class="pi pi-link"></i>
+                        </a>
+                      </div>
+                      <div>
+                        <button
+                          *ngIf="editing"
+                          pButton
+                          pRipple
+                          type="button"
+                          pSaveEditableRow
+                          icon="pi pi-check"
+                          (click)="mapPcrAgileData(rowData, i);toggleFalse()"
+                          class="p-button-rounded p-button-text p-button-success mr-2"
+                        ></button>
+                      </div>
+                      <div>
+                        <button
+                          *ngIf="editing"
+                          pButton
+                          pRipple
+                          type="button"
+                          pCancelEditableRow
+                          icon="pi pi-times"
+                          (click)="onRowEditCancel(rowData, i);toggleFalse()"
+                          class="p-button-rounded p-button-text p-button-danger"
+                        ></button>
+                      </div>
+                      <!-- <div class="icons">
+                        <a
+                          ><i
+                            class="pi pi-save"
+                            pCancelEditableRow
+                            (click)="mapPcrAgileData(rowData, i)"
+                            pTooltip="Save"
+                            tooltipPosition="top"
+                          ></i
+                        ></a>
+                      </div> -->
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
 
-                <div
-                  *ngIf="
-                    (addPCRForm.get('pcrId')?.invalid &&
-                      addPCRForm.get('pcrId')?.touched) ||
-                    formSubmitted
-                  "
-                >
-                  <div
-                    *ngIf="addPCRForm.get('pcrId')?.hasError('required')"
-                    class="error-message"
-                  >
-                    PCR Id is required.
+              <p-toast></p-toast>
+              <ng-template pTemplate="rowexpansion" let-rowData>
+                <tr>
+                  <td colspan="12">
+                    <div class="p-3">
+                      <p-table
+                        [value]="filteredPcrAgileMappedData"
+                        dataKey="uniqueId"
+                        [(selection)]="selectedDeletePcr"
+                        [globalFilterFields]="[
+                          'pcrId',
+                          'agileId',
+                          'jobTitle',
+                          'createdDate',
+                          'projectId',
+                          'skills',
+                          'pcrStatus',
+                          'createdBy',
+                          'location',
+                          'requestResource'
+                        ]"
+                      >
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th style="width: 4rem">
+                              <p-tableHeaderCheckbox
+                                [value]="pcrData"
+                                (click)="selectAll()"
+                              ></p-tableHeaderCheckbox>
+                            </th>
+                            <th>AgileId</th>
+                            <th>CandidateId</th>
+                            <th>JobTitle</th>
+                            <th>PcrStatus</th>
+                            <th>CreatedBy</th>
+                            <th>Location</th>
+                            <th>RequestSource</th>
+                            <th style="padding: 0%">
+                              <div class="deleteMapButton">
+                                <p-button
+                                  label="Delete"
+                                  (click)="deleteMappedData(rowData.pcrId)"
+                                  [disabled]="
+                                    !selectedDeletePcr ||
+                                    selectedDeletePcr.length == 0
+                                  "
+                                >
+                                </p-button>
+                              </div>
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template
+                          pTemplate="body"
+                          let-expandedRowData
+                          class="tableBody"
+                        >
+                          <tr>
+                            <td>
+                              <p-tableCheckbox
+                                [value]="expandedRowData"
+                                [checked]="expandedRowData.selection"
+                                (click)="toggleSelection(expandedRowData)"
+                              ></p-tableCheckbox>
+                            </td>
+                            <td class="pcr-link">
+                              <a
+                                (click)="
+                                  individualAgileId(expandedRowData.agileId)
+                                "
+                                >{{ expandedRowData.agileId }}</a
+                              >
+                            </td>
+                            <td class="chip">
+                              <p-chip *ngFor="let id of expandedRowData.candidateId" label="{{ id }}"></p-chip>
+                            </td>
+                            <td>{{ rowData.jobTitle }}</td>
+                            <td>{{ rowData.pcrStatus }}</td>
+                            <td>{{ rowData.createdBy }}</td>
+                            <td>{{ rowData.location }}</td>
+                            <td>{{ rowData.requestResource }}</td>
+                            <td></td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="12">No data found.</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+          <!-- <p-tabView>
+            <p-tabPanel>
+              <ng-template pTemplate="header">PCR</ng-template>
+              <ng-template pTemplate="content">
+      
+              </ng-template>
+            </p-tabPanel>
+            <p-tabPanel>
+              <ng-template pTemplate="header">Agile1</ng-template>
+              <ng-template pTemplate="content">
+                <app-manage-agile1></app-manage-agile1
+              ></ng-template>
+            </p-tabPanel>
+          </p-tabView> -->
+        </div>
+
+        <div class="newSchedule-Dialog">
+          <p-dialog
+            [header]="addPCR ? 'Add PCR' : editPCR ? 'Edit PCR' : ''"
+            [visible]="addPCR || editPCR"
+            [formGroup]="addPCRForm"
+            [modal]="true"
+            [style]="{ width: '47VW' }"
+            [draggable]="false"
+            [resizable]="false"
+            [closable]="false"
+          >
+            <p-tabView>
+              <p-tabPanel
+                [header]="
+                  addPCR
+                    ? 'Add a Single PCR'
+                    : editPCR
+                    ? 'Edit a Single PCR'
+                    : ''
+                "
+              >
+                <div class="NewSchedule-content">
+                  <div class="labelvalue">
+                    <div class="label">
+                      <label> Agile Id</label>
+                    </div>
+                    <div class="value">
+                      <input
+                        pInputText
+                        pKeyFilter="alphanum"
+                        formControlName="agileId"
+                        (keypress)="onKeyPress($event)"
+                        [readonly]="editPCR"
+                      />
+                    </div>
                   </div>
-                  <div
-                    *ngIf="addPCRForm.get('pcrId')?.hasError('minlength')"
-                    class="error-message"
-                  >
-                    PCR Id must be at least 6 characters long.
+                  <div class="labelvalue">
+                    <div class="label">
+                      <label> PCR ID</label>
+                      <span class="important-symbol">&#42;</span>
+                    </div>
+                    <div class="value">
+                      <input
+                        pInputText
+                        type="text"
+                        formControlName="pcrId"
+                        (keypress)="onKeyPress($event)"
+                        [disabled]="isPcrId"
+                        [readonly]="editPCR"
+                      />
+
+                      <div
+                        *ngIf="
+                          (addPCRForm.get('pcrId')?.invalid &&
+                            addPCRForm.get('pcrId')?.touched) ||
+                          formSubmitted
+                        "
+                      >
+                        <div
+                          *ngIf="addPCRForm.get('pcrId')?.hasError('required')"
+                          class="error-message"
+                        >
+                          PCR Id is required.
+                        </div>
+                        <div
+                          *ngIf="addPCRForm.get('pcrId')?.hasError('minlength')"
+                          class="error-message"
+                        >
+                          PCR Id must be at least 6 characters long.
+                        </div>
+                        <div
+                          *ngIf="addPCRForm.get('pcrId')?.hasError('maxlength')"
+                          class="error-message"
+                        >
+                          PCR Id cannot be more than 10 characters long.
+                        </div>
+                        <div
+                          *ngIf="
+                            addPCRForm.get('pcrId')?.hasError('invalidInput')
+                          "
+                          class="error-message"
+                        >
+                          Please enter a valid PCR ID (6 to 10 characters,
+                          letters, and numbers only).
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    *ngIf="addPCRForm.get('pcrId')?.hasError('maxlength')"
-                    class="error-message"
-                  >
-                    PCR Id cannot be more than 10 characters long.
+
+                  <div class="labelvalue">
+                    <div class="label">
+                      <label>Job Title</label>
+                      <span class="important-symbol">&#42;</span>
+                    </div>
+                    <div class="value">
+                      <input
+                        type="text"
+                        appNameInput
+                        formControlName="jobTitle"
+                        pInputText
+                      />
+                      <div
+                        *ngIf="
+                          addPCRForm.get('jobTitle')?.invalid &&
+                          (addPCRForm.get('jobTitle')?.touched || formSubmitted)
+                        "
+                      >
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            addPCRForm.get('jobTitle')?.hasError('required')
+                          "
+                        >
+                          Jobtitle is required !
+                        </div>
+                        <div
+                          class="error-message"
+                          *ngIf="
+                            addPCRForm.get('jobTitle')?.hasError('minlength')
+                          "
+                        >
+                          Jobtitle must be at least 6 characters long !
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div
-                    *ngIf="addPCRForm.get('pcrId')?.hasError('invalidInput')"
-                    class="error-message"
-                  >
-                    Please enter a valid PCR ID (6 to 10 characters, letters,
-                    and numbers only).
+
+                  <div class="labelvalue">
+                    <div class="label">
+                      <label>Created Date</label>
+                      <span class="important-symbol">&#42;</span>
+                    </div>
+
+                    <div class="card flex flex-wrap gap-3 p-fluid calendar">
+                      <div class="flex-auto">
+                        <div class="calendar-field">
+                          <p-calendar
+                            formControlName="createdDate"
+                            appendTo="body"
+                            [showIcon]="true"
+                            inputId="buttondisplay"
+                            dateFormat="mm/dd/yy"
+                          ></p-calendar>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="labelvalue">
+                    <div class="label">
+                      <label> Project Id</label>
+                    </div>
+                    <div class="value">
+                      <input
+                        pInputText
+                        type="text"
+                        formControlName="projectId"
+                        (keypress)="onKeyPress($event)"
+                        [disabled]="isProjectId"
+                        [readonly]="editPCR"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div class="labelvalue">
-              <div class="label">
-                <label>Job Title</label>
-                <span class="important-symbol">&#42;</span>
-              </div>
-              <div class="value">
-                <input
-                  type="text"
-                  appNameInput
-                  formControlName="jobTitle"
-                  pInputText
-                />
-                <div
-                  *ngIf="
-                    addPCRForm.get('jobTitle')?.invalid &&
-                    (addPCRForm.get('jobTitle')?.touched || formSubmitted)
-                  "
-                >
-                  <div
-                    class="error-message"
-                    *ngIf="addPCRForm.get('jobTitle')?.hasError('required')"
-                  >
-                    Jobtitle is required !
+                <div class="labelvalue">
+                  <div class="label">
+                    <label>Skills</label>
                   </div>
-                  <div
-                    class="error-message"
-                    *ngIf="addPCRForm.get('jobTitle')?.hasError('minlength')"
-                  >
-                    Jobtitle must be at least 6 characters long !
+                  <div class="value">
+                    <input type="text" formControlName="skills" pInputText />
+                    <div
+                      *ngIf="
+                        addPCRForm.get('skills')?.invalid &&
+                        (addPCRForm.get('skills')?.touched || formSubmitted)
+                      "
+                    >
+                      <div
+                        class="error-message"
+                        *ngIf="addPCRForm.get('skills')?.hasError('required')"
+                      >
+                        Skills is required !
+                      </div>
+                    </div>
+                    <div
+                      class="error-message"
+                      *ngIf="addPCRForm.get('skills')?.hasError('minlength')"
+                    >
+                      Skills Id must be at least 6 characters long. !
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div class="labelvalue">
-              <div class="label">
-                <label>Created Date</label>
-                <span class="important-symbol">&#42;</span>
-              </div>
-
-              <div class="card flex flex-wrap gap-3 p-fluid calendar">
-                <div class="flex-auto">
-                  <div class="calendar-field">
-                    <p-calendar
-                      formControlName="createdDate"
+                <div class="labelvalue">
+                  <div class="label">
+                    <label>PCR Status</label>
+                    <span class="important-symbol">&#42;</span>
+                  </div>
+                  <div class="value">
+                    <p-dropdown
                       appendTo="body"
-                      [showIcon]="true"
-                      inputId="buttondisplay"
-                      dateFormat="mm/dd/yy"
-                    ></p-calendar>
+                      [options]="status"
+                      placeholder="--Select--"
+                      formControlName="pcrStatus"
+                    ></p-dropdown>
+
+                    <div
+                      *ngIf="
+                        addPCRForm.get('pcrStatus')?.invalid &&
+                        (addPCRForm.get('pcrStatus')?.touched || formSubmitted)
+                      "
+                    >
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          addPCRForm.get('pcrStatus')?.hasError('required')
+                        "
+                      >
+                        PCR Status is required !
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div class="labelvalue">
-              <div class="label">
-                <label> Project Id</label>
-              </div>
-              <div class="value">
+                <div class="labelvalue">
+                  <div class="label">
+                    <label>Created By</label>
+                  </div>
+                  <div class="value">
+                    <input type="text" formControlName="createdBy" pInputText />
+                    <div
+                      *ngIf="
+                        addPCRForm.get('createdBy')?.invalid &&
+                        (addPCRForm.get('createdBy')?.touched || formSubmitted)
+                      "
+                    >
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          addPCRForm.get('createdBy')?.hasError('required')
+                        "
+                      >
+                        Created By is required !
+                      </div>
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          addPCRForm.get('createdBy')?.hasError('minlength')
+                        "
+                      >
+                        Created By must be at least 3 characters long.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="labelvalue">
+                  <div class="label">
+                    <label>Location</label>
+                  </div>
+                  <div class="value">
+                    <p-dropdown
+                      appendTo="body"
+                      [options]="Location"
+                      placeholder="--Select--"
+                      formControlName="location"
+                    ></p-dropdown>
+                    <div
+                      *ngIf="
+                        addPCRForm.get('location')?.invalid &&
+                        (addPCRForm.get('location')?.touched || formSubmitted)
+                      "
+                    >
+                      <div
+                        class="error-message"
+                        *ngIf="addPCRForm.get('location')?.hasError('required')"
+                      >
+                        Location is required !
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="labelvalue">
+                  <div class="label">
+                    <label>Request Source</label>
+                  </div>
+                  <div class="value">
+                    <p-dropdown
+                      appendTo="body"
+                      [options]="requestResource"
+                      placeholder="--Select--"
+                      formControlName="requestResource"
+                    ></p-dropdown>
+                    <div
+                      *ngIf="
+                        addPCRForm.get('requestResource')?.invalid &&
+                        (addPCRForm.get('requestResource')?.touched ||
+                          formSubmitted)
+                      "
+                    >
+                      <div
+                        class="error-message"
+                        *ngIf="
+                          addPCRForm
+                            .get('requestResource')
+                            ?.hasError('required')
+                        "
+                      >
+                        Request Source is required !
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <ng-template pTemplate="footer">
+                  <div class="tabview-button">
+                    <div class="Cancelbutton">
+                      <p-button
+                        label="Cancel"
+                        [outlined]="true"
+                        (onClick)="cancelButton()"
+                      >
+                      </p-button>
+                    </div>
+                    <div class="Createbutton" *ngIf="addPCR">
+                      <p-button label="Save" (click)="saveButton()"> </p-button>
+                    </div>
+                    <div class="Createbutton" *ngIf="editPCR">
+                      <p-button label="Update" (click)="updateButton()">
+                      </p-button>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-tabPanel>
+
+              <p-tabPanel header="Add Multiple PCR" *ngIf="addPCR">
+                <div class="quiz-instruction">
+                  <p class="instruction">Upload Instructions</p>
+                  <ul class="points">
+                    <li>Download the provided template.</li>
+                    <li>Provide the correct value for each specific field.</li>
+                    <li>Do not alter the heading in any way.</li>
+                  </ul>
+                </div>
+
+                <ng-template pTemplate="footer">
+                  <div class="tabview-button-upload">
+                    <div class="Cancelbutton">
+                      <p-button
+                        label="Cancel"
+                        [outlined]="true"
+                        (onClick)="cancelButton()"
+                      >
+                      </p-button>
+                    </div>
+
+                    <label class="custom-file-input">
+                      Upload File
+                      <input
+                        type="file"
+                        style="display: none"
+                        (change)="PCRUpload($event)"
+                      />
+                    </label>
+
+                    <div class="Createbutton">
+                      <p-button
+                        label="Download Template"
+                        (click)="downloadCsvTemplate()"
+                      ></p-button>
+                    </div>
+                  </div>
+                </ng-template>
+              </p-tabPanel>
+            </p-tabView>
+          </p-dialog>
+        </div>
+        <div class="newSchedule-Dialog">
+          <p-dialog
+            header="Agile Details"
+            [(visible)]="agileDetailsVisible"
+            [modal]="true"
+            [style]="{ width: '55vw' }"
+            [draggable]="false"
+            [resizable]="false"
+          >
+            <div class="flex flex-wrap justify-content-around">
+              <div
+                class="gap-2 col-6 flex flex-column justify-content-between pcr-field"
+                *ngFor="let field of inputFields; let i = index"
+              >
+                <label class="agile-field-label" [for]="field.id">{{
+                  field.label
+                }}</label>
                 <input
                   pInputText
+                  [id]="field.id"
                   type="text"
-                  formControlName="projectId"
-                  (keypress)="onKeyPress($event)"
-                  [disabled]="isProjectId"
-                  [readonly]="editPCR"
+                  [disabled]="true"
+                  [value]="field.value"
+                  class="agile-field-input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-25rem small-input"
                 />
               </div>
             </div>
-          </div>
+          </p-dialog>
+        </div>
+      </p-tabPanel>
 
-          <div class="labelvalue">
-            <div class="label">
-              <label>Skills</label>
-            </div>
-            <div class="value">
-              <input type="text" formControlName="skills" pInputText />
-              <div
-                *ngIf="
-                  addPCRForm.get('skills')?.invalid &&
-                  (addPCRForm.get('skills')?.touched || formSubmitted)
-                "
+      <p-tabPanel header="Agile1"> 
+      <div class="managePCR">
+        <div class="PCR">
+          <!-- <p-tabView> -->
+      
+          <!-- <p-tabPanel header="PCR"> -->
+          <div class="managerTable">
+            <p-table
+              #dt2
+              [value]="agileData"
+              dataKey="pcrId"
+              [rows]="5"
+              [showCurrentPageReport]="true"
+              [rowsPerPageOptions]="[5, 10, 25, 50]"
+              [loading]=""
+              [paginator]="true"
+              currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+              [globalFilterFields]="[
+                'pcrId',
+                'agileId',
+                'jobTitle',
+                'createdDate',
+                'projectId',
+                'skills',
+                'pcrStatus',
+                'createdBy',
+                'location',
+                'requestResource'
+              ]"
+              [tableStyle]="{ 'min-width': '65rem' }"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th colspan="12">
+                    <div class="manager-header">
+                      <div class="manager-header1">
+                        <div class="p-input-icon-left-right">
+                          <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                          </span>
+                          <input
+                            class="searchIcon"
+                            pInputText
+                            type="text"
+                            [(ngModel)]="globalSearchValue"
+                            (input)="
+                              dt2.filterGlobal($any($event.target).value, 'contains')
+                            "
+                            placeholder="Search"
+                          />
+                          <span
+                          class="p-input-icon-right"
+                          (click)="clear(dt2)"
+                          *ngIf="globalSearchValue!='' && globalSearchValue!=null"
+                        >
+                          <i class="pi pi-times-circle" ></i>
+                        </span>
+                        </div>
+      
+                        <!-- <div class="ml-3"> -->
+                        <!-- <button
+                                pButton
+                                label="Clear Search"
+                                class="clear-button cursor-pointer"
+                                (click)="clear(dt2)"
+                              ></button> -->
+                        <!-- <i class="pi pi-refresh"></i> -->
+                        <!-- </div> -->
+                      </div>
+      
+                      <div class="manager-header-2">
+                        <div class="addcandidate">
+                          <!-- <label class="custom-file-input">
+                            Upload File
+                            <input
+                              type="file"
+                              style="display: none"
+                              (change)="agileUpload($event)"
+                            />
+                          </label> -->
+                          
+                          <label>
+                            <input type="file" style="display: none" (change)="agileUpload($event)" />
+                            <div class="file-upload-button">
+                              Upload
+                            </div>
+                          </label>
+      
+      
+                          <!-- <i class="pi pi-upload add-icon"
+                            ></i> -->
+                        </div>
+      
+                        <div class="addcandidate">
+                          <p-button
+                            label="Download"
+                            (click)="extractAgile(agileData)"
+                          >
+                          </p-button>
+      
+                          <!-- <i class="pi pi-upload add-icon"
+                            ></i> -->
+                        </div>
+      
+                        <div class="addcandidate">
+                          <p-button label="Delete"> </p-button>
+      
+                          <!-- <i class="pi pi-trash trash-icon" -->
+      
+                          <!-- ></i> -->
+                        </div>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+      
+                <tr>
+                  <th style="width: 4rem">
+                    <p-tableHeaderCheckbox
+                      [value]="agileData"
+                    ></p-tableHeaderCheckbox>
+                  </th>
+                  <th>Job</th>
+                  <th>JobTitle</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Requestor</th>
+                  <th>Location</th>
+                  <th>state/prov</th>
+                  <th>No</th>
+                  <th>Status</th>
+                  <th>CSA Assigned</th>
+                  <th></th>
+                  <!-- <th></th>
+                  <th></th>
+                  <th></th> -->
+                </tr>
+              </ng-template>
+              <ng-template
+                pTemplate="body"
+                let-rowData
+                let-i="rowIndex"
+                class="tableBody"
               >
-                <div
-                  class="error-message"
-                  *ngIf="addPCRForm.get('skills')?.hasError('required')"
-                >
-                  Skills is required !
-                </div>
-              </div>
-              <div
-                class="error-message"
-                *ngIf="addPCRForm.get('skills')?.hasError('minlength')"
-              >
-                Skills Id must be at least 6 characters long. !
-              </div>
-            </div>
+                <tr>
+                  <td>
+                    <p-tableCheckbox
+                      [value]="rowData"
+                      [checked]="rowData.selection"
+                    ></p-tableCheckbox>
+                    <!---->
+                  </td>
+                  <td class="pcr-link">
+                    <a>{{ rowData.ID }}</a>
+                  </td>
+                  <td>{{ rowData.Title }}</td>
+                  <td>
+                    {{ rowData.StartDt }}
+                  </td>
+                  <td>{{ rowData.EndDt }}</td>
+                  <td>{{ rowData.Requested_by }}</td>
+                  <td>{{ rowData.Location }}</td>
+                  <td>{{ rowData.State }}</td>
+                  <td>{{ rowData.No }}</td>
+                  <td>{{ rowData.Status }}</td>
+                  <!-- <td>{{ rowData.State }}</td>
+      
+                  <td>{{ rowData.No }}</td> -->
+                  <td>{{ rowData.CSA_Assigned }}</td>
+      
+                  <td>
+                    <div class="icons">
+                      <a title="Edit">
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 18 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M3.375 14.625H4.2L12.5062 6.31877L11.6812 5.49377L3.375 13.8V14.625ZM14.8875 5.51252L12.4875 3.11252L13.275 2.32502C13.4875 2.11252 13.7531 2.0094 14.0719 2.01565C14.3906 2.0219 14.6563 2.13127 14.8688 2.34377L15.675 3.15002C15.8875 3.36252 15.9938 3.62502 15.9938 3.93752C15.9938 4.25002 15.8875 4.51252 15.675 4.72502L14.8875 5.51252ZM2.8125 15.75C2.65 15.75 2.51563 15.6969 2.40938 15.5906C2.30313 15.4844 2.25 15.35 2.25 15.1875V13.575C2.25 13.5 2.2625 13.4313 2.2875 13.3688C2.3125 13.3063 2.35625 13.2438 2.41875 13.1813L11.7 3.90002L14.1 6.30002L4.81875 15.5813C4.75625 15.6438 4.69375 15.6875 4.63125 15.7125C4.56875 15.7375 4.5 15.75 4.425 15.75H2.8125ZM12.0938 5.90627L11.6812 5.49377L12.5062 6.31877L12.0938 5.90627Z"
+                            fill="#652D90"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </ng-template>
+      
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="12">No data found.</td>
+                </tr>
+              </ng-template>
+            </p-table>
           </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>PCR Status</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <p-dropdown
-                appendTo="body"
-                [options]="status"
-                placeholder="--Select--"
-                formControlName="pcrStatus"
-              ></p-dropdown>
-
-              <div
-                *ngIf="
-                  addPCRForm.get('pcrStatus')?.invalid &&
-                  (addPCRForm.get('pcrStatus')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addPCRForm.get('pcrStatus')?.hasError('required')"
-                >
-                  PCR Status is required !
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>Created By</label>
-            </div>
-            <div class="value">
-              <input type="text" formControlName="createdBy" pInputText />
-              <div
-                *ngIf="
-                  addPCRForm.get('createdBy')?.invalid &&
-                  (addPCRForm.get('createdBy')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addPCRForm.get('createdBy')?.hasError('required')"
-                >
-                  Created By is required !
-                </div>
-                <div
-                  class="error-message"
-                  *ngIf="addPCRForm.get('createdBy')?.hasError('minlength')"
-                >
-                  Created By must be at least 3 characters long.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>Location</label>
-            </div>
-            <div class="value">
-              <p-dropdown
-                appendTo="body"
-                [options]="Location"
-                placeholder="--Select--"
-                formControlName="location"
-              ></p-dropdown>
-              <div
-                *ngIf="
-                  addPCRForm.get('location')?.invalid &&
-                  (addPCRForm.get('location')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="addPCRForm.get('location')?.hasError('required')"
-                >
-                  Location is required !
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>Request Source</label>
-            </div>
-            <div class="value">
-              <p-dropdown
-                appendTo="body"
-                [options]="requestResource"
-                placeholder="--Select--"
-                formControlName="requestResource"
-              ></p-dropdown>
-              <div
-                *ngIf="
-                  addPCRForm.get('requestResource')?.invalid &&
-                  (addPCRForm.get('requestResource')?.touched || formSubmitted)
-                "
-              >
-                <div
-                  class="error-message"
-                  *ngIf="
-                    addPCRForm.get('requestResource')?.hasError('required')
-                  "
-                >
-                  Request Source is required !
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <ng-template pTemplate="footer">
-            <div class="tabview-button">
-              <div class="Cancelbutton">
-                <p-button
-                  label="Cancel"
-                  [outlined]="true"
-                  (onClick)="cancelButton()"
-                >
-                </p-button>
-              </div>
-              <div class="Createbutton" *ngIf="addPCR">
-                <p-button label="Save" (click)="saveButton()"> </p-button>
-              </div>
-              <div class="Createbutton" *ngIf="editPCR">
-                <p-button label="Update" (click)="updateButton()"> </p-button>
-              </div>
-            </div>
-          </ng-template>
-        </p-tabPanel>
-
-        <p-tabPanel header="Add Multiple PCR" *ngIf="addPCR">
-          <div class="quiz-instruction">
-            <p class="instruction">Upload Instructions</p>
-            <ul class="points">
-              <li>Download the provided template.</li>
-              <li>Provide the correct value for each specific field.</li>
-              <li>Do not alter the heading in any way.</li>
-            </ul>
-          </div>
-
-          <ng-template pTemplate="footer">
-            <div class="tabview-button-upload">
-              <div class="Cancelbutton">
-                <p-button
-                  label="Cancel"
-                  [outlined]="true"
-                  (onClick)="cancelButton()"
-                >
-                </p-button>
-              </div>
-
-              <label class="custom-file-input">
-                Upload File
-                <input
-                  type="file"
-                  style="display: none"
-                  (change)="PCRUpload($event)"
-                />
-              </label>
-
-              <div class="Createbutton">
-                <p-button
-                  label="Download Template"
-                  (click)="downloadCsvTemplate()"
-                ></p-button>
-              </div>
-            </div>
-          </ng-template>
-        </p-tabPanel>
-      </p-tabView>
-    </p-dialog>
-  </div>
-
-  <div class="newSchedule-Dialog">
-    <p-dialog header="Agile Details" [(visible)]="agileDetailsVisible" [modal]="true" [style]="{ width: '55vw' }" [draggable]="false" [resizable]="false">
-      <div class="flex flex-wrap justify-content-around">
-        <div
-          class="gap-2 col-6 flex flex-column justify-content-between pcr-field"
-          *ngFor="let field of inputFields; let i = index"
-        >
-          <label class="agile-field-label" [for]="field.id">{{
-            field.label
-          }}</label>
-          <input
-            pInputText
-            [id]="field.id"
-            type="text"
-            [disabled]="true"
-            [value]="field.value"
-            class="agile-field-input text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-25rem small-input"
-          />
+          <!-- </p-tabPanel> -->
+          <!-- <p-tabPanel header="Agile1"><app-manage-agile1></app-manage-agile1> </p-tabPanel> -->
+          <!-- </p-tabView> -->
         </div>
       </div>
-    </p-dialog>
+    </p-tabPanel>
+    </p-tabView>
   </div>
 </div>

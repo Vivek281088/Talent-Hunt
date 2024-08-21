@@ -57,13 +57,27 @@
 
 
 
+.card{
+  background: var(--surface-card);
+    padding: 0.5rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    max-width: 1050px;
+
+    ::ng-deep{
+      .p-tabview .p-tabview-panels {
+        padding: 1.25rem 1.25rem 1.25rem 0;
+      }
+    }
+}
+
 
 
 .managePCR {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 1.5%;
+  padding: 0px;
 
   ::ng-deep {
     .p-datatable .p-sortable-column .p-sortable-column-icon {
@@ -123,6 +137,41 @@
     }
   }
 }
+
+
+.multiselect {
+  ::ng-deep {
+    .p-multiselect {
+      height: 32px;
+      justify-content: center;
+      width: 130px;
+      display: flex;
+      padding-left: 10px;
+    }
+    .p-multiselect-label {
+      display:contents;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .p-multiselect-label-container {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+  }
+
+    .p-multiselect .p-multiselect-clear-icon {
+      color: #6c757d;
+      right: 0rem;
+      display:inline-flex;
+    }
+    .p-dropdown:not(.p-disabled):hover {
+      border-color: #ced4da !important ;
+    }
+  }
+}
+
+
 .dropdowns {
   ::ng-deep {
     .p-dropdown {
@@ -190,23 +239,50 @@
   .p-menuitem-icon {
   color: #6c757d;
 }
-.new-schedule-header-2 {
+.managePCR-header-2 {
   display: flex;
   justify-content: end;
   align-items: end;
+  margin-right: 2.5rem;
   padding: 1.5%;
   .date {
-    text-align: center;
+    text-align: end;
+    font-weight:bold;
     color: #00000061;
     font-family: "Avenir", sans-serif;
   }
 }
-.managerTable {
+
+
+.tableView{
   ::ng-deep {
     .p-datatable {
+      transform: scale(0.88);
+      transform-origin: top left; /* Scale from the top-left corner */
+      overflow-x: auto; /* Handle any overflow due to scaling */
+      width: fit-content;
       position: relative;
       border: 1px solid #0000001f;
       border-radius: 6px;
+
+    }
+    .p-datatable-table {
+      cursor: default;
+    }
+  }
+}
+
+.managerTable {
+  ::ng-deep {
+    .p-datatable {
+      transform: scale(0.99);
+      transform-origin: top left; /* Scale from the top-left corner */
+      overflow-x: auto; /* Handle any overflow due to scaling */
+      width: fit-content;
+      position: relative;
+      border: 1px solid #0000001f;
+      border-radius: 6px;
+
     }
     .p-datatable-table {
       cursor: default;
@@ -611,16 +687,38 @@
   }
 }
 
-.custom-file-input {
-  border: 1px solid #652d90;
-  border-radius: 8px;
-  padding: 1.5% 1% 1.5% 2%;
-  height: fit-content;
-  background: #652d90;
-  color: white;
-  font-weight: 700;
+// .custom-file-input {
+//   border: 1px solid #652d90;
+//   border-radius: 8px;
+//   padding: 1.5% 1% 1.5% 2%;
+//   height: fit-content;
+//   background: #652d90;
+//   color: white;
+//   font-weight: 700;
+//   cursor: pointer;
+// }
+
+.custom-file-input input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
   cursor: pointer;
 }
+
+.file-upload-button {
+  color: #ffffff;
+  background: #652d90;
+  border: 1px solid #652d90;
+  height: 80%;
+  border-radius: 0.5rem;
+  text-align: center;
+  width: 130px;
+  font-weight: bold;
+  padding: 8px;
+  box-shadow: 0 0.25rem 0.5rem #e6edef;
+  cursor: pointer;
+  }
 
 .checkboxcell {
   input[type="checkbox"]:checked {
@@ -636,9 +734,33 @@
 }
 
 
+.chip {
+  ::ng-deep{
+    .p-chip {
+      border-radius: 15px;
+      padding-left: 10px;
+      margin-bottom: 2px;
+    }
+    .p-chip-text {
+      font-size: 13px;            /* Adjust font size */
+    } 
+  }
+}
 
 
+.pcrMappedCandidate{
+  ::ng-deep {
+    .p-datatable {
+      transform: scale(0.9);
+      transform-origin: top left; /* Scale from the top-left corner */
+      overflow-x: auto; /* Handle any overflow due to scaling */
+      width: fit-content;
+      position: relative;
+      border: 1px solid #0000001f;
+      border-radius: 6px;
 
+    }
+}
 
-
+}
 

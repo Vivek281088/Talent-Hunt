@@ -38,6 +38,7 @@ export class PcrDetailsComponent implements OnInit {
       : '';
     this.pcrService.getIndividualPCR(id).subscribe((data) => {
       this.mappingDetails = data.mappingDetails;
+      console.log("Mapping Details------",this.mappingDetails);
       this.inputFields = transformDataToInputFields(data.pcr);
     });
   }
