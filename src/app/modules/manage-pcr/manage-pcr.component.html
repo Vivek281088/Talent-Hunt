@@ -46,8 +46,7 @@
                 'skills',
                 'pcrStatus',
                 'createdBy',
-                'location',
-                'requestResource'
+                'location'
               ]"
               [tableStyle]="{ 'min-width': '65rem' }"
             >
@@ -116,7 +115,7 @@
                   <th>PcrStatus</th>
                   <th>CreatedBy</th>
                   <th>Location</th>
-                  <th>RequestSource</th>
+                  <!-- <th>RequestSource</th> -->
                   <th>Actions</th>
                 </tr>
               </ng-template>
@@ -207,7 +206,7 @@
                   <td>{{ rowData.pcrStatus }}</td>
                   <td>{{ rowData.createdBy }}</td>
                   <td>{{ rowData.location }}</td>
-                  <td>{{ rowData.requestResource }}</td>
+                  <!-- <td>{{ rowData.requestResource }}</td> -->
 
                   <td>
                     <div class="actions">
@@ -282,7 +281,8 @@
                 <tr>
                   <td colspan="12">
                     <div class="p-3">
-                      <p-table
+                      <p-table 
+                        class="mappedTable"
                         [value]="filteredPcrAgileMappedData"
                         dataKey="uniqueId"
                         [(selection)]="selectedDeletePcr"
@@ -299,7 +299,7 @@
                           'requestResource'
                         ]"
                       >
-                        <ng-template pTemplate="header">
+                        <!-- <ng-template pTemplate="header">
                           <tr>
                             <th style="width: 4rem">
                               <p-tableHeaderCheckbox
@@ -315,20 +315,10 @@
                             <th>Location</th>
                             <th>RequestSource</th>
                             <th style="padding: 0%">
-                              <div class="deleteMapButton">
-                                <p-button
-                                  label="Delete"
-                                  (click)="deleteMappedData(rowData.pcrId)"
-                                  [disabled]="
-                                    !selectedDeletePcr ||
-                                    selectedDeletePcr.length == 0
-                                  "
-                                >
-                                </p-button>
-                              </div>
+                              
                             </th>
                           </tr>
-                        </ng-template>
+                        </ng-template> -->
                         <ng-template
                           pTemplate="body"
                           let-expandedRowData
@@ -353,12 +343,22 @@
                             <td class="chip">
                               <p-chip *ngFor="let id of expandedRowData.candidateId" label="{{ id }}"></p-chip>
                             </td>
-                            <td>{{ rowData.jobTitle }}</td>
+                            <!-- <td>{{ rowData.jobTitle }}</td>
                             <td>{{ rowData.pcrStatus }}</td>
                             <td>{{ rowData.createdBy }}</td>
-                            <td>{{ rowData.location }}</td>
-                            <td>{{ rowData.requestResource }}</td>
-                            <td></td>
+                            <td>{{ rowData.location }}</td> -->
+                            <!-- <td>{{ rowData.requestResource }}</td> -->
+                            <td><div class="deleteMapButton">
+                              <p-button
+                                label="Delete"
+                                (click)="deleteMappedData(rowData.pcrId)"
+                                [disabled]="
+                                  !selectedDeletePcr ||
+                                  selectedDeletePcr.length == 0
+                                "
+                              >
+                              </p-button>
+                            </div></td>
                           </tr>
                         </ng-template>
                       </p-table>
@@ -672,7 +672,7 @@
                   </div>
                 </div>
 
-                <div class="labelvalue">
+                <!-- <div class="labelvalue">
                   <div class="label">
                     <label>Request Source</label>
                   </div>
@@ -702,7 +702,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <ng-template pTemplate="footer">
                   <div class="tabview-button">
@@ -920,7 +920,7 @@
                       [value]="agileData"
                     ></p-tableHeaderCheckbox>
                   </th>
-                  <th>Job</th>
+                  <th>AgileId</th>
                   <th>JobTitle</th>
                   <th>Start</th>
                   <th>End</th>

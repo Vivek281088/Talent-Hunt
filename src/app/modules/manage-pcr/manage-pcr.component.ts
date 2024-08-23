@@ -384,6 +384,7 @@ export class ManagePcrComponent {
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'PCR details');
     XLSX.writeFile(workbook, 'PCR details.xlsx', { compression: true });
+    console.log("Extracted pcr Data ----- ", pcrData);
   }
   getAgileData() {
     this.store.dispatch(agileActions.getAgileDetails());
