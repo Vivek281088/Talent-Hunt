@@ -257,7 +257,7 @@
 .tableView{
   ::ng-deep {
     .p-datatable {
-      transform: scale(0.88);
+      transform: scale(0.99);
       transform-origin: top left; /* Scale from the top-left corner */
       overflow-x: auto; /* Handle any overflow due to scaling */
       width: fit-content;
@@ -764,3 +764,14 @@
 
 }
 
+.mappedTable{
+  ::ng-deep{
+    .p-datatable{
+      border: none;
+    }
+  }
+}
+
+.mappedTable ::ng-deep .p-datatable-tbody > tr > td {
+  border: none;
+}
