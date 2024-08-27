@@ -60,5 +60,17 @@ events : {
   'Get agileDetails' : emptyProps,
   'Get agileDetails Success' : props<{agileDetails : agileDetails[]}>(),
   'Get agileDetails Failure' : props<{error : string}>(),
+  'Add Agile' : props<{agile : agileDetails}>(),
+  'Add Agile Success' : props<{agile : agileDetails}>(),
+  'Add Agile Failure' : props<{error : string}>(),
+  'Add Multi Agile' : props<{agile : agileDetails[]}>(),
+  'Add Multi Agile Success' : props<{agile : agileDetails[]}>(),
+  'Add Multi Agile Failure' : props<{error : string}>(),
+  'Update Agile' : props<{agile : agileDetails}>(),
+  'Update Agile Success' : props<{agile : agileDetails}>(),
+  'Update Agile Failure' : props<{error : string}>(),
+  'Delete Agile' : props<{agileIds : string[]}>(),
+  'Delete Agile Success' : props<{agileIds : string[]}>(),
+  'Delete Agile Failure' : props<{error : string}>(),
 }
 })

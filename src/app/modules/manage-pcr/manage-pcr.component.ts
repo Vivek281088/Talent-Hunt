@@ -37,18 +37,27 @@ export class ManagePcrComponent {
   items: MenuItem[] = [];
   todayDate!: Date;
   addPCR: boolean = false;
+  addAgile: boolean = false;
   addPCRForm!: FormGroup;
+  addAgileForm!: FormGroup;
   formSubmitted: boolean = false;
   pcrData: any;
   status: string[] = ['Open', 'Closed', 'Available'];
   Location: string[] = ['Onsite', 'OffShore'];
   requestResource: string[] = ['Agile1', 'SOW'];
+  requestorOptions : string[] = [];
+  locationOptions: string[] = [];
+  stateProvOptions: string[] = [];
+  statusOptions: string[] = [];
+  csaAssignedOptions: string[] = [];
   pcr$!: Observable<PCR[]>;
   editPCR: boolean = false;
+  editAgile: boolean = false;
   globalSearchValue!: string;
   isAgileId: boolean = false;
   isPcrId: boolean = false;
   isProjectId: boolean = false;
+  isAgile1Id:boolean = false;
   selectedDeletePcr: any;
   agileData!: agileDetails[];
   candidateData!: Candidate[];
@@ -68,6 +77,20 @@ export class ManagePcrComponent {
     private messageService: MessageService,
     private resourceService : ResourceService
   ) {
+   
+    this.addAgileForm = this.fb.group({
+      agileId: ['', Validators.required],
+      jobTitle: ['', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      requestor: ['', Validators.required],
+      location: ['', Validators.required],
+      stateProv: ['', Validators.required],
+      no: ['', Validators.required],
+      status: ['', Validators.required],
+      csaAssigned: ['', Validators.required],
+    });
+
     this.addPCRForm = this.fb.group({
       agileId: [null, []],
       pcrId: [
@@ -142,6 +165,9 @@ export class ManagePcrComponent {
   addPcr() {
     this.addPCR = true;
   }
+  openDialog() {
+    this.addAgile = true;
+  }
 
   clear(table: Table) {
     table.clear();
@@ -155,11 +181,85 @@ export class ManagePcrComponent {
     this.addPCRForm.markAsPristine();
     this.addPCRForm.markAsUntouched();
   }
-  saveButton() {
+
+  closeDialog() {
+    this.addAgile = false;
+    this.addAgileForm.reset();
+    this.addAgileForm.markAsPristine();
+    this.addAgileForm.markAsUntouched();
+  }
+
+  agileSaveButton() {
     this.formSubmitted = true;
 
     console.log('save button', this.addPCRForm);
     if (this.addPCRForm.valid) {
+      const formdata = this.addPCRForm.value;
+      console.log('form data', formdata);
+      const agile: agileDetails = {
+        ID: formdata.agileId,
+        Jobs: formdata.jobTitle,
+        StartDt: formdata.startDate.toLocaleDateString(),
+        EndDt: formdata.endDate.toLocaleDateString(),
+        Requested_by: formdata.requestor,
+        Location: formdata.location,
+        State: formdata?.state,
+        No: formdata.no,
+        Status: formdata.status,
+        CSA_Assigned: formdata.csaAssigned,
+        Ageing: '',
+        AgeingGroup: '',
+        Available: '',
+        BillRate: '',
+        Business_Unit_Level_2: '',
+        category: '',
+        Comments: '',
+        Competitive_Bill_Bill_Rate: '',
+        Competitive_Bill_Total: '',
+        Contingent_Workers_Work_Location: '',
+        Cost_Center: '',
+        Created_Date: '',
+        CWR_Type: '',
+        Department_Number: '',
+        Direct_Send_Boolen: '',
+        Direct_Send_value: '',
+        employeeDetails: [],
+        engaged: '',
+        Funding_Type: '',
+        Interview_Boolen: '',
+        Interview_value: '',
+        Number_of_Positions: '',
+        Numubers: 0,
+        On_Hold_Boolen: '',
+        On_Hold_Boolen_value: '',
+        PayRate: '',
+        Project_Name_Overview_Deliverable: '',
+        Qualifications: '',
+        Reason: '',
+        Report_To: '',
+        Responsibility: '',
+        Resume_Boolen: '',
+        Resume_value: '',
+        Submittal_Status: '',
+        System_Location: '',
+        TClient: '',
+        Title: '',
+        Type: '',
+        Vendor: ''
+      };
+      console.log('save button', agile);
+      this.store.dispatch(agileActions.addAgile({ agile }));
+      this.addAgile = false;
+    }
+    this.cancelButton();
+  }
+
+
+  saveButton() {
+    this.formSubmitted = true;
+
+    console.log('save button', this.addPCRForm);
+    if (this.addPCRForm) {
       const formdata = this.addPCRForm.value;
       console.log('form data', formdata);
       const pcr: PCR = {
@@ -180,6 +280,28 @@ export class ManagePcrComponent {
     }
     this.cancelButton();
   }
+
+  editAgileData(data: any) {
+    this.editAgile = true;
+    this.isAgile1Id = true;
+    console.log('edit data', data.ID);
+    this.getAgileData(data.ID);
+    if (data) {
+      this.addAgileForm.patchValue({
+        ID: data.agileId,
+        Jobs: data.jobTitle,
+        StartDt: new Date(data.startDate),
+        EndDt: new Date(data.endDate),
+        Requested_by: data.requestor,
+        Location: data.location,
+        State: data?.state,
+        No: data.no,
+        Status: data.status,
+        CSA_Assigned: data.csaAssigned,
+      });
+    }
+  }
+
   editData(data: any) {
     this.editPCR = true;
     this.isAgileId = true;
@@ -202,6 +324,68 @@ export class ManagePcrComponent {
       });
     }
   }
+
+  agileUpdateButton() {
+    this.formSubmitted = true;
+    console.log('data to be updated', this.addAgileForm.value);
+    const formdata = this.addAgileForm.value;
+    const agile: agileDetails = {
+      ID: formdata.agileId,
+      Jobs: formdata.jobTitle,
+      StartDt: formdata.startDate.toLocaleDateString(),
+      EndDt: formdata.endDate.toLocaleDateString(),
+      Requested_by: formdata.requestor,
+      Location: formdata.location,
+      State: formdata?.state,
+      No: formdata.no,
+      Status: formdata.status,
+      CSA_Assigned: formdata.csaAssigned,
+      Ageing: '',
+      AgeingGroup: '',
+      Available: '',
+      BillRate: '',
+      Business_Unit_Level_2: '',
+      category: '',
+      Comments: '',
+      Competitive_Bill_Bill_Rate: '',
+      Competitive_Bill_Total: '',
+      Contingent_Workers_Work_Location: '',
+      Cost_Center: '',
+      Created_Date: '',
+      CWR_Type: '',
+      Department_Number: '',
+      Direct_Send_Boolen: '',
+      Direct_Send_value: '',
+      employeeDetails: [],
+      engaged: '',
+      Funding_Type: '',
+      Interview_Boolen: '',
+      Interview_value: '',
+      Number_of_Positions: '',
+      Numubers: 0,
+      On_Hold_Boolen: '',
+      On_Hold_Boolen_value: '',
+      PayRate: '',
+      Project_Name_Overview_Deliverable: '',
+      Qualifications: '',
+      Reason: '',
+      Report_To: '',
+      Responsibility: '',
+      Resume_Boolen: '',
+      Resume_value: '',
+      Submittal_Status: '',
+      System_Location: '',
+      TClient: '',
+      Title: '',
+      Type: '',
+      Vendor: ''
+    };
+    this.store.dispatch(agileActions.updateAgile({ agile }));
+    this.editAgile = false;
+
+    this.cancelButton();
+  }
+
   updateButton() {
     this.formSubmitted = true;
     console.log('data to be updated', this.addPCRForm.value);
@@ -268,6 +452,12 @@ export class ManagePcrComponent {
   }
   downloadCsvTemplate() {
     const csvTemplate = `PCRId,AgileId,JobTitle,Created Date,Project Id,Skills,PcrStatus,Created By,Location,RequestSource\n`;
+    const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
+    saveAs(blob, 'manage-pcr.csv');
+  }
+
+  downloadAgileCsvTemplate() {
+    const csvTemplate = `AgileId,JobTitle,Start Date,End Date,Requestor,Location,State/Prov,No,Status,CSA Assigned\n`;
     const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'manage-pcr.csv');
   }
@@ -385,7 +575,7 @@ export class ManagePcrComponent {
     XLSX.utils.book_append_sheet(workbook, worksheet, 'PCR details');
     XLSX.writeFile(workbook, 'PCR details.xlsx', { compression: true });
   }
-  getAgileData() {
+  getAgileData(data?: any) {
     this.store.dispatch(agileActions.getAgileDetails());
     this.store.select(getAgile).subscribe((data) => {
       console.log('Agile Data', data);
@@ -533,5 +723,6 @@ export class ManagePcrComponent {
     this.isActive = false;
   }
 
+  
 
 }

@@ -460,7 +460,7 @@
     border-radius: 0.5rem;
     text-align: center;
     box-shadow: 0 0.25rem 0.5rem #e6edef;
-    width: 130px;
+    width: 138px;
     &:hover {
       color: #ffffff;
       background: #652d90;
@@ -567,8 +567,63 @@
         color: #ee4555;
       }
     }
+    .label2 {
+      padding: 2% 0 0 0;
+
+      span {
+        color: #ee4555;
+      }
+    }
 
 
+  }
+}
+
+.agile-tabview-button{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 4px;
+  border: 1px;
+  padding: 1% 0% 1% 0%;
+
+  .Cancelbutton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .Createbutton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+      .p-button:focus {
+        box-shadow: none;
+      }
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
+    }
   }
 }
 
@@ -578,7 +633,7 @@
   justify-content: space-between;
   border-radius: 4px;
   border: 1px;
-  padding: 4% 0% 2% 0%;
+  padding: 4% 0% 0% 0%;
 
   .Cancelbutton {
     ::ng-deep {

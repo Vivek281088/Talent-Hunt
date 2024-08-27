@@ -261,6 +261,18 @@
                           class="p-button-rounded p-button-text p-button-danger"
                         ></button>
                       </div>
+                      <div
+                        class="icons">
+                        <a pTooltip="Delete" tooltipPosition="top" 
+                        (click)="deleteMappedData(rowData.pcrId)"
+                                [disabled]="
+                                  !selectedDeletePcr ||
+                                  selectedDeletePcr.length == 0
+                                "
+                        >
+                          <i class="pi pi-trash"></i>
+                        </a>
+                      </div>
                       <!-- <div class="icons">
                         <a
                           ><i
@@ -806,7 +818,7 @@
           <!-- <p-tabPanel header="PCR"> -->
           <div class="managerTable">
             <p-table
-              #dt2
+              #dt1
               [value]="agileData"
               dataKey="pcrId"
               [rows]="5"
@@ -844,28 +856,24 @@
                             type="text"
                             [(ngModel)]="globalSearchValue"
                             (input)="
-                              dt2.filterGlobal($any($event.target).value, 'contains')
+                              dt1.filterGlobal(
+                                $any($event.target).value,
+                                'contains'
+                              )
                             "
                             placeholder="Search"
                           />
                           <span
-                          class="p-input-icon-right"
-                          (click)="clear(dt2)"
-                          *ngIf="globalSearchValue!='' && globalSearchValue!=null"
-                        >
-                          <i class="pi pi-times-circle" ></i>
-                        </span>
+                            class="p-input-icon-right"
+                            (click)="clear(dt1)"
+                            *ngIf="
+                              globalSearchValue != '' &&
+                              globalSearchValue != null
+                            "
+                          >
+                            <i class="pi pi-times-circle"></i>
+                          </span>
                         </div>
-      
-                        <!-- <div class="ml-3"> -->
-                        <!-- <button
-                                pButton
-                                label="Clear Search"
-                                class="clear-button cursor-pointer"
-                                (click)="clear(dt2)"
-                              ></button> -->
-                        <!-- <i class="pi pi-refresh"></i> -->
-                        <!-- </div> -->
                       </div>
       
                       <div class="manager-header-2">
@@ -879,13 +887,7 @@
                             />
                           </label> -->
                           
-                          <label>
-                            <input type="file" style="display: none" (change)="agileUpload($event)" />
-                            <div class="file-upload-button">
-                              Upload
-                            </div>
-                          </label>
-      
+                          <button pButton label="Add Agile" (click)="openDialog()"></button>
       
                           <!-- <i class="pi pi-upload add-icon"
                             ></i> -->
@@ -893,7 +895,7 @@
       
                         <div class="addcandidate">
                           <p-button
-                            label="Download"
+                            label="Extract Agile"
                             (click)="extractAgile(agileData)"
                           >
                           </p-button>
@@ -969,7 +971,7 @@
                   <td>{{ rowData.CSA_Assigned }}</td>
       
                   <td>
-                    <div class="icons">
+                    <div class="icons" >
                       <a title="Edit">
                         <svg
                           width="18"
@@ -1000,6 +1002,261 @@
           <!-- <p-tabPanel header="Agile1"><app-manage-agile1></app-manage-agile1> </p-tabPanel> -->
           <!-- </p-tabView> -->
         </div>
+      </div>
+
+      <!-- Add Agile1 -->
+      <div class="newSchedule-Dialog">
+        <p-dialog
+          [header]="addAgile ? 'Add Agile' : editAgile ? 'Edit Agile' : ''"
+          [visible]="addAgile || editAgile"
+          [formGroup]="addAgileForm"
+          [modal]="true"
+          [style]="{ width: '47VW' }"
+          [draggable]="false"
+          [resizable]="false"
+          [closable]="false"
+        >
+        
+
+
+<!-- Dialog Box -->
+  <p-tabView>
+    <p-tabPanel [header]="
+    addAgile
+      ? 'Add a Single Agile'
+      : editAgile
+      ? 'Edit a Single Agile'
+      : ''
+  ">
+      <form [formGroup]="addAgileForm">
+        <div class="p-fluid p-grid">
+
+          <div class="labelvalue">
+                  <div class="label">
+                    <label>Agile Id</label>
+                    <span class="important-symbol">&#42;</span>
+                  </div>
+          <div class="value">
+            <input id="agileId" type="text" pInputText formControlName="agileId"
+            pKeyFilter="alphanum"
+            formControlName="agileId"
+            (keypress)="onKeyPress($event)"
+            [disabled]="isAgile1Id"
+            [readonly]="editAgile"
+            />
+            <div *ngIf="addAgileForm.get('agileId')?.invalid && addAgileForm.get('agileId')?.touched">
+              <small class="p-error">Agile Id is required.</small>
+            </div>
+          </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>Job Title</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <input id="jobTitle" type="text" pInputText formControlName="jobTitle"/>
+              <div *ngIf="addAgileForm.get('jobTitle')?.invalid && addAgileForm.get('jobTitle')?.touched">
+                <small class="p-error">JobTitle is required.</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label2">
+              <label>Start Date</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+
+            <div class="card flex flex-wrap gap-3 p-fluid calendar">
+              <div class="flex-auto">
+                <div class="calendar-field">
+                  <p-calendar
+                    formControlName="startDate"
+                    appendTo="body"
+                    [showIcon]="true"
+                    inputId="buttondisplay"
+                    dateFormat="mm/dd/yy"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="labelvalue">
+            <div class="label2">
+              <label>End Date</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+
+            <div class="card flex flex-wrap gap-3 p-fluid calendar">
+              <div class="flex-auto">
+                <div class="calendar-field">
+                  <p-calendar
+                    formControlName="endDate"
+                    appendTo="body"
+                    [showIcon]="true"
+                    inputId="buttondisplay"
+                    dateFormat="mm/dd/yy"
+                  ></p-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="labelvalue">
+            <div class="label">
+              <label>Requestor</label>
+            </div>
+            <div class="value">
+              <p-dropdown
+                appendTo="body"
+                [options]="requestorOptions"
+                placeholder="--Select--"
+                formControlName="requestor"
+              ></p-dropdown>
+            </div>
+          </div>
+        
+          <div class="labelvalue">
+            <div class="label">
+              <label>Location</label>
+            </div>
+            <div class="value">
+              <p-dropdown
+                appendTo="body"
+                [options]="locationOptions"
+                placeholder="--Select--"
+                formControlName="location"
+              ></p-dropdown>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>State/Prov</label>
+            </div>
+            <div class="value">
+              <p-dropdown
+                appendTo="body"
+                [options]="stateProvOptions"
+                placeholder="--Select--"
+                formControlName="stateProv"
+              ></p-dropdown>
+            </div>
+          </div>
+          
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>No</label>
+            </div>
+            <div class="value">
+              <input id="no" type="text" pInputText formControlName="no"/>
+            </div>
+          </div>
+
+          
+          <div class="labelvalue">
+            <div class="label">
+              <label>Status</label>
+            </div>
+            <div class="value">
+              <p-dropdown
+                appendTo="body"
+                [options]="statusOptions"
+                placeholder="--Select--"
+                formControlName="status"
+              ></p-dropdown>
+            </div>
+          </div>
+          
+          <div class="labelvalue">
+            <div class="label">
+              <label>CSA Assigned</label>
+            </div>
+            <div class="value">
+              <p-dropdown
+                appendTo="body"
+                [options]="csaAssignedOptions"
+                placeholder="--Select--"
+                formControlName="csaAssigned"
+              ></p-dropdown>
+            </div>
+          </div>
+         
+        </div>
+      </form>
+      <ng-template pTemplate="footer">
+        <div class="tabview-button">
+          <div class="Cancelbutton">
+            <p-button
+              label="Cancel"
+              [outlined]="true"
+              (onClick)="closeDialog()"
+            >
+            </p-button>
+          </div>
+          <div class="Createbutton" *ngIf="addAgile">
+            <p-button label="Save" (onClick)="agileSaveButton()"> </p-button>
+          </div>
+          <div class="Createbutton" *ngIf="editAgile">
+            <p-button label="Update" (onClick)="agileUpdateButton()">
+            </p-button>
+          </div>
+        </div>
+      </ng-template>
+    </p-tabPanel>
+
+    <p-tabPanel header="Add Multiple Agile" *ngIf="addAgile">
+      
+      <div class="quiz-instruction">
+        <p class="instruction">Upload Instructions</p>
+        <ul class="points">
+          <li>Download the provided template.</li>
+          <li>Provide the correct value for each specific field.</li>
+          <li>Do not alter the heading in any way.</li>
+        </ul>
+      </div>
+      
+      <ng-template pTemplate="footer">
+        <div class="tabview-button-upload">
+          <div class="Cancelbutton">
+            <p-button
+              label="Cancel"
+              [outlined]="true"
+              (onClick)="closeDialog()"
+            >
+            </p-button>
+          </div>
+
+          <!-- <label class="custom-file-input">
+            Upload File
+            <input
+              type="file"
+              style="display: none"
+              (change)="PCRUpload($event)"
+            />
+          </label> -->
+
+          <div class="Createbutton">
+            <p-button
+              label="Download Template"
+              (click)="downloadAgileCsvTemplate()"
+            ></p-button>
+          </div>
+        </div>
+      </ng-template>
+
+    </p-tabPanel>
+  </p-tabView>
+
+  
+</p-dialog>
+
+
       </div>
     </p-tabPanel>
     </p-tabView>
