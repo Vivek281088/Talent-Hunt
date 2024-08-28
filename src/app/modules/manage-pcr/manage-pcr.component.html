@@ -877,18 +877,18 @@
                       </div>
       
                       <div class="manager-header-2">
-                        <div class="addcandidate">
-                          <!-- <label class="custom-file-input">
+                        <div>
+                          <label class="uploadFile">
                             Upload File
                             <input
                               type="file"
                               style="display: none"
                               (change)="agileUpload($event)"
                             />
-                          </label> -->
+                          </label>
                           
-                          <button pButton label="Add Agile" (click)="openDialog()"></button>
-      
+                          <!-- <button pButton label="Add Agile" (click)="openDialog()"></button> -->
+                          
                           <!-- <i class="pi pi-upload add-icon"
                             ></i> -->
                         </div>
@@ -932,7 +932,7 @@
                   <th>No</th>
                   <th>Status</th>
                   <th>CSA Assigned</th>
-                  <th></th>
+                  <!-- <th></th> -->
                   <!-- <th></th>
                   <th></th>
                   <th></th> -->
@@ -970,8 +970,8 @@
                   <td>{{ rowData.No }}</td> -->
                   <td>{{ rowData.CSA_Assigned }}</td>
       
-                  <td>
-                    <div class="icons" >
+                  <!-- <td>
+                    <div class="icons" (click)="editAgileData(rowData)">
                       <a title="Edit">
                         <svg
                           width="18"
@@ -987,7 +987,7 @@
                         </svg>
                       </a>
                     </div>
-                  </td>
+                  </td> -->
                 </tr>
               </ng-template>
       
@@ -1005,259 +1005,7 @@
       </div>
 
       <!-- Add Agile1 -->
-      <div class="newSchedule-Dialog">
-        <p-dialog
-          [header]="addAgile ? 'Add Agile' : editAgile ? 'Edit Agile' : ''"
-          [visible]="addAgile || editAgile"
-          [formGroup]="addAgileForm"
-          [modal]="true"
-          [style]="{ width: '47VW' }"
-          [draggable]="false"
-          [resizable]="false"
-          [closable]="false"
-        >
-        
-
-
-<!-- Dialog Box -->
-  <p-tabView>
-    <p-tabPanel [header]="
-    addAgile
-      ? 'Add a Single Agile'
-      : editAgile
-      ? 'Edit a Single Agile'
-      : ''
-  ">
-      <form [formGroup]="addAgileForm">
-        <div class="p-fluid p-grid">
-
-          <div class="labelvalue">
-                  <div class="label">
-                    <label>Agile Id</label>
-                    <span class="important-symbol">&#42;</span>
-                  </div>
-          <div class="value">
-            <input id="agileId" type="text" pInputText formControlName="agileId"
-            pKeyFilter="alphanum"
-            formControlName="agileId"
-            (keypress)="onKeyPress($event)"
-            [disabled]="isAgile1Id"
-            [readonly]="editAgile"
-            />
-            <div *ngIf="addAgileForm.get('agileId')?.invalid && addAgileForm.get('agileId')?.touched">
-              <small class="p-error">Agile Id is required.</small>
-            </div>
-          </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>Job Title</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-            <div class="value">
-              <input id="jobTitle" type="text" pInputText formControlName="jobTitle"/>
-              <div *ngIf="addAgileForm.get('jobTitle')?.invalid && addAgileForm.get('jobTitle')?.touched">
-                <small class="p-error">JobTitle is required.</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label2">
-              <label>Start Date</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-
-            <div class="card flex flex-wrap gap-3 p-fluid calendar">
-              <div class="flex-auto">
-                <div class="calendar-field">
-                  <p-calendar
-                    formControlName="startDate"
-                    appendTo="body"
-                    [showIcon]="true"
-                    inputId="buttondisplay"
-                    dateFormat="mm/dd/yy"
-                  ></p-calendar>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-
-          <div class="labelvalue">
-            <div class="label2">
-              <label>End Date</label>
-              <span class="important-symbol">&#42;</span>
-            </div>
-
-            <div class="card flex flex-wrap gap-3 p-fluid calendar">
-              <div class="flex-auto">
-                <div class="calendar-field">
-                  <p-calendar
-                    formControlName="endDate"
-                    appendTo="body"
-                    [showIcon]="true"
-                    inputId="buttondisplay"
-                    dateFormat="mm/dd/yy"
-                  ></p-calendar>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="labelvalue">
-            <div class="label">
-              <label>Requestor</label>
-            </div>
-            <div class="value">
-              <p-dropdown
-                appendTo="body"
-                [options]="requestorOptions"
-                placeholder="--Select--"
-                formControlName="requestor"
-              ></p-dropdown>
-            </div>
-          </div>
-        
-          <div class="labelvalue">
-            <div class="label">
-              <label>Location</label>
-            </div>
-            <div class="value">
-              <p-dropdown
-                appendTo="body"
-                [options]="locationOptions"
-                placeholder="--Select--"
-                formControlName="location"
-              ></p-dropdown>
-            </div>
-          </div>
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>State/Prov</label>
-            </div>
-            <div class="value">
-              <p-dropdown
-                appendTo="body"
-                [options]="stateProvOptions"
-                placeholder="--Select--"
-                formControlName="stateProv"
-              ></p-dropdown>
-            </div>
-          </div>
-          
-
-          <div class="labelvalue">
-            <div class="label">
-              <label>No</label>
-            </div>
-            <div class="value">
-              <input id="no" type="text" pInputText formControlName="no"/>
-            </div>
-          </div>
-
-          
-          <div class="labelvalue">
-            <div class="label">
-              <label>Status</label>
-            </div>
-            <div class="value">
-              <p-dropdown
-                appendTo="body"
-                [options]="statusOptions"
-                placeholder="--Select--"
-                formControlName="status"
-              ></p-dropdown>
-            </div>
-          </div>
-          
-          <div class="labelvalue">
-            <div class="label">
-              <label>CSA Assigned</label>
-            </div>
-            <div class="value">
-              <p-dropdown
-                appendTo="body"
-                [options]="csaAssignedOptions"
-                placeholder="--Select--"
-                formControlName="csaAssigned"
-              ></p-dropdown>
-            </div>
-          </div>
-         
-        </div>
-      </form>
-      <ng-template pTemplate="footer">
-        <div class="tabview-button">
-          <div class="Cancelbutton">
-            <p-button
-              label="Cancel"
-              [outlined]="true"
-              (onClick)="closeDialog()"
-            >
-            </p-button>
-          </div>
-          <div class="Createbutton" *ngIf="addAgile">
-            <p-button label="Save" (onClick)="agileSaveButton()"> </p-button>
-          </div>
-          <div class="Createbutton" *ngIf="editAgile">
-            <p-button label="Update" (onClick)="agileUpdateButton()">
-            </p-button>
-          </div>
-        </div>
-      </ng-template>
-    </p-tabPanel>
-
-    <p-tabPanel header="Add Multiple Agile" *ngIf="addAgile">
-      
-      <div class="quiz-instruction">
-        <p class="instruction">Upload Instructions</p>
-        <ul class="points">
-          <li>Download the provided template.</li>
-          <li>Provide the correct value for each specific field.</li>
-          <li>Do not alter the heading in any way.</li>
-        </ul>
-      </div>
-      
-      <ng-template pTemplate="footer">
-        <div class="tabview-button-upload">
-          <div class="Cancelbutton">
-            <p-button
-              label="Cancel"
-              [outlined]="true"
-              (onClick)="closeDialog()"
-            >
-            </p-button>
-          </div>
-
-          <!-- <label class="custom-file-input">
-            Upload File
-            <input
-              type="file"
-              style="display: none"
-              (change)="PCRUpload($event)"
-            />
-          </label> -->
-
-          <div class="Createbutton">
-            <p-button
-              label="Download Template"
-              (click)="downloadAgileCsvTemplate()"
-            ></p-button>
-          </div>
-        </div>
-      </ng-template>
-
-    </p-tabPanel>
-  </p-tabView>
-
-  
-</p-dialog>
-
-
-      </div>
+     
     </p-tabPanel>
     </p-tabView>
   </div>

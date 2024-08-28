@@ -45,6 +45,7 @@ export class ManagePcrComponent {
   status: string[] = ['Open', 'Closed', 'Available'];
   Location: string[] = ['Onsite', 'OffShore'];
   requestResource: string[] = ['Agile1', 'SOW'];
+  agileStatus: string[] = ['Approved','Rejected','']
   requestorOptions : string[] = [];
   locationOptions: string[] = [];
   stateProvOptions: string[] = [];
@@ -184,6 +185,7 @@ export class ManagePcrComponent {
 
   closeDialog() {
     this.addAgile = false;
+    this.editAgile = false;
     this.addAgileForm.reset();
     this.addAgileForm.markAsPristine();
     this.addAgileForm.markAsUntouched();

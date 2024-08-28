@@ -47,7 +47,7 @@ export class NewScheduleService {
 
     console.log("service body",id)
     return this.http.post<any>(
-      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-Questions_GetById',
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/TH-QuestionBy_Id',
       id,
       // {
       //   headers,

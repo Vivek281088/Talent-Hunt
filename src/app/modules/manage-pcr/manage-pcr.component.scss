@@ -357,6 +357,7 @@
   align-items: center;
   cursor: pointer;
   color: #652D90;
+  padding: 3px;
 }
 ::ng-deep {
   .p-inputtext:enabled:hover {
@@ -449,6 +450,31 @@
   &:focus {
     box-shadow: none;
   }
+}
+
+.uploadFile{
+    color: #ffffff;
+    background: #652d90;
+    border: 1px solid #652d90;
+    height: 80%;
+    border-radius: 0.5rem;
+    text-align: center;
+    box-shadow: 0 0.25rem 0.5rem #e6edef;
+    width: 138px;
+    font-weight:600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    &:hover {
+      color: #ffffff;
+      background: #652d90;
+      border: 1px solid #652d90;
+    }
+    &:focus {
+      box-shadow: none;
+    }
 }
 
 .addcandidate {
