@@ -81,7 +81,7 @@ export class PcrMappingService {
   }
 
   getPCRAgileData():Observable<any>{
-    const endpoint = `${process.env.BASE_URL_DEV}/pcragilecandidatemapping`;
+    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/mappedData`;
     return this.http.get<any>(endpoint);
   }
 

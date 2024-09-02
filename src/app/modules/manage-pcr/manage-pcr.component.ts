@@ -33,6 +33,7 @@ import { ResourceService } from 'src/app/services/resource.service';
   styleUrls: ['./manage-pcr.component.scss'],
 })
 export class ManagePcrComponent {
+  selectedCategories: any[] = [];
   isActive: boolean = false; 
   items: MenuItem[] = [];
   todayDate!: Date;
@@ -78,7 +79,7 @@ export class ManagePcrComponent {
     private messageService: MessageService,
     private resourceService : ResourceService
   ) {
-   
+    this.selectedDeletePcr = [];
     this.addAgileForm = this.fb.group({
       agileId: ['', Validators.required],
       jobTitle: ['', Validators.required],
@@ -130,6 +131,7 @@ export class ManagePcrComponent {
     ];
     this.getAgileData();
     this.getPcrAgileMappedData();
+    
     this.store.dispatch(PcrActions.getPCR());
     this.pcr$.subscribe((pcr) => {
       this.pcrData = structuredClone(pcr);
@@ -409,18 +411,45 @@ export class ManagePcrComponent {
 
     this.cancelButton();
   }
-  toggleSelection(data: any) {
-    if (!data || !data.id) {
+  // toggleSelection(data: any) {
+  //   if (!data || !data.uniqueId) {
+  //     return;
+  //   }
+  //   data.selection = !data.selection;
+
+  //   if (data.selection) {
+  //     console.log('Selected schedule:', this.selectedDeletePcr);
+  //   } else {
+  //     console.log('Selected ----schedule :', this.selectedDeletePcr);
+  //   }
+  // }
+
+  toggleSelection(rowData: any) {
+    if (!rowData) {
+      console.error("Selected schedule: undefined");
       return;
     }
-    data.selection = !data.selection;
-
-    if (data.selection) {
-      console.log('Selected schedule:', this.selectedDeletePcr);
-    } else {
-      console.log('Selected ----schedule :', this.selectedDeletePcr);
+  
+    // Ensure selectedDeletePcr is initialized
+    if (!this.selectedDeletePcr) {
+      this.selectedDeletePcr = [];
     }
+  
+    const index = this.selectedDeletePcr.findIndex((item: { uniqueId: any; }) => item.uniqueId === rowData.uniqueId);
+  
+    if (index === -1) {
+      // Add to selection if not already selected
+      this.selectedDeletePcr.push(rowData);
+    } else {
+      // Remove from selection if already selected
+      this.selectedDeletePcr.splice(index, 1);
+    }
+  
+    console.log("Selected Items:", this.selectedDeletePcr);
   }
+  
+
+
   selectAll() {
     console.log('select all pcr ---->', this.selectedDeletePcr);
   }
@@ -430,8 +459,8 @@ export class ManagePcrComponent {
     console.log(pcrIds)
     this.store.dispatch(PcrActions.deletePCR({ pcrIds: pcrIds }));
   }
-  deleteMappedData(pcrId: string) {
-    console.log(pcrId);
+  deleteMappedData(uniqueId: string) {
+    console.log("uniqueId--------------",uniqueId);
     console.log(this.selectedDeletePcr);
 
     const deleteData = this.selectedDeletePcr.map(
@@ -443,6 +472,21 @@ export class ManagePcrComponent {
     this.selectedDeletePcr = [];
   
   }
+
+  deleteAgileData(Id: string) {
+    console.log("uniqueId--------------",Id);
+    console.log(this.selectedDeletePcr);
+
+    const deleteData = this.selectedDeletePcr.map(
+      (data: { uniqueId: string; }) => data.uniqueId
+    );
+    console.log(deleteData);
+    this.showDeleted();
+    this.store.dispatch(PcrCandidateActions.deleteMappedData({ deleteData }));
+    this.selectedDeletePcr = [];
+  
+  }
+
   showDeleted() {
     this.messageService.add({
       severity: 'success',
@@ -631,7 +675,7 @@ export class ManagePcrComponent {
   filteredPcrAgileMappedData : any;
   getPcrAgileMappedData(){
     this.pcrAgileMappingService.getPCRAgileData().subscribe((data)=>{
-      console.log(data);
+      console.log("get pcr details..................",data);
       this.pcrAgileMappedData = data;
     })
   }
@@ -725,6 +769,10 @@ export class ManagePcrComponent {
     this.isActive = false;
   }
 
+
+  trashButton(rowData: any): boolean {
+    return !!rowData.agileId && !!rowData.candidateId && rowData.agileId.length > 0 && rowData.candidateId.length > 0;
+  }
   
 
 }

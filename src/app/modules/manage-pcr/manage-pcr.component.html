@@ -26,7 +26,7 @@
           <div [ngClass]="isActive ? 'tableView' : 'managerTable'">
             <p-table
               #dt2
-              [value]="pcrData"
+              [value]="pcrAgileMappedData"
               dataKey="pcrId"
               [rows]="5"
               [(selection)]="selectedDeletePcr"
@@ -104,10 +104,10 @@
 
                 <tr>
                   <th style="width: 4rem">
-                    <!-- <p-tableHeaderCheckbox
-                      [value]="pcrData"
+                    <p-tableHeaderCheckbox
+                      [value]="pcrAgileMappedData"
                       (click)="selectAll()"
-                    ></p-tableHeaderCheckbox> -->
+                    ></p-tableHeaderCheckbox>
                   </th>
                   <th>PCRID</th>
                   <th>AgileId</th>
@@ -129,7 +129,7 @@
                 let-expanded="expanded"
               >
                 <tr [pEditableRow]="rowData">
-                  <td>
+                  <!-- <td>
                     <button
                       type="button"
                       pButton
@@ -140,7 +140,21 @@
                       [icon]="
                         expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'
                       "
-                    ></button>
+                    ></button> -->
+                    <td>
+
+                      <p-checkbox 
+                       name="group"
+                       [value]="rowData"
+                       [(ngModel)]="selectedCategories"
+                       [inputId]="rowData.uniqueId"
+                       [checked]="rowData.selection"
+                       (click)="toggleSelection(rowData)"
+                       *ngIf="trashButton(rowData)"
+                       >
+                        
+                      </p-checkbox>
+
                     <!-- <p-tableCheckbox
                       [value]="rowData"
                       [checked]="rowData.selection"
@@ -153,6 +167,7 @@
                     }}</a>
                   </td>
                   <td>
+                    <span *ngIf="!editing">{{rowData.agileId}}</span>
                     <p-cellEditor>
                       <ng-template pTemplate="input">
                         <div class="dropdowns">
@@ -178,6 +193,11 @@
                     </p-cellEditor>
                   </td>
                   <td>
+                    <span *ngIf="!editing"><td class="chip">
+                      <p-chip *ngFor="let id of rowData.candidateName" label="{{ id }}"></p-chip>
+
+                      <!-- <p-chip>{{rowData.candidateName}}</p-chip> -->
+                    </td></span>
                     <p-cellEditor>
                       <ng-template pTemplate="input">
                         <div class="multiselect">
@@ -231,7 +251,7 @@
                         class="icons"
                         *ngIf="!editing"
                         pInitEditableRow
-                        (click)="onRowEditInit(rowData);toggleClass();getPcrCandidateMappedDetails(rowData.pcrId)"
+                        (click)="onRowEditInit(rowData);toggleClass();getPcrCandidateMappedDetails(rowData.uniqueId)"
                       >
                         <a pTooltip="Map" tooltipPosition="top">
                           <i class="pi pi-link"></i>
@@ -264,11 +284,8 @@
                       <div
                         class="icons">
                         <a pTooltip="Delete" tooltipPosition="top" 
-                        (click)="deleteMappedData(rowData.pcrId)"
-                                [disabled]="
-                                  !selectedDeletePcr ||
-                                  selectedDeletePcr.length == 0
-                                "
+                        (click)="deleteMappedData(rowData.uniqueId)"
+                                *ngIf="trashButton(rowData)"
                         >
                           <i class="pi pi-trash"></i>
                         </a>
@@ -290,7 +307,7 @@
               </ng-template>
 
               <p-toast></p-toast>
-              <ng-template pTemplate="rowexpansion" let-rowData>
+              <!-- <ng-template pTemplate="rowexpansion" let-rowData>
                 <tr>
                   <td colspan="12">
                     <div class="p-3">
@@ -377,7 +394,7 @@
                     </div>
                   </td>
                 </tr>
-              </ng-template>
+              </ng-template> -->
               <ng-template pTemplate="emptymessage">
                 <tr>
                   <td colspan="12">No data found.</td>
@@ -905,7 +922,9 @@
                         </div>
       
                         <div class="addcandidate">
-                          <p-button label="Delete"> </p-button>
+                          <p-button label="Delete" 
+                        
+                          > </p-button>
       
                           <!-- <i class="pi pi-trash trash-icon" -->
       
@@ -922,7 +941,7 @@
                       [value]="agileData"
                     ></p-tableHeaderCheckbox>
                   </th>
-                  <th>Job</th>
+                  <th>AgileId</th>
                   <th>JobTitle</th>
                   <th>Start</th>
                   <th>End</th>
