@@ -129,7 +129,7 @@ candidateSelection(candidates:any,index:number) {
     });
   }
   getAgileData() {
-    this.store.dispatch(agileActions.getAgileDetails());
+    this.store.dispatch(agileActions.getAgile());
     this.store.select(getAgile).subscribe((data) => {
       console.log('Agile Data', data);
       this.agileData=data;

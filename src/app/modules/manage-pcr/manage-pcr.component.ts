@@ -622,7 +622,7 @@ export class ManagePcrComponent {
     XLSX.writeFile(workbook, 'PCR details.xlsx', { compression: true });
   }
   getAgileData(data?: any) {
-    this.store.dispatch(agileActions.getAgileDetails());
+    this.store.dispatch(agileActions.getAgile());
     this.store.select(getAgile).subscribe((data) => {
       console.log('Agile Data', data);
       this.agileData=data;

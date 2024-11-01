@@ -21,16 +21,16 @@ export const initialState : agileState={
 
 export const agileReducer = createReducer(
   initialState,
-  on(agileActions.getAgileDetailsSuccess, (state,action) =>{
+  on(agileActions.getAgileSuccess, (state,action) =>{
       console.log("actionssss" , action)
       return {
           ...state,
-          agileDetails : action.agileDetails,
+          agileDetails : action.agile,
           error:"",
-          agileDetailsCount : action.agileDetails.length
+          agileDetailsCount : action.agile.length
       }
   }),
-  on(agileActions.getAgileDetailsFailure, (state,action) =>{
+  on(agileActions.getAgileFailure, (state,action) =>{
       return {
           ...state,
           agileDetails : [],

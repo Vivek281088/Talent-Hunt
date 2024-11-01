@@ -55,22 +55,22 @@ export interface agileDetails{
 }
 
 export const agileActions=createActionGroup({
-source:'Agile1',
+source:'agile',
 events : {
-  'Get agileDetails' : emptyProps,
-  'Get agileDetails Success' : props<{agileDetails : agileDetails[]}>(),
-  'Get agileDetails Failure' : props<{error : string}>(),
-  'Add Agile' : props<{agile : agileDetails}>(),
-  'Add Agile Success' : props<{agile : agileDetails}>(),
-  'Add Agile Failure' : props<{error : string}>(),
-  'Add Multi Agile' : props<{agile : agileDetails[]}>(),
-  'Add Multi Agile Success' : props<{agile : agileDetails[]}>(),
-  'Add Multi Agile Failure' : props<{error : string}>(),
-  'Update Agile' : props<{agile : agileDetails}>(),
-  'Update Agile Success' : props<{agile : agileDetails}>(),
-  'Update Agile Failure' : props<{error : string}>(),
-  'Delete Agile' : props<{agileIds : string[]}>(),
-  'Delete Agile Success' : props<{agileIds : string[]}>(),
-  'Delete Agile Failure' : props<{error : string}>(),
+  'Get agile' : emptyProps,
+  'Get agile Success' : props<{agile : agileDetails[]}>(),
+  'Get agile Failure' : props<{error : string}>(),
+  'Add agile' : props<{agile : agileDetails}>(),
+  'Add agile Success' : props<{agile : agileDetails}>(),
+  'Add agile Failure' : props<{error : string}>(),
+  'Add Multi agile' : props<{agile : agileDetails[]}>(),
+  'Add Multi agile Success' : props<{agile : agileDetails[]}>(),
+  'Add Multi agile Failure' : props<{error : string}>(),
+  'Update agile' : props<{agile : agileDetails}>(),
+  'Update agile Success' : props<{agile : agileDetails}>(),
+  'Update agile Failure' : props<{error : string}>(),
+  'Delete agile' : props<{agileIds : string[]}>(),
+  'Delete agile Success' : props<{agileIds : string[]}>(),
+  'Delete agile Failure' : props<{error : string}>(),
 }
 })

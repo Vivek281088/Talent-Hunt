@@ -72,7 +72,7 @@ export class PcrService {
 
   addAgile1Details(data: any) {
     console.log(data);
-    return this.http.post(`${process.env.BASE_URL_PRIVATE}/agile1`, data);
+    return this.http.post<agileDetails>(`${process.env.BASE_URL_PRIVATE}/agile1`, data);
   }
 
   getAgile(): Observable<agileDetails[]> {

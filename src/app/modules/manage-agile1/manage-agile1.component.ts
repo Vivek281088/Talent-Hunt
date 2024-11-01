@@ -24,7 +24,7 @@ export class ManageAgile1Component {
 
 
   getAgileData() {
-    this.store.dispatch(agileActions.getAgileDetails());
+    this.store.dispatch(agileActions.getAgile());
     this.store.select(getAgile).subscribe((data) => {
       console.log('Agile Details', data);
       this.agileData = data;
