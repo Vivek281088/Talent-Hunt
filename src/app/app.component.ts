@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppServiceService } from './app-service.service';
 // import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 // import { AppServiceService } from './app-service.service';
 @Component({
   selector: 'app-root',
@@ -13,9 +13,15 @@ export class AppComponent implements OnInit {
 
   showNavbar: boolean = true; // Initialize to true by default
   showNavbar1: boolean = true; 
-  showNavbar2: boolean = true; 
+  showNavbar2: boolean = true;
+  showNavbar3: boolean = true; 
+  hasError : boolean = true;
+  enablemfa:boolean=true;
+  verifymfa:boolean=true;
+  storedShowNavbar!:boolean;
+  showNavbarBoolean!:boolean;
 
-  constructor(private service: AppServiceService, private router: Router) {
+  constructor(private router: Router , private activatedRoute : ActivatedRoute) {
     // Subscribe to the route changes
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -26,10 +32,17 @@ export class AppComponent implements OnInit {
         this.showNavbar = urlSegments[urlSegments.length - 1] !== 'login';
         this.showNavbar1 = urlSegments[urlSegments.length - 1] !== 'signup';
         this.showNavbar2 = urlSegments[urlSegments.length - 1] !== 'forgotpassword';
-
+        this.showNavbar3 = urlSegments[urlSegments.length - 1] !== 'resetpassword';
+        this.hasError = this.activatedRoute.snapshot.firstChild?.routeConfig?.path !== 'errorpage';
+        this.enablemfa = this.activatedRoute.snapshot.firstChild?.routeConfig?.path !== 'enablemfa';
+        this.verifymfa = this.activatedRoute.snapshot.firstChild?.routeConfig?.path !== 'verifymfa';
 
       }
     });
   }
-  ngOnInit() {}
+  ngOnInit(): void{
+
+
+   
+  }
 }

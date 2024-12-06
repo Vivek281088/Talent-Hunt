@@ -1,0 +1,61 @@
+ .heading {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    color: #652d90;
+    align-items: center;
+  
+    display: flex;
+    justify-content: center;
+  
+    // line-height: 72px;
+  }
+
+  .dialog-body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:25px;
+  }
+
+  .verify-button {
+    width: 352px;
+    height: 48px;
+    // padding: 6px, 6px, 6px, 8px;
+    border-radius: 4px;
+    background: #652d90;
+    border: none;
+    // margin-top: 5px;
+    // margin-left: 24px;
+    color: white;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    cursor: pointer;
+  }
+.logo-text{
+  margin-right: 19px;
+}
+  .logo-text img {
+    
+    width: fit-content;
+    height: 63px;
+  }
+
+  .logo-text .heading {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    color: #652d90;
+    align-items: center;
+    margin-left: 13px;
+  
+    // line-height: 72px;
+  }
+
+  .error-msg{
+    color: #ee4555;
+    text-align: start;
+    font-size: 14px;
+  }

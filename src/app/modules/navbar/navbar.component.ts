@@ -1,123 +1,221 @@
+
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/Guard/auth.service';
 import { ManagernameService } from 'src/app/services/managername.service';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
- 
-
-
+import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
+import { Receiver } from '../new-schedule/new-schedule.component';
+import { LoaderService } from 'src/app/shared/loader/loader.service';
  
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  isDropdownOpen: boolean = false;
+  overlayVisible: boolean = false;
+  notificationOverlayVisible: boolean = false;
   candidateName: string = '';
   candidateList: any[] = [];
- 
   showCandidateEmail!: string;
- 
   finalizedEmail!: string;
-  userName !: string;
-  userEmail !:string;
-  userPhone !: number;
-  name:boolean=false;
-
-  isEditProfile: boolean = false;
- 
-  finalizedManagerEmail !: string;
+  userName!: string | null;
+  userEmail!: string;
+  userPhone!: number;
+  name: boolean = false;
+  modalVisible: boolean = false;
+  isAdmin: boolean = false;
+  showBellIcon: boolean = false;
+  finalizedManagerEmail!: string;
   visible: boolean = false;
- 
-  constructor(private authservice: AuthService,
-  private managernameService :ManagernameService,
-  private candidateService: CandidateAssessmentService) {}
+  tempUserName!: string | null;
+  id!: string;
+  notification:any;
+  receiver!:string;
+  notifications !:any;
+  hasNewNotifications: boolean = false;
+  isManager: boolean = true;
+  showNavbarBoolean:boolean=true;
+  constructor(
+    private authservice: AuthService,
+    private managernameService: ManagernameService,
+    private candidateService: CandidateAssessmentService,
+    private router : Router,
+    private notificationService : NotificationService,
+    public loaderService : LoaderService
+  ) {}
   ngOnInit(): void {
-    this.finalizedEmail = this.managernameService.getCandidateAssessment_Email()
-    this.finalizedManagerEmail  = this.managernameService.getManagerName();
 
-
-const a=localStorage.getItem("userrole");
- 
-    //  this.finalizedEmail= this.managernameService.getCandidateAssessment_Email();
-    if(a=="manager"){this.managernameService
-      .getManagerdata_by_Email(this.finalizedManagerEmail)
-      .subscribe((response) => {
-        console.log('res', response);
-        this.userName = response[0].Managername;
-        this.userEmail = response[0].candidateEmail;
-        this.userPhone = response[0].phoneNumber;
-       
-        this.managernameService.setManagerName_Email(this.userEmail);
-        this.name=true;
-      
-        // this.candidateName = response[0].candidateName;
-       
-      });
+  const shownavflag=localStorage.getItem('showNavbar');
+  if(shownavflag==='false'){
+    this.showNavbarBoolean=false;
+  }
+console.log("result",this.showNavbarBoolean)
+    this.authUserOrManager();
+      const storedNotifications = localStorage.getItem('notifications');
+  if (storedNotifications) {
+    this.notifications = JSON.parse(storedNotifications);
+  }
+// Handling new notifications
+this.notificationService.newNotificationReceived.subscribe(() => {
+  this.hasNewNotifications = true;
+   });
+   }
+  notifydata(){
+    const body = {
+      receiver : this.receiver
     }
-    else{
-      this.candidateService
-      .getCandidatedata_by_Email(this.finalizedEmail)
-      .subscribe((response) => {
-        this.name=false;
-        this.candidateList = response;
-      
-        this.userName = response[0].candidateName;
-        
-        this.userEmail = response[0].candidateEmail;
-        this.userPhone = response[0].candidatePhone;
-        console.log('candidateName', this.candidateName);
+    console.log('Notification Body', body);
+      this.notificationService.getNotification(body).subscribe((response)=>{
+        console.log("notificaton service called",response)
+        this.notifications = response;
       });
- 
-    }
-   
-   
   }
  
+  authUserOrManager() {
+    this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
+    this.finalizedEmail = localStorage.getItem('candidateEmail')!;
+    console.log('finalized Candidate---', this.finalizedEmail);
+    const a = localStorage.getItem('userrole');
+ 
+    if (a == 'manager') {
+      this.isAdmin = true;
+      this.showBellIcon= true;
+      this.managernameService
+        .getManagerdata_by_Email(this.finalizedManagerEmail)
+        .subscribe((response) => {
+          console.log('Navbar-res', response);
+                   this.tempUserName =
+            response[0].Firstname + ' ' + response[0].Lastname;
+          this.userName = response[0].Firstname + ' ' + response[0].Lastname;
+          this.receiver=response[0].id.toString();
+          this.notifydata()
+          console.log(this.receiver)
+          this.id = response[0].id;
+          this.userEmail = response[0].candidateEmail;
+          this.userPhone = response[0].phoneNumber;
+          console.log("iddd",this.id,response[0].id)
+          sessionStorage.setItem('loginManagerId', this.id);
+          this.managernameService.setManagerName_Email(this.userEmail);
+          localStorage.setItem('managerName', this.userName);
+          this.name = true;
+        });
+    } else {
+      this.candidateService
+        .getCandidatedata_by_Email(this.finalizedEmail)
+        .subscribe((response) => {
+          console.log("Nav response",response)
+          this.name = false;
+          this.candidateList = response;
+          this.tempUserName = response[0].candidateName;
+          this.userName = response[0].candidateName;
+          this.id = response[0].id;
+          console.log("iddd",this.id,response[0].id)
+          sessionStorage.setItem('loginManagerId', this.id);
+ 
+          this.userEmail = response[0].candidateEmail;
+          this.userPhone = response[0].candidatePhone;
+          console.log('candidateName', this.tempUserName);
+          this.isManager=false;
+        });
+    }
+  }
+   authUserOrManager1() {
+    this.finalizedManagerEmail = localStorage.getItem('managerEmail')!;
+    this.finalizedEmail = localStorage.getItem('Candidateemail')!;
+ 
+    const a = localStorage.getItem('userrole');
+ 
+    if (a == 'manager') {
+      this.managernameService
+        .getManagerdata_by_Email(this.finalizedManagerEmail)
+        .subscribe((response) => {
+          console.log('Navbar-res', response);
+          this.tempUserName =
+            response[0].Firstname + ' ' + response[0].Lastname;
+          this.userName = response[0].Firstname + ' ' + response[0].Lastname;
+          this.id = response[0].id;
+         
+ 
+          this.userEmail = response[0].candidateEmail;
+          this.userPhone = response[0].phoneNumber;
+ 
+          this.managernameService.setManagerName_Email(this.userEmail);
+          this.name = true;
+        });
+    } else {
+      this.candidateService
+        .getCandidatedata_by_Email(this.finalizedEmail)
+        .subscribe((response) => {
+          this.name = false;
+          this.candidateList = response;
+          this.tempUserName = response[0].candidateName;
+          this.userName = response[0].candidateName;
+          this.id = response[0].id;
+          this.userEmail = response[0].candidateEmail;
+          this.userPhone = response[0].candidatePhone;
+          console.log('candidateName', this.candidateName);
+        });
+    }
+    this.refreshPage();
+  }
  
   refreshPage() {
-    // Reload the current page
     window.location.reload();
   }
- 
-  toggleDropdown() {
-   
-    this.isDropdownOpen = !this.isDropdownOpen;
+  changePassword() {
+    this.router.navigate(['/resetpassword']);
   }
  
+  getInitials(name: string | null): string {
+    if (!name) {
+      return '';
+    }
  
-  redirectToProfile()  {
-    this.visible = true;
+    const names = name.split(' ');
+    const initials = names.map((n) => n.charAt(0)).join('');
+    return initials.toUpperCase();
+  }
+ 
+  toggle() {
+    this.overlayVisible = !this.overlayVisible;
+  }
+  notificationToggle(){
+    this.notificationOverlayVisible = !this.notificationOverlayVisible;
   }
  
   logout() {
     this.authservice.logout();
-    // Redirect to the login page
-    // Example: this.router.navigate(['/login']);
   }
-  closedialog(){
-    
+ 
+clearNotification(notification: any) {
+  console.log('Notifcation here', notification);
+  const managerId = sessionStorage.getItem('loginManagerId');
+  if(managerId){
+    this.notificationService.updateNotification(notification.id,
+      managerId).subscribe(response=>{
+        console.log(response);
+        const index = this.notifications.indexOf(notification);
+        if (index !== -1) {
+          this.notifications.splice(index, 1);
+        }
+        if (this.notifications.length === 0) {
+          this.notifications = [];
+        }
+      });
   }
+  }
+ 
 
-  updateDetails() {
-    // if (this.isEditProfile) {
-      
-    //   this.candidateService.updateCandidateProfile({
-    //     candidateName: this.candidateName,
-    //     candidateEmail: this.showCandidateEmail,
-    //     phoneNumber: this.phoneNumber,
-    //   }).subscribe((response) => {
-    //     // Handle the response, e.g., show a success message
-    //     console.log('Profile updated successfully');
-    //   });
-  
-    //   this.isEditProfile = false;
-    // }
-  }
-  
-
-  toggleEditProfile() {
-    this.isEditProfile = !this.isEditProfile;
-  }
-
+clearAllNotification() {
+  const receiverId = sessionStorage.getItem('loginManagerId');
+  const notificationId = this.notifications.map((item: { id: any })=>item.id);
+  this.notificationService.clearNotification(receiverId, notificationId).subscribe(response => {
+    console.log('Clear All Notifications', response);
+    // Clear notifications in UI immediately
+    this.notifications = [];
+    this.hasNewNotifications = false;
+  });
+}
 }

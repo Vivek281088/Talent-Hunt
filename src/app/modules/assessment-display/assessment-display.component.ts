@@ -35,21 +35,23 @@ export class AssessmentDisplayComponent implements OnInit {
   checked: boolean = false;
  
   candidateName!: string;
- 
+
+  candidateEmail !: string;
+
   startTime!: Date;
  
   endTime!: Date;
  
   postData!: any;
- 
+
   countCorrectQues!: number;
- 
+
   result: string = '';
- 
+
   score: number | null = null;
- 
+
   updatedScore: number | null = null;
- 
+
   CountTotalQuestions!: number;
   remainingTime: number = 0;
   remainingTimeString: string = '';
@@ -73,15 +75,11 @@ export class AssessmentDisplayComponent implements OnInit {
  
   ngOnInit() {
     this.assessmentData = this.candidateAssessmentService.getAssessmentData();
-    console.log('get Data', this.assessmentData);
-    this.id = this.assessmentData._id;
-    console.log('Id', this.id);
-    this.duration = this.assessmentData.duration;
-    console.log('dur--------------', this.duration);
+    this.id = this.assessmentData.id;
+    this.duration = this.assessmentData.durations;
     this.cutoff = this.assessmentData.cutoff;
-    console.log('cut-------------', this.cutoff);
     this.candidateName = this.assessmentData.candidateName;
-    console.log('can----------', this.candidateName);
+    this.candidateEmail = this.assessmentData.candidateEmail;
     this.messages2 = [
       { severity: 'warn', summary: 'Warning', detail: '5 mins more' },
     ];
@@ -93,7 +91,6 @@ export class AssessmentDisplayComponent implements OnInit {
  
     this.FinalizedQuestions = this.assessmentData.questions;
     console.log('qd', this.FinalizedQuestions);
- 
     for (let question of this.FinalizedQuestions) {
       question.selectedOption = [];
     }
@@ -173,7 +170,6 @@ export class AssessmentDisplayComponent implements OnInit {
       key: 'positionDialog',
     });
   }
- 
   onCheckboxChange(question: any, option: any, event: any) {
     if (event) {
       // Add the selected option to the array
@@ -186,16 +182,14 @@ export class AssessmentDisplayComponent implements OnInit {
       }
     }
   }
- 
   onRadioButtonChange(question: any, selectedOption: any) {
     // Set the selected option as an array with a single element
     question.selectedOption = [selectedOption];
   }
- 
+
   reviewQuest() {
     this.countCorrectQues = 0;
     for (let question of this.FinalizedQuestions) {
- 
       if (question.selectedOption.length === question.answer.length) {
         const correct = question.selectedOption.every((opt: any) =>
           question.answer.includes(opt)
@@ -209,55 +203,54 @@ export class AssessmentDisplayComponent implements OnInit {
           question.reviewerResponse = 'Incorrect';
         }
       } else {
-        question.reviewerResponse = 'Incorrect'; // Number of options selected is different
+        question.reviewerResponse = 'Incorrect'; 
       }
     }
- 
     this.CountTotalQuestions = this.FinalizedQuestions.length;
     console.log('count total ques', this.CountTotalQuestions);
     console.log('Correct ques', this.countCorrectQues);
     this.score = (this.countCorrectQues / this.CountTotalQuestions) * 100;
- 
+
     if (this.score > this.cutoff) {
       this.result = 'Selected';
     } else this.result = 'Not Selected';
- 
+
     console.log('Score :', this.score);
- 
+
     console.log('Result :', this.result);
- 
+
     //Auto review update for reviewer
- 
+
     const reviewData = {
-      _id: this.id,
- 
+      id: this.id,
+
       questions: this.FinalizedQuestions,
- 
+
       score: this.score.toFixed(2),
- 
-      result: this.result,
- 
+
+      results: this.result,
+
       email_Status: 'Completed',
+
+      candidateEmail : this.candidateEmail
     };
- 
+
     console.log(reviewData);
- 
+
     this.reviewerService
       .updateScoreAndResult(reviewData)
       .subscribe((response) => {
         console.log('Questions updated successfully', response);
       });
   }
- 
-//If the questions doesn't contain any text quest
+
+  //If the questions doesn't contain any text quest
   updateEmailStatus(status: string) {
- 
     //  this.countCorrectQues = 0;
     for (let question of this.FinalizedQuestions) {
       if (question.questionType === 'Text') {
         continue;
-      }
-      else {
+      } else {
         if (question.selectedOption.length === question.answer.length) {
           const correct = question.selectedOption.every((opt: any) =>
             question.answer.includes(opt)
@@ -274,95 +267,74 @@ export class AssessmentDisplayComponent implements OnInit {
           question.reviewerResponse = 'Incorrect'; // Number of options selected is different
         }
       }
-       
-     }
-    const UpdateData = {
-      _id: this.id,
-      email_Status: status,
-    };
-    console.log('update', UpdateData);
- 
-    this.candidateAssessmentService
-      .updateStatus(UpdateData)
-      .subscribe((response) => {
-        console.log('Status updated successfully', response);
-      });
- 
-    //questions update for reviewer
- 
-    const updateData = {
-      _id: this.id,
- 
-      questions: this.FinalizedQuestions,
-    };
- 
-    console.log(updateData);
- 
-    this.reviewerService.updateQuestion(updateData).subscribe((response) => {
-      console.log('Questions updated successfully', response);
-    });
-  }
- 
-  submitAnswers() {
-    this.endTime = new Date();
- 
-    // Check if there are any "Text" type questions
-    const hasTextQuestions = this.FinalizedQuestions.some(
-      (question) => question.questionType === 'Text'
-    );
- 
-    if (hasTextQuestions) {
-      this.updateEmailStatus('Submitted');
-    } else {
-      this.reviewQuest();
     }
- 
-   
- 
-   
-    this.postData = {
-      candidateName: this.candidateName,
-      questions: this.FinalizedQuestions,
- 
-      startTime: this.startTime,
-      endTime: this.endTime,
-      cutoff: this.cutoff,
-      duration: this.duration,
-    };
-    console.log('Final Data', this.postData);
-    this.candidateAssessmentService
-      .postCandiadte_assessment(
-        this.candidateName,
-        this.FinalizedQuestions,
-        this.startTime,
-        this.endTime,
-        this.cutoff,
-        this.duration
-      )
-      .subscribe((response) => {
-        console.log('Final ', this.postData);
-        console.log('Data', response);
-      });
-   
-   
     // const UpdateData = {
     //   _id: this.id,
-    //   email_Status: this.updateStatus,
+    //   email_Status: status,
     // };
     // console.log('update', UpdateData);
+
     // this.candidateAssessmentService
     //   .updateStatus(UpdateData)
     //   .subscribe((response) => {
     //     console.log('Status updated successfully', response);
     //   });
- 
-    // Reviewer
- 
-   
- 
-   
- 
-    this.router.navigate(['/dashboard']);
+
+    //questions update for reviewer
+
+    const updateData = {
+      id: this.id,
+
+      questions: this.FinalizedQuestions,
+
+      email_Status: status,
+    };
+
+    console.log(updateData);
+
+    this.reviewerService.updateQuestion(updateData).subscribe((response) => {
+      console.log('Questions updated successfully', response);
+    });
+  }
+
+  submitAnswers() {
+    this.endTime = new Date();
+
+    // Check if there are any "Text" type questions
+    const hasTextQuestions = this.FinalizedQuestions.some(
+      (question) => question.questionType === 'Text'
+    );
+    if (hasTextQuestions) {
+      this.updateEmailStatus('Submitted');
+    } else {
+      this.reviewQuest();
+    }
+
+    // this.postData = {
+    //   candidateName: this.candidateName,
+    //   questions: this.FinalizedQuestions,
+
+    //   startTime: this.startTime,
+    //   endTime: this.endTime,
+    //   cutoff: this.cutoff,
+    //   durations: this.duration,
+    // };
+    // console.log('Final Data', this.postData);
+    // this.candidateAssessmentService
+    //   .postCandiadte_assessment(
+    //     this.candidateName,
+    //     this.FinalizedQuestions,
+    //     this.startTime,
+    //     this.endTime,
+    //     this.cutoff,
+    //     this.duration
+    //   )
+    //   .subscribe((response) => {
+    //     console.log('Final ', this.postData);
+    //     console.log('Data', response);
+    //   });
+
+    this.router.navigate(['/mtalent/dashboard']);
   }
 }
  

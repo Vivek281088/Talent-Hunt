@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginService {
+  message!:string
   static islogin() {
     throw new Error('Method not implemented.');
   }
@@ -14,29 +14,98 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  postlogincredentials(userEmail:string,encrypted_password:string):Observable<any>{
-    const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={candidateEmail:userEmail,password:encrypted_password};
-console.log("bodey",body)
-    return this.http.post<any>(this.skillsUrl+'/authenticate',body,{headers})
+  postlogincredentials(
+    userEmail: string,
+    encrypted_password: string
+  ): Observable<any> {
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = { candidateEmail: userEmail, password: encrypted_password };
+    console.log('bodey', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/loginresource',
+      body,
+      // {
+      //   headers,
+      // }
+    ).pipe(
+      tap((responsedata)=>{
+        this.message="Mail updated successfully"
+      }),
+      catchError((error)=>{
+        console.log("Inside Catch Error")
+        console.error(error)
+
+        return throwError(()=> new Error(error.error))
+
+      })
+    )
+    // return this.http.post<any>(this.skillsUrl + '/authenticate', body, {
+    //   headers,
+    // });
+  }
+
+  postsignup(
+    id: Date,
+    Firstname: String,
+    Lastname: String,
+    emailId: string,
+    phoneNumer: number | null,
+    password: string,
+    confirmpassword: string
+  ): Observable<any> {
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      id: id,
+      Firstname: Firstname,
+      Lastname: Lastname,
+      candidateEmail: emailId,
+      phoneNumber: phoneNumer,
+      password: password,
+      confirmPassword: confirmpassword,
+      roles: 'manager',
+    };
+    console.log('signup', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/signup',
+      body,
+      // {
+      //   headers,
+      // }
+    );
+    // return this.http.post<any>(this.skillsUrl + '/postsignup', body, {
+    //   headers,
+    // });
+
     
-
   }
 
-  postsignup(Managername:String,emailId:string,phoneNumer:number  | null ,password:string,confirmpassword:string):Observable<any>{
-    const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={Managername:Managername,candidateEmail:emailId,phoneNumber:phoneNumer,password:password,confirmPassword:confirmpassword};
-    console.log("signup",body)
-    return this.http.post<any>(this.skillsUrl+'/postsignup',body,{headers})
-  }
-
-  postforgotpassword(name:string,emailId:string,password:string,confirmPassword:string):Observable<any>{
-    const headers=new HttpHeaders({'content-Type':'application/json'});
-    const body={Managername:name,candidateEmail:emailId,password:password,confirmPassword:confirmPassword};
+  postforgotpassword(
+    emailId: string,
+    password: string,
+    confirmPassword: string
+  ): Observable<any> {
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateEmail: emailId,
+      password: password,
+      confirmPassword: confirmPassword,
+    };
+    console.log('Password Updated', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/forgotpassword',
+      body,
+     
+    );
    
-    return this.http.post<any>(this.skillsUrl+'/forgotpassword',body,{headers})
   }
-  islogin(){
+  islogin() {
     return localStorage.getItem('token');
+  }
+
+  checkDuplicate(email : string){
+    const body = {
+      email : email
+    }
+    return this.http.post('https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/checkduplicate', body);
   }
 }

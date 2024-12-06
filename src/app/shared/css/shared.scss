@@ -1,0 +1,28 @@
+@mixin circle-info {
+  color: rgb(17, 150, 17);
+}
+
+@mixin upload-button {
+  border: 1px solid #652d90;
+  border-radius: 8px;
+  padding: 1.5% 1% 1.5% 2%;
+  height: fit-content;
+  background: #652d90;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@mixin common-button {
+  border: 1px solid #652d90;
+  border-radius: 8px;
+  padding: 1.5% 1% 1.5% 2%;
+  height: 32px;
+  background: #652d90;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

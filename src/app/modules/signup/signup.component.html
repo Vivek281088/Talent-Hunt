@@ -1,99 +1,227 @@
-<div class="signup-container box">
-  <form (ngSubmit)="signup()">
-    <p-card>
+<div class="signup-container" (keydown.enter)="onEnterKey()">
+  <div class="signup-box">
+    <div class="signup-slogan">
       <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
+      <p class="heading">MTalent</p>
+      <p class="description">
+        Streamline your Hiring process <br />Effortlessly schedule and Assess
+        with MTalent
+      </p>
+    </div>
+    <div class="signup-card">
+      <p-card>
+        <h4 class="signup-wording">Register with your personal information</h4>
+        <div class="customsignupform">
+          <form [formGroup]="signupForm" (ngSubmit)="signup()">
+            <div class="fullname">
+              <div class="firstname">
+                <input
+                [value]="signupForm.get('firstName')?.value | titlecase"
+                  formControlName="firstName"
+                  class="signup-firstname"
+                  type="text"
+                  pInputText
+                  placeholder="First Name"
+                />
+                <div
+                  class="error-message"
+                  *ngIf="signupForm.get('firstName')?.invalid && signupForm.get('firstName')?.touched"
+                >
+                  Required !
+                </div>
+              </div>
+              <div class="lastname">
+                <input
+                  formControlName="lastName"
+                  [value]="signupForm.get('lastName')?.value | titlecase"
+                  class="signup-lastname"
+                  type="text"
+                  pInputText
+                  placeholder="Last Name"
+                />
+                <div
+                  class="error-message"
+                  *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched"
+                >
+                  Required !
+                </div>
+              </div>
+            </div>
 
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-user"></i>
-        </span>
+            <div class="p-inputgroup signup-phone">
+              <div>
+                <input
+                  formControlName="phoneNumber"
+                  class="signup-firstname"
+                  type="tel"
+                  pInputText
+                  placeholder="Phone number"
+                />
+              </div>
 
-        <input
-          type="text"
-          pInputText
-          placeholder="Name"
-          [(ngModel)]="Managername"
-          name="Managername"
-        />
-      </div>
+              <div
+                class="error-message"
+                id="phonenoError"
+                *ngIf=" signupForm.get('phoneNumber')?.hasError('required') 
+                && signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched"
+              >
+                Phone No is required !
+              </div>
+              <div
+                class="error-message"
+                *ngIf="isPhonenoInvalid && 
+                  signupForm.get('phoneNumber')?.hasError('pattern')
+                "
+              >
+                Invalid Phone No
+              </div>
+            </div>
 
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-envelope"></i>
-        </span>
+            <div class="email-group">
+              <div class="input-with-icon">
+                <i class="pi pi-user"></i>
+                <input
+                  formControlName="emailId"
+                  [value]="signupForm.get('emailId')?.value | lowercase"
+                  class="email-signup"
+                  type="text"
+                  pInputText
+                  placeholder="Email"
+                />
+              </div>
+              <div
+                class="error-message"
+                *ngIf="signupForm.get('emailId')?.hasError('required') && signupForm.get('emailId')?.invalid && signupForm.get('emailId')?.touched"
+              >
+                Email is required !
+              </div>
+              <div
+                class="error-message"
+                *ngIf="isMailIdInvalid && signupForm.get('emailId')?.hasError('pattern')"
+              >
+                Please Enter valid Email
+              </div>
+              <div
+              class="error-message"
+              *ngIf="mailidExist"
+            >
+              Email Already Exists..!
+            </div>
+            </div>
+            <div class="email-caption">
+              <span>Please provide the email from your Resume</span>
+            </div>
+            <div class="formpassword">
+              <div class="p-inputgroup input-with-icon1">
+                <i class="pi pi-lock"></i>
+                <input
+                  formControlName="password"
+                  class="signup-newpassword"
+                  type="password"
+                  pInputText
+                  placeholder="New Password"
+                />
+                <div class="info-circle">
+                  <p-overlayPanel
+                    #op
+                    class="password-requirements"
+                    [style]="{ width: '350px' }"
+                  >
+                    <p class="password-title">Password Requirements</p>
+                    <p class="password-content1">
+                      To ensure the security of your account, please make sure
+                      your password meets the following criteria:
+                    </p>
+                    <ul class="password-content2">
+                      <li><b>Length:</b> At least 8 characters.</li>
+                      <li>
+                        <b>Character Variety:</b>
+                        <ul>
+                          <li>At least one uppercase letter (A-Z)</li>
+                          <li>At least one lowercase letter (a-z)</li>
+                          <li>At least one number (0-9)</li>
+                          <li>
+                            At least one special character (e.g., !, @, $, %, *)
+                          </li>
+                        </ul>
+                      </li>
 
-        <input
-          type="text"
-          pInputText
-          placeholder="Email"
-          [(ngModel)]="emailId"
-          name="emailId"
-        />
-      </div>
+                      <li>
+                        <b>Unique Information:</b> Avoid using your name,
+                        birthdate, or common words.
+                      </li>
+                    </ul>
+                  </p-overlayPanel>
+                  <i
+                    (mouseover)="op.toggle($event)"
+                    (mouseleave)="op.toggle($event)"
+                    class="pi pi-info-circle "
+                    style="color: green"
+                  ></i>
+                </div>
+              </div>
+              <div
+                class="error-message"
+               *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+              >
+                Password is required !
+              </div>
+              <div
+                class="error-message"
+               *ngIf="isPasswordInvalid && signupForm.get('password')?.hasError('pattern')"
+              >
+                Password should match given Criteria
+              </div>
+            </div>
+            <div class="confirmpassword">
+              <div class="p-inputgroup input-with-icon1">
+                <i class="pi pi-lock"></i>
+                <input
+                  formControlName="confirmPassword"
+                  class="confirmpassword-signup"
+                  type="password"
+                  pInputText
+                  placeholder="Confirm Password"
+                />
+              </div>
+              <div
+                class="error-message"
+                *ngIf="signupForm.get('confirmPassword')?.hasError('required') && signupForm.get('confirmPassword')?.invalid &&  signupForm.get('confirmPassword')?.touched"
+              >
+                Confirm Password is required !
+              </div>
+              <div
+                class="error-message"
+               *ngIf=" signupForm?.errors?.['match'] && signupForm.get('confirmPassword')?.touched"
+              >
+                Password and Confirm Password are not Matching
+              </div>
+            </div>
 
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-phone"></i>
-        </span>
+            <p-toast></p-toast>
+            <div class="button-signup">
+              <button
+                pButton
+                type="submit"
+                label="Sign Up"
+                class="p-button-success"
+                [disabled]='(!signupForm.valid)'
+              ></button>
+            </div>
+          </form>
+        </div>
 
-        <p-inputNumber
-          mode="decimal"
-          [ngModelOptions]="{ standalone: true }"
-          placeholder="Phone"
-          inputId="withoutgrouping"
-          [useGrouping]="false"
-          [(ngModel)]="phoneNumber"
-        >
-        </p-inputNumber>
-
-        <!-- <input type="number" pInputText placeholder="Phone " /> -->
-      </div>
-
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-lock"></i>
-        </span>
-
-        <input
-          type="password"
-          pInputText
-          placeholder="Password"
-          [(ngModel)]="password"
-          name="password"
-        />
-      </div>
-
-      <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-          <i class="pi pi-lock"></i>
-        </span>
-
-        <input
-          type="password"
-          pInputText
-          placeholder="Confirm Password"
-          [(ngModel)]="confirmPassword"
-          name="confirmPassword"
-        />
-      </div>
-
-      <p-toast></p-toast>
-
-      <button
-        pButton
-        type="submit"
-        label="Save"
-        class="p-button-primary"
-        [disabled]="
-          !emailId ||
-          !Managername ||
-          !phoneNumber ||
-          !password ||
-          !confirmPassword
-        "
-      ></button>
-
-      <div class="signup">Already have an account? <a href="#">Sign In</a></div>
-    </p-card>
-  </form>
+        <div class="hrLine"></div>
+        <div class="login-signup">
+          <button
+            (click)="alreadyHasAccount()"
+            class="signup-button"
+            style="border: #652d90"
+          >
+            <span class="login-label"> Already has a account ? Login</span>
+          </button>
+        </div>
+      </p-card>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,679 @@
+<div class="manageManagers">
+  <div class="manageManagers-header">
+    <div class="manageManagers-header-1">
+      <div class="title">
+        <p>Managers</p>
+      </div>
+      <div class="header-breadcrumb">
+        <p-breadcrumb
+          class="BreadCrumb"
+          [model]="items"
+          [style]="{ border: 'none' }"
+        ></p-breadcrumb>
+      </div>
+    </div>
+    <div class="new-schedule-header-2">
+      <div class="date">
+        {{ todayDate | date}}
+      </div>
+    </div>
+  </div>
+
+  <div class="managerTable">
+    <p-table
+      #dt2
+      dataKey="id"
+      [value]="managerData"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[5, 10, 25, 50]"
+      [loading]=""
+      [paginator]="true"
+      dataKey="empid"
+      [(selection)]="selectedDeleteManager"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [globalFilterFields]="[
+        'managerName',
+        'department',
+        'email',
+        'empid',
+        'managerLocation'
+      ]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th colspan="7">
+            <div class="manager-header">
+              <div class="manager-header1">
+                <div class="p-input-icon-right">
+                  <i class="pi pi-search"></i>
+                  <input
+                    class="searchIcon"
+                    pInputText
+                    type="text"
+                    [(ngModel)]="globalSearchValue"
+                    (input)="
+                      dt2.filterGlobal($any($event.target).value, 'contains')
+                    "
+                    placeholder="Search"
+                  />
+                </div>
+                <!-- <div class="deptMultiselect">
+                  <p-columnFilter
+                    field="department"
+                    matchMode="in"
+                    [showMenu]="false"
+                    [showClearButton]="false"
+                  >
+                    <ng-template
+                      pTemplate="filter"
+                      let-value
+                      let-filter="filterCallback"
+                    >
+                      <p-multiSelect
+                        [ngModel]="value"
+                        [options]="uniqueDepartment"
+                        placeholder="Department"
+                        (onChange)="filter($event.value)"
+                        appendTo="body"
+                        [maxSelectedLabels]="1"
+                        [selectedItemsLabel]="'{0} items'"
+                      >
+                      </p-multiSelect>
+                    </ng-template>
+                  </p-columnFilter>
+                </div> -->
+
+                <div class="ml-3">
+                  <button
+                    pButton
+                    label="Clear Search"
+                    class="clear-button cursor-pointer"
+                    (click)="clear(dt2)"
+                  ></button>
+                </div>
+              </div>
+              <div class="addmanager">
+                <button
+                  pButton
+                  label="Add Manager"
+                  (click)="addManager()"
+                ></button>
+              </div>
+              <div class="addmanager">
+                <button
+                  pButton
+                  [disabled]="
+                    !selectedDeleteManager || selectedDeleteManager.length == 0
+                  "
+                  label="Delete Manager"
+                  (click)="confirmPosition('top')"
+                ></button>
+              </div>
+            </div>
+          </th>
+        </tr>
+
+        <tr>
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox
+              [value]="managerData"
+              (click)="selectAll()"
+            ></p-tableHeaderCheckbox>
+          </th>
+          <th class="EmployeeId" pSortableColumn="empid">
+            Emp ID <p-sortIcon field="empid"></p-sortIcon>
+          </th>
+          <th>Manager Name</th>
+          <th>Email</th>
+          <th>Department</th>
+          <th>Location</th>
+          <th>Edit</th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-rowData
+        let-i="rowIndex"
+        class="tableBody"
+      >
+        <tr>
+          <td>
+            <p-tableCheckbox
+              [value]="rowData"
+              [checked]="rowData.selection"
+              (click)="toggleSelection(rowData)"
+            ></p-tableCheckbox>
+          </td>
+          <td>{{ rowData.empid }}</td>
+          <td class="managernamedesign">
+            <a (click)="gotoManagerProfile(rowData)">{{
+              rowData.managerName
+            }}</a>
+          </td>
+          <td>{{ rowData.email }}</td>
+          <td>{{ rowData.department }}</td>
+          <td>{{ rowData.managerLocation }}</td>
+          <td>
+            <div class="icons">
+              <a (click)="handleEditIconClick(rowData)" title="Edit">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.375 14.625H4.2L12.5062 6.31877L11.6812 5.49377L3.375 13.8V14.625ZM14.8875 5.51252L12.4875 3.11252L13.275 2.32502C13.4875 2.11252 13.7531 2.0094 14.0719 2.01565C14.3906 2.0219 14.6563 2.13127 14.8688 2.34377L15.675 3.15002C15.8875 3.36252 15.9938 3.62502 15.9938 3.93752C15.9938 4.25002 15.8875 4.51252 15.675 4.72502L14.8875 5.51252ZM2.8125 15.75C2.65 15.75 2.51563 15.6969 2.40938 15.5906C2.30313 15.4844 2.25 15.35 2.25 15.1875V13.575C2.25 13.5 2.2625 13.4313 2.2875 13.3688C2.3125 13.3063 2.35625 13.2438 2.41875 13.1813L11.7 3.90002L14.1 6.30002L4.81875 15.5813C4.75625 15.6438 4.69375 15.6875 4.63125 15.7125C4.56875 15.7375 4.5 15.75 4.425 15.75H2.8125ZM12.0938 5.90627L11.6812 5.49377L12.5062 6.31877L12.0938 5.90627Z"
+                    fill="#652D90"
+                  />
+                </svg>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="7">No Data found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+<p-toast></p-toast>
+<div class="newSchedule-Dialog">
+  <p-dialog
+    header="Add Manager"
+    [(visible)]="visible"
+    [formGroup]="addManagerForm"
+    [modal]="true"
+    [style]="{ width: '47VW' }"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="false"
+  >
+    <p-tabView>
+      <p-tabPanel header="Add a Single Manager">
+        <div class="NewSchedule-content">
+          <div class="labelvalue">
+            <div class="label">
+              <label>Employee Id</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <input
+                pInputText
+                formControlName="employeeId"
+                appAllowDigits="8"
+              />
+              <div
+                *ngIf="
+                  addManagerForm.get('employeeId')?.invalid &&
+                  (addManagerForm.get('employeeId')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('employeeId')?.hasError('required')"
+                >
+                  Employee Id is required !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    addManagerForm.get('employeeId')?.hasError('minlength')
+                  "
+                >
+                  Enter a valid Employee Id !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>Manager Name</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <input
+                type="text"
+                appNameInput
+                formControlName="managerName"
+                pInputText
+              />
+              <div
+                *ngIf="
+                  addManagerForm.get('managerName')?.invalid &&
+                  (addManagerForm.get('managerName')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="
+                    addManagerForm.get('managerName')?.hasError('required')
+                  "
+                >
+                  Manager Name is required !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('managerName')?.hasError('pattern')"
+                >
+                  Enter a Valid Managername !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    addManagerForm.get('managerName')?.hasError('minlength')
+                  "
+                >
+                  Enter a Valid Managername !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>Email</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <input type="email" formControlName="email" pInputText />
+              <div
+                *ngIf="
+                  addManagerForm.get('email')?.invalid &&
+                  (addManagerForm.get('email')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('email')?.hasError('required')"
+                >
+                  Email is required !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('email')?.hasError('pattern')"
+                >
+                  Enter a valid Email !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>Phone No</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <input formControlName="phone" appAllowDigits="10" pInputText />
+
+              <div
+                *ngIf="
+                  addManagerForm.get('phone')?.invalid &&
+                  (addManagerForm.get('phone')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('phone')?.hasError('required')"
+                >
+                  Phone no is required !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('phone')?.hasError('minlength')"
+                >
+                  Enter a valid Phone Number !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>Department</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <input
+                type="text"
+                pKeyFilter="alpha"
+                formControlName="department"
+                pInputText
+              />
+              <div
+                *ngIf="
+                  addManagerForm.get('department')?.invalid &&
+                  (addManagerForm.get('department')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('department')?.hasError('required')"
+                >
+                  Department is required !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="
+                    addManagerForm.get('department')?.hasError('minlength')
+                  "
+                >
+                  Enter a valid Department Name !
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="labelvalue">
+            <div class="label">
+              <label>Location</label>
+              <span class="important-symbol">&#42;</span>
+            </div>
+            <div class="value">
+              <input
+                type="text"
+                appNameInput
+                formControlName="location"
+                pInputText
+              />
+              <div
+                *ngIf="
+                  addManagerForm.get('location')?.invalid &&
+                  (addManagerForm.get('location')?.touched || formSubmitted)
+                "
+              >
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('location')?.hasError('required')"
+                >
+                  Enter valid Location !
+                </div>
+                <div
+                  class="error-message"
+                  *ngIf="addManagerForm.get('location')?.hasError('minlength')"
+                >
+                  Location is required !
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+          <div class="tabview-button">
+            <div class="Cancelbutton">
+              <p-button
+                label="Cancel"
+                [outlined]="true"
+                (onClick)="cancelButton()"
+              >
+              </p-button>
+            </div>
+
+            <div class="Createbutton" *ngIf="isAddManager">
+              <p-button label="Add" (onClick)="createButton()"> </p-button>
+            </div>
+            <div class="Createbutton" *ngIf="isEditManager">
+              <p-button
+                [disabled]="addManagerForm.touched"
+                label="Update"
+                (onClick)="updateManager(addManagerForm.value)"
+              >
+              </p-button>
+            </div>
+          </div>
+        </ng-template>
+      </p-tabPanel>
+      <p-tabPanel header="Add Multiple Managers">
+        <div class="quiz-instruction">
+          <p class="instruction">Upload Manager Instructions</p>
+          <ul class="points">
+            <li>Download the provided Manager template.</li>
+            <li>Provide the correct value for each specific field.</li>
+            <li>Do not alter the heading in any way.</li>
+            <li>
+              Specify the correct employee Id for each manager which must be
+              unique.
+            </li>
+            <li>
+              Specify the correct email Id for each manager which must be
+              unique.
+            </li>
+          </ul>
+        </div>
+
+        <ng-template pTemplate="footer">
+          <div class="tabview-button-upload">
+            <div class="Cancelbutton">
+              <p-button
+                label="Cancel"
+                [outlined]="true"
+                (onClick)="cancelButton()"
+              >
+              </p-button>
+            </div>
+
+            <label class="custom-file-input" *ngIf="isAddManager">
+              Upload File
+              <input
+                type="file"
+                (change)="uploadCsv($event)"
+                style="display: none"
+              /> </label
+            >
+
+            <div class="Createbutton" *ngIf="isAddManager">
+              <p-button
+                label="Download Template"
+                (click)="downloadCsvTemplate()"
+              ></p-button>
+            </div>
+          </div>
+        </ng-template>
+      </p-tabPanel>
+    </p-tabView>
+  </p-dialog>
+</div>
+
+<p-toast></p-toast>
+<div class="newSchedule-Dialog">
+  <p-dialog
+    header="Edit Manager"
+    [(visible)]="EditManagerDialog"
+    [formGroup]="addManagerForm"
+    [modal]="true"
+    [style]="{ width: '47VW' }"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="false"
+  >
+    <div class="NewSchedule-content">
+      <div class="labelvalue">
+        <div class="label">
+          <label>Employee Id</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <p-inputNumber
+            formControlName="employeeId"
+            mode="decimal"
+            inputId="withoutgrouping"
+            [useGrouping]="false"
+            [disabled]="isEditManager"
+          >
+          </p-inputNumber>
+          <div
+            *ngIf="
+              addManagerForm.get('employeeId')?.invalid &&
+              (addManagerForm.get('employeeId')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('employeeId')?.hasError('required')"
+            >
+              Employee Id is required !
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Manager Name</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input type="text" formControlName="managerName" pInputText />
+          <div
+            *ngIf="
+              addManagerForm.get('managerName')?.invalid &&
+              (addManagerForm.get('managerName')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('managerName')?.hasError('required')"
+            >
+              Manager Name is required !
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Email</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input
+            type="email"
+            formControlName="email"
+            pInputText
+            [disabled]=true
+          />
+          <div
+            *ngIf="
+              addManagerForm.get('email')?.invalid &&
+              (addManagerForm.get('email')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('email')?.hasError('required')"
+            >
+              Email is required !
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Phone No</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <p-inputNumber
+            formControlName="phone"
+            mode="decimal"
+            inputId="withoutgrouping"
+            [useGrouping]="false"
+          >
+          </p-inputNumber>
+          <div
+            *ngIf="
+              addManagerForm.get('phone')?.invalid &&
+              (addManagerForm.get('phone')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('phone')?.hasError('required')"
+            >
+              Phone no is required !
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Department</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input type="text" formControlName="department" pInputText />
+          <div
+            *ngIf="
+              addManagerForm.get('department')?.invalid &&
+              (addManagerForm.get('department')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('department')?.hasError('required')"
+            >
+              Department is required !
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="labelvalue">
+        <div class="label">
+          <label>Location</label>
+          <span class="important-symbol">&#42;</span>
+        </div>
+        <div class="value">
+          <input type="text" formControlName="location" pInputText />
+          <div
+            *ngIf="
+              addManagerForm.get('location')?.invalid &&
+              (addManagerForm.get('location')?.touched || formSubmitted)
+            "
+          >
+            <div
+              class="error-message"
+              *ngIf="addManagerForm.get('location')?.hasError('required')"
+            >
+              Location is required !
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+      <div class="Newschedule-button">
+        <div class="Cancelbutton">
+          <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
+          </p-button>
+        </div>
+        <div class="Createbutton" *ngIf="isEditManager">
+          <p-button
+            label="Update"
+            [disabled]="addManagerForm.pristine"
+            (onClick)="updateManager(addManagerForm.value)"
+          >
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+<p-confirmDialog
+  class="button_design"
+  [style]="{ width: '40vw' }"
+  key="positionDialog"
+  [position]="position"
+  rejectButtonStyleClass=""
+></p-confirmDialog>

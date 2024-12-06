@@ -1,16 +1,21 @@
+
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription, catchError, tap, throwError } from 'rxjs';
+import { Manager } from '../store/manage-manager/manage-manager.action';
 
- 
+const baseUrlDev = process.env.BASE_URL_DEV;
+import { Assessment } from '../store/Assessment/assessment.action';
+import { Candidate } from '../store/candidate/candidate.action';
+import { Schedule } from '../store/schedule/schedule.action';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ManagernameService {
-  private managerNameUrl = 'http://localhost:9000/skill'; 
+  private managerNameUrl = 'http://localhost:9000/skill';
   // Update the URL to match your backend API URL
 
   private finalizedQuestions: any[] = [];
@@ -20,31 +25,284 @@ export class ManagernameService {
   private cutoff!: number;
 
   private SelectedManager: any;
-  
+
   private fileName!: string;
 
-  private finalizedName !: string;
+  private finalizedName!: string;
 
-  finalizedEmail !: string;
+  finalizedEmail!: string;
 
-  finalizedManagerEmail !: string;
+  finalizedManagerEmail!: string;
 
-  userEmail !: string;
+  userEmail!: string;
 
   constructor(private http: HttpClient) {}
 
   getManagerNames(): Observable<any> {
-    const endpoint = `${this.managerNameUrl}/getmanagername`;
+    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/managernames`;
 
     return this.http.get<any>(endpoint);
   }
+  getclientManagerData(): Observable<Manager[]> {
+    const endpoint = `${baseUrlDev}/ClientManager`;
 
-  postManagerList(name: String): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    return this.http.get<Manager[]>(endpoint);
+  }
+  getclientManagerName(): Observable<any> {
+    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/Client-ManagerName`;
+
+    return this.http.get<any>(endpoint);
+  }
+  addClientManagerData(data: any): Observable<Manager> {
+    console.log("Service Body", data)
+    const body = {
+      empid: data.empid,
+      managerName: data.managerName,
+      email: data.email,
+      phone: data.phoneNo,
+      department: data.department,
+      manager_location: data.managerLocation,
+    };
+    console.log("Service -------", body)
+    return this.http.post<Manager>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
+      body,
+    );
+  }
+
+  postClientManager(
+    employeeId: number,
+    managerName: string,
+    email: string,
+    phone: number,
+    department: string,
+    location: string
+  ): Observable<any> {
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      empid: employeeId,
+      managerName: managerName,
+      email: email,
+      phone: phone,
+      department: department,
+      manager_location: location,
+    };
+    return this.http
+      .post<any>(
+        'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/ClientManager',
+        body
+        // { headers }
+      )
+      .pipe(
+        tap((responsedata) => {
+          console.log('Mail updated successfully', responsedata);
+        }),
+        catchError((error) => {
+          console.log('Inside Catch Error');
+          if (error.status == 400) {
+            console.log(error.status, 'error 1');
+            return throwError(() => error);
+          }
+          if (error.status == 401) {
+            console.log(error.status, 'error 2');
+            return throwError(() => error);
+          }
+
+          return throwError(() => error);
+        })
+      );
+  }
+  private subscriptions: Subscription[] = [];
+
+  unsubscribe(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  addCandidate(
+    candidateName: string,
+    email: string,
+    phone: number,
+    empid: number,
+    department?: string,
+    location?: string,
+    // New fields
+    // candidateId: string,
+    // emailId: string,
+    // candidateName: string,
+    // currentLocation: string,
+    // experience: string,
+    // candidateLocation: string,
+    // phoneNumber: number,
+    // roles: string[],
+    // candidateSource: string,
+    // SPOC: string,
+//     skillSet?:{
+//       primarySkills:string[],
+// secondarySkills: string[]
+
+//     }
+
+    
+  ): Observable<any> {
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateName: candidateName,
+      email: email,
+      phone: phone,
+      empid: empid,
+      department: department !== undefined || '' ? department : '--',
+      candidate_location: location !== undefined || '' ? location : '--',
+
+    };
+    return this.http
+      .post<any>(
+        'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/New-Candidate',
+        body
+        // { headers }
+      )
+      .pipe(
+        tap((responsedata) => {
+          console.log('Mail updated successfully', responsedata);
+        }),
+        catchError((error) => {
+          console.log('Inside Catch Error');
+          if (error.status == 401) {
+            console.log(error.status, 'error 1');
+            return throwError(() => error);
+          }
+          return throwError(() => error);
+        })
+      );
+  }
+  addNewCandidate(candidate : Candidate) : Observable<Candidate>{
+    console.log('add nerw cANDIDATE' , candidate)
+    const body = {
+      candidateName: candidate.candidateName,
+      email: candidate.candidateEmail,
+      phone: candidate.candidatePhone,
+      empid: candidate.empid,
+      department: candidate.department,
+      candidate_location: candidate.candidate_location,
+
+    };
+    return this.http.post<Candidate>(`${process.env.BASE_URL_DEV}/New-Candidate`,body)
+  }
+  updateSingleCandidate(candidate: Candidate): Observable<Candidate> {
+    const endpoint = `${process.env.BASE_URL_DEV}/update_CandidateDetails`;
+    return this.http.post<Candidate>(endpoint, candidate);
+  }
+  updateCandidate(
+    candidateName: string,
+    email: string,
+    phone: number,
+    empid: number,
+    department?: string,
+    location?: string
+  ): Observable<any> {
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateName: candidateName,
+      candidateEmail: email,
+      candidatePhone: phone,
+      empid: empid,
+      department: department !== undefined || '' ? department : '--',
+      candidate_location: location !== undefined || '' ? location : '--',
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_CandidateDetails',
+      body
+      // { headers }
+    );
+  }
+
+
+//ngrx
+deleteCandidates(candidates : {id:string , candidateEmail : string}[]){
+  return this.http.post(`${process.env.BASE_URL_PRIVATE}/deleteCandidates`,candidates)
+}
+
+
+
+  deleteSchedule(id: string): Observable<any> {
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      id: id,
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteScheduleData',
+      body
+      // { headers }
+    );
+  }
+
+  updateManagerDetails(
+    managerName: string,
+    email: string,
+    phoneNo: number,
+    empid: number,
+    department: string,
+    managerLocation: string
+  ): Observable<any> {
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      managerName: managerName,
+      email: email,
+      phoneNo: phoneNo,
+      empid: empid,
+      department: department,
+      managerLocation: managerLocation,
+    };
+    console.log('Updated data :', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/update_ManagerDetail',
+      body
+      // { headers }
+    );
+  }
+
+  deleteManagerDetails(empid: number, email: string): Observable<any> {
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      empid: empid,
+      email: email,
+    };
+    console.log('Deleted data :', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/deleteManager',
+      body
+      // { headers }
+    );
+  }
+  deleteManagerData(data: any){
+    console.log("Delete data", data);
+    const endpoint = `${process.env.BASE_URL_DEV}/deleteclientManagers`
+    return this.http.post(endpoint,data)
+  }
+
+  //To get Manager profile Data
+  postManagerName(name: String): Observable<any> {
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = { Managername: name };
-    return this.http.post<any>(this.managerNameUrl + '/select-manager', body, {
-      headers,
-    });
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/managerProfile',
+      body
+      // {
+      //   headers,
+      // }
+    );
+  }
+
+  //to get candidate Profile Data
+  postCandidateEmail(email: String): Observable<any> {
+    // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = { candidateEmail: email };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidateProfile',
+      body
+      // {
+      //   headers,
+      // }
+    );
   }
 
   postexistingcandidates(
@@ -57,7 +315,7 @@ export class ManagernameService {
 
     questions: any
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       email_Managername: managername,
       candidateName: name,
@@ -69,49 +327,62 @@ export class ManagernameService {
       questions: questions,
     };
     return this.http.post<any>(this.managerNameUrl + '/add-candidate', body, {
-      headers,
+      // headers,
     });
   }
 
-// Posting questions to database
-postquestionstodb(
-  question: String,
-  selectedquestionType: String,
-  option1: String,
-  option2: String,
-  option3: String,
-  option4: String,
-  chosenSkill: String,
-  selecteddifficultyType: String,
-  selectedAnswer: String,
-  selectedAnswers : any
+  // Posting questions to database
 
-): Observable<any> {
-  const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-  const body = {
-    question: question ,
+  postquestionstodb(
+    question: String,
+    selectedquestionType: String,
+    options: String[],
+    chosenSkill: String,
+    selecteddifficultyType: String,
+    selectedAnswer: String[]
+  ): Observable<any> {
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      question: question,
       questionType: selectedquestionType,
-      option1: option1,
-      option2: option2,
-      option3:option3 ,
-      option4: option4,
+      options: options,
       skills: chosenSkill,
       Difficulty_Level: selecteddifficultyType,
-      radioanswer: selectedAnswer,
-       mcqanswer: selectedAnswers
-  };
-  return this.http.post<any>(this.managerNameUrl + '/post_question', body, {
-    headers,
-  });
-}
-
-
+      answer: selectedAnswer,
+    };
+    console.log('Post Question Data', body);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb',
+      body
+      // {
+      //   headers,
+      // }
+    );
+  }
+  postquestions(data: any): Observable<any> {
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    console.log('Post Question Data', data);
+    return this.http
+      .post<any>(
+        'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/questiondb',
+        data
+        // {
+        //   headers,
+        // }
+      )
+      .pipe(
+        catchError((err) =>
+          throwError(
+            () => new Error(`Error While Uploading Questions ${err.message}`)
+          )
+        )
+      );
+  }
 
   //candidate list
-
-  getCandidateStatus(): Observable<any> {
-    const endpoint = `${this.managerNameUrl}/existingcandidate`;
-    return this.http.get<any>(endpoint);
+  getCandidateStatus(): Observable<Assessment[]> {
+    const endpoint = `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidate`;
+    return this.http.get<Assessment[]>(endpoint);
   }
 
   setFinalizedQuestions(questions: any[]): void {
@@ -153,40 +424,45 @@ postquestionstodb(
     return this.fileName;
   }
 
+  setCandidateAssessment_Email(userEmail: string): void {
+    this.finalizedEmail = userEmail;
+  }
 
+  getCandidateAssessment_Email(): string {
+    return this.finalizedEmail;
+  }
 
-setCandidateAssessment_Email(userEmail: string): void {
-  this.finalizedEmail = userEmail;
-}
+  setManagerName_Email(managerEmail: string): void {
+    this.finalizedManagerEmail = managerEmail;
+  }
 
-getCandidateAssessment_Email(): string {
-  return this.finalizedEmail;
-}
+  getManagerName_Email(): string {
+    return this.finalizedManagerEmail;
+  }
 
+  getManagerdata_by_Email(managerEmail: string): Observable<any> {
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      candidateEmail: managerEmail,
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/fetch_managerdetails',
+      body
+      // { headers }
+    );
+  }
 
-setManagerName_Email(managerEmail: string): void {
-  this.finalizedManagerEmail = managerEmail;
-}
-
-getManagerName_Email(): string {
-  return this.finalizedManagerEmail;
-}
-
-
-getManagerdata_by_Email(
-  managerEmail: string,
-  
-): Observable<any> {
-  const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-  const body = {
-   
-    candidateEmail: managerEmail
-  };
-  return this.http.post<any>(
-    this.managerNameUrl + '/manager-details',
-    body,
-    { headers }
-  );
-}
-
+  postResetPassword(password: string, email: string): Observable<any> {
+    console.log('at service', password, email);
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = {
+      email: email,
+      password: password,
+    };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/resetpassword',
+      body
+      // {headers}
+    );
+  }
 }

@@ -1,0 +1,61 @@
+
+import { createActionGroup, emptyProps, props } from "@ngrx/store"
+export interface Candidates{
+    candidateId : string,
+    candidateName:string,
+    currentLocation : string,
+    preferredLocation?: string,
+    emailId : string,
+    experience : string,
+    location : string,
+    phoneNumber : string,
+    skillSet : Skill,
+    roles: string[],
+    source: string,
+    SPOC: string,
+    visaDetails: VisaDetails,
+    noticePeriod?: number,
+    buyout?: boolean,
+    currentCTC?: string,
+    expectedCTC?: string
+
+
+
+}
+export interface Skill {
+    primarySkills : string,
+    secondarySkills : string
+}
+
+export interface VisaDetails{
+
+    validUntil: string,
+    visaType: string,
+    visaStamped: string
+}
+export const resourceActions = createActionGroup({
+    source : 'resource',
+    events : {
+        'Get Resource' : emptyProps,
+        'Get Resource Success' : props<{candidates : Candidates[]}>(),
+        'Get Resource Failure' : props<{error : string}>(),
+        'Update Resource' : props<{candidate : Candidates}>(),
+        'Update Resource Success' : props<{candidate : Candidates}>(),
+        'Update Resource Failure' : props<{error : string}>(),
+        'Add Resource' : props<{candidate:Candidates}>(),
+        'Add Resource Success' : props<{candidate:Candidates}>(),
+        'Add Resource Failure' : props<{error : string}>(),
+        'Add Multi Resource' : props<{candidate : Candidates[]}>(),
+        'Add Multi Resource Success' : props<{candidate : Candidates[]}>(),
+        'Add Multi Resource Failure' : props<{error : string}>(),
+        // 'Clear Candidate Error' : emptyProps,
+        // 'Clear Newcandidate' : emptyProps,
+        // 'Clear DeleteCamdidateStatus' : emptyProps,
+        'Delete Resource' : props<{candidateId : string[]}>(),
+        'Delete Resource Success' : props<{candidateId : string[]}>(),
+        'Delete Resource Failure' : props<{error : string}>(),
+
+
+
+    }
+})

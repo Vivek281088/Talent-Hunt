@@ -1,69 +1,62 @@
-import { Component, OnInit } from '@angular/core';
 
-import {  Router } from '@angular/router';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { CandidateAssessmentService } from 'src/app/services/candidate-assessment.service';
 import { ManagernameService } from 'src/app/services/managername.service';
-
-
 @Component({
   selector: 'app-candidate-assessment',
   templateUrl: './candidate-assessment.component.html',
   styleUrls: ['./candidate-assessment.component.scss'],
+  providers: [MessageService],
 })
-export class CandidateAssessmentComponent {
-  candidateName: string = '';
-  assessmentFilename: string = 'JAVA_AWS_V1';
-
-  cols!: Column[];
-
-  candidateList: any[] = [];
-
-  showCandidateEmail!: string;
-
-  finalizedEmail!: string;
-
-  assessmentData!: any;
- 
+export class CandidateAssessmentComponent implements AfterViewInit {
+  visible: boolean = false;
+  candidateEmail!: string | null;
+  assessmentData: any;
 
   constructor(
-    private router: Router,
-    private candidateService: CandidateAssessmentService,
-    private managernameService :ManagernameService,
+    private messageService: MessageService,
+    private managernameService: ManagernameService,
+    private candidateAssessmentService: CandidateAssessmentService,
+    private router: Router
   ) {}
-
-  ngOnInit(): void {
-    this.finalizedEmail = this.managernameService.getCandidateAssessment_Email()
-
-    //  this.finalizedEmail= this.managernameService.getCandidateAssessment_Email();
-    this.cols = [
-      { field: 'email_Filename', header: 'File Name' },
-      { field: 'email_Status', header: 'Status' },
-    ];
-    this.candidateService
-      .getCandidatedata_by_Email(this.finalizedEmail)
+  ngAfterViewInit(): void {
+    this.show();
+    this.candidateEmail = localStorage.getItem('candidateEmail');
+    console.log('Mail Id', this.candidateEmail);
+    this.getAssessmentdatabyEmail();
+  }
+ 
+  getAssessmentdatabyEmail() {
+    this.candidateAssessmentService
+      .getCandidatedata_by_Email(this.candidateEmail)
       .subscribe((response) => {
-        console.log('res', response);
-        this.candidateList = response;
-        console.log('candidateList', this.candidateList);
-        this.candidateName = response[0].candidateName;
-        console.log('candidateName', this.candidateName);
+        this.assessmentData = response.filter((data: { email_Filename: any; }) => data.email_Filename!=null);
+        console.log('candidate data /////////', this.assessmentData);
+        
+        
       });
   }
-
+  show() {
+    this.messageService.add({
+      severity: 'info',
+      detail: 'You have been assigned a new assessment on 23-Dec-2023',
+      sticky: true,
+    });
+  }
+  showAssessmentDialog(data: any) {
+    console.log("Assessment Data", data);
+    //setting the data for assessment page
+    this.candidateAssessmentService.setAssessmentData(data);
+    this.visible = true;
+  }
+  cancelButton() {
+        this.visible = false;
+  }
   startAssessment() {
-    this.router.navigate(['/assessment-display']);
+    localStorage.setItem('showNavbar','false');
+    this.router.navigate(['/candidatequestion']);
   }
-
-  sendQuestions(data: any) {
-    console.log('data', data);
-    this.candidateService.setAssessmentData(data);
-
-    this.router.navigate(['/assessment-display']);
-  }
-}
-
-interface Column {
-  field: string;
-
-  header: string;
+  
 }

@@ -1,9 +1,12 @@
+import { Assessment } from 'src/app/store/Assessment/assessment.action';
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-
+import { Schedule } from '../store/schedule/schedule.action';
+const baseUrlDev = process.env.BASE_URL_DEV;
+const baseUrlPrivate = process.env.BASE_URL_PRIVATE
 @Injectable({
   providedIn: 'root',
 })
@@ -23,19 +26,31 @@ export class TableService {
   postManagerList(name: String): Observable<any> {
     console.log('name', name);
 
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = { ManagerName: name };
 
     return this.http.post<any>(this.skillsUrl + '/select-manager', body, {
-      headers,
+      //headers,
     });
   }
 
-  getExistingData(): Observable<any> {
-    const endpoint = `${this.skillsUrl}/existinguser`;
+  deleteSchedules(scheduleIds : string[]){
+    console.log("Schedule Ids .....................................",scheduleIds)
+    const endpoint = `${process.env.BASE_URL_PRIVATE}/deleteSchedules`
+    return this.http.post(endpoint,scheduleIds)
+  }
 
-    return this.http.get<any[]>(endpoint);
+  getExistingData(): Observable<Schedule[]> {
+    console.log("base url ....................." , baseUrlDev)
+    const endpoint = `${baseUrlDev}/question`;
+
+    return this.http.get<Schedule[]>(endpoint);
+  }
+  getScheduleData() : Observable<Schedule[]>{
+    console.log("base url ....................." , baseUrlPrivate)
+    const endpoint = `${baseUrlPrivate}/schedule`;
+    return this.http.get<Schedule[]>(endpoint)
   }
 
   getskillsList(): Observable<any> {
@@ -43,12 +58,18 @@ export class TableService {
   }
 
   // Method to fetch data by fileName and Managername
-  getdataby_FileName(Managername: string, fileName: string): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
-    const body = { Managername: Managername, fileName: fileName };
-    return this.http.post<any>(this.skillsUrl + '/viewdata', body, {
-      headers,
-    });
+  getdataby_Id(
+    id: any
+  ): Observable<any> {
+   // const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    const body = { id: id };
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/viewquestion',
+      body,
+      {
+        //headers,
+      }
+    );
   }
 
   // Method to fetch data by fileName and Managername
@@ -56,7 +77,7 @@ export class TableService {
     candidateName: string,
     email_FileName: string
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
     const body = {
       candidateName: candidateName,
       email_FileName: email_FileName,
@@ -64,7 +85,7 @@ export class TableService {
     return this.http.post<any>(
       this.skillsUrl + '/candidatelist_for_reviewer',
       body,
-      { headers }
+      //{ headers }
     );
   }
 
@@ -74,10 +95,13 @@ export class TableService {
   }
 
   getExistingCandidate(): Observable<any> {
-    return this.http.get<any>(this.skillsUrl + '/existingcandidate');
+    return this.http.get<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidate'
+    );
   }
   //New User
   postCandidateDetails(
+    candidateId: Date,
     managerName: String,
     name: String,
     emailId: String,
@@ -86,41 +110,49 @@ export class TableService {
     fileName: String,
     questions: any,
     score: number | null,
-    result: String,
+    results: String,
     cutoff: number,
-    duration: number,
-    candidatePassword: any,
-    candidateConfirmPassword: any
-    
+    durations: number,
+    candidatePassword: string,
+    candidateConfirmPassword: string,
+    roles: String,
+    candidateSkill: any
   ): Observable<any> {
     console.log('name', name);
 
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
+      id: candidateId,
       email_Managername: managerName,
       candidateName: name,
       candidateEmail: emailId,
-
       candidatePhone: phoneNumber,
       email_Status: status,
       email_Filename: fileName,
       questions: questions,
       score: score,
-      result: result,
-      cutoff:cutoff,
-      duration:duration,
-      password: candidatePassword,
-      confirmPassword:candidateConfirmPassword
-
+      results: results,
+      cutoff: cutoff,
+      durations: durations,
+      password: 'abc123',
+      confirmPassword: 'abc123',
+      roles: roles,
     };
+    console.log('Send email Data', body);
 
-    return this.http.post<any>(this.skillsUrl + '/add-candidate', body, {
-      headers,
-    });
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/candidatemail',
+      body,
+      {
+        //headers,
+      }
+    );
   }
   //Post the data of Existing Candidates
   postExistingCandidateDetails(
+    candidateId: Date,
+    empid : number | null,
     managerName: string,
     candidateName: string,
     candidateEmail: string,
@@ -129,16 +161,24 @@ export class TableService {
     fileName: string,
     questions: any,
     score: number | null,
-    result: string,
+    results: string,
     cutoff: number,
-    duration: number,
-    candidatePassword : any,
-    candidateConfirmPassword: any
+    durations: number,
+    candidatePassword: any,
+    candidateConfirmPassword: any,
+    roles: string,
+    Skill: any,
+    department : string,
+    candidate_location: string,
+    loginManagerid: string | null,
+    scheduledTime : string,
 
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
+      id: candidateId,
+      empid: empid,
       email_Managername: managerName,
       candidateName: candidateName,
       candidateEmail: candidateEmail,
@@ -147,18 +187,36 @@ export class TableService {
       email_Filename: fileName,
       questions: questions,
       score: score,
-      result: result,
-      cutoff:cutoff,
-      duration:duration,
-      password:candidatePassword,
-      confirmPassword:candidateConfirmPassword
+      results: results,
+      cutoff: cutoff,
+      durations: durations,
+      password: candidatePassword,
+      confirmPassword: candidateConfirmPassword,
+      roles: roles,
+      Skill: Skill,
+      department: department !== undefined ? department : '--',
+      candidate_location:
+        candidate_location !== undefined ? candidate_location : '--',
+      deleted: 'false',
+      loginManagerid: loginManagerid,
 
+      scheduledTime: scheduledTime,
     };
 
-    return this.http.post<any>(this.skillsUrl + '/add-candidate', body, {
-      headers,
-    });
+    console.log('Send Existing email Data', body);
+    
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/createMail',
+      body,
+      {
+       // headers,
+      }
+    );
   }
+
+postInviteCandidate(assessment:Assessment):Observable<Assessment>
+{
+  return this.http.post<Assessment>(`${process.env.BASE_URL_PRIVATE}/createMail`, assessment);
+
 }
-
-
+}

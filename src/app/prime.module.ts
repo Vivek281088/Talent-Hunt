@@ -18,12 +18,30 @@ import { TabViewModule } from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { FileUploadModule } from 'primeng/fileupload';
-
-
-
+import { PanelMenuModule } from 'primeng/panelmenu';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+import { MenubarModule } from 'primeng/menubar';
+import { DividerModule } from 'primeng/divider';
+import { SidebarModule } from 'primeng/sidebar';
+import { TabView } from 'primeng/tabview';
+import { CalendarModule } from 'primeng/calendar';
+import { PaginatorModule } from 'primeng/paginator';
+import { SplitterModule } from 'primeng/splitter';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ChipModule } from 'primeng/chip';
+import { TagModule } from 'primeng/tag';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayModule } from 'primeng/overlay';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { MenuModule } from 'primeng/menu';
+import { KnobModule } from 'primeng/knob';
+import { SkeletonModule } from 'primeng/skeleton';
+import { RippleModule } from 'primeng/ripple';
 
+
+// import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   imports: [
@@ -44,10 +62,32 @@ import { ConfirmationService } from 'primeng/api';
     TabViewModule,
     InputTextModule,
     ToastModule,
-   ConfirmDialogModule,
-   MessagesModule,
-   FileUploadModule
-    
+    ConfirmDialogModule,
+    MessagesModule,
+    FileUploadModule,
+    CalendarModule,
+    BreadcrumbModule,
+    ChipModule,
+    TagModule,
+    BadgeModule,
+    PanelMenuModule,
+    AvatarModule,
+    AvatarGroupModule,
+    MenubarModule,
+    DividerModule,
+    PaginatorModule,
+    SplitterModule,
+    FormsModule,
+    AvatarModule,
+    AvatarGroupModule,
+    SidebarModule,
+    OverlayModule,
+    ConfirmPopupModule,
+    MenuModule,
+    KnobModule,
+    CalendarModule,
+    SkeletonModule,
+    RippleModule
   ],
   exports: [
     MultiSelectModule,
@@ -69,9 +109,30 @@ import { ConfirmationService } from 'primeng/api';
     ToastModule,
     ConfirmDialogModule,
     MessagesModule,
-    FileUploadModule
-    
-    
+    FileUploadModule,
+    CalendarModule,
+    BreadcrumbModule,
+    ChipModule,
+    TagModule,
+    BadgeModule,
+    PanelMenuModule,
+    AvatarModule,
+    AvatarGroupModule,
+    MenubarModule,
+    DividerModule,
+    PaginatorModule,
+    SplitterModule,
+    FormsModule,
+    AvatarModule,
+    AvatarGroupModule,
+    SidebarModule,
+    OverlayModule,
+    ConfirmPopupModule,
+    MenuModule,
+    KnobModule,
+    CalendarModule,
+    SkeletonModule,
+    RippleModule
   ],
 })
 export class PrimeModule {}

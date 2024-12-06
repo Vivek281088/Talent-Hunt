@@ -1,310 +1,141 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnDestroy, ViewChild, ViewContainerRef } from '@angular/core';
 
 import { ManagernameService } from 'src/app/services/managername.service';
 
 import { Router } from '@angular/router';
 
-import { LoginService } from 'src/app/services/login.service';
-
 import { AuthService } from 'src/app/Guard/auth.service';
-// import { AuthClassGuard } from 'src/app/Guard/auth-class.guard';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
-// import { OnDestroy } from '@angular/core';
-
-
+import { LoginService } from 'src/app/services/login.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import * as CryptoJS from 'crypto-js';
 
-import { NgModule } from '@angular/core';
-import { BackButtonDisableModule } from 'angular-disable-browser-back-button';
-
-
-
 @Component({
-
   selector: 'app-login',
-
-
-
   templateUrl: './login.component.html',
-
-
-
   styleUrls: ['./login.component.scss'],
-
 })
-
-
 export class LoginComponent implements OnDestroy {
   showNavbar: boolean = false;
   name!: string;
   password!: string;
   nameinvalid!: string;
   passwordinvalid!: string;
-  finalizedName !: string;
-  userEmail !: string;
-
+  finalizedName!: string;
+  userEmail!: string;
   encrypted_password!: string;
+  loginForm!: FormGroup;
+  formSubmitted:boolean=false
 
-
-  constructor(private router: Router,
-    private loginservice: LoginService,
+  constructor(
+    private resolver:ComponentFactoryResolver,
+    private router: Router,
     private authService: AuthService,
     private managernameService: ManagernameService,
+    private loginservice: LoginService,
     private messageservice: MessageService,
-    private location: Location
-
-  ) { }
-  //  ) {}
-
-
+    private location: Location,
+    private fb: FormBuilder,
+  ) {
+    this.loginForm = this.fb.group({
+      userName: ['', [Validators.required
+      ]],
+      password: ['', [Validators.required]],
+    });
+  } 
+ 
   ngOnInit() {
-    history.pushState(null, '', '')
-    // this.showCandidateName = this.managernameService.getManagerName();
-    window.addEventListener('popstate', () => {
-      this.location.forward();
-    });
-
-
+    sessionStorage.setItem('Component-Name', 'home');
   }
+
   ngOnDestroy(): void {
-    window.removeEventListener('popstate', () => {
-      this.location.forward();
-    });
+
   }
   forgotpassword() {
-    this.router.navigate(['forgotpassword']);
+    this.router.navigate(['resetpassword']);
   }
-
-  // sign() 
-  // {
-
-  //   // this.loginservice.postlogincredentials(this.userEmail,this.password).subscribe
-  //   // ((data)=>
-  //   // {
-
-  // //  this.encrypted_password=btoa(this.password);
-  // //  console.log(this.encrypted_password);
-  // const encryptionkey='123456qwertyuio';
-  // const iv='  ';
-  // const ciphertext=CryptoJS.AES.encrypt(this.password,encryptionkey,{
-  //   iv:CryptoJS.enc.Base64.parse(iv),
-  //   mode:CryptoJS.mode.CBC,
-  //   padding:CryptoJS.pad.Pkcs7
-  // })
-  //  this.encrypted_password=ciphertext.toString();
-  //  console.log(this.encrypted_password);
-  //  console.log(this.userEmail)
-  //  console.log("hi", this.password)
-
-  //   this.loginservice.postlogincredentials(this.userEmail,this.encrypted_password).subscribe((data)=>{
-
-  //     console.log("authenticate rolee",data.role);
-  //    this.managernameService.setCandidateAssessment_Email(this.userEmail);
-  //    localStorage.setItem("role",data.role)
-
-  //   //  console.log("a",a)
-  //     if(data.status==200)
-  //     {
-  //       // localStorage.setItem("token","true")
-  //       if(data.role=="manager"){
-
-  //         this.authService.login1().subscribe(() => {
-  //           if (this.authService.isLoggedIn) {
-  //             this.router.navigate(['dashboard']);
-  //           }
-  //         });
-
-
-  //       }
-  //       else if(data.role=="user"){
-  //         this.authService.login1().subscribe(() => {
-  //           if (this.authService.isLoggedIn) {
-  //             this.router.navigate(['dashboard']);
-  //           }
-  //         });
-
-  //       }
-  //     }
-  //     else if(data.status==400){
-  //       this.messageservice.add({ severity: 'error', summary: 'Invalid Credentials', detail: '' });
-
-  //     }
-
-  //     else{
-  //       alert(data.message);
-  //     }
-
-  //   })
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // }
-  ///////////////////////////////////////////////////////////////////////////////////////////
-
-
-
 
   sign() {
+console.log("inside sign in")
+    this.formSubmitted = true;
+    if (this.loginForm.valid) {
+      const formData = this.loginForm.value;
+      console.log('Form Data:', formData);
+      const hashedPassword = CryptoJS.SHA256(formData.password).toString();
+      console.log('Hash Password:', hashedPassword);
+    this.loginservice
+      .postlogincredentials(formData.userName, hashedPassword)
+      .subscribe((data) => {
+        console.log('role', data);
+        console.log(data)
+        if (data.status == 200) {
+          localStorage.setItem('token', data.token);
+          console.log('Token-', data.token); 
+          if (data.role == 'manager') {
+            //display manager name
+            this.managernameService.setManagerName_Email(formData.userName);
 
+            localStorage.setItem('role', data.role);
 
+            localStorage.setItem('userrole', 'manager');
 
+            localStorage.setItem('managerEmail', formData.userName);
 
+            if (this.authService.isAuthenticated()) {
 
-    const encryptionkey = '123456qwertyuio';
+           
+              this.router.navigate(['/verifymfa']);
+      
+            }
+          } else if (data.role == 'user') {
+            console.log("inside else if")
+            console.log("Entered USer role")
+            localStorage.setItem('candidateEmail', formData.userName);
+            this.managernameService.setCandidateAssessment_Email(
+              formData.userName
+            );
 
-    const iv = '  ';
+            localStorage.setItem('role1', data.role);
+            localStorage.setItem('userrole', 'user');
 
-    const ciphertext = CryptoJS.AES.encrypt(this.password, encryptionkey, {
+             localStorage.setItem('Candidateemail', formData.userName);
 
-      iv: CryptoJS.enc.Base64.parse(iv),
-
-      mode: CryptoJS.mode.CBC,
-
-      padding: CryptoJS.pad.Pkcs7
-
-    })
-
-    this.encrypted_password = ciphertext.toString();
-
-    console.log(this.encrypted_password);
-
-    console.log(this.userEmail)
-
-
-
-    this.loginservice.postlogincredentials(this.userEmail, this.encrypted_password).subscribe((data) => {
-
-
-
-      console.log("authenticatetoke", data.token);
-
-      console.log("role", data.role)
-
-
-
-
-      if (data.status == 200) {
-
-        localStorage.setItem('token', data.token);
-
-
-
-
-
-
-
-        if (data.role == "manager") {
-      this.managernameService.setManagerName(this.userEmail);
-
-
-          localStorage.setItem('role', data.role);
-
-          localStorage.setItem("userrole", "manager");
-
-
-          if (this.authService.isAuthenticated()) {
-
-            const redirectUrl = this.authService.redirectUrl
-
-              ? this.authService.redirectUrl
-
-              : '/dashboard';
-
-            this.router.navigate(['dashboard']);
-
+            if (this.authService.isAuthenticated1()) {
+              console.log("entered")
+              const redirectUrl = this.authService.redirectUrl
+                ? this.authService.redirectUrl
+                : '/mtalent/candidatehome';
+ 
+              this.router.navigate(['/mtalent/candidatehome']);
+            }
           }
-
-
-
-
-
-
-
+        } else if (data.status == 400) {
+          console.log("400 error")
+          this.messageservice.add({
+            severity: 'error',
+            summary: 'User not Exist',
+            detail: '',
+          });
+        } else {
+          this.messageservice.add({
+            severity: 'error',
+            summary: 'Invalid Credentials! Try Again',
+            detail: '',
+          });
         }
-
-        else if (data.role == "user") {
-      this.managernameService.setCandidateAssessment_Email(this.userEmail);
-
-
-          localStorage.setItem("role1", data.role);
-          localStorage.setItem("userrole", "user");
-
-          if (this.authService.isAuthenticated1()) {
-
-            const redirectUrl = this.authService.redirectUrl
-
-              ? this.authService.redirectUrl
-
-              : '/dashboard';
-
-            this.router.navigate(['dashboard']);
-
-          }
-
-
-
-        }
-
-      }
-
-      else if (data.status == 400) {
-
-        this.messageservice.add({ severity: 'error', summary: 'User not Exist', detail: '' });
-
-
-
-      }
-
-
-
-      else {
-
-        alert(data.message);
-
-      }
-
-
-
-    })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      });
+  }else{
+    console.log("invalid form");
+  }
+  }
+  onEnterKey() {
+    if (this.loginForm.valid) {
+      this.sign()
+    }
   }
 
-
-};
+createNewAcc() {
+    this.router.navigate(['/signup']);
+  }
+}

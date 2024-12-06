@@ -1,0 +1,569 @@
+<div class="mappingPage">
+  <div class="mappingPage-header">
+    <div class="mappingPage-header-1">
+      <div class="title">
+        <p>PCR-Mapping</p>
+      </div>
+      <div class="header-breadcrumb">
+        <p-breadcrumb
+          class="BreadCrumb"
+          [model]="items"
+          [style]="{ border: 'none' }"
+        ></p-breadcrumb>
+      </div>
+    </div>
+    <div class="mappingPage-header-2">
+      <div class="date">
+        {{ todayDate | date }}
+      </div>
+    </div>
+  </div>
+
+  <p-toast></p-toast>
+  <div class="mappingTable">
+    <p-table
+      #dt2
+      dataKey="mappedData.uniqueId"
+      [rows]="4"
+      editMode="row"
+      [showCurrentPageReport]="true"
+      [value]="l1Screen"
+      [(selection)]="deleteData"
+      [rowsPerPageOptions]="[4, 10, 25, 50]"
+      [loading]=""
+      [paginator]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [globalFilterFields]="[
+        'pcrData.agileId',
+        'candidateData.candidateId',
+        'candidateData.candidateName',
+        'pcrData.jobTitle',
+        'pcrData.scheduleName ',
+        'mappedData.testStatus',
+        'mappedData.submitTime',
+        'mappedData.testScore'
+      ]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th colspan="13">
+            <div class="mappingPage-header-details">
+              <div class="mappingPage-header1">
+                <div class="p-input-icon-right">
+                  <i class="pi pi-search"></i>
+                  <input
+                    class="searchIcon"
+                    pInputText
+                    type="text"
+                    [(ngModel)]="globalSearchValue"
+                    (input)="
+                      dt2.filterGlobal($any($event.target).value, 'contains')
+                    "
+                    placeholder="Search"
+                  />
+                </div>
+              </div>
+              <div>
+                <button
+                  pButton
+                  label="Clear Search"
+                  class="clear-button cursor-pointer"
+                  (click)="clear(dt2)"
+                ></button>
+              </div>
+              <div class="mapPcr">
+                <button pButton label="Map PCR" (click)="mappingPCR()"></button>
+              </div>
+              <div class="mapPcr">
+                <button
+                  pButton
+                  label="Delete"
+                  (click)="deleteMappedData()"
+                  [disabled]="!deleteData || deleteData.length == 0"
+                ></button>
+              </div>
+            </div>
+          </th>
+        </tr>
+
+        <tr [pEditableRow]="l1Screen">
+          <th style="width: 4rem">
+            <p-tableHeaderCheckbox
+              [value]="l1Screen"
+              (click)="toggleSelectAll()"
+            ></p-tableHeaderCheckbox>
+          </th>
+          <th>Agile ID</th>
+          <th>Job Title</th>
+          <th>Candidate Name</th>
+          <th>PCR Skills</th>
+          <th>Test Status</th>
+          <th>Overall Status</th>
+          <th>Panel Members</th>
+          <th>Schedule Date</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-rowData
+        let-i="rowIndex"
+        let-editing="editing"
+        class="tableBody"
+      >
+        <tr [pEditableRow]="rowData">
+          <td>
+            <p-tableCheckbox
+              [value]="rowData"
+              [checked]="rowData.selection"
+              (click)="toggle(rowData)"
+            ></p-tableCheckbox>
+          </td>
+          <td class="custom_link">
+            {{ rowData.agileData.ID }} </td>
+          <td class="custom_link">
+            <ng-container *ngIf="!isEmptyObject(rowData.pcrData); else jobtitle">
+              {{ rowData.pcrData.jobTitle }}
+            </ng-container>
+            <ng-template #jobtitle>
+              {{ rowData.agileData.Title }}
+            </ng-template>
+
+          </td>
+          <td class="custom_link" (click)="showCandidateDetails(rowData)">
+            {{ rowData.candidateData.candidateName }}
+          </td>
+            <td class="skills">
+              <ng-container *ngIf="rowData.pcrData.skills && rowData.pcrData.skills.length > 0">
+                <ng-container *ngIf="isArray(rowData.pcrData.skills)"> <!-- Check if skills is an array -->
+                  <span *ngFor="let item of getFormattedSkills(rowData.pcrData.skills).skills">
+                    <p-chip class="scheduleChip" label="{{ item }}"></p-chip>
+                  </span>
+                  <span *ngIf="getFormattedSkills(rowData.pcrData.skills).remainingCount > 0" class="plusIcon">
+                    +
+                    <p-overlayPanel #op>
+                      <ul
+                        style="list-style-type: none"
+                        *ngFor="let skill of remainaingSkills(rowData.pcrData.skills, getFormattedSkills(rowData.pcrData.skills).remainingCount)"
+                      >
+                        <li>
+                          <p-chip class="scheduleChip" label="{{ skill }}"></p-chip>
+                        </li>
+                      </ul>
+                    </p-overlayPanel>
+                    <p-badge
+                      class="cursor-design"
+                      (mouseenter)="op.toggle($event)"
+                      (mouseleave)="op.toggle($event)"
+                      [value]="getFormattedSkills(rowData.pcrData.skills).remainingCount.toString()"
+                    ></p-badge>
+                  </span>
+                </ng-container>
+              </ng-container>
+            </td>
+
+          <td>{{ rowData.mappedData.testStatus }}</td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <div class="dropdowns">
+                  <p-dropdown
+                    [options]="currentStatus"
+                    appendTo="body"
+                    optionValue="value"
+                    [(ngModel)]="rowData.mappedData.currentStatus"
+                    optionLabel="name"
+                    [showClear]="true"
+                    placeholder="Status"
+                    (onChange)="onStatusChange(rowData)"
+                  ></p-dropdown>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="output" ngIf="rowData.mappedData.currentStatus=='Onboarding'">
+                <a href="/login"></a>
+                {{ rowData.mappedData.currentStatus }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <div class="multiselect">
+                  <p-multiSelect
+                    [options]="panelMembers"
+                    [(ngModel)]="rowData.mappedData.currentPanel"
+                    optionValue="value"
+                    appendTo="body"
+                    [filter]="true"
+                    optionLabel="names"
+                    placeholder="Select Panel"
+                  ></p-multiSelect>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ rowData.mappedData.currentPanel }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <div class="calender-field">
+                  <p-calendar
+                    [appendTo]="'body'"
+                    dateFormat="mm/dd/yy"
+                    [(ngModel)]="rowData.mappedData.currentInterviewDate"
+                    [showIcon]="true"
+                  ></p-calendar>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{
+                  rowData.mappedData.currentInterviewDate | date : "MM/dd/yyyy"
+                }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td class="customIcon">
+            <!-- Mail -->
+            <div>
+              <i
+                class="pi pi-envelope"
+                style="color: #3B82F6; cursor: pointer"
+                (click)="openInviteDialog($event, rowData)"
+                pTooltip="Mail"
+                tooltipPosition="top"
+              ></i>
+            </div>
+
+            <!-- edit -->
+            <div class="flex align-items-center justify-content-center gap-2">
+              <button
+                *ngIf="!editing"
+                pButton
+                pRipple
+                type="button"
+                pInitEditableRow
+                icon="pi pi-pencil"
+                (click)="onRowEditInit(rowData.mappedData)"
+                class="p-button-rounded p-button-text"
+                pTooltip="Edit"
+                tooltipPosition="top"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pSaveEditableRow
+                icon="pi pi-check"
+                (click)="onRowEditSave(rowData.mappedData)"
+                class="p-button-rounded p-button-text p-button-success mr-2"
+              ></button>
+              <button
+                *ngIf="editing"
+                pButton
+                pRipple
+                type="button"
+                pCancelEditableRow
+                icon="pi pi-times"
+                (click)="onRowEditCancel(rowData, i)"
+                class="p-button-rounded p-button-text p-button-danger"
+              ></button>
+            </div>
+
+            <!-- Save -->
+            <div class="pi-pi" pTooltip="Save" tooltipPosition="top">
+              <i class="pi pi-save" (click)="confirmPosition(rowData)"></i>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="13">No Data found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <p-confirmDialog
+    class="confirm-design"
+    [style]="{ width: '40vw' }"
+    key="positionDialog"
+    [position]="position"
+    rejectButtonStyleClass=""
+  ></p-confirmDialog>
+</div>
+
+<p-toast></p-toast>
+<div class="newSchedule-Dialog">
+  <p-dialog
+    header="PCR-Candidate Mapping"
+    [(visible)]="mappingDialogVisible"
+    [modal]="true"
+    [style]="{ width: '60VW' }"
+    [draggable]="false"
+    [resizable]="false"
+    [closable]="false"
+  >
+    <div class="mappingContent">
+      <div class="customInput">
+        <div class="pcrDropdown">
+          <p-dropdown
+            [options]="pcrData"
+            placeholder="--Select PCR--"
+            appendTo="body"
+            optionLabel="pcrId"
+            [(ngModel)]="selectedPcrId"
+            optionValue="pcrId"
+            (onChange)="candidateFiltering()"
+          ></p-dropdown>
+        </div>
+        <div class="agileDropdown">
+          <p-dropdown
+            [options]="agileData"
+            optionValue="ID"
+            optionLabel="ID"
+            placeholder="--Select Agile--"
+            appendTo="body"
+            [(ngModel)]="selectedAgileId"
+            (onChange)="candidateFiltering()"
+          ></p-dropdown>
+        </div>
+        <div class="candidateMultiselect">
+          <p-multiSelect
+            [options]="candidateData"
+            optionLabel="ID"
+            optionValue="ID"
+            placeholder="--Select candidate--"
+            [filter]="true"
+            [resetFilterOnHide]="true"
+            appendTo="body"
+            display="chip"
+            [showClear]="false"
+            [(ngModel)]="selectedCandidates"
+            [disabled]="!pcrSelected"
+            (onChange)="selected()"
+            (onClick)="showTooltip()"
+            pTooltip="Please select a PCR first."
+            tooltipPosition="top"
+            [tooltipDisabled]="pcrSelected"
+            selectedItemsLabel="{{selectedCandidates.length}} candidates selected"
+          >
+
+        </p-multiSelect>
+        </div>
+
+      </div>
+      <div
+        class="customdisplay"
+        *ngIf="pcrSelected && selectedCandidates.length > 0"
+      >
+        <p-messages [(value)]="messages" [enableService]="false" />
+      </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="customButtons">
+        <div class="Cancelbutton">
+          <p-button label="Cancel" [outlined]="true" (onClick)="cancelButton()">
+          </p-button>
+        </div>
+
+        <div class="mapButton">
+          <p-button
+            label="Map PCR"
+            (click)="mapPCR()"
+            [disabled]="!pcrSelected || selectedCandidates.length == 0 "
+          ></p-button>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+
+<p-toast></p-toast>
+<div class="sendinvite">
+  <p-dialog
+    [visible]="sendMailCardVisible"
+    [modal]="true"
+    [style]="{ width: '47VW' }"
+    header="Send Mail"
+    [closable]="false"
+  >
+    <div class="wholedialog">
+      <div class="dialogcontent">
+        <p-dropdown
+          [options]="scheduledata"
+          placeholder="--Select Schedule--"
+          appendTo="body"
+          optionLabel="JobDescription"
+          [(ngModel)]="selectedSchedule"
+          (onChange)="scheduleSelected()"
+        ></p-dropdown>
+      </div>
+      <div class="btnfooter">
+        <div class="Cancelbutton">
+          <p-button label="Cancel" (onClick)="closeInviteDialog()"></p-button>
+        </div>
+        <div class="mapButton">
+          <p-button
+            label="Send"
+            (onClick)="sendEmail()"
+            [disabled]="!selectedSchedule"
+          ></p-button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>
+
+<div class="cand-details-dialog">
+  <p-dialog
+  header="Candidate Details"
+  [(visible)]="candidateDialogVisible"
+  [modal]="true"
+  [closable]="true"
+  [style]="{ width: '47VW', height: 'auto' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+
+<div class="separator"></div>
+  <div class="NewSchedule-content">
+    <div *ngIf="selectedCandidate">
+      <!-- First Row -->
+      <div class="row">
+        <!-- Candidate Id -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Candidate Id</label>
+          </div>
+          <div class="value">
+            <span>{{ selectedCandidate.candidateId }}</span>
+          </div>
+        </div>
+
+        <!-- Candidate Name -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Candidate Name</label>
+          </div>
+          <div class="value">
+            <span>{{ selectedCandidate.candidateName }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Second Row -->
+      <div class="row">
+        <!-- Email Id -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Email Id</label>
+          </div>
+          <div class="value">
+            <span>{{ selectedCandidate.emailId }}</span>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Title</label>
+          </div>
+          <div class="value">
+            <span>{{ selectedCandidate.roles }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third Row -->
+      <div class="row">
+        <!-- Total Experience -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Total Experience</label>
+          </div>
+          <div class="value">
+            <span>{{ selectedCandidate.experience }}</span>
+          </div>
+        </div>
+
+        <!-- Primary Skills -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Primary Skills</label>
+          </div>
+          <div class="value">
+            <span>{{ selectedCandidate.skillSet.primarySkills }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fourth Row -->
+      <div class="row">
+        <!-- Secondary Skills -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Secondary Skills</label>
+          </div>
+          <div class="value">
+            <span>{{ selectedCandidate.skillSet.secondarySkills }}</span>
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Phone Number</label>
+          </div>
+          <div class="value">
+            <span>{{ selectedCandidate.phoneNumber }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fifth Row -->
+      <div class="row">
+        <!-- Current Location -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Current Location</label>
+          </div>
+          <div class="value">
+            <span>{{ selectedCandidate.currentLocation }}</span>
+          </div>
+        </div>
+
+        <!-- Mapped PCR list -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Mapped PCRs</label>
+          </div>
+          <div class="value">
+            <span>{{ getPcrIds() }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sixth Row -->
+      <div class="row">
+        <!-- Mapped Agile list -->
+        <div class="labelvalue column">
+          <div class="label">
+            <label>Mapped Agiles</label>
+          </div>
+          <div class="value">
+            <span>{{ getAgileIds() }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+</div>
+
+
+
+

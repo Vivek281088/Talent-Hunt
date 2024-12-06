@@ -1,0 +1,450 @@
+import { Store } from '@ngrx/store';
+import { Component } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { Table } from 'primeng/table';
+import { ManagernameService } from 'src/app/services/managername.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import * as Papa from 'papaparse';
+import { saveAs } from 'file-saver';
+import { Router } from '@angular/router';
+import { NewScheduleService } from 'src/app/services/new-schedule.service';
+import {
+  ConfirmationService,
+  MessageService,
+  ConfirmEventType,
+} from 'primeng/api';
+import { Manager,ManagerActions } from 'src/app/store/manage-manager/manage-manager.action';
+import { getManagerData, selectManagerState } from 'src/app/store/manage-manager/manager-manager.selector';
+import { Subscription } from 'rxjs';
+@Component({
+  selector: 'app-manage-managers',
+  templateUrl: './manage-managers.component.html',
+  styleUrls: ['./manage-managers.component.scss'],
+  providers: [ConfirmationService, MessageService],
+})
+export class ManageManagersComponent {
+  items: MenuItem[] | undefined;
+  todayDate!: Date;
+  managerData: any;
+  managerNames!: string;
+  elipsisOverlayVisible: boolean = false;
+  uniqueDepartment: any;
+  globalSearchValue!: string;
+  visible: boolean = false;
+  isAddManager: boolean = false;
+  isEditManager: boolean = false;
+  addManagerForm!: FormGroup;
+  formSubmitted: boolean = false;
+  position: string = 'center';
+  isdisabled: boolean = false;
+
+  constructor(
+    private managerService: ManagernameService,
+    private fb: FormBuilder,
+    private messageService: MessageService,
+    private router: Router,
+    private confirmationService: ConfirmationService,
+    private newScheduleService: NewScheduleService,
+    private readonly store: Store
+  ) {
+    const nonWhitespaceRegExp: RegExp = new RegExp('\\S');
+    this.addManagerForm = this.fb.group({
+      employeeId: [null, [Validators.required, Validators.minLength(6)]],
+      managerName: ['', [Validators.required, Validators.minLength(3)]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@(gmail|mphasis)\\.com$'),
+        ],
+      ],
+      phone: [null, [Validators.required, Validators.minLength(10)]],
+      department: ['', [Validators.required, Validators.minLength(3)]],
+      location: ['', [Validators.required, Validators.minLength(3)]],
+    });
+  }
+  ngOnInit() {
+    sessionStorage.setItem('Component-Name', 'user');
+    this.loadManagerData();
+
+    this.todayDate = new Date();
+    console.log('Date--------', this.todayDate);
+
+    this.items = [
+      { label: 'Home', routerLink: '/mtalent/thdashboard', icon: 'pi pi-home' },
+      { label: 'Managers', routerLink: '/mtalent/manage-managers' },
+    ];
+  }
+  loadManagerData() {
+    this.store.dispatch(ManagerActions.getManagerData());
+    this.store.select(getManagerData).subscribe((data) => {
+      console.log('Client Manager Details From Store', data);
+      this.managerData = data;
+
+      // this.managerData.forEach((manager: { selection: boolean }) => {
+      //   manager.selection = manager.selection || false;
+      // });
+    });
+    // this.managerService.getclientManagerData().subscribe((response) => {
+    //   console.log('Client Manager Details', response);
+    //   this.managerData = response;
+
+    //   this.managerData.forEach((manager: { selection: boolean }) => {
+    //     manager.selection = manager.selection || false;
+    //   });
+    // });
+  }
+
+  clear(table: Table) {
+    table.clear();
+    this.globalSearchValue = '';
+  }
+
+  addManager() {
+    console.log(this.addManagerForm);
+    this.visible = true;
+    this.isAddManager = true;
+    this.isEditManager = false;
+  }
+  selectedRowData: any;
+  EditManagerDialog: boolean = false;
+
+  handleEditIconClick(data: any) {
+    this.isEditManager = true;
+    this.isAddManager = false;
+    this.EditManagerDialog = true;
+
+    this.selectedRowData = data;
+    console.log(' Selected Edit Data', this.selectedRowData);
+    console.log(' Edit -----------', this.isEditManager);
+    this.populateFormControls();
+  }
+  populateFormControls() {
+    if (this.selectedRowData) {
+      this.addManagerForm.patchValue({
+        employeeId: this.selectedRowData.empid,
+        managerName: this.selectedRowData.managerName,
+        email: this.selectedRowData.email,
+        phone: this.selectedRowData.phoneNo,
+        department: this.selectedRowData.department,
+        location: this.selectedRowData.managerLocation,
+      });
+    }
+    //console.log('Edit Data', this.addManagerForm);
+    console.log('touched', this.addManagerForm);
+  }
+
+  cancelButton() {
+    this.visible = false;
+    this.EditManagerDialog = false;
+    this.addManagerForm.reset();
+    this.addManagerForm.markAsPristine();
+    this.addManagerForm.markAsUntouched();
+    this.formSubmitted = false;
+    this.isEditManager = false;
+  }
+  saveSuccessMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Manager saved successfully',
+    });
+  }
+  IdExistError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Duplicate Id',
+      detail: 'Id Already exist!',
+    });
+  }
+  mailExistError() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Duplicate Mail',
+      detail: 'Mail id  Already exist!',
+    });
+  }
+  updateSuccessMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Manager updated successfully',
+    });
+  }
+  gotoManagerProfile(data: any) {
+    console.log('Selected Manager Data', data);
+    // this.newScheduleService.setManagerProfileData(data);
+    sessionStorage.setItem('ManagerProfileId', data.empid);
+    sessionStorage.setItem('ManagerProfileName', data.managerName);
+    sessionStorage.setItem('ManagerProfileEmail', data.email);
+    sessionStorage.setItem('ManagerProfilePhone', data.phoneNo);
+    sessionStorage.setItem('ManagerProfileLocation', data.managerLocation);
+    sessionStorage.setItem('ManagerProfiledepartment', data.department);
+
+    this.router.navigate(['/mtalent/managerProfile']);
+  }
+
+  createButton() {
+    this.formSubmitted = true;
+
+    if (this.addManagerForm.valid) {
+      const formData = this.addManagerForm.value;
+      console.log('Form Data:', formData);
+
+      const addManager : Manager = {
+        empid: parseInt(formData.employeeId, 10),
+        managerName: formData.managerName,
+        email: formData.email,
+        phoneNo: formData.phone,
+        department: formData.department,
+        managerLocation: formData.location,
+        password: 'ClientManager@001#',
+        deleted: false,
+        role: 'manager',
+        selection: false
+      };
+
+      // try {
+      //   this.managerService
+      //     .postClientManager(
+      //       parseInt(formData.employeeId, 10),
+      //       formData.managerName,
+      //       formData.email,
+      //       formData.phone,
+      //       formData.department,
+      //       formData.location
+      //     )
+      //     .subscribe({
+      //       next: (x) => {
+
+      //         setTimeout(() => {
+      //           this.saveSuccessMessage();
+      //           this.cancelButton();
+      //           this.loadManagerData();
+      //         }, 1000);
+      //       },
+      //       error: (err) => {
+      //         console.log("error---",err)
+      //         if (err.status == 405) {
+      //           setTimeout(() => {
+      //             this.mailExistError();
+      //             console.log('Mail already exists');
+      //             this.cancelButton();
+      //           }, 500);
+      //         } else if (err.status == 404) {
+      //           setTimeout(() => {
+      //             this.IdExistError();
+      //             console.log('Emp Id already exists');
+      //             this.cancelButton();
+      //           }, 500);
+      //         }
+      //       },
+      //       complete: () => console.log('There are no more action happen.'),
+      //     });
+      // }
+      try {
+
+        this.store.dispatch(ManagerActions.postManagerData({manager : addManager}));
+        this.cancelButton();
+
+        const subscription: Subscription = this.store.select(selectManagerState).subscribe(state => {
+          if (state.error) {
+            if (state.status === 405) {
+              this.mailExistError();
+              this.cancelButton();
+            } else if (state.status === 404) {
+              this.IdExistError();
+              this.cancelButton();
+            }
+            // Unsubscribe after handling the error to avoid memory leaks
+            subscription.unsubscribe();
+          }
+        });
+      } catch (error) {
+        console.log('this is the error Message', error);
+      }
+    } else {
+      console.error(
+        'Form is not valid. Validation errors:',
+        this.addManagerForm.errors
+      );
+    }
+  }
+  uploadCsv(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      const reader: FileReader = new FileReader();
+      reader.onload = () => {
+        const csvData: string = reader.result as string;
+        this.processCsvData(csvData);
+      };
+
+      reader.readAsText(file);
+    }
+  }
+
+  downloadCsvTemplate() {
+    const csvTemplate = `employeeId,managerName,email,phone,department,location\n`;
+    const blob = new Blob([csvTemplate], { type: 'text/csv;charset=utf-8' });
+    saveAs(blob, 'manager-template.csv');
+  }
+
+  processCsvData(csvData: string) {
+    Papa.parse(csvData, {
+      complete: (result: { data: any }) => {
+        const csvRows = result.data.filter((row: { [row: string]: string }) =>
+          Object.keys(row).some((key) => row[key] !== '')
+        );
+
+        if (csvRows.length === 0) {
+          this.fileUploadErrorMessage();
+          this.cancelButton();
+          return;
+        }
+        console.log('CSV Data:', csvRows);
+
+        for (let data of csvRows) {
+          console.log('Csv File datum--', data);
+
+          this.managerService
+            .postClientManager(
+              (data.employeeId = parseInt(data.employeeId, 10)),
+              data.managerName,
+              data.email,
+              data.phone,
+              data.department,
+              data.location
+            )
+            .subscribe((response) => {
+              console.log('Manager Saved....', response);
+            });
+        }
+
+        setTimeout(() => {
+          this.fileUploadMessage();
+          this.cancelButton();
+          this.loadManagerData();
+        }, 1000);
+      },
+      header: true,
+    });
+  }
+  fileUploadMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Manager saved successfully',
+    });
+  }
+
+  deleteMessage() {
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Deleted',
+      detail: 'Manager Deleted successfully',
+    });
+  }
+  fileUploadErrorMessage() {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: 'File is Empty',
+    });
+  }
+
+  updateManager(data: any) {
+    console.log('Updating.......', data);
+    this.managerService
+      .updateManagerDetails(
+        data.managerName,
+        data.email,
+        data.phone,
+        data.employeeId,
+        data.department,
+        data.location
+      )
+      .subscribe((response) => {
+        console.log('Manager Updated....');
+      });
+
+    setTimeout(() => {
+      this.updateSuccessMessage();
+      this.cancelButton();
+      this.loadManagerData();
+    }, 1000);
+  }
+  confirmPosition(position: string) {
+    this.position = position;
+
+    this.confirmationService.confirm({
+      message: 'Do you want to delete the schedule?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Deleted',
+          detail: 'Manager Deleted Successfully',
+        });
+        this.deleteManager();
+      },
+      reject: (type: ConfirmEventType) => {
+        switch (type) {
+          case ConfirmEventType.REJECT:
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Rejected',
+              detail: 'You have rejected',
+            });
+            console.log('Rejected');
+            break;
+          case ConfirmEventType.CANCEL:
+            console.log('Canceled');
+            this.messageService.add({
+              severity: 'warn',
+              summary: 'Cancelled',
+              detail: 'You have cancelled',
+            });
+            break;
+        }
+      },
+      key: 'positionDialog',
+    });
+  }
+  selectedDeleteManager= [];
+  deleteManagerId : any;
+  deleteManager() {
+    console.log('Deleteting Manager.....', this.selectedDeleteManager);
+    this.deleteManagerId=this.selectedDeleteManager.map( ({empid,email}) => ({empid,email}));
+    console.log('Only Id.....', this.deleteManagerId);
+    this.store.dispatch(ManagerActions.deleteManagerData({deleteManager : this.deleteManagerId}))
+    setTimeout(() => {
+      //this.deleteMessage();
+      this.selectedDeleteManager = [];
+      this.deleteManagerId =[]
+      this.loadManagerData();
+    }, 1500);
+  }
+
+  toggleSelection(data: any) {
+    console.log(data);
+    if (!data || !data.empid) {
+      return;
+    }
+    data.selection = !data.selection;
+
+    if (data.selection) {
+      console.log('Selected Manager:', this.selectedDeleteManager);
+    } else {
+      // this.selectedDeleteManager = this.selectedDeleteManager.filter(
+      //   (selected: any) => selected.empid !== data.empid
+      // );
+      console.log('Selected ----Manager :', this.selectedDeleteManager);
+    }
+  }
+  selectAll() {
+    console.log('Selected all Manager:', this.selectedDeleteManager);
+  }
+}

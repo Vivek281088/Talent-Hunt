@@ -15,11 +15,14 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/front",
             "index": "src/index.html",
             "main": "src/main.ts",
+            "customWebpackConfig": {
+              "path": "src/custom-webpack.config.ts"
+            },
             "polyfills": [
               "zone.js"
             ],
@@ -36,6 +39,8 @@
 
               "node_modules/primeflex/primeflex.css",
 
+              "node_modules/sweetalert2/src/sweetalert2.scss",
+
               "src/styles.scss"
             ],
             "scripts": []
@@ -45,13 +50,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "4mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "4mb"
                 }
               ],
               "outputHashing": "all"
@@ -68,7 +73,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "configurations": {
             "production": {
               "browserTarget": "Front:build:production"

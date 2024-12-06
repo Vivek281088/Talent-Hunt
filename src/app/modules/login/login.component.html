@@ -1,83 +1,100 @@
-<div class="login-container">
 
-  <p-card>
-    <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
-    <form (ngSubmit)="sign()">
-
-      <div class="p-inputgroup">
-
-        <span class="p-inputgroup-addon">
-
-          <i class="pi pi-user"></i>
-
-        </span>
-
-        <input type="text" pInputText placeholder="Email" [(ngModel)]="userEmail" id="userEmail" name="userEmail" />
-
-      </div>
-
- 
-
-      <div class="p-inputgroup">
-
-        <span class="p-inputgroup-addon">
-
-          <i class="pi pi-lock"></i>
-
-        </span>
-
-        <input
-
-          type="password"
-
-          pInputText
-
-          placeholder="Password"
-
-          [(ngModel)]="password"
-
-          id="password"
-
-          name="password"
-
-        />
-
-      </div>
-
-     
-
-      <p-toast></p-toast>
-
- 
-
-      <button
-
-        pButton
-
-        type="submit"
-
-        label="Sign In"
-
-        class="p-button-primary"
-
-        [disabled]="!userEmail || !password"
-
-      ></button>
-
-    </form>
-
- 
-
-    <div class="forgot-password">
-
-      <a href="forgotpassword" (click)="forgotpassword()">Forgot Password?</a>
-
+<ng-template #dynamicComponentContainer></ng-template>
+<div class="login-container" (keydown.enter)="onEnterKey()">
+  <div class="login-box">
+    <div class="login-slogan">
+      <img src="../assets\mphasis-logo.png" alt="Logo" width="100" />
+      <p class="heading">MTalent</p>
+      <p class="discription">
+        Streamline your Hiring process <br />Effortlessly schedule and Assess
+        with MTalent
+      </p>
     </div>
-
- 
-
-    <div class="signup">Don't have an account? <a href="/signup">Sign Up</a></div>
-
-  </p-card>
-
+    <div class="login-card">
+      <p-card>
+        <h4 class="login-wording">Please sign in to Continue</h4>
+        <div class="formdesign">
+          <div class="customform">
+            <form [formGroup]="loginForm" class="inputForm">
+              <div class="input-with-icon">
+                <i class="pi pi-user"></i>
+                <input
+                  type="email"
+                  pInputText
+                  placeholder="Email"
+                  formControlName="userName"
+                  id="userEmail"
+                  name="userEmail"
+                />
+                <div
+                  *ngIf="
+                    loginForm.get('userName')?.invalid &&
+                    (loginForm.get('userName')?.touched || formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="loginForm.get('userName')?.hasError('required')"
+                  >
+                    Email is required !
+                  </div>
+                </div>
+              </div>
+              <div class="input-with-icon">
+                <div>
+                  <i class="pi pi-lock"></i>
+                  <input
+                    type="password"
+                    pInputText
+                    placeholder="Password"
+                    formControlName="password"
+                    id="password"
+                    name="password"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    loginForm.get('password')?.invalid &&
+                    (loginForm.get('password')?.touched || formSubmitted)
+                  "
+                >
+                  <div
+                    class="error-message"
+                    *ngIf="loginForm.get('password')?.hasError('required')"
+                  >
+                    Password is required !
+                  </div>
+                </div>
+              </div>
+              <p-toast></p-toast>
+              <button type="button" class="loginButton" (click)="sign()">
+                Log in
+              </button>
+            </form>
+          </div><div class="bottomcontent">
+            <a (click)="forgotpassword()" class="forgot-password"
+              >Forgot Password ?</a
+            >
+            <div class="hrLine"></div>
+            <div class="signup">
+              <button
+                type="button"
+                (click)="createNewAcc()"
+                class="createButton"
+              >
+                Create new account
+              </button>
+            </div>
+          </div>
+        </div>
+      </p-card>
+      <!-- <div class="cardfooter">
+        <a class="a1">Privacy Policy</a>
+        <i class="pi pi-circle-on"></i>
+        <a class="a2">About Us</a>
+        <i class="pi pi-circle-on"></i>
+        <a class="a3">Contact Us</a>
+      </div> -->
+    </div>
+  </div>
 </div>

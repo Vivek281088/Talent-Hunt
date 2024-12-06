@@ -1,0 +1,185 @@
+.qr-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+}
+
+.qr-code {
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  max-width: 100%;
+  height: 250px;
+}
+
+.secretCode,
+.auth-code-input {
+  align-items: center;
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-code-input {
+  margin-top: 1rem;
+}
+
+.auth-code-input input {
+  width: 50%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.twoFactorButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 1rem;}
+
+  .cancelButton,
+.verifyButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+  .cancelButton {
+    ::ng-deep {
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+        color: #652d90;
+      }
+
+      .p-button:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .verifyButton {
+    ::ng-deep {
+      .Create-word {
+        cursor: pointer;
+      }
+
+      .p-button {
+        height: 87%;
+        background: transparent;
+        border: 1px solid #652d90;
+        outline: none;
+      }
+
+      .p-button:focus {
+        box-shadow: none;
+      }
+
+      .p-ripple {
+        overflow: hidden;
+        position: relative;
+        background: #652d90;
+        color: #ffffff;
+        text-align: center;
+      }
+    }
+  }
+
+.secretCode {
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+  align-items: center;
+
+  .secret-text {
+    margin-right: 4px;
+  }
+  .secret-code-text {
+    font-weight: bold;
+  }
+
+
+}
+.authHeader{
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  // border-bottom: 1px solid black;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.copy-icon,
+.tick-icon {
+  cursor: pointer;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+
+
+.show-tick .copy-icon {
+  display: none;
+}
+
+.show-tick .tick-icon {
+  display: inline-block;
+  animation: fadeInOut 0.5s linear forwards;
+}
+.newSchedule-Dialog {
+  ::ng-deep {
+    .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
+      margin: 0 0 0;
+      text-align: justify;
+    }
+    .p-toast .p-toast-message .p-toast-message-content .p-toast-summary {
+      font-weight: 700;
+      margin-left: 0;
+      text-align: start;
+    }
+    .p-dialog .p-dialog-content {
+      background: #ffffff;
+      color: #495057;
+      padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+  }
+}
+.error-msg{
+  color: #ee4555;
+  text-align: start;
+  font-size: 14px;
+}
+
+
+@keyframes fadeInOut {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+

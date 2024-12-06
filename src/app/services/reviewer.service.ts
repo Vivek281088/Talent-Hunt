@@ -21,7 +21,7 @@ export class ReviewerService {
 
     email_FileName: String
   ): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
       email_Managername: email_Managername,
@@ -36,9 +36,9 @@ export class ReviewerService {
     return this.http.post<any>(
       this.defaultUrl + '/candidatelist_for_reviewer',
 
-      body,
+      body
 
-      { headers }
+      // { headers }
     );
   }
 
@@ -46,18 +46,16 @@ export class ReviewerService {
     // Send a PUT request to the API endpoint to update score and result
 
     return this.http.put<any>(
-      this.defaultUrl + '/updating_questions_for_reviewer',
+      `https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/autoreview`,
 
       data
     );
   }
 
   updateScoreAndResult(data: any): Observable<any> {
-    // Send a PUT request to the API endpoint to update score and result
-
-    return this.http.put<any>(
-      this.defaultUrl + '/reviewer_updating_score_result',
-
+    console.log('data from service', data);
+    return this.http.post<any>(
+      'https://twunbrsoje.execute-api.ap-south-1.amazonaws.com/dev/reviewerupdate',
       data
     );
   }
@@ -69,7 +67,7 @@ export class ReviewerService {
   }
 
   getTestResponse_by_testId(Id: string): Observable<any> {
-    const headers = new HttpHeaders({ 'content-Type': 'application/json' });
+    //const headers = new HttpHeaders({ 'content-Type': 'application/json' });
 
     const body = {
       testId: Id,
@@ -79,10 +77,10 @@ export class ReviewerService {
 
     return this.http.post<any>(
       this.defaultUrl + '/candidate-response-by-testId',
-      body,
-      {
-        headers,
-      }
+      body
+      // {
+      //   headers,
+      // }
     );
   }
 }
